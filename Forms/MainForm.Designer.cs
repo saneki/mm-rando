@@ -128,6 +128,7 @@ namespace MMRando
             this.mFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mExit = new System.Windows.Forms.ToolStripMenuItem();
             this.mCustomise = new System.Windows.Forms.ToolStripMenuItem();
+            this.mDPadConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.mLogicEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.mHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.mManual = new System.Windows.Forms.ToolStripMenuItem();
@@ -1417,15 +1418,23 @@ namespace MMRando
             // mCustomise
             // 
             this.mCustomise.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mDPadConfig,
             this.mLogicEdit});
             this.mCustomise.Name = "mCustomise";
             this.mCustomise.Size = new System.Drawing.Size(75, 20);
             this.mCustomise.Text = "Customize";
             // 
+            // mDPadConfig
+            // 
+            this.mDPadConfig.Name = "mDPadConfig";
+            this.mDPadConfig.Size = new System.Drawing.Size(184, 22);
+            this.mDPadConfig.Text = "D-Pad Configuration";
+            this.mDPadConfig.Click += new System.EventHandler(this.mDPadConfig_Click);
+            // 
             // mLogicEdit
             // 
             this.mLogicEdit.Name = "mLogicEdit";
-            this.mLogicEdit.Size = new System.Drawing.Size(137, 22);
+            this.mLogicEdit.Size = new System.Drawing.Size(184, 22);
             this.mLogicEdit.Text = "Logic editor";
             this.mLogicEdit.Click += new System.EventHandler(this.mLogicEdit_Click);
             // 
@@ -1800,6 +1809,7 @@ namespace MMRando
         private System.Windows.Forms.CheckBox cFasterLabFish;
         private System.Windows.Forms.CheckBox cGoodDampeRNG;
         private System.Windows.Forms.CheckBox cSkipBeaver;
+        private System.Windows.Forms.ToolStripMenuItem mDPadConfig;
     }
 }
 
