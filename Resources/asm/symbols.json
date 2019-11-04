@@ -1,11 +1,11 @@
 {
-  "DPAD_CONFIG": "02F00D68",
-  "DPAD_DEFAULT": "02F00D64",
-  "DPAD_STATE": "02F00D60",
-  "DPAD_TEXTURE": "02F00D78",
-  "PAYLOAD_END": "02F01580",
+  "DPAD_CONFIG": "02F00D78",
+  "DPAD_DEFAULT": "02F00D74",
+  "DPAD_STATE": "02F00D70",
+  "DPAD_TEXTURE": "02F00D88",
+  "PAYLOAD_END": "02F01590",
   "PAYLOAD_START": "02F00000",
-  "dpad_sprite": "02F00D50",
-  "heap_next": "02F00D74",
-  "setup_db": "02F00D28"
+  "dpad_sprite": "02F00D60",
+  "heap_next": "02F00D84",
+  "setup_db": "02F00D38"
 }
