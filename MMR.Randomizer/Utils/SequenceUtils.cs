@@ -107,10 +107,11 @@ namespace MMR.Randomizer.Utils
                 Replaces = 0x7A,
             });
 
-            ScanZSEQUENCE(Values.MusicDirectory);                    // scan for base zseq in music folder
-            ScanForMMRS(Values.MusicDirectory); // scan for base mmrs in music folder
-            // todo: scan for zseq files in bank folders (any sequence there requires a bank found in that folder)
-            // todo: scan for mmrs in bank folders (any mmrs found there requires that bank, or adds to the bank)
+            foreach (var directory in Directory.GetDirectories(Values.MusicDirectory))
+            {
+                ScanZSEQUENCE(directory); // scan for base zseq in music folder
+                ScanForMMRS(directory); // scan for base mmrs in music folder
+            }
         }
 
         public static void ScanZSEQUENCE(string directory) // TODO make this folder identifiable, add directory and list of banks from scanned directory to this
