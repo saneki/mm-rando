@@ -2707,8 +2707,6 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x17F)]
         CollectibleStrayFairyWoodfall9,
 
-        // 80 - 83 empty
-
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Main Room Switch"), Region(Region.WoodfallTemple)]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
@@ -2729,8 +2727,6 @@ namespace MMR.Randomizer.GameObjects
         [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x0222E000 + 0x1AA, ChestAttribute.AppearanceType.AppearsClear)]
         [GetItemIndex(0x186)]
         CollectibleStrayFairyWoodfall12,
-
-        // 87 - 88 empty
 
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Jar Fairy"), Region(Region.WoodfallTemple)]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
@@ -2773,8 +2769,6 @@ namespace MMR.Randomizer.GameObjects
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         [GetItemIndex(0x18E)]
         CollectibleStrayFairySnowhead3,
-
-        // 8F empty
 
         [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Bridge Room Ledge Bubble"), Region(Region.SnowheadTemple)]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
@@ -2853,8 +2847,6 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x19A)]
         CollectibleStrayFairySnowhead14,
 
-        // 9B - 9E empty
-
         [ItemName("Snowhead Stray Fairy"), LocationName("Snowhead Crate"), Region(Region.SnowheadTemple)]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
@@ -2862,7 +2854,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x19F)]
         CollectibleStrayFairySnowhead15,
 
-        // A0 - A3 empty
+        // A1 empty
 
         [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Skulltula"), Region(Region.GreatBayTemple)]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
