@@ -45,4 +45,4 @@ git clone https://github.com/glankk/n64 \
 echo 'PATH="$PATH:/opt/n64/bin"' >> "/home/$user/.bashrc"
 
 # Change directory to /vagrant when logging in
-echo 'cd /vagrant' >> "/home/$user/.bashrc"
+echo 'cd /vagrant/assembly' >> "/home/$user/.bashrc"
