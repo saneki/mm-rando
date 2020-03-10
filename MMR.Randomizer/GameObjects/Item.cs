@@ -2642,6 +2642,7 @@ namespace MMR.Randomizer.GameObjects
         [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         [GetItemIndex(0x3B)]
+        //[GetItemIndex(0x1A1)] // used as a flag to track if the actual fairy has been collected.
         CollectibleStrayFairyClockTown,
 
         [ItemName("Woodfall Stray Fairy"), LocationName("Woodfall Pre-Boss Lower Right Bubble"), Region(Region.WoodfallTemple)]
@@ -2853,8 +2854,6 @@ namespace MMR.Randomizer.GameObjects
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         [GetItemIndex(0x19F)]
         CollectibleStrayFairySnowhead15,
-
-        // A1 empty
 
         [ItemName("Great Bay Stray Fairy"), LocationName("Great Bay Skulltula"), Region(Region.GreatBayTemple)]
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
