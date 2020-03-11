@@ -287,7 +287,7 @@ static void handle_reverse_controls_effect(z2_game_t *game, z2_link_t *link) {
     }
 }
 
-void handle_external_effects(z2_link_t *link, z2_game_t *game) {
+void external_effects_handle(z2_link_t *link, z2_game_t *game) {
     handle_camera_overlook_effect(game, link);
     handle_chateau_effect(game, link);
     handle_fairy_effect(game, link);

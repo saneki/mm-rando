@@ -21,6 +21,6 @@ typedef struct {
     u8 reverse_controls;
 } external_effects_t;
 
-void handle_external_effects(z2_link_t *link, z2_game_t *game);
+void external_effects_handle(z2_link_t *link, z2_game_t *game);
 
 #endif // EXTERNAL_EFFECTS_H
