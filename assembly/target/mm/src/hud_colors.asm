@@ -1,4 +1,4 @@
-get_magic_meter_color_hook:
+hud_colors_get_magic_meter_color_hook:
     addiu   sp, sp, -0x28
     sw      ra, 0x0010 (sp)
     sw      a1, 0x0014 (sp)
@@ -10,7 +10,7 @@ get_magic_meter_color_hook:
     ori     ra, ra, 0x0400
     sw      ra, 0x0024 (sp)
 
-    jal     get_magic_meter_color
+    jal     hud_colors_get_magic_meter_color
     sw      t5, 0x0020 (sp)
 
     ; Also a bit gross, put return value in T6
@@ -30,13 +30,13 @@ get_magic_meter_color_hook:
     jr      ra
     nop
 
-get_map_color_hook:
+hud_colors_get_map_color_hook:
     addiu   sp, sp, -0x20
     sw      ra, 0x0010 (sp)
     sw      a1, 0x0014 (sp)
     sw      a2, 0x0018 (sp)
 
-    jal     get_map_color
+    jal     hud_colors_get_map_color
     sw      v1, 0x001C (sp)
 
     ; Put return value in T5
@@ -50,13 +50,13 @@ get_map_color_hook:
     jr      ra
     addiu   sp, sp, 0x20
 
-get_map_player_cursor_color_hook:
+hud_colors_get_map_player_cursor_color_hook:
     addiu   sp, sp, -0x20
     sw      ra, 0x0010 (sp)
     sw      v0, 0x0014 (sp)
     sw      t0, 0x0018 (sp)
 
-    jal     get_map_player_cursor_color
+    jal     hud_colors_get_map_player_cursor_color
     sw      t8, 0x001C (sp)
 
     ; Put return value in T7
@@ -70,13 +70,13 @@ get_map_player_cursor_color_hook:
     jr      ra
     addiu   sp, sp, 0x20
 
-get_map_entrance_cursor_color_hook:
+hud_colors_get_map_entrance_cursor_color_hook:
     addiu   sp, sp, -0x20
     sw      ra, 0x0010 (sp)
     sw      v0, 0x0014 (sp)
     sw      t0, 0x0018 (sp)
 
-    jal     get_map_entrance_cursor_color
+    jal     hud_colors_get_map_entrance_cursor_color
     sw      t8, 0x001C (sp)
 
     ; Put return value in T5
@@ -91,11 +91,11 @@ get_map_entrance_cursor_color_hook:
     addiu   sp, sp, 0x20
 
 ; Note: Final 4 bytes of stack frame reserved for caller stub.
-get_clock_emblem_color_hook:
+hud_colors_get_clock_emblem_color_hook:
     addiu   sp, sp, -0x20
     sw      ra, 0x0010 (sp)
 
-    jal     get_clock_emblem_color
+    jal     hud_colors_get_clock_emblem_color
     sw      v0, 0x0014 (sp)
 
     ; Put return value in T8
@@ -108,13 +108,13 @@ get_clock_emblem_color_hook:
     addiu   sp, sp, 0x20
 
 ; Note: Final 4 bytes of stack frame reserved for caller stub.
-get_inverted_clock_emblem_color_r_hook:
+hud_colors_get_inverted_clock_emblem_color_r_hook:
     addiu   sp, sp, -0x20
     sw      ra, 0x0010 (sp)
     sw      a0, 0x0014 (sp)
     sw      t2, 0x0018 (sp)
 
-    jal     get_clock_emblem_inverted_color
+    jal     hud_colors_get_clock_emblem_inverted_color
     ori     a0, r0, 0
 
     ; Put return value in T0
@@ -131,14 +131,14 @@ get_inverted_clock_emblem_color_r_hook:
     addiu   sp, sp, 0x20
 
 ; Note: Final 4 bytes of stack frame reserved for caller stub.
-get_inverted_clock_emblem_color_g_hook:
+hud_colors_get_inverted_clock_emblem_color_g_hook:
     addiu   sp, sp, -0x28
     sw      ra, 0x0010 (sp)
     sw      a0, 0x0014 (sp)
     sw      t2, 0x0018 (sp)
     sw      t5, 0x001C (sp)
 
-    jal     get_clock_emblem_inverted_color
+    jal     hud_colors_get_clock_emblem_inverted_color
     ori     a0, r0, 1
 
     ; Put return value in A2
@@ -157,7 +157,7 @@ get_inverted_clock_emblem_color_g_hook:
     addiu   sp, sp, 0x28
 
 ; Note: Final 4 bytes of stack frame reserved for caller stub.
-get_inverted_clock_emblem_color_b_hook:
+hud_colors_get_inverted_clock_emblem_color_b_hook:
     addiu   sp, sp, -0x28
     sw      ra, 0x0010 (sp)
     sw      a3, 0x0014 (sp)
@@ -165,7 +165,7 @@ get_inverted_clock_emblem_color_b_hook:
     sw      t4, 0x001C (sp)
     sw      t5, 0x0020 (sp)
 
-    jal     get_clock_emblem_inverted_color
+    jal     hud_colors_get_clock_emblem_inverted_color
     ori     a0, r0, 2
 
     ; Put return value in A0
@@ -181,7 +181,7 @@ get_inverted_clock_emblem_color_b_hook:
     addiu   sp, sp, 0x28
 
 ; Note: Final 4 bytes of stack frame reserved for caller stub.
-fix_inverted_clock_emblem_color_calc_hook:
+hud_colors_fix_inverted_clock_emblem_color_calc_hook:
     ; Displaced code
     sll     t7, t9, 24
     or      t9, t7, t6
@@ -195,7 +195,7 @@ fix_inverted_clock_emblem_color_calc_hook:
     ; Put return value in T8
     or      t8, t9, t6
 
-get_clock_emblem_sun_color_hook:
+hud_colors_get_clock_emblem_sun_color_hook:
     addiu   sp, sp, -0x28
     sw      ra, 0x0010 (sp)
     sw      v0, 0x0014 (sp)
@@ -204,7 +204,7 @@ get_clock_emblem_sun_color_hook:
     sw      a2, 0x0020 (sp)
 
     ; Hook stub passes alpha in A3
-    jal     get_clock_emblem_sun_color
+    jal     hud_colors_get_clock_emblem_sun_color
     or      a0, a3, r0
 
     ; Put return value in T6
@@ -219,14 +219,14 @@ get_clock_emblem_sun_color_hook:
     jr      ra
     addiu   sp, sp, 0x28
 
-get_clock_sun_color_hook:
+hud_colors_get_clock_sun_color_hook:
     addiu   sp, sp, -0x28
     sw      ra, 0x0010 (sp)
     sw      v0, 0x0014 (sp)
     sw      a0, 0x0018 (sp)
     sw      a1, 0x001C (sp)
 
-    jal     get_clock_sun_color
+    jal     hud_colors_get_clock_sun_color
     sw      a2, 0x0020 (sp)
 
     ; Put return value in T7
@@ -241,14 +241,14 @@ get_clock_sun_color_hook:
     jr      ra
     addiu   sp, sp, 0x28
 
-get_clock_moon_color_hook:
+hud_colors_get_clock_moon_color_hook:
     addiu   sp, sp, -0x28
     sw      ra, 0x0010 (sp)
     sw      v0, 0x0014 (sp)
     sw      a0, 0x0018 (sp)
     sw      a1, 0x001C (sp)
 
-    jal     get_clock_moon_color
+    jal     hud_colors_get_clock_moon_color
     sw      a2, 0x0020 (sp)
 
     ; Put return value in T6
@@ -263,14 +263,14 @@ get_clock_moon_color_hook:
     jr      ra
     addiu   sp, sp, 0x28
 
-get_a_button_color_hook:
+hud_colors_get_a_button_color_hook:
     addiu   sp, sp, -0x28
     sw      ra, 0x0010 (sp)
     sw      v0, 0x0014 (sp)
     sw      a2, 0x0018 (sp)
     sw      t2, 0x001C (sp)
 
-    jal     get_a_button_color
+    jal     hud_colors_get_a_button_color
     sw      t7, 0x0020 (sp)
 
     ; Put return value in T5
@@ -285,7 +285,7 @@ get_a_button_color_hook:
     jr      ra
     addiu   sp, sp, 0x28
 
-get_b_button_color_hook:
+hud_colors_get_b_button_color_hook:
     addiu   sp, sp, -0x38
     sw      ra, 0x0010 (sp)
     sw      at, 0x0014 (sp)
@@ -296,7 +296,7 @@ get_b_button_color_hook:
     sw      v1, 0x0028 (sp)
     sw      t4, 0x002C (sp)
 
-    jal     get_b_button_color
+    jal     hud_colors_get_b_button_color
     sw      t9, 0x0030 (sp)
 
     ; Move individual RGB values into t7, t6 and t8
@@ -319,7 +319,7 @@ get_b_button_color_hook:
     addiu   sp, sp, 0x38
 
 ; Note: Final 4 bytes of stack frame reserved for caller stub.
-get_c_start_button_color_hook:
+hud_colors_get_c_start_button_color_hook:
     ; If blue value is non-0, is Start button
     lh      t7, 0x0026 (sp)
 
@@ -341,13 +341,13 @@ get_c_start_button_color_hook:
 
 @@c_button:
     ; Use alpha in T8 as argument
-    jal     get_c_button_color
+    jal     hud_colors_get_c_button_color
     or      a0, t8, r0
     b       @@tail
     nop
 
 @@start_button:
-    jal     get_start_button_color
+    jal     hud_colors_get_start_button_color
     or      a0, t8, r0
 
 @@tail:
@@ -369,7 +369,7 @@ get_c_start_button_color_hook:
     jr      ra
     addiu   sp, sp, 0x40
 
-get_c_button_triangle_color_hook:
+hud_colors_get_c_button_triangle_color_hook:
     addiu   sp, sp, -0x28
     sw      ra, 0x0010 (sp)
     sw      a2, 0x0014 (sp)
@@ -379,7 +379,7 @@ get_c_button_triangle_color_hook:
     sw      t4, 0x0024 (sp)
 
     ; Use alpha in T6 as argument
-    jal     get_c_button_color
+    jal     hud_colors_get_c_button_color
     or      a0, t6, r0
 
     ; Put return value in T9

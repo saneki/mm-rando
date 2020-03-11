@@ -39,7 +39,7 @@ static u32 color_rgb8_to_int(z2_color_rgb8_t color, u8 alpha) {
     return (color.r << 24) | (color.g << 16) | (color.b << 8) | alpha;
 }
 
-u32 get_magic_meter_color(bool inf) {
+u32 hud_colors_get_magic_meter_color(bool inf) {
     u8 alpha = z2_game.hud_ctxt.rupees_alpha & 0xFF;
     if (inf) {
         return color_rgb8_to_int(HUD_COLOR_CONFIG.magic_inf, alpha);
@@ -48,26 +48,26 @@ u32 get_magic_meter_color(bool inf) {
     }
 }
 
-u32 get_map_color() {
+u32 hud_colors_get_map_color() {
     return color_rgb8_to_int(HUD_COLOR_CONFIG.map, 0xA0);
 }
 
-u32 get_map_player_cursor_color() {
+u32 hud_colors_get_map_player_cursor_color() {
     u8 alpha = z2_game.hud_ctxt.minimap_alpha & 0xFF;
     return color_rgb8_to_int(HUD_COLOR_CONFIG.map_player_cursor, alpha);
 }
 
-u32 get_map_entrance_cursor_color() {
+u32 hud_colors_get_map_entrance_cursor_color() {
     u8 alpha = z2_game.hud_ctxt.minimap_alpha & 0xFF;
     return color_rgb8_to_int(HUD_COLOR_CONFIG.map_entrance_cursor, alpha);
 }
 
-u32 get_clock_emblem_color() {
+u32 hud_colors_get_clock_emblem_color() {
     u8 alpha = (u8)(*(u16 *)(0x801BFB2C));
     return color_rgb8_to_int(HUD_COLOR_CONFIG.clock_emblem, alpha);
 }
 
-u16 get_clock_emblem_inverted_color(u8 idx) {
+u16 hud_colors_get_clock_emblem_inverted_color(u8 idx) {
     z2_color_rgb8_t colors;
     s16 mode = *(s16 *)0x801BFBE8;
 
@@ -85,40 +85,40 @@ u16 get_clock_emblem_inverted_color(u8 idx) {
     return colors.bytes[idx];
 }
 
-u32 get_clock_emblem_sun_color(u16 alpha) {
+u32 hud_colors_get_clock_emblem_sun_color(u16 alpha) {
     return color_rgb8_to_int(HUD_COLOR_CONFIG.clock_emblem_sun, alpha & 0xFF);
 }
 
-u32 get_clock_sun_color() {
+u32 hud_colors_get_clock_sun_color() {
     u8 alpha = (*(u16 *)0x801BFB2C) & 0xFF;
     return color_rgb8_to_int(HUD_COLOR_CONFIG.clock_sun, alpha);
 }
 
-u32 get_clock_moon_color() {
+u32 hud_colors_get_clock_moon_color() {
     u8 alpha = (*(u16 *)0x801BFB2C) & 0xFF;
     return color_rgb8_to_int(HUD_COLOR_CONFIG.clock_moon, alpha);
 }
 
-u32 get_a_button_color() {
+u32 hud_colors_get_a_button_color() {
     u8 alpha = z2_game.hud_ctxt.a_alpha & 0xFF;
     return color_rgb8_to_int(HUD_COLOR_CONFIG.button_a, alpha);
 }
 
-u32 get_b_button_color() {
+u32 hud_colors_get_b_button_color() {
     // Alpha won't be used but set it anyway
     u8 alpha = z2_game.hud_ctxt.b_alpha & 0xFF;
     return color_rgb8_to_int(HUD_COLOR_CONFIG.button_b, alpha);
 }
 
-u32 get_c_button_color(u16 alpha) {
+u32 hud_colors_get_c_button_color(u16 alpha) {
     return color_rgb8_to_int(HUD_COLOR_CONFIG.button_c, alpha & 0xFF);
 }
 
-u32 get_start_button_color(u16 alpha) {
+u32 hud_colors_get_start_button_color(u16 alpha) {
     return color_rgb8_to_int(HUD_COLOR_CONFIG.button_start, alpha & 0xFF);
 }
 
-void update_heart_colors(z2_game_t *game) {
+void hud_colors_update_heart_colors(z2_game_t *game) {
     // Normal heart colors
     z2_color_rgb16_2_t *heart = &(z2_game.hud_ctxt.heart_inner_rgb);
     z2_color_rgb16_t *heart_beating = &(z2_game.hud_ctxt.heartbeat_inner_rgb);
