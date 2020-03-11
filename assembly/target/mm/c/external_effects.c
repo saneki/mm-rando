@@ -226,9 +226,9 @@ static void handle_freeze_effect(z2_game_t *game, z2_link_t *link) {
 static void handle_ice_physics_effect(z2_game_t *game, z2_link_t *link) {
     // Handle "Ice Physics" effect.
     if (g_external_effects.ice_physics) {
-        override_floor_physics_type(true, Z2_FLOOR_PHYSICS_ICE);
+        floor_physics_override_type(true, Z2_FLOOR_PHYSICS_ICE);
     } else {
-        override_floor_physics_type(false, 0);
+        floor_physics_override_type(false, 0);
     }
 }
 
