@@ -1718,6 +1718,11 @@ namespace MMR.Randomizer
                     SeedRNG();
                     MakeGossipQuotes();
                 }
+
+                SeedRNG();
+                _randomized.FileSelectSkybox = Random.Next(360);
+                _randomized.FileSelectColor = Random.Next(360);
+                _randomized.TitleLogoColor = Random.Next(360);
             }
 
             return _randomized;

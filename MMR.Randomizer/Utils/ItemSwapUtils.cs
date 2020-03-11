@@ -12,8 +12,9 @@ namespace MMR.Randomizer.Utils
     {
         const int BOTTLE_CATCH_TABLE = 0xCD7C08;
         static int cycle_repeat = 0;
-        static int cycle_repeat_count_address = 0xC72D16;
-        static ushort cycle_repeat_count = 0x74;
+        const int CYCLE_REPEAT_COUNT_ADDRESS = 0xC72D16;
+        const ushort INITIAL_CYCLE_REPEAT_COUNT = 0x74;
+        static ushort cycle_repeat_count = INITIAL_CYCLE_REPEAT_COUNT;
         static int GET_ITEM_TABLE = 0;
 
         public static void ReplaceGetItemTable()
@@ -28,6 +29,7 @@ namespace MMR.Randomizer.Utils
             ResourceUtils.ApplyHack(Values.ModsDirectory, "standing-hearts");
             ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-item-checks");
             cycle_repeat = 0xC72DF4;
+            cycle_repeat_count = INITIAL_CYCLE_REPEAT_COUNT;
             SceneUtils.ResetSceneFlagMask();
             SceneUtils.UpdateSceneFlagMask(0x5B); // red potion
             SceneUtils.UpdateSceneFlagMask(0x91); // chateau romani
@@ -135,7 +137,7 @@ namespace MMR.Randomizer.Utils
                 cycle_repeat += 2;
                 cycle_repeat_count += 2;
 
-                ReadWriteUtils.WriteToROM(cycle_repeat_count_address, cycle_repeat_count);
+                ReadWriteUtils.WriteToROM(CYCLE_REPEAT_COUNT_ADDRESS, cycle_repeat_count);
             }
 
             var isRepeatable = item.IsRepeatable() || (!preventDowngrades && item.IsDowngradable());

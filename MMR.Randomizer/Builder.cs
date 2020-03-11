@@ -1185,19 +1185,49 @@ namespace MMR.Randomizer
             }
         }
 
+        private void WriteTitleScreen()
+        {
+            var titleScreen = ResourceUtils.ReadHack(Values.ModsDirectory, "title-screen");
+
+            int rot = _randomized.TitleLogoColor;
+            Color l;
+            float h;
+            for (int i = 0; i < 144 * 64; i++)
+            {
+                int p = (i * 4) + 8;
+                l = Color.FromArgb(titleScreen[p + 3], titleScreen[p], titleScreen[p + 1], titleScreen[p + 2]);
+                h = l.GetHue();
+                h += rot;
+                h %= 360f;
+                l = ColorUtils.FromAHSB(l.A, h, l.GetSaturation(), l.GetBrightness());
+                titleScreen[p] = l.R;
+                titleScreen[p + 1] = l.G;
+                titleScreen[p + 2] = l.B;
+                titleScreen[p + 3] = l.A;
+            }
+            l = Color.FromArgb(titleScreen[0x1FE72], titleScreen[0x1FE73], titleScreen[0x1FE76]);
+            h = l.GetHue();
+            h += rot;
+            h %= 360f;
+            l = ColorUtils.FromAHSB(255, h, l.GetSaturation(), l.GetBrightness());
+            titleScreen[0x1FE72] = l.R;
+            titleScreen[0x1FE73] = l.G;
+            titleScreen[0x1FE76] = l.B;
+
+            ResourceUtils.ApplyHack(titleScreen);
+        }
+
 
         private void WriteFileSelect()
         {
             ResourceUtils.ApplyHack(Values.ModsDirectory, "file-select");
             byte[] SkyboxDefault = new byte[] { 0x91, 0x78, 0x9B, 0x28, 0x00, 0x28 };
             List<int[]> Addrs = ResourceUtils.GetAddresses(Values.AddrsDirectory, "skybox-init");
-            Random R = new Random();
-            int rot = R.Next(360);
             for (int i = 0; i < 2; i++)
             {
                 Color c = Color.FromArgb(SkyboxDefault[i * 3], SkyboxDefault[i * 3 + 1], SkyboxDefault[i * 3 + 2]);
                 float h = c.GetHue();
-                h += rot;
+                h += _randomized.FileSelectSkybox;
                 h %= 360f;
                 c = ColorUtils.FromAHSB(c.A, h, c.GetSaturation(), c.GetBrightness());
                 SkyboxDefault[i * 3] = c.R;
@@ -1210,14 +1240,13 @@ namespace MMR.Randomizer
                 ReadWriteUtils.WriteROMAddr(Addrs[i], new byte[] { SkyboxDefault[i * 2], SkyboxDefault[i * 2 + 1] });
             }
 
-            rot = R.Next(360);
             byte[] FSDefault = new byte[] { 0x64, 0x96, 0xFF, 0x96, 0xFF, 0xFF, 0x64, 0xFF, 0xFF };
             Addrs = ResourceUtils.GetAddresses(Values.AddrsDirectory, "fs-colour");
             for (int i = 0; i < 3; i++)
             {
                 Color c = Color.FromArgb(FSDefault[i * 3], FSDefault[i * 3 + 1], FSDefault[i * 3 + 2]);
                 float h = c.GetHue();
-                h += rot;
+                h += _randomized.FileSelectColor;
                 h %= 360f;
                 c = ColorUtils.FromAHSB(c.A, h, c.GetSaturation(), c.GetBrightness());
                 FSDefault[i * 3] = c.R;
@@ -1351,6 +1380,7 @@ namespace MMR.Randomizer
                 {
                     progressReporter.ReportProgress(60, "Applying hacks...");
                     ResourceUtils.ApplyHack(Values.ModsDirectory, "title-screen");
+                    WriteTitleScreen();
                     ResourceUtils.ApplyHack(Values.ModsDirectory, "misc-changes");
                     ResourceUtils.ApplyHack(Values.ModsDirectory, "cm-cs");
                     ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-song-of-healing");
