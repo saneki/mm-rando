@@ -226,7 +226,7 @@ namespace MMR.UI.Forms
 
         private void Randomize()
         {
-            var validationResult = _configuration.GameplaySettings.Validate();
+            var validationResult = _configuration.GameplaySettings.Validate() ?? _configuration.OutputSettings.Validate();
             if (validationResult != null)
             {
                 MessageBox.Show(validationResult, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

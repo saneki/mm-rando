@@ -63,7 +63,7 @@ namespace MMR.CLI
             }
             outputSettings.InputROMFilename ??= "input.z64";
 
-            var validationResult = settings.Validate();
+            var validationResult = settings.Validate() ?? outputSettings.Validate();
             if (validationResult != null)
             {
                 Console.WriteLine(validationResult);
