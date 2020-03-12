@@ -149,25 +149,21 @@ namespace MMR.Randomizer.Utils
             if (item == Item.ItemBottleWitch)
             {
                 ReadWriteUtils.WriteToROM(0xB4997E, (ushort)getItemIndex);
-                ReadWriteUtils.WriteToROM(0xC72B42, (ushort)getItemIndex);
             }
 
             if (item == Item.ItemBottleMadameAroma)
             {
                 ReadWriteUtils.WriteToROM(0xB4998A, (ushort)getItemIndex);
-                ReadWriteUtils.WriteToROM(0xC72B4E, (ushort)getItemIndex);
             }
 
             if (item == Item.ItemBottleAliens)
             {
                 ReadWriteUtils.WriteToROM(0xB49996, (ushort)getItemIndex);
-                ReadWriteUtils.WriteToROM(0xC72B5A, (ushort)getItemIndex);
             }
             
             if (item == Item.ItemBottleGoronRace)
             {
                 ReadWriteUtils.WriteToROM(0xB499A2, (ushort)getItemIndex);
-                ReadWriteUtils.WriteToROM(0xC72B66, (ushort)getItemIndex);
             }
 
             if (updateChest)
