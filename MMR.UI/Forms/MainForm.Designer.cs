@@ -172,6 +172,7 @@ namespace MMR.UI.Forms
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -192,11 +193,12 @@ namespace MMR.UI.Forms
             this.ttOutput.SuspendLayout();
             this.tpOutputSettings.SuspendLayout();
             this.tpPatchSettings.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // bopen
             // 
-            this.bopen.Location = new System.Drawing.Point(16, 376);
+            this.bopen.Location = new System.Drawing.Point(12, 376);
             this.bopen.Name = "bopen";
             this.bopen.Size = new System.Drawing.Size(96, 27);
             this.bopen.TabIndex = 0;
@@ -217,7 +219,7 @@ namespace MMR.UI.Forms
             this.tROMName.Location = new System.Drawing.Point(118, 380);
             this.tROMName.Name = "tROMName";
             this.tROMName.ReadOnly = true;
-            this.tROMName.Size = new System.Drawing.Size(541, 20);
+            this.tROMName.Size = new System.Drawing.Size(548, 20);
             this.tROMName.TabIndex = 1;
             // 
             // cUserItems
@@ -237,7 +239,7 @@ namespace MMR.UI.Forms
             this.tSettings.Controls.Add(this.tabMain);
             this.tSettings.Controls.Add(this.tabComfort);
             this.tSettings.Controls.Add(this.tabGimmicks);
-            this.tSettings.Location = new System.Drawing.Point(4, 24);
+            this.tSettings.Location = new System.Drawing.Point(3, 24);
             this.tSettings.Name = "tSettings";
             this.tSettings.SelectedIndex = 0;
             this.tSettings.Size = new System.Drawing.Size(675, 337);
@@ -262,7 +264,7 @@ namespace MMR.UI.Forms
             // panel1
             // 
             this.panel1.Controls.Add(this.cUserItems);
-            this.panel1.Location = new System.Drawing.Point(530, 2);
+            this.panel1.Location = new System.Drawing.Point(524, 2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(126, 23);
             this.panel1.TabIndex = 30;
@@ -420,7 +422,7 @@ namespace MMR.UI.Forms
             this.groupBox3.Controls.Add(this.cMixSongs);
             this.groupBox3.Location = new System.Drawing.Point(337, 212);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(325, 71);
+            this.groupBox3.Size = new System.Drawing.Size(322, 71);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Other Customizations";
@@ -501,7 +503,7 @@ namespace MMR.UI.Forms
             this.groupBox2.Controls.Add(this.cMoonItems);
             this.groupBox2.Location = new System.Drawing.Point(337, 6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(325, 200);
+            this.groupBox2.Size = new System.Drawing.Size(322, 200);
             this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Item Pool Options";
@@ -590,7 +592,7 @@ namespace MMR.UI.Forms
             // 
             this.tCustomItemList.Location = new System.Drawing.Point(10, 100);
             this.tCustomItemList.Name = "tCustomItemList";
-            this.tCustomItemList.Size = new System.Drawing.Size(305, 20);
+            this.tCustomItemList.Size = new System.Drawing.Size(302, 20);
             this.tCustomItemList.TabIndex = 19;
             this.tCustomItemList.Text = "-----------";
             this.tCustomItemList.Visible = false;
@@ -603,7 +605,7 @@ namespace MMR.UI.Forms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.bItemListEditor.Location = new System.Drawing.Point(120, 71);
             this.bItemListEditor.Name = "bItemListEditor";
-            this.bItemListEditor.Size = new System.Drawing.Size(86, 24);
+            this.bItemListEditor.Size = new System.Drawing.Size(83, 24);
             this.bItemListEditor.TabIndex = 18;
             this.bItemListEditor.Text = "Item List Editor";
             this.bItemListEditor.UseVisualStyleBackColor = true;
@@ -724,6 +726,7 @@ namespace MMR.UI.Forms
             // 
             // tabComfort
             // 
+            this.tabComfort.Controls.Add(this.groupBox1);
             this.tabComfort.Controls.Add(this.groupBox5);
             this.tabComfort.Controls.Add(this.groupBox8);
             this.tabComfort.Controls.Add(this.groupBox7);
@@ -1015,13 +1018,9 @@ namespace MMR.UI.Forms
             // 
             this.groupBox7.Controls.Add(this.cFastPush);
             this.groupBox7.Controls.Add(this.cQText);
-            this.groupBox7.Controls.Add(this.cSkipBeaver);
-            this.groupBox7.Controls.Add(this.cGoodDogRaceRNG);
             this.groupBox7.Controls.Add(this.cDrawHash);
-            this.groupBox7.Controls.Add(this.cGoodDampeRNG);
             this.groupBox7.Controls.Add(this.cShopAppearance);
             this.groupBox7.Controls.Add(this.cSFX);
-            this.groupBox7.Controls.Add(this.cFasterLabFish);
             this.groupBox7.Controls.Add(this.cEponaSword);
             this.groupBox7.Controls.Add(this.cTargettingStyle);
             this.groupBox7.Controls.Add(this.cUpdateChests);
@@ -1031,7 +1030,7 @@ namespace MMR.UI.Forms
             this.groupBox7.Controls.Add(this.cNoDowngrades);
             this.groupBox7.Location = new System.Drawing.Point(373, 6);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(285, 294);
+            this.groupBox7.Size = new System.Drawing.Size(286, 211);
             this.groupBox7.TabIndex = 34;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Comfort Options";
@@ -1039,7 +1038,7 @@ namespace MMR.UI.Forms
             // cFastPush
             // 
             this.cFastPush.AutoSize = true;
-            this.cFastPush.Location = new System.Drawing.Point(147, 138);
+            this.cFastPush.Location = new System.Drawing.Point(9, 137);
             this.cFastPush.Name = "cFastPush";
             this.cFastPush.Size = new System.Drawing.Size(125, 17);
             this.cFastPush.TabIndex = 31;
@@ -1053,7 +1052,7 @@ namespace MMR.UI.Forms
             this.cQText.BackColor = System.Drawing.Color.Transparent;
             this.cQText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cQText.ForeColor = System.Drawing.Color.Black;
-            this.cQText.Location = new System.Drawing.Point(9, 24);
+            this.cQText.Location = new System.Drawing.Point(9, 45);
             this.cQText.Name = "cQText";
             this.cQText.Size = new System.Drawing.Size(74, 17);
             this.cQText.TabIndex = 6;
@@ -1064,7 +1063,7 @@ namespace MMR.UI.Forms
             // cSkipBeaver
             // 
             this.cSkipBeaver.AutoSize = true;
-            this.cSkipBeaver.Location = new System.Drawing.Point(147, 92);
+            this.cSkipBeaver.Location = new System.Drawing.Point(9, 21);
             this.cSkipBeaver.Name = "cSkipBeaver";
             this.cSkipBeaver.Size = new System.Drawing.Size(127, 17);
             this.cSkipBeaver.TabIndex = 0;
@@ -1075,7 +1074,7 @@ namespace MMR.UI.Forms
             // cGoodDogRaceRNG
             // 
             this.cGoodDogRaceRNG.AutoSize = true;
-            this.cGoodDogRaceRNG.Location = new System.Drawing.Point(147, 70);
+            this.cGoodDogRaceRNG.Location = new System.Drawing.Point(147, 44);
             this.cGoodDogRaceRNG.Name = "cGoodDogRaceRNG";
             this.cGoodDogRaceRNG.Size = new System.Drawing.Size(131, 17);
             this.cGoodDogRaceRNG.TabIndex = 3;
@@ -1088,7 +1087,7 @@ namespace MMR.UI.Forms
             this.cDrawHash.AutoSize = true;
             this.cDrawHash.BackColor = System.Drawing.Color.Transparent;
             this.cDrawHash.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cDrawHash.Location = new System.Drawing.Point(9, 70);
+            this.cDrawHash.Location = new System.Drawing.Point(147, 137);
             this.cDrawHash.Name = "cDrawHash";
             this.cDrawHash.Size = new System.Drawing.Size(135, 17);
             this.cDrawHash.TabIndex = 28;
@@ -1099,7 +1098,7 @@ namespace MMR.UI.Forms
             // cGoodDampeRNG
             // 
             this.cGoodDampeRNG.AutoSize = true;
-            this.cGoodDampeRNG.Location = new System.Drawing.Point(147, 47);
+            this.cGoodDampeRNG.Location = new System.Drawing.Point(147, 20);
             this.cGoodDampeRNG.Name = "cGoodDampeRNG";
             this.cGoodDampeRNG.Size = new System.Drawing.Size(116, 17);
             this.cGoodDampeRNG.TabIndex = 1;
@@ -1113,7 +1112,7 @@ namespace MMR.UI.Forms
             this.cShopAppearance.BackColor = System.Drawing.Color.Transparent;
             this.cShopAppearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cShopAppearance.ForeColor = System.Drawing.Color.Black;
-            this.cShopAppearance.Location = new System.Drawing.Point(9, 138);
+            this.cShopAppearance.Location = new System.Drawing.Point(147, 22);
             this.cShopAppearance.Name = "cShopAppearance";
             this.cShopAppearance.Size = new System.Drawing.Size(92, 17);
             this.cShopAppearance.TabIndex = 21;
@@ -1127,7 +1126,7 @@ namespace MMR.UI.Forms
             this.cSFX.BackColor = System.Drawing.Color.Transparent;
             this.cSFX.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cSFX.ForeColor = System.Drawing.Color.Black;
-            this.cSFX.Location = new System.Drawing.Point(9, 116);
+            this.cSFX.Location = new System.Drawing.Point(9, 91);
             this.cSFX.Name = "cSFX";
             this.cSFX.Size = new System.Drawing.Size(102, 17);
             this.cSFX.TabIndex = 24;
@@ -1138,7 +1137,7 @@ namespace MMR.UI.Forms
             // cFasterLabFish
             // 
             this.cFasterLabFish.AutoSize = true;
-            this.cFasterLabFish.Location = new System.Drawing.Point(147, 115);
+            this.cFasterLabFish.Location = new System.Drawing.Point(9, 44);
             this.cFasterLabFish.Name = "cFasterLabFish";
             this.cFasterLabFish.Size = new System.Drawing.Size(98, 17);
             this.cFasterLabFish.TabIndex = 2;
@@ -1152,7 +1151,7 @@ namespace MMR.UI.Forms
             this.cEponaSword.BackColor = System.Drawing.Color.Transparent;
             this.cEponaSword.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cEponaSword.ForeColor = System.Drawing.Color.Black;
-            this.cEponaSword.Location = new System.Drawing.Point(9, 184);
+            this.cEponaSword.Location = new System.Drawing.Point(147, 91);
             this.cEponaSword.Name = "cEponaSword";
             this.cEponaSword.Size = new System.Drawing.Size(104, 17);
             this.cEponaSword.TabIndex = 22;
@@ -1164,7 +1163,7 @@ namespace MMR.UI.Forms
             // 
             this.cTargettingStyle.AutoSize = true;
             this.cTargettingStyle.BackColor = System.Drawing.Color.Transparent;
-            this.cTargettingStyle.Location = new System.Drawing.Point(9, 93);
+            this.cTargettingStyle.Location = new System.Drawing.Point(9, 114);
             this.cTargettingStyle.Name = "cTargettingStyle";
             this.cTargettingStyle.Size = new System.Drawing.Size(129, 17);
             this.cTargettingStyle.TabIndex = 33;
@@ -1178,7 +1177,7 @@ namespace MMR.UI.Forms
             this.cUpdateChests.BackColor = System.Drawing.Color.Transparent;
             this.cUpdateChests.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cUpdateChests.ForeColor = System.Drawing.Color.Black;
-            this.cUpdateChests.Location = new System.Drawing.Point(9, 161);
+            this.cUpdateChests.Location = new System.Drawing.Point(147, 45);
             this.cUpdateChests.Name = "cUpdateChests";
             this.cUpdateChests.Size = new System.Drawing.Size(95, 17);
             this.cUpdateChests.TabIndex = 23;
@@ -1190,7 +1189,7 @@ namespace MMR.UI.Forms
             // 
             this.cDisableCritWiggle.AutoSize = true;
             this.cDisableCritWiggle.BackColor = System.Drawing.Color.Transparent;
-            this.cDisableCritWiggle.Location = new System.Drawing.Point(147, 184);
+            this.cDisableCritWiggle.Location = new System.Drawing.Point(9, 68);
             this.cDisableCritWiggle.Name = "cDisableCritWiggle";
             this.cDisableCritWiggle.Size = new System.Drawing.Size(111, 17);
             this.cDisableCritWiggle.TabIndex = 29;
@@ -1202,7 +1201,7 @@ namespace MMR.UI.Forms
             // 
             this.cQuestItemStorage.AutoSize = true;
             this.cQuestItemStorage.BackColor = System.Drawing.Color.Transparent;
-            this.cQuestItemStorage.Location = new System.Drawing.Point(147, 161);
+            this.cQuestItemStorage.Location = new System.Drawing.Point(147, 114);
             this.cQuestItemStorage.Name = "cQuestItemStorage";
             this.cQuestItemStorage.Size = new System.Drawing.Size(140, 17);
             this.cQuestItemStorage.TabIndex = 30;
@@ -1216,7 +1215,7 @@ namespace MMR.UI.Forms
             this.cCutsc.BackColor = System.Drawing.Color.Transparent;
             this.cCutsc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cCutsc.ForeColor = System.Drawing.Color.Black;
-            this.cCutsc.Location = new System.Drawing.Point(9, 46);
+            this.cCutsc.Location = new System.Drawing.Point(9, 22);
             this.cCutsc.Name = "cCutsc";
             this.cCutsc.Size = new System.Drawing.Size(115, 17);
             this.cCutsc.TabIndex = 5;
@@ -1230,7 +1229,7 @@ namespace MMR.UI.Forms
             this.cNoDowngrades.BackColor = System.Drawing.Color.Transparent;
             this.cNoDowngrades.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cNoDowngrades.ForeColor = System.Drawing.Color.Black;
-            this.cNoDowngrades.Location = new System.Drawing.Point(147, 24);
+            this.cNoDowngrades.Location = new System.Drawing.Point(147, 68);
             this.cNoDowngrades.Name = "cNoDowngrades";
             this.cNoDowngrades.Size = new System.Drawing.Size(101, 17);
             this.cNoDowngrades.TabIndex = 18;
@@ -1478,7 +1477,7 @@ namespace MMR.UI.Forms
             this.gGameOutput.Controls.Add(this.cSpoiler);
             this.gGameOutput.Controls.Add(this.cN64);
             this.gGameOutput.Controls.Add(this.cVC);
-            this.gGameOutput.Location = new System.Drawing.Point(16, 406);
+            this.gGameOutput.Location = new System.Drawing.Point(13, 406);
             this.gGameOutput.Name = "gGameOutput";
             this.gGameOutput.Size = new System.Drawing.Size(226, 89);
             this.gGameOutput.TabIndex = 16;
@@ -1568,9 +1567,9 @@ namespace MMR.UI.Forms
             // 
             // bApplyPatch
             // 
-            this.bApplyPatch.Location = new System.Drawing.Point(312, 7);
+            this.bApplyPatch.Location = new System.Drawing.Point(306, 9);
             this.bApplyPatch.Name = "bApplyPatch";
-            this.bApplyPatch.Size = new System.Drawing.Size(99, 50);
+            this.bApplyPatch.Size = new System.Drawing.Size(99, 47);
             this.bApplyPatch.TabIndex = 16;
             this.bApplyPatch.Text = "Apply Patch";
             this.bApplyPatch.UseVisualStyleBackColor = true;
@@ -1587,9 +1586,9 @@ namespace MMR.UI.Forms
             // 
             // bRandomise
             // 
-            this.bRandomise.Location = new System.Drawing.Point(312, 7);
+            this.bRandomise.Location = new System.Drawing.Point(306, 9);
             this.bRandomise.Name = "bRandomise";
-            this.bRandomise.Size = new System.Drawing.Size(99, 50);
+            this.bRandomise.Size = new System.Drawing.Size(99, 47);
             this.bRandomise.TabIndex = 5;
             this.bRandomise.Text = "Randomize";
             this.bRandomise.UseVisualStyleBackColor = true;
@@ -1705,10 +1704,10 @@ namespace MMR.UI.Forms
             // 
             // pProgress
             // 
-            this.pProgress.Location = new System.Drawing.Point(4, 513);
+            this.pProgress.Location = new System.Drawing.Point(13, 513);
             this.pProgress.Margin = new System.Windows.Forms.Padding(2);
             this.pProgress.Name = "pProgress";
-            this.pProgress.Size = new System.Drawing.Size(671, 19);
+            this.pProgress.Size = new System.Drawing.Size(653, 19);
             this.pProgress.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.pProgress.TabIndex = 13;
             // 
@@ -1732,7 +1731,7 @@ namespace MMR.UI.Forms
             this.tSeed.Location = new System.Drawing.Point(77, 10);
             this.tSeed.MaxLength = 10;
             this.tSeed.Name = "tSeed";
-            this.tSeed.Size = new System.Drawing.Size(229, 20);
+            this.tSeed.Size = new System.Drawing.Size(223, 20);
             this.tSeed.TabIndex = 2;
             this.tSeed.Enter += new System.EventHandler(this.tSeed_Enter);
             this.tSeed.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tSeed_KeyDown);
@@ -1754,7 +1753,7 @@ namespace MMR.UI.Forms
             // 
             this.tSString.Location = new System.Drawing.Point(77, 35);
             this.tSString.Name = "tSString";
-            this.tSString.Size = new System.Drawing.Size(229, 20);
+            this.tSString.Size = new System.Drawing.Size(223, 20);
             this.tSString.TabIndex = 6;
             this.tSString.Enter += new System.EventHandler(this.tSString_Enter);
             this.tSString.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tSString_KeyDown);
@@ -1792,10 +1791,10 @@ namespace MMR.UI.Forms
             // 
             this.ttOutput.Controls.Add(this.tpOutputSettings);
             this.ttOutput.Controls.Add(this.tpPatchSettings);
-            this.ttOutput.Location = new System.Drawing.Point(248, 406);
+            this.ttOutput.Location = new System.Drawing.Point(248, 407);
             this.ttOutput.Name = "ttOutput";
             this.ttOutput.SelectedIndex = 0;
-            this.ttOutput.Size = new System.Drawing.Size(427, 89);
+            this.ttOutput.Size = new System.Drawing.Size(420, 89);
             this.ttOutput.TabIndex = 15;
             this.ttOutput.SelectedIndexChanged += new System.EventHandler(this.ttOutput_Changed);
             // 
@@ -1809,7 +1808,7 @@ namespace MMR.UI.Forms
             this.tpOutputSettings.Location = new System.Drawing.Point(4, 22);
             this.tpOutputSettings.Name = "tpOutputSettings";
             this.tpOutputSettings.Padding = new System.Windows.Forms.Padding(3);
-            this.tpOutputSettings.Size = new System.Drawing.Size(419, 63);
+            this.tpOutputSettings.Size = new System.Drawing.Size(412, 63);
             this.tpOutputSettings.TabIndex = 0;
             this.tpOutputSettings.Text = "Output settings";
             this.tpOutputSettings.UseVisualStyleBackColor = true;
@@ -1822,7 +1821,7 @@ namespace MMR.UI.Forms
             this.tpPatchSettings.Location = new System.Drawing.Point(4, 22);
             this.tpPatchSettings.Name = "tpPatchSettings";
             this.tpPatchSettings.Padding = new System.Windows.Forms.Padding(3);
-            this.tpPatchSettings.Size = new System.Drawing.Size(419, 63);
+            this.tpPatchSettings.Size = new System.Drawing.Size(412, 63);
             this.tpPatchSettings.TabIndex = 1;
             this.tpPatchSettings.Text = "Patch settings";
             this.tpPatchSettings.UseVisualStyleBackColor = true;
@@ -1832,7 +1831,7 @@ namespace MMR.UI.Forms
             this.tPatch.Location = new System.Drawing.Point(6, 35);
             this.tPatch.Name = "tPatch";
             this.tPatch.ReadOnly = true;
-            this.tPatch.Size = new System.Drawing.Size(300, 20);
+            this.tPatch.Size = new System.Drawing.Size(294, 20);
             this.tPatch.TabIndex = 17;
             // 
             // bLoadPatch
@@ -1844,6 +1843,19 @@ namespace MMR.UI.Forms
             this.bLoadPatch.Text = "Load Patch...";
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.cSkipBeaver);
+            this.groupBox1.Controls.Add(this.cFasterLabFish);
+            this.groupBox1.Controls.Add(this.cGoodDogRaceRNG);
+            this.groupBox1.Controls.Add(this.cGoodDampeRNG);
+            this.groupBox1.Location = new System.Drawing.Point(373, 223);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(286, 77);
+            this.groupBox1.TabIndex = 37;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Speed Ups";
             // 
             // MainForm
             // 
@@ -1903,6 +1915,8 @@ namespace MMR.UI.Forms
             this.tpOutputSettings.PerformLayout();
             this.tpPatchSettings.ResumeLayout(false);
             this.tpPatchSettings.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2050,6 +2064,7 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.TabPage tabGimmicks;
         private System.Windows.Forms.CheckBox cHTMLLog;
         private System.Windows.Forms.CheckBox cSpoiler;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 
