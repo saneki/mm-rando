@@ -23,6 +23,12 @@ namespace MMR.Randomizer
                 try
                 {
                     randomized = randomizer.Randomize(progressReporter);
+
+                    if (configuration.OutputSettings.GenerateSpoilerLog
+                        && configuration.GameplaySettings.LogicMode != LogicMode.Vanilla)
+                    {
+                        SpoilerUtils.CreateSpoilerLog(randomized, configuration.GameplaySettings, configuration.OutputSettings);
+                    }
                 }
                 catch (RandomizationException ex)
                 {
@@ -32,12 +38,6 @@ namespace MMR.Randomizer
                 catch (Exception ex)
                 {
                     return ex.Message;
-                }
-
-                if (configuration.OutputSettings.GenerateSpoilerLog
-                    && configuration.GameplaySettings.LogicMode != LogicMode.Vanilla)
-                {
-                    SpoilerUtils.CreateSpoilerLog(randomized, configuration.GameplaySettings, configuration.OutputSettings);
                 }
             }
 
@@ -61,6 +61,10 @@ namespace MMR.Randomizer
                 catch (PatchVersionException ex)
                 {
                     return $"Error applying patch: {ex.Message}";
+                }
+                catch (IOException ex)
+                {
+                    return ex.Message;
                 }
                 catch (Exception ex)
                 {
