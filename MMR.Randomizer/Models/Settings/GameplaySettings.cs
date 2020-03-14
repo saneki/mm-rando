@@ -16,7 +16,7 @@ namespace MMR.Randomizer.Models.Settings
         /// <summary>
         /// Filepath to the input logic file
         /// </summary>
-        public string UserLogicFileName { get; set; }
+        public string UserLogicFileName { get; set; } = "";
 
         public string Logic { get; set; }
 
