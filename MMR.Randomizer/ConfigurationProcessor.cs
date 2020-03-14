@@ -1,7 +1,9 @@
 ﻿using MMR.Randomizer.Models;
 using MMR.Randomizer.Models.Settings;
 using MMR.Randomizer.Utils;
+using MMR.Randomizer.Constants;
 using System;
+using System.IO;
 
 namespace MMR.Randomizer
 {
@@ -9,6 +11,11 @@ namespace MMR.Randomizer
     {
         public static string Process(Configuration configuration, int seed, IProgressReporter progressReporter)
         {
+            if (!Directory.Exists(Path.Combine(Values.MainDirectory, "Resources")))
+            {
+                return $"Please extract the entire randomizer archive, including the Resources/ folder and subfolders";
+            }
+
             var randomizer = new Randomizer(configuration.GameplaySettings, seed);
             RandomizedResult randomized = null;
             if (string.IsNullOrWhiteSpace(configuration.OutputSettings.InputPatchFilename))
