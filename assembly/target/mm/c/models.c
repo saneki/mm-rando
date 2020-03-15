@@ -178,26 +178,24 @@ bool models_draw_heart_container(z2_actor_t *actor, z2_game_t *game) {
 }
 
 /**
- * Used to replace original behaviour of get-item draw function for Boss Remains, which wrote the
- * segmented address instruction (for the object) in the function itself, instead of the caller.
+ * Hook function for replacing original behaviour of the Get-Item draw function for Boss Remains,
+ * which wrote the segmented address instruction (for the object) in the function itself, instead
+ * of the caller.
  **/
-static void models_write_boss_remains_object_segment(z2_game_t *game) {
+void models_write_boss_remains_object_segment(z2_game_t *game, u32 graphic_id_minus_1) {
     z2_disp_buf_t *opa = &(game->common.gfx->poly_opa);
 
     // Get index of object, and use it to get the data pointer
     s8 index = z2_GetObjectIndex(&game->obj_ctxt, Z2_OBJECT_BSMASK);
-    void *data = game->obj_ctxt.obj[index].data;
 
-    // Write segmented address instruction
-    gSPSegment(opa->p++, 6, (u32)data);
-}
+    // Only write segment instruction if object found in game's object list.
+    // Otherwise, assume it was set by the caller.
+    if (index >= 0) {
+        void *data = game->obj_ctxt.obj[index].data;
 
-/**
- * Original draw functionality for Boss Remains.
- **/
-static void models_draw_boss_remains_original(z2_actor_t *actor, z2_game_t *game, u32 graphic_id_minus_1) {
-    models_write_boss_remains_object_segment(game);
-    draw_model_low_level(actor, game, graphic_id_minus_1);
+        // Write segmented address instruction
+        gSPSegment(opa->p++, 6, (u32)data);
+    }
 }
 
 /**
@@ -212,7 +210,7 @@ void models_draw_boss_remains(z2_actor_t *actor, z2_game_t *game, u32 graphic_id
         };
         draw_model(model, actor, game, 1.0);
     } else {
-        models_draw_boss_remains_original(actor, game, graphic_id_minus_1);
+        draw_model_low_level(actor, game, graphic_id_minus_1);
     }
 }
 

@@ -96,21 +96,28 @@
 
 .headersize(G_CODE_RAM - G_CODE_FILE)
 
-; Remove update of DList pointer when writing segmented address instruction.
+; Replace behaviour of Boss Remains' Get-Item function always writing DList instruction to set
+; object segment address.
 ; Replaces:
 ;   sw      t6, 0x02B0 (s0)
-.org 0x800EFD94
-    nop
-
-; Remove writing segmented address instruction to DList.
-; Replaces:
+;   ori     t7, t7, 0x0018
+;   addu    t1, s1, t0
+;   lui     t2, 0x0001
+;   addu    t2, t2, t1
 ;   sw      t7, 0x0000 (v1)
 ;   lw      t2, 0x7D98 (t2)
 ;   sw      t2, 0x0004 (v1)
-.org 0x800EFDA8
-    lw      t2, 0x7D98 (t2)
+.org 0x800EFD94
+.area 0x20
+    or      a0, s1, r0
+    jal     models_write_boss_remains_object_segment
+    lw      a1, 0x003C (sp)
     nop
     nop
+    nop
+    nop
+    nop
+.endarea
 
 ;==================================================================================================
 ; Freestanding Models (Moon's Tear)
