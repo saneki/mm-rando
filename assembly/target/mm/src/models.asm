@@ -98,3 +98,33 @@ models_draw_boss_remains_hook:
     lw      ra, 0x0010 (sp)
     jr      ra
     addiu   sp, sp, 0x18
+
+models_draw_moons_tear_hook:
+    addiu   sp, sp, -0x20
+    sw      ra, 0x0018 (sp)
+    sw      a0, 0x0010 (sp)
+    jal     models_draw_moons_tear
+    sw      a1, 0x0014 (sp)
+
+    bnez    v0, @@caller_return
+    nop
+
+    lw      a0, 0x0010 (sp)
+    lw      a1, 0x0014 (sp)
+
+    ; Displaced code
+    or      s1, a1, r0
+
+    lw      ra, 0x0018 (sp)
+    jr      ra
+    addiu   sp, sp, 0x20
+
+@@caller_return:
+    addiu   sp, sp, 0x20
+
+    ; Restore RA from caller's caller function
+    lw      ra, 0x001C (sp)
+
+    ; Fix stack for caller and return
+    jr      ra
+    addiu   sp, sp, 0x38

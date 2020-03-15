@@ -678,10 +678,12 @@ enum z2_seg {
 enum z2_graphic_id {
     Z2_GRAPHIC_HEART_CONTAINER = 0x13,
     Z2_GRAPHIC_HEART_PIECE = 0x14,
+    Z2_GRAPHIC_GI_GLASSES = 0x30,
     // Skulltula Token used with Z2_OBJECT_GI_SUTARU
     Z2_GRAPHIC_GI_SUTARU = 0x4B,
     // Skulltula Token used with Z2_OBJECT_ST
     Z2_GRAPHIC_ST_TOKEN = 0x57,
+    Z2_GRAPHIC_MOONS_TEAR = 0x5A,
     Z2_GRAPHIC_ODOLWA_REMAINS = 0x5D,
     Z2_GRAPHIC_GOHT_REMAINS = 0x64,
     Z2_GRAPHIC_GYORG_REMAINS = 0x65,

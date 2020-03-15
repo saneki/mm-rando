@@ -205,3 +205,20 @@ void models_draw_boss_remains(z2_actor_t *actor, z2_game_t *game, u32 graphic_id
         models_draw_boss_remains_original(actor, game, graphic_id_minus_1);
     }
 }
+
+/**
+ * Hook function for drawing Moon's Tear actor as its new item.
+ **/
+bool models_draw_moons_tear(z2_actor_t *actor, z2_game_t *game) {
+    if (g_models_test) {
+        z2_CallSetupDList(z2_game.common.gfx);
+        struct model model = {
+            .object_id  = Z2_OBJECT_GI_SUTARU,
+            .graphic_id = Z2_GRAPHIC_GI_SUTARU,
+        };
+        draw_model(model, actor, game, 1.0);
+        return true;
+    } else {
+        return false;
+    }
+}

@@ -74,6 +74,10 @@ DefineDmaFile G_BG_KIN2_SHELF_DMA, G_BG_KIN2_SHELF_FILE, 488
 DefineDmaFile G_BG_IKANA_BLOCK_DMA, G_BG_IKANA_BLOCK_FILE, 495
 .definelabel  G_BG_IKANA_BLOCK_VRAM, 0x80B7EA60
 
+; ovl_Obj_Moon_Stone (Moon's Tear)
+DefineDmaFile G_OBJ_MOON_STONE_DMA, G_OBJ_MOON_STONE_FILE, 602
+.definelabel  G_OBJ_MOON_STONE_VRAM, 0x80C06510
+
 ; ovl_En_Bb (Blue Bubble)
 DefineDmaFile G_EN_BB_DMA, G_EN_BB_FILE, 84
 .definelabel  G_EN_BB_VRAM, 0x808C1D40

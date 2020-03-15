@@ -111,3 +111,19 @@
     lw      t2, 0x7D98 (t2)
     nop
     nop
+
+;==================================================================================================
+; Freestanding Models (Moon's Tear)
+;==================================================================================================
+
+.headersize(G_OBJ_MOON_STONE_VRAM - G_OBJ_MOON_STONE_FILE)
+
+; Moon's Tear draw function.
+; Replaces:
+;   sw      s1, 0x0018 (sp)
+;   or      s1, a1, r0
+;   sw      ra, 0x001C (sp)
+.org 0x80C06914
+    sw      ra, 0x001C (sp)
+    jal     models_draw_moons_tear_hook
+    sw      s1, 0x0018 (sp)
