@@ -60,7 +60,7 @@ models_draw_heart_container_hook:
     jal     models_draw_heart_container
     sw      a1, 0x0014 (sp)
 
-    bnez    v0,  @@caller_return
+    bnez    v0, @@caller_return
     nop
 
     lw      a0, 0x0010 (sp)
