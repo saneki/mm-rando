@@ -1,4 +1,5 @@
 #include "actor_ext.h"
+#include "models.h"
 #include "z2.h"
 
 /**
@@ -7,4 +8,6 @@
 void scene_after_init(z2_game_t *game) {
     // Set all actor ext heap entries to clear
     actor_ext_clear();
+    // Clear the models object heap
+    models_clear_object_heap();
 }

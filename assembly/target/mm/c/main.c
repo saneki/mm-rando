@@ -5,6 +5,7 @@
 #include "gfx.h"
 #include "hud_colors.h"
 #include "icetrap.h"
+#include "models.h"
 #include "util.h"
 #include "z2.h"
 
@@ -14,6 +15,7 @@ void c_init() {
     dpad_init();
     hud_colors_init();
     actor_ext_init();
+    models_init();
 }
 
 void before_player_actor_update(z2_link_t *link, z2_game_t *game) {

@@ -1,14 +1,18 @@
 #include <stdbool.h>
+#include "linheap.h"
+#include "util.h"
 #include "z2.h"
 
-#define slot_count 2
-#define object_size 0x2000
-
-static size_t g_buf_idx = 0;
-static u8 object_buf[object_size * slot_count];
+#define slot_count 8
 
 // Temporary flag for testing overriding draw functionality.
 static const bool g_models_test = false;
+
+static struct linheap g_object_heap = {
+    .start = NULL,
+    .cur = NULL,
+    .size = 0x20000,
+};
 
 struct model {
     u16 object_id;
@@ -34,6 +38,11 @@ static void load_object(struct loaded_object *object, u32 object_id) {
     load_object_file(object_id, object->buf);
 }
 
+static size_t get_object_size(u32 object_id) {
+    z2_obj_file_t info = z2_obj_table[object_id];
+    return (size_t)(info.vrom_end - info.vrom_start);
+}
+
 static struct loaded_object* get_object(u32 object_id) {
     for (int i = 0; i < slot_count; i++) {
         struct loaded_object *object = &(object_slots[i]);
@@ -41,7 +50,8 @@ static struct loaded_object* get_object(u32 object_id) {
             return object;
         }
         if (object->object_id == 0) {
-            object->buf = object_buf + (g_buf_idx++ * object_size);
+            size_t objsize = get_object_size(object_id);
+            object->buf = linheap_alloc(&g_object_heap, objsize);
             load_object(object, object_id);
             return object;
         }
@@ -221,4 +231,23 @@ bool models_draw_moons_tear(z2_actor_t *actor, z2_game_t *game) {
     } else {
         return false;
     }
+}
+
+/**
+ * Reset object heap pointer and clear all loaded object slots.
+ **/
+void models_clear_object_heap(void) {
+    linheap_clear(&g_object_heap);
+    for (size_t i = 0; i < slot_count; i++) {
+        object_slots[i].object_id = 0;
+        object_slots[i].buf = NULL;
+    }
+}
+
+/**
+ * Initialize object heap.
+ **/
+void models_init(void) {
+    void *alloc = heap_alloc(g_object_heap.size);
+    linheap_init(&g_object_heap, alloc);
 }
