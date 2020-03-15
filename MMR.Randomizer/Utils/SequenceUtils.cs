@@ -103,19 +103,7 @@ namespace MMR.Randomizer.Utils
                             // if sequence file doesn't exist, was removed by user, ignore it
                             continue;
                         }
-                        try
-                        {
-                            using (var reader = new BinaryReader(File.Open(Path.Combine(directory, sourceName), FileMode.Open)))
-                            {
-                                byte[] seq_data = new byte[(int)reader.BaseStream.Length];
-                                reader.Read(seq_data, 0, seq_data.Length);
-                                sourceSequence.SequenceBinaryList = new List<SequenceBinaryData> { new SequenceBinaryData { SequenceBinary = seq_data } };
-                            }
-
-                        } catch (Exception e)
-                        {
-                            continue; 
-                        }
+                        sourceSequence.Directory = directory;
                     };
 
                     if (sourceSequence.MM_seq != 0x18 && sourceSequence.Name != "drop")
@@ -144,6 +132,7 @@ namespace MMR.Randomizer.Utils
             //  Just going to trust users aren't stupid enough to think renaming a mp3 to zseq will work
             // format: FILENAME_InstrumentSet_Categories-separated-by-commas.zseq
             //  where the filename, instrumentset, and categories are separated by single underscore
+            // This method of adding music is deprecated, MMRS has rendered this filetype unnecessary, however leaving in to make debugging faster
             foreach (String filePath in Directory.GetFiles(directory, "*.zseq"))
             {
                 String filename = Path.GetFileName(filePath);
@@ -155,65 +144,20 @@ namespace MMR.Randomizer.Utils
                     continue;
                 }
 
-                byte[] input_seq_data = null;
-                using (BinaryReader bank_reader = new BinaryReader(File.Open(Path.Combine(directory , filename), FileMode.Open)))
-                {
-                    input_seq_data = new byte[((int)bank_reader.BaseStream.Length)];
-                    bank_reader.Read(input_seq_data, 0, (int)bank_reader.BaseStream.Length);
-                }
-
-
-                SequenceBinaryData sequence_data = null;
-                InstrumentSetInfo instrumnet_info = null;
-                if (pieces[1].Contains("x")) //temporary, we can remove this now that we have MMRS, but maybe don't remove just yet
-                {
-                    // load the custom bank for this file
-                    byte[] input_bank_data = null;
-                    String bank_name = filename.Substring(0, filename.LastIndexOf(".zseq")) + ".zbank";
-                    using (BinaryReader bank_reader = new BinaryReader(File.Open(Path.Combine(directory , bank_name), FileMode.Open)))
-                    {
-                        input_bank_data = new byte[((int)bank_reader.BaseStream.Length)];
-                        bank_reader.Read(input_bank_data, 0, (int)bank_reader.BaseStream.Length);
-                    }
-
-                    byte[] meta_data = new byte[8];
-                    using (BinaryReader meta_reader = new BinaryReader(File.Open(Path.Combine(directory , bank_name.Substring(0, bank_name.LastIndexOf(".zbank")) + ".bankmeta"), FileMode.Open)))
-                        meta_reader.Read(meta_data, 0, meta_data.Length);
-
-                    pieces[1] = pieces[1].Replace("x", "");
-
-                    instrumnet_info = new InstrumentSetInfo()
-                    {
-                        BankBinary = input_bank_data,
-                        BankMetaData = meta_data,
-                        BankSlot = Convert.ToInt32(pieces[1], 16),
-                        Modified = true
-                    };
-                }
-
-                sequence_data = new SequenceBinaryData
-                {
-                    SequenceBinary = input_seq_data,
-                    InstrumentSet = instrumnet_info
-                };
-
-
-                var sourceName = filename;
-                var sourceTypeString = pieces[2].Substring(0, pieces[2].Length - 5);
-                var sourceInstrument = Convert.ToInt32(pieces[1], 16);
-                //var sourceType = Array.ConvertAll(sourceTypeString.Split('-'), int.Parse).ToList();
+                // for zseq, categories/instrument are part of the filename, we need to extract
+                string sourceTypeString = pieces[2].Substring(0, pieces[2].Length - 5);
+                int sourceInstrument = Convert.ToInt32(pieces[1], 16);
                 List<int> sourceType = new List<int>();
                 foreach (String part in sourceTypeString.Split('-'))
                     sourceType.Add(Convert.ToInt32(part, 16));
 
                 SequenceInfo sourceSequence = new SequenceInfo
                 {
-                    Name = sourceName,
-                    Type = sourceType,
-                    Instrument = sourceInstrument,
-                    SequenceBinaryList = new List<SequenceBinaryData>() { sequence_data }
+                    Name                = filename,
+                    Directory           = directory,
+                    Type                = sourceType,
+                    Instrument          = sourceInstrument
                 };
-
 
                 RomData.SequenceList.Add(sourceSequence);
             }
