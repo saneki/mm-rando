@@ -10,6 +10,7 @@ using MMR.Randomizer.Extensions;
 using MMR.Common.Utils;
 using System.IO;
 using System.Linq.Expressions;
+using MMR.Randomizer.Models.Colors;
 
 namespace MMR.CLI
 {
@@ -50,6 +51,8 @@ namespace MMR.CLI
                 Console.WriteLine(GetEnumSettingDescription(cfg => cfg.CosmeticSettings.TatlColorSchema));
                 Console.WriteLine(GetEnumSettingDescription(cfg => cfg.CosmeticSettings.Music));
                 Console.WriteLine(GetEnumArraySettingDescription(cfg => cfg.CosmeticSettings.DPad.Pad.Values) + " Array length of 4.");
+                Console.WriteLine(GetArrayValueDescription(nameof(CosmeticSettings.HeartsSelection), ColorSelectionManager.Hearts.GetItems().Select(csi => csi.Name)));
+                Console.WriteLine(GetArrayValueDescription(nameof(CosmeticSettings.MagicSelection), ColorSelectionManager.MagicMeter.GetItems().Select(csi => csi.Name)));
                 return 0;
             }
             var configuration = LoadSettings();
@@ -115,6 +118,10 @@ namespace MMR.CLI
                 configuration.OutputSettings.OutputROMFilename = outputArg.SingleOrDefault();
             }
             configuration.OutputSettings.OutputROMFilename ??= Path.Combine("output", FileUtils.MakeFilenameValid(DateTime.UtcNow.ToString("o")));
+            if (Path.GetExtension(configuration.OutputSettings.OutputROMFilename) != "z64")
+            {
+                configuration.OutputSettings.OutputROMFilename += ".z64";
+            }
 
             var inputArg = argsDictionary.GetValueOrDefault("-input");
             if (inputArg != null)
@@ -322,6 +329,11 @@ namespace MMR.CLI
         private static string GetEnumArraySettingDescription<T>(Expression<Func<Configuration, T[]>> propertySelector) where T : struct
         {
             return $"{((MemberExpression)propertySelector.Body).Member.Name, -17} [{string.Join('|', Enum.GetNames(typeof(T)))}]";
+        }
+
+        private static string GetArrayValueDescription(string name, IEnumerable<string> values)
+        {
+            return $"{name, -17} {string.Join('|', values)}";
         }
     }
 }

@@ -405,8 +405,19 @@ namespace MMR.UI.Forms
             cUnderwaterOcarina.Checked = _configuration.GameplaySettings.OcarinaUnderwater;
 
             // HUD config options
-            cHUDHeartsComboBox.SelectedIndex = Array.FindIndex(ColorSelectionManager.Hearts.GetItems(), csi => csi.Name == _configuration.CosmeticSettings.HeartsSelection);
-            cHUDMagicComboBox.SelectedIndex = Array.FindIndex(ColorSelectionManager.MagicMeter.GetItems(), csi => csi.Name == _configuration.CosmeticSettings.MagicSelection);
+            var heartItems = ColorSelectionManager.Hearts.GetItems();
+            var heartSelection = heartItems.FirstOrDefault(csi => csi.Name == _configuration.CosmeticSettings.HeartsSelection);
+            if (heartSelection != null)
+            {
+                cHUDHeartsComboBox.SelectedIndex = Array.IndexOf(heartItems, heartSelection);
+            }
+
+            var magicItems = ColorSelectionManager.MagicMeter.GetItems();
+            var magicSelection = magicItems.FirstOrDefault(csi => csi.Name == _configuration.CosmeticSettings.MagicSelection);
+            if (magicSelection != null)
+            {
+                cHUDMagicComboBox.SelectedIndex = Array.IndexOf(magicItems, magicSelection);
+            }
         }
 
         private void tSeed_KeyDown(object sender, KeyEventArgs e)
