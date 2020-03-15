@@ -675,6 +675,42 @@ enum z2_seg {
     Z2_SEG_FRAME_BUFFER = 15,
 };
 
+enum z2_graphic_id {
+    Z2_GRAPHIC_HEART_CONTAINER = 0x13,
+    Z2_GRAPHIC_HEART_PIECE = 0x14,
+    // Skulltula Token used with Z2_OBJECT_GI_SUTARU
+    Z2_GRAPHIC_GI_SUTARU = 0x4B,
+    // Skulltula Token used with Z2_OBJECT_ST
+    Z2_GRAPHIC_ST_TOKEN = 0x57,
+    Z2_GRAPHIC_ODOLWA_REMAINS = 0x5D,
+    Z2_GRAPHIC_GOHT_REMAINS = 0x64,
+    Z2_GRAPHIC_GYORG_REMAINS = 0x65,
+    Z2_GRAPHIC_TWINMOLD_REMAINS = 0x66,
+};
+
+enum z2_object_id {
+    // Skulltula, Skullwalltula, Gold Skulltula Token.
+    Z2_OBJECT_ST = 0x20,
+    // Music Notes (Get Item).
+    Z2_OBJECT_GI_MELODY = 0x8F,
+    // Heart Piece, Heart Container.
+    Z2_OBJECT_GI_HEARTS = 0x96,
+    // Lens of Truth (Get Item).
+    Z2_OBJECT_GI_GLASSES = 0xC0,
+    // Magic Bean (Get Item).
+    Z2_OBJECT_GI_BEAN = 0xC6,
+    // Keaton Mask
+    Z2_OBJECT_GI_KI_TAN_MASK = 0x100,
+    // Gold Skulltula Token (Get Item).
+    Z2_OBJECT_GI_SUTARU = 0x125,
+    // Moon's Tear.
+    Z2_OBJECT_GI_RESERVE00 = 0x1B1,
+    // Title Deeds.
+    Z2_OBJECT_GI_RESERVE01 = 0x1B2,
+    // Boss Remains.
+    Z2_OBJECT_BSMASK = 0x1CC,
+};
+
 /* Structure type aliases. */
 typedef struct z2_actor_s z2_actor_t;
 typedef struct z2_game_s  z2_game_t;
@@ -1882,6 +1918,34 @@ typedef struct {
     u16              timer_boundaries[0x03];         /* 0x0146 */
 } z2_timer_actor_t;                                  /* 0x014C */
 
+/**
+ * En_Elforg actor (stray fairy).
+ **/
+typedef struct {
+    z2_actor_t       common;                         /* 0x0000 */
+    u8               unk_0x144;                      /* 0x0144 */
+    u8               unk_0x145;                      /* 0x0145 */
+    u8               unk_0x146;                      /* 0x0146 */
+    u8               unk_0x147;                      /* 0x0147 */
+    void            *unk_0x148;                      /* 0x0148 */
+    u32              unk_0x14C;                      /* 0x014C, Looks like segmented address into Object data. */
+    u32              unk_0x150;                      /* 0x0150 */
+    f32              unk_0x154[0x04];                /* 0x0154 */
+    void            *unk_0x164;                      /* 0x0164, Points into struct (field 0x0188). */
+    void            *unk_0x168;                      /* 0x0168 */
+    u8               unk_0x16C[0x08];                /* 0x016C */
+    void            *func_0x174;                     /* 0x0174 */
+    u8               unk_0x178[0x9E];                /* 0x0178 */
+    s16              unk_0x216;                      /* 0x0216 */
+    s16              color;                          /* 0x0218 */
+    u16              unk_0x21A;                      /* 0x021A */
+    u32              frame_count;                    /* 0x021C */
+    u32              unk_0x220;                      /* 0x0220 */
+    f32              unk_0x224;                      /* 0x0224 */
+    u8               unk_0x228[0x04];                /* 0x0228 */
+    void            *unk_0x22C;                      /* 0x022C */
+} z2_en_elforg_t;                                    /* 0x0230 */
+
 /// =============================================================
 /// Arenas
 /// =============================================================
@@ -1971,6 +2035,13 @@ typedef struct {
     char            *filename;                       /* 0x0018 */
 } z2_player_ovl_table_t;                             /* 0x001C */
 
+typedef void (*z2_DrawGi_proc)(z2_game_t *game, u32 graphic_id_minus_1);
+
+typedef struct {
+    z2_DrawGi_proc   function;                       /* 0x0000 */
+    u32              dl_seg_addrs[0x08];             /* 0x0004, Segment addresses used with G_DL instruction. */
+} z2_gi_graphic_table_t;                             /* 0x0024 */
+
 /// =============================================================
 /// File Select Context
 /// =============================================================
@@ -2051,6 +2122,7 @@ typedef struct {
 /* Data Addresses */
 #define z2_arena_addr                    0x8009CD20
 #define z2_file_table_addr               0x8009F8B0
+#define z2_gi_graphic_table_addr         0x801BB170 /* Get-Item graphics table. */
 #define z2_gamestate_addr                0x801BD910
 #define z2_item_segaddr_table_addr       0x801C1E6C /* Segment address table used for item textures. */
 #define z2_object_table_addr             0x801C2740
@@ -2069,6 +2141,7 @@ typedef struct {
 #define z2_file_table                    ((z2_file_table_t*)         z2_file_table_addr)
 #define z2_game                          (*(z2_game_t*)              z2_game_addr)
 #define z2_gamestate                     (*(z2_gamestate_t*)         z2_gamestate_addr)
+#define z2_gi_graphic_table              ((z2_gi_graphic_table_t*)   z2_gi_graphic_table_addr)
 #define z2_link                          (*(z2_link_t*)              z2_link_addr)
 #define z2_obj_table                     ((z2_obj_file_t*)           z2_object_table_addr)
 #define z2_segment                       (*(z2_segment_t*)           z2_segment_addr)
@@ -2095,6 +2168,14 @@ typedef struct {
 #define z2_UpdateButtonUsability_addr    0x80110038
 #define z2_WriteHeartColors_addr         0x8010069C
 
+/* Function Addresses (Drawing) */
+#define z2_BaseDrawCollectable_addr      0x800A7128
+#define z2_DrawHeartPiece_addr           0x800A75B8
+#define z2_PreDraw2_addr                 0x800B8050
+#define z2_PreDraw1_addr                 0x800B8118
+#define z2_BaseDrawGiModel_addr          0x800EE320
+#define z2_CallSetupDList_addr           0x8012C2DC
+
 /* Function Addresses (File Loading) */
 #define z2_GetFileTable_addr             0x800808F4
 #define z2_GetFilePhysAddr_addr          0x80080950
@@ -2111,6 +2192,9 @@ typedef struct {
 #define z2_UpdateButtonsState_addr       0x8010EF68
 #define z2_ReloadButtonTexture_addr      0x80112B40
 #define z2_HudSetAButtonText_addr        0x8011552C
+
+/* Function Addresses (Objects) */
+#define z2_GetObjectIndex_addr           0x8012F608
 
 /* Function Addresses (OS) */
 #define z2_memcpy_addr                   0x800FEC90
@@ -2151,6 +2235,12 @@ typedef void (*z2_UpdateButtonUsability_proc)(z2_game_t *game);
 typedef void (*z2_UseItem_proc)(z2_game_t *game, z2_link_t *link, u8 item);
 typedef void (*z2_WriteHeartColors_proc)(z2_game_t *game);
 
+/* Function Prototypes (Drawing) */
+typedef void (*z2_ActorDraw_proc)(z2_actor_t *actor, z2_game_t *game);
+typedef void (*z2_BaseDrawGiModel_proc)(z2_game_t *game, u32 graphic_id_minus_1);
+typedef void (*z2_CallDList_proc)(z2_gfx_t *gfx);
+typedef void (*z2_PreDraw_proc)(z2_actor_t *actor, z2_game_t *game, u32 unknown);
+
 /* Function Prototypes (File Loading) */
 typedef s16 (*z2_GetFileNumber_proc)(u32 vrom_addr);
 typedef u32 (*z2_GetFilePhysAddr_proc)(u32 vrom_addr);
@@ -2167,6 +2257,9 @@ typedef void (*z2_SetGetItem_proc)(z2_actor_t *actor, z2_game_t *game, s32 unk2,
 typedef void (*z2_HudSetAButtonText_proc)(z2_game_t *game, u16 text_id);
 typedef void (*z2_ReloadButtonTexture_proc)(z2_game_t *game, u8 idx);
 typedef void (*z2_UpdateButtonsState_proc)(u32 state);
+
+/* Function Prototypes (Objects) */
+typedef s8 (*z2_GetObjectIndex_proc)(const z2_obj_ctxt_t *ctxt, u16 object_id);
 
 /* Function Prototypes (OS) */
 typedef void (*z2_memcpy_proc)(void *dest, const void *src, size_t size);
@@ -2195,6 +2288,14 @@ typedef void (*z2_UnloadRoom_proc)(z2_game_t *game, z2_room_ctxt_t *room_ctxt);
 #define z2_UpdateButtonUsability         ((z2_UpdateButtonUsability_proc) z2_UpdateButtonUsability_addr)
 #define z2_WriteHeartColors              ((z2_WriteHeartColors_proc)      z2_WriteHeartColors_addr)
 
+/* Functions (Drawing) */
+#define z2_BaseDrawCollectable           ((z2_ActorDraw_proc)             z2_BaseDrawCollectable_addr)
+#define z2_BaseDrawGiModel               ((z2_BaseDrawGiModel_proc)       z2_BaseDrawGiModel_addr)
+#define z2_CallSetupDList                ((z2_CallDList_proc)             z2_CallSetupDList_addr)
+#define z2_DrawHeartPiece                ((z2_ActorDraw_proc)             z2_DrawHeartPiece_addr)
+#define z2_PreDraw1                      ((z2_PreDraw_proc)               z2_PreDraw1_addr)
+#define z2_PreDraw2                      ((z2_PreDraw_proc)               z2_PreDraw2_addr)
+
 /* Functions (File Loading) */
 #define z2_GetFileNumber                 ((z2_GetFileNumber_proc)         z2_GetFileNumber_addr)
 #define z2_GetFilePhysAddr               ((z2_GetFilePhysAddr_proc)       z2_GetFilePhysAddr_addr)
@@ -2211,6 +2312,9 @@ typedef void (*z2_UnloadRoom_proc)(z2_game_t *game, z2_room_ctxt_t *room_ctxt);
 #define z2_HudSetAButtonText             ((z2_HudSetAButtonText_proc)     z2_HudSetAButtonText_addr)
 #define z2_ReloadButtonTexture           ((z2_ReloadButtonTexture_proc)   z2_ReloadButtonTexture_addr)
 #define z2_UpdateButtonsState            ((z2_UpdateButtonsState_proc)    z2_UpdateButtonsState_addr)
+
+/* Functions (Objects) */
+#define z2_GetObjectIndex                ((z2_GetObjectIndex_proc)        z2_GetObjectIndex_addr)
 
 /* Functions (OS) */
 #define z2_memcpy                        ((z2_memcpy_proc)                z2_memcpy_addr)

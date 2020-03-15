@@ -22,6 +22,10 @@ DefineDmaFile G_KALEIDO_SCOPE_DMA, G_KALEIDO_SCOPE_FILE, 37
 DefineDmaFile G_PLAYER_ACTOR_DMA, G_PLAYER_ACTOR_FILE, 38
 .definelabel  G_PLAYER_ACTOR_VRAM, 0x8082DA90
 
+; ovl_Item_B_Heart (Heart Container)
+DefineDmaFile G_ITEM_B_HEART_DMA, G_ITEM_B_HEART_FILE, 80
+.definelabel  G_ITEM_B_HEART_VRAM, 0x808BCDF0
+
 ; ovl_Obj_Oshihiki (Pushblock)
 DefineDmaFile G_OBJ_OSHIHIKI_DMA, G_OBJ_OSHIHIKI_FILE, 115
 .definelabel  G_OBJ_OSHIHIKI_VRAM, 0x80917290
@@ -43,8 +47,12 @@ DefineDmaFile G_BG_DBLUE_MOVEBG_DMA, G_BG_DBLUE_MOVEBG_FILE, 290
 .definelabel  G_BG_DBLUE_MOVEBG_VRAM, 0x80A29A80
 
 ; ovl_En_Si (Skulltula Token)
-DefineDmaFile G_EN_SI_DMA, G_EN_SI_FILE, 315
-.definelabel  G_EN_SI_VRAM, 0x80A45360
+DefineDmaFile G_EN_SI_DMA, G_EN_SI_FILE, 216
+.definelabel  G_EN_SI_VRAM, 0x8098CA20
+
+; ovl_Dm_Hina (Boss Remains)
+DefineDmaFile G_DM_HINA_DMA, G_DM_HINA_FILE, 284
+.definelabel  G_DM_HINA_VRAM, 0x80A1F410
 
 ; ovl_En_Time_Tag
 DefineDmaFile G_EN_TIME_TAG_DMA, G_EN_TIME_TAG_FILE, 392
