@@ -76,6 +76,11 @@ static void draw_model_low_level(z2_actor_t *actor, z2_game_t *game, s8 graphic_
 static void draw_model(struct model model, z2_actor_t *actor, z2_game_t *game, f32 base_scale) {
     struct loaded_object *object = get_object(model.object_id);
     if (object) {
+        // Update RDRAM segment table with object pointer during the draw function.
+        // This is required by Moon's Tear (and possibly others), which programatically resolves a
+        // segmented address using that table when writing instructions to the display list.
+        z2_segment.current_object = (u32)object->buf & 0xFFFFFF;
+
         set_object_segment(game, object->buf);
         scale_top_matrix(base_scale);
         draw_model_low_level(actor, game, model.graphic_id - 1);
