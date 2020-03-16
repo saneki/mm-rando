@@ -139,6 +139,7 @@ namespace MMR.UI.Forms
             TooltipBuilder.SetTooltip(cGoodDogRaceRNG, "Make Gold Dog always win if you have the Mask of Truth.");
             TooltipBuilder.SetTooltip(cFasterLabFish, "Change Lab Fish to only need to be fed one fish.");
             TooltipBuilder.SetTooltip(cFastPush, "Increase the speed of pushing and pulling blocks and faucets.");
+            TooltipBuilder.SetTooltip(cEnableNightMusic, "Enables playing daytime Background music during nighttime in the field.\n(Currently night BGM does not work in clocktown)");
         }
 
         /// <summary>
@@ -396,6 +397,8 @@ namespace MMR.UI.Forms
             cMusic.SelectedIndex = (int)_configuration.CosmeticSettings.Music;
             bTunic.BackColor = _configuration.CosmeticSettings.TunicColor;
             cTargettingStyle.Checked = _configuration.CosmeticSettings.EnableHoldZTargeting;
+            cEnableNightMusic.Checked = _configuration.CosmeticSettings.EnableNightBGM;
+
 
             // Misc config options
             cDisableCritWiggle.Checked = _configuration.GameplaySettings.CritWiggleDisable;
@@ -542,6 +545,11 @@ namespace MMR.UI.Forms
         private void cSFX_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _configuration.CosmeticSettings.RandomizeSounds = cSFX.Checked);
+        }
+
+        private void cEnableNightMusic_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _configuration.CosmeticSettings.EnableNightBGM = cEnableNightMusic.Checked);
         }
 
         private void cMusic_SelectedIndexChanged(object sender, EventArgs e)
@@ -983,6 +991,7 @@ namespace MMR.UI.Forms
             cAdditional.Enabled = v;
             cSFX.Enabled = v;
             cMusic.Enabled = v;
+            cEnableNightMusic.Enabled = v;
             cBottled.Enabled = v;
             cCutsc.Enabled = v;
             cDChests.Enabled = v;

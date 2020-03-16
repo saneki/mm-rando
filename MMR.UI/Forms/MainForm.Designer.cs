@@ -78,6 +78,11 @@ namespace MMR.UI.Forms
             this.cAdditional = new System.Windows.Forms.CheckBox();
             this.cMoonItems = new System.Windows.Forms.CheckBox();
             this.tabComfort = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cSkipBeaver = new System.Windows.Forms.CheckBox();
+            this.cFasterLabFish = new System.Windows.Forms.CheckBox();
+            this.cGoodDogRaceRNG = new System.Windows.Forms.CheckBox();
+            this.cGoodDampeRNG = new System.Windows.Forms.CheckBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.lGossip = new System.Windows.Forms.Label();
             this.cGossipHints = new System.Windows.Forms.ComboBox();
@@ -100,15 +105,12 @@ namespace MMR.UI.Forms
             this.cMusic = new System.Windows.Forms.ComboBox();
             this.lTunic = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.cEnableNightMusic = new System.Windows.Forms.CheckBox();
             this.cFastPush = new System.Windows.Forms.CheckBox();
             this.cQText = new System.Windows.Forms.CheckBox();
-            this.cSkipBeaver = new System.Windows.Forms.CheckBox();
-            this.cGoodDogRaceRNG = new System.Windows.Forms.CheckBox();
             this.cDrawHash = new System.Windows.Forms.CheckBox();
-            this.cGoodDampeRNG = new System.Windows.Forms.CheckBox();
             this.cShopAppearance = new System.Windows.Forms.CheckBox();
             this.cSFX = new System.Windows.Forms.CheckBox();
-            this.cFasterLabFish = new System.Windows.Forms.CheckBox();
             this.cEponaSword = new System.Windows.Forms.CheckBox();
             this.cTargettingStyle = new System.Windows.Forms.CheckBox();
             this.cUpdateChests = new System.Windows.Forms.CheckBox();
@@ -172,7 +174,6 @@ namespace MMR.UI.Forms
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -182,6 +183,7 @@ namespace MMR.UI.Forms
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabComfort.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.cHUDGroupBox.SuspendLayout();
@@ -193,7 +195,6 @@ namespace MMR.UI.Forms
             this.ttOutput.SuspendLayout();
             this.tpOutputSettings.SuspendLayout();
             this.tpPatchSettings.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // bopen
@@ -738,6 +739,63 @@ namespace MMR.UI.Forms
             this.tabComfort.Text = "Comfort/Cosmetics";
             this.tabComfort.UseVisualStyleBackColor = true;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.cSkipBeaver);
+            this.groupBox1.Controls.Add(this.cFasterLabFish);
+            this.groupBox1.Controls.Add(this.cGoodDogRaceRNG);
+            this.groupBox1.Controls.Add(this.cGoodDampeRNG);
+            this.groupBox1.Location = new System.Drawing.Point(373, 223);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(286, 77);
+            this.groupBox1.TabIndex = 37;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Speed Ups";
+            // 
+            // cSkipBeaver
+            // 
+            this.cSkipBeaver.AutoSize = true;
+            this.cSkipBeaver.Location = new System.Drawing.Point(9, 21);
+            this.cSkipBeaver.Name = "cSkipBeaver";
+            this.cSkipBeaver.Size = new System.Drawing.Size(127, 17);
+            this.cSkipBeaver.TabIndex = 0;
+            this.cSkipBeaver.Text = "Skip Younger Beaver";
+            this.cSkipBeaver.UseVisualStyleBackColor = true;
+            this.cSkipBeaver.CheckedChanged += new System.EventHandler(this.cSkipBeaver_CheckedChanged);
+            // 
+            // cFasterLabFish
+            // 
+            this.cFasterLabFish.AutoSize = true;
+            this.cFasterLabFish.Location = new System.Drawing.Point(9, 44);
+            this.cFasterLabFish.Name = "cFasterLabFish";
+            this.cFasterLabFish.Size = new System.Drawing.Size(98, 17);
+            this.cFasterLabFish.TabIndex = 2;
+            this.cFasterLabFish.Text = "Faster Lab Fish";
+            this.cFasterLabFish.UseVisualStyleBackColor = true;
+            this.cFasterLabFish.CheckedChanged += new System.EventHandler(this.cFasterLabFish_CheckedChanged);
+            // 
+            // cGoodDogRaceRNG
+            // 
+            this.cGoodDogRaceRNG.AutoSize = true;
+            this.cGoodDogRaceRNG.Location = new System.Drawing.Point(147, 44);
+            this.cGoodDogRaceRNG.Name = "cGoodDogRaceRNG";
+            this.cGoodDogRaceRNG.Size = new System.Drawing.Size(131, 17);
+            this.cGoodDogRaceRNG.TabIndex = 3;
+            this.cGoodDogRaceRNG.Text = "Good Dog Race RNG";
+            this.cGoodDogRaceRNG.UseVisualStyleBackColor = true;
+            this.cGoodDogRaceRNG.CheckedChanged += new System.EventHandler(this.cGoodDogRaceRNG_CheckedChanged);
+            // 
+            // cGoodDampeRNG
+            // 
+            this.cGoodDampeRNG.AutoSize = true;
+            this.cGoodDampeRNG.Location = new System.Drawing.Point(147, 20);
+            this.cGoodDampeRNG.Name = "cGoodDampeRNG";
+            this.cGoodDampeRNG.Size = new System.Drawing.Size(116, 17);
+            this.cGoodDampeRNG.TabIndex = 1;
+            this.cGoodDampeRNG.Text = "Good Dampe RNG";
+            this.cGoodDampeRNG.UseVisualStyleBackColor = true;
+            this.cGoodDampeRNG.CheckedChanged += new System.EventHandler(this.cGoodDampeRNG_CheckedChanged);
+            // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.lGossip);
@@ -1016,6 +1074,7 @@ namespace MMR.UI.Forms
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.cEnableNightMusic);
             this.groupBox7.Controls.Add(this.cFastPush);
             this.groupBox7.Controls.Add(this.cQText);
             this.groupBox7.Controls.Add(this.cDrawHash);
@@ -1034,6 +1093,17 @@ namespace MMR.UI.Forms
             this.groupBox7.TabIndex = 34;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Comfort Options";
+            // 
+            // cEnableNightMusic
+            // 
+            this.cEnableNightMusic.AutoSize = true;
+            this.cEnableNightMusic.Location = new System.Drawing.Point(9, 160);
+            this.cEnableNightMusic.Name = "cEnableNightMusic";
+            this.cEnableNightMusic.Size = new System.Drawing.Size(114, 17);
+            this.cEnableNightMusic.TabIndex = 34;
+            this.cEnableNightMusic.Text = "Enable Night BGM";
+            this.cEnableNightMusic.UseVisualStyleBackColor = true;
+            this.cEnableNightMusic.CheckedChanged += new System.EventHandler(this.cEnableNightMusic_CheckedChanged);
             // 
             // cFastPush
             // 
@@ -1060,28 +1130,6 @@ namespace MMR.UI.Forms
             this.cQText.UseVisualStyleBackColor = false;
             this.cQText.CheckedChanged += new System.EventHandler(this.cQText_CheckedChanged);
             // 
-            // cSkipBeaver
-            // 
-            this.cSkipBeaver.AutoSize = true;
-            this.cSkipBeaver.Location = new System.Drawing.Point(9, 21);
-            this.cSkipBeaver.Name = "cSkipBeaver";
-            this.cSkipBeaver.Size = new System.Drawing.Size(127, 17);
-            this.cSkipBeaver.TabIndex = 0;
-            this.cSkipBeaver.Text = "Skip Younger Beaver";
-            this.cSkipBeaver.UseVisualStyleBackColor = true;
-            this.cSkipBeaver.CheckedChanged += new System.EventHandler(this.cSkipBeaver_CheckedChanged);
-            // 
-            // cGoodDogRaceRNG
-            // 
-            this.cGoodDogRaceRNG.AutoSize = true;
-            this.cGoodDogRaceRNG.Location = new System.Drawing.Point(147, 44);
-            this.cGoodDogRaceRNG.Name = "cGoodDogRaceRNG";
-            this.cGoodDogRaceRNG.Size = new System.Drawing.Size(131, 17);
-            this.cGoodDogRaceRNG.TabIndex = 3;
-            this.cGoodDogRaceRNG.Text = "Good Dog Race RNG";
-            this.cGoodDogRaceRNG.UseVisualStyleBackColor = true;
-            this.cGoodDogRaceRNG.CheckedChanged += new System.EventHandler(this.cGoodDogRaceRNG_CheckedChanged);
-            // 
             // cDrawHash
             // 
             this.cDrawHash.AutoSize = true;
@@ -1094,17 +1142,6 @@ namespace MMR.UI.Forms
             this.cDrawHash.Text = "Draw hash (File Select)";
             this.cDrawHash.UseVisualStyleBackColor = false;
             this.cDrawHash.CheckedChanged += new System.EventHandler(this.cDrawHash_CheckedChanged);
-            // 
-            // cGoodDampeRNG
-            // 
-            this.cGoodDampeRNG.AutoSize = true;
-            this.cGoodDampeRNG.Location = new System.Drawing.Point(147, 20);
-            this.cGoodDampeRNG.Name = "cGoodDampeRNG";
-            this.cGoodDampeRNG.Size = new System.Drawing.Size(116, 17);
-            this.cGoodDampeRNG.TabIndex = 1;
-            this.cGoodDampeRNG.Text = "Good Dampe RNG";
-            this.cGoodDampeRNG.UseVisualStyleBackColor = true;
-            this.cGoodDampeRNG.CheckedChanged += new System.EventHandler(this.cGoodDampeRNG_CheckedChanged);
             // 
             // cShopAppearance
             // 
@@ -1133,17 +1170,6 @@ namespace MMR.UI.Forms
             this.cSFX.Text = "Randomize SFX";
             this.cSFX.UseVisualStyleBackColor = false;
             this.cSFX.CheckedChanged += new System.EventHandler(this.cSFX_CheckedChanged);
-            // 
-            // cFasterLabFish
-            // 
-            this.cFasterLabFish.AutoSize = true;
-            this.cFasterLabFish.Location = new System.Drawing.Point(9, 44);
-            this.cFasterLabFish.Name = "cFasterLabFish";
-            this.cFasterLabFish.Size = new System.Drawing.Size(98, 17);
-            this.cFasterLabFish.TabIndex = 2;
-            this.cFasterLabFish.Text = "Faster Lab Fish";
-            this.cFasterLabFish.UseVisualStyleBackColor = true;
-            this.cFasterLabFish.CheckedChanged += new System.EventHandler(this.cFasterLabFish_CheckedChanged);
             // 
             // cEponaSword
             // 
@@ -1844,19 +1870,6 @@ namespace MMR.UI.Forms
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.cSkipBeaver);
-            this.groupBox1.Controls.Add(this.cFasterLabFish);
-            this.groupBox1.Controls.Add(this.cGoodDogRaceRNG);
-            this.groupBox1.Controls.Add(this.cGoodDampeRNG);
-            this.groupBox1.Location = new System.Drawing.Point(373, 223);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(286, 77);
-            this.groupBox1.TabIndex = 37;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Speed Ups";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1895,6 +1908,8 @@ namespace MMR.UI.Forms
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.tabComfort.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.groupBox8.ResumeLayout(false);
@@ -1915,8 +1930,6 @@ namespace MMR.UI.Forms
             this.tpOutputSettings.PerformLayout();
             this.tpPatchSettings.ResumeLayout(false);
             this.tpPatchSettings.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2065,6 +2078,7 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.CheckBox cHTMLLog;
         private System.Windows.Forms.CheckBox cSpoiler;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.CheckBox cEnableNightMusic;
     }
 }
 

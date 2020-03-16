@@ -371,6 +371,10 @@ namespace MMR.Randomizer
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory, "ztargetinghold");
             }
+
+            if (_cosmeticSettings.EnableNightBGM)
+                SequenceUtils.ReenableNightBGM();
+
         }
 
         private Character DeterminePlayerModel()
