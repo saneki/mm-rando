@@ -1,12 +1,13 @@
 #include <stdbool.h>
 #include "linheap.h"
+#include "mmr.h"
 #include "util.h"
 #include "z2.h"
 
 #define slot_count 8
 
 // Temporary flag for testing overriding draw functionality.
-static const bool g_models_test = false;
+static const bool g_models_test = true;
 
 static struct linheap g_object_heap = {
     .start = NULL,
@@ -16,7 +17,7 @@ static struct linheap g_object_heap = {
 
 struct model {
     u16 object_id;
-    s8 graphic_id;
+    u8 graphic_id;
 };
 
 struct loaded_object {
@@ -98,16 +99,51 @@ static void draw_model(struct model model, z2_actor_t *actor, z2_game_t *game, f
 }
 
 /**
+ * "Fix" the graphic Id used in the Get-Item table.
+ **/
+static u8 models_fix_graphic_id(u8 graphic) {
+    if (graphic >= 0x80) {
+        return (u8)(0x100 - (u16)graphic);
+    } else {
+        return graphic;
+    }
+}
+
+/**
+ * Get the Get-Item table entry for a specific index, and optionally load relevant entry values
+ * into a model structure for drawing.
+ **/
+static mmr_gi_t * models_prepare_gi_entry(struct model *model, z2_game_t *game, u32 gi_index) {
+    u32 index = mmr_GetNewGiIndex_stub(game, gi_index, false);
+    mmr_gi_t *entry = mmr_get_gi_entry(index);
+
+    if (model != NULL) {
+        u8 graphic = models_fix_graphic_id(entry->graphic);
+        model->object_id = entry->object;
+        model->graphic_id = graphic;
+    }
+
+    return entry;
+}
+
+/**
+ * Load information from the Get-Item table using an index and draw the corresponding model.
+ **/
+static void models_draw_from_gi_table(z2_actor_t *actor, z2_game_t *game, f32 scale, u32 gi_index) {
+    struct model model;
+    mmr_gi_t *entry = models_prepare_gi_entry(&model, game, gi_index);
+
+    z2_CallSetupDList(z2_game.common.gfx);
+    draw_model(model, actor, game, scale);
+}
+
+/**
  * Hook function for drawing Heart Piece actors as their new item.
  **/
 void models_draw_heart_piece(z2_actor_t *actor, z2_game_t *game) {
     if (g_models_test) {
-        z2_CallSetupDList(z2_game.common.gfx);
-        struct model model = {
-            .object_id  = Z2_OBJECT_GI_SUTARU,
-            .graphic_id = Z2_GRAPHIC_GI_SUTARU,
-        };
-        draw_model(model, actor, game, 25.0);
+        u32 index = actor->variable + 0x80;
+        models_draw_from_gi_table(actor, game, 25.0, index);
     } else {
         z2_DrawHeartPiece(actor, game);
     }
@@ -118,14 +154,35 @@ void models_draw_heart_piece(z2_actor_t *actor, z2_game_t *game) {
  **/
 void models_draw_skulltula_token(z2_actor_t *actor, z2_game_t *game) {
     if (g_models_test) {
-        z2_CallSetupDList(z2_game.common.gfx);
-        struct model model = {
-            .object_id  = Z2_OBJECT_GI_HEARTS,
-            .graphic_id = Z2_GRAPHIC_HEART_PIECE,
-        };
-        draw_model(model, actor, game, 1.0);
+        u16 chest_flag = (actor->variable & 0xFC) >> 2;
+        // Checks if Swamp Spider House scene
+        u32 base_index = game->scene_index == 0x27 ? 0x13A : 0x158;
+        u32 gi_index = base_index + chest_flag;
+        models_draw_from_gi_table(actor, game, 1.0, gi_index);
     } else {
         draw_model_low_level(actor, game, Z2_GRAPHIC_ST_TOKEN - 1);
+    }
+}
+
+/**
+ * Check whether or not a Get-Item entry draws a Stray Fairy.
+ **/
+static bool models_is_gi_stray_fairy(mmr_gi_t *entry) {
+    return entry->graphic == 0x4F && entry->object == 0x13A;
+}
+
+/**
+ * Get the Get-Item index for a Stray Fairy.
+ **/
+static u16 models_get_stray_fairy_gi_index(z2_actor_t *actor, z2_game_t *game) {
+    if ((actor->variable & 0xF) == 3) {
+        // Clock Town stray fairy
+        return 0x3B;
+    } else {
+        // Dungeon stray fairies
+        u16 cur_dungeon_offset = *(u16*)0x801F3F38;
+        u16 chest_flag = ((actor->variable & 0xFE00) >> 9) & 0x1F;
+        return 0x16D + (cur_dungeon_offset * 0x14) + chest_flag;
     }
 }
 
@@ -135,7 +192,14 @@ void models_draw_skulltula_token(z2_actor_t *actor, z2_game_t *game) {
 void models_before_stray_fairy_main(z2_actor_t *actor, z2_game_t *game) {
     // If not a Stray Fairy, rotate like En_Item00 does.
     if (g_models_test) {
-        actor->rot_2.y = (u16)(actor->rot_2.y + 0x3C0);
+        u32 gi_index = models_get_stray_fairy_gi_index(actor, game);
+        mmr_gi_t *entry = models_prepare_gi_entry(NULL, game, gi_index);
+
+        // Check that we are not drawing a stray fairy.
+        if (!models_is_gi_stray_fairy(entry)) {
+            // Rotate at the same speed of a Heart Piece actor.
+            actor->rot_2.y = (u16)(actor->rot_2.y + 0x3C0);
+        }
     }
 }
 
@@ -146,15 +210,41 @@ void models_before_stray_fairy_main(z2_actor_t *actor, z2_game_t *game) {
  **/
 bool models_draw_stray_fairy(z2_actor_t *actor, z2_game_t *game) {
     if (g_models_test) {
-        z2_CallSetupDList(z2_game.common.gfx);
-        struct model model = {
-            .object_id  = Z2_OBJECT_GI_HEARTS,
-            .graphic_id = Z2_GRAPHIC_HEART_PIECE,
-        };
-        draw_model(model, actor, game, 25.0);
-        return true;
+        struct model model;
+        u32 gi_index = models_get_stray_fairy_gi_index(actor, game);
+        mmr_gi_t *entry = models_prepare_gi_entry(&model, game, gi_index);
+
+        // Check if we are drawing a stray fairy.
+        if (models_is_gi_stray_fairy(entry)) {
+            // Update stray fairy actor according to type, and perform original draw.
+            z2_en_elforg_t *elforg = (z2_en_elforg_t *)actor;
+            u8 fairy_type = entry->type >> 4;
+            elforg->color = fairy_type;
+            return false;
+        } else {
+            z2_CallSetupDList(z2_game.common.gfx);
+            draw_model(model, actor, game, 25.0);
+            return true;
+        }
     } else {
         return false;
+    }
+}
+
+/**
+ * Get the Get-Item index for a Heart Container actor.
+ **/
+static u32 models_get_heart_container_gi_index(z2_game_t *game) {
+    // This is a (somewhat) reimplementation of MMR function at: 0x801DC138
+    // The original function returns in A2 and A3 to setup calling a different function.
+    if (game->scene_index == 0x1F) {
+        return 0x11A;
+    } else if (game->scene_index == 0x44) {
+        return 0x11B;
+    } else if (game->scene_index == 0x5F) {
+        return 0x11C;
+    } else {
+        return 0x11D;
     }
 }
 
@@ -165,12 +255,8 @@ bool models_draw_stray_fairy(z2_actor_t *actor, z2_game_t *game) {
  **/
 bool models_draw_heart_container(z2_actor_t *actor, z2_game_t *game) {
     if (g_models_test) {
-        z2_CallSetupDList(z2_game.common.gfx);
-        struct model model = {
-            .object_id  = Z2_OBJECT_GI_SUTARU,
-            .graphic_id = Z2_GRAPHIC_GI_SUTARU,
-        };
-        draw_model(model, actor, game, 1.0);
+        u32 index = models_get_heart_container_gi_index(game);
+        models_draw_from_gi_table(actor, game, 1.0, index);
         return true;
     } else {
         return false;
@@ -203,12 +289,7 @@ void models_write_boss_remains_object_segment(z2_game_t *game, u32 graphic_id_mi
  **/
 void models_draw_boss_remains(z2_actor_t *actor, z2_game_t *game, u32 graphic_id_minus_1) {
     if (g_models_test) {
-        z2_CallSetupDList(z2_game.common.gfx);
-        struct model model = {
-            .object_id  = Z2_OBJECT_GI_HEARTS,
-            .graphic_id = Z2_GRAPHIC_HEART_CONTAINER,
-        };
-        draw_model(model, actor, game, 1.0);
+        draw_model_low_level(actor, game, graphic_id_minus_1);
     } else {
         draw_model_low_level(actor, game, graphic_id_minus_1);
     }
@@ -219,12 +300,7 @@ void models_draw_boss_remains(z2_actor_t *actor, z2_game_t *game, u32 graphic_id
  **/
 bool models_draw_moons_tear(z2_actor_t *actor, z2_game_t *game) {
     if (g_models_test) {
-        z2_CallSetupDList(z2_game.common.gfx);
-        struct model model = {
-            .object_id  = Z2_OBJECT_GI_SUTARU,
-            .graphic_id = Z2_GRAPHIC_GI_SUTARU,
-        };
-        draw_model(model, actor, game, 1.0);
+        models_draw_from_gi_table(actor, game, 1.0, 0x96);
         return true;
     } else {
         return false;
