@@ -40,6 +40,10 @@
 .include "hooks/scene.asm"
 .include "hooks/world_colors.asm"
 
+.if MMR_MODS == 1
+    .include "hooks/mmr.asm"
+.endif
+
 ;==================================================================================================
 ; New code region
 ;==================================================================================================
@@ -59,6 +63,7 @@ PAYLOAD_START:
 .include "hud_colors.asm"
 .include "items.asm"
 .include "misc.asm"
+.include "mmr.asm"
 .include "models.asm"
 .include "pause.asm"
 .include "player_actor.asm"
