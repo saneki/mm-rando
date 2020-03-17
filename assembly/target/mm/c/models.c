@@ -1,6 +1,8 @@
 #include <stdbool.h>
 #include "linheap.h"
+#include "loaded_models.h"
 #include "mmr.h"
+#include "models.h"
 #include "util.h"
 #include "z2.h"
 
@@ -13,11 +15,6 @@ static struct linheap g_object_heap = {
     .start = NULL,
     .cur = NULL,
     .size = 0x20000,
-};
-
-struct model {
-    u16 object_id;
-    u8 graphic_id;
 };
 
 struct loaded_object {
@@ -138,6 +135,20 @@ static void models_draw_from_gi_table(z2_actor_t *actor, z2_game_t *game, f32 sc
 }
 
 /**
+ * Load the actor model information for later reference if not already stored, and return in model
+ * parameter.
+ **/
+static bool models_set_loaded_actor_model(struct model *model, z2_actor_t *actor, z2_game_t *game, u32 gi_index) {
+    if (!loaded_models_get_actor_model(model, NULL, actor)) {
+        mmr_gi_t *entry = models_prepare_gi_entry(model, game, gi_index);
+        loaded_models_add_actor_model(*model, entry, actor);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+/**
  * Hook function for drawing Heart Piece actors as their new item.
  **/
 void models_draw_heart_piece(z2_actor_t *actor, z2_game_t *game) {
@@ -165,10 +176,10 @@ void models_draw_skulltula_token(z2_actor_t *actor, z2_game_t *game) {
 }
 
 /**
- * Check whether or not a Get-Item entry draws a Stray Fairy.
+ * Check whether or not a model draws a Stray Fairy.
  **/
-static bool models_is_gi_stray_fairy(mmr_gi_t *entry) {
-    return entry->graphic == 0x4F && entry->object == 0x13A;
+static bool models_is_stray_fairy_model(struct model model) {
+    return model.graphic_id == 0x4F && model.object_id == 0x13A;
 }
 
 /**
@@ -192,11 +203,11 @@ static u16 models_get_stray_fairy_gi_index(z2_actor_t *actor, z2_game_t *game) {
 void models_before_stray_fairy_main(z2_actor_t *actor, z2_game_t *game) {
     // If not a Stray Fairy, rotate like En_Item00 does.
     if (g_models_test) {
+        struct model model;
         u32 gi_index = models_get_stray_fairy_gi_index(actor, game);
-        mmr_gi_t *entry = models_prepare_gi_entry(NULL, game, gi_index);
-
+        models_set_loaded_actor_model(&model, actor, game, gi_index);
         // Check that we are not drawing a stray fairy.
-        if (!models_is_gi_stray_fairy(entry)) {
+        if (!models_is_stray_fairy_model(model)) {
             // Rotate at the same speed of a Heart Piece actor.
             actor->rot_2.y = (u16)(actor->rot_2.y + 0x3C0);
         }
@@ -210,12 +221,14 @@ void models_before_stray_fairy_main(z2_actor_t *actor, z2_game_t *game) {
  **/
 bool models_draw_stray_fairy(z2_actor_t *actor, z2_game_t *game) {
     if (g_models_test) {
+        mmr_gi_t *entry;
         struct model model;
-        u32 gi_index = models_get_stray_fairy_gi_index(actor, game);
-        mmr_gi_t *entry = models_prepare_gi_entry(&model, game, gi_index);
+        if (!loaded_models_get_actor_model(&model, (void**)&entry, actor)) {
+            return false;
+        }
 
         // Check if we are drawing a stray fairy.
-        if (models_is_gi_stray_fairy(entry)) {
+        if (models_is_stray_fairy_model(model)) {
             // Update stray fairy actor according to type, and perform original draw.
             z2_en_elforg_t *elforg = (z2_en_elforg_t *)actor;
             u8 fairy_type = entry->type >> 4;
@@ -304,6 +317,14 @@ bool models_draw_moons_tear(z2_actor_t *actor, z2_game_t *game) {
         return true;
     } else {
         return false;
+    }
+}
+
+void models_after_actor_dtor(z2_actor_t *actor) {
+    if (g_models_test) {
+        if (actor->id == Z2_ACTOR_EN_ELFORG) {
+            loaded_models_remove_actor_model(actor);
+        }
     }
 }
 
