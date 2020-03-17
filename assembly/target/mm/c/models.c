@@ -223,6 +223,8 @@ bool models_draw_stray_fairy(z2_actor_t *actor, z2_game_t *game) {
     if (g_models_test) {
         mmr_gi_t *entry;
         struct model model;
+        u32 gi_index = models_get_stray_fairy_gi_index(actor, game);
+        models_set_loaded_actor_model(&model, actor, game, gi_index);
         if (!loaded_models_get_actor_model(&model, (void**)&entry, actor)) {
             return false;
         }
