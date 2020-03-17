@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -1314,6 +1315,28 @@ namespace MMR.Randomizer
             RomData.MMFileList[1142].Data = data.ToArray();
         }
 
+        public void OutputHashIcons(IEnumerable<byte> iconFileIndices, string filename)
+        {
+            var iconFiles = RomUtils.GetFilesFromArchive(19);
+            var numberOfHashIcons = iconFileIndices.Count();
+            var margin = 8;
+            using (var output = new Bitmap(32 * numberOfHashIcons + margin * (numberOfHashIcons - 1), 32))
+            using (var graphics = Graphics.FromImage(output))
+            {
+                var i = 0;
+                foreach (var iconFileIndex in iconFileIndices)
+                {
+                    var iconData = ImageUtils.RgbaToArgb(iconFiles[iconFileIndex]);
+                    using (var icon = ImageUtils.CopyDataToBitmap(iconData, 32, 32, PixelFormat.Format32bppArgb))
+                    {
+                        graphics.DrawImage(icon, i * 32 + i * margin, 0, icon.Width, icon.Height);
+                    }
+                    i++;
+                }
+                output.Save(filename, ImageFormat.Png);
+            }
+        }
+
         private void WriteAsmPatch(AsmContext asm)
         {
             // Load the symbols and use them to apply the patch data
@@ -1374,13 +1397,14 @@ namespace MMR.Randomizer
             var originalMMFileList = RomData.MMFileList.Select(file => file.Clone()).ToList();
 
             byte[] hash;
+            AsmContext asm;
             if (!string.IsNullOrWhiteSpace(outputSettings.InputPatchFilename))
             {
                 progressReporter.ReportProgress(50, "Applying patch...");
                 hash = RomUtils.ApplyPatch(outputSettings.InputPatchFilename);
 
                 // Parse Symbols data from the ROM (specific MMFile)
-                var asm = AsmContext.LoadFromROM();
+                asm = AsmContext.LoadFromROM();
 
                 // Apply Asm configuration post-patch
                 WriteAsmConfigPostPatch(asm, hash);
@@ -1438,7 +1462,7 @@ namespace MMR.Randomizer
                 WriteStartupStrings();
 
                 // Load Asm data from internal resource files and apply
-                var asm = AsmContext.LoadInternal();
+                asm = AsmContext.LoadInternal();
                 progressReporter.ReportProgress(70, "Writing ASM patch...");
                 WriteAsmPatch(asm);
                 
@@ -1460,6 +1484,12 @@ namespace MMR.Randomizer
 
             progressReporter.ReportProgress(74, "Writing sound effects...");
             WriteSoundEffects(new Random(BitConverter.ToInt32(hash, 0)));
+
+            if (_randomized == null || _randomized.Settings.DrawHash) // todo need to either make DrawHash always enabled, or always enable it when outputting a patch, or try/catch and don't output an image if there aren't any icons.
+            {
+                var iconStripIcons = asm.Symbols.ReadHashIconsTable();
+                OutputHashIcons(ImageUtils.GetIconIndices(hash).Select(index => iconStripIcons[index]), Path.ChangeExtension(outputSettings.OutputROMFilename, "png"));
+            }
 
             if (outputSettings.GenerateROM || outputSettings.OutputVC)
             {

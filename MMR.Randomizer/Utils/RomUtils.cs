@@ -75,6 +75,29 @@ namespace MMR.Randomizer.Utils
             }
         }
 
+        public static List<byte[]> GetFilesFromArchive(int fileIndex)
+        {
+            CheckCompressed(fileIndex);
+            var data = RomData.MMFileList[fileIndex].Data;
+            var headerLength = ReadWriteUtils.Arr_ReadS32(data, 0);
+            var pointer = headerLength;
+            var files = new List<byte[]>();
+            for (var i = 4; i < headerLength; i += 4)
+            {
+                var nextFileOffset = headerLength + ReadWriteUtils.Arr_ReadS32(data, i);
+                var fileLength = nextFileOffset - pointer;
+                var dest = new byte[fileLength];
+                ReadWriteUtils.Arr_Insert(data, pointer, fileLength, dest, 0);
+                pointer += fileLength;
+                using (var stream = new MemoryStream(dest))
+                {
+                    var decompressed = Yaz.Decode(stream, dest.Length);
+                    files.Add(decompressed);
+                }
+            }
+            return files;
+        }
+
         public static int GetFileIndexForWriting(int rAddr)
         {
             int index = AddrToFile(rAddr);
