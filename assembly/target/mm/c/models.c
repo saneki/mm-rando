@@ -215,11 +215,8 @@ static bool models_should_override_stray_fairy_draw(z2_actor_t *actor, z2_game_t
  **/
 void models_before_stray_fairy_main(z2_actor_t *actor, z2_game_t *game) {
     // If not a Stray Fairy, rotate like En_Item00 does.
-    if (g_models_test) {
-        if (!models_should_override_stray_fairy_draw(actor, game)) {
-            return;
-        }
-
+    bool draw = models_should_override_stray_fairy_draw(actor, game);
+    if (g_models_test && draw) {
         struct model model;
         u32 gi_index = models_get_stray_fairy_gi_index(actor, game);
         models_set_loaded_actor_model(&model, actor, game, gi_index);
@@ -237,11 +234,8 @@ void models_before_stray_fairy_main(z2_actor_t *actor, z2_game_t *game) {
  * Return true if overriding functionality, false if using original functionality.
  **/
 bool models_draw_stray_fairy(z2_actor_t *actor, z2_game_t *game) {
-    if (g_models_test) {
-        if (!models_should_override_stray_fairy_draw(actor, game)) {
-            return false;
-        }
-
+    bool draw = models_should_override_stray_fairy_draw(actor, game);
+    if (g_models_test && draw) {
         mmr_gi_t *entry;
         struct model model;
         u32 gi_index = models_get_stray_fairy_gi_index(actor, game);
