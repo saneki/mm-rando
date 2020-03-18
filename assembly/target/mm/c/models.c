@@ -326,10 +326,44 @@ void models_draw_boss_remains(z2_actor_t *actor, z2_game_t *game, u32 graphic_id
 }
 
 /**
+ * Check whether or not a model draws a Moon's Tear.
+ **/
+static bool models_is_moons_tear_model(struct model model) {
+    return model.graphic_id == 0x5A && model.object_id == 0x1B1;
+}
+
+/**
+ * Check if a Moon's Tear actor should be drawn as its Get-Item.
+ **/
+static bool models_should_override_moons_tear_draw(z2_actor_t *actor, z2_game_t *game) {
+    // Check if a vanilla Moon's Tear is being drawn.
+    struct model model;
+    mmr_gi_t *entry = models_prepare_gi_entry(&model, game, 0x96);
+    return !models_is_moons_tear_model(model);
+}
+
+/**
+ * Hook function called before a Moon's Tear actor's main function.
+ **/
+void models_before_moons_tear_main(z2_actor_t *actor, z2_game_t *game) {
+    bool draw = models_should_override_moons_tear_draw(actor, game);
+    if (g_models_test && draw) {
+        // If the Moon's Tear on display, reposition and rotate.
+        if (actor->variable == 0) {
+            actor->pos_2.x = 157.0;
+            actor->pos_2.y = -32.0;
+            actor->pos_2.z = -103.0;
+            actor->rot_2.y = (u16)(actor->rot_2.y + 0x3C0);
+        }
+    }
+}
+
+/**
  * Hook function for drawing Moon's Tear actor as its new item.
  **/
 bool models_draw_moons_tear(z2_actor_t *actor, z2_game_t *game) {
-    if (g_models_test) {
+    bool draw = models_should_override_moons_tear_draw(actor, game);
+    if (g_models_test && draw) {
         models_draw_from_gi_table(actor, game, 1.0, 0x96);
         return true;
     } else {

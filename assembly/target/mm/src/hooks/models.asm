@@ -125,6 +125,16 @@
 
 .headersize(G_OBJ_MOON_STONE_VRAM - G_OBJ_MOON_STONE_FILE)
 
+; Before Moon's Tear main function.
+; Replaces:
+;   lw      v0, 0x1CCC (a1)
+;   lui     at, 0x1000
+;   ori     at, at, 0x0282
+.org 0x80C068D8
+    jal     models_before_moons_tear_main_hook
+    nop
+    lw      v0, 0x1CCC (a1)
+
 ; Moon's Tear draw function.
 ; Replaces:
 ;   sw      s1, 0x0018 (sp)

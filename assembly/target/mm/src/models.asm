@@ -99,6 +99,24 @@ models_draw_boss_remains_hook:
     jr      ra
     addiu   sp, sp, 0x18
 
+models_before_moons_tear_main_hook:
+    addiu   sp, sp, -0x20
+    sw      ra, 0x0018 (sp)
+    sw      a0, 0x0010 (sp)
+
+    jal     models_before_moons_tear_main
+    sw      a1, 0x0014 (sp)
+
+    ; Displaced code
+    lui     at, 0x1000
+    ori     at, at, 0x0282
+
+    lw      a0, 0x0010 (sp)
+    lw      a1, 0x0014 (sp)
+    lw      ra, 0x0018 (sp)
+    jr      ra
+    addiu   sp, sp, 0x20
+
 models_draw_moons_tear_hook:
     addiu   sp, sp, -0x20
     sw      ra, 0x0018 (sp)
