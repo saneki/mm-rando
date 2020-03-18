@@ -1471,6 +1471,12 @@ namespace MMR.Randomizer
 
                 // Write subset of Asm config post-patch
                 WriteAsmConfig(asm, hash);
+
+                if (_randomized.Settings.DrawHash || outputSettings.GeneratePatch)
+                {
+                    var iconStripIcons = asm.Symbols.ReadHashIconsTable();
+                    OutputHashIcons(ImageUtils.GetIconIndices(hash).Select(index => iconStripIcons[index]), Path.ChangeExtension(outputSettings.OutputROMFilename, "png"));
+                }
             }
             WriteMiscellaneousChanges();
 
@@ -1484,12 +1490,6 @@ namespace MMR.Randomizer
 
             progressReporter.ReportProgress(74, "Writing sound effects...");
             WriteSoundEffects(new Random(BitConverter.ToInt32(hash, 0)));
-
-            if (_randomized == null || _randomized.Settings.DrawHash) // todo need to either make DrawHash always enabled, or always enable it when outputting a patch, or try/catch and don't output an image if there aren't any icons.
-            {
-                var iconStripIcons = asm.Symbols.ReadHashIconsTable();
-                OutputHashIcons(ImageUtils.GetIconIndices(hash).Select(index => iconStripIcons[index]), Path.ChangeExtension(outputSettings.OutputROMFilename, "png"));
-            }
 
             if (outputSettings.GenerateROM || outputSettings.OutputVC)
             {

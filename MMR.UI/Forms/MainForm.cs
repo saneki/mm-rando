@@ -399,7 +399,7 @@ namespace MMR.UI.Forms
 
             // Misc config options
             cDisableCritWiggle.Checked = _configuration.GameplaySettings.CritWiggleDisable;
-            cDrawHash.Checked = _configuration.GameplaySettings.DrawHash;
+            cDrawHash.Checked = _drawHashChecked = _configuration.GameplaySettings.DrawHash;
             cFastPush.Checked = _configuration.GameplaySettings.FastPush;
             cQuestItemStorage.Checked = _configuration.GameplaySettings.QuestItemStorage;
             cUnderwaterOcarina.Checked = _configuration.GameplaySettings.OcarinaUnderwater;
@@ -483,9 +483,14 @@ namespace MMR.UI.Forms
 
         }
 
+        private bool _drawHashChecked;
         private void cPatch_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _configuration.OutputSettings.GeneratePatch = cPatch.Checked);
+
+            cDrawHash.CheckedChanged -= cDrawHash_CheckedChanged;
+            cDrawHash.Checked = cPatch.Checked ? true : _drawHashChecked && (_configuration.OutputSettings.GenerateROM || _configuration.OutputSettings.OutputVC);
+            cDrawHash.CheckedChanged += cDrawHash_CheckedChanged;
         }
 
         private void cHTMLLog_CheckedChanged(object sender, EventArgs e)
@@ -692,6 +697,7 @@ namespace MMR.UI.Forms
         private void cDrawHash_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _configuration.GameplaySettings.DrawHash = cDrawHash.Checked);
+            _drawHashChecked = cDrawHash.Checked;
         }
 
         private void cQuestItemStorage_CheckedChanged(object sender, EventArgs e)
@@ -941,6 +947,15 @@ namespace MMR.UI.Forms
 
             cHTMLLog.Enabled = onMainTab && _configuration.OutputSettings.GenerateSpoilerLog;
 
+            var oldEnabled = cDrawHash.Enabled;
+            cDrawHash.Enabled = onMainTab && !_configuration.OutputSettings.GeneratePatch && (_configuration.OutputSettings.GenerateROM || _configuration.OutputSettings.OutputVC);
+            if (onMainTab && cDrawHash.Enabled != oldEnabled)
+            {
+                cDrawHash.CheckedChanged -= cDrawHash_CheckedChanged;
+                cDrawHash.Checked = cDrawHash.Enabled ? _drawHashChecked : false;
+                cDrawHash.CheckedChanged += cDrawHash_CheckedChanged;
+            }
+
             if (_configuration.GameplaySettings.GossipHintStyle == GossipHintStyle.Default || _configuration.GameplaySettings.LogicMode == LogicMode.Vanilla)
             {
                 cClearHints.Enabled = false;
@@ -1146,46 +1161,39 @@ namespace MMR.UI.Forms
 
         private void TogglePatchSettings(bool v)
         {
-            // ROM Settings
-            cPatch.Enabled = v;
+            // Output Settings
+            cPatch.Visible = v;
+            cDrawHash.Visible = v;
+            cSpoiler.Visible = v;
+            cHTMLLog.Visible = v;
 
-            // Main Settings
-            cMode.Enabled = v;
-            cEnemy.Enabled = v;
-
-            //Gimmicks
-            cDMult.Enabled = v;
-            cDType.Enabled = v;
-            cGravity.Enabled = v;
-            cFloors.Enabled = v;
-            cClockSpeed.Enabled = v;
-            cHideClock.Enabled = v;
-            cSunsSong.Enabled = v;
-            cBlastCooldown.Enabled = v;
-            cUnderwaterOcarina.Enabled = v;
-
+            // Tabs
+            if (v)
+            {
+                tSettings.TabPages.Insert(0, tabMain);
+                tSettings.TabPages.Add(tabGimmicks);
+            }
+            else
+            {
+                tSettings.TabPages.Remove(tabMain);
+                tSettings.TabPages.Remove(tabGimmicks);
+            }
 
             // Comfort/Cosmetics
-            cCutsc.Enabled = v;
-            cQText.Enabled = v;
-            cFreeHints.Enabled = v;
-            cNoDowngrades.Enabled = v;
-            cShopAppearance.Enabled = v;
-            cUpdateChests.Enabled = v;
-            cEponaSword.Enabled = v;
-            cClearHints.Enabled = _configuration.GameplaySettings.LogicMode != LogicMode.Vanilla && _configuration.GameplaySettings.GossipHintStyle != GossipHintStyle.Default && v;
-            cGossipHints.Enabled = _configuration.GameplaySettings.LogicMode != LogicMode.Vanilla && v;
-            cDisableCritWiggle.Enabled = v;
-            cDrawHash.Enabled = v;
-            cQuestItemStorage.Enabled = v;
+            cCutsc.Visible = v;
+            cQText.Visible = v;
+            cNoDowngrades.Visible = v;
+            cShopAppearance.Visible = v;
+            cUpdateChests.Visible = v;
+            cEponaSword.Visible = v;
+            cDisableCritWiggle.Visible = v;
+            cQuestItemStorage.Visible = v;
+            cFastPush.Visible = v;
+            cLink.Visible = v;
+            lLink.Visible = v;
 
-            cSkipBeaver.Enabled = v;
-            cGoodDampeRNG.Enabled = v;
-            cGoodDogRaceRNG.Enabled = v;
-            cFasterLabFish.Enabled = v;
-            cFastPush.Enabled = v;
-
-            cLink.Enabled = v;
+            gHints.Visible = v;
+            gSpeedUps.Visible = v;
 
             // Other..?
             cDummy.Enabled = v;
