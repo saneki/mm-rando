@@ -150,3 +150,31 @@
     sw      s0, 0x0018 (sp)
     jal     models_draw_lab_fish_heart_piece_hook
     sw      a0, 0x0030 (sp)
+
+;==================================================================================================
+; Freestanding Models (Seahorse)
+;==================================================================================================
+
+.headersize(G_EN_OT_VRAM - G_EN_OT_FILE)
+
+; Before Seahorse main function.
+; Replaces:
+;   sw      s0, 0x0018 (sp)
+;   or      s0, a0, r0
+;   sw      ra, 0x001C (sp)
+.org 0x80B5DAF0
+    sw      ra, 0x001C (sp)
+    jal     models_before_seahorse_main_hook
+    sw      s0, 0x0018 (sp)
+
+; Seahorse draw function.
+; Replaces:
+;   sw      s0, 0x0028 (sp)
+;   or      s0, a0, r0
+;   sw      ra, 0x002C (sp)
+;   sw      a1, 0x0054 (sp)
+.org 0x80B5DD24
+    sw      ra, 0x002C (sp)
+    sw      s0, 0x0028 (sp)
+    jal     models_draw_seahorse_hook
+    or      s0, a0, r0

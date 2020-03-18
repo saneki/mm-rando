@@ -349,6 +349,48 @@ bool models_draw_lab_fish_heart_piece(z2_actor_t *actor, z2_game_t *game) {
     }
 }
 
+/**
+ * Check whether or not a model draws a Seahorse.
+ **/
+static bool models_is_seahorse_model(struct model model) {
+    return model.graphic_id == 0x63 && model.object_id == 0x1F0;
+}
+
+/**
+ * Check if a Seahorse actor should be drawn as its Get-Item.
+ **/
+static bool models_should_override_seahorse_draw(z2_actor_t *actor, z2_game_t *game) {
+    // Check if a vanilla Seahorse is being drawn.
+    struct model model;
+    mmr_gi_t *entry = models_prepare_gi_entry(&model, game, 0x95);
+    // Ensure that only the fishtank Seahorse is being drawn over.
+    bool is_fishtank = actor->variable == 0xFFFF;
+    return is_fishtank && !models_is_seahorse_model(model);
+}
+
+/**
+ * Hook function called before a Seahorse actor's main function.
+ **/
+void models_before_seahorse_main(z2_actor_t *actor, z2_game_t *game) {
+    bool draw = models_should_override_seahorse_draw(actor, game);
+    if (g_models_test && draw) {
+        actor->rot_2.y = (u16)(actor->rot_2.y + 0x3C0);
+    }
+}
+
+/**
+ * Hook function for drawing Seahorse actor as its new item.
+ **/
+bool models_draw_seahorse(z2_actor_t *actor, z2_game_t *game) {
+    bool draw = models_should_override_seahorse_draw(actor, game);
+    if (g_models_test && draw) {
+        models_draw_from_gi_table(actor, game, 50.0, 0x95);
+        return true;
+    } else {
+        return false;
+    }
+}
+
 void models_after_actor_dtor(z2_actor_t *actor) {
     if (g_models_test) {
         if (actor->id == Z2_ACTOR_EN_ELFORG) {

@@ -70,6 +70,10 @@ DefineDmaFile G_EN_COL_MAN_DMA, G_EN_COL_MAN_FILE, 434
 DefineDmaFile G_OBJ_GHAKA_DMA, G_OBJ_GHAKA_FILE, 467
 .definelabel  G_OBJ_GHAKA_VRAM, 0x80B3C260
 
+; ovl_En_Ot (Seahorse)
+DefineDmaFile G_EN_OT_DMA, G_EN_OT_FILE, 476
+.definelabel  G_EN_OT_VRAM, 0x80B5B2E0
+
 ; ovl_Bg_Kin2_Shelf (Oceanside Skulltula House shelves)
 DefineDmaFile G_BG_KIN2_SHELF_DMA, G_BG_KIN2_SHELF_FILE, 488
 .definelabel  G_BG_KIN2_SHELF_VRAM, 0x80B6FB30

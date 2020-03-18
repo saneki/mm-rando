@@ -157,3 +157,47 @@ models_draw_lab_fish_heart_piece_hook:
     ; Fix stack for caller and return
     jr      ra
     addiu   sp, sp, 0x30
+
+models_before_seahorse_main_hook:
+    ; Displaced code
+    or      s0, a0, r0
+
+    addiu   sp, sp, 0x18
+    sw      ra, 0x0014 (sp)
+
+    jal     models_before_seahorse_main
+    sw      a1, 0x0010 (sp)
+
+    lw      a1, 0x0010 (sp)
+    lw      ra, 0x0014 (sp)
+    jr      ra
+    addiu   sp, sp, -0x18
+
+models_draw_seahorse_hook:
+    ; Displaced code
+    sw      a1, 0x0054 (sp)
+
+    addiu   sp, sp, -0x18
+    sw      ra, 0x0010 (sp)
+
+    jal     models_draw_seahorse
+    nop
+
+    bnez    v0, @@caller_return
+    nop
+
+    lw      ra, 0x0010 (sp)
+    jr      ra
+    addiu   sp, sp, 0x18
+
+@@caller_return:
+    ; Restore S0
+    addiu   sp, sp, 0x18
+    lw      s0, 0x0028 (sp)
+
+    ; Restore RA from caller's caller function
+    lw      ra, 0x002C (sp)
+
+    ; Fix stack for caller and return
+    jr      ra
+    addiu   sp, sp, 0x50
