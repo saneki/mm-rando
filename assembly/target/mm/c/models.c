@@ -198,11 +198,28 @@ static u16 models_get_stray_fairy_gi_index(z2_actor_t *actor, z2_game_t *game) {
 }
 
 /**
+ * Check if a Stray Fairy actor should be drawn as its Get-Item.
+ **/
+static bool models_should_override_stray_fairy_draw(z2_actor_t *actor, z2_game_t *game) {
+    u16 flag = actor->variable & 0xF;
+
+    // Check if a Stray Fairy is in a Great Fairy fountain:
+    // 1 is used for Stray Fairies in the Great Fairy fountain.
+    // 8 is used for animating Stray Fairies when being given to the fountain.
+    // Optionally check Great Fairy fountain scene: 0x26
+    return (flag != 1) && (flag != 8);
+}
+
+/**
  * Hook function called before Stray Fairy actor's main function.
  **/
 void models_before_stray_fairy_main(z2_actor_t *actor, z2_game_t *game) {
     // If not a Stray Fairy, rotate like En_Item00 does.
     if (g_models_test) {
+        if (!models_should_override_stray_fairy_draw(actor, game)) {
+            return;
+        }
+
         struct model model;
         u32 gi_index = models_get_stray_fairy_gi_index(actor, game);
         models_set_loaded_actor_model(&model, actor, game, gi_index);
@@ -221,6 +238,10 @@ void models_before_stray_fairy_main(z2_actor_t *actor, z2_game_t *game) {
  **/
 bool models_draw_stray_fairy(z2_actor_t *actor, z2_game_t *game) {
     if (g_models_test) {
+        if (!models_should_override_stray_fairy_draw(actor, game)) {
+            return false;
+        }
+
         mmr_gi_t *entry;
         struct model model;
         u32 gi_index = models_get_stray_fairy_gi_index(actor, game);
