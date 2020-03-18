@@ -128,3 +128,32 @@ models_draw_moons_tear_hook:
     ; Fix stack for caller and return
     jr      ra
     addiu   sp, sp, 0x38
+
+models_draw_lab_fish_heart_piece_hook:
+    ; Displaced code
+    sw      a1, 0x0034 (sp)
+
+    addiu   sp, sp, -0x18
+    sw      ra, 0x0010 (sp)
+
+    jal     models_draw_lab_fish_heart_piece
+    nop
+
+    bnez    v0, @@caller_return
+    nop
+
+    lw      ra, 0x0010 (sp)
+    jr      ra
+    addiu   sp, sp, 0x18
+
+@@caller_return:
+    ; Restore S0
+    addiu   sp, sp, 0x18
+    lw      s0, 0x0018 (sp)
+
+    ; Restore RA from caller's caller function
+    lw      ra, 0x001C (sp)
+
+    ; Fix stack for caller and return
+    jr      ra
+    addiu   sp, sp, 0x30

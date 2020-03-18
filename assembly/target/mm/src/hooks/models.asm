@@ -134,3 +134,19 @@
     sw      ra, 0x001C (sp)
     jal     models_draw_moons_tear_hook
     sw      s1, 0x0018 (sp)
+
+;==================================================================================================
+; Freestanding Models (Lab Fish Heart Piece)
+;==================================================================================================
+
+.headersize(G_EN_COL_MAN_VRAM - G_EN_COL_MAN_FILE)
+
+; Lab Fish Heart Piece draw function.
+; Replaces:
+;   sw      s0, 0x0018 (sp)
+;   sw      a0, 0x0030 (sp)
+;   sw      a1, 0x0034 (sp)
+.org 0x80AFE41C
+    sw      s0, 0x0018 (sp)
+    jal     models_draw_lab_fish_heart_piece_hook
+    sw      a0, 0x0030 (sp)

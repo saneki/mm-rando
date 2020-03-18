@@ -62,6 +62,10 @@ DefineDmaFile G_EN_TIME_TAG_DMA, G_EN_TIME_TAG_FILE, 392
 DefineDmaFile G_EN_ELFORG_DMA, G_EN_ELFORG_FILE, 397
 .definelabel  G_EN_ELFORG_VRAM, 0x80ACC470
 
+; ovl_En_Col_Man
+DefineDmaFile G_EN_COL_MAN_DMA, G_EN_COL_MAN_FILE, 434
+.definelabel  G_EN_COL_MAN_VRAM, 0x80AFDC40
+
 ; ovl_Obj_Ghaka (Darmani's Gravestone)
 DefineDmaFile G_OBJ_GHAKA_DMA, G_OBJ_GHAKA_FILE, 467
 .definelabel  G_OBJ_GHAKA_VRAM, 0x80B3C260

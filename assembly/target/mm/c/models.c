@@ -337,6 +337,18 @@ bool models_draw_moons_tear(z2_actor_t *actor, z2_game_t *game) {
     }
 }
 
+/**
+ * Hook function for drawing Lab Fish Heart Piece actor as its new item.
+ **/
+bool models_draw_lab_fish_heart_piece(z2_actor_t *actor, z2_game_t *game) {
+    if (g_models_test) {
+        models_draw_from_gi_table(actor, game, 25.0, 0x112);
+        return true;
+    } else {
+        return false;
+    }
+}
+
 void models_after_actor_dtor(z2_actor_t *actor) {
     if (g_models_test) {
         if (actor->id == Z2_ACTOR_EN_ELFORG) {
