@@ -399,7 +399,8 @@ namespace MMR.UI.Forms
 
             // Misc config options
             cDisableCritWiggle.Checked = _configuration.GameplaySettings.CritWiggleDisable;
-            cDrawHash.Checked = _drawHashChecked = _configuration.GameplaySettings.DrawHash;
+            _drawHashChecked = _configuration.GameplaySettings.DrawHash;
+            cDrawHash.Checked = _configuration.OutputSettings.GeneratePatch || (_drawHashChecked && (_configuration.OutputSettings.GenerateROM || _configuration.OutputSettings.OutputVC));
             cFastPush.Checked = _configuration.GameplaySettings.FastPush;
             cQuestItemStorage.Checked = _configuration.GameplaySettings.QuestItemStorage;
             cUnderwaterOcarina.Checked = _configuration.GameplaySettings.OcarinaUnderwater;
@@ -945,6 +946,7 @@ namespace MMR.UI.Forms
                 }
             }
 
+            bLoadLogic.Enabled = _configuration.GameplaySettings.LogicMode == LogicMode.UserLogic;
             cHTMLLog.Enabled = onMainTab && _configuration.OutputSettings.GenerateSpoilerLog;
 
             var oldEnabled = cDrawHash.Enabled;
@@ -995,73 +997,91 @@ namespace MMR.UI.Forms
 
         private void EnableAllControls(bool v)
         {
-            cAdditional.Enabled = v;
-            cSFX.Enabled = v;
-            cMusic.Enabled = v;
-            cBottled.Enabled = v;
-            cCutsc.Enabled = v;
-            cDChests.Enabled = v;
-            cDEnt.Enabled = v;
             cMode.Enabled = v;
-            cDMult.Enabled = v;
-            cDType.Enabled = v;
-            cDummy.Enabled = v;
-            cEnemy.Enabled = v;
-            cFloors.Enabled = v;
-            cClockSpeed.Enabled = v;
-            cGossipHints.Enabled = v;
-            cBlastCooldown.Enabled = v;
-            cHideClock.Enabled = v;
-            cSunsSong.Enabled = v;
-            cGravity.Enabled = v;
-            cLink.Enabled = v;
-            cMixSongs.Enabled = v;
-            cSoS.Enabled = v;
-            cShop.Enabled = v;
+            bLoadLogic.Enabled = v;
+            bStartingItemEditor.Enabled = v;
+            tStartingItemList.Enabled = v;
+            bJunkLocationsEditor.Enabled = v;
+            tJunkLocationsList.Enabled = v;
+
             cUserItems.Enabled = v;
-            cVC.Enabled = v;
-            cQText.Enabled = v;
-            cSpoiler.Enabled = v;
+            bItemListEditor.Enabled = v;
+            tCustomItemList.Enabled = v;
+
+            cDEnt.Enabled = v;
+            cNoStartingItems.Enabled = v;
+            cMixSongs.Enabled = v;
+            cEnemy.Enabled = v;
+
+            bTunic.Enabled = v;
             cTatl.Enabled = v;
+            cMusic.Enabled = v;
+            cLink.Enabled = v;
+
+            cHUDHeartsComboBox.Enabled = v;
+            cHUDMagicComboBox.Enabled = v;
+            btn_hud.Enabled = v;
+
+            cGossipHints.Enabled = v;
             cFreeHints.Enabled = v;
             cClearHints.Enabled = v;
-            cNoDowngrades.Enabled = v;
+
+            cTargettingStyle.Enabled = v;
+            cSFX.Enabled = v;
+            cDisableCritWiggle.Enabled = v;
+            cCutsc.Enabled = v;
+            cQText.Enabled = v;
+            cFastPush.Enabled = v;
             cShopAppearance.Enabled = v;
-            cEponaSword.Enabled = v;
-            cHTMLLog.Enabled = v;
-            cN64.Enabled = v;
-            cMoonItems.Enabled = v;
-            cFairyRewards.Enabled = v;
-            cNutChest.Enabled = v;
-            cCrazyStartingItems.Enabled = v;
-            cNoStartingItems.Enabled = v;
-            cCowMilk.Enabled = v;
-            cSpiders.Enabled = v;
-            cStrayFairies.Enabled = v;
-            cMundaneRewards.Enabled = v;
-            cPatch.Enabled = v;
-            bApplyPatch.Enabled = v;
             cUpdateChests.Enabled = v;
-            tStartingItemList.Enabled = v;
-            bStartingItemEditor.Enabled = v;
+            cNoDowngrades.Enabled = v;
+            cEponaSword.Enabled = v;
+            cQuestItemStorage.Enabled = v;
+
             cSkipBeaver.Enabled = v;
             cGoodDampeRNG.Enabled = v;
-            cGoodDogRaceRNG.Enabled = v;
             cFasterLabFish.Enabled = v;
-            cTargettingStyle.Enabled = v;
+            cGoodDogRaceRNG.Enabled = v;
 
-            cDrawHash.Enabled = v;
-            cQuestItemStorage.Enabled = v;
-            cDisableCritWiggle.Enabled = v;
-            cFastPush.Enabled = v;
+            cDMult.Enabled = v;
+            cDType.Enabled = v;
+            cGravity.Enabled = v;
+            cFloors.Enabled = v;
+            cClockSpeed.Enabled = v;
+            cBlastCooldown.Enabled = v;
+            cHideClock.Enabled = v;
             cUnderwaterOcarina.Enabled = v;
+            cSunsSong.Enabled = v;
 
+            cSoS.Enabled = v;
+            cDChests.Enabled = v;
+            cShop.Enabled = v;
+            cBottled.Enabled = v;
+            cCowMilk.Enabled = v;
+            cSpiders.Enabled = v;
+            cMundaneRewards.Enabled = v;
+            cMoonItems.Enabled = v;
+            cFairyRewards.Enabled = v;
+            cAdditional.Enabled = v;
+            cNutChest.Enabled = v;
+            cCrazyStartingItems.Enabled = v;
+            cStrayFairies.Enabled = v;
+
+            cDummy.Enabled = v;
             bopen.Enabled = v;
-            bRandomise.Enabled = v;
-            bTunic.Enabled = v;
 
+            cN64.Enabled = v;
+            cVC.Enabled = v;
+            cPatch.Enabled = v;
+            cSpoiler.Enabled = v;
+            cHTMLLog.Enabled = v;
+            cDrawHash.Enabled = v;
+
+            bRandomise.Enabled = v;
             tSeed.Enabled = v;
-            tSString.Enabled = v;
+            tSettings.Enabled = v;
+            bLoadPatch.Enabled = v;
+            bApplyPatch.Enabled = v;
         }
 
         private void mDPadConfig_Click(object sender, EventArgs e)
@@ -1170,8 +1190,11 @@ namespace MMR.UI.Forms
             // Tabs
             if (v)
             {
-                tSettings.TabPages.Insert(0, tabMain);
-                tSettings.TabPages.Add(tabGimmicks);
+                if (!tSettings.TabPages.Contains(tabMain))
+                {
+                    tSettings.TabPages.Insert(0, tabMain);
+                    tSettings.TabPages.Add(tabGimmicks);
+                }
             }
             else
             {
