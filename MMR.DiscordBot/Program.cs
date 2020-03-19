@@ -134,10 +134,13 @@ namespace MMR.DiscordBot
                     {
                         success = await GenerateSeed(filename);
                         var patchPath = Path.Combine(_cliPath, $@"output\{filename}.mmr");
-                        if (File.Exists(patchPath))
+                        var hashIconPath = Path.ChangeExtension(patchPath, "png");
+                        if (File.Exists(patchPath) && File.Exists(hashIconPath))
                         {
-                            var result = await message.Channel.SendFileAsync(patchPath);
+                            await message.Channel.SendFileAsync(patchPath);
+                            await message.Channel.SendFileAsync(hashIconPath);
                             File.Delete(patchPath);
+                            File.Delete(hashIconPath);
                             await messageResult.DeleteAsync();
                         }
                         else
@@ -163,7 +166,7 @@ namespace MMR.DiscordBot
             var seed = await GetSeed();
             var processInfo = new ProcessStartInfo(Path.Combine(_cliPath, @"MMR.CLI.exe"));
             processInfo.WorkingDirectory = _cliPath;
-            processInfo.Arguments = $"-output \"output/{filename}.mmr\" -seed {seed} -spoiler -patch";
+            processInfo.Arguments = $"-output \"output\\{filename}.z64\" -seed {seed} -spoiler -patch";
             processInfo.ErrorDialog = false;
             processInfo.UseShellExecute = false;
             processInfo.RedirectStandardOutput = true;
@@ -192,7 +195,10 @@ namespace MMR.DiscordBot
             {
                 seed = _random.Next();
             }
-            _semaphore.Release();
+            finally
+            {
+                _semaphore.Release();
+            }
             return seed;
         }
     }
