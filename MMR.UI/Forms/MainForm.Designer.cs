@@ -153,6 +153,8 @@ namespace MMR.UI.Forms
             this.mExit = new System.Windows.Forms.ToolStripMenuItem();
             this.mCustomise = new System.Windows.Forms.ToolStripMenuItem();
             this.mDPadConfig = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mLogicEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.mHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.mManual = new System.Windows.Forms.ToolStripMenuItem();
             this.mSep1 = new System.Windows.Forms.ToolStripSeparator();
@@ -172,8 +174,6 @@ namespace MMR.UI.Forms
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
-            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mLogicEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.tSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -1675,6 +1675,21 @@ namespace MMR.UI.Forms
             this.mDPadConfig.Text = "D-Pad Configuration";
             this.mDPadConfig.Click += new System.EventHandler(this.mDPadConfig_Click);
             // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mLogicEdit});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // mLogicEdit
+            // 
+            this.mLogicEdit.Name = "mLogicEdit";
+            this.mLogicEdit.Size = new System.Drawing.Size(137, 22);
+            this.mLogicEdit.Text = "Logic editor";
+            this.mLogicEdit.Click += new System.EventHandler(this.mLogicEdit_Click);
+            // 
             // mHelp
             // 
             this.mHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1850,21 +1865,6 @@ namespace MMR.UI.Forms
             this.bLoadPatch.Text = "Load Patch...";
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
-            // 
-            // toolsToolStripMenuItem
-            // 
-            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mLogicEdit});
-            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
-            this.toolsToolStripMenuItem.Text = "Tools";
-            // 
-            // mLogicEdit
-            // 
-            this.mLogicEdit.Name = "mLogicEdit";
-            this.mLogicEdit.Size = new System.Drawing.Size(180, 22);
-            this.mLogicEdit.Text = "Logic editor";
-            this.mLogicEdit.Click += new System.EventHandler(this.mLogicEdit_Click);
             // 
             // MainForm
             // 

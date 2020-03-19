@@ -89,9 +89,9 @@ namespace MMR.CLI
                 Console.WriteLine($"Loaded GameplaySettings from \"{settingsPath}\".");
             }
 
-            configuration.GameplaySettings.CustomItemList = ConvertIntString(configuration.GameplaySettings.CustomItemListString);
-            configuration.GameplaySettings.CustomStartingItemList = ConvertItemString(ItemUtils.StartingItems().Where(item => !item.Name().Contains("Heart")).ToList(), configuration.GameplaySettings.CustomStartingItemListString);
-            configuration.GameplaySettings.CustomJunkLocations = ConvertItemString(ItemUtils.AllLocations().ToList(), configuration.GameplaySettings.CustomJunkLocationsString);
+            configuration.GameplaySettings.CustomItemList = ConvertIntString(configuration.GameplaySettings.CustomItemListString ?? string.Empty);
+            configuration.GameplaySettings.CustomStartingItemList = ConvertItemString(ItemUtils.StartingItems().Where(item => !item.Name().Contains("Heart")).ToList(), configuration.GameplaySettings.CustomStartingItemListString ?? string.Empty);
+            configuration.GameplaySettings.CustomJunkLocations = ConvertItemString(ItemUtils.AllLocations().ToList(), configuration.GameplaySettings.CustomJunkLocationsString ?? string.Empty);
 
             configuration.OutputSettings.GeneratePatch |= argsDictionary.ContainsKey("-patch");
             configuration.OutputSettings.GenerateSpoilerLog |= argsDictionary.ContainsKey("-spoiler");
@@ -118,7 +118,7 @@ namespace MMR.CLI
                 configuration.OutputSettings.OutputROMFilename = outputArg.SingleOrDefault();
             }
             configuration.OutputSettings.OutputROMFilename ??= Path.Combine("output", FileUtils.MakeFilenameValid(DateTime.UtcNow.ToString("o")));
-            if (Path.GetExtension(configuration.OutputSettings.OutputROMFilename) != "z64")
+            if (Path.GetExtension(configuration.OutputSettings.OutputROMFilename) != ".z64")
             {
                 configuration.OutputSettings.OutputROMFilename += ".z64";
             }

@@ -496,20 +496,20 @@ namespace MMR.Randomizer.Utils
 
             }
 
-            // DEBUG spoiler log output
-            String dir = Path.GetDirectoryName(_settings.OutputROMFilename);
-            String path = $"{Path.GetFileNameWithoutExtension(_settings.OutputROMFilename)}";
-            // spoiler log should already be written by the time we reach this far
-            if (File.Exists(Path.Combine(dir, path + "_SpoilerLog.txt")))
-                path += "_SpoilerLog.txt";
-            else // TODO add HTML log compatibility
-                path += "_SongLog.txt";
+            //// DEBUG spoiler log output
+            //String dir = Path.GetDirectoryName(_settings.OutputROMFilename);
+            //String path = $"{Path.GetFileNameWithoutExtension(_settings.OutputROMFilename)}";
+            //// spoiler log should already be written by the time we reach this far
+            //if (File.Exists(Path.Combine(dir, path + "_SpoilerLog.txt")))
+            //    path += "_SpoilerLog.txt";
+            //else // TODO add HTML log compatibility
+            //    path += "_SongLog.txt";
 
-            using (StreamWriter sw = new StreamWriter(Path.Combine(dir, path), append: true))
-            {
-                sw.WriteLine(""); // spacer
-                sw.Write(log);
-            }
+            //using (StreamWriter sw = new StreamWriter(Path.Combine(dir, path), append: true))
+            //{
+            //    sw.WriteLine(""); // spacer
+            //    sw.Write(log);
+            //}
 
 
         }

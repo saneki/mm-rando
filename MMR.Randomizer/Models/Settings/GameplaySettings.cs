@@ -539,6 +539,18 @@ namespace MMR.Randomizer.Models.Settings
             {
                 return "User Logic not found or invalid, please load User Logic or change logic mode.";
             }
+            if (CustomItemList == null)
+            {
+                return "Invalid custom item list.";
+            }
+            if (CustomStartingItemList == null)
+            {
+                return "Invalid custom starting item list.";
+            }
+            if (CustomJunkLocations == null)
+            {
+                return "Invalid junk locations list.";
+            }
             return null;
         }
 
