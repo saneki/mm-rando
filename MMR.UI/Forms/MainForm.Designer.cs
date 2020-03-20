@@ -1053,7 +1053,7 @@ namespace MMR.UI.Forms
             this.cMusic.Items.AddRange(new object[] {
             "Default",
             "Random",
-            "None (Risky)"});
+            "None"});
             this.cMusic.Location = new System.Drawing.Point(107, 74);
             this.cMusic.Name = "cMusic";
             this.cMusic.Size = new System.Drawing.Size(244, 21);
