@@ -10,7 +10,7 @@
 ;   ori     t6, a1, 0x0004
 ;   c.lt.s  f4, f6
 ;   nop
-;   bc1f    0x8099CE98, offset: 0xC08
+;   bc1f    0x8099CE98
 ;   nop
 .org 0x8099CE04
 .area 0x1C
