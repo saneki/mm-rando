@@ -2,6 +2,9 @@
 
 user='vagrant'
 
+# Update keyring
+pacman -Sy --noconfirm --noprogressbar archlinux-keyring
+
 # Install packages
 pacman -Syu --noconfirm --noprogressbar \
 base-devel git lib32-gcc-libs python wget
