@@ -386,7 +386,7 @@ namespace MMR.UI.Forms
         {
             if (openLogic.ShowDialog() == DialogResult.OK)
             {
-                using (var logicFile = new StreamReader(File.Open(openLogic.FileName, FileMode.Open)))
+                using (var logicFile = new StreamReader(File.OpenRead(openLogic.FileName)))
                 {
                     var logicString = logicFile.ReadToEnd();
                     LoadLogic(logicString);
@@ -398,7 +398,7 @@ namespace MMR.UI.Forms
         {
             if (saveLogic.ShowDialog() == DialogResult.OK)
             {
-                StreamWriter LogicFile = new StreamWriter(File.Open(saveLogic.FileName, FileMode.Create));
+                StreamWriter LogicFile = new StreamWriter(File.OpenWrite(saveLogic.FileName));
                 LogicFile.WriteLine($"-version {Migrator.CurrentVersion}");
                 for (int i = 0; i < ItemList.Count; i++)
                 {

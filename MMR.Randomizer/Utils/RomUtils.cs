@@ -42,7 +42,7 @@ namespace MMR.Randomizer.Utils
         public static int AddNewFile(string path, string filename)
         {
             byte[] buffer;
-            using (BinaryReader data = new BinaryReader(File.Open(Path.Combine(path, filename), FileMode.Open)))
+            using (BinaryReader data = new BinaryReader(File.OpenRead(Path.Combine(path, filename))))
             {
                 int len = (int)data.BaseStream.Length;
                 buffer = new byte[len];
@@ -107,7 +107,7 @@ namespace MMR.Randomizer.Utils
 
         public static int ByteswapROM(string filename)
         {
-            using (BinaryReader ROM = new BinaryReader(File.Open(filename, FileMode.Open)))
+            using (BinaryReader ROM = new BinaryReader(File.OpenRead(filename)))
             {
                 if (ROM.BaseStream.Length % 4 != 0)
                 {
@@ -124,7 +124,7 @@ namespace MMR.Randomizer.Utils
                 }
                 else if (buffer[1] == 0x80)
                 {
-                    using (BinaryWriter newROM = new BinaryWriter(File.Open(filename + ".z64", FileMode.Create)))
+                    using (BinaryWriter newROM = new BinaryWriter(File.OpenWrite(filename + ".z64")))
                     {
                         while (ROM.BaseStream.Position < ROM.BaseStream.Length)
                         {
@@ -135,7 +135,7 @@ namespace MMR.Randomizer.Utils
                 }
                 else if (buffer[3] == 0x80)
                 {
-                    using (BinaryWriter newROM = new BinaryWriter(File.Open(filename + ".z64", FileMode.Create)))
+                    using (BinaryWriter newROM = new BinaryWriter(File.OpenWrite(filename + ".z64")))
                     {
                         while (ROM.BaseStream.Position < ROM.BaseStream.Length)
                         {
@@ -163,7 +163,7 @@ namespace MMR.Randomizer.Utils
         public static byte[] CreatePatch(string filename, List<MMFile> originalMMFiles)
         {
             var hashAlg = new SHA256Managed();
-            using (var outStream = filename != null ? (Stream) File.Open(Path.ChangeExtension(filename, "mmr"), FileMode.Create) : new MemoryStream())
+            using (var outStream = filename != null ? (Stream) File.OpenWrite(Path.ChangeExtension(filename, "mmr")) : new MemoryStream())
             using (var cryptoStream = new CryptoStream(outStream, hashAlg, CryptoStreamMode.Write))
             {
                 using (var compressStream = new GZipStream(cryptoStream, CompressionMode.Compress))
@@ -243,7 +243,7 @@ namespace MMR.Randomizer.Utils
         public static byte[] ApplyPatch(string filename)
         {
             var hashAlg = new SHA256Managed();
-            using (var filestream = File.Open(filename, FileMode.Open))
+            using (var filestream = File.OpenRead(filename))
             using (var cryptoStream = new CryptoStream(filestream, hashAlg, CryptoStreamMode.Read))
             using (var decompressStream = new GZipStream(cryptoStream, CompressionMode.Decompress))
             using (var memoryStream = new MemoryStream())
@@ -301,7 +301,7 @@ namespace MMR.Randomizer.Utils
 
         public static void WriteROM(string fileName, byte[] ROM)
         {
-            using (BinaryWriter writer = new BinaryWriter(File.Open(fileName, FileMode.Create)))
+            using (BinaryWriter writer = new BinaryWriter(File.OpenWrite(fileName)))
             {
                 writer.Write(ROM, 0, ROM.Length);
             }
@@ -454,7 +454,7 @@ namespace MMR.Randomizer.Utils
         public static bool ValidateROM(string FileName)
         {
             bool res = false;
-            using (BinaryReader ROM = new BinaryReader(File.Open(FileName, FileMode.Open, FileAccess.Read)))
+            using (BinaryReader ROM = new BinaryReader(File.OpenRead(FileName)))
             {
                 if (ROM.BaseStream.Length == 0x2000000)
                 {

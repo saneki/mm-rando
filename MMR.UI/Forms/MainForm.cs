@@ -1237,7 +1237,7 @@ namespace MMR.UI.Forms
                 _configuration.GameplaySettings.UserLogicFileName = null;
                 if (_configuration.GameplaySettings.LogicMode == LogicMode.UserLogic && logicFilePath != null && File.Exists(logicFilePath))
                 {
-                    using (StreamReader Req = new StreamReader(File.Open(logicFilePath, FileMode.Open)))
+                    using (StreamReader Req = new StreamReader(File.OpenRead(logicFilePath)))
                     {
                         _configuration.GameplaySettings.Logic = Req.ReadToEnd();
                         if (_configuration.GameplaySettings.Logic.StartsWith("{"))
@@ -1252,7 +1252,7 @@ namespace MMR.UI.Forms
                     GameplaySettings = _configuration.GameplaySettings,
                 };
             }
-            using (var settingsFile = new StreamWriter(File.Open(path, FileMode.Create)))
+            using (var settingsFile = new StreamWriter(File.OpenWrite(path)))
             {
                 settingsFile.Write(configurationToSave.ToString());
             }
@@ -1269,7 +1269,7 @@ namespace MMR.UI.Forms
             if (File.Exists(path))
             {
                 Configuration newConfiguration;
-                using (StreamReader Req = new StreamReader(File.Open(path, FileMode.Open)))
+                using (StreamReader Req = new StreamReader(File.OpenRead(path)))
                 {
                     newConfiguration = Configuration.FromJson(Req.ReadToEnd());
                 }

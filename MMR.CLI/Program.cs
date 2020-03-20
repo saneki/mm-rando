@@ -270,7 +270,7 @@ namespace MMR.CLI
             //    configuration.GameplaySettings.UserLogicFileName = null;
             //    if (configuration.GameplaySettings.LogicMode == LogicMode.UserLogic && logicFilePath != null && File.Exists(logicFilePath))
             //    {
-            //        using (StreamReader Req = new StreamReader(File.Open(logicFilePath, FileMode.Open)))
+            //        using (StreamReader Req = new StreamReader(File.OpenRead(logicFilePath)))
             //        {
             //            configuration.GameplaySettings.Logic = Req.ReadToEnd();
             //            if (configuration.GameplaySettings.Logic.StartsWith("{"))
@@ -285,7 +285,7 @@ namespace MMR.CLI
             //        GameplaySettings = configuration.GameplaySettings,
             //    };
             //}
-            using (var settingsFile = new StreamWriter(File.Open(path, FileMode.Create)))
+            using (var settingsFile = new StreamWriter(File.OpenWrite(path)))
             {
                 settingsFile.Write(configuration.ToString());
             }
@@ -302,7 +302,7 @@ namespace MMR.CLI
             if (File.Exists(path))
             {
                 Configuration configuration;
-                using (StreamReader Req = new StreamReader(File.Open(path, FileMode.Open)))
+                using (StreamReader Req = new StreamReader(File.OpenRead(path)))
                 {
                     configuration = Configuration.FromJson(Req.ReadToEnd());
                 }
