@@ -110,9 +110,11 @@ static u8 models_fix_graphic_id(u8 graphic) {
  * Get the Get-Item table entry for a specific index, and optionally load relevant entry values
  * into a model structure for drawing.
  **/
-static mmr_gi_t * models_prepare_gi_entry(struct model *model, z2_game_t *game, u32 gi_index) {
-    u32 index = mmr_GetNewGiIndex_stub(game, gi_index, false);
-    mmr_gi_t *entry = mmr_get_gi_entry(index);
+static mmr_gi_t * models_prepare_gi_entry(struct model *model, z2_game_t *game, u32 gi_index, bool resolve) {
+    if (resolve) {
+        gi_index = mmr_GetNewGiIndex_stub(game, gi_index, false);
+    }
+    mmr_gi_t *entry = mmr_get_gi_entry(gi_index);
 
     if (model != NULL) {
         u8 graphic = models_fix_graphic_id(entry->graphic);
@@ -128,7 +130,7 @@ static mmr_gi_t * models_prepare_gi_entry(struct model *model, z2_game_t *game, 
  **/
 static void models_draw_from_gi_table(z2_actor_t *actor, z2_game_t *game, f32 scale, u32 gi_index) {
     struct model model;
-    mmr_gi_t *entry = models_prepare_gi_entry(&model, game, gi_index);
+    mmr_gi_t *entry = models_prepare_gi_entry(&model, game, gi_index, true);
 
     z2_CallSetupDList(z2_game.common.gfx);
     draw_model(model, actor, game, scale);
@@ -140,7 +142,7 @@ static void models_draw_from_gi_table(z2_actor_t *actor, z2_game_t *game, f32 sc
  **/
 static bool models_set_loaded_actor_model(struct model *model, z2_actor_t *actor, z2_game_t *game, u32 gi_index) {
     if (!loaded_models_get_actor_model(model, NULL, actor)) {
-        mmr_gi_t *entry = models_prepare_gi_entry(model, game, gi_index);
+        mmr_gi_t *entry = models_prepare_gi_entry(model, game, gi_index, true);
         loaded_models_add_actor_model(*model, entry, actor);
         return true;
     } else {
@@ -338,7 +340,7 @@ static bool models_is_moons_tear_model(struct model model) {
 static bool models_should_override_moons_tear_draw(z2_actor_t *actor, z2_game_t *game) {
     // Check if a vanilla Moon's Tear is being drawn.
     struct model model;
-    mmr_gi_t *entry = models_prepare_gi_entry(&model, game, 0x96);
+    mmr_gi_t *entry = models_prepare_gi_entry(&model, game, 0x96, true);
     return !models_is_moons_tear_model(model);
 }
 
@@ -364,7 +366,20 @@ void models_before_moons_tear_main(z2_actor_t *actor, z2_game_t *game) {
 bool models_draw_moons_tear(z2_actor_t *actor, z2_game_t *game) {
     bool draw = models_should_override_moons_tear_draw(actor, game);
     if (g_models_test && draw) {
-        models_draw_from_gi_table(actor, game, 1.0, 0x96);
+        struct model model;
+        bool resolve;
+
+        if (actor->variable == 0) {
+            // Moon's Tear on display in observatory (not collectible).
+            resolve = false;
+        } else {
+            // Moon's Tear on ground outside observatory (collectible).
+            resolve = true;
+        }
+
+        mmr_gi_t *entry = models_prepare_gi_entry(&model, game, 0x96, resolve);
+        z2_CallSetupDList(z2_game.common.gfx);
+        draw_model(model, actor, game, 1.0);
         return true;
     } else {
         return false;
@@ -396,7 +411,7 @@ static bool models_is_seahorse_model(struct model model) {
 static bool models_should_override_seahorse_draw(z2_actor_t *actor, z2_game_t *game) {
     // Check if a vanilla Seahorse is being drawn.
     struct model model;
-    mmr_gi_t *entry = models_prepare_gi_entry(&model, game, 0x95);
+    mmr_gi_t *entry = models_prepare_gi_entry(&model, game, 0x95, true);
     // Ensure that only the fishtank Seahorse is being drawn over.
     bool is_fishtank = actor->variable == 0xFFFF;
     return is_fishtank && !models_is_seahorse_model(model);
