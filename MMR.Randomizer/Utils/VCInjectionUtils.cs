@@ -28,7 +28,7 @@ namespace MMR.Randomizer.Utils
         {
             BinaryReader a50 = new BinaryReader(File.OpenRead(Path.Combine(VCDir, "5-0")));
             BinaryReader a51 = new BinaryReader(File.OpenRead(Path.Combine(VCDir, "5-1")));
-            BinaryWriter app5 = new BinaryWriter(File.OpenWrite(Path.Combine(VCDir, "00000005.app")));
+            BinaryWriter app5 = new BinaryWriter(File.Open(Path.Combine(VCDir, "00000005.app"), FileMode.Create));
             byte[] buffer = new byte[a50.BaseStream.Length];
             a50.Read(buffer, 0, buffer.Length);
             app5.Write(buffer);

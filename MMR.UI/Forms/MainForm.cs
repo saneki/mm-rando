@@ -1252,7 +1252,7 @@ namespace MMR.UI.Forms
                     GameplaySettings = _configuration.GameplaySettings,
                 };
             }
-            using (var settingsFile = new StreamWriter(File.OpenWrite(path)))
+            using (var settingsFile = new StreamWriter(File.Open(path, FileMode.Create)))
             {
                 settingsFile.Write(configurationToSave.ToString());
             }

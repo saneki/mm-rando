@@ -124,7 +124,7 @@ namespace MMR.Randomizer.Utils
                 }
                 else if (buffer[1] == 0x80)
                 {
-                    using (BinaryWriter newROM = new BinaryWriter(File.OpenWrite(filename + ".z64")))
+                    using (BinaryWriter newROM = new BinaryWriter(File.Open(filename + ".z64", FileMode.Create)))
                     {
                         while (ROM.BaseStream.Position < ROM.BaseStream.Length)
                         {
@@ -135,7 +135,7 @@ namespace MMR.Randomizer.Utils
                 }
                 else if (buffer[3] == 0x80)
                 {
-                    using (BinaryWriter newROM = new BinaryWriter(File.OpenWrite(filename + ".z64")))
+                    using (BinaryWriter newROM = new BinaryWriter(File.Open(filename + ".z64", FileMode.Create)))
                     {
                         while (ROM.BaseStream.Position < ROM.BaseStream.Length)
                         {
@@ -163,7 +163,7 @@ namespace MMR.Randomizer.Utils
         public static byte[] CreatePatch(string filename, List<MMFile> originalMMFiles)
         {
             var hashAlg = new SHA256Managed();
-            using (var outStream = filename != null ? (Stream) File.OpenWrite(Path.ChangeExtension(filename, "mmr")) : new MemoryStream())
+            using (var outStream = filename != null ? (Stream) File.Open(Path.ChangeExtension(filename, "mmr"), FileMode.Create) : new MemoryStream())
             using (var cryptoStream = new CryptoStream(outStream, hashAlg, CryptoStreamMode.Write))
             {
                 using (var compressStream = new GZipStream(cryptoStream, CompressionMode.Compress))
@@ -301,7 +301,7 @@ namespace MMR.Randomizer.Utils
 
         public static void WriteROM(string fileName, byte[] ROM)
         {
-            using (BinaryWriter writer = new BinaryWriter(File.OpenWrite(fileName)))
+            using (BinaryWriter writer = new BinaryWriter(File.Open(fileName, FileMode.Create)))
             {
                 writer.Write(ROM, 0, ROM.Length);
             }

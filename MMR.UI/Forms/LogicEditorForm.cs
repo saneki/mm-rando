@@ -398,7 +398,7 @@ namespace MMR.UI.Forms
         {
             if (saveLogic.ShowDialog() == DialogResult.OK)
             {
-                StreamWriter LogicFile = new StreamWriter(File.OpenWrite(saveLogic.FileName));
+                StreamWriter LogicFile = new StreamWriter(File.Open(saveLogic.FileName, FileMode.Create));
                 LogicFile.WriteLine($"-version {Migrator.CurrentVersion}");
                 for (int i = 0; i < ItemList.Count; i++)
                 {
