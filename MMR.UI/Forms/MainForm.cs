@@ -474,14 +474,6 @@ namespace MMR.UI.Forms
         private void cSpoiler_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _configuration.OutputSettings.GenerateSpoilerLog = cSpoiler.Checked);
-            UpdateSingleSetting(() => cHTMLLog.Enabled = cSpoiler.Checked);
-
-            if (cHTMLLog.Checked)
-            {
-                cHTMLLog.Checked = false;
-                UpdateSingleSetting(() => _configuration.OutputSettings.GenerateHTMLLog = false);
-            }
-
         }
 
         private bool _drawHashChecked;
@@ -891,6 +883,7 @@ namespace MMR.UI.Forms
                 cBottled.Enabled = false;
                 cShop.Enabled = false;
                 cSpoiler.Enabled = false;
+                cHTMLLog.Enabled = false;
                 cGossipHints.Enabled = false;
                 cAdditional.Enabled = false;
                 cUserItems.Enabled = false;
@@ -912,6 +905,7 @@ namespace MMR.UI.Forms
                 cMixSongs.Enabled = onMainTab;
                 cDEnt.Enabled = onMainTab;
                 cSpoiler.Enabled = onMainTab;
+                cHTMLLog.Enabled = onMainTab;
                 cGossipHints.Enabled = onMainTab;
                 cUserItems.Enabled = onMainTab;
 
@@ -947,7 +941,6 @@ namespace MMR.UI.Forms
             }
 
             bLoadLogic.Enabled = _configuration.GameplaySettings.LogicMode == LogicMode.UserLogic;
-            cHTMLLog.Enabled = onMainTab && _configuration.OutputSettings.GenerateSpoilerLog;
 
             var oldEnabled = cDrawHash.Enabled;
             cDrawHash.Enabled = onMainTab && !_configuration.OutputSettings.GeneratePatch && (_configuration.OutputSettings.GenerateROM || _configuration.OutputSettings.OutputVC);
