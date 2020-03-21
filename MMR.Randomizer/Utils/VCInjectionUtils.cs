@@ -54,7 +54,7 @@ namespace MMR.Randomizer.Utils
             PatchApp1(dpadConfig, VCDir);
             ProcessStartInfo p = new ProcessStartInfo
             {
-                FileName = "wadpacker.exe",
+                FileName = "wadpacker",
                 Arguments = "mm.tik mm.tmd mm.cert \"" + FileName + "\" -i NMRE",
                 WorkingDirectory = VCDir,
                 UseShellExecute = true,
@@ -69,7 +69,7 @@ namespace MMR.Randomizer.Utils
         /// <param name="VCDir">VC directory</param>
         private static void PatchApp1(DPadConfig config, string VCDir)
         {
-            using (var app1 = new BinaryWriter(File.OpenRead(Path.Combine(VCDir, "00000001.app"))))
+            using (var app1 = new BinaryWriter(File.OpenWrite(Path.Combine(VCDir, "00000001.app"))))
             {
                 var used = config.InUse;
                 var buttons = new VCControllerButton[]
