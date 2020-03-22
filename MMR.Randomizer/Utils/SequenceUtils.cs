@@ -317,6 +317,7 @@ namespace MMR.Randomizer.Utils
             ReenableNightBGMSingle(1330); // great bay coast
             ReenableNightBGMSingle(1276); // pinnacle rock
             ReenableNightBGMSingle(1332); // great bay cape
+            ReenableNightBGMSingle(1386); // waterfall rapids (beavers)
 
             ReenableNightBGMSingle(1431); // road to ikana
 
