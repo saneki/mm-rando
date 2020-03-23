@@ -115,6 +115,17 @@ void misc_get_spider_house_shelves_speed(z2_actor_t *actor, z2_game_t *game, str
 }
 
 /**
+ * Hook function to get speed of Oceanside Spider House shelves (when pulled outward, pushed inward).
+ **/
+f32 misc_get_spider_house_shelves_outward_speed(z2_actor_t *actor, z2_game_t *game) {
+    if (!MISC_CONFIG.fast_push) {
+        return 0.022;
+    } else {
+        return 0.066;
+    }
+}
+
+/**
  * Hook function to get speed of Ikana pushblock.
  **/
 void misc_get_ikana_pushblock_speed(z2_actor_t *actor, z2_game_t *game, struct ikana_speed *dest) {

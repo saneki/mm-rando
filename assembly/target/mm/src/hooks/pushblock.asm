@@ -162,6 +162,14 @@
     jal     misc_get_spider_house_shelves_speed_hook
     ori     a2, r0, 1
 
+; Adjust speed of smaller shelves (when pulled outward, pushed inward).
+; Replaces:
+;   lui     at, 0x80B7
+;   lwc1    f12, 0x07A4 (at)
+.org 0x80B70508
+    jal     misc_get_spider_house_shelves_outward_speed_hook
+    or      a0, s0, r0
+
 ; Remove relocations for hooks.
 .org 0x80B70848
 .area 0x20, 0
@@ -173,6 +181,12 @@
     .dw 0x00000000 ; Replaces: 0x450007A8
     .dw 0x00000000 ; Replaces: 0x450007AC
     .dw 0x00000000 ; Replaces: 0x450007B0
+.endarea
+
+.org 0x80B70884
+.area 0x8, 0
+    .dw 0x00000000 ; Replaces: 0x450009D8
+    .dw 0x00000000 ; Replaces: 0x450009DC
 .endarea
 
 ;==================================================================================================

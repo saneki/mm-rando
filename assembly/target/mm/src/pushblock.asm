@@ -96,6 +96,24 @@ misc_get_spider_house_shelves_speed_hook:
     jr      ra
     addiu   sp, sp, 0x28
 
+misc_get_spider_house_shelves_outward_speed_hook:
+    lw      a1, 0x004C (sp)
+
+    addiu   sp, sp, -0x18
+    sw      ra, 0x0014 (sp)
+
+    jal     misc_get_spider_house_shelves_outward_speed
+    swc1    f0, 0x0010 (sp)
+
+    ; Place return value in F12
+    mfc1    at, f0
+    mtc1    at, f12
+
+    lwc1    f0, 0x0010 (sp)
+    lw      ra, 0x0014 (sp)
+    jr      ra
+    addiu   sp, sp, 0x18
+
 misc_get_ikana_pushblock_speed_hook:
     addiu   sp, sp, -0x20
     sw      ra, 0x0018 (sp)
