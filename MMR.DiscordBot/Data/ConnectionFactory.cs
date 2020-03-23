@@ -1,4 +1,5 @@
-﻿using ServiceStack.OrmLite;
+﻿using MMR.DiscordBot.Data.Entities;
+using ServiceStack.OrmLite;
 using System;
 using System.Collections.Generic;
 using System.Text;
