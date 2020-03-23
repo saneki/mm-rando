@@ -89,9 +89,9 @@ namespace MMR.CLI
                 Console.WriteLine($"Loaded GameplaySettings from \"{settingsPath}\".");
             }
 
-            configuration.GameplaySettings.CustomItemList = ConvertIntString(configuration.GameplaySettings.CustomItemListString ?? string.Empty);
-            configuration.GameplaySettings.CustomStartingItemList = ConvertItemString(ItemUtils.StartingItems().Where(item => !item.Name().Contains("Heart")).ToList(), configuration.GameplaySettings.CustomStartingItemListString ?? string.Empty);
-            configuration.GameplaySettings.CustomJunkLocations = ConvertItemString(ItemUtils.AllLocations().ToList(), configuration.GameplaySettings.CustomJunkLocationsString ?? string.Empty);
+            configuration.GameplaySettings.CustomItemList = ConvertIntString(configuration.GameplaySettings.CustomItemListString);
+            configuration.GameplaySettings.CustomStartingItemList = ConvertItemString(ItemUtils.StartingItems().Where(item => !item.Name().Contains("Heart")).ToList(), configuration.GameplaySettings.CustomStartingItemListString);
+            configuration.GameplaySettings.CustomJunkLocations = ConvertItemString(ItemUtils.AllLocations().ToList(), configuration.GameplaySettings.CustomJunkLocationsString);
 
             configuration.OutputSettings.GeneratePatch |= argsDictionary.ContainsKey("-patch");
             configuration.OutputSettings.GenerateSpoilerLog |= argsDictionary.ContainsKey("-spoiler");
@@ -176,6 +176,10 @@ namespace MMR.CLI
         private static List<int> ConvertIntString(string c)
         {
             var result = new List<int>();
+            if (string.IsNullOrWhiteSpace(c))
+            {
+                return result;
+            }
             try
             {
                 result.Clear();
@@ -183,7 +187,6 @@ namespace MMR.CLI
                 int[] vi = new int[13];
                 if (v.Length != vi.Length)
                 {
-                    result.Add(-1);
                     return null;
                 }
                 for (int i = 0; i < 13; i++)
@@ -209,8 +212,7 @@ namespace MMR.CLI
             }
             catch
             {
-                result.Clear();
-                result.Add(-1);
+                return null;
             }
             return result;
         }
@@ -219,14 +221,16 @@ namespace MMR.CLI
         {
             var sectionCount = (int)Math.Ceiling(items.Count / 32.0);
             var result = new List<Item>();
+            if (string.IsNullOrWhiteSpace(c))
+            {
+                return result;
+            }
             try
             {
-                result.Clear();
                 string[] v = c.Split('-');
                 int[] vi = new int[sectionCount];
                 if (v.Length != vi.Length)
                 {
-                    //result.Add(-1);
                     return null;
                 }
                 for (int i = 0; i < sectionCount; i++)
@@ -252,8 +256,7 @@ namespace MMR.CLI
             }
             catch
             {
-                result.Clear();
-                //result.Add(-1);
+                return null;
             }
             return result;
         }

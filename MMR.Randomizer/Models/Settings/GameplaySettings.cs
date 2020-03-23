@@ -539,7 +539,7 @@ namespace MMR.Randomizer.Models.Settings
             {
                 return "User Logic not found or invalid, please load User Logic or change logic mode.";
             }
-            if (CustomItemList == null)
+            if (UseCustomItemList && CustomItemList == null)
             {
                 return "Invalid custom item list.";
             }
