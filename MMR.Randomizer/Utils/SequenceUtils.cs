@@ -10,6 +10,8 @@ using System.Diagnostics;
 using System.IO.Compression;
 using MMR.Randomizer.Models.Settings;
 
+
+
 namespace MMR.Randomizer.Utils
 {
     public class SequenceUtils
@@ -123,75 +125,81 @@ namespace MMR.Randomizer.Utils
             foreach (String filePath in Directory.GetFiles(directory, "*.zseq"))
             {
                 String filename = Path.GetFileName(filePath);
-
-                // test if file has enough delimiters to separate data into name_bank_formats
-                String[] pieces = filename.Split('_');
-                if (pieces.Length != 3)
+                try
                 {
-                    continue;
-                }
-
-                byte[] input_seq_data = null;
-                using (BinaryReader bank_reader = new BinaryReader(File.OpenRead(Path.Combine(directory , filename))))
-                {
-                    input_seq_data = new byte[((int)bank_reader.BaseStream.Length)];
-                    bank_reader.Read(input_seq_data, 0, (int)bank_reader.BaseStream.Length);
-                }
-
-
-                SequenceBinaryData sequence_data = null;
-                InstrumentSetInfo instrumnet_info = null;
-                if (pieces[1].Contains("x")) //temporary, we can remove this now that we have MMRS, but maybe don't remove just yet
-                {
-                    // load the custom bank for this file
-                    byte[] input_bank_data = null;
-                    String bank_name = filename.Substring(0, filename.LastIndexOf(".zseq")) + ".zbank";
-                    using (BinaryReader bank_reader = new BinaryReader(File.OpenRead(Path.Combine(directory , bank_name))))
+                    // test if file has enough delimiters to separate data into name_bank_formats
+                    String[] pieces = filename.Split('_');
+                    if (pieces.Length != 3)
                     {
-                        input_bank_data = new byte[((int)bank_reader.BaseStream.Length)];
-                        bank_reader.Read(input_bank_data, 0, (int)bank_reader.BaseStream.Length);
+                        continue;
+                    }
+                    var sourceName = filename;
+                    var sourceTypeString = pieces[2].Substring(0, pieces[2].Length - 5);
+                    var sourceInstrument = Convert.ToInt32(pieces[1], 16);
+
+                    byte[] input_seq_data = null;
+                    using (BinaryReader bank_reader = new BinaryReader(File.OpenRead(Path.Combine(directory , filename))))
+                    {
+                        input_seq_data = new byte[((int)bank_reader.BaseStream.Length)];
+                        bank_reader.Read(input_seq_data, 0, (int)bank_reader.BaseStream.Length);
                     }
 
-                    byte[] meta_data = new byte[8];
-                    using (BinaryReader meta_reader = new BinaryReader(File.OpenRead(Path.Combine(directory , bank_name.Substring(0, bank_name.LastIndexOf(".zbank")) + ".bankmeta"))))
-                        meta_reader.Read(meta_data, 0, meta_data.Length);
 
-                    pieces[1] = pieces[1].Replace("x", "");
-
-                    instrumnet_info = new InstrumentSetInfo()
+                    SequenceBinaryData sequence_data = null;
+                    InstrumentSetInfo instrumnet_info = null;
+                    if (pieces[1].Contains("x")) //temporary, we can remove this now that we have MMRS, but maybe don't remove just yet
                     {
-                        BankBinary = input_bank_data,
-                        BankMetaData = meta_data,
-                        BankSlot = Convert.ToInt32(pieces[1], 16),
-                        Modified = true
+                        // load the custom bank for this file
+                        byte[] input_bank_data = null;
+                        String bank_name = filename.Substring(0, filename.LastIndexOf(".zseq")) + ".zbank";
+                        using (BinaryReader bank_reader = new BinaryReader(File.OpenRead(Path.Combine(directory , bank_name))))
+                        {
+                            input_bank_data = new byte[((int)bank_reader.BaseStream.Length)];
+                            bank_reader.Read(input_bank_data, 0, (int)bank_reader.BaseStream.Length);
+                        }
+
+                        byte[] meta_data = new byte[8];
+                        using (BinaryReader meta_reader = new BinaryReader(File.OpenRead(Path.Combine(directory , bank_name.Substring(0, bank_name.LastIndexOf(".zbank")) + ".bankmeta"))))
+                            meta_reader.Read(meta_data, 0, meta_data.Length);
+
+                        pieces[1] = pieces[1].Replace("x", "");
+
+                        instrumnet_info = new InstrumentSetInfo()
+                        {
+                            BankBinary = input_bank_data,
+                            BankMetaData = meta_data,
+                            BankSlot = Convert.ToInt32(pieces[1], 16),
+                            Modified = true
+                        };
+                    }
+
+                    sequence_data = new SequenceBinaryData
+                    {
+                        SequenceBinary = input_seq_data,
+                        InstrumentSet = instrumnet_info
                     };
+
+
+                    //var sourceType = Array.ConvertAll(sourceTypeString.Split('-'), int.Parse).ToList();
+                    List<int> sourceType = new List<int>();
+                    foreach (String part in sourceTypeString.Split('-'))
+                        sourceType.Add(Convert.ToInt32(part, 16));
+
+                    SequenceInfo sourceSequence = new SequenceInfo
+                    {
+                        Name = sourceName,
+                        Type = sourceType,
+                        Instrument = sourceInstrument,
+                        SequenceBinaryList = new List<SequenceBinaryData>() { sequence_data }
+                    };
+
+                    RomData.SequenceList.Add(sourceSequence);
+
                 }
-
-                sequence_data = new SequenceBinaryData
+                catch (FormatException)
                 {
-                    SequenceBinary = input_seq_data,
-                    InstrumentSet = instrumnet_info
-                };
-
-
-                var sourceName = filename;
-                var sourceTypeString = pieces[2].Substring(0, pieces[2].Length - 5);
-                var sourceInstrument = Convert.ToInt32(pieces[1], 16);
-                //var sourceType = Array.ConvertAll(sourceTypeString.Split('-'), int.Parse).ToList();
-                List<int> sourceType = new List<int>();
-                foreach (String part in sourceTypeString.Split('-'))
-                    sourceType.Add(Convert.ToInt32(part, 16));
-
-                SequenceInfo sourceSequence = new SequenceInfo
-                {
-                    Name = sourceName,
-                    Type = sourceType,
-                    Instrument = sourceInstrument,
-                    SequenceBinaryList = new List<SequenceBinaryData>() { sequence_data }
-                };
-
-
-                RomData.SequenceList.Add(sourceSequence);
+                    throw new Exception("Music: Filename is unparsable: " + filename);
+                }
             }
         }
 
