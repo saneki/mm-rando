@@ -14,6 +14,7 @@ struct misc_config MISC_CONFIG = {
 
     // Version 1 flags
     .close_cows = 1,
+    .freestanding = 1,
 };
 
 union faucet_speed {
