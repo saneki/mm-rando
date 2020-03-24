@@ -36,7 +36,35 @@ void quest_items_after_removal(u8 item, u8 slot) {
 
 void quest_items_after_song_of_time_clear(void) {
     // After Song of Time, clear quest items in storage.
-    quest_item_storage_clear(&SAVE_FILE_CONFIG.quest_storage);
+    if (MISC_CONFIG.quest_consume != QUEST_CONSUME_NEVER) {
+        quest_item_storage_clear(&SAVE_FILE_CONFIG.quest_storage);
+    }
+}
+
+/**
+ * Hook function used to check if a quest item's inventory slot should be cleared during Song of Time.
+ **/
+void quest_items_clear_inventory_item_sot(u8 item, u8 slot) {
+    if (MISC_CONFIG.quest_consume != QUEST_CONSUME_NEVER) {
+        // Does not remove from quest item storage since a separate hook does that.
+        // (The item Id passed to this function is not correct, so we couldn't do that anyways).
+        z2_RemoveItem(item, slot);
+    }
+}
+
+/**
+ * Hook function to be used as a wrapper around existing calls to z2_RemoveItem which are used to
+ * remove quest items.
+ **/
+void quest_items_try_remove_item(u8 item, u8 slot) {
+    if (IS_QUEST_ITEM(item) && IS_QUEST_SLOT(slot)) {
+        if (MISC_CONFIG.quest_consume != QUEST_CONSUME_NEVER) {
+            z2_RemoveItem(item, slot);
+            quest_item_storage_remove(&SAVE_FILE_CONFIG.quest_storage, item);
+        }
+    } else {
+        z2_RemoveItem(item, slot);
+    }
 }
 
 bool quest_items_get_slot(int *slot, u8 item) {
@@ -55,4 +83,17 @@ bool quest_items_door_check(z2_game_t *game, u8 item, u8 slot) {
 
 bool quest_items_time_tag_check(z2_actor_t *actor, z2_game_t *game, u8 item, u8 slot) {
     return check_inventory_slot(item, slot);
+}
+
+/**
+ * Helper function for removing quest items from both inventory and storage.
+ **/
+bool quest_items_remove(u8 item) {
+    int slot;
+    if (quest_items_get_slot(&slot, item)) {
+        z2_RemoveItem(item, (u8)slot);
+        return quest_item_storage_remove(&SAVE_FILE_CONFIG.quest_storage, item);
+    } else {
+        return false;
+    }
 }

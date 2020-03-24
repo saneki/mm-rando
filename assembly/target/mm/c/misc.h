@@ -18,6 +18,12 @@ enum crit_wiggle_state {
     CRIT_WIGGLE_ALWAYS_OFF,
 };
 
+enum quest_consume_state {
+    QUEST_CONSUME_DEFAULT,
+    QUEST_CONSUME_ALWAYS,
+    QUEST_CONSUME_NEVER,
+};
+
 // Magic number for misc_config: "MISC"
 #define MISC_CONFIG_MAGIC 0x4D495343
 
@@ -37,7 +43,8 @@ struct misc_config {
             // Version 1 flags
             u32 close_cows         : 1;
             u32 freestanding       : 1;
-            u32                    : 24;
+            u32 quest_consume      : 2;
+            u32                    : 22;
         };
         u32 flags;          /* 0x0018 */
     };

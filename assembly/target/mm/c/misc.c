@@ -15,6 +15,7 @@ struct misc_config MISC_CONFIG = {
     // Version 1 flags
     .close_cows = 1,
     .freestanding = 1,
+    .quest_consume = QUEST_CONSUME_DEFAULT,
 };
 
 union faucet_speed {

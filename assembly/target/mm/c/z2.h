@@ -2169,6 +2169,7 @@ typedef struct {
 #define z2_SpawnActor_addr               0x800BAC60
 #define z2_UpdateButtonUsability_addr    0x80110038
 #define z2_WriteHeartColors_addr         0x8010069C
+#define z2_RemoveItem_addr               0x801149A0
 
 /* Function Addresses (Drawing) */
 #define z2_BaseDrawCollectable_addr      0x800A7128
@@ -2236,6 +2237,7 @@ typedef z2_actor_t* (*z2_SpawnActor_proc)(z2_actor_ctxt_t *actor_ctx, z2_game_t 
 typedef void (*z2_UpdateButtonUsability_proc)(z2_game_t *game);
 typedef void (*z2_UseItem_proc)(z2_game_t *game, z2_link_t *link, u8 item);
 typedef void (*z2_WriteHeartColors_proc)(z2_game_t *game);
+typedef void (*z2_RemoveItem_proc)(u32 item, u8 slot);
 
 /* Function Prototypes (Drawing) */
 typedef void (*z2_ActorDraw_proc)(z2_actor_t *actor, z2_game_t *game);
@@ -2289,6 +2291,7 @@ typedef void (*z2_UnloadRoom_proc)(z2_game_t *game, z2_room_ctxt_t *room_ctxt);
 #define z2_SpawnActor                    ((z2_SpawnActor_proc)            z2_SpawnActor_addr)
 #define z2_UpdateButtonUsability         ((z2_UpdateButtonUsability_proc) z2_UpdateButtonUsability_addr)
 #define z2_WriteHeartColors              ((z2_WriteHeartColors_proc)      z2_WriteHeartColors_addr)
+#define z2_RemoveItem                    ((z2_RemoveItem_proc)            z2_RemoveItem_addr)
 
 /* Functions (Drawing) */
 #define z2_BaseDrawCollectable           ((z2_ActorDraw_proc)             z2_BaseDrawCollectable_addr)

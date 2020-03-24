@@ -53,3 +53,88 @@
     or      a3, t7, r0
     or      a2, a1, r0
     bnez    v0, 0x80ACA998
+
+;==================================================================================================
+; Quest Inventory Slot Clear (Song of Time)
+;==================================================================================================
+
+.headersize (G_CODE_RAM - G_CODE_FILE)
+
+; Handle inventory quest slots being removed during Song of Time.
+; Replaces:
+;   addiu   a0, r0, 0x0005
+;   jal     0x801149A0
+;   addiu   a1, r0, 0x0005
+;   addiu   a0, r0, 0x000B
+;   jal     0x801149A0
+;   addiu   a1, r0, 0x000B
+;   addiu   a0, r0, 0x0011
+;   jal     0x801149A0
+;   addiu   a1, r0, 0x0011
+.org 0x80144390
+.area 0x24
+    addiu   a0, r0, 0x0005
+    jal     quest_items_clear_inventory_item_sot
+    addiu   a1, r0, 0x0005
+    addiu   a0, r0, 0x000B
+    jal     quest_items_clear_inventory_item_sot
+    addiu   a1, r0, 0x000B
+    addiu   a0, r0, 0x0011
+    jal     quest_items_clear_inventory_item_sot
+    addiu   a1, r0, 0x0011
+.endarea
+
+;==================================================================================================
+; Quest Item Removal (General)
+;==================================================================================================
+
+.headersize (G_CODE_RAM - G_CODE_FILE)
+
+; Handle removal of multiple different quest items.
+; Used when giving: Letter to Mama, Letter to Kafei, Pendant.
+; Replaces:
+;   jal     0x801149A0
+.org 0x8010BC60
+    jal     quest_items_try_remove_item
+
+;==================================================================================================
+; Quest Item Removal (Hand in Toilet)
+;==================================================================================================
+
+.headersize (G_EN_BJT_VRAM - G_EN_BJT_FILE)
+
+; Handle removal of Letter to Kafei.
+; Replaces:
+;   jal     0x801149A0
+.org 0x80BFD468
+    jal     quest_items_try_remove_item
+
+; Handle removal of Swamp Title Deed.
+; Replaces:
+;   jal     0x801149A0
+.org 0x80BFD480
+    jal     quest_items_try_remove_item
+
+; Handle removal of Mountain Title Deed.
+; Replaces:
+;   jal     0x801149A0
+.org 0x80BFD498
+    jal     quest_items_try_remove_item
+
+; Handle removal of Ocean Title Deed.
+; Replaces:
+;   jal     0x801149A0
+.org 0x80BFD4B0
+    jal     quest_items_try_remove_item
+
+; Handle removal of Town Title Deed.
+; Replaces:
+;   jal     0x801149A0
+.org 0x80BFD4C8
+    jal     quest_items_try_remove_item
+
+; Handle removal of Letter to Mama.
+; Replaces:
+;   jal     0x801149A0
+.org 0x80BFD4E0
+    jal     quest_items_try_remove_item

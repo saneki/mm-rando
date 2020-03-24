@@ -62,6 +62,10 @@ DefineDmaFile G_EN_TIME_TAG_DMA, G_EN_TIME_TAG_FILE, 392
 DefineDmaFile G_EN_ELFORG_DMA, G_EN_ELFORG_FILE, 397
 .definelabel  G_EN_ELFORG_VRAM, 0x80ACC470
 
+; ovl_En_Sellnuts (Clock Town Business Scrub)
+DefineDmaFile G_EN_SELLNUTS_DMA, G_EN_SELLNUTS_FILE, 409
+.definelabel  G_EN_SELLNUTS_VRAM, 0x80ADADD0
+
 ; ovl_En_Col_Man
 DefineDmaFile G_EN_COL_MAN_DMA, G_EN_COL_MAN_FILE, 434
 .definelabel  G_EN_COL_MAN_VRAM, 0x80AFDC40
@@ -81,6 +85,14 @@ DefineDmaFile G_BG_KIN2_SHELF_DMA, G_BG_KIN2_SHELF_FILE, 488
 ; ovl_Bg_Ikana_Block (Ikana pushblock)
 DefineDmaFile G_BG_IKANA_BLOCK_DMA, G_BG_IKANA_BLOCK_FILE, 495
 .definelabel  G_BG_IKANA_BLOCK_VRAM, 0x80B7EA60
+
+; ovl_En_Akindonuts (Traveling Business Scrub)
+DefineDmaFile G_EN_AKINDONUTS_DMA, G_EN_AKINDONUTS_FILE, 587
+.definelabel  G_EN_AKINDONUTS_VRAM, 0x80BECBE0
+
+; ovl_En_Bjt (Hand in Toilet)
+DefineDmaFile G_EN_BJT_DMA, G_EN_BJT_FILE, 596
+.definelabel  G_EN_BJT_VRAM, 0x80BFD2E0
 
 ; ovl_Obj_Moon_Stone (Moon's Tear)
 DefineDmaFile G_OBJ_MOON_STONE_DMA, G_OBJ_MOON_STONE_FILE, 602
