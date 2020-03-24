@@ -36,7 +36,8 @@ struct misc_config {
 
             // Version 1 flags
             u32 close_cows         : 1;
-            u32                    : 25;
+            u32 freestanding       : 1;
+            u32                    : 24;
         };
         u32 flags;          /* 0x0018 */
     };
