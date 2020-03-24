@@ -258,6 +258,11 @@ namespace MMR.Randomizer
 
         private void WriteAudioSeq(Random random, OutputSettings _settings)
         {
+            if (_cosmeticSettings.Music == Music.None)
+            {
+                return;
+            }
+
             RomData.PointerizedSequences = new List<SequenceInfo>();
             SequenceUtils.ReadSequenceInfo();
             SequenceUtils.ReadInstrumentSetList();
