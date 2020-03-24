@@ -60,6 +60,14 @@ namespace MMR.Randomizer.Models.Settings
         }
 
         /// <summary>
+        /// Whether or not to enable freestanding models.
+        /// </summary>
+        public bool FreestandingModels {
+            get { return this.AsmOptions.MiscConfig.Flags.FreestandingModels; }
+            set { this.AsmOptions.MiscConfig.Flags.FreestandingModels = value; }
+        }
+
+        /// <summary>
         /// Whether or not to allow using the ocarina underwater.
         /// </summary>
         public bool OcarinaUnderwater {
