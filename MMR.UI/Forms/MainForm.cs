@@ -139,7 +139,7 @@ namespace MMR.UI.Forms
             TooltipBuilder.SetTooltip(cGoodDogRaceRNG, "Make Gold Dog always win if you have the Mask of Truth.");
             TooltipBuilder.SetTooltip(cFasterLabFish, "Change Lab Fish to only need to be fed one fish.");
             TooltipBuilder.SetTooltip(cFastPush, "Increase the speed of pushing and pulling blocks and faucets.");
-            TooltipBuilder.SetTooltip(cFreestanding, "Show freestanding models as their actual item instead of the original item.");
+            TooltipBuilder.SetTooltip(cFreestanding, "Show world models as their actual item instead of the original item. This includes Pieces of Heart, Heart Containers, Skulltula Tokens, Stray Fairies, Moon's Tear and the Seahorse.");
         }
 
         /// <summary>
@@ -405,7 +405,7 @@ namespace MMR.UI.Forms
             cFastPush.Checked = _configuration.GameplaySettings.FastPush;
             cQuestItemStorage.Checked = _configuration.GameplaySettings.QuestItemStorage;
             cUnderwaterOcarina.Checked = _configuration.GameplaySettings.OcarinaUnderwater;
-            cFreestanding.Checked = _configuration.GameplaySettings.FreestandingModels;
+            cFreestanding.Checked = _configuration.GameplaySettings.UpdateWorldModels;
 
             // HUD config options
             var heartItems = ColorSelectionManager.Hearts.GetItems();
@@ -717,7 +717,7 @@ namespace MMR.UI.Forms
 
         private void cFreestanding_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _configuration.GameplaySettings.FreestandingModels = cFreestanding.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.UpdateWorldModels = cFreestanding.Checked);
         }
 
         private void cTargettingStyle_CheckedChanged(object sender, EventArgs e)

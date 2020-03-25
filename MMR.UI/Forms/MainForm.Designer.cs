@@ -105,6 +105,7 @@ namespace MMR.UI.Forms
             this.cMusic = new System.Windows.Forms.ComboBox();
             this.lTunic = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.cFreestanding = new System.Windows.Forms.CheckBox();
             this.cFastPush = new System.Windows.Forms.CheckBox();
             this.cQText = new System.Windows.Forms.CheckBox();
             this.cShopAppearance = new System.Windows.Forms.CheckBox();
@@ -174,7 +175,6 @@ namespace MMR.UI.Forms
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
-            this.cFreestanding = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -1094,6 +1094,17 @@ namespace MMR.UI.Forms
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Comfort Options";
             // 
+            // cFreestanding
+            // 
+            this.cFreestanding.AutoSize = true;
+            this.cFreestanding.Location = new System.Drawing.Point(147, 68);
+            this.cFreestanding.Name = "cFreestanding";
+            this.cFreestanding.Size = new System.Drawing.Size(125, 17);
+            this.cFreestanding.TabIndex = 34;
+            this.cFreestanding.Text = "Update world models";
+            this.cFreestanding.UseVisualStyleBackColor = true;
+            this.cFreestanding.CheckedChanged += new System.EventHandler(this.cFreestanding_CheckedChanged);
+            // 
             // cFastPush
             // 
             this.cFastPush.AutoSize = true;
@@ -1153,7 +1164,7 @@ namespace MMR.UI.Forms
             this.cEponaSword.BackColor = System.Drawing.Color.Transparent;
             this.cEponaSword.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cEponaSword.ForeColor = System.Drawing.Color.Black;
-            this.cEponaSword.Location = new System.Drawing.Point(147, 91);
+            this.cEponaSword.Location = new System.Drawing.Point(147, 114);
             this.cEponaSword.Name = "cEponaSword";
             this.cEponaSword.Size = new System.Drawing.Size(104, 17);
             this.cEponaSword.TabIndex = 22;
@@ -1203,7 +1214,7 @@ namespace MMR.UI.Forms
             // 
             this.cQuestItemStorage.AutoSize = true;
             this.cQuestItemStorage.BackColor = System.Drawing.Color.Transparent;
-            this.cQuestItemStorage.Location = new System.Drawing.Point(147, 114);
+            this.cQuestItemStorage.Location = new System.Drawing.Point(147, 137);
             this.cQuestItemStorage.Name = "cQuestItemStorage";
             this.cQuestItemStorage.Size = new System.Drawing.Size(140, 17);
             this.cQuestItemStorage.TabIndex = 30;
@@ -1231,7 +1242,7 @@ namespace MMR.UI.Forms
             this.cNoDowngrades.BackColor = System.Drawing.Color.Transparent;
             this.cNoDowngrades.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cNoDowngrades.ForeColor = System.Drawing.Color.Black;
-            this.cNoDowngrades.Location = new System.Drawing.Point(147, 68);
+            this.cNoDowngrades.Location = new System.Drawing.Point(147, 91);
             this.cNoDowngrades.Name = "cNoDowngrades";
             this.cNoDowngrades.Size = new System.Drawing.Size(101, 17);
             this.cNoDowngrades.TabIndex = 18;
@@ -1682,7 +1693,7 @@ namespace MMR.UI.Forms
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mLogicEdit});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // mLogicEdit
@@ -1867,17 +1878,6 @@ namespace MMR.UI.Forms
             this.bLoadPatch.Text = "Load Patch...";
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
-            // 
-            // cFreestanding
-            // 
-            this.cFreestanding.AutoSize = true;
-            this.cFreestanding.Location = new System.Drawing.Point(147, 137);
-            this.cFreestanding.Name = "cFreestanding";
-            this.cFreestanding.Size = new System.Drawing.Size(123, 17);
-            this.cFreestanding.TabIndex = 34;
-            this.cFreestanding.Text = "Freestanding models";
-            this.cFreestanding.UseVisualStyleBackColor = true;
-            this.cFreestanding.CheckedChanged += new System.EventHandler(this.cFreestanding_CheckedChanged);
             // 
             // MainForm
             // 
