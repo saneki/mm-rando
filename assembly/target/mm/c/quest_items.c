@@ -15,11 +15,21 @@ static bool check_inventory_slot(u8 item, u8 slot) {
     }
 }
 
+/**
+ * Hook function called after an item has been received into the inventory.
+ *
+ * Used to add that item to storage as well, if it is a quest item.
+ **/
 void quest_items_after_receive(u8 item) {
     // Try to add quest item to storage.
     quest_item_storage_put(&SAVE_FILE_CONFIG.quest_storage, item);
 }
 
+/**
+ * Hook function called after an item has been removed from the inventory.
+ *
+ * Used to remove that item from storage as well, if it is a quest item.
+ **/
 void quest_items_after_removal(u8 item, u8 slot) {
     struct quest_item_storage *storage = &SAVE_FILE_CONFIG.quest_storage;
     // Remove quest item from storage.
@@ -34,6 +44,11 @@ void quest_items_after_removal(u8 item, u8 slot) {
     }
 }
 
+/**
+ * Hook function called after Song of Time inventory clear.
+ *
+ * Used to clear quest item storage as well if necessary.
+ **/
 void quest_items_after_song_of_time_clear(void) {
     // After Song of Time, clear quest items in storage.
     if (MISC_CONFIG.quest_consume != QUEST_CONSUME_NEVER) {
@@ -67,6 +82,9 @@ void quest_items_try_remove_item(u8 item, u8 slot) {
     }
 }
 
+/**
+ * Helper function for getting the inventory slot a quest item belongs to.
+ **/
 bool quest_items_get_slot(int *slot, u8 item) {
     int sslot, idx;
     if (quest_item_storage_get_slot(&sslot, &idx, item)) {
@@ -77,10 +95,20 @@ bool quest_items_get_slot(int *slot, u8 item) {
     }
 }
 
+/**
+ * Hook function for checking if we possess the required item for using the door.
+ *
+ * Used for allowing door access if the quest item is not on current inventory slot, but is in storage.
+ **/
 bool quest_items_door_check(z2_game_t *game, u8 item, u8 slot) {
     return check_inventory_slot(item, slot);
 }
 
+/**
+ * Hook function for checking if we possess the required item to not be kicked out of Stock Pot Inn.
+ *
+ * Used to avoid being kicked out if the quest item is not on current inventory slot, but is in storage.
+ **/
 bool quest_items_time_tag_check(z2_actor_t *actor, z2_game_t *game, u8 item, u8 slot) {
     return check_inventory_slot(item, slot);
 }
