@@ -174,6 +174,7 @@ namespace MMR.UI.Forms
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
+            this.cFreestanding = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -1074,6 +1075,7 @@ namespace MMR.UI.Forms
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.cFreestanding);
             this.groupBox7.Controls.Add(this.cFastPush);
             this.groupBox7.Controls.Add(this.cQText);
             this.groupBox7.Controls.Add(this.cShopAppearance);
@@ -1680,7 +1682,7 @@ namespace MMR.UI.Forms
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mLogicEdit});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // mLogicEdit
@@ -1865,6 +1867,17 @@ namespace MMR.UI.Forms
             this.bLoadPatch.Text = "Load Patch...";
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
+            // 
+            // cFreestanding
+            // 
+            this.cFreestanding.AutoSize = true;
+            this.cFreestanding.Location = new System.Drawing.Point(147, 137);
+            this.cFreestanding.Name = "cFreestanding";
+            this.cFreestanding.Size = new System.Drawing.Size(123, 17);
+            this.cFreestanding.TabIndex = 34;
+            this.cFreestanding.Text = "Freestanding models";
+            this.cFreestanding.UseVisualStyleBackColor = true;
+            this.cFreestanding.CheckedChanged += new System.EventHandler(this.cFreestanding_CheckedChanged);
             // 
             // MainForm
             // 
@@ -2075,6 +2088,7 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.GroupBox gSpeedUps;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mLogicEdit;
+        private System.Windows.Forms.CheckBox cFreestanding;
     }
 }
 

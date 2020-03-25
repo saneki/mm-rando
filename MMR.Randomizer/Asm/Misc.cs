@@ -33,6 +33,11 @@ namespace MMR.Randomizer.Asm
         }
 
         /// <summary>
+        /// Whether or not to use the closest cow to the player when giving an item (not yet implemented).
+        /// </summary>
+        public bool CloseCows { get; set; }
+
+        /// <summary>
         /// Whether or not to draw hash icons on the file select screen.
         /// </summary>
         public bool DrawHash { get; set; } = true;
@@ -41,6 +46,11 @@ namespace MMR.Randomizer.Asm
         /// Whether or not to enable faster pushing and pulling speeds.
         /// </summary>
         public bool FastPush { get; set; }
+
+        /// <summary>
+        /// Whether or not to enable freestanding models.
+        /// </summary>
+        public bool FreestandingModels { get; set; } = true;
 
         /// <summary>
         /// Whether or not to allow using the ocarina underwater.
@@ -72,6 +82,8 @@ namespace MMR.Randomizer.Asm
             this.FastPush = ((flags >> 28) & 1) == 1;
             this.OcarinaUnderwater = ((flags >> 27) & 1) == 1;
             this.QuestItemStorage = ((flags >> 26) & 1) == 1;
+            this.CloseCows = ((flags >> 25) & 1) == 1;
+            this.FreestandingModels = ((flags >> 24) & 1) == 1;
         }
 
         /// <summary>
@@ -86,6 +98,8 @@ namespace MMR.Randomizer.Asm
             flags |= (this.FastPush ? (uint)1 : 0) << 28;
             flags |= (this.OcarinaUnderwater ? (uint)1 : 0) << 27;
             flags |= (this.QuestItemStorage ? (uint)1 : 0) << 26;
+            flags |= (this.CloseCows ? (uint)1 : 0) << 25;
+            flags |= (this.FreestandingModels ? (uint)1 : 0) << 24;
             return flags;
         }
     }

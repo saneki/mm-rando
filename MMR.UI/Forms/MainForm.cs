@@ -139,6 +139,7 @@ namespace MMR.UI.Forms
             TooltipBuilder.SetTooltip(cGoodDogRaceRNG, "Make Gold Dog always win if you have the Mask of Truth.");
             TooltipBuilder.SetTooltip(cFasterLabFish, "Change Lab Fish to only need to be fed one fish.");
             TooltipBuilder.SetTooltip(cFastPush, "Increase the speed of pushing and pulling blocks and faucets.");
+            TooltipBuilder.SetTooltip(cFreestanding, "Show freestanding models as their actual item instead of the original item.");
         }
 
         /// <summary>
@@ -404,6 +405,7 @@ namespace MMR.UI.Forms
             cFastPush.Checked = _configuration.GameplaySettings.FastPush;
             cQuestItemStorage.Checked = _configuration.GameplaySettings.QuestItemStorage;
             cUnderwaterOcarina.Checked = _configuration.GameplaySettings.OcarinaUnderwater;
+            cFreestanding.Checked = _configuration.GameplaySettings.FreestandingModels;
 
             // HUD config options
             var heartItems = ColorSelectionManager.Hearts.GetItems();
@@ -711,6 +713,11 @@ namespace MMR.UI.Forms
         private void cUnderwaterOcarina_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _configuration.GameplaySettings.OcarinaUnderwater = cUnderwaterOcarina.Checked);
+        }
+
+        private void cFreestanding_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _configuration.GameplaySettings.FreestandingModels = cFreestanding.Checked);
         }
 
         private void cTargettingStyle_CheckedChanged(object sender, EventArgs e)
@@ -1030,6 +1037,7 @@ namespace MMR.UI.Forms
             cNoDowngrades.Enabled = v;
             cEponaSword.Enabled = v;
             cQuestItemStorage.Enabled = v;
+            cFreestanding.Enabled = v;
 
             cSkipBeaver.Enabled = v;
             cGoodDampeRNG.Enabled = v;
@@ -1205,6 +1213,7 @@ namespace MMR.UI.Forms
             cDisableCritWiggle.Visible = v;
             cQuestItemStorage.Visible = v;
             cFastPush.Visible = v;
+            cFreestanding.Visible = v;
             cLink.Visible = v;
             lLink.Visible = v;
 
