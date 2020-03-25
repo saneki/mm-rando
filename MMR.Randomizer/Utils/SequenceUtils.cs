@@ -136,30 +136,38 @@ namespace MMR.Randomizer.Utils
             foreach (String filePath in Directory.GetFiles(directory, "*.zseq"))
             {
                 String filename = Path.GetFileName(filePath);
-
-                // test if file has enough delimiters to separate data into name_bank_formats
-                String[] pieces = filename.Split('_');
-                if (pieces.Length != 3)
+                try
                 {
-                    continue;
+                    // test if file has enough delimiters to separate data into name_bank_formats
+                    String[] pieces = filename.Split('_');
+                    if (pieces.Length != 3)
+                    {
+                        continue;
+                    }
+
+                    var sourceName = filename;
+                    // for zseq, categories/instrument are part of the filename, we need to extract
+                    string sourceTypeString = pieces[2].Substring(0, pieces[2].Length - 5);
+                    int sourceInstrument = Convert.ToInt32(pieces[1], 16);
+                    List<int> sourceType = new List<int>();
+                    foreach (String part in sourceTypeString.Split('-'))
+                        sourceType.Add(Convert.ToInt32(part, 16));
+
+                    SequenceInfo sourceSequence = new SequenceInfo
+                    {
+                        Name                = filename,
+                        Directory           = directory,
+                        Type                = sourceType,
+                        Instrument          = sourceInstrument
+                    };
+
+                    RomData.SequenceList.Add(sourceSequence);
+                }
+                catch (FormatException)
+                {
+                    throw new Exception("Music: Filename is unparsable: " + filename);
                 }
 
-                // for zseq, categories/instrument are part of the filename, we need to extract
-                string sourceTypeString = pieces[2].Substring(0, pieces[2].Length - 5);
-                int sourceInstrument = Convert.ToInt32(pieces[1], 16);
-                List<int> sourceType = new List<int>();
-                foreach (String part in sourceTypeString.Split('-'))
-                    sourceType.Add(Convert.ToInt32(part, 16));
-
-                SequenceInfo sourceSequence = new SequenceInfo
-                {
-                    Name                = filename,
-                    Directory           = directory,
-                    Type                = sourceType,
-                    Instrument          = sourceInstrument
-                };
-
-                RomData.SequenceList.Add(sourceSequence);
             }
         }
 
