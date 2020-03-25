@@ -10,15 +10,20 @@ using MMR.Randomizer.Models.Rom;
 using MMR.Randomizer.Models.Settings;
 using MMR.Randomizer.Models.SoundEffects;
 using MMR.Randomizer.Utils;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
+using Point = SixLabors.Primitives.Point;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
+using Color = System.Drawing.Color;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using SixLabors.ImageSharp.Formats.Png;
 
 namespace MMR.Randomizer
 {
@@ -214,20 +219,22 @@ namespace MMR.Randomizer
 
             RomData.SequenceList.RemoveAll(u => u.Replaces == -1); // this still gets used in SequenceUtils.cs::RebuildAudioSeq
 
-            String dir = Path.GetDirectoryName(_settings.OutputROMFilename);
-            String path = $"{Path.GetFileNameWithoutExtension(_settings.OutputROMFilename)}";
-            // spoiler log should already be written by the time we reach this far
-            if (File.Exists(Path.Combine(dir, path + "_SpoilerLog.txt")))
-                path += "_SpoilerLog.txt";
-            else // TODO add HTML log compatibility
-                path += "_SongLog.txt";
-
-            using (StreamWriter sw = new StreamWriter(Path.Combine(dir, path), append: true))
+            if (_cosmeticSettings.Music == Music.Random)
             {
-                sw.WriteLine(""); // spacer
-                sw.Write(log);
-            }
+                String dir = Path.GetDirectoryName(_settings.OutputROMFilename);
+                String path = $"{Path.GetFileNameWithoutExtension(_settings.OutputROMFilename)}";
+                // spoiler log should already be written by the time we reach this far
+                if (File.Exists(Path.Combine(dir, path + "_SpoilerLog.txt")))
+                    path += "_SpoilerLog.txt";
+                else // TODO add HTML log compatibility
+                    path += "_SongLog.txt";
 
+                using (StreamWriter sw = new StreamWriter(Path.Combine(dir, path), append: true))
+                {
+                    sw.WriteLine(""); // spacer
+                    sw.Write(log);
+                }
+            }
         }
         #endregion
 
@@ -255,6 +262,11 @@ namespace MMR.Randomizer
 
         private void WriteAudioSeq(Random random, OutputSettings _settings)
         {
+            if (_cosmeticSettings.Music == Music.None)
+            {
+                return;
+            }
+
             RomData.PointerizedSequences = new List<SequenceInfo>();
             SequenceUtils.ReadSequenceInfo();
             SequenceUtils.ReadInstrumentSetList();
@@ -302,7 +314,7 @@ namespace MMR.Randomizer
 
             int characterIndex = (int)_randomized.Settings.Character;
 
-            using (var b = new BinaryReader(File.Open(Path.Combine(Values.ObjsDirectory, $"link-{characterIndex}"), FileMode.Open)))
+            using (var b = new BinaryReader(File.OpenRead(Path.Combine(Values.ObjsDirectory, $"link-{characterIndex}"))))
             {
                 var obj = new byte[b.BaseStream.Length];
                 b.Read(obj, 0, obj.Length);
@@ -312,7 +324,7 @@ namespace MMR.Randomizer
 
             if (_randomized.Settings.Character == Character.Kafei)
             {
-                using (var b = new BinaryReader(File.Open(Path.Combine(Values.ObjsDirectory, "kafei"), FileMode.Open)))
+                using (var b = new BinaryReader(File.OpenRead(Path.Combine(Values.ObjsDirectory, "kafei"))))
                 {
                     var obj = new byte[b.BaseStream.Length];
                     b.Read(obj, 0, obj.Length);
@@ -320,7 +332,7 @@ namespace MMR.Randomizer
                     ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-kafei");
                 }
 
-                using (var b = new BinaryReader(File.Open(Path.Combine(Values.ObjsDirectory, "link-mask"), FileMode.Open)))
+                using (var b = new BinaryReader(File.OpenRead(Path.Combine(Values.ObjsDirectory, "link-mask"))))
                 {
                     var obj = new byte[b.BaseStream.Length];
                     b.Read(obj, 0, obj.Length);
@@ -328,7 +340,7 @@ namespace MMR.Randomizer
                     ResourceUtils.ApplyHack(Values.ModsDirectory, "update-kafei-mask-icon");
                 }
 
-                using (var b = new BinaryReader(File.Open(Path.Combine(Values.ObjsDirectory, "gi-link-mask"), FileMode.Open)))
+                using (var b = new BinaryReader(File.OpenRead(Path.Combine(Values.ObjsDirectory, "gi-link-mask"))))
                 {
                     var obj = new byte[b.BaseStream.Length];
                     b.Read(obj, 0, obj.Length);
@@ -1318,6 +1330,26 @@ namespace MMR.Randomizer
             RomData.MMFileList[1142].Data = data.ToArray();
         }
 
+        public void OutputHashIcons(IEnumerable<byte> iconFileIndices, string filename)
+        {
+            var iconFiles = RomUtils.GetFilesFromArchive(19);
+            var numberOfHashIcons = iconFileIndices.Count();
+            var margin = 8;
+            using (var image = new Image<Argb32>(32 * numberOfHashIcons + margin * (numberOfHashIcons - 1), 32))
+            {
+                var i = 0;
+                foreach (var iconFileIndex in iconFileIndices)
+                {
+                    using (var icon = Image.LoadPixelData<Rgba32>(iconFiles[iconFileIndex], 32, 32))
+                    {
+                        image.Mutate(o => o.DrawImage(icon, new Point(i * 32 + i * margin, 0), 1f));
+                    }
+                    i++;
+                }
+                image.Save(filename, new PngEncoder());
+            }
+        }
+
         private void WriteAsmPatch(AsmContext asm)
         {
             // Load the symbols and use them to apply the patch data
@@ -1369,7 +1401,7 @@ namespace MMR.Randomizer
 
         public void MakeROM(OutputSettings outputSettings, IProgressReporter progressReporter)
         {
-            using (BinaryReader OldROM = new BinaryReader(File.Open(outputSettings.InputROMFilename, FileMode.Open, FileAccess.Read)))
+            using (BinaryReader OldROM = new BinaryReader(File.OpenRead(outputSettings.InputROMFilename)))
             {
                 RomUtils.ReadFileTable(OldROM);
                 _messageTable.InitializeTable();
@@ -1378,13 +1410,14 @@ namespace MMR.Randomizer
             var originalMMFileList = RomData.MMFileList.Select(file => file.Clone()).ToList();
 
             byte[] hash;
+            AsmContext asm;
             if (!string.IsNullOrWhiteSpace(outputSettings.InputPatchFilename))
             {
                 progressReporter.ReportProgress(50, "Applying patch...");
                 hash = RomUtils.ApplyPatch(outputSettings.InputPatchFilename);
 
                 // Parse Symbols data from the ROM (specific MMFile)
-                var asm = AsmContext.LoadFromROM();
+                asm = AsmContext.LoadFromROM();
 
                 // Apply Asm configuration post-patch
                 WriteAsmConfigPostPatch(asm, hash);
@@ -1442,7 +1475,7 @@ namespace MMR.Randomizer
                 WriteStartupStrings();
 
                 // Load Asm data from internal resource files and apply
-                var asm = AsmContext.LoadInternal();
+                asm = AsmContext.LoadInternal();
                 progressReporter.ReportProgress(70, "Writing ASM patch...");
                 WriteAsmPatch(asm);
                 
@@ -1451,6 +1484,12 @@ namespace MMR.Randomizer
 
                 // Write subset of Asm config post-patch
                 WriteAsmConfig(asm, hash);
+
+                if (_randomized.Settings.DrawHash || outputSettings.GeneratePatch)
+                {
+                    var iconStripIcons = asm.Symbols.ReadHashIconsTable();
+                    OutputHashIcons(ImageUtils.GetIconIndices(hash).Select(index => iconStripIcons[index]), Path.ChangeExtension(outputSettings.OutputROMFilename, "png"));
+                }
             }
             WriteMiscellaneousChanges();
 
