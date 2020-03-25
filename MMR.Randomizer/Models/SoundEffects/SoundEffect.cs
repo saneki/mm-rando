@@ -221,7 +221,7 @@ namespace MMR.Randomizer.Models.SoundEffects
         [ReplacableByTags(Short, LowHpBeep)]
         LowHealthBeep = 0x401B,
 
-        [Replacable(0x00DDE78E, 0x00DDF322)]
+        [Replacable(0x00DDE78E, 0x00DDF322, 0x1069EBA, 0x106788A)]
         [Tags(SystemSound)]
         [ReplacableByTags(Long)]
         TitleSelect = 0x4023,

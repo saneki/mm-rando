@@ -10,6 +10,8 @@ using System.Diagnostics;
 using System.IO.Compression;
 using MMR.Randomizer.Models.Settings;
 
+
+
 namespace MMR.Randomizer.Utils
 {
     public class SequenceUtils
@@ -167,7 +169,6 @@ namespace MMR.Randomizer.Utils
                 {
                     throw new Exception("Music: Filename is unparsable: " + filename);
                 }
-
             }
         }
 
@@ -183,7 +184,7 @@ namespace MMR.Randomizer.Utils
             foreach (String filePath in Directory.GetFiles(directory, "*.mmrs"))
             {
                 try{
-                    using (ZipArchive zip = ZipFile.Open(filePath, ZipArchiveMode.Read))
+                    using (ZipArchive zip = ZipFile.OpenRead(filePath))
                     {
                         List<string> sequences = new List<string>();
                         SequenceInfo new_song = new SequenceInfo(); ;
@@ -289,17 +290,16 @@ namespace MMR.Randomizer.Utils
                 if (i == 0x1E) // intro music when link gets ambushed
                 {
                     entry.Addr = 2;
-                    entry.Size = 0;
                     OldSeq.Add(entry);
                     continue;
                 }
 
                 int entryaddr = Addresses.SeqTable + (i * 16);
                 entry.Addr = (int)ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, entryaddr - basea);
-                entry.Size = (int)ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, (entryaddr - basea) + 4);
-                if (entry.Size > 0)
+                var size = (int)ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, (entryaddr - basea) + 4);
+                if (size > 0)
                 {
-                    entry.Data = new byte[entry.Size];
+                    entry.Data = new byte[size];
                     Array.Copy(RomData.MMFileList[4].Data, entry.Addr, entry.Data, 0, entry.Size);
                 }
                 else
@@ -316,7 +316,6 @@ namespace MMR.Randomizer.Utils
                             else
                             {
                                 entry.Data = OldSeq[0x18].Data;
-                                entry.Size = OldSeq[0x18].Size;
                             }
                         }
                     }
@@ -346,14 +345,16 @@ namespace MMR.Randomizer.Utils
 
                 int p = RomData.PointerizedSequences.FindIndex(u => u.PreviousSlot == i);
                 int j = SequenceList.FindIndex(u => u.Replaces == i);
-                if (p != -1){ // found song we want to pointerize
+                if (p != -1)
+                {
+                    // found song we want to pointerize
                     newentry.Addr = RomData.PointerizedSequences[p].Replaces;
-                    newentry.Size = 0;
                 }
-                else if (j != -1){ // new song to replace old slot found
+                else if (j != -1)
+                {
+                    // new song to replace old slot found
                     if (SequenceList[j].MM_seq != -1)
                     {
-                        newentry.Size = OldSeq[SequenceList[j].MM_seq].Size;
                         newentry.Data = OldSeq[SequenceList[j].MM_seq].Data;
                         WriteOutput("Slot " + i.ToString("X") + " -> " + SequenceList[j].Name);
 
@@ -364,7 +365,6 @@ namespace MMR.Randomizer.Utils
                             throw new Exception("Reached music write without a song to write");
                         if (SequenceList[j].SequenceBinaryList.Count > 1)
                             WriteOutput("Warning: writing song with multiple sequence/bank combos, selecting first available");
-                        newentry.Size = SequenceList[j].SequenceBinaryList[0].SequenceBinary.Length;
                         newentry.Data = SequenceList[j].SequenceBinaryList[0].SequenceBinary;
                         WriteOutput("Slot " + i.ToString("X") + " := " + SequenceList[j].Name + " *");
 
@@ -374,7 +374,7 @@ namespace MMR.Randomizer.Utils
                         byte[] data;
                         if (File.Exists(SequenceList[j].Filename))
                         {
-                            using (var reader = new BinaryReader(File.Open(SequenceList[j].Filename, FileMode.Open)))
+                            using (var reader = new BinaryReader(File.OpenRead(SequenceList[j].Filename)))
                             {
                                 data = new byte[(int)reader.BaseStream.Length];
                                 reader.Read(data, 0, data.Length);
@@ -401,7 +401,6 @@ namespace MMR.Randomizer.Utils
                             data[1] = 0x20;
                         }
 
-                        newentry.Size = data.Length;
                         newentry.Data = data;
                         WriteOutput("Slot " + i.ToString("X") + " := " + SequenceList[j].Name);
 
@@ -409,8 +408,13 @@ namespace MMR.Randomizer.Utils
                 }
                 else // not found, song wasn't touched by rando, just transfer over
                 {
-                    newentry.Size = OldSeq[i].Size;
                     newentry.Data = OldSeq[i].Data;
+                }
+
+                var padding = 0x10 - newentry.Size % 0x10;
+                if (padding != 0x10)
+                {
+                    newentry.Data = newentry.Data.Concat(new byte[padding]).ToArray();
                 }
 
                 NewSeq.Add(newentry);
@@ -472,20 +476,20 @@ namespace MMR.Randomizer.Utils
 
             }
 
-            // DEBUG spoiler log output
-            String dir = Path.GetDirectoryName(_settings.OutputROMFilename);
-            String path = $"{Path.GetFileNameWithoutExtension(_settings.OutputROMFilename)}";
-            // spoiler log should already be written by the time we reach this far
-            if (File.Exists(Path.Combine(dir, path + "_SpoilerLog.txt")))
-                path += "_SpoilerLog.txt";
-            else // TODO add HTML log compatibility
-                path += "_SongLog.txt";
+            //// DEBUG spoiler log output
+            //String dir = Path.GetDirectoryName(_settings.OutputROMFilename);
+            //String path = $"{Path.GetFileNameWithoutExtension(_settings.OutputROMFilename)}";
+            //// spoiler log should already be written by the time we reach this far
+            //if (File.Exists(Path.Combine(dir, path + "_SpoilerLog.txt")))
+            //    path += "_SpoilerLog.txt";
+            //else // TODO add HTML log compatibility
+            //    path += "_SongLog.txt";
 
-            using (StreamWriter sw = new StreamWriter(Path.Combine(dir, path), append: true))
-            {
-                sw.WriteLine(""); // spacer
-                sw.Write(log);
-            }
+            //using (StreamWriter sw = new StreamWriter(Path.Combine(dir, path), append: true))
+            //{
+            //    sw.WriteLine(""); // spacer
+            //    sw.Write(log);
+            //}
 
 
         }
