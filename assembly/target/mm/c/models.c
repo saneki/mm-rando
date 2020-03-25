@@ -154,7 +154,7 @@ static bool models_set_loaded_actor_model(struct model *model, z2_actor_t *actor
 void models_draw_heart_piece(z2_actor_t *actor, z2_game_t *game) {
     if (MISC_CONFIG.freestanding) {
         u32 index = actor->variable + 0x80;
-        models_draw_from_gi_table(actor, game, 25.0, index);
+        models_draw_from_gi_table(actor, game, 22.0, index);
     } else {
         z2_DrawHeartPiece(actor, game);
     }
