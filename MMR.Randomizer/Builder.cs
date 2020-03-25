@@ -10,16 +10,20 @@ using MMR.Randomizer.Models.Rom;
 using MMR.Randomizer.Models.Settings;
 using MMR.Randomizer.Models.SoundEffects;
 using MMR.Randomizer.Utils;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
+using Point = SixLabors.Primitives.Point;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Imaging;
+using Color = System.Drawing.Color;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using SixLabors.ImageSharp.Formats.Png;
 
 namespace MMR.Randomizer
 {
@@ -1327,20 +1331,18 @@ namespace MMR.Randomizer
             var iconFiles = RomUtils.GetFilesFromArchive(19);
             var numberOfHashIcons = iconFileIndices.Count();
             var margin = 8;
-            using (var output = new Bitmap(32 * numberOfHashIcons + margin * (numberOfHashIcons - 1), 32))
-            using (var graphics = Graphics.FromImage(output))
+            using (var image = new Image<Argb32>(32 * numberOfHashIcons + margin * (numberOfHashIcons - 1), 32))
             {
                 var i = 0;
                 foreach (var iconFileIndex in iconFileIndices)
                 {
-                    var iconData = ImageUtils.RgbaToArgb(iconFiles[iconFileIndex]);
-                    using (var icon = ImageUtils.CopyDataToBitmap(iconData, 32, 32, PixelFormat.Format32bppArgb))
+                    using (var icon = Image.LoadPixelData<Rgba32>(iconFiles[iconFileIndex], 32, 32))
                     {
-                        graphics.DrawImage(icon, i * 32 + i * margin, 0, icon.Width, icon.Height);
+                        image.Mutate(o => o.DrawImage(icon, new Point(i * 32 + i * margin, 0), 1f));
                     }
                     i++;
                 }
-                output.Save(filename, ImageFormat.Png);
+                image.Save(filename, new PngEncoder());
             }
         }
 
