@@ -24,6 +24,7 @@
 .include "boot.asm"
 .include "hacks.asm"
 .include "hooks/actor.asm"
+.include "hooks/business_scrub.asm"
 .include "hooks/cows.asm"
 .include "hooks/dpad.asm"
 .include "hooks/file_select.asm"
@@ -56,6 +57,7 @@ PAYLOAD_START:
 
 .include "init.asm"
 .include "actor.asm"
+.include "business_scrub.asm"
 .include "cows.asm"
 .include "damage.asm"
 .include "dpad.asm"

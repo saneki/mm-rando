@@ -14,6 +14,13 @@ namespace MMR.Randomizer.Asm
         AlwaysOff,
     }
 
+    public enum QuestConsumeState : byte
+    {
+        Default,
+        Always,
+        Never,
+    }
+
     /// <summary>
     /// Miscellaneous flags.
     /// </summary>
@@ -58,6 +65,11 @@ namespace MMR.Randomizer.Asm
         public bool OcarinaUnderwater { get; set; }
 
         /// <summary>
+        /// Behaviour of how quest items should be consumed.
+        /// </summary>
+        public QuestConsumeState QuestConsume => this.QuestItemStorage ? QuestConsumeState.Always : QuestConsumeState.Default;
+
+        /// <summary>
         /// Whether or not to enable Quest Item Storage.
         /// </summary>
         public bool QuestItemStorage { get; set; } = true;
@@ -100,6 +112,7 @@ namespace MMR.Randomizer.Asm
             flags |= (this.QuestItemStorage ? (uint)1 : 0) << 26;
             flags |= (this.CloseCows ? (uint)1 : 0) << 25;
             flags |= (this.FreestandingModels ? (uint)1 : 0) << 24;
+            flags |= (((uint)this.QuestConsume) & 3) << 22;
             return flags;
         }
     }
