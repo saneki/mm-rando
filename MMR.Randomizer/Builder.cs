@@ -373,7 +373,9 @@ namespace MMR.Randomizer
             }
 
             if (_cosmeticSettings.EnableNightBGM)
-                SequenceUtils.ReenableNightBGM();
+            {
+                SceneUtils.ReenableNightBGM();
+            }
 
         }
 

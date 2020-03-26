@@ -289,64 +289,7 @@ namespace MMR.Randomizer.Utils
                     Debug.WriteLine("Error attempting to read archive: " + filePath  + " -- " + e);
                 }
             }
-
         }
-
-        public static void ReenableNightBGM()
-        {
-            // summary: there is a scene header which has a single byte that determines what plays at night, setting to 13 re-enables BGM at night
-            // these file id values are the same as the ultimate MM spreadsheet file US indexes
-            // ref: https://docs.google.com/spreadsheets/d/1J-4OwmZzOKEv2hZ7wrygOpMm0YcRnephEo3Q2FooF6E/edit#gid=56702767 colomn A
-            ReenableNightBGMSingle(1310); // termina field
-
-            ReenableNightBGMSingle(1347); // road to swamp
-            ReenableNightBGMSingle(1358); // poisoned swamp
-            ReenableNightBGMSingle(1137); // cleared swamp
-
-            ReenableNightBGMSingle(1453); // road to goron village winter
-            ReenableNightBGMSingle(1455); // road to goron village spring
-            ReenableNightBGMSingle(1222); // road to mountain village
-
-            ReenableNightBGMSingle(1368); // goron village spring
-            ReenableNightBGMSingle(1409); // goron village winter
-            ReenableNightBGMSingle(1446); // mountain village spring
-            ReenableNightBGMSingle(1417); // mountain village winter
-
-            ReenableNightBGMSingle(1256); // milkroad
-
-            ReenableNightBGMSingle(1330); // great bay coast
-            ReenableNightBGMSingle(1276); // pinnacle rock
-            ReenableNightBGMSingle(1332); // great bay cape
-            ReenableNightBGMSingle(1386); // waterfall rapids (beavers)
-
-            ReenableNightBGMSingle(1431); // road to ikana
-
-            // graveyard doesn't have music, and thats for the best
-
-            // these have weird bahavior, probably because daytime BGM changes per day? custom code to handle that?
-            /*
-            ReenableNightBGMSingle(1514, 0x13); // north clock town
-            ReenableNightBGMSingle(1510, 0x13); // east clock town
-            ReenableNightBGMSingle(1512, 0x13); // west clock town
-            ReenableNightBGMSingle(1516, 0x13); // south clock town
-            */
-
-        }
-
-        public static void ReenableNightBGMSingle(int scene_fid, byte new_music_value = 0x13)
-        {
-            // search for the bgm music header in the scene headers and replace the night sfx with a value that plays day BGM
-            RomUtils.CheckCompressed(scene_fid); // make sure the file is already decoded
-            for (int b = 0; b < 0x10 * 70; b += 8)
-            {
-                if (RomData.MMFileList[scene_fid].Data[b] == 0x15) // header starts with 0x15
-                {
-                    RomData.MMFileList[scene_fid].Data[b + 0x6] = new_music_value; // 6th of 8 byte is night BGM behavior, 0x13 is daytime BGM
-                    break;
-                }
-            }
-        }
-
 
         // gets passed RomData.SequenceList in Builder.cs::WriteAudioSeq
         public static void RebuildAudioSeq(List<SequenceInfo> SequenceList, OutputSettings _settings)

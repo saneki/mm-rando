@@ -250,6 +250,72 @@ namespace MMR.Randomizer.Utils
             }
         }
 
+        public static void ReenableNightBGMSingle(int SceneTableID, byte NewMusicByte = 0x13)
+        {
+            // search for the bgm music header in the scene headers and replace the night sfx with a value that plays day BGM
+            int fid = RomData.SceneList.Find(u => u.Number == SceneTableID).File;
+            RomUtils.CheckCompressed(fid);
+            for (int b = 0; b < 0x10 * 70; b += 8)
+            {
+                if (RomData.MMFileList[fid].Data[b] == 0x15) // header command starts with 0x15
+                {
+                    RomData.MMFileList[fid].Data[b + 0x6] = NewMusicByte; // 6th/8 byte is night BGM behavior, 0x13 is daytime BGM
+                    return;
+                }
+            }
+        }
+
+        public static void ReenableNightBGM()
+        {
+            // summary: there is a scene header which has a single byte that determines what plays at night, setting to 13 re-enables BGM at night
+
+            // since scene table is only read previously on enemizer, if not loaded we have to load now
+            if (RomData.SceneList == null)
+            {
+                ReadSceneTable();
+            }
+
+
+            // these file id values are the same as the ultimate MM spreadsheet Maps tab, column F (ID)
+            // ref: https://docs.google.com/spreadsheets/d/1J-4OwmZzOKEv2hZ7wrygOpMm0YcRnephEo3Q2FooF6E/edit#gid=56702767
+            ReenableNightBGMSingle(0x2d); // termina field
+
+            ReenableNightBGMSingle(0x40); // road to swamp
+            ReenableNightBGMSingle(0x45); // poisoned swamp
+            ReenableNightBGMSingle(0x00); // cleared swamp
+
+            ReenableNightBGMSingle(0x1C); // path to mountain village
+            ReenableNightBGMSingle(0x50); // mountain village winter
+            ReenableNightBGMSingle(0x5A); // mountain village spring
+
+            ReenableNightBGMSingle(0x5D); // path to goron village winter
+            ReenableNightBGMSingle(0x5E); // path to goron village spring
+
+            ReenableNightBGMSingle(0x4D); // goron village winter
+            ReenableNightBGMSingle(0x48); // goron village spring
+
+            ReenableNightBGMSingle(0x5B); // path to snowhead
+
+            ReenableNightBGMSingle(0x22); // milkroad
+
+            ReenableNightBGMSingle(0x37); // great bay coast
+            ReenableNightBGMSingle(0x25); // pinnacle rock
+            ReenableNightBGMSingle(0x38); // zora cape
+            ReenableNightBGMSingle(0x4A); // waterfall rapids (beavers)
+
+            ReenableNightBGMSingle(0x53); // road to ikana
+
+            // graveyard doesn't have music, and thats for the best
+
+            // these have weird bahavior, probably because daytime BGM changes per day? custom code to handle that?
+            ReenableNightBGMSingle(0x6C); // east clock town
+            ReenableNightBGMSingle(0x6D); // west clock town
+            ReenableNightBGMSingle(0x6E); // north clock town
+            ReenableNightBGMSingle(0x6F); // south clock town
+            ReenableNightBGMSingle(0x70); // laundry pool
+
+
+        }
     }
 
 }
