@@ -10,7 +10,7 @@ namespace MMR.Randomizer.Utils
     {
         public static byte[] ReadHack(string path, string name)
         {
-            using (var reader = new BinaryReader(File.Open(Path.Combine(path, name), FileMode.Open)))
+            using (var reader = new BinaryReader(File.OpenRead(Path.Combine(path, name))))
             {
                 int hack_len = (int)reader.BaseStream.Length;
                 byte[] hack_content = new byte[hack_len];
@@ -46,7 +46,7 @@ namespace MMR.Randomizer.Utils
         {
             List<int[]> Addrs = new List<int[]>();
             byte[] a;
-            using (BinaryReader AddrFile = new BinaryReader(File.Open(Path.Combine(path, name), FileMode.Open, FileAccess.Read)))
+            using (BinaryReader AddrFile = new BinaryReader(File.OpenRead(Path.Combine(path, name))))
             {
                 a = new byte[AddrFile.BaseStream.Length];
                 AddrFile.Read(a, 0, a.Length);

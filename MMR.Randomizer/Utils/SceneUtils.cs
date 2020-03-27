@@ -277,29 +277,31 @@ namespace MMR.Randomizer.Utils
             }
 
             // TODO since this is static, it can be moved
-            var TargetSceneEnums = new GameObjects.Scene[] { GameObjects.Scene.TerminaField,
-                                                             GameObjects.Scene.RoadToSouthernSwamp,
-                                                             GameObjects.Scene.SouthernSwamp,
-                                                             GameObjects.Scene.SouthernSwampClear,
-                                                             GameObjects.Scene.PathToMountainVillage,
-                                                             GameObjects.Scene.MountainVillage,
-                                                             GameObjects.Scene.MountainVillageSpring,
-                                                             GameObjects.Scene.TwinIslands,
-                                                             GameObjects.Scene.TwinIslandsSpring,
-                                                             GameObjects.Scene.GoronVillage,
-                                                             GameObjects.Scene.GoronVillageSpring,
-                                                             GameObjects.Scene.PathToSnowhead,
-                                                             GameObjects.Scene.MilkRoad,
-                                                             GameObjects.Scene.GreatBayCoast,
-                                                             GameObjects.Scene.PinnacleRock,
-                                                             GameObjects.Scene.ZoraCape,
-                                                             GameObjects.Scene.WaterfallRapids,
-                                                             GameObjects.Scene.RoadToIkana,
-                                                             GameObjects.Scene.EastClockTown,
-                                                             GameObjects.Scene.WestClockTown,
-                                                             GameObjects.Scene.NorthClockTown,
-                                                             GameObjects.Scene.SouthClockTown,
-                                                             GameObjects.Scene.LaundryPool
+            var TargetSceneEnums = new GameObjects.Scene[] 
+            { 
+                GameObjects.Scene.TerminaField,
+                GameObjects.Scene.RoadToSouthernSwamp,
+                GameObjects.Scene.SouthernSwamp,
+                GameObjects.Scene.SouthernSwampClear,
+                GameObjects.Scene.PathToMountainVillage,
+                GameObjects.Scene.MountainVillage,
+                GameObjects.Scene.MountainVillageSpring,
+                GameObjects.Scene.TwinIslands,
+                GameObjects.Scene.TwinIslandsSpring,
+                GameObjects.Scene.GoronVillage,
+                GameObjects.Scene.GoronVillageSpring,
+                GameObjects.Scene.PathToSnowhead,
+                GameObjects.Scene.MilkRoad,
+                GameObjects.Scene.GreatBayCoast,
+                GameObjects.Scene.PinnacleRock,
+                GameObjects.Scene.ZoraCape,
+                GameObjects.Scene.WaterfallRapids,
+                GameObjects.Scene.RoadToIkana,
+                GameObjects.Scene.EastClockTown,
+                GameObjects.Scene.WestClockTown,
+                GameObjects.Scene.NorthClockTown,
+                GameObjects.Scene.SouthClockTown,
+                GameObjects.Scene.LaundryPool
             }.ToList();
 
             foreach (var SceneEnum in TargetSceneEnums)

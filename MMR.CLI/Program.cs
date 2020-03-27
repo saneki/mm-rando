@@ -118,7 +118,7 @@ namespace MMR.CLI
                 configuration.OutputSettings.OutputROMFilename = outputArg.SingleOrDefault();
             }
             configuration.OutputSettings.OutputROMFilename ??= Path.Combine("output", FileUtils.MakeFilenameValid(DateTime.UtcNow.ToString("o")));
-            if (Path.GetExtension(configuration.OutputSettings.OutputROMFilename) != "z64")
+            if (Path.GetExtension(configuration.OutputSettings.OutputROMFilename) != ".z64")
             {
                 configuration.OutputSettings.OutputROMFilename += ".z64";
             }
@@ -176,6 +176,10 @@ namespace MMR.CLI
         private static List<int> ConvertIntString(string c)
         {
             var result = new List<int>();
+            if (string.IsNullOrWhiteSpace(c))
+            {
+                return result;
+            }
             try
             {
                 result.Clear();
@@ -183,7 +187,6 @@ namespace MMR.CLI
                 int[] vi = new int[13];
                 if (v.Length != vi.Length)
                 {
-                    result.Add(-1);
                     return null;
                 }
                 for (int i = 0; i < 13; i++)
@@ -209,8 +212,7 @@ namespace MMR.CLI
             }
             catch
             {
-                result.Clear();
-                result.Add(-1);
+                return null;
             }
             return result;
         }
@@ -219,14 +221,16 @@ namespace MMR.CLI
         {
             var sectionCount = (int)Math.Ceiling(items.Count / 32.0);
             var result = new List<Item>();
+            if (string.IsNullOrWhiteSpace(c))
+            {
+                return result;
+            }
             try
             {
-                result.Clear();
                 string[] v = c.Split('-');
                 int[] vi = new int[sectionCount];
                 if (v.Length != vi.Length)
                 {
-                    //result.Add(-1);
                     return null;
                 }
                 for (int i = 0; i < sectionCount; i++)
@@ -252,8 +256,7 @@ namespace MMR.CLI
             }
             catch
             {
-                result.Clear();
-                //result.Add(-1);
+                return null;
             }
             return result;
         }
@@ -270,7 +273,7 @@ namespace MMR.CLI
             //    configuration.GameplaySettings.UserLogicFileName = null;
             //    if (configuration.GameplaySettings.LogicMode == LogicMode.UserLogic && logicFilePath != null && File.Exists(logicFilePath))
             //    {
-            //        using (StreamReader Req = new StreamReader(File.Open(logicFilePath, FileMode.Open)))
+            //        using (StreamReader Req = new StreamReader(File.OpenRead(logicFilePath)))
             //        {
             //            configuration.GameplaySettings.Logic = Req.ReadToEnd();
             //            if (configuration.GameplaySettings.Logic.StartsWith("{"))
@@ -302,7 +305,7 @@ namespace MMR.CLI
             if (File.Exists(path))
             {
                 Configuration configuration;
-                using (StreamReader Req = new StreamReader(File.Open(path, FileMode.Open)))
+                using (StreamReader Req = new StreamReader(File.OpenRead(path)))
                 {
                     configuration = Configuration.FromJson(Req.ReadToEnd());
                 }

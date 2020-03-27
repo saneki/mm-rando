@@ -1113,7 +1113,7 @@ namespace MMR.UI.Forms
             this.cEnableNightMusic.Location = new System.Drawing.Point(9, 160);
             this.cEnableNightMusic.Name = "cEnableNightMusic";
             this.cEnableNightMusic.Size = new System.Drawing.Size(114, 17);
-            this.cEnableNightMusic.TabIndex = 34;
+            this.cEnableNightMusic.TabIndex = 35;
             this.cEnableNightMusic.Text = "Enable Night BGM";
             this.cEnableNightMusic.UseVisualStyleBackColor = true;
             this.cEnableNightMusic.CheckedChanged += new System.EventHandler(this.cEnableNightMusic_CheckedChanged);
