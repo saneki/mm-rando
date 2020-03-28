@@ -175,6 +175,11 @@ void arrow_cycle_handle(z2_link_t *link, z2_game_t *game) {
         return;
     }
 
+    // Ensure arrow has an appropriate variable (cannot be a deku bubble).
+    if (!(2 <= arrow->variable && arrow->variable < 6)) {
+        return;
+    }
+
     // Check if R is pressed.
     if (!game->common.input[0].pad_pressed.r) {
         return;
