@@ -27,6 +27,11 @@ namespace MMR.Randomizer.Asm
     public class MiscFlags
     {
         /// <summary>
+        /// Whether or not to enable cycling arrow types while using the bow.
+        /// </summary>
+        public bool ArrowCycling { get; set; }
+
+        /// <summary>
         /// Behaviour of crit wiggle.
         /// </summary>
         public CritWiggleState CritWiggle { get; set; }
@@ -96,6 +101,7 @@ namespace MMR.Randomizer.Asm
             this.QuestItemStorage = ((flags >> 26) & 1) == 1;
             this.CloseCows = ((flags >> 25) & 1) == 1;
             this.FreestandingModels = ((flags >> 24) & 1) == 1;
+            this.ArrowCycling = ((flags >> 21) & 1) == 1;
         }
 
         /// <summary>
@@ -113,6 +119,7 @@ namespace MMR.Randomizer.Asm
             flags |= (this.CloseCows ? (uint)1 : 0) << 25;
             flags |= (this.FreestandingModels ? (uint)1 : 0) << 24;
             flags |= (((uint)this.QuestConsume) & 3) << 22;
+            flags |= (this.ArrowCycling ? (uint)1 : 0) << 21;
             return flags;
         }
     }

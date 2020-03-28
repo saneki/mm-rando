@@ -140,6 +140,7 @@ namespace MMR.UI.Forms
             TooltipBuilder.SetTooltip(cFasterLabFish, "Change Lab Fish to only need to be fed one fish.");
             TooltipBuilder.SetTooltip(cFastPush, "Increase the speed of pushing and pulling blocks and faucets.");
             TooltipBuilder.SetTooltip(cFreestanding, "Show world models as their actual item instead of the original item. This includes Pieces of Heart, Heart Containers, Skulltula Tokens, Stray Fairies, Moon's Tear and the Seahorse.");
+            TooltipBuilder.SetTooltip(cArrowCycling, "Cycle through arrow types when pressing R while an arrow is out when using the bow.");
         }
 
         /// <summary>
@@ -406,6 +407,7 @@ namespace MMR.UI.Forms
             cQuestItemStorage.Checked = _configuration.GameplaySettings.QuestItemStorage;
             cUnderwaterOcarina.Checked = _configuration.GameplaySettings.OcarinaUnderwater;
             cFreestanding.Checked = _configuration.GameplaySettings.UpdateWorldModels;
+            cArrowCycling.Checked = _configuration.GameplaySettings.ArrowCycling;
 
             // HUD config options
             var heartItems = ColorSelectionManager.Hearts.GetItems();
@@ -725,6 +727,11 @@ namespace MMR.UI.Forms
             UpdateSingleSetting(() => _configuration.CosmeticSettings.EnableHoldZTargeting = cTargettingStyle.Checked);
         }
 
+        private void cArrowCycling_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _configuration.GameplaySettings.ArrowCycling = cArrowCycling.Checked);
+        }
+
         private void cMode_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -1038,6 +1045,7 @@ namespace MMR.UI.Forms
             cEponaSword.Enabled = v;
             cQuestItemStorage.Enabled = v;
             cFreestanding.Enabled = v;
+            cArrowCycling.Enabled = v;
 
             cSkipBeaver.Enabled = v;
             cGoodDampeRNG.Enabled = v;
@@ -1214,6 +1222,7 @@ namespace MMR.UI.Forms
             cQuestItemStorage.Visible = v;
             cFastPush.Visible = v;
             cFreestanding.Visible = v;
+            cArrowCycling.Visible = v;
             cLink.Visible = v;
             lLink.Visible = v;
 
