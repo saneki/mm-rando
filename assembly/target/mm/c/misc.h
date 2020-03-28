@@ -44,7 +44,8 @@ struct misc_config {
             u32 close_cows         : 1;
             u32 freestanding       : 1;
             u32 quest_consume      : 2;
-            u32                    : 22;
+            u32 arrow_cycle        : 1;
+            u32                    : 21;
         };
         u32 flags;          /* 0x0018 */
     };

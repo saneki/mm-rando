@@ -1,5 +1,6 @@
 #include <stdbool.h>
 #include "actor_ext.h"
+#include "arrow_cycle.h"
 #include "dpad.h"
 #include "external_effects.h"
 #include "gfx.h"
@@ -23,6 +24,7 @@ void c_init() {
 void before_player_actor_update(z2_link_t *link, z2_game_t *game) {
     dpad_before_player_actor_update(link, game);
     external_effects_handle(link, game);
+    arrow_cycle_handle(link, game);
 }
 
 bool before_damage_process(z2_link_t *link, z2_game_t *game) {
