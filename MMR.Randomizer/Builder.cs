@@ -609,6 +609,11 @@ namespace MMR.Randomizer
             {
                 WriteSunsSong();
             }
+
+            if (_randomized.Settings.AllowFierceDeityAnywhere)
+            {
+                ResourceUtils.ApplyHack(Values.ModsDirectory, "fierce-deity-anywhere");
+            }
         }
 
         private void WriteSunsSong()
@@ -1434,7 +1439,6 @@ namespace MMR.Randomizer
                     WriteFileSelect();
                 }
                 ResourceUtils.ApplyHack(Values.ModsDirectory, "init-file");
-                ResourceUtils.ApplyHack(Values.ModsDirectory, "fierce-deity-anywhere");
 
                 progressReporter.ReportProgress(61, "Writing quick text...");
                 WriteQuickText();

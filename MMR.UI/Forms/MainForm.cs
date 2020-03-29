@@ -115,6 +115,7 @@ namespace MMR.UI.Forms
             TooltipBuilder.SetTooltip(cSunsSong, "Enable using the Sun's Song, which speeds up time to 400 units per frame (normal time speed is 3 units per frame) until dawn or dusk or a loading zone.");
             TooltipBuilder.SetTooltip(cUnderwaterOcarina, "Enable using the ocarina underwater.");
             TooltipBuilder.SetTooltip(cTargettingStyle, "Default Z-Targeting style to Hold.");
+            TooltipBuilder.SetTooltip(cFDAnywhere, "Allow the Fierce Deity's Mask to be used anywhere. Also addresses some softlocks caused by Fierce Deity.");
 
             // Comforts/cosmetics
             TooltipBuilder.SetTooltip(cCutsc, "Enable shortened cutscenes.\n\nCertain cutscenes are skipped or otherwise shortened.\nDISCLAIMER: This may cause crashing in certain emulators.");
@@ -368,6 +369,7 @@ namespace MMR.UI.Forms
             cClearHints.Checked = _configuration.GameplaySettings.ClearHints;
             cHideClock.Checked = _configuration.GameplaySettings.HideClock;
             cSunsSong.Checked = _configuration.GameplaySettings.EnableSunsSong;
+            cFDAnywhere.Checked = _configuration.GameplaySettings.AllowFierceDeityAnywhere;
             cClockSpeed.SelectedIndex = (int)_configuration.GameplaySettings.ClockSpeed;
             cNoDowngrades.Checked = _configuration.GameplaySettings.PreventDowngrades;
             cShopAppearance.Checked = _configuration.GameplaySettings.UpdateShopAppearance;
@@ -642,6 +644,11 @@ namespace MMR.UI.Forms
         private void cSunsSong_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _configuration.GameplaySettings.EnableSunsSong = cSunsSong.Checked);
+        }
+
+        private void cFDAnywhere_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _configuration.GameplaySettings.AllowFierceDeityAnywhere = cFDAnywhere.Checked);
         }
 
         private void cNoStartingItems_CheckedChanged(object sender, EventArgs e)
@@ -1053,6 +1060,7 @@ namespace MMR.UI.Forms
             cHideClock.Enabled = v;
             cUnderwaterOcarina.Enabled = v;
             cSunsSong.Enabled = v;
+            cFDAnywhere.Enabled = v;
 
             cSoS.Enabled = v;
             cDChests.Enabled = v;

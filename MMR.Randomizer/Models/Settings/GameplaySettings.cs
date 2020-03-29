@@ -254,6 +254,11 @@ namespace MMR.Randomizer.Models.Settings
         /// Enables Sun's Song
         /// </summary>
         public bool EnableSunsSong { get; set; }
+        
+        /// <summary>
+        /// Allow's using Fierce Deity's Mask anywhere
+        /// </summary>
+        public bool AllowFierceDeityAnywhere { get; set; }
 
         #endregion
 
@@ -399,7 +404,7 @@ namespace MMR.Randomizer.Models.Settings
             ClearHints = (part1 & 65536) > 0;
             FreeHints = (part1 & 16384) > 0;
             // 8192 - UseCustomItemList, see above
-            // = (part1 & 2048) > 0;
+            AllowFierceDeityAnywhere = (part1 & 2048) > 0;
             // = (part1 & 512) > 0;
             AddSongs = (part1 & 256) > 0;
             RandomizeDungeonEntrances = (part1 & 16) > 0;
@@ -482,7 +487,7 @@ namespace MMR.Randomizer.Models.Settings
             if (HideClock) { parts[0] += 131072; };
             if (ClearHints) { parts[0] += 65536; };
             if (FreeHints) { parts[0] += 16384; };
-            // { parts[0] += 2048; }
+            if (AllowFierceDeityAnywhere) { parts[0] += 2048; }
             // { parts[0] += 512; };
             if (AddSongs) { parts[0] += 256; };
             if (RandomizeDungeonEntrances) { parts[0] += 16; };
