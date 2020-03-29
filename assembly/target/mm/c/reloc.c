@@ -29,20 +29,22 @@ z2_actor_init_t * reloc_resolve_actor_init(z2_actor_ovl_table_t *ovl) {
     return reloc_resolve_actor_ovl(ovl, ovl->initialization);
 }
 
-void * get_ram_from_gamestate_vram(z2_gamestate_table_t *gs, u32 vram) {
-    if (gs->ram && gs->vram_start <= vram && vram < gs->vram_end) {
-        u32 offset = vram - gs->vram_start;
-        return (void *)((char *)gs->ram + offset);
-    } else {
-        return NULL;
-    }
+void * reloc_resolve_gamestate(z2_gamestate_table_t *gs, u32 vram) {
+    struct vram_info info = {
+        .ram = gs->ram,
+        .virt_start = gs->vram_start,
+        .virt_end = gs->vram_end,
+    };
+
+    return resolve(info, vram);
 }
 
-void * get_ram_from_player_ovl_vram(z2_player_ovl_table_t *ovl, u32 vram) {
-    if (ovl->ram && ovl->vram_start <= vram && vram < ovl->vram_end) {
-        u32 offset = vram - ovl->vram_start;
-        return (void *)((char *)ovl->ram + offset);
-    } else {
-        return NULL;
-    }
+void * reloc_resolve_player_ovl(z2_player_ovl_table_t *ovl, u32 vram) {
+    struct vram_info info = {
+        .ram = ovl->ram,
+        .virt_start = ovl->vram_start,
+        .virt_end = ovl->vram_end,
+    };
+
+    return resolve(info, vram);
 }
