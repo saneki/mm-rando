@@ -125,6 +125,28 @@ namespace MMR.Randomizer.Asm
     }
 
     /// <summary>
+    /// Internal flags.
+    /// </summary>
+    public class InternalFlags
+    {
+        /// <summary>
+        /// Whether or not Vanilla Layout is being used, which determines if certain mod files are included.
+        /// </summary>
+        public bool VanillaLayout { get; set; }
+
+        /// <summary>
+        /// Convert to a <see cref="uint"/> integer.
+        /// </summary>
+        /// <returns>Integer</returns>
+        public uint ToInt()
+        {
+            uint flags = 0;
+            flags |= (this.VanillaLayout ? (uint)1 : 0) << 31;
+            return flags;
+        }
+    }
+
+    /// <summary>
     /// Miscellaneous configuration structure.
     /// </summary>
     public struct MiscConfigStruct : IAsmConfigStruct
@@ -132,6 +154,7 @@ namespace MMR.Randomizer.Asm
         public uint Version;
         public byte[] Hash;
         public uint Flags;
+        public uint InternalFlags;
 
         /// <summary>
         /// Convert to bytes.
@@ -147,6 +170,12 @@ namespace MMR.Randomizer.Asm
                 // Version 0
                 writer.Write(this.Hash);
                 writer.Write(ReadWriteUtils.Byteswap32(this.Flags));
+
+                // Version 1
+                if (this.Version >= 1)
+                {
+                    writer.Write(ReadWriteUtils.Byteswap32(this.InternalFlags));
+                }
 
                 return memStream.ToArray();
             }
@@ -168,15 +197,21 @@ namespace MMR.Randomizer.Asm
         /// </summary>
         public MiscFlags Flags { get; set; }
 
+        /// <summary>
+        /// Internal flags.
+        /// </summary>
+        public InternalFlags InternalFlags { get; set; }
+
         public MiscConfig()
-            : this(new byte[0], new MiscFlags())
+            : this(new byte[0], new MiscFlags(), new InternalFlags())
         {
         }
 
-        public MiscConfig(byte[] hash, MiscFlags flags)
+        public MiscConfig(byte[] hash, MiscFlags flags, InternalFlags internalFlags)
         {
             this.Hash = hash;
             this.Flags = flags;
+            this.InternalFlags = internalFlags;
         }
 
         /// <summary>
@@ -193,6 +228,7 @@ namespace MMR.Randomizer.Asm
                 Version = version,
                 Hash = hash,
                 Flags = this.Flags.ToInt(),
+                InternalFlags = this.InternalFlags.ToInt(),
             };
         }
     }

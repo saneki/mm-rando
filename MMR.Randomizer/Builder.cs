@@ -1350,6 +1350,10 @@ namespace MMR.Randomizer
         {
             // Load the symbols and use them to apply the patch data
             var options = _randomized.Settings.AsmOptions;
+
+            // Update internal flags
+            options.MiscConfig.InternalFlags.VanillaLayout = _randomized.Settings.LogicMode == LogicMode.Vanilla;
+
             asm.ApplyPatch(options);
         }
 

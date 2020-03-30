@@ -6,6 +6,7 @@
 #include "gfx.h"
 #include "hud_colors.h"
 #include "icetrap.h"
+#include "misc.h"
 #include "mmr.h"
 #include "models.h"
 #include "util.h"
@@ -19,6 +20,7 @@ void c_init() {
     actor_ext_init();
     models_init();
     mmr_init();
+    misc_init();
 }
 
 void before_player_actor_update(z2_link_t *link, z2_game_t *game) {
