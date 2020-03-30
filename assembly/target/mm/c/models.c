@@ -316,10 +316,12 @@ void models_write_boss_remains_object_segment(z2_game_t *game, u32 graphic_id_mi
 
 /**
  * Hook function for drawing Boss Remain actors as their new item.
+ * Currently draws the item on the Oath to Order check. Will need
+ * to be updated if Boss Remains are randomized.
  **/
 void models_draw_boss_remains(z2_actor_t *actor, z2_game_t *game, u32 graphic_id_minus_1) {
-    if (MISC_CONFIG.freestanding) {
-        draw_model_low_level(actor, game, graphic_id_minus_1);
+    if (MISC_CONFIG.freestanding && actor->pos_2.y == 0) {
+        models_draw_from_gi_table(actor, game, 1.0, 0x77);
     } else {
         draw_model_low_level(actor, game, graphic_id_minus_1);
     }

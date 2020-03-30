@@ -176,6 +176,7 @@ namespace MMR.UI.Forms
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
+            this.cFDAnywhere = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -1265,6 +1266,7 @@ namespace MMR.UI.Forms
             // 
             // tabGimmicks
             // 
+            this.tabGimmicks.Controls.Add(this.cFDAnywhere);
             this.tabGimmicks.Controls.Add(this.cUnderwaterOcarina);
             this.tabGimmicks.Controls.Add(this.cGravity);
             this.tabGimmicks.Controls.Add(this.cDType);
@@ -1706,7 +1708,7 @@ namespace MMR.UI.Forms
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mLogicEdit});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // mLogicEdit
@@ -1891,6 +1893,20 @@ namespace MMR.UI.Forms
             this.bLoadPatch.Text = "Load Patch...";
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
+            // 
+            // cFDAnywhere
+            // 
+            this.cFDAnywhere.AutoSize = true;
+            this.cFDAnywhere.BackColor = System.Drawing.Color.Transparent;
+            this.cFDAnywhere.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cFDAnywhere.ForeColor = System.Drawing.Color.Black;
+            this.cFDAnywhere.Location = new System.Drawing.Point(393, 161);
+            this.cFDAnywhere.Name = "cFDAnywhere";
+            this.cFDAnywhere.Size = new System.Drawing.Size(195, 17);
+            this.cFDAnywhere.TabIndex = 23;
+            this.cFDAnywhere.Text = "Allow Fierce Deity\'s Mask anywhere";
+            this.cFDAnywhere.UseVisualStyleBackColor = false;
+            this.cFDAnywhere.CheckedChanged += new System.EventHandler(this.cFDAnywhere_CheckedChanged);
             // 
             // MainForm
             // 
@@ -2101,8 +2117,9 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.GroupBox gSpeedUps;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mLogicEdit;
-        private System.Windows.Forms.CheckBox cFreestanding; 
         private System.Windows.Forms.CheckBox cEnableNightMusic; 
+        private System.Windows.Forms.CheckBox cFreestanding;
+        private System.Windows.Forms.CheckBox cFDAnywhere;
     }
 }
 
