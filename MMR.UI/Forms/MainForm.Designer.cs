@@ -177,6 +177,7 @@ namespace MMR.UI.Forms
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
             this.cFDAnywhere = new System.Windows.Forms.CheckBox();
+            this.cArrowCycling = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -1077,6 +1078,7 @@ namespace MMR.UI.Forms
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.cArrowCycling);
             this.groupBox7.Controls.Add(this.cFreestanding);
             this.groupBox7.Controls.Add(this.cEnableNightMusic);
             this.groupBox7.Controls.Add(this.cFastPush);
@@ -1908,6 +1910,17 @@ namespace MMR.UI.Forms
             this.cFDAnywhere.UseVisualStyleBackColor = false;
             this.cFDAnywhere.CheckedChanged += new System.EventHandler(this.cFDAnywhere_CheckedChanged);
             // 
+            // cArrowCycling
+            // 
+            this.cArrowCycling.AutoSize = true;
+            this.cArrowCycling.Location = new System.Drawing.Point(9, 160);
+            this.cArrowCycling.Name = "cArrowCycling";
+            this.cArrowCycling.Size = new System.Drawing.Size(89, 17);
+            this.cArrowCycling.TabIndex = 35;
+            this.cArrowCycling.Text = "Arrow cycling";
+            this.cArrowCycling.UseVisualStyleBackColor = true;
+            this.cArrowCycling.CheckedChanged += new System.EventHandler(this.cArrowCycling_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2120,6 +2133,7 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.CheckBox cEnableNightMusic; 
         private System.Windows.Forms.CheckBox cFreestanding;
         private System.Windows.Forms.CheckBox cFDAnywhere;
+        private System.Windows.Forms.CheckBox cArrowCycling;
     }
 }
 

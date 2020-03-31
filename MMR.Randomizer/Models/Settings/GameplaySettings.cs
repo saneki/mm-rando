@@ -36,6 +36,14 @@ namespace MMR.Randomizer.Models.Settings
         #region Asm Getters / Setters
 
         /// <summary>
+        /// Whether or not to enable cycling arrow types while using the bow.
+        /// </summary>
+        public bool ArrowCycling {
+            get { return this.AsmOptions.MiscConfig.Flags.ArrowCycling; }
+            set { this.AsmOptions.MiscConfig.Flags.ArrowCycling = value; }
+        }
+
+        /// <summary>
         /// Whether or not to disable crit wiggle.
         /// </summary>
         public bool CritWiggleDisable {
