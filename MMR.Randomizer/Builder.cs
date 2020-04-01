@@ -383,6 +383,12 @@ namespace MMR.Randomizer
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory, "ztargetinghold");
             }
+
+            if (_cosmeticSettings.EnableNightBGM)
+            {
+                SceneUtils.ReenableNightBGM();
+            }
+
         }
 
         private void WriteMiscText()
