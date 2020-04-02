@@ -50,7 +50,8 @@ namespace MMR.Randomizer
             }
             string GetSpacedString(string start, int len = 50) // formating for spoiler log
             {
-                return start + new String(' ', len - start.Length);
+                int padding = start.Length <= len ? len - start.Length : 0;
+                return start + new String(' ', padding);
             }
 
             // pointerize some slots
