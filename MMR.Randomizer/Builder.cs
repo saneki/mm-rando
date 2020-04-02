@@ -208,12 +208,36 @@ namespace MMR.Randomizer
                     }
                     else
                     {
-                        WriteOutput(" out of remaining songs:");
-                        foreach (SequenceInfo remaining_song in Unassigned)
+                        // last attempt, copy a song already used
+                        replacementSong = RomData.SequenceList.Find(u => u.Type[0] >= targetSequence.Type[0]);
+                        if (replacementSong != null)
                         {
-                            WriteOutput(" - " + remaining_song.Name + " with categories " + String.Join(",", remaining_song.Type));
+                            RomData.SequenceList.Add
+                            (
+                                new SequenceInfo
+                                {
+                                    Name                = replacementSong.Name,
+                                    Directory           = replacementSong.Directory,
+                                    MM_seq              = replacementSong.MM_seq,
+                                    Type                = replacementSong.Type,
+                                    Instrument          = replacementSong.Instrument,
+                                    SequenceBinaryList  = replacementSong.SequenceBinaryList,
+                                    PreviousSlot        = replacementSong.PreviousSlot,
+                                    Replaces            = targetSequence.Replaces
+                                }
+                            );
+                            WriteOutput(" * double dipping with song " + replacementSong.Name + ", with categories: " + String.Join(",", replacementSong.Type));
+                            WriteOutput(GetSpacedString(replacementSong.Name, len: 48) + " ~~-> " + targetSequence.Name);
                         }
-                        throw new Exception("Cannot randomize music on this seed with available music");
+                        else 
+                        {
+                            WriteOutput(" out of remaining songs:");
+                            foreach (SequenceInfo remaining_song in Unassigned)
+                            {
+                                WriteOutput(" - " + remaining_song.Name + " with categories " + String.Join(",", remaining_song.Type));
+                            }
+                            throw new Exception("Cannot randomize music on this seed with available music");
+                        }
                     }
                 }
             }
