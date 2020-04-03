@@ -9,7 +9,7 @@ using System.Text;
 using System.Diagnostics;
 using System.IO.Compression;
 using MMR.Randomizer.Models.Settings;
-
+using System.Security.Cryptography;
 
 
 namespace MMR.Randomizer.Utils
@@ -212,6 +212,7 @@ namespace MMR.Randomizer.Utils
                             continue;
                         }
 
+                        MD5 md5lib = MD5.Create();
                         foreach (ZipArchiveEntry zip_item in zip.Entries) {
                             if (zip_item.Name.Contains("zseq"))
                             {
@@ -242,7 +243,8 @@ namespace MMR.Randomizer.Utils
                                         BankBinary = bank_data,
                                         BankSlot = new_song.Instrument,
                                         BankMetaData = meta_data,
-                                        Modified = true
+                                        Modified = 1,
+                                        Hash = BitConverter.ToInt64(md5lib.ComputeHash(bank_data), 0)
                                     };
                                 }//if requires bank
 
@@ -356,17 +358,17 @@ namespace MMR.Randomizer.Utils
                     if (SequenceList[j].MM_seq != -1)
                     {
                         newentry.Data = OldSeq[SequenceList[j].MM_seq].Data;
-                        WriteOutput("Slot " + i.ToString("X") + " -> " + SequenceList[j].Name);
+                        WriteOutput("Slot " + i.ToString("X2") + " -> " + SequenceList[j].Name);
 
                     }
-                    else if (SequenceList[j].SequenceBinaryList != null && SequenceList[j].SequenceBinaryList[0] != null)
+                    else if (SequenceList[j].SequenceBinaryList != null && SequenceList[j].SequenceBinaryList.Count > 0)
                     {
-                        if (SequenceList[j].SequenceBinaryList.Count == 0)
-                            throw new Exception("Reached music write without a song to write");
                         if (SequenceList[j].SequenceBinaryList.Count > 1)
+                        {
                             WriteOutput("Warning: writing song with multiple sequence/bank combos, selecting first available");
+                        }
                         newentry.Data = SequenceList[j].SequenceBinaryList[0].SequenceBinary;
-                        WriteOutput("Slot " + i.ToString("X") + " := " + SequenceList[j].Name + " *");
+                        WriteOutput("Slot " + i.ToString("X2") + " := " + SequenceList[j].Name + " *");
 
                     }
                     else // non mm, load file and add
@@ -386,13 +388,8 @@ namespace MMR.Randomizer.Utils
                         }
                         else
                         {
-                            throw new Exception("Music not found as file or built-in resource.");
+                            throw new Exception("Music not found as file or built-in resource." + SequenceList[j].Filename);
                         }
-
-                        // if the sequence is not padded to 16 bytes, the DMA fails
-                        //  music can stop from playing and on hardware it will just straight crash
-                        if (data.Length % 0x10 != 0)
-                            data = data.Concat(new byte[0x10 - (data.Length % 0x10)]).ToArray();
 
                         // I think this checks if the sequence type is correct for MM
                         //  because DB ripped sequences from SF64/SM64/MK64 without modifying them
@@ -402,7 +399,7 @@ namespace MMR.Randomizer.Utils
                         }
 
                         newentry.Data = data;
-                        WriteOutput("Slot " + i.ToString("X") + " := " + SequenceList[j].Name);
+                        WriteOutput("Slot " + i.ToString("X2") + " := " + SequenceList[j].Name);
 
                     }
                 }
@@ -411,17 +408,18 @@ namespace MMR.Randomizer.Utils
                     newentry.Data = OldSeq[i].Data;
                 }
 
-                var padding = 0x10 - newentry.Size % 0x10;
-                if (padding != 0x10)
+                // if the sequence is not padded to 16 bytes, the DMA fails
+                //  music can stop from playing and on hardware it will just straight crash
+                var Padding = 0x10 - newentry.Size % 0x10;
+                if (Padding != 0x10)
                 {
-                    newentry.Data = newentry.Data.Concat(new byte[padding]).ToArray();
+                    newentry.Data = newentry.Data.Concat(new byte[Padding]).ToArray();
                 }
 
                 NewSeq.Add(newentry);
                 // TODO is there not a better way to write this?
                 if (newentry.Data != null)
                 {
-
                     NewAudioSeq = NewAudioSeq.Concat(newentry.Data).ToArray();
                 }
 
@@ -490,8 +488,6 @@ namespace MMR.Randomizer.Utils
             //    sw.WriteLine(""); // spacer
             //    sw.Write(log);
             //}
-
-
         }
 
         /// <summary>
