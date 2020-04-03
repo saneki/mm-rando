@@ -105,7 +105,9 @@ namespace MMR.UI.Forms
             this.cMusic = new System.Windows.Forms.ComboBox();
             this.lTunic = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.cArrowCycling = new System.Windows.Forms.CheckBox();
             this.cFreestanding = new System.Windows.Forms.CheckBox();
+            this.cEnableNightMusic = new System.Windows.Forms.CheckBox();
             this.cFastPush = new System.Windows.Forms.CheckBox();
             this.cQText = new System.Windows.Forms.CheckBox();
             this.cShopAppearance = new System.Windows.Forms.CheckBox();
@@ -118,6 +120,7 @@ namespace MMR.UI.Forms
             this.cCutsc = new System.Windows.Forms.CheckBox();
             this.cNoDowngrades = new System.Windows.Forms.CheckBox();
             this.tabGimmicks = new System.Windows.Forms.TabPage();
+            this.cFDAnywhere = new System.Windows.Forms.CheckBox();
             this.cUnderwaterOcarina = new System.Windows.Forms.CheckBox();
             this.cGravity = new System.Windows.Forms.ComboBox();
             this.cDType = new System.Windows.Forms.ComboBox();
@@ -175,8 +178,6 @@ namespace MMR.UI.Forms
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
-            this.cFDAnywhere = new System.Windows.Forms.CheckBox();
-            this.cArrowCycling = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -1079,6 +1080,7 @@ namespace MMR.UI.Forms
             // 
             this.groupBox7.Controls.Add(this.cArrowCycling);
             this.groupBox7.Controls.Add(this.cFreestanding);
+            this.groupBox7.Controls.Add(this.cEnableNightMusic);
             this.groupBox7.Controls.Add(this.cFastPush);
             this.groupBox7.Controls.Add(this.cQText);
             this.groupBox7.Controls.Add(this.cShopAppearance);
@@ -1097,6 +1099,17 @@ namespace MMR.UI.Forms
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Comfort Options";
             // 
+            // cArrowCycling
+            // 
+            this.cArrowCycling.AutoSize = true;
+            this.cArrowCycling.Location = new System.Drawing.Point(147, 160);
+            this.cArrowCycling.Name = "cArrowCycling";
+            this.cArrowCycling.Size = new System.Drawing.Size(89, 17);
+            this.cArrowCycling.TabIndex = 35;
+            this.cArrowCycling.Text = "Arrow cycling";
+            this.cArrowCycling.UseVisualStyleBackColor = true;
+            this.cArrowCycling.CheckedChanged += new System.EventHandler(this.cArrowCycling_CheckedChanged);
+            // 
             // cFreestanding
             // 
             this.cFreestanding.AutoSize = true;
@@ -1107,6 +1120,17 @@ namespace MMR.UI.Forms
             this.cFreestanding.Text = "Update world models";
             this.cFreestanding.UseVisualStyleBackColor = true;
             this.cFreestanding.CheckedChanged += new System.EventHandler(this.cFreestanding_CheckedChanged);
+            // 
+            // cEnableNightMusic
+            // 
+            this.cEnableNightMusic.AutoSize = true;
+            this.cEnableNightMusic.Location = new System.Drawing.Point(9, 160);
+            this.cEnableNightMusic.Name = "cEnableNightMusic";
+            this.cEnableNightMusic.Size = new System.Drawing.Size(114, 17);
+            this.cEnableNightMusic.TabIndex = 35;
+            this.cEnableNightMusic.Text = "Enable Night BGM";
+            this.cEnableNightMusic.UseVisualStyleBackColor = true;
+            this.cEnableNightMusic.CheckedChanged += new System.EventHandler(this.cEnableNightMusic_CheckedChanged);
             // 
             // cFastPush
             // 
@@ -1279,6 +1303,20 @@ namespace MMR.UI.Forms
             this.tabGimmicks.TabIndex = 3;
             this.tabGimmicks.Text = "Gimmicks";
             this.tabGimmicks.UseVisualStyleBackColor = true;
+            // 
+            // cFDAnywhere
+            // 
+            this.cFDAnywhere.AutoSize = true;
+            this.cFDAnywhere.BackColor = System.Drawing.Color.Transparent;
+            this.cFDAnywhere.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cFDAnywhere.ForeColor = System.Drawing.Color.Black;
+            this.cFDAnywhere.Location = new System.Drawing.Point(393, 161);
+            this.cFDAnywhere.Name = "cFDAnywhere";
+            this.cFDAnywhere.Size = new System.Drawing.Size(195, 17);
+            this.cFDAnywhere.TabIndex = 23;
+            this.cFDAnywhere.Text = "Allow Fierce Deity\'s Mask anywhere";
+            this.cFDAnywhere.UseVisualStyleBackColor = false;
+            this.cFDAnywhere.CheckedChanged += new System.EventHandler(this.cFDAnywhere_CheckedChanged);
             // 
             // cUnderwaterOcarina
             // 
@@ -1883,31 +1921,6 @@ namespace MMR.UI.Forms
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
             // 
-            // cFDAnywhere
-            // 
-            this.cFDAnywhere.AutoSize = true;
-            this.cFDAnywhere.BackColor = System.Drawing.Color.Transparent;
-            this.cFDAnywhere.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cFDAnywhere.ForeColor = System.Drawing.Color.Black;
-            this.cFDAnywhere.Location = new System.Drawing.Point(393, 161);
-            this.cFDAnywhere.Name = "cFDAnywhere";
-            this.cFDAnywhere.Size = new System.Drawing.Size(195, 17);
-            this.cFDAnywhere.TabIndex = 23;
-            this.cFDAnywhere.Text = "Allow Fierce Deity\'s Mask anywhere";
-            this.cFDAnywhere.UseVisualStyleBackColor = false;
-            this.cFDAnywhere.CheckedChanged += new System.EventHandler(this.cFDAnywhere_CheckedChanged);
-            // 
-            // cArrowCycling
-            // 
-            this.cArrowCycling.AutoSize = true;
-            this.cArrowCycling.Location = new System.Drawing.Point(9, 160);
-            this.cArrowCycling.Name = "cArrowCycling";
-            this.cArrowCycling.Size = new System.Drawing.Size(89, 17);
-            this.cArrowCycling.TabIndex = 35;
-            this.cArrowCycling.Text = "Arrow cycling";
-            this.cArrowCycling.UseVisualStyleBackColor = true;
-            this.cArrowCycling.CheckedChanged += new System.EventHandler(this.cArrowCycling_CheckedChanged);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2117,6 +2130,7 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.GroupBox gSpeedUps;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mLogicEdit;
+        private System.Windows.Forms.CheckBox cEnableNightMusic; 
         private System.Windows.Forms.CheckBox cFreestanding;
         private System.Windows.Forms.CheckBox cFDAnywhere;
         private System.Windows.Forms.CheckBox cArrowCycling;
