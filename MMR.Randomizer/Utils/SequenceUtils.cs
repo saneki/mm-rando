@@ -271,6 +271,29 @@ namespace MMR.Randomizer.Utils
 
         }
 
+        // turns the sequence slot into a pointer, which points at another song, in substituteSlotIndex
+        // the slot at seqSlotIndex is marked such that, instead of a new sequence being put there
+        // a pointer to another song, at substituteSlotIndex, is used instead.
+        // this frees up a song slot but its not completely empty if someone bugs out and gets there somehow
+        //  this is the same concept DB used to nulify the intro song
+        public static void ConvertSequenceSlotToPointer(int seqSlotIndex, int substituteSlotIndex)
+        {
+            var targetSeq = RomData.TargetSequences.Find(u => u.Replaces == seqSlotIndex);
+            var substituteSeq = RomData.TargetSequences.Find(u => u.Replaces == substituteSlotIndex);
+            if (targetSeq != null && substituteSeq != null)
+            {
+                targetSeq.PreviousSlot = targetSeq.Replaces; // we'll need at audioseq build
+                targetSeq.Replaces = substituteSeq.Replaces; // point the target at the substitute
+                RomData.PointerizedSequences.Add(targetSeq); // save the sequence for audioseq
+                RomData.TargetSequences.Remove(targetSeq);   // close the slot
+            }
+            else
+            {
+                throw new IndexOutOfRangeException("Could not convert slot to pointer:" + seqSlotIndex.ToString("X"));
+            }
+        }
+
+
         // gets passed RomData.SequenceList in Builder.cs::WriteAudioSeq
         public static void RebuildAudioSeq(List<SequenceInfo> SequenceList, OutputSettings _settings)
         {

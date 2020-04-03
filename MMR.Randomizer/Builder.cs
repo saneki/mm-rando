@@ -95,12 +95,12 @@ namespace MMR.Randomizer
             if (RomData.SequenceList.Count < 80)
             {
                 // these are the most likely for users to run into, let's only pointerize these if using MM only
-                ConvertSequenceSlotToPointer(0x03, 0x0d); // point chase(skullkid chase) at aliens
-                ConvertSequenceSlotToPointer(0x76, 0x15); // point titlescreen at clocktownday1
-                ConvertSequenceSlotToPointer(0x29, 0x7d); // point zelda(SOTime get cs) at reunion
-                ConvertSequenceSlotToPointer(0x70, 0x7d); // point giants(meeting cs) at reunion
-                ConvertSequenceSlotToPointer(0x08, 0x09); // point chasefail(skullkid chase) at fail
-                ConvertSequenceSlotToPointer(0x19, 0x78); // point clearshort(epona get cs) at dungeonclearshort
+                SequenceUtils.ConvertSequenceSlotToPointer(0x03, 0x0d); // point chase(skullkid chase) at aliens
+                SequenceUtils.ConvertSequenceSlotToPointer(0x76, 0x15); // point titlescreen at clocktownday1
+                SequenceUtils.ConvertSequenceSlotToPointer(0x29, 0x7d); // point zelda(SOTime get cs) at reunion
+                SequenceUtils.ConvertSequenceSlotToPointer(0x70, 0x7d); // point giants(meeting cs) at reunion
+                SequenceUtils.ConvertSequenceSlotToPointer(0x08, 0x09); // point chasefail(skullkid chase) at fail
+                SequenceUtils.ConvertSequenceSlotToPointer(0x19, 0x78); // point clearshort(epona get cs) at dungeonclearshort
             }
 
             // we randomize both slots and songs because if we're low on variety, and we don't sort slots
@@ -268,28 +268,6 @@ namespace MMR.Randomizer
             }
         }
         #endregion
-
-        // turns the sequence slot into a pointer, which points at another song, in substituteSlotIndex
-        // the slot at seqSlotIndex is marked such that, instead of a new sequence being put there
-        // a pointer to another song, at substituteSlotIndex, is used instead.
-        // this frees up a song slot but its not completely empty if someone bugs out and gets there somehow
-        //  this is the same concept DB used to nulify the intro song
-        private void ConvertSequenceSlotToPointer(int seqSlotIndex, int substituteSlotIndex)
-        {
-            var targetSeq = RomData.TargetSequences.Find(u => u.Replaces == seqSlotIndex);
-            var substituteSeq = RomData.TargetSequences.Find(u => u.Replaces == substituteSlotIndex);
-            if (targetSeq != null && substituteSeq != null)
-            {
-                targetSeq.PreviousSlot = targetSeq.Replaces; // we'll need at audioseq build
-                targetSeq.Replaces = substituteSeq.Replaces; // point the target at the substitute
-                RomData.PointerizedSequences.Add(targetSeq); // save the sequence for audioseq
-                RomData.TargetSequences.Remove(targetSeq);   // close the slot
-            }
-            else
-            {
-                throw new IndexOutOfRangeException("Could not convert slot to pointer:" + seqSlotIndex.ToString("X"));
-            }
-        }
 
         private void WriteAudioSeq(Random random, OutputSettings _settings)
         {
