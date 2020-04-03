@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include "extended_objects.h"
 #include "linheap.h"
 #include "loaded_models.h"
 #include "misc.h"
@@ -23,7 +24,7 @@ struct loaded_object {
 static struct loaded_object object_slots[slot_count] = { 0 };
 
 static void load_object_file(u32 object_id, u8 *buf) {
-    z2_obj_file_t *entry = &(z2_obj_table[object_id]);
+    z2_obj_file_t *entry = extended_objects_get((s16)object_id);
     u32 vrom_start = entry->vrom_start;
     u32 size = entry->vrom_end - vrom_start;
     z2_ReadFile(buf, vrom_start, size);
@@ -35,7 +36,7 @@ static void load_object(struct loaded_object *object, u32 object_id) {
 }
 
 static size_t get_object_size(u32 object_id) {
-    z2_obj_file_t info = z2_obj_table[object_id];
+    z2_obj_file_t info = *extended_objects_get((s16)object_id);
     return (size_t)(info.vrom_end - info.vrom_start);
 }
 
