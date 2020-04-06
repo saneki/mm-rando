@@ -178,6 +178,7 @@ namespace MMR.UI.Forms
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
+            this.cFasterBank = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -745,13 +746,14 @@ namespace MMR.UI.Forms
             // 
             // gSpeedUps
             // 
+            this.gSpeedUps.Controls.Add(this.cFasterBank);
             this.gSpeedUps.Controls.Add(this.cSkipBeaver);
             this.gSpeedUps.Controls.Add(this.cFasterLabFish);
             this.gSpeedUps.Controls.Add(this.cGoodDogRaceRNG);
             this.gSpeedUps.Controls.Add(this.cGoodDampeRNG);
-            this.gSpeedUps.Location = new System.Drawing.Point(373, 223);
+            this.gSpeedUps.Location = new System.Drawing.Point(373, 203);
             this.gSpeedUps.Name = "gSpeedUps";
-            this.gSpeedUps.Size = new System.Drawing.Size(286, 77);
+            this.gSpeedUps.Size = new System.Drawing.Size(286, 97);
             this.gSpeedUps.TabIndex = 37;
             this.gSpeedUps.TabStop = false;
             this.gSpeedUps.Text = "Speed Ups";
@@ -1094,7 +1096,7 @@ namespace MMR.UI.Forms
             this.groupBox7.Controls.Add(this.cNoDowngrades);
             this.groupBox7.Location = new System.Drawing.Point(373, 6);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(286, 211);
+            this.groupBox7.Size = new System.Drawing.Size(286, 191);
             this.groupBox7.TabIndex = 34;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Comfort Options";
@@ -1921,6 +1923,17 @@ namespace MMR.UI.Forms
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
             // 
+            // cFasterBank
+            // 
+            this.cFasterBank.AutoSize = true;
+            this.cFasterBank.Location = new System.Drawing.Point(9, 67);
+            this.cFasterBank.Name = "cFasterBank";
+            this.cFasterBank.Size = new System.Drawing.Size(83, 17);
+            this.cFasterBank.TabIndex = 4;
+            this.cFasterBank.Text = "Faster Bank";
+            this.cFasterBank.UseVisualStyleBackColor = true;
+            this.cFasterBank.CheckedChanged += new System.EventHandler(this.cFasterBank_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2134,6 +2147,7 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.CheckBox cFreestanding;
         private System.Windows.Forms.CheckBox cFDAnywhere;
         private System.Windows.Forms.CheckBox cArrowCycling;
+        private System.Windows.Forms.CheckBox cFasterBank;
     }
 }
 

@@ -262,6 +262,9 @@
     <None Update="Resources\mods\short-cutscenes">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\mods\speedup-bank">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\mods\speedup-beavers">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
