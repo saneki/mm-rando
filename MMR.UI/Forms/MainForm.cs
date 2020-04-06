@@ -908,8 +908,6 @@ namespace MMR.UI.Forms
         /// </summary>
         private void ToggleCheckBoxes()
         {
-            var onMainTab = ttOutput.SelectedTab.TabIndex == 0;
-
             if (_configuration.GameplaySettings.LogicMode == LogicMode.Vanilla)
             {
                 cMixSongs.Enabled = false;
@@ -938,38 +936,38 @@ namespace MMR.UI.Forms
             }
             else
             {
-                cMixSongs.Enabled = onMainTab;
-                cDEnt.Enabled = onMainTab;
-                cSpoiler.Enabled = onMainTab;
-                cHTMLLog.Enabled = onMainTab;
-                cGossipHints.Enabled = onMainTab;
-                cUserItems.Enabled = onMainTab;
+                cMixSongs.Enabled = true;
+                cDEnt.Enabled = true;
+                cSpoiler.Enabled = true;
+                cHTMLLog.Enabled = true;
+                cGossipHints.Enabled = true;
+                cUserItems.Enabled = true;
 
-                cSoS.Enabled = onMainTab;
-                cDChests.Enabled = onMainTab;
-                cBottled.Enabled = onMainTab;
-                cShop.Enabled = onMainTab;
-                cAdditional.Enabled = onMainTab;
-                cMoonItems.Enabled = onMainTab;
-                cFairyRewards.Enabled = onMainTab;
-                cNutChest.Enabled = onMainTab && _configuration.GameplaySettings.LogicMode != LogicMode.Casual;
-                cCrazyStartingItems.Enabled = onMainTab;
-                cCowMilk.Enabled = onMainTab;
-                cSpiders.Enabled = onMainTab;
-                cStrayFairies.Enabled = onMainTab;
-                cMundaneRewards.Enabled = onMainTab;
+                cSoS.Enabled = true;
+                cDChests.Enabled = true;
+                cBottled.Enabled = true;
+                cShop.Enabled = true;
+                cAdditional.Enabled = true;
+                cMoonItems.Enabled = true;
+                cFairyRewards.Enabled = true;
+                cNutChest.Enabled = _configuration.GameplaySettings.LogicMode != LogicMode.Casual;
+                cCrazyStartingItems.Enabled = true;
+                cCowMilk.Enabled = true;
+                cSpiders.Enabled = true;
+                cStrayFairies.Enabled = true;
+                cMundaneRewards.Enabled = true;
 
-                tCustomItemList.Enabled = onMainTab;
-                bItemListEditor.Enabled = onMainTab;
+                tCustomItemList.Enabled = true;
+                bItemListEditor.Enabled = true;
 
-                tStartingItemList.Enabled = onMainTab;
-                bStartingItemEditor.Enabled = onMainTab;
+                tStartingItemList.Enabled = true;
+                bStartingItemEditor.Enabled = true;
 
-                tJunkLocationsList.Enabled = onMainTab && _configuration.GameplaySettings.LogicMode != LogicMode.NoLogic;
-                bJunkLocationsEditor.Enabled = onMainTab && _configuration.GameplaySettings.LogicMode != LogicMode.NoLogic;
+                tJunkLocationsList.Enabled = _configuration.GameplaySettings.LogicMode != LogicMode.NoLogic;
+                bJunkLocationsEditor.Enabled = _configuration.GameplaySettings.LogicMode != LogicMode.NoLogic;
 
-                cNoStartingItems.Enabled = onMainTab && (_configuration.GameplaySettings.AddOther || _configuration.GameplaySettings.UseCustomItemList);
-                if (!cNoStartingItems.Enabled && onMainTab)
+                cNoStartingItems.Enabled = _configuration.GameplaySettings.AddOther || _configuration.GameplaySettings.UseCustomItemList;
+                if (!cNoStartingItems.Enabled)
                 {
                     cNoStartingItems.Checked = false;
                     _configuration.GameplaySettings.NoStartingItems = false;
@@ -979,8 +977,8 @@ namespace MMR.UI.Forms
             bLoadLogic.Enabled = _configuration.GameplaySettings.LogicMode == LogicMode.UserLogic;
 
             var oldEnabled = cDrawHash.Enabled;
-            cDrawHash.Enabled = onMainTab && !_configuration.OutputSettings.GeneratePatch && (_configuration.OutputSettings.GenerateROM || _configuration.OutputSettings.OutputVC);
-            if (onMainTab && cDrawHash.Enabled != oldEnabled)
+            cDrawHash.Enabled = !_configuration.OutputSettings.GeneratePatch && (_configuration.OutputSettings.GenerateROM || _configuration.OutputSettings.OutputVC);
+            if (cDrawHash.Enabled != oldEnabled)
             {
                 cDrawHash.CheckedChanged -= cDrawHash_CheckedChanged;
                 cDrawHash.Checked = cDrawHash.Enabled ? _drawHashChecked : false;
@@ -993,7 +991,7 @@ namespace MMR.UI.Forms
             }
             else
             {
-                cClearHints.Enabled = onMainTab;
+                cClearHints.Enabled = true;
             }
         }
 
