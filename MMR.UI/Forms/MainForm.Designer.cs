@@ -1126,7 +1126,7 @@ namespace MMR.UI.Forms
             // cEnableNightMusic
             // 
             this.cEnableNightMusic.AutoSize = true;
-            this.cEnableNightMusic.Location = new System.Drawing.Point(9, 160);
+            this.cEnableNightMusic.Location = new System.Drawing.Point(9, 68);
             this.cEnableNightMusic.Name = "cEnableNightMusic";
             this.cEnableNightMusic.Size = new System.Drawing.Size(114, 17);
             this.cEnableNightMusic.TabIndex = 35;
@@ -1137,7 +1137,7 @@ namespace MMR.UI.Forms
             // cFastPush
             // 
             this.cFastPush.AutoSize = true;
-            this.cFastPush.Location = new System.Drawing.Point(9, 137);
+            this.cFastPush.Location = new System.Drawing.Point(9, 160);
             this.cFastPush.Name = "cFastPush";
             this.cFastPush.Size = new System.Drawing.Size(125, 17);
             this.cFastPush.TabIndex = 31;
@@ -1151,7 +1151,7 @@ namespace MMR.UI.Forms
             this.cQText.BackColor = System.Drawing.Color.Transparent;
             this.cQText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cQText.ForeColor = System.Drawing.Color.Black;
-            this.cQText.Location = new System.Drawing.Point(9, 114);
+            this.cQText.Location = new System.Drawing.Point(9, 137);
             this.cQText.Name = "cQText";
             this.cQText.Size = new System.Drawing.Size(74, 17);
             this.cQText.TabIndex = 6;
@@ -1231,7 +1231,7 @@ namespace MMR.UI.Forms
             // 
             this.cDisableCritWiggle.AutoSize = true;
             this.cDisableCritWiggle.BackColor = System.Drawing.Color.Transparent;
-            this.cDisableCritWiggle.Location = new System.Drawing.Point(9, 68);
+            this.cDisableCritWiggle.Location = new System.Drawing.Point(9, 91);
             this.cDisableCritWiggle.Name = "cDisableCritWiggle";
             this.cDisableCritWiggle.Size = new System.Drawing.Size(111, 17);
             this.cDisableCritWiggle.TabIndex = 29;
@@ -1257,7 +1257,7 @@ namespace MMR.UI.Forms
             this.cCutsc.BackColor = System.Drawing.Color.Transparent;
             this.cCutsc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cCutsc.ForeColor = System.Drawing.Color.Black;
-            this.cCutsc.Location = new System.Drawing.Point(9, 91);
+            this.cCutsc.Location = new System.Drawing.Point(9, 114);
             this.cCutsc.Name = "cCutsc";
             this.cCutsc.Size = new System.Drawing.Size(115, 17);
             this.cCutsc.TabIndex = 5;
