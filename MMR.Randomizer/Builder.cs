@@ -1528,6 +1528,12 @@ namespace MMR.Randomizer
                 {
                     e.Object = extended.Indexes.DoubleDefense.Value;
                 }
+
+                // Update gi-table for Notes.
+                if (((e.ItemGained >= 0x66 && e.ItemGained <= 0x6C) || e.ItemGained == 0x62) && e.Object == 0x8F && extended.Indexes.MusicNotes != null)
+                {
+                    e.Object = extended.Indexes.MusicNotes.Value;
+                }
             }
         }
 

@@ -14,6 +14,7 @@ namespace MMR.Randomizer.Asm
         public short? DoubleDefense;
         public short? Fairies;
         public short? Skulltula;
+        public short? MusicNotes;
     }
 
     /// <summary>
@@ -88,6 +89,10 @@ namespace MMR.Randomizer.Asm
             // Add Double Defense
             this.Offsets.Add(AddDoubleDefense());
             Indexes.DoubleDefense = AdvanceIndex();
+
+            // Add Songs
+            this.Offsets.Add(AddMusicNotes());
+            this.Indexes.MusicNotes = AdvanceIndex();
 
             // Add Skulltula Tokens
             if (skulltulas)
@@ -291,6 +296,24 @@ namespace MMR.Randomizer.Asm
         (uint, uint) AddSwampSkulltulaToken()
         {
             return AddSkulltulaToken(Color.FromArgb(0x00, 0xFF, 0x00));
+        }
+
+        #endregion
+
+        #region Notes
+
+        (uint, uint) AddMusicNotes()
+        {
+            var data = CloneExistingData(721);
+
+            //WriteByte(data, 0xA84, ); // green // changing this didn't work for some reason
+            //WriteByte(data, 0xA94, ); // unused red?
+            WriteByte(data, 0xAA4, 0xFF, 0xFF, 0xFF); // white instead of blue
+            WriteByte(data, 0xAB4, 0xFF, 0x32, 0x00); // red instead of orange
+            //WriteByte(data, 0xAC4, ); // purple
+            //WriteByte(data, 0xAD4, ); // unused yellow?
+            
+            return this.Bundle.Append(data);
         }
 
         #endregion
