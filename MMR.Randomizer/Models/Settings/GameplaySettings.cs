@@ -161,6 +161,11 @@ namespace MMR.Randomizer.Models.Settings
         public bool AddMundaneRewards { get; set; }
 
         /// <summary>
+        /// Add Ocarina of Time and Song of Time to the randomization pool
+        /// </summary>
+        public bool AddOcarinaAndSongOfTime { get; set; }
+
+        /// <summary>
         /// Randomize the content of a bottle when catching (e.g. catching a fairy puts poe in bottle)
         /// </summary>
         public bool RandomizeBottleCatchContents { get; set; }
@@ -389,6 +394,7 @@ namespace MMR.Randomizer.Models.Settings
                 AddSkulltulaTokens = false;
                 AddStrayFairies = false;
                 AddMundaneRewards = false;
+                AddOcarinaAndSongOfTime = false;
             }
             else
             {
@@ -418,7 +424,7 @@ namespace MMR.Randomizer.Models.Settings
             FreeHints = (part1 & 16384) > 0;
             // 8192 - UseCustomItemList, see above
             AllowFierceDeityAnywhere = (part1 & 2048) > 0;
-            // = (part1 & 512) > 0;
+            AddOcarinaAndSongOfTime = (part1 & 512) > 0;
             AddSongs = (part1 & 256) > 0;
             RandomizeDungeonEntrances = (part1 & 16) > 0;
             // = (part1 & 8) > 0;
@@ -501,7 +507,7 @@ namespace MMR.Randomizer.Models.Settings
             if (ClearHints) { parts[0] += 65536; };
             if (FreeHints) { parts[0] += 16384; };
             if (AllowFierceDeityAnywhere) { parts[0] += 2048; }
-            // { parts[0] += 512; };
+            if (AddOcarinaAndSongOfTime) { parts[0] += 512; };
             if (AddSongs) { parts[0] += 256; };
             if (RandomizeDungeonEntrances) { parts[0] += 16; };
             // { parts[0] += 8; };

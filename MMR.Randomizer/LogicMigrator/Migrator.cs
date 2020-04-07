@@ -8,7 +8,7 @@ namespace MMR.Randomizer.LogicMigrator
 {
     public static partial class Migrator
     {
-        public const int CurrentVersion = 13;
+        public const int CurrentVersion = 14;
 
         public static string ApplyMigrations(string logic)
         {
@@ -82,6 +82,11 @@ namespace MMR.Randomizer.LogicMigrator
             if (GetVersion(lines) < 13)
             {
                 RemoveGormanBrosRaceDayThree(lines);
+            }
+
+            if (GetVersion(lines) < 14)
+            {
+                AddSongOfTimeAndOcarina(lines);
             }
 
             return string.Join("\r\n", lines);
@@ -1488,6 +1493,47 @@ namespace MMR.Randomizer.LogicMigrator
                 }
 
                 lines.RemoveRange(removeId * 5 + 1, 5);
+            }
+        }
+
+        private static void AddSongOfTimeAndOcarina(List<string> lines)
+        {
+            lines[0] = "-version 14";
+            var itemNames = new string[]
+            {
+                "Ocarina of Time", "Song of Time",
+            };
+            var newItems = itemNames.Select((itemName, index) => new MigrationItem
+            {
+                ID = 94 + index
+            }).ToArray();
+            for (var i = 0; i < lines.Count; i++)
+            {
+                var line = lines[i];
+                if (line.StartsWith("-") || string.IsNullOrWhiteSpace(line))
+                {
+                    continue;
+                }
+                var updatedItemSections = line
+                    .Split(';')
+                    .Select(section => section.Split(',').Select(id =>
+                    {
+                        var itemId = int.Parse(id);
+                        if (itemId >= 94)
+                        {
+                            itemId += newItems.Length;
+                        }
+                        return itemId;
+                    }).ToList()).ToList();
+                lines[i] = string.Join(";", updatedItemSections.Select(section => string.Join(",", section)));
+            }
+            foreach (var item in newItems)
+            {
+                lines.Insert(item.ID * 5 + 1, $"- {itemNames[item.ID - 94]}");
+                lines.Insert(item.ID * 5 + 2, string.Join(",", item.DependsOnItems));
+                lines.Insert(item.ID * 5 + 3, string.Join(";", item.Conditionals.Select(c => string.Join(",", c))));
+                lines.Insert(item.ID * 5 + 4, $"{item.TimeNeeded}");
+                lines.Insert(item.ID * 5 + 5, "0");
             }
         }
 

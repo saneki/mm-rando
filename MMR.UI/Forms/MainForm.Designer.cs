@@ -79,6 +79,7 @@ namespace MMR.UI.Forms
             this.cMoonItems = new System.Windows.Forms.CheckBox();
             this.tabComfort = new System.Windows.Forms.TabPage();
             this.gSpeedUps = new System.Windows.Forms.GroupBox();
+            this.cFasterBank = new System.Windows.Forms.CheckBox();
             this.cSkipBeaver = new System.Windows.Forms.CheckBox();
             this.cFasterLabFish = new System.Windows.Forms.CheckBox();
             this.cGoodDogRaceRNG = new System.Windows.Forms.CheckBox();
@@ -178,7 +179,7 @@ namespace MMR.UI.Forms
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
-            this.cFasterBank = new System.Windows.Forms.CheckBox();
+            this.cOcarinaAndSongOfTime = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -491,6 +492,7 @@ namespace MMR.UI.Forms
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.cOcarinaAndSongOfTime);
             this.groupBox2.Controls.Add(this.cMundaneRewards);
             this.groupBox2.Controls.Add(this.cStrayFairies);
             this.groupBox2.Controls.Add(this.cSpiders);
@@ -757,6 +759,17 @@ namespace MMR.UI.Forms
             this.gSpeedUps.TabIndex = 37;
             this.gSpeedUps.TabStop = false;
             this.gSpeedUps.Text = "Speed Ups";
+            // 
+            // cFasterBank
+            // 
+            this.cFasterBank.AutoSize = true;
+            this.cFasterBank.Location = new System.Drawing.Point(9, 67);
+            this.cFasterBank.Name = "cFasterBank";
+            this.cFasterBank.Size = new System.Drawing.Size(83, 17);
+            this.cFasterBank.TabIndex = 4;
+            this.cFasterBank.Text = "Faster Bank";
+            this.cFasterBank.UseVisualStyleBackColor = true;
+            this.cFasterBank.CheckedChanged += new System.EventHandler(this.cFasterBank_CheckedChanged);
             // 
             // cSkipBeaver
             // 
@@ -1923,16 +1936,19 @@ namespace MMR.UI.Forms
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
             // 
-            // cFasterBank
+            // cOcarinaAndSongOfTime
             // 
-            this.cFasterBank.AutoSize = true;
-            this.cFasterBank.Location = new System.Drawing.Point(9, 67);
-            this.cFasterBank.Name = "cFasterBank";
-            this.cFasterBank.Size = new System.Drawing.Size(83, 17);
-            this.cFasterBank.TabIndex = 4;
-            this.cFasterBank.Text = "Faster Bank";
-            this.cFasterBank.UseVisualStyleBackColor = true;
-            this.cFasterBank.CheckedChanged += new System.EventHandler(this.cFasterBank_CheckedChanged);
+            this.cOcarinaAndSongOfTime.AutoSize = true;
+            this.cOcarinaAndSongOfTime.BackColor = System.Drawing.Color.Transparent;
+            this.cOcarinaAndSongOfTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cOcarinaAndSongOfTime.ForeColor = System.Drawing.Color.Black;
+            this.cOcarinaAndSongOfTime.Location = new System.Drawing.Point(169, 164);
+            this.cOcarinaAndSongOfTime.Name = "cOcarinaAndSongOfTime";
+            this.cOcarinaAndSongOfTime.Size = new System.Drawing.Size(150, 17);
+            this.cOcarinaAndSongOfTime.TabIndex = 26;
+            this.cOcarinaAndSongOfTime.Text = "Ocarina and Song of Time";
+            this.cOcarinaAndSongOfTime.UseVisualStyleBackColor = false;
+            this.cOcarinaAndSongOfTime.CheckedChanged += new System.EventHandler(this.cOcarinaAndSongOfTime_CheckedChanged);
             // 
             // MainForm
             // 
@@ -2148,6 +2164,7 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.CheckBox cFDAnywhere;
         private System.Windows.Forms.CheckBox cArrowCycling;
         private System.Windows.Forms.CheckBox cFasterBank;
+        private System.Windows.Forms.CheckBox cOcarinaAndSongOfTime;
     }
 }
 

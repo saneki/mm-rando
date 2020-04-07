@@ -793,7 +793,7 @@ namespace MMR.Randomizer
                 return false;
             }
 
-            if (currentItem.IsTemporary() && ItemUtils.IsMoonLocation(target))
+            if (currentItem.IsTemporary() && (ItemUtils.IsMoonLocation(target) || target == Item.ItemOcarina || target == Item.SongTime))
             {
                 Debug.WriteLine($"{currentItem} cannot be placed on the moon.");
                 return false;
@@ -876,6 +876,7 @@ namespace MMR.Randomizer
             AddAllItems(itemPool);
 
             PlaceFreeItems(itemPool);
+            PlaceOcarinaAndSongOfTime(itemPool);
             PlaceQuestItems(itemPool);
             PlaceTradeItems(itemPool);
             PlaceDungeonItems(itemPool);
@@ -1130,6 +1131,12 @@ namespace MMR.Randomizer
             itemPool.AddRange(ItemUtils.AllLocations().Where(location => !ItemList.Any(io => io.NewLocation == location)));
         }
 
+        private void PlaceOcarinaAndSongOfTime(List<Item> itemPool)
+        {
+            PlaceItem(Item.ItemOcarina, itemPool);
+            PlaceItem(Item.SongTime, itemPool);
+        }
+
         /// <summary>
         /// Places quest items in the randomization pool
         /// </summary>
@@ -1234,6 +1241,11 @@ namespace MMR.Randomizer
             if (_settings.LogicMode == LogicMode.Casual)
             {
                 PreserveGlitchedCowMilk();
+            }
+
+            if (!_settings.AddOcarinaAndSongOfTime)
+            {
+                PreserveOcarinaAndSongOfTime();
             }
         }
 
@@ -1407,13 +1419,19 @@ namespace MMR.Randomizer
             ItemList[Item.ItemRanchBarnOtherCowMilk2].NewLocation = Item.ItemRanchBarnOtherCowMilk2;
         }
 
+        private void PreserveOcarinaAndSongOfTime()
+        {
+            ItemList[Item.ItemOcarina].NewLocation = Item.ItemOcarina;
+            ItemList[Item.SongTime].NewLocation = Item.SongTime;
+        }
+
         /// <summary>
         /// Randomizes songs with other songs
         /// </summary>
         private void ShuffleSongs()
         {
             var itemPool = new List<Item>();
-            for (var i = Item.SongHealing; i <= Item.SongOath; i++)
+            for (var i = Item.SongTime; i <= Item.SongOath; i++)
             {
                 if (ItemList[i].NewLocation.HasValue)
                 {
@@ -1422,7 +1440,7 @@ namespace MMR.Randomizer
                 itemPool.Add(i);
             }
 
-            for (var i = Item.SongHealing; i <= Item.SongOath; i++)
+            for (var i = Item.SongTime; i <= Item.SongOath; i++)
             {
                 PlaceItem(i, itemPool);
             }

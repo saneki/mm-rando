@@ -102,6 +102,7 @@ namespace MMR.UI.Forms
             TooltipBuilder.SetTooltip(cSpiders, "Enable randomization of golden skulltula tokens. Tokens will not reset to 0 after Song of Time.");
             TooltipBuilder.SetTooltip(cStrayFairies, "Enable randomization of stray fairies. Stray fairies will not reset to 0 after Song of Time.");
             TooltipBuilder.SetTooltip(cMundaneRewards, "Enable randomization of mundane rewards. See Help > Manual (F1) > Shuffles for details.");
+            TooltipBuilder.SetTooltip(cOcarinaAndSongOfTime, "Enable randomization of the Ocarina of Time and Song of Time.");
 
             // Gimmicks
             TooltipBuilder.SetTooltip(cDMult, "Select a damage mode, affecting how much damage Link takes:\n\n - Default: Link takes normal damage.\n - 2x: Link takes double damage.\n - 4x: Link takes quadruple damage.\n - 1-hit KO: Any damage kills Link.\n - Doom: Hardcore mode. Link's hearts are slowly being drained continuously.");
@@ -381,6 +382,7 @@ namespace MMR.UI.Forms
             cCowMilk.Checked = _configuration.GameplaySettings.AddCowMilk;
             cSpiders.Checked = _configuration.GameplaySettings.AddSkulltulaTokens;
             cMundaneRewards.Checked = _configuration.GameplaySettings.AddMundaneRewards;
+            cOcarinaAndSongOfTime.Checked = _configuration.GameplaySettings.AddOcarinaAndSongOfTime;
             cStrayFairies.Checked = _configuration.GameplaySettings.AddStrayFairies;
             cNoStartingItems.Checked = _configuration.GameplaySettings.NoStartingItems;
             cEponaSword.Checked = _configuration.GameplaySettings.FixEponaSword;
@@ -467,6 +469,8 @@ namespace MMR.UI.Forms
 
             cMundaneRewards.Visible = !cUserItems.Checked;
 
+            cOcarinaAndSongOfTime.Visible = !cUserItems.Checked;
+
             cStrayFairies.Visible = !cUserItems.Checked;
 
             bItemListEditor.Visible = cUserItems.Checked;
@@ -541,6 +545,11 @@ namespace MMR.UI.Forms
         private void cMundaneRewards_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _configuration.GameplaySettings.AddMundaneRewards = cMundaneRewards.Checked);
+        }
+
+        private void cOcarinaAndSongOfTime_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _configuration.GameplaySettings.AddOcarinaAndSongOfTime = cOcarinaAndSongOfTime.Checked);
         }
 
         private void cStrayFairies_CheckedChanged(object sender, EventArgs e)
@@ -930,6 +939,7 @@ namespace MMR.UI.Forms
                 cSpiders.Enabled = false;
                 cStrayFairies.Enabled = false;
                 cMundaneRewards.Enabled = false;
+                cOcarinaAndSongOfTime.Enabled = false;
 
                 tJunkLocationsList.Enabled = false;
                 bJunkLocationsEditor.Enabled = false;
@@ -956,6 +966,7 @@ namespace MMR.UI.Forms
                 cSpiders.Enabled = true;
                 cStrayFairies.Enabled = true;
                 cMundaneRewards.Enabled = true;
+                cOcarinaAndSongOfTime.Enabled = true;
 
                 tCustomItemList.Enabled = true;
                 bItemListEditor.Enabled = true;
@@ -1099,6 +1110,7 @@ namespace MMR.UI.Forms
             cNutChest.Enabled = v;
             cCrazyStartingItems.Enabled = v;
             cStrayFairies.Enabled = v;
+            cOcarinaAndSongOfTime.Enabled = v;
 
             cDummy.Enabled = v;
             bopen.Enabled = v;
