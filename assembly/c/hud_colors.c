@@ -99,8 +99,7 @@ u32 hud_colors_get_clock_moon_color() {
     return color_rgb8_to_int(HUD_COLOR_CONFIG.clock_moon, alpha);
 }
 
-u32 hud_colors_get_a_button_color() {
-    u8 alpha = z2_game.hud_ctxt.a_alpha & 0xFF;
+u32 hud_colors_get_a_button_color(u8 alpha) {
     return color_rgb8_to_int(HUD_COLOR_CONFIG.button_a, alpha);
 }
 

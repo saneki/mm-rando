@@ -10,7 +10,7 @@
 ;   or      t5, t4, at
 .org 0x80118DFC ; In rom: 0xAFEE5C
     jal     hud_colors_get_a_button_color_hook
-    nop
+    andi    t4, t3, 0x00FF
 
 ; Custom color for B button.
 ; Replaces:

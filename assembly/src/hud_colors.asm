@@ -304,9 +304,10 @@ hud_colors_get_a_button_color_hook:
     sw      v0, 0x0014 (sp)
     sw      a2, 0x0018 (sp)
     sw      t2, 0x001C (sp)
+    sw      t7, 0x0020 (sp)
 
     jal     hud_colors_get_a_button_color
-    sw      t7, 0x0020 (sp)
+    or      a0, t4, r0
 
     ; Put return value in T5
     or      t5, v0, r0
