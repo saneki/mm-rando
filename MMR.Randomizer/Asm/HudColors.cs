@@ -1,4 +1,5 @@
-﻿using MMR.Randomizer.Models.Colors;
+﻿using MMR.Randomizer.Extensions;
+using MMR.Randomizer.Models.Colors;
 using MMR.Randomizer.Utils;
 using Newtonsoft.Json;
 using System;
@@ -34,6 +35,32 @@ namespace MMR.Randomizer.Asm
         public Color RupeeIcon1 { get; set; } = Color.FromArgb(0xC8, 0xFF, 0x64);
         public Color RupeeIcon2 { get; set; } = Color.FromArgb(0xAA, 0xAA, 0xFF);
         public Color RupeeIcon3 { get; set; } = Color.FromArgb(0xFF, 0x69, 0x69);
+        public Color ButtonIconA { get; set; } = Color.FromArgb(0x50, 0x5A, 0xFF);
+        public Color ButtonIconB { get; set; } = Color.FromArgb(0x46, 0xFF, 0x50);
+        public Color ButtonIconC { get; set; } = Color.FromArgb(0xFF, 0xFF, 0x32);
+        public Color MenuAInner1 { get; set; } = Color.FromArgb(0x64, 0x96, 0xFF);
+        public Color MenuAInner2 { get; set; } = Color.FromArgb(0x64, 0xFF, 0xFF);
+        public Color MenuAOuter1 { get; set; } = Color.FromArgb(0x00, 0x00, 0x64);
+        public Color MenuAOuter2 { get; set; } = Color.FromArgb(0x00, 0x96, 0xFF);
+        public Color MenuCInner1 { get; set; } = Color.FromArgb(0xFF, 0xFF, 0x00);
+        public Color MenuCInner2 { get; set; } = Color.FromArgb(0xFF, 0xFF, 0x00);
+        public Color MenuCOuter1 { get; set; } = Color.FromArgb(0x00, 0x00, 0x00);
+        public Color MenuCOuter2 { get; set; } = Color.FromArgb(0xFF, 0xA0, 0x00);
+        public Color NoteA1 { get; set; } = Color.FromArgb(0x50, 0x96, 0xFF);
+        public Color NoteA2 { get; set; } = Color.FromArgb(0x64, 0xC8, 0xFF);
+        public Color NoteAShadow1 { get; set; } = Color.FromArgb(0x0A, 0x0A, 0x0A);
+        public Color NoteAShadow2 { get; set; } = Color.FromArgb(0x32, 0x32, 0xFF);
+        public Color NoteC1 { get; set; } = Color.FromArgb(0xFF, 0xFF, 0x32);
+        public Color NoteC2 { get; set; } = Color.FromArgb(0xFF, 0xFF, 0xB4);
+        public Color NoteCShadow1 { get; set; } = Color.FromArgb(0x0A, 0x0A, 0x0A);
+        public Color NoteCShadow2 { get; set; } = Color.FromArgb(0x6E, 0x6E, 0x32);
+        public Color PauseTitleA { get; set; } = Color.FromArgb(0x00, 0x64, 0xFF);
+        public Color PauseTitleC { get; set; } = Color.FromArgb(0xFF, 0x96, 0x00);
+        public Color Prompt1 { get; set; } = Color.FromArgb(0x00, 0x50, 0xC8);
+        public Color Prompt2 { get; set; } = Color.FromArgb(0x32, 0x82, 0xFF);
+        public Color PromptGlow { get; set; } = Color.FromArgb(0x00, 0x82, 0xFF);
+        public Color ScoreLines { get; set; } = Color.FromArgb(0xFF, 0x00, 0x00);
+        public Color ScoreNote { get; set; } = Color.FromArgb(0xFF, 0x64, 0x00);
 
         /// <summary>
         /// Get all colors in the order of serialization.
@@ -60,6 +87,32 @@ namespace MMR.Randomizer.Asm
             RupeeIcon1,
             RupeeIcon2,
             RupeeIcon3,
+            ButtonIconA,
+            ButtonIconB,
+            ButtonIconC,
+            MenuAInner1,
+            MenuAInner2,
+            MenuAOuter1,
+            MenuAOuter2,
+            MenuCInner1,
+            MenuCInner2,
+            MenuCOuter1,
+            MenuCOuter2,
+            NoteA1,
+            NoteA2,
+            NoteAShadow1,
+            NoteAShadow2,
+            NoteC1,
+            NoteC2,
+            NoteCShadow1,
+            NoteCShadow2,
+            PauseTitleA,
+            PauseTitleC,
+            Prompt1,
+            Prompt2,
+            PromptGlow,
+            ScoreLines,
+            ScoreNote,
         };
 
         public HudColors()
@@ -83,6 +136,98 @@ namespace MMR.Randomizer.Asm
         public HudColors Clone()
         {
             return new HudColors(this.All);
+        }
+
+        /// <summary>
+        /// Get all colors for a specific <see cref="HudColorsConfigStruct"/> version value.
+        /// </summary>
+        /// <param name="version">Version</param>
+        /// <returns>Colors</returns>
+        public Color[] GetAllColors(uint version)
+        {
+            if (version == 0)
+            {
+                return this.All.Take(20).ToArray();
+            }
+            else
+            {
+                return this.All.Take(46).ToArray();
+            }
+        }
+
+        /// <summary>
+        /// Update certain colors which correspond to the A, B and C buttons.
+        /// </summary>
+        public void UpdateColorsUsingButtons()
+        {
+            var defaults = new HudColors();
+            if (ButtonA != defaults.ButtonA)
+            {
+                UpdateColorsUsingAButton();
+            }
+            if (ButtonB != defaults.ButtonB)
+            {
+                UpdateColorsUsingBButton();
+            }
+            if (ButtonC != defaults.ButtonC)
+            {
+                UpdateColorsUsingCButton();
+            }
+        }
+
+        /// <summary>
+        /// Update certain colors which correspond to the A button.
+        /// </summary>
+        void UpdateColorsUsingAButton()
+        {
+            // Update text button icon.
+            ButtonIconA = ButtonA;
+            // Update pause menu cursor colors (blue).
+            MenuAInner1 = ButtonA;
+            MenuAInner2 = ButtonA.Brighten(0.4f);
+            MenuAOuter1 = ButtonA.Darken(0.9f);
+            MenuAOuter2 = ButtonA.Darken(0.2f);
+            // Update note button A colors.
+            NoteA1 = ButtonA;
+            NoteA2 = ButtonA.Brighten(0.4f);
+            NoteAShadow1 = Color.FromArgb(0x0A, 0x0A, 0x0A);
+            NoteAShadow2 = ButtonA.Darken(0.2f);
+            // Update pause menu title icon.
+            PauseTitleA = ButtonA;
+            // Update message prompt colors.
+            Prompt1 = ButtonA.Darken(0.3f);
+            Prompt2 = ButtonA;
+            PromptGlow = ButtonA.Brighten(0.2f);
+        }
+
+        /// <summary>
+        /// Update certain colors which correspond to the B button.
+        /// </summary>
+        void UpdateColorsUsingBButton()
+        {
+            // Update text button icon.
+            ButtonIconB = ButtonB;
+        }
+
+        /// <summary>
+        /// Update certain colors which correspond to the C button.
+        /// </summary>
+        void UpdateColorsUsingCButton()
+        {
+            // Update text button icon.
+            ButtonIconC = ButtonC;
+            // Update pause menu cursor colors (yellow).
+            MenuCInner1 = ButtonC;
+            MenuCInner2 = ButtonC.Brighten(0.4f);
+            MenuCOuter1 = Color.Black;
+            MenuCOuter2 = ButtonC.Darken(0.2f);
+            // Update note button C colors.
+            NoteC1 = ButtonC;
+            NoteC2 = ButtonC.Brighten(0.4f);
+            NoteCShadow1 = Color.FromArgb(0x0A, 0x0A, 0x0A);
+            NoteCShadow2 = ButtonC.Darken(0.2f);
+            // Update pause menu title icon.
+            PauseTitleC = ButtonC;
         }
 
         /// <summary>
@@ -111,6 +256,32 @@ namespace MMR.Randomizer.Asm
             RupeeIcon1 = colors[17];
             RupeeIcon2 = colors[18];
             RupeeIcon3 = colors[19];
+            ButtonIconA = colors[20];
+            ButtonIconB = colors[21];
+            ButtonIconC = colors[22];
+            MenuAInner1 = colors[23];
+            MenuAInner2 = colors[24];
+            MenuAOuter1 = colors[25];
+            MenuAOuter2 = colors[26];
+            MenuCInner1 = colors[27];
+            MenuCInner2 = colors[28];
+            MenuCOuter1 = colors[29];
+            MenuCOuter2 = colors[30];
+            NoteA1 = colors[31];
+            NoteA2 = colors[32];
+            NoteAShadow1 = colors[33];
+            NoteAShadow2 = colors[34];
+            NoteC1 = colors[35];
+            NoteC2 = colors[36];
+            NoteCShadow1 = colors[37];
+            NoteCShadow2 = colors[38];
+            PauseTitleA = colors[39];
+            PauseTitleC = colors[40];
+            Prompt1 = colors[41];
+            Prompt2 = colors[42];
+            PromptGlow = colors[43];
+            ScoreLines = colors[44];
+            ScoreNote = colors[45];
         }
 
         /// <summary>
@@ -205,6 +376,9 @@ namespace MMR.Randomizer.Asm
         {
             var colors = this.Colors.Clone();
 
+            // Update certain colors using the configured button colors.
+            colors.UpdateColorsUsingButtons();
+
             if (this.HeartsOverride != null)
             {
                 colors.Heart = this.HeartsOverride.Item1;
@@ -230,7 +404,7 @@ namespace MMR.Randomizer.Asm
             return new HudColorsConfigStruct
             {
                 Version = version,
-                Colors = this.FinalizedColors().All,
+                Colors = this.FinalizedColors().GetAllColors(version),
             };
         }
     }
