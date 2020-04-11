@@ -119,23 +119,13 @@ namespace MMR.Randomizer.Asm
         {
         }
 
-        public HudColors(Color[] colors)
-        {
-            From(colors);
-        }
-
-        public HudColors(byte[] bytes)
-        {
-            FromBytes(bytes);
-        }
-
         /// <summary>
         /// Clone to a new <see cref="HudColors"/>.
         /// </summary>
         /// <returns>Cloned colors</returns>
         public HudColors Clone()
         {
-            return new HudColors(this.All);
+            return (HudColors)this.MemberwiseClone();
         }
 
         /// <summary>
@@ -228,121 +218,6 @@ namespace MMR.Randomizer.Asm
             NoteCShadow2 = ButtonC.Darken(0.2f);
             // Update pause menu title icon.
             PauseTitleC = ButtonC;
-        }
-
-        /// <summary>
-        /// Apply colors from array.
-        /// </summary>
-        /// <param name="colors">Colors array</param>
-        void From(Color[] colors)
-        {
-            ButtonA = colors[0];
-            ButtonB = colors[1];
-            ButtonC = colors[2];
-            ButtonStart = colors[3];
-            ClockEmblem = colors[4];
-            ClockEmblemInverted1 = colors[5];
-            ClockEmblemInverted2 = colors[6];
-            ClockEmblemSun = colors[7];
-            ClockMoon = colors[8];
-            ClockSun = colors[9];
-            Heart = colors[10];
-            HeartDD = colors[11];
-            Magic = colors[12];
-            MagicInf = colors[13];
-            Map = colors[14];
-            MapEntranceCursor = colors[15];
-            MapPlayerCursor = colors[16];
-            RupeeIcon1 = colors[17];
-            RupeeIcon2 = colors[18];
-            RupeeIcon3 = colors[19];
-            ButtonIconA = colors[20];
-            ButtonIconB = colors[21];
-            ButtonIconC = colors[22];
-            MenuAInner1 = colors[23];
-            MenuAInner2 = colors[24];
-            MenuAOuter1 = colors[25];
-            MenuAOuter2 = colors[26];
-            MenuCInner1 = colors[27];
-            MenuCInner2 = colors[28];
-            MenuCOuter1 = colors[29];
-            MenuCOuter2 = colors[30];
-            NoteA1 = colors[31];
-            NoteA2 = colors[32];
-            NoteAShadow1 = colors[33];
-            NoteAShadow2 = colors[34];
-            NoteC1 = colors[35];
-            NoteC2 = colors[36];
-            NoteCShadow1 = colors[37];
-            NoteCShadow2 = colors[38];
-            PauseTitleA = colors[39];
-            PauseTitleC = colors[40];
-            Prompt1 = colors[41];
-            Prompt2 = colors[42];
-            PromptGlow = colors[43];
-            ScoreLines = colors[44];
-            ScoreNote = colors[45];
-        }
-
-        /// <summary>
-        /// Decode a <see cref="HudColors"/> from a Base36 encoded string.
-        /// </summary>
-        /// <param name="value">Encoded string</param>
-        /// <returns>HudColors</returns>
-        public static HudColors FromBase36String(string value)
-        {
-            var bytes = Base36Utils.DecodeBytes(value);
-            return new HudColors(bytes);
-        }
-
-        /// <summary>
-        /// Deserialize from bytes.
-        /// </summary>
-        /// <param name="bytes">Bytes</param>
-        void FromBytes(byte[] bytes)
-        {
-            using (var memoryStream = new MemoryStream(bytes))
-            using (var reader = new BinaryReader(memoryStream))
-            {
-                var list = new List<Color>();
-                var count = bytes.Length / 3;
-                for (var i = 0; i < count; i++)
-                {
-                    var c = reader.ReadBytes(3);
-                    var color = Color.FromArgb(c[0], c[1], c[2]);
-                    list.Add(color);
-                }
-                From(list.ToArray());
-            }
-        }
-
-        /// <summary>
-        /// Encode into a Base36 encoded string.
-        /// </summary>
-        /// <returns>Encoded string</returns>
-        public string ToBase36String()
-        {
-            return Base36Utils.EncodeBytes(this.ToBytes());
-        }
-
-        /// <summary>
-        /// Serialize to bytes.
-        /// </summary>
-        /// <returns>Bytes</returns>
-        public byte[] ToBytes()
-        {
-            using (var memoryStream = new MemoryStream())
-            using (var writer = new BinaryWriter(memoryStream))
-            {
-                foreach (var color in this.All)
-                {
-                    writer.Write(color.R);
-                    writer.Write(color.G);
-                    writer.Write(color.B);
-                }
-
-                return memoryStream.ToArray();
-            }
         }
     }
 
