@@ -16,6 +16,26 @@ namespace MMR.Randomizer.Extensions
         }
 
         /// <summary>
+        /// Get color RGBA values as bytes with a specified alpha.
+        /// </summary>
+        /// <param name="color">Color</param>
+        /// <returns>Bytes</returns>
+        public static byte[] ToBytesRGB(this Color color, byte alpha)
+        {
+            return new byte[] { color.R, color.G, color.B, alpha, };
+        }
+
+        /// <summary>
+        /// Get color RGBA values as bytes.
+        /// </summary>
+        /// <param name="color">Color</param>
+        /// <returns>Bytes</returns>
+        public static byte[] ToBytesRGBA(this Color color)
+        {
+            return new byte[] { color.R, color.G, color.B, color.A, };
+        }
+
+        /// <summary>
         /// Creates color with corrected brightness.
         /// </summary>
         /// <param name="color">Color to correct.</param>

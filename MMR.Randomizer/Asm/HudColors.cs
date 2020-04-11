@@ -305,7 +305,7 @@ namespace MMR.Randomizer.Asm
 
                 foreach (var color in this.Colors)
                 {
-                    writer.Write(ColorUtils.GetBytesRGBA(color));
+                    writer.Write(color.ToBytesRGB(0));
                 }
                 return memStream.ToArray();
             }
