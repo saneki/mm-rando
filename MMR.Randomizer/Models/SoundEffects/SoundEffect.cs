@@ -94,7 +94,7 @@ namespace MMR.Randomizer.Models.SoundEffects
         BombchuAim = 0x3055,
 
         [Tags(Long)]
-        TektiteDeath = 0x306e,
+        TektiteDeath = 0x306E,
 
         [Tags(Short)]
         PoeAppear = 0x3073,
@@ -176,7 +176,7 @@ namespace MMR.Randomizer.Models.SoundEffects
         GoronSitStand = 0x30FD,
 
         [Tags(Long)]
-        PoeLaughingRegular = 0x311e, // Poe laughing at you, regular version
+        PoeLaughingRegular = 0x311A, // Poe laughing at you, regular version
 
         [Tags(Long)]
         PoeLaughingSinister = 0x3122, // Poe laughing at you, sinister version (oot paintings)
@@ -196,64 +196,64 @@ namespace MMR.Randomizer.Models.SoundEffects
         PirateDamage = 0x3199,
 
         [Tags(Long)]
-        PirateDead = 0x319a,
+        PirateDead = 0x319A,
 
         [Replacable(0xCE5286)]
         [ReplacableByTags(Short)]
         [Tags(Short)]
         FrogVoice2 = 0x31A1,
 
-        [Tags(Long)]
-        FreezardIceBreath = 0x31a4,
+        [Tags(Looping)]
+        FreezardIceBreath = 0x31A4,
 
         [Tags(Long)]
-        FreezardDamage = 0x31a5,
+        FreezardDamage = 0x31A5,
 
         [Tags(Long)]
-        FreezardDeath = 0x31a6,
+        FreezardDeath = 0x31A6,
 
         [Tags(Short)]
         GoronSleepy = 0x31AD,
 
         //[Tags(Short)]
-        //MajoraWrathWhipSFX3 = 0x31ca,
+        //MajoraWrathWhipSFX3 = 0x31CA,
 
         //[Tags(Short)]
-        //MajoraWrathWhipSFX4 = 0x31cb,
+        //MajoraWrathWhipSFX4 = 0x31CB,
 
         //[Tags(Long)]
-        //MajoraWrathWhipEffect2 = 0x31cc,
+        //MajoraWrathWhipEffect2 = 0x31CC,
 
         //[Tags(Long)]
-        //MajoraWrathWhipEffect4 = 0x31ce,
+        //MajoraWrathWhipEffect4 = 0x31CE,
 
         //[Tags(Long)]
-        //MajoraWrathWhipSliding = 0x31cd, // Wrath Whip sliding on the ground
+        //MajoraWrathWhipSliding = 0x31CD, // Wrath Whip sliding on the ground
 
         [Tags(Long)]
-        PeahatLiftoff = 0x31e7,
+        PeahatLiftoff = 0x31E7,
 
         //[Tags(Long)]
-        //MajoraWrathWhip7 = 0x31ec,
+        //MajoraWrathWhip7 = 0x31EC,
 
         //[Tags(Long)]
-        //MajoraWrathWhip8 = 0x31ed,
+        //MajoraWrathWhip8 = 0x31ED,
 
         //[Tags(Long)]
-        //MajoraWrathWhip6 = 0x31ef,
+        //MajoraWrathWhip6 = 0x31EF,
 
         //[Tags(Long)]
-        //MajoraWrathWhip5 = 0x31f1,
+        //MajoraWrathWhip5 = 0x31F1,
 
         //[Tags(Long)]
-        //UnknownBugSfx = 0x31f2,
+        //UnknownBugSfx = 0x31F2,
 
 
         [Tags(Long)]
         DekuLinkPanicScream = 0x3200, // when he sees his reflection
 
         //[Tags(Long)]
-        //MajoraWrathSpinningTopLoop = 0x322c,
+        //MajoraWrathSpinningTopLoop = 0x322C,
 
         [Tags(Long)]
         IgosMinionLaugh = 0x3238,
@@ -286,7 +286,7 @@ namespace MMR.Randomizer.Models.SoundEffects
         MajoraWrathTakeDamage = 0x3259, // damage while in stun
 
         [Tags(Long)]
-        MajoraWrathDramaticDeath = 0x325a, // when the witch is splashed with water
+        MajoraWrathDramaticDeath = 0x325A, // when the witch is splashed with water
 
         [Tags(Long)]
         MajoraIncantationTaunting = 0x3268,
@@ -295,7 +295,7 @@ namespace MMR.Randomizer.Models.SoundEffects
         UnknownShortQuack = 0x3269,
 
         [Tags(Short)]
-        MajoraIncantationShortChant = 0x326a, // the first of 'Coo CAh CAh Coo CAh CAh' chanting after transforming
+        MajoraIncantationShortChant = 0x326A, // the first of 'Coo CAh CAh Coo CAh CAh' chanting after transforming
 
         [Tags(Long)]
         PirateLaugh = 0x3271, // smug laugh when they catch you pretending to be a stone
