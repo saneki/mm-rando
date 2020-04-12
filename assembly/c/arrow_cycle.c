@@ -106,6 +106,18 @@ static bool arrow_cycle_is_effect_active(void) {
     return z2_file.special_arrow_state != 0;
 }
 
+static bool arrow_cycle_is_arrow_item(u8 item) {
+    switch (item) {
+        case Z2_ITEM_BOW:
+        case Z2_ITEM_BOW_FIRE_ARROW:
+        case Z2_ITEM_BOW_ICE_ARROW:
+        case Z2_ITEM_BOW_LIGHT_ARROW:
+            return true;
+        default:
+            return false;
+    }
+}
+
 /**
  * Function called on delayed frame to finish processing the arrow cycle.
  **/
@@ -177,6 +189,12 @@ void arrow_cycle_handle(z2_link_t *link, z2_game_t *game) {
 
     // Ensure arrow has an appropriate variable (cannot be a deku bubble).
     if (!(2 <= arrow->variable && arrow->variable < 6)) {
+        return;
+    }
+
+    // Check if current button pressed corresponds to an arrow item.
+    u8 selected_item = z2_file.form_button_item[0].button_item[link->item_button];
+    if (!arrow_cycle_is_arrow_item(selected_item)) {
         return;
     }
 
