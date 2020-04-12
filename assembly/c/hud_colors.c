@@ -365,7 +365,7 @@ static void update_rupee_colors(u16 *rupee_colors) {
     }
 }
 
-void hud_colors_init() {
+void hud_colors_init(void) {
     u16 *rupee_colors = (u16 *)0x801BFD2C;
     // The rupee colors never seem to get modified, so just update them once
     update_rupee_colors(rupee_colors);
@@ -375,7 +375,7 @@ void hud_colors_init() {
     hud_colors_update_text_button_icon_colors();
 }
 
-void hud_colors_main_menu_init() {
+void hud_colors_main_menu_init(void) {
     // Update rupee colors
     update_rupee_colors(z2_file_select_ctxt.rupee_colors);
 

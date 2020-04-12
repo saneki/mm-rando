@@ -59,8 +59,8 @@ struct hud_color_config {
     z2_color_rgb8_t score_note;
 };
 
-void hud_colors_init();
-void hud_colors_main_menu_init();
+void hud_colors_init(void);
+void hud_colors_main_menu_init(void);
 void hud_colors_update_pause_menu_colors(z2_game_t *game);
 
 #endif // HUD_COLORS_H
