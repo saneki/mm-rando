@@ -72,7 +72,7 @@ static const struct arrow_info * arrow_cycle_get_next_info(u16 variable) {
     return NULL;
 }
 
-static z2_actor_t * arrow_cycle_find_arrow(z2_link_t *link, z2_game_t *game) {
+z2_actor_t * arrow_cycle_find_arrow(z2_link_t *link, z2_game_t *game) {
     z2_actor_t *attached = link->common.attached_b;
     if (attached != NULL && attached->id == Z2_ACTOR_EN_ARROW && attached->attached_a == &link->common) {
         return attached;
@@ -134,16 +134,22 @@ static void arrow_cycle_handle_frame_delay(z2_link_t *link, z2_game_t *game, z2_
             arrow->attached_b = NULL;
         }
 
-        // Make sure the game is aware that a special arrow effect is happening when switching
-        // from normal arrow -> elemental arrow. Uses value 2 to make sure the magic cost is
-        // consumed this frame.
-        if (cur_info->item != Z2_ITEM_BOW) {
-            *effect_state = 2;
-        }
+        if (MISC_CONFIG.arrow_magic_show) {
+            if (cur_info->item != Z2_ITEM_BOW) {
+                *effect_state = 4;
+            }
+        } else {
+            // Make sure the game is aware that a special arrow effect is happening when switching
+            // from normal arrow -> elemental arrow. Uses value 2 to make sure the magic cost is
+            // consumed this frame.
+            if (cur_info->item != Z2_ITEM_BOW) {
+                *effect_state = 2;
+            }
 
-        // Refund magic cost of previous arrow type.
-        if (prev_effect_state >= 2 && !z2_file.week_event_inf.infinite_magic) {
-            z2_file.current_magic += g_arrow_cycle_state.magic_cost;
+            // Refund magic cost of previous arrow type.
+            if (prev_effect_state >= 2 && !z2_file.week_event_inf.infinite_magic) {
+                z2_file.current_magic += g_arrow_cycle_state.magic_cost;
+            }
         }
 
         // Set magic cost value to be subtracted when arrow effect state == 2.
