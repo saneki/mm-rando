@@ -115,10 +115,6 @@ static s16 * arrow_cycle_get_effect_state(void) {
     return &z2_file.magic_consume_state;
 }
 
-static bool arrow_cycle_is_effect_active(void) {
-    return z2_file.magic_consume_state != 0;
-}
-
 static bool arrow_cycle_is_arrow_item(u8 item) {
     switch (item) {
         case Z2_ITEM_BOW:
@@ -135,8 +131,7 @@ static bool arrow_cycle_is_arrow_item(u8 item) {
  * Function called on delayed frame to finish processing the arrow cycle.
  **/
 static void arrow_cycle_handle_frame_delay(z2_link_t *link, z2_game_t *game, z2_actor_t *arrow) {
-    s16 *effect_state = arrow_cycle_get_effect_state();
-    s16 prev_effect_state = *effect_state;
+    s16 prev_effect_state = z2_file.magic_consume_state;
 
     const struct arrow_info *cur_info = arrow_cycle_get_info(arrow->variable);
     if (arrow != NULL && cur_info != NULL) {
@@ -149,14 +144,14 @@ static void arrow_cycle_handle_frame_delay(z2_link_t *link, z2_game_t *game, z2_
 
         if (MISC_CONFIG.arrow_magic_show) {
             if (cur_info->item != Z2_ITEM_BOW) {
-                *effect_state = 4;
+                z2_file.magic_consume_state = 4;
             }
         } else {
             // Make sure the game is aware that a special arrow effect is happening when switching
             // from normal arrow -> elemental arrow. Uses value 2 to make sure the magic cost is
             // consumed this frame.
             if (cur_info->item != Z2_ITEM_BOW) {
-                *effect_state = 2;
+                z2_file.magic_consume_state = 2;
             }
 
             // Refund magic cost of previous arrow type.
@@ -238,7 +233,7 @@ void arrow_cycle_handle(z2_link_t *link, z2_game_t *game) {
     // existing effect is not active. Otherwise the game may crash by attempting to load the actor
     // code file for one effect while an existing effect is still processing.
     // This also prevents from switching when Lens of Truth is activated.
-    if (cur_info->item == Z2_ITEM_BOW && arrow_cycle_is_effect_active()) {
+    if (cur_info->item == Z2_ITEM_BOW && z2_file.magic_consume_state != 0) {
         z2_PlaySfx(0x4806);
         return;
     }
