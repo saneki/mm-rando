@@ -1750,11 +1750,11 @@ typedef struct {
     u8               buttons_usable[0x05];           /* 0x3F18, B, C-left, C-down, C-right, A buttons. */
     u8               unk_0x3F1D[0x03];               /* 0x3F1D */
     z2_buttons_state_t buttons_state;                /* 0x3F20 */
-    s16              special_arrow_state;            /* 0x3F28 */
+    s16              magic_consume_state;            /* 0x3F28 */
     u8               unk_0x3F2A[0x04];               /* 0x3F2A */
     u16              magic_meter_size;               /* 0x3F2E */
     u8               unk_0x3F30[0x02];               /* 0x3F30 */
-    s16              arrow_magic_cost;               /* 0x3F32 */
+    s16              magic_consume_cost;             /* 0x3F32 */
     u8               unk_0x3F34[0x34];               /* 0x3F34 */
     z2_scene_flags_t scene_flags[0x78];              /* 0x3F68 */
     u8               unk_0x48C8[0x1010];             /* 0x48C8 */

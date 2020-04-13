@@ -112,11 +112,11 @@ static bool arrow_cycle_call_arrow_actor_ctor(z2_actor_t *arrow, z2_game_t *game
 }
 
 static s16 * arrow_cycle_get_effect_state(void) {
-    return &z2_file.special_arrow_state;
+    return &z2_file.magic_consume_state;
 }
 
 static bool arrow_cycle_is_effect_active(void) {
-    return z2_file.special_arrow_state != 0;
+    return z2_file.magic_consume_state != 0;
 }
 
 static bool arrow_cycle_is_arrow_item(u8 item) {
@@ -166,7 +166,7 @@ static void arrow_cycle_handle_frame_delay(z2_link_t *link, z2_game_t *game, z2_
         }
 
         // Set magic cost value to be subtracted when arrow effect state == 2.
-        z2_file.arrow_magic_cost = cur_info->magic;
+        z2_file.magic_consume_cost = cur_info->magic;
     }
 }
 
