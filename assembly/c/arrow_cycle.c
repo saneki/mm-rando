@@ -111,10 +111,6 @@ static bool arrow_cycle_call_arrow_actor_ctor(z2_actor_t *arrow, z2_game_t *game
     }
 }
 
-static s16 * arrow_cycle_get_effect_state(void) {
-    return &z2_file.magic_consume_state;
-}
-
 static bool arrow_cycle_is_arrow_item(u8 item) {
     switch (item) {
         case Z2_ITEM_BOW:
