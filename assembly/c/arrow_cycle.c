@@ -51,6 +51,19 @@ static u16 arrow_cycle_get_next_arrow_variable(u16 variable) {
     }
 }
 
+/**
+ * Helper function for checking if the player has enough magic to switch to a different arrow type.
+ **/
+static bool arrow_cycle_has_enough_magic(s8 prev_cost, s8 cur_cost) {
+    if (MISC_CONFIG.arrow_magic_show) {
+        // If showing magic consumption, magic has not been consumed yet so only check current cost.
+        return z2_file.current_magic >= cur_cost;
+    } else {
+        // If default behavior, magic has been consumed so check against difference.
+        return z2_file.current_magic >= (cur_cost - prev_cost);
+    }
+}
+
 static const struct arrow_info * arrow_cycle_get_next_info(u16 variable) {
     // Get magic cost of current arrow type.
     s8 magic_cost = arrow_cycle_get_info(variable)->magic;
@@ -62,7 +75,7 @@ static const struct arrow_info * arrow_cycle_get_next_info(u16 variable) {
         info = arrow_cycle_get_info(current);
 
         // Calculate difference in magic cost and ensure that the player has enough magic to switch.
-        bool enough_magic = (z2_file.current_magic >= (info->magic - magic_cost));
+        bool enough_magic = arrow_cycle_has_enough_magic(magic_cost, info->magic);
 
         if (info != NULL && info->item == z2_file.items[info->slot] && enough_magic) {
             return info;
