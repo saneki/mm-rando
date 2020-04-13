@@ -124,6 +124,19 @@ static bool arrow_cycle_is_arrow_item(u8 item) {
 }
 
 /**
+ * Helper function used to update the arrow type on the current C button.
+ **/
+static void arrow_cycle_update_c_button(z2_link_t *link, z2_game_t *game, const struct arrow_info *info) {
+    // Update the C button value & texture.
+    z2_file.form_button_item[0].button_item[link->item_button] = info->icon;
+    z2_ReloadButtonTexture(game, link->item_button);
+
+    // Update player fields for new action type.
+    link->unk_0x147 = info->action;
+    link->unk_0x14A = info->action;
+}
+
+/**
  * Function called on delayed frame to finish processing the arrow cycle.
  **/
 static void arrow_cycle_handle_frame_delay(z2_link_t *link, z2_game_t *game, z2_actor_t *arrow) {
@@ -221,6 +234,11 @@ void arrow_cycle_handle(z2_link_t *link, z2_game_t *game) {
 
     // Check if there is nothing to cycle to and return early.
     if (cur_info == NULL || next_info == NULL || cur_info->var == next_info->var) {
+        // When not enough magic to cycle to anything else, switch C button back to normal bow.
+        u8 item = z2_file.form_button_item[0].button_item[link->item_button];
+        if (cur_info->var == 2 && item != Z2_ITEM_BOW && z2_file.items[Z2_SLOT_BOW] == Z2_ITEM_BOW) {
+            arrow_cycle_update_c_button(link, game, &g_arrows[0]);
+        }
         z2_PlaySfx(0x4806);
         return;
     }
@@ -246,13 +264,8 @@ void arrow_cycle_handle(z2_link_t *link, z2_game_t *game) {
         special->draw_proc = NULL;
     }
 
-    // Update the C button value & texture.
-    z2_file.form_button_item[0].button_item[link->item_button] = next_info->icon;
-    z2_ReloadButtonTexture(game, link->item_button);
-
-    // Update player fields for new action type.
-    link->unk_0x147 = next_info->action;
-    link->unk_0x14A = next_info->action;
+    // Update C button.
+    arrow_cycle_update_c_button(link, game, next_info);
 
     // Prepare for finishing cycle next frame.
     g_arrow_cycle_state.arrow = arrow;
