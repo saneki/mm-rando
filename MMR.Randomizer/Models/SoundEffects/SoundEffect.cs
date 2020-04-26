@@ -130,7 +130,7 @@ namespace MMR.Randomizer.Models.SoundEffects
 
         [Replacable(0xCE57CE, 0xCE5A22)]
         [ReplacableByTags(Short)]
-        [Tags(Short)]
+        [Tags(Short, LowHpBeep)]
         FrogRibbit = 0x30D2,
 
         [Replacable(0xCE50F2, 0xCE603A, 0xCE6F7E)]
@@ -155,7 +155,7 @@ namespace MMR.Randomizer.Models.SoundEffects
 
         [Replacable(0xD4FD26)]
         [ReplacableByTags(Short)]
-        [Tags(Short)]
+        [Tags(Short, LowHpBeep)]
         RedeadAttack = 0x30E8,
 
         [Replacable(0x00FB719E, 0x00FB72D6)]
@@ -330,7 +330,7 @@ namespace MMR.Randomizer.Models.SoundEffects
 
         [Replacable(0x00B97E2A)]
         [Tags(LowHpBeep)]
-        [ReplacableByTags(Short, LowHpBeep)]
+        [ReplacableByTags(LowHpBeep)]
         LowHealthBeep = 0x401B,
 
         [Replacable(0x00DDE78E, 0x00DDF322, 0x1069EBA, 0x106788A)]
@@ -379,13 +379,13 @@ namespace MMR.Randomizer.Models.SoundEffects
         [Tags(Short)]
         FierceDeityLinkJumpAttack = 0x6001,
 
-        [Tags(Short)]
+        [Tags(Short, LowHpBeep)]
         FierceDeityTakeDamage = 0x6005,
 
         [Tags(Short)]
         FierceDeityFrozen = 0x6006,
 
-        [Tags(Short)]
+        [Tags(Short, Long)]
         FierceDeityFallLong = 0x6008,
 
         [Tags(Short)]
@@ -394,20 +394,20 @@ namespace MMR.Randomizer.Models.SoundEffects
         [Tags(Short)]
         ChildLinkJumpAttack = 0x6021,
 
-        [Tags(Short)]
+        [Tags(Short, LowHpBeep)]
         ChildLinkGrabLedge = 0x6023,
 
         [Tags(Short)]
         ChildLinkMountLedge = 0x6024,
 
-        [Tags(Short)]
+        [Tags(Short, LowHpBeep)]
         ChildLinkTakeDamage = 0x6025,
 
         [Tags(Short)]
         ChildLinkKnockedOffHorse = 0x603E,
 
         [Replacable(0x00BABCF6)]
-        [Tags(Short)]
+        [Tags(Short, LowHpBeep)]
         [ReplacableByTags(Short)]
         TatlEnemyAlert = 0x6043,
 
@@ -446,7 +446,7 @@ namespace MMR.Randomizer.Models.SoundEffects
         [Tags(Short)]
         DekuFrozen = 0x6086,
 
-        [Tags(Short)]
+        [Tags(Short, LowHpBeep)]
         DekuFallShort = 0x6087,
 
         [Tags(Long)]
@@ -458,10 +458,10 @@ namespace MMR.Randomizer.Models.SoundEffects
         [Tags(Short, LowHpBeep)]
         GoronPunch = 0x60C0,
 
-        [Tags(Short)]
+        [Tags(Short, LowHpBeep)]
         GoronBonk = 0x60C4,
 
-        [Tags(Short)]
+        [Tags(Short, LowHpBeep)]
         GoronFallShort = 0x60C7,
 
         [Tags(Long)]
@@ -485,7 +485,7 @@ namespace MMR.Randomizer.Models.SoundEffects
         [Tags(Short)]
         AveilFrustrated = 0x6115,
 
-        [Tags(Short)]
+        [Tags(Short, Long)]
         AveilLaugh = 0x6116,
 
         [Tags(Short)]
@@ -533,10 +533,10 @@ namespace MMR.Randomizer.Models.SoundEffects
         [Tags(Long)]
         ReceptionistMmm = 0x612C,
 
-        [Tags(Short)]
+        [Tags(Short, LowHpBeep)]
         RomaniScream = 0x612D,
 
-        [Tags(Short)]
+        [Tags(Short, LowHpBeep)]
         RomaniGiggle = 0x612E,
 
         [Tags(Short)]
@@ -545,7 +545,7 @@ namespace MMR.Randomizer.Models.SoundEffects
         [Tags(Long)]
         PamelaFather = 0x6131,
 
-        [Tags(Short)]
+        [Tags(Short, LowHpBeep)]
         PamelaSniffle = 0x6132,
 
         [Tags(Long)]
@@ -612,7 +612,7 @@ namespace MMR.Randomizer.Models.SoundEffects
         [Tags(Short)]
         DarlingMmm = 0x6171,
 
-        [Tags(Long)]
+        [Tags(Long, LowHpBeep)]
         MikauBaybee = 0x6175,
 
         [Tags(Long)]
