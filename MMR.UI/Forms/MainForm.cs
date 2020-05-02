@@ -890,6 +890,7 @@ namespace MMR.UI.Forms
 
                 tJunkLocationsList.Enabled = false;
                 bJunkLocationsEditor.Enabled = false;
+                bToggleTricks.Enabled = false;
             }
             else
             {
@@ -922,6 +923,8 @@ namespace MMR.UI.Forms
 
                 tJunkLocationsList.Enabled = _configuration.GameplaySettings.LogicMode != LogicMode.NoLogic;
                 bJunkLocationsEditor.Enabled = _configuration.GameplaySettings.LogicMode != LogicMode.NoLogic;
+
+                bToggleTricks.Enabled = _configuration.GameplaySettings.LogicMode != LogicMode.NoLogic;
 
                 cNoStartingItems.Enabled = _configuration.GameplaySettings.AddOther || _configuration.GameplaySettings.UseCustomItemList;
                 if (!cNoStartingItems.Enabled)
