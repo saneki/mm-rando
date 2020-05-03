@@ -260,8 +260,26 @@ namespace MMR.Randomizer
                 ItemList[Item.UpgradeBiggestQuiver].DependsOnItems.Add(arrows40.Item);
                 ItemList[Item.HeartPieceSwampArchery].DependsOnItems.Add(arrows40.Item);
                 ItemList[Item.HeartPieceTownArchery].DependsOnItems.Add(Item.UpgradeBiggestQuiver);
-                ItemList[Item.MaskRomani].DependsOnItems.Add(Item.OtherArrow);
                 ItemList[Item.HeartPieceHoneyAndDarling].DependsOnItems.Add(bombchu10.Item);
+                
+                var escortCremia = new ItemObject
+                {
+                    ID = ItemList.Count,
+                    TimeAvailable = 63,
+                    Conditionals = new List<List<Item>>
+                    {
+                        new List<Item>
+                        {
+                            Item.OtherArrow,
+                        },
+                        new List<Item>
+                        {
+                            Item.MaskCircusLeader,
+                        },
+                    },
+                };
+                ItemList.Add(escortCremia);
+                ItemList[Item.MaskRomani].DependsOnItems.Add(escortCremia.Item);
             }
 
             // todo handle progressive upgrades here.
