@@ -1902,14 +1902,14 @@
 0
 
 - Ocean Skulltula Library Hole Behind Picture
-443
+443,10
 
 0
 0
 
 - Ocean Skulltula Library Hole Behind Cabinet
 443
-
+10;93
 0
 0
 
@@ -1921,25 +1921,25 @@
 
 - Ocean Skulltula 2nd Room Ceiling Edge
 443
-
+10;93
 0
 0
 
 - Ocean Skulltula 2nd Room Ceiling Plank
 443
-
+10;93
 0
 0
 
 - Ocean Skulltula Colored Skulls Ceiling Edge
 443
-
+10;93
 0
 0
 
 - Ocean Skulltula Library Ceiling Edge
 443
-
+10;93
 0
 0
 
@@ -1951,7 +1951,7 @@
 
 - Ocean Skulltula Storage Room Behind Crate
 443
-
+10;93;92
 0
 0
 
@@ -1974,7 +1974,7 @@
 0
 
 - Ocean Skulltula 2nd Room Webbed Hole
-443
+443,10
 
 0
 0
@@ -2005,7 +2005,7 @@
 
 - Ocean Skulltula Colored Skulls Behind Picture
 443
-
+10;93
 0
 0
 
@@ -2065,13 +2065,13 @@
 
 - Ocean Skulltula 2nd Room Behind Skull 1
 443
-
+10;93
 0
 0
 
 - Ocean Skulltula 2nd Room Behind Skull 2
 443
-
+10;93
 0
 0
 
@@ -2658,8 +2658,8 @@
 0
 
 - Ocean Skulltulas
-10,119,110,499
-
+119,110,499
+10;472
 0
 0
 
