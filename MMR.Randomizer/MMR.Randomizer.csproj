@@ -103,6 +103,9 @@
     <None Update="Resources\models\link-mask">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\mods\byo-ammo">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\mods\chest-table">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
