@@ -642,8 +642,8 @@
 0
 
 - Snowhead Temple access
-106,99,92
-471;433
+106,92
+99,471;99,433;522
 0
 0
 
@@ -3131,3 +3131,9 @@
 0
 0
 ;Enter poisoned swamp by rolling as Goron. You aren't guaranteed to have enough health to make it.
+- Lullaby Skip
+92,433
+
+0
+0
+;Roll up past the ramp with Goron Spikes. Then use C-Up on enemies to not be blown off.
