@@ -278,7 +278,8 @@ namespace MMR.Randomizer
             SequenceUtils.ReadInstrumentSetList();
             if (_cosmeticSettings.Music == Music.Random)
             {
-                SequenceUtils.PointerizeSequenceSlots(_randomized.Settings.ShortenCutscenes);
+                var shorten_cutscenes = _randomized != null ? _randomized.Settings.ShortenCutscenes : false;
+                SequenceUtils.PointerizeSequenceSlots(shorten_cutscenes);
                 BGMShuffle(random, _settings);
             }
 
