@@ -127,6 +127,9 @@
     <None Update="Resources\mods\de-5">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\mods\death-moon-crash">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\mods\dm-1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

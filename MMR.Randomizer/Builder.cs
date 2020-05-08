@@ -725,6 +725,11 @@ namespace MMR.Randomizer
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory, "byo-ammo");
             }
+
+            if (_randomized.Settings.DeathMoonCrash)
+            {
+                ResourceUtils.ApplyHack(Values.ModsDirectory, "death-moon-crash");
+            }
         }
 
         private void WriteSunsSong()
