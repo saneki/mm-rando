@@ -294,7 +294,8 @@ namespace MMR.Randomizer.Utils
             //   .dw 0x00010000        00
             // checking if not 94 instead if 00 because 94 is vanilla and 00 is replacement
             //  thinking ahead, it's possible the adjusted value will change one day, but vanilla is static
-            bool ShortenedCutscenes = RomData.MMFileList[1472].Data[0xD48 + 3] != 0x94;
+            // if the file's data is null, nothing in that file was changed and therefore it is vanilla.
+            bool ShortenedCutscenes = RomData.MMFileList[1472].Data == null || RomData.MMFileList[1472].Data[0xD48 + 3] != 0x94;
 
             if (ShortenedCutscenes)
             {
