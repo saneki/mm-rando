@@ -45,10 +45,10 @@ const static u16 g_position[2][2] = {
 
 // Positions of D-Pad item textures, relative to main texture.
 const static s16 g_positions[4][2] = {
-    { 1, -15 },
+    { 1, -16 },
     { 15, 0 },
     { 1, 13 },
-    { -14, 0 },
+    { -15, 0 },
 };
 
 // Whether or not D-Pad items are usable, according to z2_UpdateButtonUsability.
