@@ -1227,18 +1227,62 @@ namespace MMR.Randomizer
             {
                 ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-skulltula-tokens");
 
-                newMessages.Add(new MessageEntry
-                {
-                    Id = 0x51,
-                    Header = new byte[11] { 0x02, 0x00, 0x52, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF },
-                    Message = $"\u0017You got an \u0005Ocean Gold Skulltula\u0011Spirit\0!\u0018\u001F\u0000\u0010 This is your \u0001\u000D\u0000 one!\u00BF",
-                });
-                newMessages.Add(new MessageEntry
-                {
-                    Id = 0x52,
-                    Header = new byte[11] { 0x02, 0x00, 0x52, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF },
-                    Message = $"\u0017You got a \u0006Swamp Gold Skulltula\u0011Spirit\0!\u0018\u001F\u0000\u0010 This is your \u0001\u000D\u0000 one!\u00BF",
-                });
+                MessageEntry oceanSkulltulaEntry = new MessageEntryBuilder()
+                    .Id(0x51)
+                    .Header(it => { it.FaintBlue().Icon(0x52); })
+                    .Message(it =>
+                    {
+                        it
+                            .QuickText(() =>
+                            {
+                                it
+                                    .Text("You got an ")
+                                    .LightBlue(() =>
+                                    {
+                                        it
+                                            .Text("Ocean Gold Skulltula")
+                                            .NewLine()
+                                            .Text("Spirit");
+                                    })
+                                    .White(() => { it.Text("!"); });
+                            })
+                            .PauseText(0x0010)
+                            .Text(" This is your ")
+                            .Red(() => { it.SkulltulaCount(); })
+                            .White(() => { it.Text(" one!"); })
+                            .EndFinalTextBox();
+                    })
+                    .Build();
+                newMessages.Add(oceanSkulltulaEntry);
+
+                MessageEntry swampSkulltulaEntry = new MessageEntryBuilder()
+                    .Id(0x52)
+                    .Header(it => { it.FaintBlue().Icon(0x52); })
+                    .Message(it =>
+                    {
+                        it
+                            .QuickText(() =>
+                            {
+                                it
+                                    .Text("You got a ")
+                                    .Pink(() =>
+                                    {
+                                        it
+                                            .Text("Swamp Gold Skulltula")
+                                            .NewLine()
+                                            .Text("Spirit");
+                                    })
+                                    .White(() => { it.Text("!"); });
+                            })
+                            .PauseText(0x0010)
+                            .Text(" This is your ")
+                            .Red(() => { it.SkulltulaCount(); })
+                            .White(() => { it.Text(" one!"); })
+                            .EndFinalTextBox();
+                    })
+                    .Build();
+
+                newMessages.Add(swampSkulltulaEntry);
             }
 
             if (_randomized.Settings.AddStrayFairies)

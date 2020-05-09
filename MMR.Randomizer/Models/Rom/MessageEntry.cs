@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace MMR.Randomizer.Models.Rom
 {
@@ -27,5 +28,10 @@ namespace MMR.Randomizer.Models.Rom
             msg.CopyTo(data, Header.Length);
             return data;
         }
+
+        public bool Equals(MessageEntry entry) =>
+            Id == entry.Id &&
+            Header.SequenceEqual(entry.Header) &&
+            Message.Equals(entry.Message);
     }
 }
