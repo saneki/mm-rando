@@ -398,6 +398,7 @@ namespace MMR.UI.Forms
             ctxtMenu_RandomizeMagic(sender, e);
             ctxtMenu_RandomizeMap(sender, e);
             ctxtMenu_RandomizeRupees(sender, e);
+            RandomizeControlColor(btn_dpad);
         }
 
         void ctxtMenu_RandomizeCurrent(object sender, EventArgs e)
