@@ -405,7 +405,7 @@ namespace MMR.UI.Forms
             bTunic.BackColor = _configuration.CosmeticSettings.TunicColor;
             cTargettingStyle.Checked = _configuration.CosmeticSettings.EnableHoldZTargeting;
             cEnableNightMusic.Checked = _configuration.CosmeticSettings.EnableNightBGM;
-
+            cDisableLowHealthBeep.Checked = _configuration.CosmeticSettings.DisableLowHealthBeep;
 
             // Misc config options
             cDisableCritWiggle.Checked = _configuration.GameplaySettings.CritWiggleDisable;
