@@ -1983,6 +1983,17 @@ typedef struct {
     void            *unk_0x22C;                      /* 0x022C */
 } z2_en_elforg_t;                                    /* 0x0230 */
 
+/**
+ * En_Akindonuts actor (Business Scrub)
+ **/
+typedef struct {
+    z2_actor_t       common;                         /* 0x0000 */
+    u8               unk_0x144[0x1E8];               /* 0x0144 */
+    u16              state;                          /* 0x032C, Not sure what else to call this, or what else it does. */
+    u8               unk_0x32E[0x0E];                /* 0x032E */
+    u16              last_message_id;                /* 0x033C */
+} z2_en_akindonuts_t;
+
 /// =============================================================
 /// Arenas
 /// =============================================================
