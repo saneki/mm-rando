@@ -22,6 +22,10 @@ DefineDmaFile G_KALEIDO_SCOPE_DMA, G_KALEIDO_SCOPE_FILE, 37
 DefineDmaFile G_PLAYER_ACTOR_DMA, G_PLAYER_ACTOR_FILE, 38
 .definelabel  G_PLAYER_ACTOR_VRAM, 0x8082DA90
 
+; ovl_En_Torch2 (Elegy Statue)
+DefineDmaFile G_EN_TORCH2_DMA, G_EN_TORCH2_FILE, 65
+.definelabel  G_EN_TORCH2_VRAM, 0x808A31B0
+
 ; ovl_Item_B_Heart (Heart Container)
 DefineDmaFile G_ITEM_B_HEART_DMA, G_ITEM_B_HEART_FILE, 80
 .definelabel  G_ITEM_B_HEART_VRAM, 0x808BCDF0
@@ -53,6 +57,10 @@ DefineDmaFile G_EN_SI_DMA, G_EN_SI_FILE, 216
 ; ovl_Dm_Hina (Boss Remains)
 DefineDmaFile G_DM_HINA_DMA, G_DM_HINA_FILE, 284
 .definelabel  G_DM_HINA_VRAM, 0x80A1F410
+
+; ovl_Eff_Change (Camera Refocuser for Elegy)
+DefineDmaFile G_EFF_CHANGE_DMA, G_EFF_CHANGE_FILE, 318
+.definelabel  G_EFF_CHANGE_VRAM, 0x80A4C490
 
 ; ovl_En_Time_Tag
 DefineDmaFile G_EN_TIME_TAG_DMA, G_EN_TIME_TAG_FILE, 392

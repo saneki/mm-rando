@@ -1066,7 +1066,8 @@ typedef struct {
     f32              unk_0x1F8;                      /* 0x01F8 */
     u8               unk_0x1FC[0x54];                /* 0x01FC */
     s32              unk_0x250;                      /* 0x0250 */
-    u8               unk_0x254[0x14];                /* 0x0254 */
+    z2_actor_t      *elegy_statues[0x04];            /* 0x0254 */
+    u8               unk_0x264[0x04];                /* 0x0264 */
     u8               unk_0x268;                      /* 0x0268 */
     u8               unk_0x269[0x03];                /* 0x0269 */
     u8               unk_0x26C[0x18];                /* 0x026C */
@@ -1405,11 +1406,9 @@ typedef struct {
 } z2_song_notes_t;                                   /* 0x001C */
 
 /**
- * Structure with some song state.
- *
- * Usually located at: 0x801FD43A
+ * Song state substructure which alternates between 2 via frame counter.
  **/
-typedef struct {
+typedef struct z2_song_frame_s {
     s8               recent_note;                    /* 0x0000 */
     s8               stored_song;                    /* 0x0001 */
     s8               note_index;                     /* 0x0002 */
@@ -1418,9 +1417,16 @@ typedef struct {
     u8               playback_state;                 /* 0x0005 */
                                                      /* 1 while doing playback, is reset to 0 to show the "You Played X song" text. */
     u8               playback_note_index;            /* 0x0006 */
-    u8               unk_0x07[0x03];                 /* 0x0007 */
-    s8               note_index_2;                   /* 0x000A */
-    u8               unk_0x0B[0x05];                 /* 0x000B */
+    u8               unk_0x07;                       /* 0x0007 */
+} z2_song_frame_t;                                   /* 0x0008 */
+
+/**
+ * Structure with some song state.
+ *
+ * Usually located at: 0x801FD43A
+ **/
+typedef struct {
+    z2_song_frame_t  frames[2];                      /* 0x0000 */
     u16              frame_count;                    /* 0x0010 */
     z2_angle_t       analog_angle;                   /* 0x0012, angle of analog stick, modifies sound. */
     u16              unk_0x14;                       /* 0x0014 */
@@ -1470,7 +1476,11 @@ typedef struct z2_msgbox_ctxt_s {
     u8               message_state_2;                /* 0x2020 */
     u8               unk_0x2021[0x02];               /* 0x2021 */
     u8               message_state_3;                /* 0x2023 */
-    u8               unk_0x2024[0x10];               /* 0x2024 */
+    u8               unk_0x2024[0x04];               /* 0x2024 */
+    u16              unk_0x2028;                     /* 0x2028 */
+    u16              unk_0x202A;                     /* 0x202A */
+    u16              unk_0x202C;                     /* 0x202C */
+    u8               unk_0x202E[0x02];               /* 0x202E */
     z2_color_rgb16_t score_line_color;               /* 0x2034 */
     u8               unk_0x203A[0x02];               /* 0x203A */
     s16              score_line_alpha;               /* 0x203C */
@@ -2218,6 +2228,7 @@ typedef struct {
 #define z2_UpdateButtonUsability_addr    0x80110038
 #define z2_WriteHeartColors_addr         0x8010069C
 #define z2_RemoveItem_addr               0x801149A0
+#define z2_ToggleSfxDampen_addr          0x8019C300
 
 /* Function Addresses (Actors) */
 #define z2_ActorDtor_addr                0x800B6948
@@ -2291,6 +2302,7 @@ typedef void (*z2_UpdateButtonUsability_proc)(z2_game_t *game);
 typedef void (*z2_UseItem_proc)(z2_game_t *game, z2_link_t *link, u8 item);
 typedef void (*z2_WriteHeartColors_proc)(z2_game_t *game);
 typedef void (*z2_RemoveItem_proc)(u32 item, u8 slot);
+typedef void (*z2_ToggleSfxDampen_proc)(int enable);
 
 /* Function Prototypes (Actors) */
 typedef void (*z2_ActorProc_proc)(z2_actor_t *actor, z2_game_t *game);
@@ -2350,6 +2362,7 @@ typedef void (*z2_UnloadRoom_proc)(z2_game_t *game, z2_room_ctxt_t *room_ctxt);
 #define z2_UpdateButtonUsability         ((z2_UpdateButtonUsability_proc) z2_UpdateButtonUsability_addr)
 #define z2_WriteHeartColors              ((z2_WriteHeartColors_proc)      z2_WriteHeartColors_addr)
 #define z2_RemoveItem                    ((z2_RemoveItem_proc)            z2_RemoveItem_addr)
+#define z2_ToggleSfxDampen               ((z2_ToggleSfxDampen_proc)       z2_ToggleSfxDampen_addr)
 
 /* Functions (Actors) */
 #define z2_ActorDtor                     ((z2_ActorProc_proc)             z2_ActorDtor_addr)

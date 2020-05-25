@@ -28,6 +28,7 @@
 .include "hooks/business_scrub.asm"
 .include "hooks/cows.asm"
 .include "hooks/dpad.asm"
+.include "hooks/elegy_speedup.asm"
 .include "hooks/extended_objects.asm"
 .include "hooks/file_select.asm"
 .include "hooks/general.asm"
@@ -41,6 +42,7 @@
 .include "hooks/rooms.asm"
 .include "hooks/savedata.asm"
 .include "hooks/scene.asm"
+.include "hooks/song_state.asm"
 .include "hooks/world_colors.asm"
 
 .if MMR_MODS == 1
@@ -64,6 +66,7 @@ PAYLOAD_START:
 .include "cows.asm"
 .include "damage.asm"
 .include "dpad.asm"
+.include "elegy_speedup.asm"
 .include "extended_objects.asm"
 .include "file_select.asm"
 .include "hud_colors.asm"
