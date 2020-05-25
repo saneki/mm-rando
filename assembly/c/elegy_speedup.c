@@ -1,7 +1,6 @@
 #include <stdbool.h>
+#include "misc.h"
 #include "z2.h"
-
-static bool g_speedup = true;
 
 union elegy_lock_params {
     struct {
@@ -16,7 +15,7 @@ union elegy_lock_params {
  * frame the statue should begin spawning on.
  **/
 u32 elegy_speedup_get_lock_params(z2_link_t *link, z2_game_t *game) {
-    if (!g_speedup) {
+    if (!MISC_CONFIG.elegy_speedup) {
         union elegy_lock_params result = {
             .frame_count = 0x5B,
             .spawn_frame = 0x0A,
@@ -36,7 +35,7 @@ u32 elegy_speedup_get_lock_params(z2_link_t *link, z2_game_t *game) {
  * statue when moving it to a different position.
  **/
 u16 elegy_speedup_get_statue_despawn_counter(z2_game_t *game, z2_link_t *link) {
-    if (!g_speedup) {
+    if (!MISC_CONFIG.elegy_speedup) {
         return 0x14;
     } else {
         return 0x01;
@@ -47,7 +46,7 @@ u16 elegy_speedup_get_statue_despawn_counter(z2_game_t *game, z2_link_t *link) {
  * Hook function called to get the speed at which the Elegy statue fades in or out.
  **/
 u16 elegy_speedup_get_statue_fade_speed(z2_actor_t *actor, z2_game_t *game) {
-    if (!g_speedup) {
+    if (!MISC_CONFIG.elegy_speedup) {
         return 0x8;
     } else {
         return 0x20;
@@ -58,7 +57,7 @@ u16 elegy_speedup_get_statue_fade_speed(z2_actor_t *actor, z2_game_t *game) {
  * Hook function called to check whether or not the camera should update for the Elegy cutscene.
  **/
 bool elegy_speedup_should_update_camera(z2_actor_t *actor, z2_game_t *game) {
-    if (!g_speedup) {
+    if (!MISC_CONFIG.elegy_speedup) {
         return true;
     } else {
         return false;
@@ -69,7 +68,7 @@ bool elegy_speedup_should_update_camera(z2_actor_t *actor, z2_game_t *game) {
  * Hook function called to check whether or not the scene should darken for the Elegy cutscene.
  **/
 bool elegy_speedup_should_darken(z2_actor_t *actor, z2_game_t *game) {
-    if (!g_speedup) {
+    if (!MISC_CONFIG.elegy_speedup) {
         return true;
     } else {
         return false;
@@ -80,7 +79,7 @@ bool elegy_speedup_should_darken(z2_actor_t *actor, z2_game_t *game) {
  * Hook function called to sync the Elegy effect's position with that of its respective statue.
  **/
 void elegy_speedup_update_effect_position(z2_actor_t *actor, z2_game_t *game) {
-    if (g_speedup) {
+    if (MISC_CONFIG.elegy_speedup) {
         // Get Elegy statue actor from main actor context struct.
         u8 form_index = actor->variable & 7;
         z2_actor_t *statue = game->actor_ctxt.elegy_statues[form_index];

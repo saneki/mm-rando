@@ -60,6 +60,11 @@ namespace MMR.Randomizer.Asm
         public bool DrawHash { get; set; } = true;
 
         /// <summary>
+        /// Whether or not to apply Elegy of Emptiness speedups.
+        /// </summary>
+        public bool ElegySpeedup { get; set; }
+
+        /// <summary>
         /// Whether or not to enable faster pushing and pulling speeds.
         /// </summary>
         public bool FastPush { get; set; }
@@ -126,6 +131,7 @@ namespace MMR.Randomizer.Asm
             flags |= (((uint)this.QuestConsume) & 3) << 22;
             flags |= (this.ArrowCycling ? (uint)1 : 0) << 21;
             flags |= (this.ArrowMagic ? (uint)1 : 0) << 20;
+            flags |= (this.ElegySpeedup ? (uint)1 : 0) << 19;
             return flags;
         }
     }

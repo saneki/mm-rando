@@ -1,3 +1,4 @@
+#include "misc.h"
 #include "z2.h"
 
 union song_state_results {
@@ -15,7 +16,7 @@ union song_state_results {
  **/
 u32 song_state_handle_playback(z2_game_t *game, z2_msgbox_ctxt_t *ctxt) {
     s8 song = ctxt->song_ctxt->frames[0].stored_song;
-    if (song == 3) {
+    if (song == 3 && MISC_CONFIG.elegy_speedup) {
         // Process state for Elegy of Emptiness
         // Disable sfx being "dampened" (normally action 0x17 would do this before advancing to 0x18)
         z2_ToggleSfxDampen(0);

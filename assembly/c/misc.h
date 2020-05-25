@@ -46,7 +46,10 @@ struct misc_config {
             u32 quest_consume      : 2;
             u32 arrow_cycle        : 1;
             u32 arrow_magic_show   : 1;
-            u32                    : 20;
+
+            // Version 2 flags
+            u32 elegy_speedup      : 1;
+            u32                    : 19;
         };
         u32 flags;          /* 0x0018 */
     };
