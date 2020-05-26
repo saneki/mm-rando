@@ -1480,7 +1480,7 @@ typedef struct z2_msgbox_ctxt_s {
     u16              unk_0x2028;                     /* 0x2028 */
     u16              unk_0x202A;                     /* 0x202A */
     u16              unk_0x202C;                     /* 0x202C */
-    u8               unk_0x202E[0x02];               /* 0x202E */
+    u8               unk_0x202E[0x06];               /* 0x202E */
     z2_color_rgb16_t score_line_color;               /* 0x2034 */
     u8               unk_0x203A[0x02];               /* 0x203A */
     s16              score_line_alpha;               /* 0x203C */
