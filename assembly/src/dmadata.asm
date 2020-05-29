@@ -94,6 +94,10 @@ DefineDmaFile G_BG_KIN2_SHELF_DMA, G_BG_KIN2_SHELF_FILE, 488
 DefineDmaFile G_BG_IKANA_BLOCK_DMA, G_BG_IKANA_BLOCK_FILE, 495
 .definelabel  G_BG_IKANA_BLOCK_VRAM, 0x80B7EA60
 
+; ovl_Bg_F40_Block (Stone Tower Temple Shifting Block)
+DefineDmaFile G_BG_F40_BLOCK_DMA, G_BG_F40_BLOCK_FILE, 540
+.definelabel  G_BG_F40_BLOCK_VRAM, 0x80BC3980
+
 ; ovl_En_Akindonuts (Traveling Business Scrub)
 DefineDmaFile G_EN_AKINDONUTS_DMA, G_EN_AKINDONUTS_FILE, 587
 .definelabel  G_EN_AKINDONUTS_VRAM, 0x80BECBE0

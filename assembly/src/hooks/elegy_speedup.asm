@@ -1,5 +1,5 @@
 ;==================================================================================================
-; Elegy Speedup
+; Elegy Speedup - Elegy Statue
 ;==================================================================================================
 
 .headersize(G_EN_TORCH2_VRAM - G_EN_TORCH2_FILE)
@@ -75,3 +75,47 @@
 ;   addiu   at, r0, 0x000A
 .org 0x80855ACC
     addu    at, r0, t1
+
+;==================================================================================================
+; Elegy Speedup - Stone Tower Blocks
+;==================================================================================================
+
+.headersize(G_BG_F40_BLOCK_VRAM - G_BG_F40_BLOCK_FILE)
+
+; Get speed of block moving to new area (normally moving slow).
+; Replaces:
+;   lui     at, 0x41A0
+;   mtc1    at, f4
+;   lw      t6, 0x015C (s0)
+;   lw      v0, 0x0160 (s0)
+;   swc1    f4, 0x0070 (s0)
+.org 0x80BC4248 ; Offset: 0x8C8
+    lw      a1, 0x0024 (sp)
+    jal     elegy_speedup_get_block_speed_hook
+    ori     a2, r0, 0
+    lw      t6, 0x015C (s0)
+    lw      v0, 0x0160 (s0)
+
+; Get speed of block returning to old area (normally moving fast).
+; Replaces:
+;   lui     at, 0x4220
+;   lw      v0, 0x0160 (s0)
+;   mtc1    at, f4
+;   lui     t7, 0x80BC
+;   blez    v0, 0x80BC448C
+;   swc1    f4, 0x0070 (s0)
+.org 0x80BC4468 ; Offset: 0xAE8
+.area 0x18
+    lw      a1, 0x0024 (sp)
+    jal     elegy_speedup_get_block_speed_hook
+    ori     a2, r0, 1
+    lw      v0, 0x0160 (s0)
+    blez    v0, 0x80BC448C
+    lui     t7, 0x80BC ; Relocated hiword for: 0x80BC4380 (offset 0xA00)
+.endarea
+
+; Fix relocations.
+; Replaces:
+;   .dw 0x45000AF4
+.org 0x80BC4754 ; Offset: 0xDD4
+    .dw 0x45000AFC

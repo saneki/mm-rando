@@ -11,6 +11,23 @@ union elegy_lock_params {
 };
 
 /**
+ * Hook function called to get the movement speed of the Stone Tower blocks.
+ **/
+f32 elegy_speedup_get_block_speed(z2_actor_t *actor, z2_game_t *game, int type) {
+    if (type == 0) {
+        // Get speed when moving into new spot.
+        if (!MISC_CONFIG.elegy_speedup) {
+            return 20.0;
+        } else {
+            return 40.0;
+        }
+    } else {
+        // Get speed when moving back to original spot.
+        return 40.0;
+    }
+}
+
+/**
  * Hook function called to get number of frames to lock input during Elegy cutscene, and which
  * frame the statue should begin spawning on.
  **/

@@ -1,3 +1,17 @@
+elegy_speedup_get_block_speed_hook:
+    addiu   sp, sp, -0x18
+    sw      ra, 0x0010 (sp)
+
+    jal     elegy_speedup_get_block_speed
+    or      a0, s0, r0
+
+    ; Store result in actor field offset 0x70.
+    swc1    f0, 0x0070 (s0)
+
+    lw      ra, 0x0010 (sp)
+    jr      ra
+    addiu   sp, sp, 0x18
+
 elegy_speedup_get_lock_params_hook:
     ; Displaced code
     or      a3, a1, r0
