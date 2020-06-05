@@ -43,6 +43,7 @@
 .include "hooks/savedata.asm"
 .include "hooks/scene.asm"
 .include "hooks/song_state.asm"
+.include "hooks/speedups.asm"
 .include "hooks/world_colors.asm"
 
 .if MMR_MODS == 1
@@ -80,6 +81,7 @@ PAYLOAD_START:
 .include "quest_items.asm"
 .include "rooms.asm"
 .include "savedata.asm"
+.include "speedups.asm"
 .include "world_colors.asm"
 .importobj "../build/bundle.o"
 .align 8

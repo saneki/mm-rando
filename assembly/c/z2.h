@@ -981,7 +981,7 @@ typedef struct {
     z2_xyzf_t        focus_pos;                      /* 0x0094 */
     u32              unk_0xA0;                       /* 0x00A0 */
     u32              unk_0xA4;                       /* 0x00A4 */
-    u32              unk_0xA8;                       /* 0x00A8 */
+    z2_actor_t      *actor;                          /* 0x00A8 */
     u8               unk_0xAC[0x94];                 /* 0x00AC */
     s16              unk_0x140;                      /* 0x0140 */
     s16              state;                          /* 0x0142 */
@@ -2004,6 +2004,41 @@ typedef struct {
     u16              last_message_id;                /* 0x033C */
 } z2_en_akindonuts_t;
 
+/**
+ * En_Toto actor (Toto)
+ **/
+typedef struct z2_en_toto_s {
+    z2_actor_t       common;                         /* 0x0000 */
+    u8               unk_0x144[0x16C];               /* 0x0144 */
+    u8               func_index;                     /* 0x02B0 */
+    u8               frame_count;                    /* 0x02B1 */
+    u8               actor_cutscene;                 /* 0x02B2 */
+    u8               song_flags;                     /* 0x02B3 */
+    u8               unk_0x2B4[0x04];                /* 0x02B4 */
+    void            *cur_state;                      /* 0x02B8 */
+    u8               unk_0x2BC[0x04];                /* 0x02BC */
+    void            *unk_0x2C0;                      /* 0x02C0 */
+    void            *unk_0x2C4;                      /* 0x02C4 */
+    u8               unk_0x2C8[0x08];                /* 0x02C8 */
+} z2_en_toto_t;                                      /* 0x02D0 */
+
+/// =============================================================
+/// Actor Cutscene
+/// =============================================================
+
+typedef struct z2_actor_cutscene_s {
+    s16              priority;                       /* 0x0000 */
+    s16              length;                         /* 0x0002 */
+    s16              unk_0x04;                       /* 0x0004 */
+    s16              unk_0x06;                       /* 0x0006 */
+    s16              additionalCutscene;             /* 0x0008 */
+    u8               sound;                          /* 0x000A */
+    u8               unk_0x0B;                       /* 0x000B */
+    s16              unk_0x0C;                       /* 0x000C */
+    u8               unk_0x0E;                       /* 0x000E */
+    u8               letterboxSize;                  /* 0x000F */
+} z2_actor_cutscene_t;                               /* 0x0010 */
+
 /// =============================================================
 /// Arenas
 /// =============================================================
@@ -2234,6 +2269,25 @@ typedef struct {
 #define z2_ActorDtor_addr                0x800B6948
 #define z2_ActorRemove_addr              0x800BB498
 
+/* Function Addresses (Actor Cutscene) */
+#define z2_ActorCutscene_ClearWaiting_addr             0x800F1648
+#define z2_ActorCutscene_ClearNextCutscenes_addr       0x800F1678
+#define z2_ActorCutscene_MarkNextCutscenes_addr        0x800F16A8
+#define z2_ActorCutscene_End_addr                      0x800F17FC
+#define z2_ActorCutscene_Update_addr                   0x800F1A7C
+#define z2_ActorCutscene_SetIntentToPlay_addr          0x800F1BA4
+#define z2_ActorCutscene_GetCanPlayNext_addr           0x800F1BE4
+#define z2_ActorCutscene_StartAndSetUnkLinkFields_addr 0x800F1C68
+#define z2_ActorCutscene_StartAndSetFlag_addr          0x800F1CE0
+#define z2_ActorCutscene_Start_addr                    0x800F1D84
+#define z2_ActorCutscene_Stop_addr                     0x800F1FBC
+#define z2_ActorCutscene_GetCurrentIndex_addr          0x800F207C
+#define z2_ActorCutscene_GetCutscene_addr              0x800F208C
+#define z2_ActorCutscene_GetAdditionalCutscene_addr    0x800F20B8
+#define z2_ActorCutscene_GetLength_addr                0x800F20F8
+#define z2_ActorCutscene_GetCurrentCamera_addr         0x800F21B8
+#define z2_ActorCutscene_SetReturnCamera_addr          0x800F23C4
+
 /* Function Addresses (Drawing) */
 #define z2_BaseDrawCollectable_addr      0x800A7128
 #define z2_DrawHeartPiece_addr           0x800A75B8
@@ -2308,6 +2362,25 @@ typedef void (*z2_ToggleSfxDampen_proc)(int enable);
 typedef void (*z2_ActorProc_proc)(z2_actor_t *actor, z2_game_t *game);
 typedef void (*z2_ActorRemove_proc)(z2_actor_ctxt_t *ctxt, z2_actor_t *actor, z2_game_t *game);
 
+/* Function Prototypes (Actor Cutscene) */
+typedef void (*z2_ActorCutscene_ClearWaiting_proc)(void);
+typedef void (*z2_ActorCutscene_ClearNextCutscenes_proc)(void);
+typedef void (*z2_ActorCutscene_MarkNextCutscenes_proc)(void);
+typedef void (*z2_ActorCutscene_End_proc)(void);
+typedef void (*z2_ActorCutscene_Update_proc)(void);
+typedef void (*z2_ActorCutscene_SetIntentToPlay_proc)(s16 index);
+typedef s16 (*z2_ActorCutscene_GetCanPlayNext_proc)(s16 index);
+typedef s16 (*z2_ActorCutscene_StartAndSetUnkLinkFields_proc)(s16 index, z2_actor_t *actor);
+typedef s16 (*z2_ActorCutscene_StartAndSetFlag_proc)(s16 index, z2_actor_t *actor);
+typedef s16 (*z2_ActorCutscene_Start_proc)(s16 index, z2_actor_t *actor);
+typedef s16 (*z2_ActorCutscene_Stop_proc)(s16 index);
+typedef s16 (*z2_ActorCutscene_GetCurrentIndex_proc)(void);
+typedef z2_actor_cutscene_t * (*z2_ActorCutscene_GetCutscene_proc)(s16 index);
+typedef s16 (*z2_ActorCutscene_GetAdditionalCutscene_proc)(s16 index);
+typedef s16 (*z2_ActorCutscene_GetLength_proc)(s16 index);
+typedef s16 (*z2_ActorCutscene_GetCurrentCamera_proc)(void);
+typedef void (*z2_ActorCutscene_SetReturnCamera_proc)(s16 index);
+
 /* Function Prototypes (Drawing) */
 typedef void (*z2_ActorDraw_proc)(z2_actor_t *actor, z2_game_t *game);
 typedef void (*z2_BaseDrawGiModel_proc)(z2_game_t *game, u32 graphic_id_minus_1);
@@ -2367,6 +2440,25 @@ typedef void (*z2_UnloadRoom_proc)(z2_game_t *game, z2_room_ctxt_t *room_ctxt);
 /* Functions (Actors) */
 #define z2_ActorDtor                     ((z2_ActorProc_proc)             z2_ActorDtor_addr)
 #define z2_ActorRemove                   ((z2_ActorRemove_proc)           z2_ActorRemove_addr)
+
+/* Functions (Actor Cutscene) */
+#define z2_ActorCutscene_ClearWaiting             ((z2_ActorCutscene_ClearWaiting_proc)             z2_ActorCutscene_ClearWaiting_addr)
+#define z2_ActorCutscene_ClearNextCutscenes       ((z2_ActorCutscene_ClearNextCutscenes_proc)       z2_ActorCutscene_ClearNextCutscenes_addr)
+#define z2_ActorCutscene_MarkNextCutscenes        ((z2_ActorCutscene_MarkNextCutscenes_proc)        z2_ActorCutscene_MarkNextCutscenes_addr)
+#define z2_ActorCutscene_End                      ((z2_ActorCutscene_End_proc)                      z2_ActorCutscene_End_addr)
+#define z2_ActorCutscene_Update                   ((z2_ActorCutscene_Update_proc)                   z2_ActorCutscene_Update_addr)
+#define z2_ActorCutscene_SetIntentToPlay          ((z2_ActorCutscene_SetIntentToPlay_proc)          z2_ActorCutscene_SetIntentToPlay_addr)
+#define z2_ActorCutscene_GetCanPlayNext           ((z2_ActorCutscene_GetCanPlayNext_proc)           z2_ActorCutscene_GetCanPlayNext_addr)
+#define z2_ActorCutscene_StartAndSetUnkLinkFields ((z2_ActorCutscene_StartAndSetUnkLinkFields_proc) z2_ActorCutscene_StartAndSetUnkLinkFields_addr)
+#define z2_ActorCutscene_StartAndSetFlag          ((z2_ActorCutscene_StartAndSetFlag_proc)          z2_ActorCutscene_StartAndSetFlag_addr)
+#define z2_ActorCutscene_Start                    ((z2_ActorCutscene_Start_proc)                    z2_ActorCutscene_Start_addr)
+#define z2_ActorCutscene_Stop                     ((z2_ActorCutscene_Stop_proc)                     z2_ActorCutscene_Stop_addr)
+#define z2_ActorCutscene_GetCurrentIndex          ((z2_ActorCutscene_GetCurrentIndex_proc)          z2_ActorCutscene_GetCurrentIndex_addr)
+#define z2_ActorCutscene_GetCutscene              ((z2_ActorCutscene_GetCutscene_proc)              z2_ActorCutscene_GetCutscene_addr)
+#define z2_ActorCutscene_GetAdditionalCutscene    ((z2_ActorCutscene_GetAdditionalCutscene_proc)    z2_ActorCutscene_GetAdditionalCutscene_addr)
+#define z2_ActorCutscene_GetLength                ((z2_ActorCutscene_GetLength_proc)                z2_ActorCutscene_GetLength_addr)
+#define z2_ActorCutscene_GetCurrentCamera         ((z2_ActorCutscene_GetCurrentCamera_proc)         z2_ActorCutscene_GetCurrentCamera_addr)
+#define z2_ActorCutscene_SetReturnCamera          ((z2_ActorCutscene_SetReturnCamera_proc)          z2_ActorCutscene_SetReturnCamera_addr)
 
 /* Functions (Drawing) */
 #define z2_BaseDrawCollectable           ((z2_ActorDraw_proc)             z2_BaseDrawCollectable_addr)

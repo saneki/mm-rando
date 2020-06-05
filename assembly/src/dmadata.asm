@@ -94,6 +94,10 @@ DefineDmaFile G_BG_KIN2_SHELF_DMA, G_BG_KIN2_SHELF_FILE, 488
 DefineDmaFile G_BG_IKANA_BLOCK_DMA, G_BG_IKANA_BLOCK_FILE, 495
 .definelabel  G_BG_IKANA_BLOCK_VRAM, 0x80B7EA60
 
+; ovl_En_Toto (Toto)
+DefineDmaFile G_EN_TOTO_DMA, G_EN_TOTO_FILE, 523
+.definelabel  G_EN_TOTO_VRAM, 0x80BA36C0
+
 ; ovl_Bg_F40_Block (Stone Tower Temple Shifting Block)
 DefineDmaFile G_BG_F40_BLOCK_DMA, G_BG_F40_BLOCK_FILE, 540
 .definelabel  G_BG_F40_BLOCK_VRAM, 0x80BC3980
