@@ -1,7 +1,6 @@
 #include <stdbool.h>
+#include "misc.h"
 #include "z2.h"
-
-static bool g_speedup = true;
 
 /**
  * Helper function for advancing to the next actor cutscene. Is basically a copy of an existing
@@ -24,7 +23,7 @@ static int toto_advance_actor_cutscene(z2_en_toto_t *toto, z2_game_t *game) {
  **/
 bool toto_should_skip_formal_replay(z2_en_toto_t *toto, z2_game_t *game) {
     bool finished = (toto->song_flags & 0xF) == 0xF;
-    return g_speedup && !finished;
+    return MISC_CONFIG.speedups.sound_check && !finished;
 }
 
 /**

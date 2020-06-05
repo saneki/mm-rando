@@ -22,6 +22,28 @@ namespace MMR.Randomizer.Asm
     }
 
     /// <summary>
+    /// Speedups.
+    /// </summary>
+    public class MiscSpeedups
+    {
+        /// <summary>
+        /// Whether or not to enable speedup for Sound Check.
+        /// </summary>
+        public bool SoundCheck { get; set; }
+
+        /// <summary>
+        /// Convert to a <see cref="uint"/> integer.
+        /// </summary>
+        /// <returns>Integer</returns>
+        public uint ToInt()
+        {
+            uint flags = 0;
+            flags |= (this.SoundCheck ? (uint)1 : 0) << 31;
+            return flags;
+        }
+    }
+
+    /// <summary>
     /// Miscellaneous flags.
     /// </summary>
     public class MiscFlags
@@ -167,6 +189,7 @@ namespace MMR.Randomizer.Asm
         public byte[] Hash;
         public uint Flags;
         public uint InternalFlags;
+        public uint Speedups;
 
         /// <summary>
         /// Convert to bytes.
@@ -187,6 +210,12 @@ namespace MMR.Randomizer.Asm
                 if (this.Version >= 1)
                 {
                     writer.Write(ReadWriteUtils.Byteswap32(this.InternalFlags));
+                }
+
+                // Version 3
+                if (this.Version >= 3)
+                {
+                    writer.Write(ReadWriteUtils.Byteswap32(this.Speedups));
                 }
 
                 return memStream.ToArray();
@@ -214,16 +243,22 @@ namespace MMR.Randomizer.Asm
         /// </summary>
         public InternalFlags InternalFlags { get; set; }
 
+        /// <summary>
+        /// Speedups.
+        /// </summary>
+        public MiscSpeedups Speedups { get; set; }
+
         public MiscConfig()
-            : this(new byte[0], new MiscFlags(), new InternalFlags())
+            : this(new byte[0], new MiscFlags(), new InternalFlags(), new MiscSpeedups())
         {
         }
 
-        public MiscConfig(byte[] hash, MiscFlags flags, InternalFlags internalFlags)
+        public MiscConfig(byte[] hash, MiscFlags flags, InternalFlags internalFlags, MiscSpeedups speedups)
         {
             this.Hash = hash;
             this.Flags = flags;
             this.InternalFlags = internalFlags;
+            this.Speedups = speedups;
         }
 
         /// <summary>
@@ -241,6 +276,7 @@ namespace MMR.Randomizer.Asm
                 Hash = hash,
                 Flags = this.Flags.ToInt(),
                 InternalFlags = this.InternalFlags.ToInt(),
+                Speedups = this.Speedups.ToInt(),
             };
         }
     }

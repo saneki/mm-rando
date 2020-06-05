@@ -3,7 +3,7 @@
 
 struct misc_config MISC_CONFIG = {
     .magic = MISC_CONFIG_MAGIC,
-    .version = 2,
+    .version = 3,
 
     // Version 0 flags
     .crit_wiggle = CRIT_WIGGLE_DEFAULT,

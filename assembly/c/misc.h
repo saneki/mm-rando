@@ -27,6 +27,15 @@ enum quest_consume_state {
 // Magic number for misc_config: "MISC"
 #define MISC_CONFIG_MAGIC 0x4D495343
 
+union speedups {
+    struct {
+        // Version 3 flags
+        u32 sound_check            : 1;
+        u32                        : 31;
+    };
+    u32 value;
+};
+
 struct misc_config {
     u32 magic;              /* 0x0000 */
     u32 version;            /* 0x0004 */
@@ -61,7 +70,8 @@ struct misc_config {
         };
         u32 internal;
     };                      /* 0x001C */
-};                          /* 0x0020 */
+    union speedups speedups;/* 0x0020 */
+};                          /* 0x0024 */
 
 extern struct misc_config MISC_CONFIG;
 

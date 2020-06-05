@@ -107,6 +107,7 @@ namespace MMR.UI.Forms
             this.cMusic = new System.Windows.Forms.ComboBox();
             this.lTunic = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.cElegySpeedups = new System.Windows.Forms.CheckBox();
             this.cCloseCows = new System.Windows.Forms.CheckBox();
             this.cArrowCycling = new System.Windows.Forms.CheckBox();
             this.cFreestanding = new System.Windows.Forms.CheckBox();
@@ -181,7 +182,7 @@ namespace MMR.UI.Forms
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
-            this.cElegySpeedups = new System.Windows.Forms.CheckBox();
+            this.cFasterSoundCheck = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -760,6 +761,7 @@ namespace MMR.UI.Forms
             // 
             // gSpeedUps
             // 
+            this.gSpeedUps.Controls.Add(this.cFasterSoundCheck);
             this.gSpeedUps.Controls.Add(this.cFasterBank);
             this.gSpeedUps.Controls.Add(this.cSkipBeaver);
             this.gSpeedUps.Controls.Add(this.cFasterLabFish);
@@ -1127,6 +1129,17 @@ namespace MMR.UI.Forms
             this.groupBox7.TabIndex = 34;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Comfort Options";
+            // 
+            // cElegySpeedups
+            // 
+            this.cElegySpeedups.AutoSize = true;
+            this.cElegySpeedups.Location = new System.Drawing.Point(147, 183);
+            this.cElegySpeedups.Name = "cElegySpeedups";
+            this.cElegySpeedups.Size = new System.Drawing.Size(101, 17);
+            this.cElegySpeedups.TabIndex = 37;
+            this.cElegySpeedups.Text = "Elegy speedups";
+            this.cElegySpeedups.UseVisualStyleBackColor = true;
+            this.cElegySpeedups.CheckedChanged += new System.EventHandler(this.cElegySpeedups_CheckedChanged);
             // 
             // cCloseCows
             // 
@@ -1967,16 +1980,16 @@ namespace MMR.UI.Forms
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
             // 
-            // cElegySpeedups
+            // cFasterSoundCheck
             // 
-            this.cElegySpeedups.AutoSize = true;
-            this.cElegySpeedups.Location = new System.Drawing.Point(147, 183);
-            this.cElegySpeedups.Name = "cElegySpeedups";
-            this.cElegySpeedups.Size = new System.Drawing.Size(101, 17);
-            this.cElegySpeedups.TabIndex = 37;
-            this.cElegySpeedups.Text = "Elegy speedups";
-            this.cElegySpeedups.UseVisualStyleBackColor = true;
-            this.cElegySpeedups.CheckedChanged += new System.EventHandler(this.cElegySpeedups_CheckedChanged);
+            this.cFasterSoundCheck.AutoSize = true;
+            this.cFasterSoundCheck.Location = new System.Drawing.Point(285, 44);
+            this.cFasterSoundCheck.Name = "cFasterSoundCheck";
+            this.cFasterSoundCheck.Size = new System.Drawing.Size(123, 17);
+            this.cFasterSoundCheck.TabIndex = 5;
+            this.cFasterSoundCheck.Text = "Faster Sound Check";
+            this.cFasterSoundCheck.UseVisualStyleBackColor = true;
+            this.cFasterSoundCheck.CheckedChanged += new System.EventHandler(this.cFasterSoundCheck_CheckedChanged);
             // 
             // MainForm
             // 
@@ -2195,6 +2208,7 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.CheckBox cByoAmmo;
         private System.Windows.Forms.CheckBox cDeathMoonCrash;
         private System.Windows.Forms.CheckBox cElegySpeedups;
+        private System.Windows.Forms.CheckBox cFasterSoundCheck;
     }
 }
 
