@@ -2018,7 +2018,7 @@ typedef struct z2_en_toto_s {
     void            *cur_state;                      /* 0x02B8 */
     u8               unk_0x2BC[0x04];                /* 0x02BC */
     void            *unk_0x2C0;                      /* 0x02C0 */
-    void            *unk_0x2C4;                      /* 0x02C4 */
+    z2_actor_t      *stagelights;                    /* 0x02C4 */
     u8               unk_0x2C8[0x08];                /* 0x02C8 */
 } z2_en_toto_t;                                      /* 0x02D0 */
 
@@ -2268,6 +2268,7 @@ typedef struct {
 /* Function Addresses (Actors) */
 #define z2_ActorDtor_addr                0x800B6948
 #define z2_ActorRemove_addr              0x800BB498
+#define z2_ActorUnload_addr              0x800B670C
 
 /* Function Addresses (Actor Cutscene) */
 #define z2_ActorCutscene_ClearWaiting_addr             0x800F1648
@@ -2361,6 +2362,7 @@ typedef void (*z2_ToggleSfxDampen_proc)(int enable);
 /* Function Prototypes (Actors) */
 typedef void (*z2_ActorProc_proc)(z2_actor_t *actor, z2_game_t *game);
 typedef void (*z2_ActorRemove_proc)(z2_actor_ctxt_t *ctxt, z2_actor_t *actor, z2_game_t *game);
+typedef void (*z2_ActorUnload_proc)(z2_actor_t *actor);
 
 /* Function Prototypes (Actor Cutscene) */
 typedef void (*z2_ActorCutscene_ClearWaiting_proc)(void);
@@ -2440,6 +2442,7 @@ typedef void (*z2_UnloadRoom_proc)(z2_game_t *game, z2_room_ctxt_t *room_ctxt);
 /* Functions (Actors) */
 #define z2_ActorDtor                     ((z2_ActorProc_proc)             z2_ActorDtor_addr)
 #define z2_ActorRemove                   ((z2_ActorRemove_proc)           z2_ActorRemove_addr)
+#define z2_ActorUnload                   ((z2_ActorUnload_proc)           z2_ActorUnload_addr)
 
 /* Functions (Actor Cutscene) */
 #define z2_ActorCutscene_ClearWaiting             ((z2_ActorCutscene_ClearWaiting_proc)             z2_ActorCutscene_ClearWaiting_addr)

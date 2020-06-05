@@ -35,6 +35,9 @@ int toto_prepare_formal_replay(z2_en_toto_t *toto, z2_game_t *game) {
         toto->func_index = 0;
         toto->frame_count = 0;
         z2_ActorCutscene_End();
+        if (toto->stagelights) {
+            z2_ActorUnload(toto->stagelights);
+        }
         return 0;
     } else {
         // Default behavior.
