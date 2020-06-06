@@ -39,3 +39,32 @@ u32 song_state_handle_playback(z2_game_t *game, z2_msgbox_ctxt_t *ctxt) {
         return results.value;
     }
 }
+
+/**
+ * Hook function used to handle advancing the song state to song playback (for preset songs).
+ **/
+u32 song_state_handle_preset_playback(z2_game_t *game, z2_msgbox_ctxt_t *ctxt) {
+    s8 song = ctxt->playback_song;
+    // Song Ids for Sound Check: Link = 0xF, Goron = 0x10, Zora = 0x11, Deku = 0x12
+    if (MISC_CONFIG.speedups.sound_check && (0xF <= song && song <= 0x12)) {
+        // Restore sfx volume.
+        z2_ToggleSfxDampen(0);
+        // Restore player control.
+        ctxt->unk_0x202A = 4;
+        // Skip past song playback.
+        union song_state_results results = {
+            .action = 0x43,
+            .unk_0x1F0A = 3,
+            .frame_count = 1,
+        };
+        return results.value;
+    } else {
+        // Vanilla behavior, prepare for song playback.
+        union song_state_results results = {
+            .action = 0x12,
+            .unk_0x1F0A = 3,
+            .frame_count = 1,
+        };
+        return results.value;
+    }
+}

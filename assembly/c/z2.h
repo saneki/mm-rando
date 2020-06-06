@@ -1477,7 +1477,7 @@ typedef struct z2_msgbox_ctxt_s {
     u8               unk_0x2021[0x02];               /* 0x2021 */
     u8               message_state_3;                /* 0x2023 */
     u8               unk_0x2024[0x04];               /* 0x2024 */
-    u16              unk_0x2028;                     /* 0x2028 */
+    u16              playback_song;                  /* 0x2028 */
     u16              unk_0x202A;                     /* 0x202A */
     u16              unk_0x202C;                     /* 0x202C */
     u8               unk_0x202E[0x06];               /* 0x202E */

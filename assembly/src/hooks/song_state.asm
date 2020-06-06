@@ -45,3 +45,38 @@
     nop
     nop
     nop
+
+;==================================================================================================
+; Song State - Skip Preset Song Playback
+;==================================================================================================
+
+; Replaces:
+;   lui     at, 0x0001
+;   addu    at, at, s0
+;   addiu   t4, r0, 0x0012
+;   sb      t4, 0x1F22 (at)
+;   lui     at, 0x0001
+;   addu    at, at, s0
+;   addiu   t6, r0, 0x0003
+;   sb      t6, 0x1F0A (at)
+;   lui     at, 0x0001
+;   addu    at, at, s0
+;   addiu   t5, r0, 0x0001
+;   b       0x80154FD4
+;   sb      t5, 0x2023 (at)
+.org 0x80154EF0
+.area 0x34
+    lui     at, 0x0001
+    or      a0, s2, r0
+    jal     song_state_handle_preset_playback
+    addu    a1, at, s0
+    lui     at, 0x0001
+    addu    at, at, s0
+    srl     t4, v0, 24
+    sb      t4, 0x1F22 (at)
+    srl     t6, v0, 16
+    sb      t6, 0x1F0A (at)
+    srl     t5, v0, 8
+    b       0x80154FD4
+    sb      t5, 0x2023 (at)
+.endarea
