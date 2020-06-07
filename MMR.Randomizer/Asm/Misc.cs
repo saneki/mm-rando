@@ -1,4 +1,6 @@
-﻿using MMR.Randomizer.Utils;
+﻿using MMR.Randomizer.Models;
+using MMR.Randomizer.Models.Settings;
+using MMR.Randomizer.Utils;
 using Newtonsoft.Json;
 using System.IO;
 
@@ -265,6 +267,20 @@ namespace MMR.Randomizer.Asm
             this.Flags = flags;
             this.InternalFlags = internalFlags;
             this.Speedups = speedups;
+        }
+
+        /// <summary>
+        /// Finalize configuration using <see cref="GameplaySettings"/>.
+        /// </summary>
+        /// <param name="settings">Settings</param>
+        public void FinalizeSettings(GameplaySettings settings)
+        {
+            // Update speedup flags which correspond with ShortenCutscenes.
+            this.Speedups.BlastMaskThief = settings.ShortenCutscenes;
+            this.Speedups.SoundCheck = settings.ShortenCutscenes;
+
+            // Update internal flags.
+            this.InternalFlags.VanillaLayout = settings.LogicMode == LogicMode.Vanilla;
         }
 
         /// <summary>
