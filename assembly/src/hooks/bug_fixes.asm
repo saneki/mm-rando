@@ -4,7 +4,7 @@
 
 .headersize (G_EN_KNIGHT_VRAM - G_EN_KNIGHT_FILE)
 
-; Get initial magic consume state for elemental arrows.
+; Check if player can receive item before triggering the item cutscene.
 ; Replaces (vanilla):
 ;   jal     0x800F1BE4
 ;   lb      a0, 0x0038 (s0)
