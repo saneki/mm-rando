@@ -34,6 +34,11 @@ namespace MMR.Randomizer.Asm
         public bool BlastMaskThief { get; set; }
 
         /// <summary>
+        /// Whether or not to end the fisherman minigame early if the player has enough points.
+        /// </summary>
+        public bool FishermanGame { get; set; }
+
+        /// <summary>
         /// Whether or not to enable speedup for Sound Check.
         /// </summary>
         public bool SoundCheck { get; set; }
@@ -47,6 +52,7 @@ namespace MMR.Randomizer.Asm
             uint flags = 0;
             flags |= (this.SoundCheck ? (uint)1 : 0) << 31;
             flags |= (this.BlastMaskThief ? (uint)1 : 0) << 30;
+            flags |= (this.FishermanGame ? (uint)1 : 0) << 29;
             return flags;
         }
     }
@@ -277,6 +283,7 @@ namespace MMR.Randomizer.Asm
         {
             // Update speedup flags which correspond with ShortenCutscenes.
             this.Speedups.BlastMaskThief = settings.ShortenCutscenes;
+            this.Speedups.FishermanGame = settings.ShortenCutscenes;
             this.Speedups.SoundCheck = settings.ShortenCutscenes;
 
             // Update internal flags.

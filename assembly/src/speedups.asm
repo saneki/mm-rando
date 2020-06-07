@@ -1,3 +1,23 @@
+fisherman_should_end_game_hook:
+    j       fisherman_should_end_game
+    or      a0, s0, r0
+
+fisherman_should_pass_timer_check_hook:
+    addiu   sp, sp, -0x18
+    sw      ra, 0x0014 (sp)
+    sw      v1, 0x0010 (sp)
+
+    jal     fisherman_should_pass_timer_check
+    or      a0, s0, r0
+
+    ; Displaced code
+    addiu   a0, s0, 0x0190
+
+    lw      v1, 0x0010 (sp)
+    lw      ra, 0x0014 (sp)
+    jr      ra
+    addiu   sp, sp, 0x18
+
 sakon_should_end_thief_escape_hook:
     addiu   sp, sp, -0x18
     sw      ra, 0x0014 (sp)

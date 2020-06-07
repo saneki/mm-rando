@@ -32,7 +32,8 @@ union speedups {
         // Version 3 flags
         u32 sound_check            : 1;
         u32 blast_mask_thief       : 1;
-        u32                        : 30;
+        u32 fisherman_game         : 1;
+        u32                        : 29;
     };
     u32 value;
 };

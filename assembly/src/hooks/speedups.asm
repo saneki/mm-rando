@@ -106,3 +106,49 @@
 .org 0x80BAD5B0 ; Offset: 0x2EE0
     addiu   a0, s0, 0x0070
     lui     a1, 0x4080
+
+;==================================================================================================
+; Check Speedups - Fisherman's Game
+;==================================================================================================
+
+.headersize(G_EN_JGAME_TSN_VRAM - G_EN_JGAME_TSN_FILE)
+
+; Ignore timer check if speedup is enabled.
+; Replaces:
+;   lw      t1, 0x3E04 (v1)
+;   lw      t0, 0x3E00 (v1)
+;   bnez    t0, 0x80C13C1C
+;   addiu   a0, s0, 0x0190
+;   beqz    t1, 0x80C13C48
+;   lui     a1, 0x80C1
+.org 0x80C13C08 ; Offset: 0x2D8
+.area 0x18
+    lw      a3, 0x3E04 (v1)
+    lw      a2, 0x3E00 (v1)
+    jal     fisherman_should_pass_timer_check_hook
+    lw      a1, 0x0034 (sp)
+    bnez    v0, 0x80C13C48
+    lui     a1, 0x80C1 ; Preparing to load: 0x80C15030
+.endarea
+
+; Check if Fisherman's Game should end. Used to end the game early if the player has enough points.
+; Replaces:
+;   lui     t2, 0x801F
+;   lw      t2, 0x3470 (t2)
+;   lui     t3, 0x801F
+;   lw      t3, 0x3474 (t3)
+;   bnezl   t2, 0x80C144D4
+;   lw      ra, 0x001C (sp)
+;   bnez    t3, 0x80C144D0
+;   lw      a0, 0x002C (sp)
+.org 0x80C14464 ; Offset: 0xB34
+.area 0x20
+    lui     a2, 0x801F
+    lw      a2, 0x3470 (a2)
+    lui     a3, 0x801F
+    lw      a3, 0x3474 (a3)
+    jal     fisherman_should_end_game_hook
+    lw      a1, 0x002C (sp)
+    beqz    v0, 0x80C144D0
+    lw      a0, 0x002C (sp)
+.endarea

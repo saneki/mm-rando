@@ -118,6 +118,10 @@ DefineDmaFile G_EN_BJT_DMA, G_EN_BJT_FILE, 596
 DefineDmaFile G_OBJ_MOON_STONE_DMA, G_OBJ_MOON_STONE_FILE, 602
 .definelabel  G_OBJ_MOON_STONE_VRAM, 0x80C06510
 
+; ovl_En_Jgame_Tsn (Fisherman - Fisherman's Jumping Game)
+DefineDmaFile G_EN_JGAME_TSN_DMA, G_EN_JGAME_TSN_FILE, 617
+.definelabel  G_EN_JGAME_TSN_VRAM, 0x80C13930
+
 ; ovl_En_Bb (Blue Bubble)
 DefineDmaFile G_EN_BB_DMA, G_EN_BB_FILE, 84
 .definelabel  G_EN_BB_VRAM, 0x808C1D40

@@ -1765,7 +1765,9 @@ typedef struct {
     u16              magic_meter_size;               /* 0x3F2E */
     u8               unk_0x3F30[0x02];               /* 0x3F30 */
     s16              magic_consume_cost;             /* 0x3F32 */
-    u8               unk_0x3F34[0x34];               /* 0x3F34 */
+    u8               unk_0x3F34[0x06];               /* 0x3F34 */
+    u16              minigame_counter;               /* 0x3F3A */
+    u8               unk_0x3F3C[0x2C];               /* 0x3F3C */
     z2_scene_flags_t scene_flags[0x78];              /* 0x3F68 */
     u8               unk_0x48C8[0x1010];             /* 0x48C8 */
     z2_color_rgb16_t heart_dd_beating_rgb;           /* 0x58D8 */
