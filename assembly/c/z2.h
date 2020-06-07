@@ -1909,7 +1909,9 @@ typedef struct {
     u8               mask;                           /* 0x0153 */
     u8               mask_c;                         /* 0x0154, C button index (starting at 1) of current/recently worn mask */
     u8               previous_mask;                  /* 0x0155 */
-    u8               unk_0x156[0x916];               /* 0x0156 */
+    u8               unk_0x156[0xF4];                /* 0x0156 */
+    u16              current_animation_id;           /* 0x024A */
+    u8               unk_0x24C[0x820];               /* 0x024C */
     union {
         struct {
             u32      action_state1;                  /* 0x0A6C */
