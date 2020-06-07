@@ -121,3 +121,7 @@ DefineDmaFile G_OBJ_MOON_STONE_DMA, G_OBJ_MOON_STONE_FILE, 602
 ; ovl_En_Bb (Blue Bubble)
 DefineDmaFile G_EN_BB_DMA, G_EN_BB_FILE, 84
 .definelabel  G_EN_BB_VRAM, 0x808C1D40
+
+; ovl_En_Knight (Igos du Ikana & Henchmen)
+DefineDmaFile G_EN_KNIGHT_DMA, G_EN_KNIGHT_FILE, 250
+.definelabel  G_EN_KNIGHT_VRAM, 0x809B20F0

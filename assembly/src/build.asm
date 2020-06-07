@@ -48,6 +48,8 @@
 
 .if MMR_MODS == 1
     .include "hooks/mmr.asm"
+.else
+    .include "hooks/bug_fixes.asm"
 .endif
 
 ;==================================================================================================
