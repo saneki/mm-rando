@@ -98,6 +98,10 @@ DefineDmaFile G_BG_IKANA_BLOCK_DMA, G_BG_IKANA_BLOCK_FILE, 495
 DefineDmaFile G_EN_TOTO_DMA, G_EN_TOTO_FILE, 523
 .definelabel  G_EN_TOTO_VRAM, 0x80BA36C0
 
+; ovl_En_Suttari (Sakon)
+DefineDmaFile G_EN_SUTTARI_DMA, G_EN_SUTTARI_FILE, 526
+.definelabel  G_EN_SUTTARI_VRAM, 0x80BAA6D0
+
 ; ovl_Bg_F40_Block (Stone Tower Temple Shifting Block)
 DefineDmaFile G_BG_F40_BLOCK_DMA, G_BG_F40_BLOCK_FILE, 540
 .definelabel  G_BG_F40_BLOCK_VRAM, 0x80BC3980

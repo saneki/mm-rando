@@ -65,3 +65,44 @@
 .org 0x80BA4B04 ; Offset: 0x1444
     jal     toto_handle_advance_formal_replay_hook
     addiu   a2, r0, 0x0004
+
+;==================================================================================================
+; Check Speedups - Saving Bomb Shop Lady
+;==================================================================================================
+
+.headersize(G_EN_SUTTARI_VRAM - G_EN_SUTTARI_FILE)
+
+; Prevent branching into delay slot due to following patch.
+; Replaces:
+;   b       0x80BAD554
+.org 0x80BAD4C4 ; Offset: 0x2DF4
+    b       0x80BAD550
+
+; Call hook function to check if escape sequence should be ended.
+; Replaces:
+;   lw      t3, 0x01F8 (s0)
+;   addiu   at, r0, 0xFF9D
+;   addiu   a0, s0, 0x0070
+;   bne     t3, at, 0x80BAD5B8
+;   lui     a1, 0x4080
+.org 0x80BAD550 ; Offset: 0x2E80
+    jal     sakon_should_end_thief_escape_hook
+    or      a0, s0, r0
+    addiu   a0, s0, 0x0070
+    beqz    v0, 0x80BAD5B8
+    lui     a1, 0x4080
+
+; Prevent setting Sakon velocity to 0 when escape sequence ends.
+; Replaces:
+;   swc1    f16, 0x0070 (s0)
+.org 0x80BAD594 ; Offset: 0x2EC0
+    nop
+
+; Remove branch to allow Sakon to continue running after escape sequence ends, and prepare for
+; function call to update velocity.
+; Replaces:
+;   b       0x80BAD5E8
+;   lw      ra, 0x0034 (sp)
+.org 0x80BAD5B0 ; Offset: 0x2EE0
+    addiu   a0, s0, 0x0070
+    lui     a1, 0x4080

@@ -27,6 +27,11 @@ namespace MMR.Randomizer.Asm
     public class MiscSpeedups
     {
         /// <summary>
+        /// Whether or not to end Sakon escape sequence early once the luggage is dropped.
+        /// </summary>
+        public bool BlastMaskThief { get; set; }
+
+        /// <summary>
         /// Whether or not to enable speedup for Sound Check.
         /// </summary>
         public bool SoundCheck { get; set; }
@@ -39,6 +44,7 @@ namespace MMR.Randomizer.Asm
         {
             uint flags = 0;
             flags |= (this.SoundCheck ? (uint)1 : 0) << 31;
+            flags |= (this.BlastMaskThief ? (uint)1 : 0) << 30;
             return flags;
         }
     }

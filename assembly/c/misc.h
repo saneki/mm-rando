@@ -31,7 +31,8 @@ union speedups {
     struct {
         // Version 3 flags
         u32 sound_check            : 1;
-        u32                        : 31;
+        u32 blast_mask_thief       : 1;
+        u32                        : 30;
     };
     u32 value;
 };

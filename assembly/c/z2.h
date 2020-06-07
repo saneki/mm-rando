@@ -2022,6 +2022,26 @@ typedef struct z2_en_toto_s {
     u8               unk_0x2C8[0x08];                /* 0x02C8 */
 } z2_en_toto_t;                                      /* 0x02D0 */
 
+/**
+ * En_Suttari (Sakon)
+ **/
+typedef struct z2_en_suttari_s {
+    z2_actor_t       common;                         /* 0x0000 */
+    u8               unk_0x144[0x04];                /* 0x0144 */
+    void            *function;                       /* 0x0148 */
+    u8               unk_0x14C[0x98];                /* 0x014C */
+    u16              unk_0x1E4;                      /* 0x01E4 */
+    u16              flags;                          /* 0x01E6 */
+    u8               unk_0x1E8[0x10];                /* 0x01E8 */
+    s32              escape_status;                  /* 0x01F8 */
+    u8               unk_0x1FC[0x254];               /* 0x01FC */
+    u32              running_state;                  /* 0x0450 */
+    u8               unk_0x454[0x02];                /* 0x0454 */
+    s16              actor_cutscene_1;               /* 0x0456 */
+    s16              actor_cutscene_2;               /* 0x0458 */
+    u8               unk_0x45A[0x02];                /* 0x045A */
+} z2_en_suttari_t;                                   /* 0x045C */
+
 /// =============================================================
 /// Actor Cutscene
 /// =============================================================

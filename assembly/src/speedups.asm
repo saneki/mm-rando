@@ -1,3 +1,14 @@
+sakon_should_end_thief_escape_hook:
+    addiu   sp, sp, -0x18
+    sw      ra, 0x0014 (sp)
+
+    jal     sakon_should_end_thief_escape
+    or      a1, s1, r0
+
+    lw      ra, 0x0014 (sp)
+    jr      ra
+    addiu   sp, sp, 0x18
+
 toto_should_skip_formal_replay_hook:
     addiu   sp, sp, -0x18
     sw      ra, 0x0014 (sp)
