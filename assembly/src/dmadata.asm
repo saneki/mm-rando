@@ -94,6 +94,10 @@ DefineDmaFile G_BG_KIN2_SHELF_DMA, G_BG_KIN2_SHELF_FILE, 488
 DefineDmaFile G_BG_IKANA_BLOCK_DMA, G_BG_IKANA_BLOCK_FILE, 495
 .definelabel  G_BG_IKANA_BLOCK_VRAM, 0x80B7EA60
 
+; ovl_Obj_Boat (Pirates' Fortress Boat)
+DefineDmaFile G_OBJ_BOAT_DMA, G_OBJ_BOAT_FILE, 515
+.definelabel  G_OBJ_BOAT_VRAM, 0x80B9AF50
+
 ; ovl_En_Toto (Toto)
 DefineDmaFile G_EN_TOTO_DMA, G_EN_TOTO_FILE, 523
 .definelabel  G_EN_TOTO_VRAM, 0x80BA36C0

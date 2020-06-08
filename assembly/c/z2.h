@@ -2046,6 +2046,16 @@ typedef struct z2_en_suttari_s {
     u8               unk_0x45A[0x02];                /* 0x045A */
 } z2_en_suttari_t;                                   /* 0x045C */
 
+typedef struct z2_obj_boat_s {
+    z2_actor_t       common;                         /* 0x0000 */
+    u8               unk_0x144[0x18];                /* 0x0144 */
+    u8               path_progress;                  /* 0x015C */
+    s8               speed_multiplier;               /* 0x015D */
+    u8               unk_0x15E;                      /* 0x015E */
+    u8               unk_0x15F;                      /* 0x015F */
+    u8               unk_0x160[0x08];                /* 0x0160 */
+} z2_obj_boat_t;                                     /* 0x0168 */
+
 /// =============================================================
 /// Actor Cutscene
 /// =============================================================
@@ -2339,6 +2349,9 @@ typedef struct {
 #define z2_HudSetAButtonText_addr        0x8011552C
 #define z2_InitButtonNoteColors_addr     0x80147564
 
+/* Function Addresses (Math) */
+#define z2_Math_Vec3f_DistXZ_addr        0x800FF92C
+
 /* Function Addresses (Objects) */
 #define z2_GetObjectIndex_addr           0x8012F608
 
@@ -2431,6 +2444,9 @@ typedef void (*z2_InitButtonNoteColors_proc)(z2_game_t *game);
 typedef void (*z2_ReloadButtonTexture_proc)(z2_game_t *game, u8 idx);
 typedef void (*z2_UpdateButtonsState_proc)(u32 state);
 
+/* Function Prototypes (Math) */
+typedef f32 (*z2_Math_Vec3f_DistXZ_proc)(z2_xyzf_t *p1, z2_xyzf_t *p2);
+
 /* Function Prototypes (Objects) */
 typedef s8 (*z2_GetObjectIndex_proc)(const z2_obj_ctxt_t *ctxt, u16 object_id);
 
@@ -2512,6 +2528,9 @@ typedef void (*z2_UnloadRoom_proc)(z2_game_t *game, z2_room_ctxt_t *room_ctxt);
 #define z2_InitButtonNoteColors          ((z2_InitButtonNoteColors_proc)  z2_InitButtonNoteColors_addr)
 #define z2_ReloadButtonTexture           ((z2_ReloadButtonTexture_proc)   z2_ReloadButtonTexture_addr)
 #define z2_UpdateButtonsState            ((z2_UpdateButtonsState_proc)    z2_UpdateButtonsState_addr)
+
+/* Functions (Math) */
+#define z2_Math_Vec3f_DistXZ             ((z2_Math_Vec3f_DistXZ_proc)     z2_Math_Vec3f_DistXZ_addr)
 
 /* Functions (Objects) */
 #define z2_GetObjectIndex                ((z2_GetObjectIndex_proc)        z2_GetObjectIndex_addr)

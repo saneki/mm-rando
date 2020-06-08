@@ -152,3 +152,51 @@
     beqz    v0, 0x80C144D0
     lw      a0, 0x002C (sp)
 .endarea
+
+;==================================================================================================
+; Speedups - Fisherman Boat
+;==================================================================================================
+
+.headersize(G_OBJ_BOAT_VRAM - G_OBJ_BOAT_FILE)
+
+; Store A1 (context pointer) on stack for later usage.
+; Replaces:
+;   jal     0x800CAF70
+;   sw      t6, 0x0044 (sp)
+;   mtc1    r0, f4
+;   or      v1, v0, r0
+;   or      a0, s0, r0
+;   swc1    f4, 0x003C (sp)
+.org 0x80B9B1D0 ; Offset: 0x280
+.area 0x18
+    sw      a1, 0x0010 (sp)
+    jal     0x800CAF70
+    sw      t6, 0x0044 (sp)
+    or      v1, v0, r0
+    or      a0, s0, r0
+    sw      r0, 0x003C (sp)
+.endarea
+
+; Fix branch to top speed function instead of delay slot.
+; Replaces:
+;   bc1fl   0x80B9B33C
+.org 0x80B9B2D4 ; Offset: 0x384
+    bc1fl   0x80B9B338
+
+; Get max speed of boat.
+; Replaces:
+;   lh      t9, 0x001C (s0)
+;   lui     at, 0x4040
+.org 0x80B9B338 ; Offset: 0x3E8
+    jal     fisherman_boat_get_top_speed_hook
+    lw      a1, 0x0010 (sp)
+
+; Get acceleration speed of boat.
+; Replaces:
+;   lh      t5, 0x00BE (s0)
+;   lui     a2, 0x3D4C
+;   ori     a2, a2, 0xCCCD
+.org 0x80B9B3C4 ; Offset: 0x474
+    jal     fisherman_boat_get_accel_speed_hook
+    lw      a1, 0x0010 (sp)
+    lh      t5, 0x00BE (s0)

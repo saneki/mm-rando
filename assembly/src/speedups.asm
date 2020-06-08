@@ -1,3 +1,34 @@
+fisherman_boat_get_accel_speed_hook:
+    addiu   sp, sp, -0x18
+    sw      ra, 0x0014 (sp)
+
+    jal     fisherman_boat_get_accel_speed
+    or      a0, s0, r0
+
+    ; Move result into A2.
+    mfc1    a2, f0
+
+    lw      ra, 0x0014 (sp)
+    jr      ra
+    addiu   sp, sp, 0x18
+
+fisherman_boat_get_top_speed_hook:
+    addiu   sp, sp, -0x18
+    sw      ra, 0x0014 (sp)
+
+    jal     fisherman_boat_get_top_speed
+    or      a0, s0, r0
+
+    ; Move result into AT.
+    mfc1    at, f0
+
+    ; Displaced code
+    lh      t9, 0x001C (s0)
+
+    lw      ra, 0x0014 (sp)
+    jr      ra
+    addiu   sp, sp, 0x18
+
 fisherman_should_end_game_hook:
     j       fisherman_should_end_game
     or      a0, s0, r0
