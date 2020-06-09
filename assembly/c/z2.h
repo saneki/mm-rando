@@ -1767,7 +1767,8 @@ typedef struct {
     s16              magic_consume_cost;             /* 0x3F32 */
     u8               unk_0x3F34[0x06];               /* 0x3F34 */
     u16              minigame_counter;               /* 0x3F3A */
-    u8               unk_0x3F3C[0x2C];               /* 0x3F3C */
+    u16              minigame_counter_2;             /* 0x3F3C */
+    u8               unk_0x3F3E[0x2A];               /* 0x3F3E */
     z2_scene_flags_t scene_flags[0x78];              /* 0x3F68 */
     u8               unk_0x48C8[0x1010];             /* 0x48C8 */
     z2_color_rgb16_t heart_dd_beating_rgb;           /* 0x58D8 */
@@ -2055,6 +2056,20 @@ typedef struct z2_obj_boat_s {
     u8               unk_0x15F;                      /* 0x015F */
     u8               unk_0x160[0x08];                /* 0x0160 */
 } z2_obj_boat_t;                                     /* 0x0168 */
+
+/**
+ * Bg_Ingate (Boat Cruise Canoe)
+ **/
+typedef struct z2_bg_ingate_s {
+    z2_actor_t       common;                         /* 0x0000 */
+    u8               unk_0x144[0x18];                /* 0x0144 */
+    void            *function;                       /* 0x015C */
+    u16              flags;                          /* 0x0160 */
+    u8               unk_0x162[0x02];                /* 0x0162 */
+    void            *path_list;                      /* 0x0164 */
+    s16              speed;                          /* 0x0168 */
+    u8               unk_0x16A[0x26];                /* 0x016A */
+} z2_bg_ingate_t;                                    /* 0x0190 */
 
 /// =============================================================
 /// Actor Cutscene

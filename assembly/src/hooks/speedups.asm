@@ -200,3 +200,91 @@
     jal     fisherman_boat_get_accel_speed_hook
     lw      a1, 0x0010 (sp)
     lh      t5, 0x00BE (s0)
+
+;==================================================================================================
+; Check Speedups - Boat Archery
+;==================================================================================================
+
+.headersize(G_BG_INGATE_VRAM - G_BG_INGATE_FILE)
+
+; Get whether or not archery should end.
+; Replaces:
+;   andi    t8, t7, 0x0002
+;   beqz    t8, 0x809540F0
+;   nop
+;   lw      t9, 0x0164 (s0)
+.org 0x8095403C ; Offset: 0x5AC
+    jal     boat_cruise_should_end_archery_hook
+    lw      a1, 0x002C (sp)
+    beqz    v0, 0x809540F0
+    lw      t9, 0x0164 (s0)
+
+; Hook start of function for idling (does nothing).
+; Replaces:
+;   sw      a0, 0x0000 (sp)
+;   sw      a1, 0x0004 (sp)
+;   jr      ra
+;   nop
+.org 0x80953F8C ; Offset: 0x4FC
+    j       boat_cruise_handle_idle
+    nop
+    nop
+    nop
+
+; Hook start of function for handling cruise end.
+; Replaces:
+;   lui     v0, 0x801F
+;   addiu   v0, v0, 0xF670
+;   sw      ra, 0x0014 (sp)
+.org 0x809542A4 ; Offset: 0x814
+    sw      ra, 0x0014 (sp)
+    jal     boat_cruise_before_cruise_end_hook
+    nop
+
+;==================================================================================================
+; Speedups - Cruise Boat
+;==================================================================================================
+
+.headersize(G_BG_INGATE_VRAM - G_BG_INGATE_FILE)
+
+; Get boat speed during cruise.
+; Replaces:
+;   bnezl   t7, 0x80953B70
+;   addiu   t0, r0, 0x07D0
+;   addiu   t8, r0, 0x0FA0
+;   addiu   t9, r0, 0x0004
+;   sw      t8, 0x0180 (a0)
+;   b       0x80953B7C
+;   sh      t9, 0x0168 (a0)
+.org 0x80953B50 ; Offset: 0xC0
+.area 0x1C
+    bnezl   t7, 0x80953B6C
+    addiu   t0, r0, 0x07D0
+    sw      ra, 0x0000 (sp)
+    jal     boat_cruise_get_boat_speed_cruise_hook
+    addiu   t0, r0, 0x0FA0
+    b       0x80953B7C
+    sh      v0, 0x0168 (a0)
+.endarea
+
+; Get boat speed during archery.
+; Replaces:
+;   addiu   t0, r0, 0x07D0 (unused)
+;   addiu   t1, r0, 0x0001
+;   sw      t0, 0x0180 (a0)
+;   sh      t1, 0x0168 (a0)
+.org 0x80953B6C ; Offset: 0xDC
+    sw      ra, 0x0000 (sp)
+    jal     boat_cruise_get_boat_speed_archery_hook
+    sw      t0, 0x0180 (a0)
+    sh      v0, 0x0168 (a0)
+
+; Restore RA before returning.
+; Replaces:
+;   sh      t9, 0x0160 (a0)
+;   jr      ra
+;   nop
+.org 0x80953BE0 ; Offset: 0x150
+    lw      ra, 0x0000 (sp)
+    jr      ra
+    sh      t9, 0x0160 (a0)

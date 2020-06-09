@@ -33,7 +33,8 @@ union speedups {
         u32 sound_check            : 1;
         u32 blast_mask_thief       : 1;
         u32 fisherman_game         : 1;
-        u32                        : 29;
+        u32 boat_archery           : 1;
+        u32                        : 28;
     };
     u32 value;
 };

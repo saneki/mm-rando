@@ -1,3 +1,59 @@
+boat_cruise_before_cruise_end_hook:
+    addiu   sp, sp, -0x20
+    sw      ra, 0x0018 (sp)
+    sw      a0, 0x0010 (sp)
+
+    jal     boat_cruise_before_cruise_end
+    sw      a1, 0x0014 (sp)
+
+    ; Displaced code
+    lui     v0, 0x801F
+    addiu   v0, v0, 0xF670
+
+    lw      a0, 0x0010 (sp)
+    lw      a1, 0x0014 (sp)
+    lw      ra, 0x0018 (sp)
+    jr      ra
+    addiu   sp, sp, 0x20
+
+boat_cruise_get_boat_speed_archery_hook:
+    j       boat_cruise_get_boat_speed_hook
+    ori     a1, r0, 0x0001
+
+boat_cruise_get_boat_speed_cruise_hook:
+    j       boat_cruise_get_boat_speed_hook
+    or      a1, r0, r0
+
+boat_cruise_get_boat_speed_hook:
+    ; Displaced code
+    sw      t0, 0x0180 (a0)
+
+    addiu   sp, sp, -0x20
+    sw      ra, 0x0018 (sp)
+    sw      a0, 0x0010 (sp)
+
+    jal     boat_cruise_get_boat_speed
+    sw      t5, 0x0014 (sp)
+
+    lw      a0, 0x0010 (sp)
+    lw      t5, 0x0014 (sp)
+    lw      ra, 0x0018 (sp)
+    jr      ra
+    addiu   sp, sp, 0x20
+
+boat_cruise_should_end_archery_hook:
+    addiu   sp, sp, -0x18
+    sw      ra, 0x0014 (sp)
+    sw      v1, 0x0010 (sp)
+
+    jal     boat_cruise_should_end_archery
+    or      a0, s0, r0
+
+    lw      v1, 0x0010 (sp)
+    lw      ra, 0x0014 (sp)
+    jr      ra
+    addiu   sp, sp, 0x18
+
 fisherman_boat_get_accel_speed_hook:
     addiu   sp, sp, -0x18
     sw      ra, 0x0014 (sp)

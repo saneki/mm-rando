@@ -34,6 +34,10 @@ DefineDmaFile G_ITEM_B_HEART_DMA, G_ITEM_B_HEART_FILE, 80
 DefineDmaFile G_OBJ_OSHIHIKI_DMA, G_OBJ_OSHIHIKI_FILE, 115
 .definelabel  G_OBJ_OSHIHIKI_VRAM, 0x80917290
 
+; ovl_Bg_Ingate (Boat Cruise Canoe)
+DefineDmaFile G_BG_INGATE_DMA, G_BG_INGATE_FILE, 153
+.definelabel  G_BG_INGATE_VRAM, 0x80953A90
+
 ; ovl_En_Cow
 DefineDmaFile G_EN_COW_DMA, G_EN_COW_FILE, 227
 .definelabel  G_EN_COW_VRAM, 0x8099C290
