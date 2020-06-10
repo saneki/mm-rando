@@ -28,22 +28,22 @@ namespace MMR.Randomizer.Asm
     public class MiscSpeedups
     {
         /// <summary>
-        /// Whether or not to end Sakon escape sequence early once the luggage is dropped.
+        /// Whether or not to end Blast Mask Thief escape sequence early once the luggage is dropped.
         /// </summary>
         public bool BlastMaskThief { get; set; }
 
         /// <summary>
-        /// Whether or not to end boat archery early if the player has enough points.
+        /// Whether or not to end Boat Archery early if the player has enough points.
         /// </summary>
         public bool BoatArchery { get; set; }
 
         /// <summary>
-        /// Whether or not to end the fisherman minigame early if the player has enough points.
+        /// Whether or not to end Fisherman's Game early if the player has enough points.
         /// </summary>
         public bool FishermanGame { get; set; }
 
         /// <summary>
-        /// Whether or not to enable speedup for Sound Check.
+        /// Whether or not to change Sound Check to speed up actor cutscenes until song is fully composed.
         /// </summary>
         public bool SoundCheck { get; set; }
 
@@ -91,7 +91,7 @@ namespace MMR.Randomizer.Asm
         }
 
         /// <summary>
-        /// Whether or not to use the closest cow to the player when giving an item (not yet implemented).
+        /// Whether or not to use the closest cow to the player when giving an item.
         /// </summary>
         public bool CloseCows { get; set; }
 
