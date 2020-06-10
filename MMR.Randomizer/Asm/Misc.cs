@@ -1,7 +1,6 @@
 ﻿using MMR.Randomizer.Models;
 using MMR.Randomizer.Models.Settings;
 using MMR.Randomizer.Utils;
-using Newtonsoft.Json;
 using System.IO;
 
 namespace MMR.Randomizer.Asm
