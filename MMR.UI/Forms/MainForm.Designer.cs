@@ -182,7 +182,6 @@ namespace MMR.UI.Forms
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
-            this.cFasterSoundCheck = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -761,7 +760,6 @@ namespace MMR.UI.Forms
             // 
             // gSpeedUps
             // 
-            this.gSpeedUps.Controls.Add(this.cFasterSoundCheck);
             this.gSpeedUps.Controls.Add(this.cFasterBank);
             this.gSpeedUps.Controls.Add(this.cSkipBeaver);
             this.gSpeedUps.Controls.Add(this.cFasterLabFish);
@@ -1980,17 +1978,6 @@ namespace MMR.UI.Forms
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
             // 
-            // cFasterSoundCheck
-            // 
-            this.cFasterSoundCheck.AutoSize = true;
-            this.cFasterSoundCheck.Location = new System.Drawing.Point(285, 44);
-            this.cFasterSoundCheck.Name = "cFasterSoundCheck";
-            this.cFasterSoundCheck.Size = new System.Drawing.Size(123, 17);
-            this.cFasterSoundCheck.TabIndex = 5;
-            this.cFasterSoundCheck.Text = "Faster Sound Check";
-            this.cFasterSoundCheck.UseVisualStyleBackColor = true;
-            this.cFasterSoundCheck.CheckedChanged += new System.EventHandler(this.cFasterSoundCheck_CheckedChanged);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2208,7 +2195,6 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.CheckBox cByoAmmo;
         private System.Windows.Forms.CheckBox cDeathMoonCrash;
         private System.Windows.Forms.CheckBox cElegySpeedups;
-        private System.Windows.Forms.CheckBox cFasterSoundCheck;
     }
 }
 

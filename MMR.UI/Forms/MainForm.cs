@@ -147,7 +147,6 @@ namespace MMR.UI.Forms
             TooltipBuilder.SetTooltip(cArrowCycling, "Cycle through arrow types when pressing R while an arrow is out when using the bow.");
             TooltipBuilder.SetTooltip(cCloseCows, "When playing Epona's Song for a group of cows, the closest cow will respond, instead of the default behavior.");
             TooltipBuilder.SetTooltip(cElegySpeedups, "Applies various Elegy of Emptiness speedups.");
-            TooltipBuilder.SetTooltip(cFasterSoundCheck, "Change Sound Check to ignore actor cutscenes until song is fully composed.");
         }
 
         /// <summary>
@@ -340,7 +339,6 @@ namespace MMR.UI.Forms
             cGoodDogRaceRNG.Checked = _configuration.GameplaySettings.SpeedupDogRace;
             cFasterLabFish.Checked = _configuration.GameplaySettings.SpeedupLabFish;
             cFasterBank.Checked = _configuration.GameplaySettings.SpeedupBank;
-            cFasterSoundCheck.Checked = _configuration.GameplaySettings.SpeedupSoundCheck;
 
             cDMult.SelectedIndex = (int)_configuration.GameplaySettings.DamageMode;
             cDType.SelectedIndex = (int)_configuration.GameplaySettings.DamageEffect;
@@ -674,11 +672,6 @@ namespace MMR.UI.Forms
         private void cFasterBank_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _configuration.GameplaySettings.SpeedupBank = cFasterBank.Checked);
-        }
-
-        private void cFasterSoundCheck_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdateSingleSetting(() => _configuration.GameplaySettings.SpeedupSoundCheck = cFasterSoundCheck.Checked);
         }
 
         private void cDrawHash_CheckedChanged(object sender, EventArgs e)
@@ -1058,7 +1051,6 @@ namespace MMR.UI.Forms
             cFasterLabFish.Enabled = v;
             cGoodDogRaceRNG.Enabled = v;
             cFasterBank.Enabled = v;
-            cFasterSoundCheck.Enabled = v;
 
             cDMult.Enabled = v;
             cDType.Enabled = v;

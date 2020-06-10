@@ -111,18 +111,6 @@ namespace MMR.Randomizer.Models.Settings
 
         #endregion
 
-        #region Asm Getters / Setters (Speedups)
-
-        /// <summary>
-        /// Change Sound Check to ignore actor cutscenes until song is fully composed.
-        /// </summary>
-        public bool SpeedupSoundCheck {
-            get { return this.AsmOptions.MiscConfig.Speedups.SoundCheck; }
-            set { this.AsmOptions.MiscConfig.Speedups.SoundCheck = value; }
-        }
-
-        #endregion
-
         #region Random Elements
 
         /// <summary>
