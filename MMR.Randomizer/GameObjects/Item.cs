@@ -3307,5 +3307,34 @@ namespace MMR.Randomizer.GameObjects
 
         //[GetItemIndex(0x1A1)]
 
+        GossipTerminaSouth,
+        GossipSwampPotionShop,
+        GossipMountainSpringPath,
+        GossipMountainPath,
+        GossipOceanZoraGame,
+        GossipCanyonRoad,
+        GossipCanyonDock,
+        GossipCanyonSpiritHouse,
+        GossipTerminaMilk,
+        GossipTerminaWest,
+        GossipTerminaNorth,
+        GossipTerminaEast,
+        GossipRanchTree,
+        GossipRanchBarn,
+        GossipMilkRoad,
+        GossipOceanFortress,
+        GossipSwampRoad,
+        GossipTerminaObservatory,
+        GossipRanchCuccoShack,
+        GossipRanchRacetrack,
+        GossipRanchEntrance,
+        GossipCanyonRavine,
+        GossipMountainSpringFrog,
+        GossipSwampSpiderHouse,
+        GossipTerminaGossipLarge,
+        GossipTerminaGossipGuitar,
+        GossipTerminaGossipPipes,
+        GossipTerminaGossipDrums,
+
     }
 }

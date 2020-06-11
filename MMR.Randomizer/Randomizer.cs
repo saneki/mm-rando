@@ -1433,127 +1433,6 @@ namespace MMR.Randomizer
             }
         }
 
-        public class LogicPaths
-        {
-            public ReadOnlyCollection<Item> Required { get; set; }
-            public ReadOnlyCollection<Item> Important { get; set; }
-        }
-
-        private LogicPaths GetImportantItems(Item item, List<ItemLogic> itemLogic, List<Item> logicPath = null, Dictionary<Item, LogicPaths> checkedItems = null, params Item[] exclude)
-        {
-            if (_settings.CustomStartingItemList.Contains(item))
-            {
-                return new LogicPaths();
-            }
-            if (logicPath == null)
-            {
-                logicPath = new List<Item>();
-            }
-            if (logicPath.Contains(item))
-            {
-                return null;
-            }
-            if (exclude.Contains(item))
-            {
-                if (_settings.AddSongs || !ItemUtils.IsSong(item) || logicPath.Any(i => !i.IsFake() && ItemList[i].IsRandomized && !ItemUtils.IsSong(i)))
-                {
-                    return null;
-                }
-            }
-            logicPath.Add(item);
-            if (checkedItems == null)
-            {
-                checkedItems = new Dictionary<Item, LogicPaths>();
-            }
-            if (checkedItems.ContainsKey(item))
-            {
-                if (logicPath.Intersect(checkedItems[item].Required).Any())
-                {
-                    return null;
-                }
-                return checkedItems[item];
-            }
-            var itemObject = ItemList[item];
-            var locationId = itemObject.NewLocation.HasValue ? itemObject.NewLocation : item;
-            var locationLogic = itemLogic[(int)locationId];
-            var required = new List<Item>();
-            var important = new List<Item>();
-            if (locationLogic.RequiredItemIds != null && locationLogic.RequiredItemIds.Any())
-            {
-                foreach (var requiredItemId in locationLogic.RequiredItemIds)
-                {
-                    var childPaths = GetImportantItems((Item)requiredItemId, itemLogic, logicPath.ToList(), checkedItems, exclude);
-                    if (childPaths == null)
-                    {
-                        return null;
-                    }
-                    required.Add((Item)requiredItemId);
-                    if (childPaths.Required != null)
-                    {
-                        required.AddRange(childPaths.Required);
-                    }
-                    if (childPaths.Important != null)
-                    {
-                        important.AddRange(childPaths.Important);
-                    }
-                }
-            }
-            if (locationLogic.ConditionalItemIds != null && locationLogic.ConditionalItemIds.Any())
-            {
-                var logicPaths = new List<LogicPaths>();
-                foreach (var conditions in locationLogic.ConditionalItemIds)
-                {
-                    var conditionalRequired = new List<Item>();
-                    var conditionalImportant = new List<Item>();
-                    foreach (var conditionalItemId in conditions)
-                    {
-                        var childPaths = GetImportantItems((Item)conditionalItemId, itemLogic, logicPath.ToList(), checkedItems, exclude);
-                        if (childPaths == null)
-                        {
-                            conditionalRequired = null;
-                            conditionalImportant = null;
-                            break;
-                        }
-
-                        conditionalRequired.Add((Item)conditionalItemId);
-                        if (childPaths.Required != null)
-                        {
-                            conditionalRequired.AddRange(childPaths.Required);
-                        }
-                        if (childPaths.Important != null)
-                        {
-                            conditionalImportant.AddRange(childPaths.Important);
-                        }
-                    }
-
-                    if (conditionalRequired != null && conditionalImportant != null)
-                    {
-                        logicPaths.Add(new LogicPaths
-                        {
-                            Required = conditionalRequired.AsReadOnly(),
-                            Important = conditionalImportant.AsReadOnly()
-                        });
-                    }
-                }
-                if (!logicPaths.Any())
-                {
-                    return null;
-                }
-                required.AddRange(logicPaths.Select(lp => lp.Required.AsEnumerable()).Aggregate((a, b) => a.Intersect(b)));
-                important.AddRange(logicPaths.SelectMany(lp => lp.Required.Union(lp.Important)).Distinct());
-            }
-            var result = new LogicPaths
-            {
-                Required = required.Distinct().ToList().AsReadOnly(),
-                Important = important.Union(required).Distinct().ToList().AsReadOnly()
-            };
-            if (!item.IsFake())
-            {
-                checkedItems[item] = result;
-            }
-            return result;
-        }
-
         /// <summary>
         /// Randomizes the ROM with respect to the configured ruleset.
         /// </summary>
@@ -1639,7 +1518,7 @@ namespace MMR.Randomizer
                     }).ToList()
                     : _randomized.Logic;
 
-                _randomized.ImportantItems = GetImportantItems(Item.AreaMoonAccess, _randomized.Logic)?.Important.Where(item => !item.IsFake()).ToList().AsReadOnly();
+                _randomized.ImportantItems = LogicUtils.GetImportantItems(ItemList, _settings, Item.AreaMoonAccess, _randomized.Logic)?.Important.Where(item => !item.IsFake()).ToList().AsReadOnly();
                 if (_randomized.ImportantItems == null)
                 {
                     throw new RandomizationException("Moon Access is unobtainable.");
@@ -1647,7 +1526,7 @@ namespace MMR.Randomizer
                 var itemsRequiredForMoonAccess = new List<Item>();
                 foreach (var item in _randomized.ImportantItems)
                 {
-                    var checkPaths = GetImportantItems(Item.AreaMoonAccess, logicForRequiredItems, exclude: item);
+                    var checkPaths = LogicUtils.GetImportantItems(ItemList, _settings, Item.AreaMoonAccess, logicForRequiredItems, exclude: item);
                     if (checkPaths == null)
                     {
                         itemsRequiredForMoonAccess.Add(item);
