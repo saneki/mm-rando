@@ -1455,10 +1455,8 @@ namespace MMR.Randomizer
             }
             if (exclude.Contains(item))
             {
-                if (_settings.AddSongs || !ItemUtils.IsSong(item) || logicPath.Any(i => !i.IsFake() && ItemList[i].IsRandomized))
+                if (_settings.AddSongs || !ItemUtils.IsSong(item) || logicPath.Any(i => !i.IsFake() && ItemList[i].IsRandomized && !ItemUtils.IsSong(i)))
                 {
-                    if (item == Item.SongEpona)
-                        Debug.WriteLine(string.Join(", ", logicPath));
                     return null;
                 }
             }
