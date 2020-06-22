@@ -147,6 +147,7 @@ namespace MMR.UI.Forms
             TooltipBuilder.SetTooltip(cArrowCycling, "Cycle through arrow types when pressing R while an arrow is out when using the bow.");
             TooltipBuilder.SetTooltip(cCloseCows, "When playing Epona's Song for a group of cows, the closest cow will respond, instead of the default behavior.");
             TooltipBuilder.SetTooltip(cCombatMusicDisable, "Disables combat music around all regular (non boss or miniboss) enemies in the game.");
+            TooltipBuilder.SetTooltip(cElegySpeedups, "Applies various Elegy of Emptiness speedups.");
         }
 
         /// <summary>
@@ -366,6 +367,7 @@ namespace MMR.UI.Forms
             cArrowCycling.Checked = _configuration.GameplaySettings.ArrowCycling;
             cCloseCows.Checked = _configuration.GameplaySettings.CloseCows;
             cCombatMusicDisable.Checked = _configuration.CosmeticSettings.DisableCombatMusic == CombatMusic.All;
+            cElegySpeedups.Checked = _configuration.GameplaySettings.ElegySpeedup;
 
             // HUD config options
             var heartItems = ColorSelectionManager.Hearts.GetItems();
@@ -725,6 +727,11 @@ namespace MMR.UI.Forms
             UpdateSingleSetting(() => _configuration.CosmeticSettings.DisableCombatMusic = cCombatMusicDisable.Checked ? CombatMusic.All : CombatMusic.Normal);
         }
 
+        private void cElegySpeedups_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _configuration.GameplaySettings.ElegySpeedup = cElegySpeedups.Checked);
+        }
+
         private void cMode_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -1044,6 +1051,7 @@ namespace MMR.UI.Forms
             cFreestanding.Enabled = v;
             cArrowCycling.Enabled = v;
             cCloseCows.Enabled = v;
+            cElegySpeedups.Enabled = v;
 
             cSkipBeaver.Enabled = v;
             cGoodDampeRNG.Enabled = v;
@@ -1223,6 +1231,7 @@ namespace MMR.UI.Forms
             cArrowCycling.Visible = v;
             cCloseCows.Visible = v;
             cCombatMusicDisable.Visible = v;
+            cElegySpeedups.Visible = v;
             cLink.Visible = v;
             lLink.Visible = v;
 
