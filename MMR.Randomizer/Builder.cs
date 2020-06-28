@@ -24,6 +24,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using SixLabors.ImageSharp.Formats.Png;
+using System.Security.Cryptography;
 
 namespace MMR.Randomizer
 {
@@ -483,23 +484,28 @@ namespace MMR.Randomizer
         private Character DeterminePlayerModel()
         {
             var data = ObjUtils.GetObjectData(0x11);
-            if (data[0x107] == 0x05)
+            var hash = MD5.Create().ComputeHash(data);
+
+            if (hash.SequenceEqual(PlayerModelHash.LinkMM))
             {
                 return Character.LinkMM;
             }
-            if (data[0x107] == 0x07)
+            else if (hash.SequenceEqual(PlayerModelHash.LinkOOT))
             {
                 return Character.LinkOOT;
             }
-            if (data[0xC6] == 0x01)
+            else if (hash.SequenceEqual(PlayerModelHash.AdultLink))
             {
                 return Character.AdultLink;
             }
-            if (data[0xC5] == 0x15)
+            else if (hash.SequenceEqual(PlayerModelHash.Kafei))
             {
                 return Character.Kafei;
             }
-            throw new Exception("Unable to determine player's model.");
+            else
+            {
+                throw new Exception("Unable to determine player's model.");
+            }
         }
 
         private void SetTatlColour(Random random)
