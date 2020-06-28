@@ -319,6 +319,12 @@ namespace MMR.Randomizer
                 return;
             }
 
+            if (_randomized.Settings.Character == Character.AdultLink)
+            {
+                PlayerModelUtils.ApplyAdultLinkPatches();
+                return;
+            }
+
             int characterIndex = (int)_randomized.Settings.Character;
 
             using (var b = new BinaryReader(File.OpenRead(Path.Combine(Values.ObjsDirectory, $"link-{characterIndex}"))))
@@ -485,7 +491,7 @@ namespace MMR.Randomizer
             {
                 return Character.LinkOOT;
             }
-            if (data[0xC6] == 0x02)
+            if (data[0xC6] == 0x01)
             {
                 return Character.AdultLink;
             }
