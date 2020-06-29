@@ -80,8 +80,13 @@ namespace MMR.Randomizer.Utils
                 ReadWriteUtils.WriteToROM(0xCD62B8, data2);
             }
 
-            // Patch Arms_Hook (Hookshot)???
+            // Patch Arms_Hook (Hookshot) actor.
             {
+                // Update segmented address in code: 0x0602D960 => 0x06029D60
+                // Old: addiu t0, 0x0602
+                //      addiu t0, t0, 0xD960
+                // New: addiu t0, 0x0602
+                //      addiu t0, t0, 0x9D60
                 ReadWriteUtils.WriteU32ToROM(0xD3BC50, 0x25089D60); // Physical: 0xC8B770
             }
 
