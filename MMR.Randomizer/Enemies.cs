@@ -336,7 +336,8 @@ namespace MMR.Randomizer
                 GameObjects.Actor.Poe,
                 GameObjects.Actor.GibdoIkana,
                 GameObjects.Actor.GibdoWell,
-                GameObjects.Actor.RedBubble
+                GameObjects.Actor.RedBubble,
+                GameObjects.Actor.Wizrobe    // always disabled because hes always a miniboss? why does he even have combat music?
 
             }.ToList();
 
