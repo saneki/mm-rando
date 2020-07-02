@@ -15,6 +15,10 @@ bool player_can_receive_item(z2_game_t *game) {
         case 0xDE40: // walking - Human, Deku, Goron, Zora
         case 0xD920: // walking - Fierce Deity
         case 0xE208: // rolling - Goron
+        case 0xD800: // backwalking after backflip - Human, Goron, Zora, Fierce Deity
+        case 0xDD18: // backwalking after backflip - Deku
+        case 0xD928: // sidewalking - Fierce Deity
+        case 0xDE78: // sidewalking - Human, Deku, Goron, Zora
             result = true;
             break;
     }

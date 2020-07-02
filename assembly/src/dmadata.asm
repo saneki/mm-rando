@@ -137,3 +137,7 @@ DefineDmaFile G_EN_BB_DMA, G_EN_BB_FILE, 84
 ; ovl_En_Knight (Igos du Ikana & Henchmen)
 DefineDmaFile G_EN_KNIGHT_DMA, G_EN_KNIGHT_FILE, 250
 .definelabel  G_EN_KNIGHT_VRAM, 0x809B20F0
+
+; ovl_En_Elfgrp (Group of Stray Fairies)
+DefineDmaFile G_EN_ELFGRP_DMA, G_EN_ELFGRP_FILE, 305
+.definelabel  G_EN_ELFGRP_VRAM, 0x80A396B0
