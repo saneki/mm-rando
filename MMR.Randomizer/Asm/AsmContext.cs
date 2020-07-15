@@ -1,4 +1,6 @@
-﻿namespace MMR.Randomizer.Asm
+﻿using MMR.Randomizer.Models.Rom;
+
+namespace MMR.Randomizer.Asm
 {
     /// <summary>
     /// Asm context.
@@ -14,6 +16,11 @@
         /// Symbols.
         /// </summary>
         public Symbols Symbols { get; private set; }
+
+        /// <summary>
+        /// Extended <see cref="MessageTable"/>.
+        /// </summary>
+        public MessageTable ExtraMessages { get; private set; }
 
         public AsmContext(Symbols symbols)
             : this(null, symbols)
@@ -33,6 +40,7 @@
         public void ApplyPatch(AsmOptionsGameplay options)
         {
             this.Patcher.Apply(this.Symbols, options);
+            this.ExtraMessages = this.Symbols.CreateInitialExtMessageTable();
         }
 
         /// <summary>
@@ -78,6 +86,14 @@
             var patcher = Patcher.Load();
             var symbols = Symbols.Load();
             return new AsmContext(patcher, symbols);
+        }
+
+        /// <summary>
+        /// Write the extended <see cref="MessageTable"/> to ROM.
+        /// </summary>
+        public void WriteExtMessageTable()
+        {
+            this.Symbols.WriteExtMessageTable(this.ExtraMessages);
         }
     }
 }

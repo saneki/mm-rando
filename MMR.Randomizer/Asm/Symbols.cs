@@ -84,6 +84,32 @@ namespace MMR.Randomizer.Asm
         }
 
         /// <summary>
+        /// Create initial extended <see cref="MessageTable"/> for extra messages.
+        /// </summary>
+        /// <returns>Extended MessageTable</returns>
+        public MessageTable CreateInitialExtMessageTable()
+        {
+            var addr = this["EXT_MSG_TABLE_COUNT"];
+            var count = ReadWriteUtils.ReadU32((int)addr);
+            return new MessageTable(count);
+        }
+
+        /// <summary>
+        /// Write extended <see cref="MessageTable"/>.
+        /// </summary>
+        /// <param name="table">Extended MessageTable</param>
+        public void WriteExtMessageTable(MessageTable table)
+        {
+            // Write extended message table entries, and append new file for extended message table data.
+            var addr = this["EXT_MSG_TABLE"];
+            var index = MessageTable.WriteExtended(table, addr);
+
+            // Write index of message table data.
+            var fileIndexAddr = this["EXT_MSG_DATA_FILE"];
+            ReadWriteUtils.WriteU32ToROM((int)fileIndexAddr, (uint)index);
+        }
+
+        /// <summary>
         /// Write an <see cref="AsmConfig"/> structure to ROM.
         /// </summary>
         /// <param name="symbol">Symbol</param>

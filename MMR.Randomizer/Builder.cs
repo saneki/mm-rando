@@ -34,13 +34,15 @@ namespace MMR.Randomizer
         private CosmeticSettings _cosmeticSettings;
         private MessageTable _messageTable;
         private ExtendedObjects _extendedObjects;
+        private List<MessageEntry> _extraMessages;
 
         public Builder(RandomizedResult randomized, CosmeticSettings cosmeticSettings)
         {
             _randomized = randomized;
             _cosmeticSettings = cosmeticSettings;
-            _messageTable = new MessageTable();
+            _messageTable = null;
             _extendedObjects = null;
+            _extraMessages = new List<MessageEntry>();
         }
 
         #region Sequences, sounds and BGM
@@ -1528,6 +1530,10 @@ namespace MMR.Randomizer
                 var baseAddr = (uint)file.Addr;
                 asm.Symbols.WriteExtendedObjects(extended.GetAddresses(baseAddr));
             }
+
+            // Add extra messages to message table.
+            asm.ExtraMessages.AddMessage(_extraMessages.ToArray());
+            asm.WriteExtMessageTable();
         }
 
         private void WriteAsmConfig(AsmContext asm, byte[] hash)
@@ -1616,7 +1622,7 @@ namespace MMR.Randomizer
             using (BinaryReader OldROM = new BinaryReader(File.OpenRead(outputSettings.InputROMFilename)))
             {
                 RomUtils.ReadFileTable(OldROM);
-                _messageTable.InitializeTable();
+                _messageTable = MessageTable.ReadDefault();
             }
 
             var originalMMFileList = RomData.MMFileList.Select(file => file.Clone()).ToList();
@@ -1681,7 +1687,7 @@ namespace MMR.Randomizer
                 progressReporter.ReportProgress(68, "Writing messages...");
                 WriteGossipQuotes();
 
-                MessageTable.WriteMessageTable(_messageTable, _randomized.Settings.QuickTextEnabled);
+                MessageTable.WriteDefault(_messageTable, _randomized.Settings.QuickTextEnabled);
 
                 progressReporter.ReportProgress(69, "Writing startup...");
                 WriteStartupStrings();

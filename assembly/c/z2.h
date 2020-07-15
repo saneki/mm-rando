@@ -1464,7 +1464,11 @@ typedef struct {
 /// =============================================================
 
 typedef struct z2_msgbox_ctxt_s {
-    u8               unk_0x00[0x1F00];               /* 0x0000 */
+    u8               unk_0x00[0x1EE8];               /* 0x0000 */
+    // Struct at 0x168?
+    u32              msg_data_offset;                /* 0x1EE8 */
+    u32              msg_data_length;                /* 0x1EEC */
+    u8               unk_0x1EF0[0x10];               /* 0x1EF0 */
     z2_song_ctxt_t  *song_ctxt;                      /* 0x1F00 */
     u8               unk_0x1F04[0x0C];               /* 0x1F04 */
     u32              unk_0x1F10;                     /* 0x1F10 */
@@ -1474,7 +1478,8 @@ typedef struct z2_msgbox_ctxt_s {
     z2_color_rgb16_t cur_char_color;                 /* 0x2018 */
     s16              cur_char_alpha;                 /* 0x201E */
     u8               message_state_2;                /* 0x2020 */
-    u8               unk_0x2021[0x02];               /* 0x2021 */
+    u8               selection;                      /* 0x2021 */
+    u8               unk_0x2022;                     /* 0x2022 */
     u8               message_state_3;                /* 0x2023 */
     u8               unk_0x2024[0x04];               /* 0x2024 */
     u16              playback_song;                  /* 0x2028 */
@@ -1484,8 +1489,11 @@ typedef struct z2_msgbox_ctxt_s {
     z2_color_rgb16_t score_line_color;               /* 0x2034 */
     u8               unk_0x203A[0x02];               /* 0x203A */
     s16              score_line_alpha;               /* 0x203C */
-    u8               unk_0x203E[0x82];               /* 0x203E */
-    u8               unk_0x20C0[0x08];               /* 0x20C0 */
+    u8               unk_0x203E[0x46];               /* 0x203E */
+    void            *message_table;                  /* 0x2084 */
+    u8               unk_0x2088[0x08];               /* 0x2088 */
+    s16              message_data_file;              /* 0x2090, 0 = main file, 1 = credits file. */
+    u8               unk_0x2092[0x36];               /* 0x2092 */
     z2_color_rgb16_t normal_char_color;              /* 0x20C8 */
     u8               unk_0x20CE[0x12];               /* 0x20CE */
 } z2_msgbox_ctxt_t;                                  /* 0x20E0 */
