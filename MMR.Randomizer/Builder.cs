@@ -1655,7 +1655,7 @@ namespace MMR.Randomizer
                     // Store graphic override name for logging in HTML tracker.
                     item.ID = (int)Item.IceTrap;
                     item.Mimic = mimic;
-                    item.NameOverride = $"Ice Trap ({mimic.Name})";
+                    item.NameOverride = $"{Item.IceTrap.Name()} ({mimic.Name})";
 
                     // If placed as a shop item, use a fake shop item name.
                     if (newLocation.IsShop())
@@ -1666,7 +1666,7 @@ namespace MMR.Randomizer
                 else
                 {
                     item.ID = (int)Item.IceTrap;
-                    item.NameOverride = "Ice Trap";
+                    item.NameOverride = Item.IceTrap.Name();
                 }
 
                 // Choose chest type for ice trap appearance.
