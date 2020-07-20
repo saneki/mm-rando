@@ -111,6 +111,8 @@ namespace MMR.UI.Forms
             TooltipBuilder.SetTooltip(cHideClock, "Clock UI will be hidden.");
             TooltipBuilder.SetTooltip(cNoStartingItems, "You will not start with any randomized starting items.");
             TooltipBuilder.SetTooltip(cBlastCooldown, "Adjust the cooldown timer after using the Blast Mask.");
+            TooltipBuilder.SetTooltip(cIceTraps, "Amount of ice traps to be added to pool by replacing junk items.");
+            TooltipBuilder.SetTooltip(cIceTrapsAppearance, "Appearance of ice traps in pool for world models.");
             TooltipBuilder.SetTooltip(cSunsSong, "Enable using the Sun's Song, which speeds up time to 400 units per frame (normal time speed is 3 units per frame) until dawn or dusk or a loading zone.");
             TooltipBuilder.SetTooltip(cUnderwaterOcarina, "Enable using the ocarina underwater.");
             TooltipBuilder.SetTooltip(cTargettingStyle, "Default Z-Targeting style to Hold.");
@@ -349,6 +351,8 @@ namespace MMR.UI.Forms
             cFloors.SelectedIndex = (int)_configuration.GameplaySettings.FloorType;
             cGossipHints.SelectedIndex = (int)_configuration.GameplaySettings.GossipHintStyle;
             cBlastCooldown.SelectedIndex = (int)_configuration.GameplaySettings.BlastMaskCooldown;
+            cIceTraps.SelectedIndex = (int)_configuration.GameplaySettings.IceTraps;
+            cIceTrapsAppearance.SelectedIndex = (int)_configuration.GameplaySettings.IceTrapAppearance;
             cMusic.SelectedIndex = (int)_configuration.CosmeticSettings.Music;
             bTunic.BackColor = _configuration.CosmeticSettings.TunicColor;
             cTargettingStyle.Checked = _configuration.CosmeticSettings.EnableHoldZTargeting;
@@ -772,6 +776,16 @@ namespace MMR.UI.Forms
             UpdateSingleSetting(() => _configuration.GameplaySettings.BlastMaskCooldown = (BlastMaskCooldown)cBlastCooldown.SelectedIndex);
         }
 
+        private void cIceTraps_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _configuration.GameplaySettings.IceTraps = (IceTraps)cIceTraps.SelectedIndex);
+        }
+
+        private void cIceTrapsAppearance_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _configuration.GameplaySettings.IceTrapAppearance = (IceTrapAppearance)cIceTrapsAppearance.SelectedIndex);
+        }
+
         private void cVC_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _configuration.OutputSettings.OutputVC = cVC.Checked);
@@ -1058,6 +1072,8 @@ namespace MMR.UI.Forms
             cFloors.Enabled = v;
             cClockSpeed.Enabled = v;
             cBlastCooldown.Enabled = v;
+            cIceTraps.Enabled = v;
+            cIceTrapsAppearance.Enabled = v;
             cHideClock.Enabled = v;
             cUnderwaterOcarina.Enabled = v;
             cSunsSong.Enabled = v;

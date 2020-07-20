@@ -1,5 +1,6 @@
 #include <stdbool.h>
 #include "extended_objects.h"
+#include "item_override.h"
 #include "linheap.h"
 #include "loaded_models.h"
 #include "misc.h"
@@ -81,6 +82,11 @@ static void draw_model_low_level(z2_actor_t *actor, z2_game_t *game, s8 graphic_
 }
 
 static void draw_model(struct model model, z2_actor_t *actor, z2_game_t *game, f32 base_scale) {
+    // If both graphic & object are 0, draw nothing.
+    if (model.graphic_id == 0 && model.object_id == 0) {
+        return;
+    }
+
     struct loaded_object *object = get_object(model.object_id);
     if (object) {
         // Update RDRAM segment table with object pointer during the draw function.
@@ -116,9 +122,15 @@ static mmr_gi_t * models_prepare_gi_entry(struct model *model, z2_game_t *game, 
     mmr_gi_t *entry = mmr_get_gi_entry(gi_index);
 
     if (model != NULL) {
-        u8 graphic = models_fix_graphic_id(entry->graphic);
-        model->object_id = entry->object;
-        model->graphic_id = graphic;
+        u16 gfx, obj;
+        if (item_override_get_graphic(gi_index, &gfx, &obj)) {
+            model->graphic_id = models_fix_graphic_id((u8)gfx);
+            model->object_id = obj;
+        } else {
+            u8 graphic = models_fix_graphic_id(entry->graphic);
+            model->object_id = entry->object;
+            model->graphic_id = graphic;
+        }
     }
 
     return entry;

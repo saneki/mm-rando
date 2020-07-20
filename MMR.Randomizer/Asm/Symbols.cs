@@ -1,4 +1,5 @@
-﻿using MMR.Randomizer.Models.Rom;
+﻿using MMR.Randomizer.GameObjects;
+using MMR.Randomizer.Models.Rom;
 using MMR.Randomizer.Utils;
 using Newtonsoft.Json.Linq;
 using System;
@@ -81,6 +82,27 @@ namespace MMR.Randomizer.Asm
             };
 
             return file;
+        }
+
+        /// <summary>
+        /// Create initial mimic item table for ice traps.
+        /// </summary>
+        /// <returns>Mimic table.</returns>
+        public MimicItemTable CreateMimicItemTable()
+        {
+            var addr = this["ITEM_OVERRIDE_COUNT"];
+            var count = ReadWriteUtils.ReadU32((int)addr);
+            return new MimicItemTable((int)count);
+        }
+
+        /// <summary>
+        /// Write <see cref="MimicItemTable"/> table to ROM.
+        /// </summary>
+        /// <param name="table">Table</param>
+        public void WriteMimicItemTable(MimicItemTable table)
+        {
+            var addr = this["ITEM_OVERRIDE_ENTRIES"];
+            ReadWriteUtils.WriteToROM((int)addr, table.Build());
         }
 
         /// <summary>

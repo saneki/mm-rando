@@ -22,6 +22,11 @@ namespace MMR.Randomizer.Asm
         /// </summary>
         public MessageTable ExtraMessages { get; private set; }
 
+        /// <summary>
+        /// Item mimic table used for ice traps.
+        /// </summary>
+        public MimicItemTable MimicTable { get; private set; }
+
         public AsmContext(Symbols symbols)
             : this(null, symbols)
         {
@@ -41,6 +46,7 @@ namespace MMR.Randomizer.Asm
         {
             this.Patcher.Apply(this.Symbols, options);
             this.ExtraMessages = this.Symbols.CreateInitialExtMessageTable();
+            this.MimicTable = this.Symbols.CreateMimicItemTable();
         }
 
         /// <summary>
@@ -94,6 +100,14 @@ namespace MMR.Randomizer.Asm
         public void WriteExtMessageTable()
         {
             this.Symbols.WriteExtMessageTable(this.ExtraMessages);
+        }
+
+        /// <summary>
+        /// Write the <see cref="MimicItemTable"/> table to ROM.
+        /// </summary>
+        public void WriteMimicItemTable()
+        {
+            this.Symbols.WriteMimicItemTable(this.MimicTable);
         }
     }
 }

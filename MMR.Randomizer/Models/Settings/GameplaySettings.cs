@@ -239,6 +239,16 @@ namespace MMR.Randomizer.Models.Settings
         /// </summary>
         public string CustomJunkLocationsString { get; set; }
 
+        /// <summary>
+        /// Defines number of ice traps.
+        /// </summary>
+        public IceTraps IceTraps { get; set; }
+
+        /// <summary>
+        /// Defines appearance pool for visible ice traps.
+        /// </summary>
+        public IceTrapAppearance IceTrapAppearance { get; set; }
+
         #endregion
 
         #region Gimmicks

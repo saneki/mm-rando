@@ -35,6 +35,7 @@ namespace MMR.Randomizer
         private MessageTable _messageTable;
         private ExtendedObjects _extendedObjects;
         private List<MessageEntry> _extraMessages;
+        private Dictionary<int, ItemGraphic> _graphicOverrides;
 
         public Builder(RandomizedResult randomized, CosmeticSettings cosmeticSettings)
         {
@@ -43,6 +44,7 @@ namespace MMR.Randomizer
             _messageTable = null;
             _extendedObjects = null;
             _extraMessages = new List<MessageEntry>();
+            _graphicOverrides = new Dictionary<int, ItemGraphic>();
         }
 
         #region Sequences, sounds and BGM
@@ -1534,6 +1536,10 @@ namespace MMR.Randomizer
             // Add extra messages to message table.
             asm.ExtraMessages.AddMessage(_extraMessages.ToArray());
             asm.WriteExtMessageTable();
+
+            // Add item graphics to table and write to ROM.
+            asm.MimicTable.Update(_graphicOverrides);
+            asm.WriteMimicItemTable();
         }
 
         private void WriteAsmConfig(AsmContext asm, byte[] hash)
@@ -1617,6 +1623,93 @@ namespace MMR.Randomizer
             }
         }
 
+        /// <summary>
+        /// Overwrite junk items with ice traps.
+        /// </summary>
+        /// <param name="iceTraps">Ice traps amount setting</param>
+        /// <param name="appearance">Ice traps appearance setting</param>
+        public void WriteIceTraps(IceTraps iceTraps, IceTrapAppearance appearance)
+        {
+            var random = new Random();
+
+            // Select replaceable junk items of specified amount.
+            var items = IceTrapUtils.SelectJunkItems(_randomized.ItemList, iceTraps, random);
+
+            // Dynamically generate appearance set for ice traps.
+            // Only mimic song items if they are included in the main randomization pool (not in their own pool).
+            var mimics = IceTrapUtils.BuildIceTrapMimicSet(_randomized.ItemList, appearance, _randomized.Settings.AddSongs)
+                .ToArray();
+
+            var newMessages = new List<MessageEntry>();
+
+            foreach (var item in items)
+            {
+                var newLocation = item.NewLocation.Value;
+                if (newLocation.IsVisible() || newLocation.IsShop())
+                {
+                    // If check is visible (can be seen via world model), add "graphic override" for imitating other item.
+                    var mimic = mimics[random.Next(mimics.Length)];
+                    var giIndex = item.NewLocation.Value.GetItemIndex().Value;
+                    _graphicOverrides.Add(giIndex, mimic.Graphic);
+
+                    // Store graphic override name for logging in HTML tracker.
+                    item.ID = (int)Item.IceTrap;
+                    item.Mimic = mimic;
+                    item.NameOverride = $"Ice Trap ({mimic.Name})";
+
+                    // If placed as a shop item, use a fake shop item name.
+                    if (newLocation.IsShop())
+                    {
+                        item.Mimic.ShopName = FakeNameUtils.CreateFakeName(item.Mimic.Name, random);
+                    }
+                }
+                else
+                {
+                    item.ID = (int)Item.IceTrap;
+                    item.NameOverride = "Ice Trap";
+                }
+
+                // Choose chest type for ice trap appearance.
+                ChestTypeAttribute.ChestType? chestOverride = null;
+                if (_randomized.Settings.UpdateChests)
+                {
+                    chestOverride = IceTrapUtils.GetIceTrapChestTypeOverride(appearance, random);
+                }
+
+                // Overwrite existing item with ice trap.
+                ItemSwapUtils.WriteNewItem(
+                    item.NewLocation.Value,
+                    item.Item, newMessages,
+                    _randomized.Settings.UpdateShopAppearance,
+                    _randomized.Settings.PreventDowngrades,
+                    _randomized.Settings.UpdateChests && item.IsRandomized,
+                    chestOverride,
+                    _randomized.Settings.CustomStartingItemList.Contains(item.Item),
+                    _randomized.Settings.QuestItemStorage,
+                    item.Mimic
+                );
+            }
+
+            // Update shop messages.
+            var copyRupeesRegex = new Regex(": [0-9]+ Rupees");
+            foreach (var newMessage in newMessages)
+            {
+                var oldMessage = _messageTable.GetMessage(newMessage.Id);
+                if (oldMessage != null)
+                {
+                    var cost = copyRupeesRegex.Match(oldMessage.Message).Value;
+                    newMessage.Message = copyRupeesRegex.Replace(newMessage.Message, cost);
+                }
+            }
+            _messageTable.UpdateMessages(newMessages);
+
+            // Add "You are a FOOL!" message to extra messages table.
+            var entry = new MessageEntry(
+                Item.IceTrap.ExclusiveItemEntry().Message,
+                Item.IceTrap.ExclusiveItemMessage());
+            _extraMessages.Add(entry);
+        }
+
         public void MakeROM(OutputSettings outputSettings, IProgressReporter progressReporter)
         {
             using (BinaryReader OldROM = new BinaryReader(File.OpenRead(outputSettings.InputROMFilename)))
@@ -1692,12 +1785,22 @@ namespace MMR.Randomizer
                 progressReporter.ReportProgress(69, "Writing startup...");
                 WriteStartupStrings();
 
+                // Overwrite existing items with ice traps.
+                if (_randomized.Settings.IceTraps != IceTraps.None)
+                {
+                    progressReporter.ReportProgress(70, "Writing ice traps...");
+                    WriteIceTraps(_randomized.Settings.IceTraps, _randomized.Settings.IceTrapAppearance);
+
+                    // Write message table again for updated ice trap shop messages.
+                    MessageTable.WriteDefault(_messageTable, _randomized.Settings.QuickTextEnabled);
+                }
+
                 // Load Asm data from internal resource files and apply
                 asm = AsmContext.LoadInternal();
-                progressReporter.ReportProgress(70, "Writing ASM patch...");
+                progressReporter.ReportProgress(71, "Writing ASM patch...");
                 WriteAsmPatch(asm);
                 
-                progressReporter.ReportProgress(71, outputSettings.GeneratePatch ? "Generating patch..." : "Computing hash...");
+                progressReporter.ReportProgress(72, outputSettings.GeneratePatch ? "Generating patch..." : "Computing hash...");
                 hash = RomUtils.CreatePatch(outputSettings.GeneratePatch ? outputSettings.OutputROMFilename : null, originalMMFileList);
 
                 // Write subset of Asm config post-patch

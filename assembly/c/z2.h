@@ -1960,6 +1960,23 @@ typedef struct {
 /// =============================================================
 
 /**
+ * En_Box actor (Treasure Chest).
+ **/
+typedef struct {
+    z2_actor_t       common;                         /* 0x0000 */
+    u8               unk_0x144[0xA8];                /* 0x0144 */
+    s16              anim_counter;                   /* 0x01EC, used for fancy light animation? */
+    u8               unk_0x1EE;                      /* 0x01EE */
+    u8               unk_0x1EF;                      /* 0x01EF */
+    u8               unk_0x1F0;                      /* 0x01F0 */
+    u8               chest_type;                     /* 0x01F1 */
+    u8               unk_0x1F2[0x28];                /* 0x01F2 */
+    s16              unk_0x21A;                      /* 0x021A */
+    u32              gi_index;                       /* 0x021C */
+    u32              unk_0x220;                      /* 0x0220 */
+} z2_en_box_t;                                       /* 0x0224 */
+
+/**
  * En_Elf actor.
  **/
 typedef struct {
@@ -2355,6 +2372,7 @@ typedef struct {
 #define z2_CallSetupDList_addr           0x8012C2DC
 
 /* Function Addresses (File Loading) */
+#define z2_RomToRam_addr                 0x80080790
 #define z2_GetFileTable_addr             0x800808F4
 #define z2_GetFilePhysAddr_addr          0x80080950
 #define z2_GetFileNumber_addr            0x800809BC
@@ -2450,6 +2468,7 @@ typedef void (*z2_CallDList_proc)(z2_gfx_t *gfx);
 typedef void (*z2_PreDraw_proc)(z2_actor_t *actor, z2_game_t *game, u32 unknown);
 
 /* Function Prototypes (File Loading) */
+typedef s32 (*z2_RomToRam_proc)(u32 src, void *dst, u32 length);
 typedef s16 (*z2_GetFileNumber_proc)(u32 vrom_addr);
 typedef u32 (*z2_GetFilePhysAddr_proc)(u32 vrom_addr);
 typedef z2_file_table_t* (*z2_GetFileTable_proc)(u32 vrom_addr);
@@ -2542,6 +2561,7 @@ typedef void (*z2_UnloadRoom_proc)(z2_game_t *game, z2_room_ctxt_t *room_ctxt);
 #define z2_LoadFileFromArchive           ((z2_LoadFileFromArchive_proc)   z2_LoadFileFromArchive_addr)
 #define z2_LoadVFileFromArchive          ((z2_LoadVFileFromArchive_proc)  z2_LoadVFileFromArchive_addr)
 #define z2_ReadFile                      ((z2_ReadFile_proc)              z2_ReadFile_addr)
+#define z2_RomToRam                      ((z2_RomToRam_proc)              z2_RomToRam_addr)
 
 /* Functions (Get Item) */
 #define z2_SetGetItem                    ((z2_SetGetItem_proc)            z2_SetGetItem_addr)

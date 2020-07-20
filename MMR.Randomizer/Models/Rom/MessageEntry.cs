@@ -38,6 +38,11 @@ namespace MMR.Randomizer.Models.Rom
         {
         }
 
+        public MessageEntry(short id, string message)
+            : this((ushort)id, message)
+        {
+        }
+
         public MessageEntry(ushort id, string message)
         {
             this.Id = id;
