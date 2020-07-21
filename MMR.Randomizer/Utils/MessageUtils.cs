@@ -460,31 +460,31 @@ namespace MMR.Randomizer.Utils
             return $"{title}: {cost} Rupees\x11 \x11\x02\xC2I'll buy {GetPronoun(item)}\x11No thanks\xBF";
         }
 
-        public static string GetArticle(Item item, string indefiniteArticle = null)
+        public static string GetArticle(Item item, string indefiniteArticle = null, string name = null)
         {
             var shopTexts = item.ShopTexts();
             return shopTexts.IsMultiple
                 ? ""
                 : shopTexts.IsDefinite
                     ? "the "
-                    : indefiniteArticle ?? (Regex.IsMatch(item.Name(), "^[aeiou]", RegexOptions.IgnoreCase)
+                    : indefiniteArticle ?? (Regex.IsMatch(name ?? item.Name(), "^[aeiou]", RegexOptions.IgnoreCase)
                         ? "an "
                         : "a ");
         }
 
-        public static string GetPronoun(Item item)
+        public static string GetPronoun(Item item, string name = null)
         {
             var shopTexts = item.ShopTexts();
-            var itemAmount = Regex.Replace(item.Name(), "[^0-9]", "");
+            var itemAmount = Regex.Replace(name ?? item.Name(), "[^0-9]", "");
             return shopTexts.IsMultiple && !string.IsNullOrWhiteSpace(itemAmount)
                 ? "them"
                 : "it";
         }
 
-        public static string GetPronounOrAmount(Item item, string it = " It")
+        public static string GetPronounOrAmount(Item item, string it = " It", string name = null)
         {
             var shopTexts = item.ShopTexts();
-            var itemAmount = Regex.Replace(item.Name(), "[^0-9]", "");
+            var itemAmount = Regex.Replace(name ?? item.Name(), "[^0-9]", "");
             return shopTexts.IsMultiple
                 ? string.IsNullOrWhiteSpace(itemAmount)
                     ? it
@@ -494,10 +494,10 @@ namespace MMR.Randomizer.Utils
                     : " One";
         }
 
-        public static string GetVerb(Item item)
+        public static string GetVerb(Item item, string name = null)
         {
             var shopTexts = item.ShopTexts();
-            var itemAmount = Regex.Replace(item.Name(), "[^0-9]", "");
+            var itemAmount = Regex.Replace(name ?? item.Name(), "[^0-9]", "");
             return shopTexts.IsMultiple && !string.IsNullOrWhiteSpace(itemAmount)
                 ? "are"
                 : "is";
@@ -511,9 +511,14 @@ namespace MMR.Randomizer.Utils
                 : "for";
         }
 
+        public static string GetAlternateName(string name)
+        {
+            return Regex.Replace(name, "[0-9]+ ", "");
+        }
+
         public static string GetAlternateName(Item item)
         {
-            return Regex.Replace(item.Name(), "[0-9]+ ", "");
+            return GetAlternateName(item.Name());
         }
 
         private static string[] numberWordUnitsMap = new[] { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" };

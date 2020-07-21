@@ -1058,9 +1058,10 @@ namespace MMR.Randomizer
                         _randomized.Settings.UpdateShopAppearance,
                         _randomized.Settings.PreventDowngrades,
                         _randomized.Settings.UpdateChests && item.IsRandomized,
-                        overrideChestType,
+                        item.Mimic?.ChestType ?? overrideChestType,
                         _randomized.Settings.CustomStartingItemList.Contains(item.Item),
-                        _randomized.Settings.QuestItemStorage
+                        _randomized.Settings.QuestItemStorage,
+                        item.Mimic
                     );
                 }
             }
@@ -1082,44 +1083,44 @@ namespace MMR.Randomizer
                 foreach (var messageShopText in Enum.GetValues(typeof(MessageShopText)).Cast<MessageShopText>())
                 {
                     var messageShop = messageShopText.GetAttribute<MessageShopAttribute>();
-                    var item1 = _randomized.ItemList.First(io => io.NewLocation == messageShop.Items[0]).Item;
-                    var item2 = _randomized.ItemList.First(io => io.NewLocation == messageShop.Items[1]).Item;
+                    var item1 = _randomized.ItemList.First(io => io.NewLocation == messageShop.Items[0]);
+                    var item2 = _randomized.ItemList.First(io => io.NewLocation == messageShop.Items[1]);
                     newMessages.Add(new MessageEntry
                     {
                         Id = (ushort)messageShopText,
                         Header = null,
-                        Message = string.Format(messageShop.MessageFormat, item1.Name() + " ", messageShop.Prices[0], item2.Name() + " ", messageShop.Prices[1])
+                        Message = string.Format(messageShop.MessageFormat, item1.DisplayName + " ", messageShop.Prices[0], item2.DisplayName + " ", messageShop.Prices[1])
                     });
                 }
 
                 // update business scrub
-                var businessScrubItem = _randomized.ItemList.First(io => io.NewLocation == Item.HeartPieceTerminaBusinessScrub).Item;
+                var businessScrubItem = _randomized.ItemList.First(io => io.NewLocation == Item.HeartPieceTerminaBusinessScrub);
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x1631,
                     Header = null,
-                    Message = $"\x1E\x3A\xD2Please! I'll sell you {MessageUtils.GetArticle(businessScrubItem)}\u0001{businessScrubItem.Name()}\u0000 if you just keep this place a secret...\x19\xBF".Wrap(35, "\u0011")
+                    Message = $"\x1E\x3A\xD2Please! I'll sell you {businessScrubItem.GetArticle()}\u0001{businessScrubItem.DisplayName}\u0000 if you just keep this place a secret...\x19\xBF".Wrap(35, "\u0011")
                 });
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x1632,
                     Header = null,
-                    Message = $"\u0006150 Rupees\u0000 for{MessageUtils.GetPronounOrAmount(businessScrubItem).ToLower()}!\u0011 \u0011\u0002\u00C2I'll buy {MessageUtils.GetPronoun(businessScrubItem)}\u0011No thanks\u00BF"
+                    Message = $"\u0006150 Rupees\u0000 for{businessScrubItem.GetPronounOrAmount().ToLower()}!\u0011 \u0011\u0002\u00C2I'll buy {businessScrubItem.GetPronoun()}\u0011No thanks\u00BF"
                 });
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x1634,
                     Header = null,
-                    Message = $"What about{MessageUtils.GetPronounOrAmount(businessScrubItem, "").ToLower()} for \u0006100 Rupees\u0000?\u0011 \u0011\u0002\u00C2I'll buy {MessageUtils.GetPronoun(businessScrubItem)}\u0011No thanks\u00BF"
+                    Message = $"What about{businessScrubItem.GetPronounOrAmount("").ToLower()} for \u0006100 Rupees\u0000?\u0011 \u0011\u0002\u00C2I'll buy {businessScrubItem.GetPronoun()}\u0011No thanks\u00BF"
                 });
 
                 // update biggest bomb bag purchase
-                var biggestBombBagItem = _randomized.ItemList.First(io => io.NewLocation == Item.UpgradeBiggestBombBag).Item;
+                var biggestBombBagItem = _randomized.ItemList.First(io => io.NewLocation == Item.UpgradeBiggestBombBag);
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x15F5,
                     Header = null,
-                    Message = $"I sell {MessageUtils.GetArticle(biggestBombBagItem)}\u0001{MessageUtils.GetAlternateName(biggestBombBagItem)}\u0000, but I'm focusing my marketing efforts on \u0001Gorons\u0000.".Wrap(35, "\u0011").EndTextbox() + "What I'd really like to do is go back home and do business where I'm surrounded by trees and grass.\u0019\u00BF".Wrap(35, "\u0011")
+                    Message = $"I sell {biggestBombBagItem.GetArticle()}\u0001{biggestBombBagItem.GetAlternateName()}\u0000, but I'm focusing my marketing efforts on \u0001Gorons\u0000.".Wrap(35, "\u0011").EndTextbox() + "What I'd really like to do is go back home and do business where I'm surrounded by trees and grass.\u0019\u00BF".Wrap(35, "\u0011")
                 });
                 newMessages.Add(new MessageEntry
                 {
@@ -1131,61 +1132,61 @@ namespace MMR.Randomizer
                 {
                     Id = 0x1600,
                     Header = null,
-                    Message = $"\x1E\x38\x81I'll give you {MessageUtils.GetArticle(biggestBombBagItem, "my ")}\u0001{biggestBombBagItem.Name()}\u0000, regularly priced at \u00061000 Rupees\u0000...".Wrap(35, "\u0011").EndTextbox() + "In return, you'll give me just\u0011\u0006200 Rupees\u0000!\u0019\u00BF"
+                    Message = $"\x1E\x38\x81I'll give you {biggestBombBagItem.GetArticle("my ")}\u0001{biggestBombBagItem.DisplayName}\u0000, regularly priced at \u00061000 Rupees\u0000...".Wrap(35, "\u0011").EndTextbox() + "In return, you'll give me just\u0011\u0006200 Rupees\u0000!\u0019\u00BF"
                 });
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x1606,
                     Header = null,
-                    Message = $"\x1E\x38\x81I'll give you {MessageUtils.GetArticle(biggestBombBagItem, "my ")}\u0001{biggestBombBagItem.Name()}\u0000, regularly priced at \u00061000 Rupees\u0000, for just \u0006200 Rupees\u0000!\u0019\u00BF".Wrap(35, "\u0011")
+                    Message = $"\x1E\x38\x81I'll give you {biggestBombBagItem.GetArticle("my ")}\u0001{biggestBombBagItem.DisplayName}\u0000, regularly priced at \u00061000 Rupees\u0000, for just \u0006200 Rupees\u0000!\u0019\u00BF".Wrap(35, "\u0011")
                 });
 
                 // update swamp scrub purchase
-                var magicBeanItem = _randomized.ItemList.First(io => io.NewLocation == Item.ShopItemBusinessScrubMagicBean).Item;
+                var magicBeanItem = _randomized.ItemList.First(io => io.NewLocation == Item.ShopItemBusinessScrubMagicBean);
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x15E1,
                     Header = null,
-                    Message = $"\x1E\x39\xA7I'm selling {MessageUtils.GetArticle(magicBeanItem)}\u0001{MessageUtils.GetAlternateName(magicBeanItem)}\u0000 to Deku Scrubs, but I'd really like to leave my hometown.".Wrap(35, "\u0011").EndTextbox() + "I'm hoping to find some success in a livelier place!\u0019\u00BF".Wrap(35, "\u0011")
+                    Message = $"\x1E\x39\xA7I'm selling {magicBeanItem.GetArticle()}\u0001{magicBeanItem.GetAlternateName()}\u0000 to Deku Scrubs, but I'd really like to leave my hometown.".Wrap(35, "\u0011").EndTextbox() + "I'm hoping to find some success in a livelier place!\u0019\u00BF".Wrap(35, "\u0011")
                 });
 
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x15E9,
                     Header = null,
-                    Message = $"\x1E\x3A\u00D2Do you know what {MessageUtils.GetArticle(magicBeanItem)}\u0001{MessageUtils.GetAlternateName(magicBeanItem)}\u0000 {MessageUtils.GetVerb(magicBeanItem)}, sir?".Wrap(35, "\u0011") + $"\u0011I'll sell you{MessageUtils.GetPronounOrAmount(magicBeanItem).ToLower()} for \u000610 Rupees\u0000.\u0019\u00BF"
+                    Message = $"\x1E\x3A\u00D2Do you know what {magicBeanItem.GetArticle()}\u0001{magicBeanItem.GetAlternateName()}\u0000 {magicBeanItem.GetVerb()}, sir?".Wrap(35, "\u0011") + $"\u0011I'll sell you{magicBeanItem.GetPronounOrAmount().ToLower()} for \u000610 Rupees\u0000.\u0019\u00BF"
                 });
 
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x15F3,
                     Header = null,
-                    Message = $"\x1E\x3A\u00D2Do you know what {MessageUtils.GetArticle(magicBeanItem)}\u0001{MessageUtils.GetAlternateName(magicBeanItem)}\u0000 {MessageUtils.GetVerb(magicBeanItem)}?".Wrap(35, "\u0011") + $"\u0011I'll sell you{MessageUtils.GetPronounOrAmount(magicBeanItem).ToLower()} for \u000610 Rupees\u0000.\u0019\u00BF"
+                    Message = $"\x1E\x3A\u00D2Do you know what {magicBeanItem.GetArticle()}\u0001{magicBeanItem.GetAlternateName()}\u0000 {magicBeanItem.GetVerb()}?".Wrap(35, "\u0011") + $"\u0011I'll sell you{magicBeanItem.GetPronounOrAmount().ToLower()} for \u000610 Rupees\u0000.\u0019\u00BF"
                 });
 
                 // update ocean scrub purchase
-                var greenPotionItem = _randomized.ItemList.First(io => io.NewLocation == Item.ShopItemBusinessScrubGreenPotion).Item;
+                var greenPotionItem = _randomized.ItemList.First(io => io.NewLocation == Item.ShopItemBusinessScrubGreenPotion);
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x1608,
                     Header = null,
-                    Message = $"\x1E\x39\xA7I'm selling {MessageUtils.GetArticle(greenPotionItem)}\u0001{MessageUtils.GetAlternateName(greenPotionItem)}\u0000, but I'm focusing my marketing efforts on Zoras.".Wrap(35, "\u0011").EndTextbox() + "Actually, I'd like to do business someplace where it's cooler and the air is clean.\u0019\u00BF".Wrap(35, "\u0011")
+                    Message = $"\x1E\x39\xA7I'm selling {greenPotionItem.GetArticle()}\u0001{greenPotionItem.GetAlternateName()}\u0000, but I'm focusing my marketing efforts on Zoras.".Wrap(35, "\u0011").EndTextbox() + "Actually, I'd like to do business someplace where it's cooler and the air is clean.\u0019\u00BF".Wrap(35, "\u0011")
                 });
 
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x1612,
                     Header = null,
-                    Message = $"\x1E\x39\x8CI'll sell you {MessageUtils.GetArticle(greenPotionItem)}\u0001{greenPotionItem.Name()}\u0000 for \u000640 Rupees\u0000!\u00E0\u00BF".Wrap(35, "\u0011")
+                    Message = $"\x1E\x39\x8CI'll sell you {greenPotionItem.GetArticle()}\u0001{greenPotionItem.DisplayName}\u0000 for \u000640 Rupees\u0000!\u00E0\u00BF".Wrap(35, "\u0011")
                 });
 
                 var coldifyRegex = new Regex("([A-Z])");
-                var coldItemName = coldifyRegex.Replace(greenPotionItem.Name(), "$1-$1");
+                var coldItemName = coldifyRegex.Replace(greenPotionItem.DisplayName, "$1-$1");
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x1617,
                     Header = null,
-                    Message = $"\x1E\x39\x8CI'll s-sell you {MessageUtils.GetArticle(greenPotionItem)}\u0001{coldItemName}\u0000 for \u000640 Rupees\u0000.\u00E0\u00BF".Wrap(35, "\u0011")
+                    Message = $"\x1E\x39\x8CI'll s-sell you {greenPotionItem.GetArticle()}\u0001{coldItemName}\u0000 for \u000640 Rupees\u0000.\u00E0\u00BF".Wrap(35, "\u0011")
                 });
 
                 newMessages.Add(new MessageEntry
@@ -1196,26 +1197,26 @@ namespace MMR.Randomizer
                 });
 
                 // update canyon scrub purchase
-                var bluePotionItem = _randomized.ItemList.First(io => io.NewLocation == Item.ShopItemBusinessScrubBluePotion).Item;
+                var bluePotionItem = _randomized.ItemList.First(io => io.NewLocation == Item.ShopItemBusinessScrubBluePotion);
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x161C,
                     Header = null,
-                    Message = $"\x1E\x39\xA7I'm here to sell {MessageUtils.GetArticle(bluePotionItem)}\u0001{MessageUtils.GetAlternateName(bluePotionItem)}\u0000.".Wrap(35, "\u0011").EndTextbox() + "Actually, I want to do business in the sea breeze while listening to the sound of the waves.\u0019\u00BF".Wrap(35, "\u0011")
+                    Message = $"\x1E\x39\xA7I'm here to sell {bluePotionItem.GetArticle()}\u0001{bluePotionItem.GetAlternateName()}\u0000.".Wrap(35, "\u0011").EndTextbox() + "Actually, I want to do business in the sea breeze while listening to the sound of the waves.\u0019\u00BF".Wrap(35, "\u0011")
                 });
 
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x1626,
                     Header = null,
-                    Message = $"\x1E\x3A\u00D2Don't you need {MessageUtils.GetArticle(bluePotionItem)}\u0001{MessageUtils.GetAlternateName(bluePotionItem)}\u0000? I'll sell you{MessageUtils.GetPronounOrAmount(bluePotionItem).ToLower()} for \u0006100 Rupees\u0000.\u0019\u00BF".Wrap(35, "\u0011")
+                    Message = $"\x1E\x3A\u00D2Don't you need {bluePotionItem.GetArticle()}\u0001{bluePotionItem.GetAlternateName()}\u0000? I'll sell you{bluePotionItem.GetPronounOrAmount().ToLower()} for \u0006100 Rupees\u0000.\u0019\u00BF".Wrap(35, "\u0011")
                 });
 
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x162D,
                     Header = null,
-                    Message = $"\x1E\x39\x8CI'll sell you {MessageUtils.GetArticle(bluePotionItem)}\u0001{bluePotionItem.Name()}\u0000 for \u0006100 Rupees\u0000.\u00E0\u00BF".Wrap(35, "\u0011")
+                    Message = $"\x1E\x39\x8CI'll sell you {bluePotionItem.GetArticle()}\u0001{bluePotionItem.DisplayName}\u0000 for \u0006100 Rupees\u0000.\u00E0\u00BF".Wrap(35, "\u0011")
                 });
 
                 newMessages.Add(new MessageEntry
@@ -1226,45 +1227,45 @@ namespace MMR.Randomizer
                 });
 
                 // update gorman bros milk purchase
-                var gormanBrosMilkItem = _randomized.ItemList.First(io => io.NewLocation == Item.ShopItemGormanBrosMilk).Item;
+                var gormanBrosMilkItem = _randomized.ItemList.First(io => io.NewLocation == Item.ShopItemGormanBrosMilk);
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x3463,
                     Header = null,
-                    Message = $"Won'tcha buy {MessageUtils.GetArticle(gormanBrosMilkItem)}\u0001{MessageUtils.GetAlternateName(gormanBrosMilkItem)}\u0000?\u0019\u00BF".Wrap(35, "\u0011")
+                    Message = $"Won'tcha buy {gormanBrosMilkItem.GetArticle()}\u0001{gormanBrosMilkItem.GetAlternateName()}\u0000?\u0019\u00BF".Wrap(35, "\u0011")
                 });
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x3466,
                     Header = null,
-                    Message = $"\u000650 Rupees\u0000 will do ya for{MessageUtils.GetPronounOrAmount(gormanBrosMilkItem).ToLower()}.\u0011 \u0011\u0002\u00C2I'll buy {MessageUtils.GetPronoun(gormanBrosMilkItem)}\u0011No thanks\u00BF"
+                    Message = $"\u000650 Rupees\u0000 will do ya for{gormanBrosMilkItem.GetPronounOrAmount().ToLower()}.\u0011 \u0011\u0002\u00C2I'll buy {gormanBrosMilkItem.GetPronoun()}\u0011No thanks\u00BF"
                 });
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x346B,
                     Header = null,
-                    Message = $"Buyin' {MessageUtils.GetArticle(gormanBrosMilkItem)}\u0001{MessageUtils.GetAlternateName(gormanBrosMilkItem)}\u0000?\u0019\u00BF".Wrap(35, "\u0011")
+                    Message = $"Buyin' {gormanBrosMilkItem.GetArticle()}\u0001{gormanBrosMilkItem.GetAlternateName()}\u0000?\u0019\u00BF".Wrap(35, "\u0011")
                 });
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x348F,
                     Header = null,
-                    Message = $"Seems like we're the only ones who have {MessageUtils.GetArticle(gormanBrosMilkItem)}\u0001{MessageUtils.GetAlternateName(gormanBrosMilkItem)}\u0000. Hyuh, hyuh. If you like, I'll sell you{MessageUtils.GetPronounOrAmount(gormanBrosMilkItem).ToLower()}.\u0019\u00BF".Wrap(35, "\u0011")
+                    Message = $"Seems like we're the only ones who have {gormanBrosMilkItem.GetArticle()}\u0001{gormanBrosMilkItem.GetAlternateName()}\u0000. Hyuh, hyuh. If you like, I'll sell you{gormanBrosMilkItem.GetPronounOrAmount().ToLower()}.\u0019\u00BF".Wrap(35, "\u0011")
                 });
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x3490,
                     Header = null,
-                    Message = $"\u000650 Rupees\u0000 will do you for{MessageUtils.GetPronounOrAmount(gormanBrosMilkItem).ToLower()}!\u0011 \u0011\u0002\u00C2I'll buy {MessageUtils.GetPronoun(gormanBrosMilkItem)}\u0011No thanks\u00BF"
+                    Message = $"\u000650 Rupees\u0000 will do you for{gormanBrosMilkItem.GetPronounOrAmount().ToLower()}!\u0011 \u0011\u0002\u00C2I'll buy {gormanBrosMilkItem.GetPronoun()}\u0011No thanks\u00BF"
                 });
 
                 // update lottery message
-                var lotteryItem = _randomized.ItemList.First(io => io.NewLocation == Item.MundaneItemLotteryPurpleRupee).Item;
+                var lotteryItem = _randomized.ItemList.First(io => io.NewLocation == Item.MundaneItemLotteryPurpleRupee);
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x2B5C,
                     Header = null,
-                    Message = $"Would you like the chance to buy your dreams for \u000610 Rupees\u0000?".Wrap(35, "\u0011").EndTextbox() + $"Pick any three numbers, and if those are picked, you'll win {MessageUtils.GetArticle(lotteryItem)}\u0001{lotteryItem.Name()}\u0000. It's only for the \u0001first\u0000 person!\u0019\u00BF".Wrap(35, "\u0011")
+                    Message = $"Would you like the chance to buy your dreams for \u000610 Rupees\u0000?".Wrap(35, "\u0011").EndTextbox() + $"Pick any three numbers, and if those are picked, you'll win {lotteryItem.GetArticle()}\u0001{lotteryItem.DisplayName}\u0000. It's only for the \u0001first\u0000 person!\u0019\u00BF".Wrap(35, "\u0011")
                 });
 
             }
@@ -1624,84 +1625,21 @@ namespace MMR.Randomizer
         }
 
         /// <summary>
-        /// Overwrite junk items with ice traps.
+        /// Write data related to ice traps to ROM.
         /// </summary>
-        /// <param name="iceTraps">Ice traps amount setting</param>
-        /// <param name="appearance">Ice traps appearance setting</param>
-        public void WriteIceTraps(IceTraps iceTraps, IceTrapAppearance appearance)
+        public void WriteIceTraps()
         {
-            var random = new Random();
-
-            // Select replaceable junk items of specified amount.
-            var items = IceTrapUtils.SelectJunkItems(_randomized.ItemList, iceTraps, random);
-
-            // Dynamically generate appearance set for ice traps.
-            // Only mimic song items if they are included in the main randomization pool (not in their own pool).
-            var mimics = IceTrapUtils.BuildIceTrapMimicSet(_randomized.ItemList, appearance, _randomized.Settings.AddSongs)
-                .ToArray();
-
-            var newMessages = new List<MessageEntry>();
-
-            foreach (var item in items)
+            // Add mimic graphic to graphic overrides table.
+            foreach (var item in _randomized.IceTraps)
             {
                 var newLocation = item.NewLocation.Value;
                 if (newLocation.IsVisible() || newLocation.IsShop())
                 {
-                    // If check is visible (can be seen via world model), add "graphic override" for imitating other item.
-                    var mimic = mimics[random.Next(mimics.Length)];
                     var giIndex = item.NewLocation.Value.GetItemIndex().Value;
-                    _graphicOverrides.Add(giIndex, mimic.Graphic);
-
-                    // Store graphic override name for logging in HTML tracker.
-                    item.ID = (int)Item.IceTrap;
-                    item.Mimic = mimic;
-                    item.NameOverride = $"{Item.IceTrap.Name()} ({mimic.Name})";
-
-                    // If placed as a shop item, use a fake shop item name.
-                    if (newLocation.IsShop())
-                    {
-                        item.Mimic.ShopName = FakeNameUtils.CreateFakeName(item.Mimic.Name, random);
-                    }
-                }
-                else
-                {
-                    item.ID = (int)Item.IceTrap;
-                    item.NameOverride = Item.IceTrap.Name();
-                }
-
-                // Choose chest type for ice trap appearance.
-                ChestTypeAttribute.ChestType? chestOverride = null;
-                if (_randomized.Settings.UpdateChests)
-                {
-                    chestOverride = IceTrapUtils.GetIceTrapChestTypeOverride(appearance, random);
-                }
-
-                // Overwrite existing item with ice trap.
-                ItemSwapUtils.WriteNewItem(
-                    item.NewLocation.Value,
-                    item.Item, newMessages,
-                    _randomized.Settings.UpdateShopAppearance,
-                    _randomized.Settings.PreventDowngrades,
-                    _randomized.Settings.UpdateChests && item.IsRandomized,
-                    chestOverride,
-                    _randomized.Settings.CustomStartingItemList.Contains(item.Item),
-                    _randomized.Settings.QuestItemStorage,
-                    item.Mimic
-                );
-            }
-
-            // Update shop messages.
-            var copyRupeesRegex = new Regex(": [0-9]+ Rupees");
-            foreach (var newMessage in newMessages)
-            {
-                var oldMessage = _messageTable.GetMessage(newMessage.Id);
-                if (oldMessage != null)
-                {
-                    var cost = copyRupeesRegex.Match(oldMessage.Message).Value;
-                    newMessage.Message = copyRupeesRegex.Replace(newMessage.Message, cost);
+                    var graphic = item.Mimic.ResolveGraphic();
+                    _graphicOverrides.Add(giIndex, graphic);
                 }
             }
-            _messageTable.UpdateMessages(newMessages);
 
             // Add "You are a FOOL!" message to extra messages table.
             var entry = new MessageEntry(
@@ -1789,10 +1727,7 @@ namespace MMR.Randomizer
                 if (_randomized.Settings.IceTraps != IceTraps.None)
                 {
                     progressReporter.ReportProgress(70, "Writing ice traps...");
-                    WriteIceTraps(_randomized.Settings.IceTraps, _randomized.Settings.IceTrapAppearance);
-
-                    // Write message table again for updated ice trap shop messages.
-                    MessageTable.WriteDefault(_messageTable, _randomized.Settings.QuickTextEnabled);
+                    WriteIceTraps();
                 }
 
                 // Load Asm data from internal resource files and apply

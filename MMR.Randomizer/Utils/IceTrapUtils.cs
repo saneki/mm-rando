@@ -126,9 +126,7 @@ namespace MMR.Randomizer.Utils
                         var name = itemObj.Item.Name();
 
                         // Add mimic item to set.
-                        var getItem = RomData.GetItemList[index.Value];
-                        var itemGraphic = new ItemGraphic(getItem.Index, (ushort)getItem.Object);
-                        var mimicItem = new MimicItem(itemObj.Item, name, itemGraphic);
+                        var mimicItem = new MimicItem(itemObj.Item, name);
                         mimics.Add(mimicItem);
                     }
                 }
