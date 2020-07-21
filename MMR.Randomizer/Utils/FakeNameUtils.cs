@@ -35,7 +35,9 @@ namespace MMR.Randomizer.Utils
             result.Add("Container", "Contaminator");
             result.Add("Couple's", "Divorce");
             result.Add("Deed", "Dead");
+            result.Add("Deity", "Daemon,Diety,God");
             result.Add("Deku", "Scrub,Tree");
+            result.Add("Don", "Lon");
             result.Add("Double", "Extra");
             result.Add("Dust", "Crust,Rust");
             result.Add("Elegy", "Melody");
@@ -43,16 +45,17 @@ namespace MMR.Randomizer.Utils
             result.Add("Emptiness", "Clones,Eligibility");
             result.Add("Empty", "Emptied,Full");
             result.Add("Fairy", "Pixie,Spirit");
+            result.Add("Fierce", "Feared,Fearsome,Feisty");
             result.Add("Fire", "Lava,Flame");
             result.Add("Garo", "Gero,Ninja");
             result.Add("Gero", "Garo");
             result.Add("Giant's", "Colossus");
-            result.Add("Gibdo", "Redead");
+            result.Add("Gibdo", "Redead,Spooky");
             result.Add("Gilded", "Master");
-            result.Add("Gold", "Golden");
+            result.Add("Gold", "Golden,Shiny");
             result.Add("Goron", "Darmani,Darunia,Ganon");
             result.Add("Great", "Grate");
-            result.Add("Hat", "Hood,Mask");
+            result.Add("Hat", "Cap,Hood,Mask");
             result.Add("Healing", "Feeling");
             result.Add("Heart", "Hate,Life");
             result.Add("Hero's", "Fairy,Hylian,Zero's");
@@ -60,7 +63,7 @@ namespace MMR.Randomizer.Utils
             result.Add("Hookshot", "Longshot");
             result.Add("Ice", "Freeze,Icy");
             result.Add("Kafei", "Cafe");
-            result.Add("Kamaro", "Dancer");
+            result.Add("Kamaro", "Dancer,Karamo");
             result.Add("Keaton", "Keeton,Pikachu");
             result.Add("Keg", "Bomb,Explosive");
             result.Add("Large", "Big,Larger");
@@ -84,6 +87,7 @@ namespace MMR.Randomizer.Utils
             result.Add("Room", "Door,Inn");
             result.Add("Scents", "Smells");
             result.Add("Shield", "Defense");
+            result.Add("Silver", "Large");
             result.Add("Skulltula", "Spider");
             result.Add("Small", "Dungeon");
             result.Add("Snowhead", "Snowdead");
