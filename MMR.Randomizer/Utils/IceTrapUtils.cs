@@ -42,12 +42,12 @@ namespace MMR.Randomizer.Utils
             }
             else if (iceTraps == IceTraps.Normal)
             {
-                var amount = allJunk.Length / 20;
+                var amount = allJunk.Length / 15;
                 return allJunk.Random(amount, random);
             }
             else if (iceTraps == IceTraps.Extra)
             {
-                var amount = allJunk.Length / 10;
+                var amount = allJunk.Length / 7;
                 return allJunk.Random(amount, random);
             }
             else
