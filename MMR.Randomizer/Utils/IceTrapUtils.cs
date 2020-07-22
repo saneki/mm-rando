@@ -1,4 +1,5 @@
-﻿using MMR.Randomizer.Attributes;
+﻿using MMR.Common.Extensions;
+using MMR.Randomizer.Attributes;
 using MMR.Randomizer.Extensions;
 using MMR.Randomizer.Models;
 using MMR.Randomizer.Models.Settings;
@@ -43,12 +44,12 @@ namespace MMR.Randomizer.Utils
             else if (iceTraps == IceTraps.Normal)
             {
                 var amount = allJunk.Length / 20;
-                return RandomUtils.Select(allJunk, amount, random);
+                return allJunk.Random(amount, random);
             }
             else if (iceTraps == IceTraps.Extra)
             {
                 var amount = allJunk.Length / 10;
-                return RandomUtils.Select(allJunk, amount, random);
+                return allJunk.Random(amount, random);
             }
             else
             {

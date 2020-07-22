@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MMR.Common.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -147,7 +148,7 @@ namespace MMR.Randomizer.Utils
                 if (word.StartsWith(kvp.Key))
                 {
                     var allReplacements = kvp.Value.Split(',');
-                    var replacement = RandomUtils.Select(allReplacements, random);
+                    var replacement = allReplacements.Random(random);
                     word = word.Replace(kvp.Key, replacement);
                     subs[index] = word;
                     return string.Join(" ", subs);
@@ -169,13 +170,13 @@ namespace MMR.Randomizer.Utils
             var array = name.ToCharArray();
             var mapped = array.Select((chr, idx) => (chr, idx)).ToList();
             var indexes = (from x in mapped where vowels.Contains(x.chr) select x.idx).ToArray();
-            var samples = RandomUtils.Select(indexes, Math.Min(indexes.Length, minimum), random);
+            var samples = indexes.Random(Math.Min(indexes.Length, minimum), random);
             foreach (var idx in samples)
             {
                 // Replace existing vowel with random new vowel.
                 var oldVowel = array[idx];
                 var otherVowels = new string(vowels).Replace(oldVowel.ToString(), "").ToCharArray();
-                var newVowel = RandomUtils.Select(otherVowels, random);
+                var newVowel = otherVowels.Random(random);
                 array[idx] = newVowel;
             }
 
