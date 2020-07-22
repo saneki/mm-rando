@@ -106,6 +106,11 @@ namespace MMR.Randomizer.Extensions
             return item.GetAttribute<ChestTypeAttribute>().Type;
         }
 
+        public static bool IsPurchaseable(this Item item)
+        {
+            return item.HasAttribute<PurchaseableAttribute>();
+        }
+
         public static bool IsVisible(this Item item)
         {
             return item.HasAttribute<VisibleAttribute>();

@@ -275,7 +275,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x1C)]
         UpgradeBigBombBag,
 
-        [Downgradable]
+        [Downgradable, Purchaseable]
         [StartingItem(0xC5CE2A, 0x06)]
         [StartingItem(0xC5CE6F, 0x18)]
         [ItemName("Biggest Bomb Bag"), LocationName("Biggest Bomb Bag Purchase"), Region(Region.GoronVillage)]
@@ -490,6 +490,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0xA3)]
         HeartPieceTerminaGossipStones,
 
+        [Purchaseable]
         [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Piece of Heart"), LocationName("Business Scrub Purchase"), Region(Region.TerminaField)]
         [GossipLocationHint("a hidden merchant"), GossipItemHint("a segment of health")]
@@ -2012,6 +2013,7 @@ namespace MMR.Randomizer.GameObjects
         HeartContainerStoneTower,
 
         //maps
+        [Purchaseable]
         [ItemName("Map of Clock Town"), LocationName("Clock Town Map Purchase"), Region(Region.NorthClockTown)]
         [GossipLocationHint("a map maker", "a forest fairy"), GossipItemHint("a world map")]
         [ShopText("Map of Clock Town.")]
@@ -2019,6 +2021,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0xB4)]
         ItemTingleMapTown,
 
+        [Purchaseable]
         [ItemName("Map of Woodfall"), LocationName("Woodfall Map Purchase"), Region(Region.RoadToSouthernSwamp)]
         [GossipLocationHint("a map maker", "a forest fairy"), GossipItemHint("a world map")]
         [ShopText("Map of the south.")]
@@ -2026,6 +2029,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0xB5)]
         ItemTingleMapWoodfall,
 
+        [Purchaseable]
         [ItemName("Map of Snowhead"), LocationName("Snowhead Map Purchase"), Region(Region.RoadToSouthernSwamp)]
         [GossipLocationHint("a map maker", "a forest fairy"), GossipItemHint("a world map")]
         [ShopText("Map of the north.")]
@@ -2033,6 +2037,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0xB6)]
         ItemTingleMapSnowhead,
 
+        [Purchaseable]
         [ItemName("Map of Romani Ranch"), LocationName("Romani Ranch Map Purchase"), Region(Region.MilkRoad)]
         [GossipLocationHint("a map maker", "a forest fairy"), GossipItemHint("a world map")]
         [ShopText("Map of the ranch.")]
@@ -2040,6 +2045,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0xB7)]
         ItemTingleMapRanch,
 
+        [Purchaseable]
         [ItemName("Map of Great Bay"), LocationName("Great Bay Map Purchase"), Region(Region.MilkRoad)]
         [GossipLocationHint("a map maker", "a forest fairy"), GossipItemHint("a world map")]
         [ShopText("Map of the west.")]
@@ -2047,6 +2053,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0xB8)]
         ItemTingleMapGreatBay,
 
+        [Purchaseable]
         [ItemName("Map of Stone Tower"), LocationName("Stone Tower Map Purchase"), Region(Region.GreatBayCoast)]
         [GossipLocationHint("a map maker", "a forest fairy"), GossipItemHint("a world map")]
         [ShopText("Map of the east.")]
@@ -3223,6 +3230,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x1C2)]
         CollectibleStrayFairyStoneTower15,
 
+        [Purchaseable]
         [RupeeRepeatable]
         [Repeatable]
         [ItemName("Purple Rupee"), LocationName("Lottery"), Region(Region.WestClockTown)]
@@ -3240,7 +3248,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x13D)]
         MundaneItemBankBlueRupee,
 
-        [Repeatable, Temporary, CycleRepeatable, Overwritable]
+        [Repeatable, Temporary, CycleRepeatable, Overwritable, Purchaseable]
         [ItemName("Chateau Romani"), LocationName("Milk Bar Chateau"), Region(Region.EastClockTown)]
         [GossipLocationHint("a town shop"), GossipItemHint("a dairy product", "an adult beverage")]
         [ShopText("Drink it to get lasting stamina for your magic power.", isMultiple: true)]
@@ -3248,7 +3256,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x180)]
         ShopItemMilkBarChateau,
 
-        [Repeatable, Temporary, CycleRepeatable, Overwritable]
+        [Repeatable, Temporary, CycleRepeatable, Overwritable, Purchaseable]
         [ItemName("Milk"), LocationName("Milk Bar Milk"), Region(Region.EastClockTown)]
         [GossipLocationHint("a town shop"), GossipItemHint("a dairy product", "the produce of cows")]
         [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
@@ -3303,7 +3311,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x18F)]
         MundaneItemPictographContestRedRupee,
 
-        [Repeatable, Temporary, CycleRepeatable]
+        [Repeatable, Temporary, CycleRepeatable, Purchaseable]
         [ItemName("Magic Bean"), LocationName("Swamp Scrub Purchase"), Region(Region.SouthernSwamp)]
         [GossipLocationHint("a southern merchant"), GossipItemHint("a plant seed")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -3311,7 +3319,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x19B)]
         ShopItemBusinessScrubMagicBean,
 
-        [Repeatable, Temporary, CycleRepeatable, Overwritable]
+        [Repeatable, Temporary, CycleRepeatable, Overwritable, Purchaseable]
         [ItemName("Green Potion"), LocationName("Ocean Scrub Purchase"), Region(Region.ZoraHall)]
         [GossipLocationHint("a western merchant"), GossipItemHint("a magic potion", "a green drink")]
         [ShopText("Replenishes your magic power.")]
@@ -3319,7 +3327,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x19C)]
         ShopItemBusinessScrubGreenPotion,
 
-        [Repeatable, Temporary, CycleRepeatable, Overwritable]
+        [Repeatable, Temporary, CycleRepeatable, Overwritable, Purchaseable]
         [ItemName("Blue Potion"), LocationName("Canyon Scrub Purchase"), Region(Region.IkanaCanyon)]
         [GossipLocationHint("an eastern merchant"), GossipItemHint("consumable strength", "a magic potion", "a blue drink")]
         [ShopText("Replenishes both life energy and magic power.")]
@@ -3335,7 +3343,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x19E)]
         MundaneItemZoraStageLightsBlueRupee,
 
-        [Repeatable, Temporary, CycleRepeatable, Overwritable]
+        [Repeatable, Temporary, CycleRepeatable, Overwritable, Purchaseable]
         [ItemName("Milk"), LocationName("Gorman Bros Milk Purchase"), Region(Region.MilkRoad)]
         [GossipLocationHint("a shady gentleman", "a dodgy seller", "a shady dealer"), GossipItemHint("a dairy product", "the produce of cows")]
         [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
