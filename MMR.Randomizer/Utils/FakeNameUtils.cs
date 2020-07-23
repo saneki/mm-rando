@@ -79,9 +79,11 @@ namespace MMR.Randomizer.Utils
             result.Add("Giant's", "Colossus");
             result.Add("Gibdo", "Redead,Spooky");
             result.Add("Gilded", "Master");
+            result.Add("Goht", "Goat");
             result.Add("Gold", "Golden,Shiny");
             result.Add("Goron", "Darmani,Darunia,Ganon");
             result.Add("Great", "Grate");
+            result.Add("Gyorg", "Fish,Greg");
             result.Add("Hat", "Cap,Hood,Mask");
             result.Add("Healing", "Feeling,Sealing");
             result.Add("Heart", "Hate,Life");
@@ -101,6 +103,7 @@ namespace MMR.Randomizer.Utils
             result.Add("Memories", "Dreams,Memoires");
             result.Add("Night", "Day");
             result.Add("Ocean", "Water,River");
+            result.Add("Odolwa", "Odalwa");
             result.Add("Order", "Giants");
             result.Add("Pendant", "Jewel,Locket");
             result.Add("Pictobox", "Camerabox,Picto Box,Picturebox");
@@ -110,6 +113,7 @@ namespace MMR.Randomizer.Utils
             result.Add("Powder", "Power,Super");
             result.Add("Power", "Energy");
             result.Add("Purple", "Violet");
+            result.Add("Remains", "Fragments,Remnants");
             result.Add("Romani", "Roman,Moroni");
             result.Add("Room", "Door,Inn");
             result.Add("Scents", "Smells");
@@ -134,6 +138,7 @@ namespace MMR.Randomizer.Utils
             result.Add("Title", "Tidal");
             result.Add("Town", "City,Village");
             result.Add("Truth", "Lying,Sight");
+            result.Add("Twinmold", "Twinfold,Twinworm");
             result.Add("Wave", "Cave,Wade");
             result.Add("Woodfall", "Woodtall");
             result.Add("Zora", "Mikau,Ruto");
