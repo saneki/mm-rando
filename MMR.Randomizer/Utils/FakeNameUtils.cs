@@ -8,9 +8,34 @@ namespace MMR.Randomizer.Utils
     public static class FakeNameUtils
     {
         /// <summary>
+        /// Replacement full name mapping for fake item names.
+        /// </summary>
+        static readonly Dictionary<string, string> Full = CreateFullReplacements();
+
+        /// <summary>
         /// Replacement word mapping for fake item names.
         /// </summary>
         static readonly Dictionary<string, string> Words = CreateWordReplacements();
+
+        /// <summary>
+        /// Get replacement full name mapping.
+        /// </summary>
+        /// <returns>Mapping.</returns>
+        public static Dictionary<string, string> CreateFullReplacements()
+        {
+            var result = new Dictionary<string, string>();
+            result.Add("Captain's Hat", "Skull Mask");
+            result.Add("Don Gero's Mask", "Frog Choir Mask");
+            result.Add("Double Defense", "Nayru's Love");
+            result.Add("Fire Arrows", "Din's Fire");
+            result.Add("Goron Mask", "Goron Tunic");
+            result.Add("Great Fairy's Mask", "Gerudo Mask");
+            result.Add("Heart Container", "Container of Heart");
+            result.Add("Piece of Heart", "Heart Piece");
+            result.Add("Song of Soaring", "Farore's Wind");
+            result.Add("Zora Mask", "Zora Tunic");
+            return result;
+        }
 
         /// <summary>
         /// Get replacement word mapping.
@@ -123,7 +148,16 @@ namespace MMR.Randomizer.Utils
         /// <returns>Fake name.</returns>
         public static string CreateFakeName(string name, Random random)
         {
-            if (random.Next(100) <= 70)
+            var roll = random.Next(100);
+            if (roll <= 10)
+            {
+                var result = ReplaceFull(name, random);
+                if (result != null)
+                {
+                    return result;
+                }
+            }
+            else if (roll <= 70)
             {
                 var result = ReplaceWord(name, random);
                 if (result != null)
@@ -133,6 +167,25 @@ namespace MMR.Randomizer.Utils
             }
 
             return ReplaceVowels(name, random);
+        }
+
+        /// <summary>
+        /// Attempt to create a fake name by replacing the existing name.
+        /// </summary>
+        /// <param name="name">Existing name</param>
+        /// <param name="random">Random</param>
+        /// <returns>Fake name if successful, or null if not successful.</returns>
+        public static string ReplaceFull(string name, Random random)
+        {
+            string replacements;
+            if (Full.TryGetValue(name, out replacements))
+            {
+                return replacements.Split(',').Random(random);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>
