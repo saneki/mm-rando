@@ -18,10 +18,12 @@ namespace MMR.Randomizer.Utils
         /// <returns>Replaceable junk items.</returns>
         public static ItemObject[] GetJunkItems(ItemList itemList, bool onslaught = false)
         {
-            // Use JunkItem list, but exclude Heart Pieces and multi-Bombchu drops.
+            // Use JunkItem list, but exclude Heart Pieces and Heart Containers.
             return itemList.FindAll(x => {
-                return (x.IsRandomized || onslaught) && x.NewLocation != null && ItemUtils.JunkItems.Contains(x.Item) &&
-                !x.Item.Name().Equals("Piece of Heart") && !x.Item.Name().Contains(" Bombchu");
+                return (x.IsRandomized || onslaught)
+                && x.NewLocation != null
+                && ItemUtils.JunkItems.Contains(x.Item)
+                && !x.Item.Name().Contains("Heart");
             }).ToArray();
         }
 
