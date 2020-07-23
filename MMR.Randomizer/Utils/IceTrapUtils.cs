@@ -87,21 +87,6 @@ namespace MMR.Randomizer.Utils
         }
 
         /// <summary>
-        /// Fix <see cref="MimicItem"/> name for spoiler log.
-        /// </summary>
-        /// <param name="name">Existing name</param>
-        /// <returns>Fixed name.</returns>
-        public static string FixItemGraphicName(string name)
-        {
-            if (name.Contains("Compass")) name = "Compass";
-            else if (name.Contains("Map of")) name = "Tingle Map";
-            else if (name.Contains("Map")) name = "Dungeon Map";
-            else if (name.Contains("Small Key")) name = "Small Key";
-            else if (name.Contains("Boss Key")) name = "Boss Key";
-            return name;
-        }
-
-        /// <summary>
         /// Build set of mimic items from the randomization pool which ice traps may use.
         /// </summary>
         /// <param name="itemList">Randomized items</param>
@@ -123,12 +108,8 @@ namespace MMR.Randomizer.Utils
                         (appearance == IceTrapAppearance.JunkItems && chestType == ChestTypeAttribute.ChestType.SmallWooden) ||
                         (appearance == IceTrapAppearance.Anything))
                     {
-                        // Fix item name for spoiler log.
-                        // var name = FixItemGraphicName(itemObj.Item.Name());
-                        var name = itemObj.Item.Name();
-
                         // Add mimic item to set.
-                        var mimicItem = new MimicItem(itemObj.Item, name);
+                        var mimicItem = new MimicItem(itemObj.Item);
                         mimics.Add(mimicItem);
                     }
                 }

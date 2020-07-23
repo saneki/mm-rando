@@ -13,11 +13,6 @@ namespace MMR.Randomizer.Models
         public Item Item { get; }
 
         /// <summary>
-        /// Mimic item name.
-        /// </summary>
-        public string Name { get; }
-
-        /// <summary>
         /// Fake shop name.
         /// </summary>
         public string ShopName { get; set; }
@@ -27,10 +22,14 @@ namespace MMR.Randomizer.Models
         /// </summary>
         public ChestTypeAttribute.ChestType? ChestType { get; set; }
 
-        public MimicItem(Item item, string name)
+        /// <summary>
+        /// Underlying item name.
+        /// </summary>
+        public string Name => this.Item.Name();
+
+        public MimicItem(Item item)
         {
             this.Item = item;
-            this.Name = name;
         }
 
         /// <summary>
