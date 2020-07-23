@@ -20,6 +20,7 @@ namespace MMR.Randomizer.Utils
         {
             var result = new Dictionary<string, string>();
             result.Add("Attack", "Slash");
+            result.Add("Awakening", "Ascending,Waking");
             result.Add("Bay", "Day");
             result.Add("Bean", "Plant,Seed");
             result.Add("Big", "Bigger,Large");
@@ -28,9 +29,9 @@ namespace MMR.Randomizer.Utils
             result.Add("Bomber", "Boomer");
             result.Add("Bomb", "Boom,Bomb-omb");
             result.Add("Boss", "Big,Master");
-            result.Add("Bossa", "Star,Super");
+            result.Add("Bossa", "Star,Super,Tossa");
             result.Add("Bremen", "Brahmin,Eagle,Falco,Kass");
-            result.Add("Bunny", "Rabbit");
+            result.Add("Bunny", "Funny,Hare,Rabbit");
             result.Add("Captain", "Keeta");
             result.Add("Circus", "Troupe");
             result.Add("Container", "Contaminator");
@@ -57,13 +58,13 @@ namespace MMR.Randomizer.Utils
             result.Add("Goron", "Darmani,Darunia,Ganon");
             result.Add("Great", "Grate");
             result.Add("Hat", "Cap,Hood,Mask");
-            result.Add("Healing", "Feeling");
+            result.Add("Healing", "Feeling,Sealing");
             result.Add("Heart", "Hate,Life");
             result.Add("Hero's", "Fairy,Hylian,Zero's");
             result.Add("Hood", "Hat,Mask");
             result.Add("Hookshot", "Longshot");
             result.Add("Ice", "Freeze,Icy");
-            result.Add("Kafei", "Cafe");
+            result.Add("Kafei", "Cafe,Kafie");
             result.Add("Kamaro", "Dancer,Karamo");
             result.Add("Keaton", "Keeton,Pikachu");
             result.Add("Keg", "Bomb,Explosive");
@@ -77,7 +78,7 @@ namespace MMR.Randomizer.Utils
             result.Add("Ocean", "Water,River");
             result.Add("Order", "Giants");
             result.Add("Pendant", "Jewel,Locket");
-            result.Add("Pictobox", "Camerabox");
+            result.Add("Pictobox", "Camerabox,Picto Box,Picturebox");
             result.Add("Piece", "Part,Peace");
             result.Add("Postman's", "Delivery,Mailman's");
             result.Add("Potion", "Elixir,Medicine,Tonic");
@@ -94,6 +95,7 @@ namespace MMR.Randomizer.Utils
             result.Add("Snowhead", "Snowdead");
             result.Add("Soaring", "Flying,Warping");
             result.Add("Sonata", "Ballad,Santa");
+            result.Add("Song", "Sound");
             result.Add("Spin", "Spain,Spinning");
             result.Add("Spirit", "Essence,Soul");
             result.Add("Stick", "Branch");
@@ -102,9 +104,10 @@ namespace MMR.Randomizer.Utils
             result.Add("Stray", "Lost");
             result.Add("Swamp", "Forest,Woods");
             result.Add("Sword", "Blade");
+            result.Add("Tear", "Jewel,Stone");
             result.Add("Temple", "Dungeon");
             result.Add("Title", "Tidal");
-            result.Add("Town", "City");
+            result.Add("Town", "City,Village");
             result.Add("Truth", "Lying,Sight");
             result.Add("Wave", "Cave,Wade");
             result.Add("Woodfall", "Woodtall");
