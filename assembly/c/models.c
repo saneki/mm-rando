@@ -163,6 +163,14 @@ static bool models_set_loaded_actor_model(struct model *model, z2_actor_t *actor
 }
 
 /**
+ * Cause model to "float" using rotation value.
+ **/
+static void models_apply_hover_float(z2_actor_t *actor, f32 base, f32 multiplier) {
+    f32 rot = z2_Math_Sins(actor->rot_2.y);
+    actor->unk_0xC4 = (rot * multiplier) + base;
+}
+
+/**
  * Check if a model should rotate backwards (trap item).
  **/
 static bool models_should_rotate_backwards(z2_game_t *game, u32 gi_index) {
@@ -439,6 +447,7 @@ void models_before_moons_tear_main(z2_actor_t *actor, z2_game_t *game) {
                 actor->pos_2.y = -32.0;
                 actor->pos_2.z = -103.0;
                 models_rotate(actor, game, 0x96, 0x3C0);
+                models_apply_hover_float(actor, 30.0, 18.0);
             }
         }
     }
@@ -520,6 +529,7 @@ void models_before_seahorse_main(z2_actor_t *actor, z2_game_t *game) {
     if (MISC_CONFIG.freestanding) {
         if (models_should_override_seahorse_draw(actor, game)) {
             models_rotate(actor, game, 0x95, 0x3C0);
+            models_apply_hover_float(actor, -1000.0, 1000.0);
         }
     }
 }

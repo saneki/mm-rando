@@ -2391,6 +2391,7 @@ typedef struct {
 #define z2_InitButtonNoteColors_addr     0x80147564
 
 /* Function Addresses (Math) */
+#define z2_Math_Sins_addr                0x800FED84
 #define z2_Math_Vec3f_DistXZ_addr        0x800FF92C
 
 /* Function Addresses (Objects) */
@@ -2487,6 +2488,7 @@ typedef void (*z2_ReloadButtonTexture_proc)(z2_game_t *game, u8 idx);
 typedef void (*z2_UpdateButtonsState_proc)(u32 state);
 
 /* Function Prototypes (Math) */
+typedef f32 (*z2_Math_Sins_proc)(s16 angle);
 typedef f32 (*z2_Math_Vec3f_DistXZ_proc)(z2_xyzf_t *p1, z2_xyzf_t *p2);
 
 /* Function Prototypes (Objects) */
@@ -2573,6 +2575,7 @@ typedef void (*z2_UnloadRoom_proc)(z2_game_t *game, z2_room_ctxt_t *room_ctxt);
 #define z2_UpdateButtonsState            ((z2_UpdateButtonsState_proc)    z2_UpdateButtonsState_addr)
 
 /* Functions (Math) */
+#define z2_Math_Sins                     ((z2_Math_Sins_proc)             z2_Math_Sins_addr)
 #define z2_Math_Vec3f_DistXZ             ((z2_Math_Vec3f_DistXZ_proc)     z2_Math_Vec3f_DistXZ_addr)
 
 /* Functions (Objects) */
