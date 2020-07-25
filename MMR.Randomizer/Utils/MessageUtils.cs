@@ -521,6 +521,54 @@ namespace MMR.Randomizer.Utils
             return GetAlternateName(item.Name());
         }
 
+        static string GetRawPlural(string name)
+        {
+            var useEs = "ch,i,ns,o,sh,ss,x".Split(',').Any(x => name.EndsWith(x));
+            if (useEs)
+            {
+                // Use "es" ending instead of "s".
+                return $"{name}es";
+            }
+            else if ("by,ry".Split(',').Any(x => name.EndsWith(x)))
+            {
+                // Replace "y" => "ies" in certain situations.
+                var withoutY = name.Substring(0, name.Length - 1);
+                return $"{withoutY}ies";
+            }
+            else if (name.EndsWith("s"))
+            {
+                // Assume name is already plural.
+                return name;
+            }
+            else
+            {
+                return $"{name}s";
+            }
+        }
+
+        public static string GetPlural(string name)
+        {
+            var alt = GetAlternateName(name);
+            var altSplit = alt.Split(' ');
+
+            // Check if the plural is identical to the singular.
+            var samePlural = "Bombchu".Split(',').Any(x => alt.Equals(x));
+            if (samePlural)
+            {
+                return alt;
+            }
+
+            // Check if there is a starting noun which should be pluralized instead.
+            var startingNoun = "Bottle,Elegy,Lens,Letter,Map,Mask,Oath,Pendant,Piece,Sonata,Song".Split(',').Any(x => altSplit[0].Equals(x));
+            if (startingNoun)
+            {
+                altSplit[0] = GetRawPlural(altSplit[0]);
+                return string.Join(" ", altSplit);
+            }
+
+            return GetRawPlural(alt);
+        }
+
         private static string[] numberWordUnitsMap = new[] { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" };
         private static string[] numberWordTensMap = new[] { "zero", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
         public static string NumberToWords(int number)

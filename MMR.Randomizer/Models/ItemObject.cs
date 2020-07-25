@@ -49,6 +49,11 @@ namespace MMR.Randomizer.Models
             return MessageUtils.GetArticle(this.DisplayItem, indefiniteArticle, this.DisplayName);
         }
 
+        public string GetPlural()
+        {
+            return MessageUtils.GetPlural(this.DisplayName);
+        }
+
         public string GetPronoun()
         {
             return MessageUtils.GetPronoun(this.DisplayItem, this.DisplayName);

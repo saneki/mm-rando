@@ -1268,6 +1268,45 @@ namespace MMR.Randomizer
                     Message = $"Would you like the chance to buy your dreams for \u000610 Rupees\u0000?".Wrap(35, "\u0011").EndTextbox() + $"Pick any three numbers, and if those are picked, you'll win {lotteryItem.GetArticle()}\u0001{lotteryItem.DisplayName}\u0000. It's only for the \u0001first\u0000 person!\u0019\u00BF".Wrap(35, "\u0011")
                 });
 
+                // Update messages to match updated world models.
+                if (_randomized.Settings.UpdateWorldModels)
+                {
+                    // Update Moon's Tear message.
+                    var moonsTearItem = _randomized.ItemList.First(io => io.NewLocation == Item.TradeItemMoonTear);
+                    newMessages.Add(new MessageEntry
+                    {
+                        Id = 0x5E3,
+                        Header = null,
+                        Message = $"That is one of the lunar rocks\u0011that has been blazing from the\u0011surface of the moon lately.".EndTextbox() + $"They fall from what looks to be the moon's eye, so I call them \u0001{moonsTearItem.GetPlural()}\u0000.".Wrap(35, "\u0011").EndTextbox() + $"They are rare stones, valued by\u0011many in town.\u00BF"
+                    });
+                    newMessages.Add(new MessageEntry
+                    {
+                        Id = 0x5ED,
+                        Header = null,
+                        Message = $"That ill-mannered troublemaker\u0011from the other day said he'd\u0011break my instruments...".EndTextbox() + $"He said he'd steal my \u0001{moonsTearItem.DisplayName}\u0000... There was no stopping him.\u0019\u00BF".Wrap(35, "\u0011")
+                    });
+                    newMessages.Add(new MessageEntry
+                    {
+                        Id = 0x5F2,
+                        Header = null,
+                        Message = $"Well, did you find that\u0011\u0001troublemaker\u0000? And that loud\u0011noise...What was that?".EndTextbox() + $"Perhaps another \u0001{moonsTearItem.DisplayName}\u0000 has fallen nearby...Go through that door and take a look outside.\u0019\u00BF".Wrap(35, "\u0011")
+                    });
+
+                    // Update Seahorse message.
+                    var seahorseItem = _randomized.ItemList.First(io => io.NewLocation == Item.MundaneItemSeahorse);
+                    newMessages.Add(new MessageEntry
+                    {
+                        Id = 0x106F,
+                        Header = null,
+                        Message = $"\u001E\u0069\u004CAre you interested in that fish?".EndTextbox() + $"It's a rare fish, isn't it? It's called {seahorseItem.GetArticle()}\u0001{seahorseItem.DisplayName}\u0000.\u0019\u00BF".Wrap(35, "\u0011")
+                    });
+                    newMessages.Add(new MessageEntry
+                    {
+                        Id = 0x1074,
+                        Header = null,
+                        Message = $"If you want that \u0001{seahorseItem.DisplayName}\u0000, bring me a \u0001pictograph\u0000 of a \u0001female pirate\u0000.\u0019\u00BF".Wrap(35, "\u0011")
+                    });
+                }
             }
 
             // replace "Razor Sword is now blunt" message with get-item message for Kokiri Sword.
