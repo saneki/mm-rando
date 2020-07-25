@@ -1724,7 +1724,10 @@ typedef struct {
     char             form_name[0x8][0x3];            /* 0x00DE */
     u8               unk_0xF6[0x2];                  /* 0x00F6 */
     z2_save_scene_flags_t save_scene_flags[0x78];    /* 0x00F8 */
-    u8               unk_0xE18[0xC6];                /* 0x0E18 */
+    u8               unk_0xE18[0xA8];                /* 0x0E18 */
+    u16              skull_tokens_1;                 /* 0x0EC0 */
+    u16              skull_tokens_2;                 /* 0x0EC2 */
+    u8               unk_0xEC4[0x1A];                /* 0x0EC4 */
     u16              bank_rupees;                    /* 0x0EDE */
     u8               unk_0xEE0[0x10];                /* 0x0EE0 */
     u32              lottery_guess;                  /* 0x0EF0 */
