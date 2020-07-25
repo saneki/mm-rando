@@ -5,6 +5,7 @@ using MMR.Randomizer.Models;
 using MMR.Randomizer.Models.Settings;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MMR.Randomizer.Utils
 {
@@ -23,6 +24,7 @@ namespace MMR.Randomizer.Utils
                 return (x.IsRandomized || onslaught)
                 && x.NewLocation != null
                 && ItemUtils.JunkItems.Contains(x.Item)
+                && !ItemUtils.StartingItems().Contains(x.Item)
                 && !x.Item.Name().Contains("Heart");
             }).ToArray();
         }
