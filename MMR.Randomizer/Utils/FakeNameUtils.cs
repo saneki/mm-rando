@@ -46,7 +46,7 @@ namespace MMR.Randomizer.Utils
             var result = new Dictionary<string, string>();
             result.Add("Attack", "Slash");
             result.Add("Awakening", "Ascending,Waking");
-            result.Add("Bay", "Day");
+            result.Add("Bay", "Bae,Day");
             result.Add("Bean", "Plant,Seed");
             result.Add("Big", "Bigger,Large");
             result.Add("Biggest", "Best,Largest");
@@ -97,8 +97,10 @@ namespace MMR.Randomizer.Utils
             result.Add("Keg", "Bomb,Explosive");
             result.Add("Large", "Big,Larger");
             result.Add("Largest", "Best,Biggest");
+            result.Add("Letter", "Message,Parcel");
             result.Add("Light", "Lightning,Lemon");
             result.Add("Magic", "Magical");
+            result.Add("Mama", "Mom,Mother");
             result.Add("Mask", "Hat,Hood");
             result.Add("Memories", "Dreams,Memoires");
             result.Add("Night", "Day");
@@ -140,8 +142,9 @@ namespace MMR.Randomizer.Utils
             result.Add("Truth", "Lying,Sight");
             result.Add("Twinmold", "Twinfold,Twinworm");
             result.Add("Wave", "Cave,Wade");
-            result.Add("Woodfall", "Woodtall");
+            result.Add("Woodfall", "Woodfail,Woodtall");
             result.Add("Zora", "Mikau,Ruto");
+            result.Add("to", "for");
             return result;
         }
 
