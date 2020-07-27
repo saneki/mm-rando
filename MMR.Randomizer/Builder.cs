@@ -108,13 +108,37 @@ namespace MMR.Randomizer
                 SequenceUtils.ReassignSkulltulaHousesMusic();
             }*/
 
-            // DEBUG: if the user has a test sequence it always get put into fileselect
-            SequenceInfo test_sequence = RomData.SequenceList.Find(u => u.Name.Contains("songtest") == true);
-            if (test_sequence != null)
+            // DEBUG: if the user has a test sequence it always get put into fileselect, ctd1, and combat for testing
+            SequenceInfo TestSequenceFileselect = RomData.SequenceList.Find(u => u.Name.Contains("songtest") == true);
+            if (TestSequenceFileselect != null)
             {
-                SequenceInfo slot = RomData.TargetSequences.Find(u => u.Name.Contains("fileselect"));
-                AssignSequenceSlot(slot, test_sequence, Unassigned, "SONGTEST");
-                RomData.TargetSequences.Remove(slot);
+                SequenceInfo TestSequenceCombat = TestSequenceFileselect.SequenceCopy();
+                SequenceInfo TestSequenceCTD1 = TestSequenceFileselect.SequenceCopy();
+                SequenceInfo TargetSlot = RomData.TargetSequences.Find(u => u.Name.Contains("mm-fileselect"));
+                AssignSequenceSlot(TargetSlot, TestSequenceFileselect, Unassigned, "SONGTEST"); // file select
+                RomData.TargetSequences.Remove(TargetSlot);
+                TargetSlot = RomData.TargetSequences.Find(u => u.Name.Contains("mm-combat"));
+                Unassigned.Add(TestSequenceCombat); 
+                RomData.SequenceList.Add(TestSequenceCombat);
+                AssignSequenceSlot(TargetSlot, TestSequenceCombat, Unassigned, "SONGTEST"); // combat
+                RomData.TargetSequences.Remove(TargetSlot);
+                TargetSlot = RomData.TargetSequences.Find(u => u.Name.Contains("mm-clocktown1"));
+                Unassigned.Add(TestSequenceCTD1);
+                RomData.SequenceList.Add(TestSequenceCTD1);
+                AssignSequenceSlot(TargetSlot, TestSequenceCTD1, Unassigned, "SONGTEST"); // CTD1
+                RomData.TargetSequences.Remove(TargetSlot);
+            }
+
+            // MORE DEBUG: if the user wants to force a song to always show up each seed, but in random slots
+            List<SequenceInfo> ForcedSequences = RomData.SequenceList.FindAll(u => u.Name.Contains("songforce") == true);
+            if (ForcedSequences != null && ForcedSequences.Count > 0)
+            {
+                foreach(SequenceInfo seq in ForcedSequences)
+                {
+                    WriteOutput("Forcing song (" + seq.Name + ") to top of the song pool");
+                    Unassigned.Remove(seq);
+                    Unassigned.Insert(0, seq);
+                }
             }
 
             foreach (SequenceInfo targetSequence in RomData.TargetSequences)
