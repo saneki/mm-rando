@@ -280,7 +280,7 @@ namespace MMR.Randomizer.Utils
             // this "fills" those slots, now we have fewer slots to fill with remaining music (73 fits in 77)
             //  so pointerized slots play the same music, and don't waste a song
             //  but if the player does find this music in-game, it still plays sufficiently random music
-            ConvertSequenceSlotToPointer(0x29, 0x7d); // point zelda(SOTime get cs) at reunion
+            ConvertSequenceSlotToPointer(0x29, 0x0B); // point zelda(SOTime get cs) at healed
 
             // with shortened cutscenes, we pointerize more slots that the player would not hear
             // if using a patch, _randomized is not set, lookup a shortened cutscene byte instead
@@ -303,7 +303,7 @@ namespace MMR.Randomizer.Utils
                 ConvertSequenceSlotToPointer(0x04, 0x45); // point skullkid's theme, during skullkid's backstory cutscene, at kaepora
                 ConvertSequenceSlotToPointer(0x72, 0x45); // point wagonride at kaeopora 
                 ConvertSequenceSlotToPointer(0x2D, 0x3A); // point giants world (oath get cutscene) at observatory
-                ConvertSequenceSlotToPointer(0x70, 0x3A); // point call the giants( cutscene confronting skullkid) at observatory
+                ConvertSequenceSlotToPointer(0x70, 0x0B); // point call the giants( cutscene confronting skullkid) at healed
                 ConvertSequenceSlotToPointer(0x7B, 0x0D); // point maskreveal, the song that plays when the mask shows its alive during moon cutscene, at aliens
                 ConvertSequenceSlotToPointer(0x7D, 0x05); // point reunion at clocktower
                 ConvertSequenceSlotToPointer(0x0B, 0x05); // point healing cutscene at clocktower
