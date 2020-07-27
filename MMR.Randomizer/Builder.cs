@@ -1271,13 +1271,13 @@ namespace MMR.Randomizer
                 // Update messages to match updated world models.
                 if (_randomized.Settings.UpdateWorldModels)
                 {
-                    // Update Moon's Tear message.
+                    // Update Moon's Tear messages.
                     var moonsTearItem = _randomized.ItemList.First(io => io.NewLocation == Item.TradeItemMoonTear);
                     newMessages.Add(new MessageEntry
                     {
                         Id = 0x5E3,
                         Header = null,
-                        Message = $"That is one of the lunar rocks\u0011that has been blazing from the\u0011surface of the moon lately.".EndTextbox() + $"They fall from what looks to be the moon's eye, so I call them \u0001{moonsTearItem.GetPlural()}\u0000.".Wrap(35, "\u0011").EndTextbox() + $"They are rare stones, valued by\u0011many in town.\u00BF"
+                        Message = $"That is one of the lunar objects\u0011that has been blazing from the\u0011surface of the moon lately.".EndTextbox() + $"They fall from what looks to be the moon's eye, I call {moonsTearItem.GetPronoun()} {moonsTearItem.GetArticle()}\u0001{moonsTearItem.DisplayName}\u0000.".Wrap(35, "\u0011").EndTextbox() + $"They are rare, valued by many\u0011in town.\u00BF"
                     });
                     newMessages.Add(new MessageEntry
                     {
@@ -1292,13 +1292,13 @@ namespace MMR.Randomizer
                         Message = $"Well, did you find that\u0011\u0001troublemaker\u0000? And that loud\u0011noise...What was that?".EndTextbox() + $"Perhaps another \u0001{moonsTearItem.DisplayName}\u0000 has fallen nearby...Go through that door and take a look outside.\u0019\u00BF".Wrap(35, "\u0011")
                     });
 
-                    // Update Seahorse message.
+                    // Update Seahorse messages.
                     var seahorseItem = _randomized.ItemList.First(io => io.NewLocation == Item.MundaneItemSeahorse);
                     newMessages.Add(new MessageEntry
                     {
                         Id = 0x106F,
                         Header = null,
-                        Message = $"\u001E\u0069\u004CAre you interested in that fish?".EndTextbox() + $"It's a rare fish, isn't it? It's called {seahorseItem.GetArticle()}\u0001{seahorseItem.DisplayName}\u0000.\u0019\u00BF".Wrap(35, "\u0011")
+                        Message = $"\u001E\u0069\u004CAre you interested in that?".EndTextbox() + $"It's rare, isn't it? It's called {seahorseItem.GetArticle()}\u0001{seahorseItem.DisplayName}\u0000.\u0019\u00BF".Wrap(35, "\u0011")
                     });
                     newMessages.Add(new MessageEntry
                     {
