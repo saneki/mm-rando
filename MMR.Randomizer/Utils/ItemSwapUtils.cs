@@ -280,7 +280,7 @@ namespace MMR.Randomizer.Utils
                     description = shopTexts.Default;
                 }
 
-                var itemName = mimic?.ShopName ?? item.Name();
+                var itemName = mimic?.Name ?? item.Name();
                 var messageId = ReadWriteUtils.ReadU16(shopInventory.ShopItemAddress + 0x0A);
                 newMessages.Add(new MessageEntry
                 {

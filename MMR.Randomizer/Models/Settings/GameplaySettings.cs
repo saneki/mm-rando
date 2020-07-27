@@ -86,6 +86,14 @@ namespace MMR.Randomizer.Models.Settings
         }
 
         /// <summary>
+        /// Whether or not ice traps should behave slightly differently from other items in certain situations.
+        /// </summary>
+        public bool IceTrapQuirks {
+            get { return this.AsmOptions.MiscConfig.Flags.IceTrapQuirks; }
+            set { this.AsmOptions.MiscConfig.Flags.IceTrapQuirks = value; }
+        }
+
+        /// <summary>
         /// Whether or not to enable freestanding models.
         /// </summary>
         public bool UpdateWorldModels {

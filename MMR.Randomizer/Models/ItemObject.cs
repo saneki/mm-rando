@@ -40,7 +40,7 @@ namespace MMR.Randomizer.Models
         /// <summary>
         /// Item name to display in shops and prompts.
         /// </summary>
-        public string DisplayName => this.Mimic?.ShopName ?? this.Item.Name();
+        public string DisplayName => this.Mimic?.Name ?? this.Item.Name();
 
         #region MessageUtils Wrapper Methods
 

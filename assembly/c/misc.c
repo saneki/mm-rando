@@ -21,6 +21,7 @@ struct misc_config MISC_CONFIG = {
 
     // Version 2 flags
     .elegy_speedup = 1,
+    .ice_trap_quirks = 0,
 };
 
 union faucet_speed {

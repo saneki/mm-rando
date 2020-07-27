@@ -1462,12 +1462,12 @@ namespace MMR.Randomizer
                 if (newLocation.IsVisible() || newLocation.IsShop() || newLocation.IsPurchaseable())
                 {
                     // Store name override for logging in HTML tracker.
-                    item.NameOverride = $"{Item.IceTrap.Name()} ({mimic.Name})";
+                    item.NameOverride = $"{Item.IceTrap.Name()} ({mimic.Item.Name()})";
 
-                    // If placed as a shop item, use a fake shop item name.
-                    if (newLocation.IsShop() || newLocation.IsPurchaseable())
+                    // If ice trap quirks enabled and placed as a shop item, use a fake shop item name.
+                    if (_settings.IceTrapQuirks && (newLocation.IsShop() || newLocation.IsPurchaseable()))
                     {
-                        item.Mimic.ShopName = FakeNameUtils.CreateFakeName(item.Mimic.Name, random);
+                        item.Mimic.FakeName = FakeNameUtils.CreateFakeName(item.Mimic.Item.Name(), random);
                     }
                 }
 

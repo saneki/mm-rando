@@ -13,9 +13,9 @@ namespace MMR.Randomizer.Models
         public Item Item { get; }
 
         /// <summary>
-        /// Fake shop name.
+        /// Fake shop name, if any.
         /// </summary>
-        public string ShopName { get; set; }
+        public string FakeName { get; set; }
 
         /// <summary>
         /// Chest type override.
@@ -23,9 +23,9 @@ namespace MMR.Randomizer.Models
         public ChestTypeAttribute.ChestType? ChestType { get; set; }
 
         /// <summary>
-        /// Underlying item name.
+        /// Get name to display.
         /// </summary>
-        public string Name => this.Item.Name();
+        public string Name => this.FakeName ?? this.Item.Name();
 
         public MimicItem(Item item)
         {
@@ -45,7 +45,7 @@ namespace MMR.Randomizer.Models
 
         public override int GetHashCode()
         {
-            return Name.GetHashCode();
+            return Item.Name().GetHashCode();
         }
 
         public override bool Equals(object obj)
@@ -55,7 +55,7 @@ namespace MMR.Randomizer.Models
 
         public bool Equals(MimicItem other)
         {
-            return Name.Equals(other.Name);
+            return Item.Name().Equals(other.Item.Name());
         }
     }
 }

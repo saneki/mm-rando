@@ -174,9 +174,14 @@ static void models_apply_hover_float(z2_actor_t *actor, f32 base, f32 multiplier
  * Check if a model should rotate backwards (trap item).
  **/
 static bool models_should_rotate_backwards(z2_game_t *game, u32 gi_index) {
-    struct model model;
-    mmr_gi_t *entry = models_prepare_gi_entry(&model, game, gi_index, true);
-    return entry->item == Z2_ICE_TRAP;
+    // Only rotate ice traps backwards if Ice Trap Quirks enabled.
+    if (MISC_CONFIG.ice_trap_quirks) {
+        struct model model;
+        mmr_gi_t *entry = models_prepare_gi_entry(&model, game, gi_index, true);
+        return entry->item == Z2_ICE_TRAP;
+    } else {
+        return false;
+    }
 }
 
 /**
