@@ -386,7 +386,14 @@ namespace MMR.Randomizer.Utils
             }
             else
             {
-                if (isMoonGossipStone || gossipHintStyle == GossipHintStyle.Competitive || random.Next(100) >= 5) // 5% chance of fake/junk hint if it's not a moon gossip stone or competitive style
+                if (item.Mimic != null)
+                {
+                    // If item has a mimic and not using clear hints, always use a fake hint.
+                    soundEffectId = 0x690A; // grandma laugh
+                    itemNames.Add(item.Mimic.Item.ItemHints().Random(random));
+                    locationNames.Add(item.NewLocation.Value.LocationHints().Random(random));
+                }
+                else if (isMoonGossipStone || gossipHintStyle == GossipHintStyle.Competitive || random.Next(100) >= 5) // 5% chance of fake/junk hint if it's not a moon gossip stone or competitive style
                 {
                     itemNames.Add(item.Item.ItemHints().Random(random));
                     locationNames.Add(item.NewLocation.Value.LocationHints().Random(random));
