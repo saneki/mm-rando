@@ -48,11 +48,11 @@ struct ikana_speed {
     f32 initial;
 };
 
-struct misc_config* misc_get_config() {
+struct misc_config* misc_get_config(void) {
     return &MISC_CONFIG;
 }
 
-bool misc_can_use_ocarina_underwater() {
+bool misc_can_use_ocarina_underwater(void) {
     return MISC_CONFIG.ocarina_underwater != 0;
 }
 
