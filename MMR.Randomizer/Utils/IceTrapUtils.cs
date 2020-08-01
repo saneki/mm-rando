@@ -24,7 +24,7 @@ namespace MMR.Randomizer.Utils
                 return (x.IsRandomized || onslaught)
                 && x.NewLocation != null
                 && ItemUtils.JunkItems.Contains(x.Item)
-                && !ItemUtils.StartingItems().Contains(x.Item)
+                && !ItemUtils.StartingItems().Contains(x.NewLocation.Value)
                 && !x.Item.Name().Contains("Heart");
             }).ToArray();
         }
