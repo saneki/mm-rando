@@ -2384,6 +2384,8 @@ typedef struct {
 #define z2_LoadFileFromArchive_addr      0x80178DAC
 #define z2_LoadVFileFromArchive_addr     0x80178E3C
 
+#define z2_Yaz0_LoadAndDecompressFile_addr 0x80081178
+
 /* Function Addresses (Get Item) */
 #define z2_SetGetItem_addr               0x800B8A1C
 
@@ -2481,6 +2483,8 @@ typedef void (*z2_LoadFileFromArchive_proc)(u32 phys_file, u8 index, u8 *dest, u
 typedef void (*z2_LoadVFileFromArchive_proc)(u32 virt_file, u8 index, u8 *dest, u32 length);
 typedef void (*z2_ReadFile_proc)(void *mem_addr, u32 vrom_addr, u32 size);
 
+typedef void (*z2_Yaz0_LoadAndDecompressFile_proc)(u32 prom_addr, void *dest, u32 length);
+
 /* Function Prototypes (Get Item) */
 typedef void (*z2_SetGetItem_proc)(z2_actor_t *actor, z2_game_t *game, s32 unk2, u32 unk3);
 
@@ -2567,6 +2571,8 @@ typedef void (*z2_UnloadRoom_proc)(z2_game_t *game, z2_room_ctxt_t *room_ctxt);
 #define z2_LoadVFileFromArchive          ((z2_LoadVFileFromArchive_proc)  z2_LoadVFileFromArchive_addr)
 #define z2_ReadFile                      ((z2_ReadFile_proc)              z2_ReadFile_addr)
 #define z2_RomToRam                      ((z2_RomToRam_proc)              z2_RomToRam_addr)
+
+#define z2_Yaz0_LoadAndDecompressFile    ((z2_Yaz0_LoadAndDecompressFile_proc) z2_Yaz0_LoadAndDecompressFile_addr)
 
 /* Functions (Get Item) */
 #define z2_SetGetItem                    ((z2_SetGetItem_proc)            z2_SetGetItem_addr)

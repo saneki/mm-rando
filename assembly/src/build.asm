@@ -38,6 +38,7 @@
 .include "hooks/elegy_speedup.asm"
 .include "hooks/extended_objects.asm"
 .include "hooks/file_select.asm"
+.include "hooks/game.asm"
 .include "hooks/general.asm"
 .include "hooks/hud_colors.asm"
 .include "hooks/items.asm"
@@ -100,6 +101,8 @@ PAYLOAD_START:
 .align 8
 DPAD_TEXTURE:
 .incbin("../resources/dpad32.bin")
+FONT_TEXTURE:
+.incbin("../resources/font.bin")
 
 .align 0x10
 PAYLOAD_END:
