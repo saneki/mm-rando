@@ -72,3 +72,13 @@
 ; .org 0x808681D0 ; Offset: 0x600
 ;     jal     chest_update_after_assigning_gi_index_hook
 ;     sh      t6, 0x00BC (s1)
+
+;==================================================================================================
+; Fix Ice Trap Sound Effect
+;==================================================================================================
+
+; Use the correct sound effect Id for ice traps.
+; Replaces:
+;   addiu   a1, r0, 0x31F1
+.org 0x80869344 ; Offset: 0x1774
+    addiu   a1, r0, 0x31A4
