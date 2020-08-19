@@ -100,7 +100,7 @@ namespace MMR.DiscordBot
             if (message.Author.Id == _client.CurrentUser.Id)
                 return;
 
-            if (message.Channel.Id == 709731024375906316 || message.Channel.Id == 709740922014793768)
+            if (message.Channel.Id == 709731024375906316 || message.Channel.Id == 744581433481232425)
             {
                 if (message.Content.StartsWith("!seed"))
                 {
@@ -120,41 +120,37 @@ namespace MMR.DiscordBot
                     new Thread(async () =>
                     {
                         var filename = FileUtils.MakeFilenameValid(now.ToString("o"));
-                        var success = false;
                         try
                         {
-                            success = await GenerateSeed(filename);
-                            if (success)
+                            if (!await GenerateSeed(filename))
                             {
-                                var patchPath = Path.Combine(_cliPath, $@"output\{filename}.mmr");
-                                var hashIconPath = Path.ChangeExtension(patchPath, "png");
-                                var spoilerLogFilename = Path.Combine(_cliPath, $@"output\{filename}_SpoilerLog.txt");
-                                if (File.Exists(patchPath) && File.Exists(hashIconPath) && File.Exists(spoilerLogFilename))
+                                throw new Exception("MMR.CLI exited with non-zero code.");
+                            }
+                            var patchPath = Path.Combine(_cliPath, $@"output\{filename}.mmr");
+                            var hashIconPath = Path.ChangeExtension(patchPath, "png");
+                            var spoilerLogFilename = Path.Combine(_cliPath, $@"output\{filename}_SpoilerLog.txt");
+                            if (File.Exists(patchPath) && File.Exists(hashIconPath) && File.Exists(spoilerLogFilename))
+                            {
+                                foreach (var user in mentionedUsers)
                                 {
-                                    foreach (var user in mentionedUsers)
-                                    {
-                                        await user.SendFileAsync(patchPath, "Here is your tournament match seed! Please be sure your Hash matches and let an organizer know if you have any issues before you begin.");
-                                        await user.SendFileAsync(hashIconPath);
-                                    }
-                                    await message.Author.SendFileAsync(spoilerLogFilename);
-                                    await message.Author.SendFileAsync(hashIconPath);
-                                    File.Delete(spoilerLogFilename);
-                                    File.Delete(patchPath);
-                                    File.Delete(hashIconPath);
-                                    await messageResult.ModifyAsync(mp => mp.Content = "Success.");
+                                    await user.SendFileAsync(patchPath, "Here is your tournament match seed! Please be sure your Hash matches and let an organizer know if you have any issues before you begin.");
+                                    await user.SendFileAsync(hashIconPath);
                                 }
-                                else
-                                {
-                                    success = false;
-                                }
+                                await message.Author.SendFileAsync(spoilerLogFilename);
+                                await message.Author.SendFileAsync(hashIconPath);
+                                File.Delete(spoilerLogFilename);
+                                File.Delete(patchPath);
+                                File.Delete(hashIconPath);
+                                await messageResult.ModifyAsync(mp => mp.Content = "Success.");
+                            }
+                            else
+                            {
+                                throw new Exception("MMR.CLI succeeded, but output files not found.");
                             }
                         }
-                        catch
+                        catch (Exception e)
                         {
-                            success = false;
-                        }
-                        if (!success)
-                        {
+                            // TODO log exception.
                             await messageResult.ModifyAsync(mp => mp.Content = "An error occured.");
                         }
                     }).Start();
