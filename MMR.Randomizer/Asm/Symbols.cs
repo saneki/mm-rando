@@ -302,7 +302,7 @@ namespace MMR.Randomizer.Asm
         /// <returns>Symbols</returns>
         public static Symbols Load()
         {
-            return FromJSON(Properties.Resources.ASM_SYMBOLS);
+            return FromJSON(Resources.asm.symbols);
         }
 
         /// <summary>

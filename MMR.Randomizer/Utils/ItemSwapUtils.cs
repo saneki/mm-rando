@@ -19,15 +19,15 @@ namespace MMR.Randomizer.Utils
 
         public static void ReplaceGetItemTable()
         {
-            ResourceUtils.ApplyHack(Values.ModsDirectory, "replace-gi-table");
+            ResourceUtils.ApplyHack(Resources.mods.replace_gi_table);
             int last_file = RomData.MMFileList.Count - 1;
-            GET_ITEM_TABLE = RomUtils.AddNewFile(Values.ModsDirectory, "gi-table");
+            GET_ITEM_TABLE = RomUtils.AddNewFile(Resources.mods.gi_table);
             ReadWriteUtils.WriteToROM(0xBDAEAC, (uint)last_file + 1);
-            ResourceUtils.ApplyHack(Values.ModsDirectory, "update-chests");
-            RomUtils.AddNewFile(Values.ModsDirectory, "chest-table");
+            ResourceUtils.ApplyHack(Resources.mods.update_chests);
+            RomUtils.AddNewFile(Resources.mods.chest_table);
             ReadWriteUtils.WriteToROM(0xBDAEA8, (uint)last_file + 2);
-            ResourceUtils.ApplyHack(Values.ModsDirectory, "standing-hearts");
-            ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-item-checks");
+            ResourceUtils.ApplyHack(Resources.mods.standing_hearts);
+            ResourceUtils.ApplyHack(Resources.mods.fix_item_checks);
             cycle_repeat = 0xC72DF4;
             cycle_repeat_count = INITIAL_CYCLE_REPEAT_COUNT;
             SceneUtils.ResetSceneFlagMask();
@@ -189,17 +189,17 @@ namespace MMR.Randomizer.Utils
 
                 if (location == Item.StartingSword)
                 {
-                    ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-sword-song-of-time");
+                    ResourceUtils.ApplyHack(Resources.mods.fix_sword_song_of_time);
                 }
 
                 if (location == Item.MundaneItemSeahorse)
                 {
-                    ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-fisherman");
+                    ResourceUtils.ApplyHack(Resources.mods.fix_fisherman);
                 }
 
                 if (location == Item.MaskFierceDeity)
                 {
-                    ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-fd-mask-reset");
+                    ResourceUtils.ApplyHack(Resources.mods.fix_fd_mask_reset);
                 }
             }
         }

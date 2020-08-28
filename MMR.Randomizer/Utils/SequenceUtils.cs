@@ -500,7 +500,7 @@ namespace MMR.Randomizer.Utils
                 //RomData.MMFileList[4].Data = NewAudioSeq;
 
             int index = RomUtils.AppendFile(NewAudioSeq);
-            ResourceUtils.ApplyHack(Values.ModsDirectory, "reloc-audio");
+            ResourceUtils.ApplyHack(Resources.mods.reloc_audio);
             RelocateSeq(index);
             RomData.MMFileList[4].Data = new byte[0];
             RomData.MMFileList[4].Cmp_Addr = -1;
