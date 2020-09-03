@@ -109,6 +109,15 @@ namespace MMR.Randomizer.Models.Settings
             set { this.AsmOptions.MiscConfig.Flags.QuestItemStorage = value; }
         }
 
+        /// <summary>
+        /// Whether or not to enable Continuous Deku Hopping.
+        /// </summary>
+        public bool ContinuousDekuHopping
+        {
+            get { return this.AsmOptions.MiscConfig.Flags.ContinuousDekuHopping; }
+            set { this.AsmOptions.MiscConfig.Flags.ContinuousDekuHopping = value; }
+        }
+
         #endregion
 
         #region Random Elements
