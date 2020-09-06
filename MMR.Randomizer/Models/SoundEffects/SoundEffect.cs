@@ -92,7 +92,9 @@ namespace MMR.Randomizer.Models.SoundEffects
         [ReplacableByTags(Long)]
         WolfHowlEvening = 0x20AE,
 
+        [Replacable(0xD1DCBA)]
         [Tags(Short)]
+        [ReplacableByTags(Short)]
         FrogJumpCroak = 0x20B1,
 
         [Tags(Long)]
