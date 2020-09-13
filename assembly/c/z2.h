@@ -1464,13 +1464,18 @@ typedef struct {
 /// =============================================================
 
 typedef struct z2_msgbox_ctxt_s {
-    u8               unk_0x00[0x1F00];               /* 0x0000 */
+    u8               unk_0x00[0x19E8];               /* 0x0000 */
+    u8               cur_msg_raw[0x518];             /* 0x19E8 */ // length might be wrong
     z2_song_ctxt_t  *song_ctxt;                      /* 0x1F00 */
     u8               unk_0x1F04[0x0C];               /* 0x1F04 */
     u32              unk_0x1F10;                     /* 0x1F10 */
     u8               unk_0x1F14[0x0E];               /* 0x1F14 */
     u8               message_state_1;                /* 0x1F22 */
-    u8               unk_0x1F23[0xF5];               /* 0x1F23 */
+    u8               unk_0x1F23;                     /* 0x1F23 */
+    u8               cur_msg_displayed[0xC0];        /* 0x1F24 */ // length might be wrong
+    u8               unk_0x1FE4[0x08];               /* 0x1FE4 */
+    u16              cur_msg_char_index;             /* 0x1FEC */
+    u8               unk_0x1FEE[0x2A];               /* 0x1FEE */
     z2_color_rgb16_t cur_char_color;                 /* 0x2018 */
     s16              cur_char_alpha;                 /* 0x201E */
     u8               message_state_2;                /* 0x2020 */

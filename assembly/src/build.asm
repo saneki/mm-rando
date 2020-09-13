@@ -34,6 +34,7 @@
 .include "hooks/general.asm"
 .include "hooks/hud_colors.asm"
 .include "hooks/items.asm"
+.include "hooks/message.asm"
 .include "hooks/misc.asm"
 .include "hooks/models.asm"
 .include "hooks/pause.asm"
