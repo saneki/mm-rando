@@ -149,7 +149,7 @@ namespace MMR.Randomizer.GameObjects
         [Repeatable, Temporary, Overwritable] // specially handled to turn into Red Potion on subsequent times
         [ItemName("Bottle with Red Potion"), LocationName("Kotake"), Region(Region.SouthernSwamp)]
         [GossipLocationHint("the sleeping witch"), GossipItemHint("a vessel of health", "bottled fortitude")]
-        [ShopText("Replenishes your life energy. Comes with an Empty Bottle.")]
+        [ShopText("Replenishes your life energy.\u0009\u0001\u0000\u0000 Comes with an Empty Bottle.\u0009\u0002")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x59)]
         ItemBottleWitch,
@@ -159,7 +159,7 @@ namespace MMR.Randomizer.GameObjects
         [ItemName("Bottle with Milk"), LocationName("Aliens Defense"), Region(Region.RomaniRanch)]
         [GossipLocationHint("the ranch girl", "a good deed"), GossipItemHint("a dairy product", "the produce of cows")]
         [GossipCombineOrder(0), GossipCombine(MaskRomani, "Ranch Sisters Defense")]
-        [ShopText("Recover five hearts with one drink. Contains two helpings. Comes with an Empty Bottle.")]
+        [ShopText("Recover five hearts with one drink. Contains two helpings.\u0009\u0001\u0000\u0000 Comes with an Empty Bottle.\u0009\u0002")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x60)]
         ItemBottleAliens,
@@ -169,7 +169,7 @@ namespace MMR.Randomizer.GameObjects
         [Repeatable, Temporary, Overwritable] // specially handled to turn into Gold Dust on subsequent times
         [ItemName("Bottle with Gold Dust"), LocationName("Goron Race"), Region(Region.TwinIslands)]
         [GossipLocationHint("a sporting event"), GossipItemHint("a gleaming powder"), GossipCompetitiveHint(-2)]
-        [ShopText("It's very high quality. Comes with an Empty Bottle.")]
+        [ShopText("It's very high quality.\u0009\u0001\u0000\u0000 Comes with an Empty Bottle.\u0009\u0002")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x6A)]
         ItemBottleGoronRace,
@@ -195,7 +195,7 @@ namespace MMR.Randomizer.GameObjects
         [Repeatable, Temporary, Overwritable] // specially handled to turn into Chateau Romani on subsequent times
         [ItemName("Bottle with Chateau Romani"), LocationName("Madame Aroma in Bar"), Region(Region.EastClockTown)]
         [GossipLocationHint("an important lady"), GossipItemHint("a dairy product", "an adult beverage")]
-        [ShopText("Drink it to get lasting stamina for your magic power. Comes with an Empty Bottle.")]
+        [ShopText("Drink it to get lasting stamina for your magic power.\u0009\u0001\u0000\u0000 Comes with an Empty Bottle.\u0009\u0002")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
         [GetItemIndex(0x6F)]
         ItemBottleMadameAroma,

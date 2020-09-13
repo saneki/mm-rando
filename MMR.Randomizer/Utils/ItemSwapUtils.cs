@@ -258,19 +258,25 @@ namespace MMR.Randomizer.Utils
                     description = shopTexts.Default;
                 }
 
+                var getItemIndex = location.GetItemIndex().Value;
+                var upper = (char)(getItemIndex >> 8);
+                var lower = (char)(getItemIndex & 0xFF);
+                var itemName = item.Name().Replace("Bottle with ", $"\u0009\u0001{upper}{lower}Bottle with \u0009\u0002");
+                description = description.Replace("\u0009\u0001\u0000\u0000", $"\u0009\u0001{upper}{lower}");
+
                 var messageId = ReadWriteUtils.ReadU16(shopInventory.ShopItemAddress + 0x0A);
                 newMessages.Add(new MessageEntry
                 {
                     Id = messageId,
                     Header = null,
-                    Message = MessageUtils.BuildShopDescriptionMessage(item.Name(), 20, description)
+                    Message = MessageUtils.BuildShopDescriptionMessage(itemName, 20, description)
                 });
 
                 newMessages.Add(new MessageEntry
                 {
                     Id = (ushort)(messageId + 1),
                     Header = null,
-                    Message = MessageUtils.BuildShopPurchaseMessage(item.Name(), 20, item)
+                    Message = MessageUtils.BuildShopPurchaseMessage(itemName, 20, item)
                 });
             }
         }
