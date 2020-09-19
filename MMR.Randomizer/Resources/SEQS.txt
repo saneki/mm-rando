@@ -107,7 +107,7 @@ mm-laboratory
 d
 2C
 mm-observatory
-3,13A,13A
+3,13A
 17
 3A
 mm-musicbox
