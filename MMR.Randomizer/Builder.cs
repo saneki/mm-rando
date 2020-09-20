@@ -1048,11 +1048,12 @@ namespace MMR.Randomizer
                     var messageShop = messageShopText.GetAttribute<MessageShopAttribute>();
                     var item1 = _randomized.ItemList.First(io => io.NewLocation == messageShop.Items[0]).Item;
                     var item2 = _randomized.ItemList.First(io => io.NewLocation == messageShop.Items[1]).Item;
+
                     newMessages.Add(new MessageEntry
                     {
                         Id = (ushort)messageShopText,
                         Header = null,
-                        Message = string.Format(messageShop.MessageFormat, item1.Name() + " ", messageShop.Prices[0], item2.Name() + " ", messageShop.Prices[1])
+                        Message = string.Format(messageShop.MessageFormat, item1.NameForMessage(messageShop.Items[0]), messageShop.Prices[0], item2.NameForMessage(messageShop.Items[1]), messageShop.Prices[1])
                     });
                 }
 
