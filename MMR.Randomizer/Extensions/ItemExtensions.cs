@@ -30,7 +30,11 @@ namespace MMR.Randomizer.Extensions
             var itemName = item.Name();
             if (itemName.Contains("Bottle with "))
             {
-                itemName = item.Name().Replace("Bottle with ", "Bottle with ".SurroundWithGetItemCheckCommand(location));
+                itemName = itemName.Replace("Bottle with ", "Bottle with ".SurroundWithCommandCheckGetItemAndSkip(location));
+            }
+            else
+            {
+                itemName = itemName.SurroundWithCommandCheckGetItemReplaceWithRecoveryHeartItemName(location);
             }
             return itemName;
         }

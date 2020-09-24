@@ -1467,15 +1467,22 @@ typedef struct z2_msgbox_ctxt_s {
     u8               unk_0x00[0x19E8];               /* 0x0000 */
     u8               cur_msg_raw[0x518];             /* 0x19E8 */ // length might be wrong
     z2_song_ctxt_t  *song_ctxt;                      /* 0x1F00 */
-    u8               unk_0x1F04[0x0C];               /* 0x1F04 */
+    u8               unk_0x1F04[0x06];               /* 0x1F04 */
+    u8               unk_0x1F0A;                     /* 0x1F0A */
+    u8               unk_0x1F0B[0x05];               /* 0x1F0B */
     u32              unk_0x1F10;                     /* 0x1F10 */
-    u8               unk_0x1F14[0x0E];               /* 0x1F14 */
+    u8               unk_0x1F14[0x04];               /* 0x1F14 */
+    u8               unk_0x1F18;                     /* 0x1F18 */ // related to horizontal alignment
+    u8               unk_0x1F19[0x09];               /* 0x1F19 */
     u8               message_state_1;                /* 0x1F22 */
     u8               unk_0x1F23;                     /* 0x1F23 */
     u8               cur_msg_displayed[0xC0];        /* 0x1F24 */ // length might be wrong
     u8               unk_0x1FE4[0x08];               /* 0x1FE4 */
     u16              cur_msg_char_index;             /* 0x1FEC */
-    u8               unk_0x1FEE[0x2A];               /* 0x1FEE */
+    u16              unk_0x1FEE;                     /* 0x1FEE */
+    u8               unk_0x1FF0[0x0A];               /* 0x1FF0 */
+    u16              msg_text_screen_y;              /* 0x1FFA */
+    u8               unk_0x1FFC[0x1C];               /* 0x1FFC */
     z2_color_rgb16_t cur_char_color;                 /* 0x2018 */
     s16              cur_char_alpha;                 /* 0x201E */
     u8               message_state_2;                /* 0x2020 */
@@ -1489,7 +1496,9 @@ typedef struct z2_msgbox_ctxt_s {
     z2_color_rgb16_t score_line_color;               /* 0x2034 */
     u8               unk_0x203A[0x02];               /* 0x203A */
     s16              score_line_alpha;               /* 0x203C */
-    u8               unk_0x203E[0x82];               /* 0x203E */
+    u8               unk_0x203E[0x2C];               /* 0x203E */
+    u16              msg_box_screen_y;               /* 0x206A */
+    u8               unk_0x206C[0x54];               /* 0x206C */
     u8               unk_0x20C0[0x08];               /* 0x20C0 */
     z2_color_rgb16_t normal_char_color;              /* 0x20C8 */
     u8               unk_0x20CE[0x12];               /* 0x20CE */

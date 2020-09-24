@@ -18,7 +18,7 @@
 .org 0x8015B27C
     or      a0, s4, r0
     jal     before_message_character_process
-    addiu   a1, sp, 0x00DA
+    or      a1, sp, r0
     addiu   at, r0, 0x00FF
     beq     v0, at, 0x8015E6E4
     addiu   at, r0, 0x0010

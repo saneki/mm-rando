@@ -56,12 +56,28 @@ namespace MMR.Randomizer.Extensions
             return str;
         }
 
-        public static string SurroundWithGetItemCheckCommand(this string str, Item location)
+        public static string SurroundWithCommandCheckGetItemAndSkip(this string str, Item location)
         {
             var getItemIndex = location.GetItemIndex().Value;
             var upper = (char)(getItemIndex >> 8);
             var lower = (char)(getItemIndex & 0xFF);
             return $"\u0009\u0001{upper}{lower}{str}\u0009\u0002";
+        }
+
+        public static string SurroundWithCommandCheckGetItemReplaceWithRecoveryHeartItemName(this string str, Item location)
+        {
+            var getItemIndex = location.GetItemIndex().Value;
+            var upper = (char)(getItemIndex >> 8);
+            var lower = (char)(getItemIndex & 0xFF);
+            return $"\u0009\u0003{upper}{lower}{str}\u0009\u0002";
+        }
+
+        public static string SurroundWithCommandCheckGetItemReplaceWithRecoveryHeartItemDescription(this string str, Item location)
+        {
+            var getItemIndex = location.GetItemIndex().Value;
+            var upper = (char)(getItemIndex >> 8);
+            var lower = (char)(getItemIndex & 0xFF);
+            return $"\u0009\u0004{upper}{lower}{str}\u0009\u0002";
         }
 
         private static readonly ReadOnlyCollection<int> specialCharacters = new ReadOnlyCollection<int>(new int[]

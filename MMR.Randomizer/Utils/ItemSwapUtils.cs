@@ -262,7 +262,14 @@ namespace MMR.Randomizer.Utils
                 var getItemIndex = location.GetItemIndex().Value;
                 var upper = (char)(getItemIndex >> 8);
                 var lower = (char)(getItemIndex & 0xFF);
-                description = description.Replace("\u0009\u0001\u0000\u0000", $"\u0009\u0001{upper}{lower}");
+                if (description.Contains("\u0009\u0001\u0000\u0000"))
+                {
+                    description = description.Replace("\u0009\u0001\u0000\u0000", $"\u0009\u0001{upper}{lower}");
+                }
+                else
+                {
+                    description = description.SurroundWithCommandCheckGetItemReplaceWithRecoveryHeartItemDescription(location);
+                }
 
                 var messageId = ReadWriteUtils.ReadU16(shopInventory.ShopItemAddress + 0x0A);
                 newMessages.Add(new MessageEntry
