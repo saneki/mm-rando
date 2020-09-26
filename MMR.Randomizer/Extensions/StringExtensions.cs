@@ -80,6 +80,11 @@ namespace MMR.Randomizer.Extensions
             return $"\u0009\u0004{upper}{lower}{str}\u0009\u0002";
         }
 
+        public static string SurroundWithCommandAutoWrap(this string str)
+        {
+            return $"\u0009\u0011{str}\u0009\u0012";
+        }
+
         private static readonly ReadOnlyCollection<int> specialCharacters = new ReadOnlyCollection<int>(new int[]
         {
             0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x09, 0x11, 0x12, 0x13, 0x19, 0x1E, 0xBF, 0xC2, 0xC3, 0xE0,

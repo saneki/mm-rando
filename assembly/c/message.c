@@ -4,16 +4,25 @@
 
 struct message_extension_state {
     bool is_wrapping;
+    s8 last_space_index;
+    f32 last_space_cursor_position;
+
     char recovery_heart_name[15];
     char recovery_heart_description[48];
     s8 current_char;
+    char *current_replacement;
+    u16 current_replacement_length;
 };
 
 static struct message_extension_state g_message_extension_state = {
     .is_wrapping = false,
+    .last_space_index = -1,
+    .last_space_cursor_position = 0,
+
     .recovery_heart_name = "Recovery Heart",
     .recovery_heart_description = "Replenishes a small amount of your\x11life energy.",
     .current_char = -1,
+    .current_replacement_length = 0,
 };
 
 typedef struct message_character_process_variables_s {
@@ -58,57 +67,41 @@ u8 before_message_character_process(z2_game_t *game, message_character_process_v
     if (current_character == 0x09) {
         index++;
         current_character = game->msgbox_ctxt.cur_msg_raw[index];
-        if (current_character == 0x03) {
-            // replace with "Recovery Heart"
+        if (current_character == 0x03 || current_character == 0x04) {
             if (g_message_extension_state.current_char == -1) {
-                // check gi-index and replace with "Recovery Heart" if item has been received before
                 index++;
                 u32 gi_index = game->msgbox_ctxt.cur_msg_raw[index] << 8;
                 index++;
                 gi_index |= game->msgbox_ctxt.cur_msg_raw[index];
                 u32 new_gi_index = mmr_GetNewGiIndex_stub(game, gi_index, false);
-                if (gi_index != 0x0A && new_gi_index == 0x0A) { // Recovery Heart
-                    g_message_extension_state.current_char = 0;
-                } else {
+                if (new_gi_index != gi_index) {
+                    if (new_gi_index == 0x0A) {
+                        if (current_character == 0x03) {
+                            g_message_extension_state.current_replacement = g_message_extension_state.recovery_heart_name;
+                            g_message_extension_state.current_replacement_length = 14;
+                        } else {
+                            g_message_extension_state.current_replacement = g_message_extension_state.recovery_heart_description;
+                            g_message_extension_state.current_replacement_length = 47;
+                        }
+                        g_message_extension_state.current_char = 0;
+                    }
+                }
+                if (g_message_extension_state.current_char == -1) {
                     args->output_index--;
                     game->msgbox_ctxt.cur_msg_char_index = index;
                     return -1;
                 }
             }
-            if (g_message_extension_state.current_char < 14) {
+            if (g_message_extension_state.current_char < g_message_extension_state.current_replacement_length) {
                 game->msgbox_ctxt.cur_msg_char_index--;
-                current_character = g_message_extension_state.recovery_heart_name[g_message_extension_state.current_char++];
-                game->msgbox_ctxt.cur_msg_displayed[args->output_index] = current_character;
-                return current_character;
-            }
-            g_message_extension_state.current_char = -1;
-            current_character = 0x01;
-        } else if (current_character == 0x04) {
-            // replace with "Recovery Heart" description
-            if (g_message_extension_state.current_char == -1) {
-                // check gi-index and replace with "Recovery Heart" description if item has been received before
-                index++;
-                u32 gi_index = game->msgbox_ctxt.cur_msg_raw[index] << 8;
-                index++;
-                gi_index |= game->msgbox_ctxt.cur_msg_raw[index];
-                u32 new_gi_index = mmr_GetNewGiIndex_stub(game, gi_index, false);
-                if (gi_index != 0x0A && new_gi_index == 0x0A) { // Recovery Heart
-                    g_message_extension_state.current_char = 0;
-                } else {
-                    args->output_index--;
-                    game->msgbox_ctxt.cur_msg_char_index = index;
-                    return -1;
-                }
-            }
-            if (g_message_extension_state.current_char < 47) {
-                game->msgbox_ctxt.cur_msg_char_index--;
-                current_character = g_message_extension_state.recovery_heart_description[g_message_extension_state.current_char++];
+                current_character = g_message_extension_state.current_replacement[g_message_extension_state.current_char++];
                 game->msgbox_ctxt.cur_msg_displayed[args->output_index] = current_character;
                 return current_character;
             }
             g_message_extension_state.current_char = -1;
             current_character = 0x01;
         }
+
         if (current_character == 0x01) {
             // check gi-index and skip until end command if item has been received before
             index++;
@@ -130,14 +123,36 @@ u8 before_message_character_process(z2_game_t *game, message_character_process_v
             g_message_extension_state.is_wrapping = true;
         } else if (current_character == 0x12) { // end auto text wrapping
             g_message_extension_state.is_wrapping = false;
+            g_message_extension_state.last_space_index = -1;
+            g_message_extension_state.last_space_cursor_position = 0;
         } else {
             index--;
         }
         args->output_index--;
         game->msgbox_ctxt.cur_msg_char_index = index;
         return -1;
-    } else if (current_character == 0x20 && g_message_extension_state.is_wrapping) {
-        
+    }
+    
+    if (g_message_extension_state.is_wrapping) {
+        if (current_character == 0x20) {
+            // set last_space_index
+            g_message_extension_state.last_space_index = args->output_index;
+            // set last_space_cursor_position
+            g_message_extension_state.last_space_cursor_position = args->cursor_position;
+        } else {
+            // if cursor_position > 200 // just a guess at line length
+            if (args->cursor_position > 200 && g_message_extension_state.last_space_index >= 0) {
+                // replace character at last_space_index with 0x11
+                game->msgbox_ctxt.cur_msg_displayed[g_message_extension_state.last_space_index] = 0x11;
+                // add one to number_of_new_lines
+                args->number_of_new_lines_2++;
+                // subtract last_space_cursor_position from cursor_position
+                args->cursor_position -= g_message_extension_state.last_space_cursor_position;
+                g_message_extension_state.last_space_index = -1;
+                g_message_extension_state.last_space_cursor_position = 0;
+                // TODO subtract the width of a space from cursor_position
+            }
+        }
     }
     game->msgbox_ctxt.cur_msg_displayed[args->output_index] = current_character;
     return current_character;

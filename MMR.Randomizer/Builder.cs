@@ -1229,7 +1229,7 @@ namespace MMR.Randomizer
                 {
                     Id = 0x2B5C,
                     Header = null,
-                    Message = $"Would you like the chance to buy your dreams for \u000610 Rupees\u0000?".Wrap(35, "\u0011").EndTextbox() + $"Pick any three numbers, and if those are picked, you'll win {MessageUtils.GetArticle(lotteryItem)}\u0001{lotteryItem.Name()}\u0000. It's only for the \u0001first\u0000 person!\u0019\u00BF".Wrap(35, "\u0011")
+                    Message = $"Would you like the chance to buy your dreams for \u000610 Rupees\u0000?".Wrap(35, "\u0011").EndTextbox() + $"Pick any three numbers, and if those are picked, you'll win {MessageUtils.GetArticle(lotteryItem)}\u0001{lotteryItem.NameForMessage(Item.MundaneItemLotteryPurpleRupee)}\u0000. It's only for the \u0001first\u0000 person!".SurroundWithCommandAutoWrap() + "\u0019\u00BF"
                 });
 
             }
