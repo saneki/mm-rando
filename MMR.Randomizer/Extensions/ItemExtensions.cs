@@ -25,20 +25,6 @@ namespace MMR.Randomizer.Extensions
             return item.GetAttribute<ItemNameAttribute>()?.Name;
         }
 
-        public static string NameForMessage(this Item item, Item location)
-        {
-            var itemName = item.Name();
-            if (itemName.Contains("Bottle with "))
-            {
-                itemName = itemName.Replace("Bottle with ", "Bottle with ".SurroundWithCommandCheckGetItemAndSkip(location));
-            }
-            else
-            {
-                itemName = itemName.SurroundWithCommandCheckGetItemReplaceWithRecoveryHeartItemName(location);
-            }
-            return itemName;
-        }
-
         public static string Location(this Item item)
         {
             return item.GetAttribute<LocationNameAttribute>()?.Name;

@@ -64,7 +64,7 @@ namespace MMR.Randomizer.Extensions
             return $"\u0009\u0001{upper}{lower}{str}\u0009\u0002";
         }
 
-        public static string SurroundWithCommandCheckGetItemReplaceWithRecoveryHeartItemName(this string str, Item location)
+        public static string SurroundWithCommandCheckGetItemReplaceItemName(this string str, Item location)
         {
             var getItemIndex = location.GetItemIndex().Value;
             var upper = (char)(getItemIndex >> 8);
@@ -72,12 +72,44 @@ namespace MMR.Randomizer.Extensions
             return $"\u0009\u0003{upper}{lower}{str}\u0009\u0002";
         }
 
-        public static string SurroundWithCommandCheckGetItemReplaceWithRecoveryHeartItemDescription(this string str, Item location)
+        public static string SurroundWithCommandCheckGetItemReplaceItemDescription(this string str, Item location)
         {
             var getItemIndex = location.GetItemIndex().Value;
             var upper = (char)(getItemIndex >> 8);
             var lower = (char)(getItemIndex & 0xFF);
             return $"\u0009\u0004{upper}{lower}{str}\u0009\u0002";
+        }
+
+        public static string SurroundWithCommandCheckGetItemReplaceArticle(this string str, Item location)
+        {
+            var getItemIndex = location.GetItemIndex().Value;
+            var upper = (char)(getItemIndex >> 8);
+            var lower = (char)(getItemIndex & 0xFF);
+            return $"\u0009\u0005{upper}{lower}{str}\u0009\u0002";
+        }
+
+        public static string SurroundWithCommandCheckGetItemReplacePronoun(this string str, Item location)
+        {
+            var getItemIndex = location.GetItemIndex().Value;
+            var upper = (char)(getItemIndex >> 8);
+            var lower = (char)(getItemIndex & 0xFF);
+            return $"\u0009\u0006{upper}{lower}{str}\u0009\u0002";
+        }
+
+        public static string SurroundWithCommandCheckGetItemReplaceAmount(this string str, Item location)
+        {
+            var getItemIndex = location.GetItemIndex().Value;
+            var upper = (char)(getItemIndex >> 8);
+            var lower = (char)(getItemIndex & 0xFF);
+            return $"\u0009\u0007{upper}{lower}{str}\u0009\u0002";
+        }
+
+        public static string SurroundWithCommandCheckGetItemReplaceVerb(this string str, Item location)
+        {
+            var getItemIndex = location.GetItemIndex().Value;
+            var upper = (char)(getItemIndex >> 8);
+            var lower = (char)(getItemIndex & 0xFF);
+            return $"\u0009\u0008{upper}{lower}{str}\u0009\u0002";
         }
 
         public static string SurroundWithCommandAutoWrap(this string str)

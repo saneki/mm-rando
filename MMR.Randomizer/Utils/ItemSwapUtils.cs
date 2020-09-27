@@ -258,7 +258,7 @@ namespace MMR.Randomizer.Utils
                     description = shopTexts.Default;
                 }
 
-                var itemName = item.NameForMessage(location);
+                var itemName = item.Name().SurroundWithCommandCheckGetItemReplaceItemName(location);
                 var getItemIndex = location.GetItemIndex().Value;
                 var upper = (char)(getItemIndex >> 8);
                 var lower = (char)(getItemIndex & 0xFF);
@@ -268,7 +268,7 @@ namespace MMR.Randomizer.Utils
                 }
                 else
                 {
-                    description = description.SurroundWithCommandCheckGetItemReplaceWithRecoveryHeartItemDescription(location);
+                    description = description.SurroundWithCommandCheckGetItemReplaceItemDescription(location);
                 }
 
                 var messageId = ReadWriteUtils.ReadU16(shopInventory.ShopItemAddress + 0x0A);
