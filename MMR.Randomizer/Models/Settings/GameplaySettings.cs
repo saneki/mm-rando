@@ -109,6 +109,15 @@ namespace MMR.Randomizer.Models.Settings
             set { this.AsmOptions.MiscConfig.Flags.QuestItemStorage = value; }
         }
 
+        /// <summary>
+        /// Updates shop models and text
+        /// </summary>
+        public bool UpdateShopAppearance
+        {
+            get { return this.AsmOptions.MiscConfig.Flags.ShopModels; }
+            set { this.AsmOptions.MiscConfig.Flags.ShopModels = value; }
+        }
+
         #endregion
 
         #region Random Elements
@@ -336,11 +345,6 @@ namespace MMR.Randomizer.Models.Settings
         /// Prevent downgrades
         /// </summary>
         public bool PreventDowngrades { get; set; } = true;
-
-        /// <summary>
-        /// Updates shop models and text
-        /// </summary>
-        public bool UpdateShopAppearance { get; set; } = true;
 
         /// <summary>
         /// Updates chest appearance to match contents

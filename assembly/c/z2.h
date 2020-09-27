@@ -2024,6 +2024,15 @@ typedef struct {
 } z2_en_akindonuts_t;
 
 /**
+ * En_GirlA actor (Shop Inventory Data)
+ **/
+typedef struct {
+    z2_actor_t       common;                         /* 0x0000 */
+    u8               unk_0x144[0x58];                /* 0x0144 */
+    u32              gi_index;                       /* 0x019C */
+} z2_en_girla_t;
+
+/**
  * En_Toto actor (Toto)
  **/
 typedef struct z2_en_toto_s {

@@ -448,6 +448,14 @@ bool models_draw_seahorse(z2_actor_t *actor, z2_game_t *game) {
     return false;
 }
 
+void models_draw_shop_inventory(z2_en_girla_t *actor, z2_game_t *game, u32 graphic_id_minus_1) {
+    if (MISC_CONFIG.shop_models) {
+        models_draw_from_gi_table(&(actor->common), game, 1.0, actor->gi_index);
+    } else {
+        draw_model_low_level(&(actor->common), game, graphic_id_minus_1);
+    }
+}
+
 void models_after_actor_dtor(z2_actor_t *actor) {
     if (MISC_CONFIG.freestanding) {
         if (actor->id == Z2_ACTOR_EN_ELFORG) {
