@@ -1938,7 +1938,9 @@ typedef struct {
     u8               previous_mask;                  /* 0x0155 */
     u8               unk_0x156[0xF4];                /* 0x0156 */
     u16              current_animation_id;           /* 0x024A */
-    u8               unk_0x24C[0x820];               /* 0x024C */
+    u8               unk_0x24C[0x138];               /* 0x024C */
+    u16              get_item;                       /* 0x0348 */
+    u8               unk_0x34A[0x722];               /* 0x034A */
     union {
         struct {
             u32      action_state1;                  /* 0x0A6C */
@@ -2028,8 +2030,8 @@ typedef struct {
  **/
 typedef struct {
     z2_actor_t       common;                         /* 0x0000 */
-    u8               unk_0x144[0x58];                /* 0x0144 */
-    u32              gi_index;                       /* 0x019C */
+    u8               unk_0x144[0x5A];                /* 0x0144 */
+    u16              gi_index;                       /* 0x019E */
 } z2_en_girla_t;
 
 /**

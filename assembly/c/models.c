@@ -109,9 +109,9 @@ static u8 models_fix_graphic_id(u8 graphic) {
  * Get the Get-Item table entry for a specific index, and optionally load relevant entry values
  * into a model structure for drawing.
  **/
-static mmr_gi_t * models_prepare_gi_entry(struct model *model, z2_game_t *game, u32 gi_index, bool resolve) {
+static mmr_gi_t * models_prepare_gi_entry(struct model *model, z2_game_t *game, u16 gi_index, bool resolve) {
     if (resolve) {
-        gi_index = mmr_GetNewGiIndex_stub(game, gi_index, false);
+        gi_index = mmr_GetNewGiIndex(game, 0, gi_index, false);
     }
     mmr_gi_t *entry = mmr_get_gi_entry(gi_index);
 
@@ -127,7 +127,7 @@ static mmr_gi_t * models_prepare_gi_entry(struct model *model, z2_game_t *game, 
 /**
  * Load information from the Get-Item table using an index and draw the corresponding model.
  **/
-static void models_draw_from_gi_table(z2_actor_t *actor, z2_game_t *game, f32 scale, u32 gi_index) {
+static void models_draw_from_gi_table(z2_actor_t *actor, z2_game_t *game, f32 scale, u16 gi_index) {
     struct model model;
     mmr_gi_t *entry = models_prepare_gi_entry(&model, game, gi_index, true);
 
@@ -139,7 +139,7 @@ static void models_draw_from_gi_table(z2_actor_t *actor, z2_game_t *game, f32 sc
  * Load the actor model information for later reference if not already stored, and return in model
  * parameter.
  **/
-static bool models_set_loaded_actor_model(struct model *model, z2_actor_t *actor, z2_game_t *game, u32 gi_index) {
+static bool models_set_loaded_actor_model(struct model *model, z2_actor_t *actor, z2_game_t *game, u16 gi_index) {
     if (!loaded_models_get_actor_model(model, NULL, actor)) {
         mmr_gi_t *entry = models_prepare_gi_entry(model, game, gi_index, true);
         loaded_models_add_actor_model(*model, entry, actor);
@@ -154,7 +154,7 @@ static bool models_set_loaded_actor_model(struct model *model, z2_actor_t *actor
  **/
 void models_draw_heart_piece(z2_actor_t *actor, z2_game_t *game) {
     if (MISC_CONFIG.freestanding) {
-        u32 index = actor->variable + 0x80;
+        u16 index = actor->variable + 0x80;
         models_draw_from_gi_table(actor, game, 22.0, index);
     } else {
         z2_DrawHeartPiece(actor, game);
@@ -168,8 +168,8 @@ void models_draw_skulltula_token(z2_actor_t *actor, z2_game_t *game) {
     if (MISC_CONFIG.freestanding) {
         u16 chest_flag = (actor->variable & 0xFC) >> 2;
         // Checks if Swamp Spider House scene
-        u32 base_index = game->scene_index == 0x27 ? 0x13A : 0x158;
-        u32 gi_index = base_index + chest_flag;
+        u16 base_index = game->scene_index == 0x27 ? 0x13A : 0x158;
+        u16 gi_index = base_index + chest_flag;
         models_draw_from_gi_table(actor, game, 1.0, gi_index);
     } else {
         draw_model_low_level(actor, game, Z2_GRAPHIC_ST_TOKEN - 1);
@@ -220,7 +220,7 @@ void models_before_stray_fairy_main(z2_actor_t *actor, z2_game_t *game) {
     if (MISC_CONFIG.freestanding && draw) {
         mmr_gi_t *entry;
         struct model model;
-        u32 gi_index = models_get_stray_fairy_gi_index(actor, game);
+        u16 gi_index = models_get_stray_fairy_gi_index(actor, game);
         models_set_loaded_actor_model(&model, actor, game, gi_index);
         if (loaded_models_get_actor_model(&model, (void**)&entry, actor)) {
             // Check that we are not drawing a stray fairy.
@@ -242,7 +242,7 @@ bool models_draw_stray_fairy(z2_actor_t *actor, z2_game_t *game) {
     if (MISC_CONFIG.freestanding && draw) {
         mmr_gi_t *entry;
         struct model model;
-        u32 gi_index = models_get_stray_fairy_gi_index(actor, game);
+        u16 gi_index = models_get_stray_fairy_gi_index(actor, game);
         models_set_loaded_actor_model(&model, actor, game, gi_index);
         if (!loaded_models_get_actor_model(&model, (void**)&entry, actor)) {
             return false;
@@ -268,7 +268,7 @@ bool models_draw_stray_fairy(z2_actor_t *actor, z2_game_t *game) {
 /**
  * Get the Get-Item index for a Heart Container actor.
  **/
-static u32 models_get_heart_container_gi_index(z2_game_t *game) {
+static u16 models_get_heart_container_gi_index(z2_game_t *game) {
     // This is a (somewhat) reimplementation of MMR function at: 0x801DC138
     // The original function returns in A2 and A3 to setup calling a different function.
     if (game->scene_index == 0x1F) {
@@ -289,7 +289,7 @@ static u32 models_get_heart_container_gi_index(z2_game_t *game) {
  **/
 bool models_draw_heart_container(z2_actor_t *actor, z2_game_t *game) {
     if (MISC_CONFIG.freestanding) {
-        u32 index = models_get_heart_container_gi_index(game);
+        u16 index = models_get_heart_container_gi_index(game);
         models_draw_from_gi_table(actor, game, 1.0, index);
         return true;
     } else {

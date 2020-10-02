@@ -214,7 +214,7 @@ u8 before_message_character_process(z2_game_t *game, message_character_process_v
                 u32 gi_index = game->msgbox_ctxt.cur_msg_raw[index] << 8;
                 index++;
                 gi_index |= game->msgbox_ctxt.cur_msg_raw[index];
-                u32 new_gi_index = mmr_GetNewGiIndex_stub(game, gi_index, false);
+                u32 new_gi_index = mmr_GetNewGiIndex(game, 0, gi_index, false);
                 if (new_gi_index != gi_index) {
                     item_info_t item;
                     bool item_set = true;
@@ -282,7 +282,7 @@ u8 before_message_character_process(z2_game_t *game, message_character_process_v
             u32 gi_index = game->msgbox_ctxt.cur_msg_raw[index] << 8;
             index++;
             gi_index |= game->msgbox_ctxt.cur_msg_raw[index];
-            u32 new_gi_index = mmr_GetNewGiIndex_stub(game, gi_index, false);
+            u32 new_gi_index = mmr_GetNewGiIndex(game, 0, gi_index, false);
             if (gi_index != new_gi_index) {
                 do {
                     index++;

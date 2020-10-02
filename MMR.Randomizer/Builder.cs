@@ -997,6 +997,7 @@ namespace MMR.Randomizer
             ResourceUtils.ApplyHack(Resources.mods.update_trade_scrubs);
 
             var newMessages = new List<MessageEntry>();
+            _randomized.Settings.AsmOptions.MMRConfig.CycleRepeatableLocations.Clear();
             foreach (var item in _randomized.ItemList)
             {
                 // Unused item
@@ -1024,10 +1025,15 @@ namespace MMR.Randomizer
                         _randomized.Settings.UpdateChests && item.IsRandomized,
                         overrideChestType,
                         _randomized.Settings.CustomStartingItemList.Contains(item.Item),
-                        _randomized.Settings.QuestItemStorage
+                        _randomized.Settings.QuestItemStorage,
+                        _randomized.Settings.AsmOptions.MMRConfig.CycleRepeatableLocations
                     );
                 }
             }
+            _randomized.Settings.AsmOptions.MMRConfig.LocationBottleRedPotion = _randomized.ItemList[Item.ItemBottleWitch].NewLocation.Value.GetItemIndex().Value;
+            _randomized.Settings.AsmOptions.MMRConfig.LocationBottleGoldDust = _randomized.ItemList[Item.ItemBottleGoronRace].NewLocation.Value.GetItemIndex().Value;
+            _randomized.Settings.AsmOptions.MMRConfig.LocationBottleMilk = _randomized.ItemList[Item.ItemBottleAliens].NewLocation.Value.GetItemIndex().Value;
+            _randomized.Settings.AsmOptions.MMRConfig.LocationBottleChateau = _randomized.ItemList[Item.ItemBottleMadameAroma].NewLocation.Value.GetItemIndex().Value;
 
             var copyRupeesRegex = new Regex(": [0-9]+ Rupees");
             foreach (var newMessage in newMessages)

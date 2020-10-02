@@ -131,7 +131,7 @@ namespace MMR.Randomizer.Utils
         }
 
         // todo cache
-        public static IEnumerable<int> AllGetItemIndices()
+        public static IEnumerable<ushort> AllGetItemIndices()
         {
             return Enum.GetValues(typeof(Item))
                 .Cast<Item>()

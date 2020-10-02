@@ -10,7 +10,7 @@ namespace MMR.Randomizer.Extensions
 {
     public static class ItemExtensions
     {
-        public static int? GetItemIndex(this Item item)
+        public static ushort? GetItemIndex(this Item item)
         {
             return item.GetAttribute<GetItemIndexAttribute>()?.Index;
         }
