@@ -62,7 +62,7 @@ struct misc_config {
             // Version 2 flags
             u32 elegy_speedup      : 1;
             u32 shop_models        : 1;
-            u32                    : 19;
+            u32                    : 18;
         };
         u32 flags;          /* 0x0018 */
     };
