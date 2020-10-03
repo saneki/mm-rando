@@ -20,7 +20,7 @@ cd /abs \
 && sudo -u "$user" tar xzf 'yay.tar.gz' \
 && cd yay \
 && sudo -u "$user" makepkg -s --noconfirm --noprogressbar \
-&& pacman -U --needed --noconfirm --noprogressbar yay-*.pkg.tar.xz
+&& pacman -U --needed --noconfirm --noprogressbar yay-*.pkg.tar.zst
 
 # Use yay to install armips via the AUR
 sudo -u "$user" yay -S --needed --noconfirm --noprogressbar armips-git
