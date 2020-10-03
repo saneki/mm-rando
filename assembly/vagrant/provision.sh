@@ -25,6 +25,9 @@ cd /abs \
 # Use yay to install armips via the AUR
 sudo -u "$user" yay -S --needed --noconfirm --noprogressbar armips-git
 
+# Clean pacman package cache to clear disk space
+pacman -Scc --noconfirm
+
 # Make directory for git repositories
 mkdir ~/git && cd ~/git
 
