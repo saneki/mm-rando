@@ -113,20 +113,13 @@ namespace MMR.Randomizer
             SequenceInfo TestSequenceFileselect = RomData.SequenceList.Find(u => u.Name.Contains("songtest") == true);
             if (TestSequenceFileselect != null)
             {
-                SequenceInfo TestSequenceCombat = TestSequenceFileselect.SequenceCopy();
-                SequenceInfo TestSequenceCTD1 = TestSequenceFileselect.SequenceCopy();
                 SequenceInfo TargetSlot = RomData.TargetSequences.Find(u => u.Name.Contains("mm-fileselect"));
                 AssignSequenceSlot(TargetSlot, TestSequenceFileselect, Unassigned, "SONGTEST"); // file select
-                RomData.TargetSequences.Remove(TargetSlot);
-                TargetSlot = RomData.TargetSequences.Find(u => u.Name.Contains("mm-combat"));
-                Unassigned.Add(TestSequenceCombat); 
-                RomData.SequenceList.Add(TestSequenceCombat);
-                AssignSequenceSlot(TargetSlot, TestSequenceCombat, Unassigned, "SONGTEST"); // combat
-                RomData.TargetSequences.Remove(TargetSlot);
-                TargetSlot = RomData.TargetSequences.Find(u => u.Name.Contains("mm-clocktown1"));
-                Unassigned.Add(TestSequenceCTD1);
-                RomData.SequenceList.Add(TestSequenceCTD1);
-                AssignSequenceSlot(TargetSlot, TestSequenceCTD1, Unassigned, "SONGTEST"); // CTD1
+                List<SequenceInfo> AllRegularSongs = RomData.SequenceList.FindAll(u => u.Type[0] <= 7);
+                foreach (SequenceInfo songslot in AllRegularSongs)
+                {
+                    SequenceUtils.ConvertSequenceSlotToPointer(songslot.MM_seq, 0x18);
+                }
                 RomData.TargetSequences.Remove(TargetSlot);
             }
 
