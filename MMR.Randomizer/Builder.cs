@@ -912,6 +912,14 @@ namespace MMR.Randomizer
                 }
             }
 
+            if (_randomized.Settings.ProgressiveUpgrades)
+            {
+                itemList = itemList
+                    .GroupBy(item => ItemUtils.ForbiddenStartTogether.FirstOrDefault(fst => fst.Contains(item)))
+                    .SelectMany(g => g.Key == null || g.Key.Contains(Item.StartingShield) ? g.ToList() : g.Key.Skip(g.Count()-1).Take(1))
+                    .ToList();
+            }
+
             itemList = itemList
                 .GroupBy(item => ItemUtils.ForbiddenStartTogether.FirstOrDefault(fst => fst.Contains(item)))
                 .SelectMany(g => g.Key == null ? g.ToList() : g.OrderByDescending(item => g.Key.IndexOf(item)).Take(1))
