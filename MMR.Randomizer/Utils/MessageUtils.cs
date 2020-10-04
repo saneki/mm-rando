@@ -131,15 +131,23 @@ namespace MMR.Randomizer.Utils
 
                 foreach (var unusedItem in unusedItems)
                 {
-                    (var messageText, var combined) = BuildItemHint(unusedItem, randomizedResult.Settings.GossipHintStyle, false, randomizedResult.Settings.ClearHints, false, itemsToCombineWith, hintableItems, random);
-                    //(var messageText2, var combined2) = BuildItemHint(unusedItem, randomizedResult.Settings.GossipHintStyle, false, randomizedResult.Settings.ClearHints, false, itemsToCombineWith, hintableItems, random);
+                    (var messageText, var combined) = BuildItemHint(
+                        unusedItem,
+                        randomizedResult.Settings.GossipHintStyle,
+                        false,
+                        randomizedResult.Settings.ClearHints,
+                        false,
+                        randomizedResult.Settings.ProgressiveUpgrades,
+                        itemsToCombineWith,
+                        hintableItems,
+                        random
+                        );
 
                     var allowedGossipQuotes = combined
                         .Select(io => gossipStoneRequirements.Where(kvp => !kvp.Value.Contains(io.Item)).Select(kvp => kvp.Key))
                         .Aggregate((list1, list2) => list1.Intersect(list2))
                         .ToList();
                     competitiveHints.Add((messageText, allowedGossipQuotes));
-                    //competitiveHints.Add((messageText2, allowedGossipQuotes));
                 }
 
                 var importantRegionCounts = new Dictionary<Region, List<ItemObject>>();
@@ -325,7 +333,17 @@ namespace MMR.Randomizer.Utils
 
                     if (item != null)
                     {
-                        (var hint, var combined) = BuildItemHint(item, randomizedResult.Settings.GossipHintStyle, forceClear, randomizedResult.Settings.ClearHints, isMoonGossipStone, itemsToCombineWith, hintableItems, random);
+                        (var hint, var combined) = BuildItemHint(
+                            item,
+                            randomizedResult.Settings.GossipHintStyle,
+                            forceClear,
+                            randomizedResult.Settings.ClearHints,
+                            isMoonGossipStone,
+                            randomizedResult.Settings.ProgressiveUpgrades,
+                            itemsToCombineWith,
+                            hintableItems,
+                            random
+                            );
                         messageText = hint;
                     }
                 }
@@ -346,7 +364,7 @@ namespace MMR.Randomizer.Utils
             return finalHints;
         }
 
-        private static (string, List<ItemObject>) BuildItemHint(ItemObject item, GossipHintStyle gossipHintStyle, bool forceClear, bool clearHints, bool isMoonGossipStone, List<ItemObject> itemsToCombineWith, List<ItemObject> hintableItems, Random random)
+        private static (string, List<ItemObject>) BuildItemHint(ItemObject item, GossipHintStyle gossipHintStyle, bool forceClear, bool clearHints, bool isMoonGossipStone, bool progressiveUpgradesEnabled, List<ItemObject> itemsToCombineWith, List<ItemObject> hintableItems, Random random)
         {
             ushort soundEffectId = 0x690C; // grandma curious
             var itemNames = new List<string>();
@@ -355,7 +373,7 @@ namespace MMR.Randomizer.Utils
             var combined = new List<ItemObject>();
             if (forceClear || clearHints)
             {
-                itemNames.Add(item.Item.Name());
+                itemNames.Add(item.Item.ProgressiveUpgradeName(progressiveUpgradesEnabled));
                 locationNames.Add(item.NewLocation.Value.Location());
                 if (!isMoonGossipStone)
                 {
@@ -376,7 +394,7 @@ namespace MMR.Randomizer.Utils
                         {
                             locationNames.AddRange(combined.Select(io => io.NewLocation.Value.Location()));
                         }
-                        itemNames.AddRange(combined.Select(io => io.Item.Name()));
+                        itemNames.AddRange(combined.Select(io => io.Item.ProgressiveUpgradeName(progressiveUpgradesEnabled)));
                     }
                     else
                     {

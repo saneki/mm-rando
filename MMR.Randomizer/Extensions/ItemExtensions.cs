@@ -25,6 +25,34 @@ namespace MMR.Randomizer.Extensions
             return item.GetAttribute<ItemNameAttribute>()?.Name;
         }
 
+        public static string ProgressiveUpgradeName(this Item item, bool progressiveUpgradesEnabled)
+        {
+            if (progressiveUpgradesEnabled)
+            {
+                if (item == Item.StartingSword || item == Item.UpgradeRazorSword || item == Item.UpgradeGildedSword)
+                {
+                    return "Sword Upgrade";
+                }
+                if (item == Item.FairyMagic || item == Item.FairyDoubleMagic)
+                {
+                    return "Magic Power Upgrade";
+                }
+                if (item == Item.UpgradeAdultWallet || item == Item.UpgradeGiantWallet)
+                {
+                    return "Wallet Upgrade";
+                }
+                if (item == Item.ItemBombBag || item == Item.UpgradeBigBombBag || item == Item.UpgradeBiggestBombBag)
+                {
+                    return "Bomb Bag Upgrade";
+                }
+                if (item == Item.ItemBow || item == Item.UpgradeBigQuiver || item == Item.UpgradeBiggestQuiver)
+                {
+                    return "Bow Upgrade";
+                }
+            }
+            return item.Name();
+        }
+
         public static string Location(this Item item)
         {
             return item.GetAttribute<LocationNameAttribute>()?.Name;
