@@ -15,10 +15,29 @@ namespace MMR.Randomizer.Asm
         public uint Version;
         public ushort[] CycleRepeatableLocations;
         public ushort CycleRepeatableLocationsLength;
+
         public ushort LocationBottleRedPotion;
         public ushort LocationBottleGoldDust;
         public ushort LocationBottleMilk;
         public ushort LocationBottleChateau;
+
+        public ushort LocationSwordKokiri;
+        public ushort LocationSwordRazor;
+        public ushort LocationSwordGilded;
+
+        public ushort LocationMagicSmall;
+        public ushort LocationMagicLarge;
+
+        public ushort LocationWalletAdult;
+        public ushort LocationWalletGiant;
+
+        public ushort LocationBombBagSmall;
+        public ushort LocationBombBagBig;
+        public ushort LocationBombBagBiggest;
+
+        public ushort LocationQuiverSmall;
+        public ushort LocationQuiverLarge;
+        public ushort LocationQuiverLargest;
 
         /// <summary>
         /// Convert to bytes.
@@ -37,12 +56,29 @@ namespace MMR.Randomizer.Asm
                 }
 
                 ReadWriteUtils.WriteU16(writer, CycleRepeatableLocationsLength);
-                //writer.Write(this.CycleRepeatableLocationsLength);
 
                 ReadWriteUtils.WriteU16(writer, this.LocationBottleRedPotion);
                 ReadWriteUtils.WriteU16(writer, this.LocationBottleGoldDust);
                 ReadWriteUtils.WriteU16(writer, this.LocationBottleMilk);
                 ReadWriteUtils.WriteU16(writer, this.LocationBottleChateau);
+
+                ReadWriteUtils.WriteU16(writer, this.LocationSwordKokiri);
+                ReadWriteUtils.WriteU16(writer, this.LocationSwordRazor);
+                ReadWriteUtils.WriteU16(writer, this.LocationSwordGilded);
+
+                ReadWriteUtils.WriteU16(writer, this.LocationMagicSmall);
+                ReadWriteUtils.WriteU16(writer, this.LocationMagicLarge);
+
+                ReadWriteUtils.WriteU16(writer, this.LocationWalletAdult);
+                ReadWriteUtils.WriteU16(writer, this.LocationWalletGiant);
+
+                ReadWriteUtils.WriteU16(writer, this.LocationBombBagSmall);
+                ReadWriteUtils.WriteU16(writer, this.LocationBombBagBig);
+                ReadWriteUtils.WriteU16(writer, this.LocationBombBagBiggest);
+
+                ReadWriteUtils.WriteU16(writer, this.LocationQuiverSmall);
+                ReadWriteUtils.WriteU16(writer, this.LocationQuiverLarge);
+                ReadWriteUtils.WriteU16(writer, this.LocationQuiverLargest);
 
                 return memStream.ToArray();
             }
@@ -56,10 +92,29 @@ namespace MMR.Randomizer.Asm
     {
         private ReadOnlyCollection<ushort> BaseCycleRepeatableLocations { get; }
         public List<ushort> CycleRepeatableLocations { get; }
+
         public ushort LocationBottleRedPotion { get; set; }
         public ushort LocationBottleGoldDust { get; set; }
         public ushort LocationBottleMilk { get; set; }
         public ushort LocationBottleChateau { get; set; }
+
+        public ushort LocationSwordKokiri { get; set; }
+        public ushort LocationSwordRazor { get; set; }
+        public ushort LocationSwordGilded { get; set; }
+
+        public ushort LocationMagicSmall { get; set; }
+        public ushort LocationMagicLarge { get; set; }
+
+        public ushort LocationWalletAdult { get; set; }
+        public ushort LocationWalletGiant { get; set; }
+
+        public ushort LocationBombBagSmall { get; set; }
+        public ushort LocationBombBagBig { get; set; }
+        public ushort LocationBombBagBiggest { get; set; }
+
+        public ushort LocationQuiverSmall { get; set; }
+        public ushort LocationQuiverLarge { get; set; }
+        public ushort LocationQuiverLargest { get; set; }
 
         public MMRConfig()
         {
@@ -145,11 +200,30 @@ namespace MMR.Randomizer.Asm
                 Version = version,
                 CycleRepeatableLocations = cycleRepeatableLocations,
                 CycleRepeatableLocationsLength = (ushort)cycleRepeatableLocations.Length,
+
                 LocationBottleRedPotion = this.LocationBottleRedPotion,
                 LocationBottleGoldDust = this.LocationBottleGoldDust,
                 LocationBottleMilk = this.LocationBottleMilk,
                 LocationBottleChateau = this.LocationBottleChateau,
-            };
+
+                LocationSwordKokiri = this.LocationSwordKokiri,
+                LocationSwordRazor = this.LocationSwordRazor,
+                LocationSwordGilded = this.LocationSwordGilded,
+
+                LocationMagicSmall = this.LocationMagicSmall,
+                LocationMagicLarge = this.LocationMagicLarge,
+
+                LocationWalletAdult = this.LocationWalletAdult,
+                LocationWalletGiant = this.LocationWalletGiant,
+
+                LocationBombBagSmall = this.LocationBombBagSmall,
+                LocationBombBagBig = this.LocationBombBagBig,
+                LocationBombBagBiggest = this.LocationBombBagBiggest,
+
+                LocationQuiverSmall = this.LocationQuiverSmall,
+                LocationQuiverLarge = this.LocationQuiverLarge,
+                LocationQuiverLargest = this.LocationQuiverLargest,
+    };
         }
     }
 }

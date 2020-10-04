@@ -46,23 +46,24 @@ struct misc_config {
     union {
         struct {
             // Version 0 flags
-            u32 crit_wiggle        : 2;
-            u32 draw_hash          : 1;
-            u32 fast_push          : 1;
-            u32 ocarina_underwater : 1;
-            u32 quest_item_storage : 1;
+            u32 crit_wiggle           : 2;
+            u32 draw_hash             : 1;
+            u32 fast_push             : 1;
+            u32 ocarina_underwater    : 1;
+            u32 quest_item_storage    : 1;
 
             // Version 1 flags
-            u32 close_cows         : 1;
-            u32 freestanding       : 1;
-            u32 quest_consume      : 2;
-            u32 arrow_cycle        : 1;
-            u32 arrow_magic_show   : 1;
+            u32 close_cows            : 1;
+            u32 freestanding          : 1;
+            u32 quest_consume         : 2;
+            u32 arrow_cycle           : 1;
+            u32 arrow_magic_show      : 1;
 
             // Version 2 flags
-            u32 elegy_speedup      : 1;
-            u32 shop_models        : 1;
-            u32                    : 18;
+            u32 elegy_speedup         : 1;
+            u32 shop_models           : 1;
+            u32 progressive_upgrades  : 1;
+            u32                       : 17;
         };
         u32 flags;          /* 0x0018 */
     };

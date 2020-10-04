@@ -8,7 +8,7 @@
 #include "util.h"
 #include "z2.h"
 
-#define slot_count 8
+#define slot_count 12
 
 static struct linheap g_object_heap = {
     .start = NULL,

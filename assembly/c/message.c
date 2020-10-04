@@ -27,6 +27,24 @@ struct message_extension_state {
     item_info_t milk;
     item_info_t gold_dust;
 
+    item_info_t sword_kokiri;
+    item_info_t sword_razor;
+    item_info_t sword_gilded;
+
+    item_info_t magic_small;
+    item_info_t magic_large;
+
+    item_info_t wallet_adult;
+    item_info_t wallet_giant;
+
+    item_info_t bomb_bag_small;
+    item_info_t bomb_bag_big;
+    item_info_t bomb_bag_biggest;
+
+    item_info_t quiver_small;
+    item_info_t quiver_large;
+    item_info_t quiver_largest;
+
     s8 current_char;
     char *current_replacement;
     u16 current_replacement_length;
@@ -35,6 +53,16 @@ struct message_extension_state {
 const string article_indefinite = {
     .value = "a ", // intentional trailing space.
     .length = 2,
+};
+
+const string article_indefinite_vowel = {
+    .value = "an ", // intentional trailing space.
+    .length = 3,
+};
+
+const string article_definite = {
+    .value = "the ", // intentional trailing space.
+    .length = 4,
 };
 
 const string article_empty = {
@@ -73,7 +101,7 @@ static struct message_extension_state g_message_extension_state = {
             .length = 14,
         },
         .description = {
-            .value = "Replenishes a small amount of your\x11life energy.",
+            .value = "Replenishes a small amount of your life energy.",
             .length = 47,
         },
         .article = article_indefinite,
@@ -133,6 +161,193 @@ static struct message_extension_state g_message_extension_state = {
 
         // },
         .article = article_empty,
+        .pronoun = pronoun_singular,
+        .amount = amount_definite,
+        .verb = verb_singular,
+    },
+
+    .sword_kokiri = {
+        .name = {
+            .value = "Kokiri Sword",
+            .length = 12,
+        },
+        .description = {
+            .value = "A sword created by forest folk.",
+            .length = 31,
+        },
+        .article = article_indefinite,
+        .pronoun = pronoun_singular,
+        .amount = amount_singular,
+        .verb = verb_singular,
+    },
+    .sword_razor = {
+        .name = {
+            .value = "Razor Sword",
+            .length = 11,
+        },
+        .description = {
+            .value = "A sharp sword forged at the smithy.",
+            .length = 35,
+        },
+        .article = article_indefinite,
+        .pronoun = pronoun_singular,
+        .amount = amount_singular,
+        .verb = verb_singular,
+    },
+    .sword_gilded = {
+        .name = {
+            .value = "Gilded Sword",
+            .length = 14,
+        },
+        .description = {
+            .value = "A very sharp sword forged from gold dust.",
+            .length = 41,
+        },
+        .article = article_indefinite,
+        .pronoun = pronoun_singular,
+        .amount = amount_singular,
+        .verb = verb_singular,
+    },
+
+    .magic_small = {
+        .name = {
+            .value = "Magic Power",
+            .length = 11,
+        },
+        .description = {
+            .value = "Grants the ability to use magic.",
+            .length = 32,
+        },
+        .article = article_empty,
+        .pronoun = pronoun_singular,
+        .amount = amount_definite,
+        .verb = verb_singular,
+    },
+    .magic_large = {
+        .name = {
+            .value = "Extended Magic Power",
+            .length = 20,
+        },
+        .description = {
+            .value = "Grants the ability to use lots of magic.",
+            .length = 40,
+        },
+        .article = article_empty,
+        .pronoun = pronoun_singular,
+        .amount = amount_definite,
+        .verb = verb_singular,
+    },
+
+    .wallet_adult = {
+        .name = {
+            .value = "Adult Wallet",
+            .length = 12,
+        },
+        .description = {
+            .value = "This can hold up to a maximum of 200 rupees.",
+            .length = 44,
+        },
+        .article = article_indefinite_vowel,
+        .pronoun = pronoun_singular,
+        .amount = amount_singular,
+        .verb = verb_singular,
+    },
+    .wallet_giant = {
+        .name = {
+            .value = "Giant Wallet",
+            .length = 12,
+        },
+        .description = {
+            .value = "This can hold up to a maximum of 500 rupees.",
+            .length = 44,
+        },
+        .article = article_indefinite,
+        .pronoun = pronoun_singular,
+        .amount = amount_singular,
+        .verb = verb_singular,
+    },
+
+    .bomb_bag_small = {
+        .name = {
+            .value = "Bomb Bag",
+            .length = 8,
+        },
+        .description = {
+            .value = "This can hold up to a maximum of 20 bombs.",
+            .length = 42,
+        },
+        .article = article_indefinite,
+        .pronoun = pronoun_singular,
+        .amount = amount_singular,
+        .verb = verb_singular,
+    },
+    .bomb_bag_big = {
+        .name = {
+            .value = "Big Bomb Bag",
+            .length = 12,
+        },
+        .description = {
+            .value = "This can hold up to a maximum of 30 bombs.",
+            .length = 42,
+        },
+        .article = article_indefinite,
+        .pronoun = pronoun_singular,
+        .amount = amount_singular,
+        .verb = verb_singular,
+    },
+    .bomb_bag_biggest = {
+        .name = {
+            .value = "Biggest Bomb Bag",
+            .length = 16,
+        },
+        .description = {
+            .value = "This can hold up to a maximum of 40 bombs.",
+            .length = 42,
+        },
+        .article = article_definite,
+        .pronoun = pronoun_singular,
+        .amount = amount_definite,
+        .verb = verb_singular,
+    },
+
+    .quiver_small = {
+        .name = {
+            .value = "Hero's Bow",
+            .length = 10,
+        },
+        .description = {
+            .value = "Use it to shoot arrows.",
+            .length = 23,
+        },
+        .article = article_indefinite,
+        .pronoun = pronoun_singular,
+        .amount = amount_singular,
+        .verb = verb_singular,
+    },
+    .quiver_large = {
+        .name = {
+            .value = "Large Quiver",
+            .length = 12,
+        },
+        .description = {
+            .value = "This can hold up to a maximum of 40 arrows.",
+            .length = 43,
+        },
+        .article = article_indefinite,
+        .pronoun = pronoun_singular,
+        .amount = amount_singular,
+        .verb = verb_singular,
+    },
+    .quiver_largest = {
+        .name = {
+            .value = "Largest Quiver",
+            .length = 14,
+        },
+        .description = {
+            .value = "This can hold up to a maximum of 50 arrows.",
+            .length = 47,
+        },
+        .article = article_definite,
         .pronoun = pronoun_singular,
         .amount = amount_definite,
         .verb = verb_singular,
@@ -228,6 +443,32 @@ u8 before_message_character_process(z2_game_t *game, message_character_process_v
                         item = g_message_extension_state.milk;
                     } else if (new_gi_index == 0x93) {
                         item = g_message_extension_state.gold_dust;
+                    } else if (new_gi_index == MMR_CONFIG.location_sword_kokiri) {
+                        item = g_message_extension_state.sword_kokiri;
+                    } else if (new_gi_index == MMR_CONFIG.location_sword_razor) {
+                        item = g_message_extension_state.sword_razor;
+                    } else if (new_gi_index == MMR_CONFIG.location_sword_gilded) {
+                        item = g_message_extension_state.sword_gilded;
+                    } else if (new_gi_index == MMR_CONFIG.location_magic_small) {
+                        item = g_message_extension_state.magic_small;
+                    } else if (new_gi_index == MMR_CONFIG.location_magic_large) {
+                        item = g_message_extension_state.magic_large;
+                    } else if (new_gi_index == MMR_CONFIG.location_wallet_adult) {
+                        item = g_message_extension_state.wallet_adult;
+                    } else if (new_gi_index == MMR_CONFIG.location_wallet_giant) {
+                        item = g_message_extension_state.wallet_giant;
+                    } else if (new_gi_index == MMR_CONFIG.location_bomb_bag_small) {
+                        item = g_message_extension_state.bomb_bag_small;
+                    } else if (new_gi_index == MMR_CONFIG.location_bomb_bag_big) {
+                        item = g_message_extension_state.bomb_bag_big;
+                    } else if (new_gi_index == MMR_CONFIG.location_bomb_bag_biggest) {
+                        item = g_message_extension_state.bomb_bag_biggest;
+                    } else if (new_gi_index == MMR_CONFIG.location_quiver_small) {
+                        item = g_message_extension_state.quiver_small;
+                    } else if (new_gi_index == MMR_CONFIG.location_quiver_large) {
+                        item = g_message_extension_state.quiver_large;
+                    } else if (new_gi_index == MMR_CONFIG.location_quiver_largest) {
+                        item = g_message_extension_state.quiver_largest;
                     } else {
                         item_set = false;
                     }

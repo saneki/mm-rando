@@ -452,7 +452,7 @@ namespace MMR.Randomizer.Utils
 
         public static string BuildShopDescriptionMessage(string title, int cost, string description)
         {
-            return $"\x01{title}: {cost} Rupees\x11\x00{description.Wrap(35, "\x11")}\x1A\xBF";
+            return $"\x01{title}: {cost} Rupees\x11\x00{description}\x1A\xBF";
         }
 
         public static string BuildShopPurchaseMessage(string title, int cost, Item item)

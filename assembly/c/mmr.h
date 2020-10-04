@@ -47,10 +47,29 @@ struct mmr_config {
     u32 version;                            /* 0x0004 */
     u16 cycle_repeatable_locations[0x80];
     u16 cycle_repeatable_locations_length;
+
     u16 location_bottle_red_potion;
     u16 location_bottle_gold_dust;
     u16 location_bottle_milk;
     u16 location_bottle_chateau;
+
+    u16 location_sword_kokiri;
+    u16 location_sword_razor;
+    u16 location_sword_gilded;
+
+    u16 location_magic_small;
+    u16 location_magic_large;
+
+    u16 location_wallet_adult;
+    u16 location_wallet_giant;
+
+    u16 location_bomb_bag_small;
+    u16 location_bomb_bag_big;
+    u16 location_bomb_bag_biggest;
+
+    u16 location_quiver_small;
+    u16 location_quiver_large;
+    u16 location_quiver_largest;
 };
 
 extern struct mmr_config MMR_CONFIG;

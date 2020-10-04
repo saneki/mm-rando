@@ -22,6 +22,7 @@ struct misc_config MISC_CONFIG = {
     // Version 2 flags
     .elegy_speedup = 1,
     .shop_models = 1,
+    .progressive_upgrades = 1,
 };
 
 union faucet_speed {

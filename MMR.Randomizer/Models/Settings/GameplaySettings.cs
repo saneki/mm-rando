@@ -118,6 +118,15 @@ namespace MMR.Randomizer.Models.Settings
             set { this.AsmOptions.MiscConfig.Flags.ShopModels = value; }
         }
 
+        /// <summary>
+        /// Updates shop models and text
+        /// </summary>
+        public bool ProgressiveUpgrades
+        {
+            get { return this.AsmOptions.MiscConfig.Flags.ProgressiveUpgrades; }
+            set { this.AsmOptions.MiscConfig.Flags.ProgressiveUpgrades = value; }
+        }
+
         #endregion
 
         #region Random Elements

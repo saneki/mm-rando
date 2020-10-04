@@ -234,11 +234,12 @@ namespace MMR.Randomizer.Utils
                 var lower = (char)(getItemIndex & 0xFF);
                 if (description.Contains("\u0009\u0001\u0000\u0000"))
                 {
-                    description = description.Replace("\u0009\u0001\u0000\u0000", $"\u0009\u0001{upper}{lower}");
+                    description = description.Replace("\u0009\u0001\u0000\u0000", $"\u0009\u0001{upper}{lower}").Wrap(35, "\x11");
                 }
                 else
                 {
-                    description = description.SurroundWithCommandCheckGetItemReplaceItemDescription(location);
+                    // Warning - Custom Shop Keeper descriptions will not work properly with progressive upgrades.
+                    description = description.SurroundWithCommandCheckGetItemReplaceItemDescription(location).SurroundWithCommandAutoWrap();
                 }
 
                 var messageId = ReadWriteUtils.ReadU16(shopInventory.ShopItemAddress + 0x0A);

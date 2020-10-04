@@ -105,7 +105,7 @@
             this.tRules.Location = new System.Drawing.Point(4, 25);
             this.tRules.Name = "tRules";
             this.tRules.Padding = new System.Windows.Forms.Padding(3);
-            this.tRules.Size = new System.Drawing.Size(400, 465);
+            this.tRules.Size = new System.Drawing.Size(400, 271);
             this.tRules.TabIndex = 1;
             this.tRules.Text = "Rulesets";
             this.tRules.UseVisualStyleBackColor = true;
@@ -144,7 +144,7 @@
             this.tLogic.Location = new System.Drawing.Point(4, 25);
             this.tLogic.Name = "tLogic";
             this.tLogic.Padding = new System.Windows.Forms.Padding(3);
-            this.tLogic.Size = new System.Drawing.Size(400, 465);
+            this.tLogic.Size = new System.Drawing.Size(400, 271);
             this.tLogic.TabIndex = 7;
             this.tLogic.Text = "Logic editor";
             this.tLogic.UseVisualStyleBackColor = true;
@@ -163,7 +163,7 @@
             this.tItem.Location = new System.Drawing.Point(4, 25);
             this.tItem.Name = "tItem";
             this.tItem.Padding = new System.Windows.Forms.Padding(3);
-            this.tItem.Size = new System.Drawing.Size(400, 465);
+            this.tItem.Size = new System.Drawing.Size(400, 271);
             this.tItem.TabIndex = 8;
             this.tItem.Text = "Item list";
             this.tItem.UseVisualStyleBackColor = true;
@@ -182,7 +182,7 @@
             this.tShuffles.Controls.Add(this.lShuffle);
             this.tShuffles.Location = new System.Drawing.Point(4, 25);
             this.tShuffles.Name = "tShuffles";
-            this.tShuffles.Size = new System.Drawing.Size(400, 465);
+            this.tShuffles.Size = new System.Drawing.Size(400, 271);
             this.tShuffles.TabIndex = 2;
             this.tShuffles.Text = "Shuffles";
             this.tShuffles.UseVisualStyleBackColor = true;
@@ -191,7 +191,7 @@
             // 
             this.lShuffle.Location = new System.Drawing.Point(6, 3);
             this.lShuffle.Name = "lShuffle";
-            this.lShuffle.Size = new System.Drawing.Size(372, 1635);
+            this.lShuffle.Size = new System.Drawing.Size(372, 1695);
             this.lShuffle.TabIndex = 2;
             this.lShuffle.Text = resources.GetString("lShuffle.Text");
             // 
@@ -201,7 +201,7 @@
             this.tGimmicks.Controls.Add(this.lGimmick);
             this.tGimmicks.Location = new System.Drawing.Point(4, 25);
             this.tGimmicks.Name = "tGimmicks";
-            this.tGimmicks.Size = new System.Drawing.Size(400, 465);
+            this.tGimmicks.Size = new System.Drawing.Size(400, 271);
             this.tGimmicks.TabIndex = 3;
             this.tGimmicks.Text = "Gimmicks";
             this.tGimmicks.UseVisualStyleBackColor = true;
@@ -239,7 +239,7 @@
             this.tHow.Location = new System.Drawing.Point(4, 25);
             this.tHow.Name = "tHow";
             this.tHow.Padding = new System.Windows.Forms.Padding(3);
-            this.tHow.Size = new System.Drawing.Size(400, 465);
+            this.tHow.Size = new System.Drawing.Size(400, 271);
             this.tHow.TabIndex = 6;
             this.tHow.Text = "How it works";
             this.tHow.UseVisualStyleBackColor = true;
