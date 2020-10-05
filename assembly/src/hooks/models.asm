@@ -188,3 +188,15 @@
     sw      s0, 0x0028 (sp)
     jal     models_draw_seahorse_hook
     or      s0, a0, r0
+
+;==================================================================================================
+; Freestanding Models (Shops)
+;==================================================================================================
+
+.headersize(G_EN_GIRLA_VRAM - G_EN_GIRLA_FILE)
+
+; Overwrite draw function call for shop inventory.
+; Replaces:
+;   jal     0x800EE320
+.org 0x80864A14
+    jal     models_draw_shop_inventory_hook

@@ -141,3 +141,7 @@ DefineDmaFile G_EN_KNIGHT_DMA, G_EN_KNIGHT_FILE, 250
 ; ovl_En_Elfgrp (Group of Stray Fairies)
 DefineDmaFile G_EN_ELFGRP_DMA, G_EN_ELFGRP_FILE, 305
 .definelabel  G_EN_ELFGRP_VRAM, 0x80A396B0
+
+; ovl_En_GirlA (Shop Inventory Data)
+DefineDmaFile G_EN_GIRLA_DMA, G_EN_GIRLA_FILE, 40
+.definelabel  G_EN_GIRLA_VRAM, 0x80863870

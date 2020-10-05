@@ -86,6 +86,7 @@ namespace MMR.UI.Forms
 
             TooltipBuilder.SetTooltip(cUserItems, "Only randomize a custom list of items.\n\nThe item list can be edited from the menu: Customize -> Item List Editor. When checked, some settings will become disabled.");
             TooltipBuilder.SetTooltip(cMixSongs, "Enable songs being placed among items in the randomization pool.");
+            TooltipBuilder.SetTooltip(cProgressiveUpgrades, "Enable swords, wallets, magic, bomb bags and quivers to be found in the intended order.");
             TooltipBuilder.SetTooltip(cDChests, "Enable keys, boss keys, maps and compasses being placed in the randomization pool.");
             TooltipBuilder.SetTooltip(cShop, "Enable shop items being placed in the randomization pool.");
             TooltipBuilder.SetTooltip(cBottled, "Enable captured bottle contents being randomized.");
@@ -306,6 +307,7 @@ namespace MMR.UI.Forms
             cAdditional.Checked = _configuration.GameplaySettings.AddOther;
             cSoS.Checked = _configuration.GameplaySettings.ExcludeSongOfSoaring;
             cMixSongs.Checked = _configuration.GameplaySettings.AddSongs;
+            cProgressiveUpgrades.Checked = _configuration.GameplaySettings.ProgressiveUpgrades;
             cBottled.Checked = _configuration.GameplaySettings.RandomizeBottleCatchContents;
             cDChests.Checked = _configuration.GameplaySettings.AddDungeonItems;
             cShop.Checked = _configuration.GameplaySettings.AddShopItems;
@@ -569,6 +571,11 @@ namespace MMR.UI.Forms
         private void cMixSongs_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _configuration.GameplaySettings.AddSongs = cMixSongs.Checked);
+        }
+
+        private void cProgressiveUpgrades_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _configuration.GameplaySettings.ProgressiveUpgrades = cProgressiveUpgrades.Checked);
         }
 
         private void cFreeHints_CheckedChanged(object sender, EventArgs e)
@@ -896,6 +903,7 @@ namespace MMR.UI.Forms
             if (_configuration.GameplaySettings.LogicMode == LogicMode.Vanilla)
             {
                 cMixSongs.Enabled = false;
+                cProgressiveUpgrades.Enabled = false;
                 cSoS.Enabled = false;
                 cDChests.Enabled = false;
                 cDEnt.Enabled = false;
@@ -923,6 +931,7 @@ namespace MMR.UI.Forms
             else
             {
                 cMixSongs.Enabled = true;
+                cProgressiveUpgrades.Enabled = true;
                 cDEnt.Enabled = true;
                 cSpoiler.Enabled = true;
                 cHTMLLog.Enabled = true;
@@ -1020,6 +1029,7 @@ namespace MMR.UI.Forms
             cDEnt.Enabled = v;
             cNoStartingItems.Enabled = v;
             cMixSongs.Enabled = v;
+            cProgressiveUpgrades.Enabled = v;
             cEnemy.Enabled = v;
 
             bTunic.Enabled = v;

@@ -165,6 +165,15 @@ namespace MMR.Randomizer.Asm
         }
 
         /// <summary>
+        /// Write a <see cref="MMRConfig"/> to the ROM.
+        /// </summary>
+        /// <param name="config">MMR config</param>
+        public void WriteMMRConfig(MMRConfig config)
+        {
+            WriteAsmConfig("MMR_CONFIG", config);
+        }
+
+        /// <summary>
         /// Write the <see cref="MiscConfig"/> hash bytes without overwriting other parts of the structure.
         /// </summary>
         /// <param name="hash">Hash bytes</param>
@@ -341,6 +350,7 @@ namespace MMR.Randomizer.Asm
         public void ApplyConfiguration(AsmOptionsGameplay options)
         {
             this.WriteMiscConfig(options.MiscConfig);
+            this.WriteMMRConfig(options.MMRConfig);
         }
 
         /// <summary>

@@ -16,7 +16,7 @@ namespace MMR.Randomizer.Utils
         {
             var itemList = randomized.ItemList
                 .Where(io => !io.Item.IsFake())
-                .Select(u => new SpoilerItem(u, ItemUtils.IsRequired(u.Item, randomized), ItemUtils.IsImportant(u.Item, randomized)));
+                .Select(u => new SpoilerItem(u, ItemUtils.IsRequired(u.Item, randomized), ItemUtils.IsImportant(u.Item, randomized), settings.ProgressiveUpgrades));
             var settingsString = settings.ToString();
 
             var directory = Path.GetDirectoryName(outputSettings.OutputROMFilename);

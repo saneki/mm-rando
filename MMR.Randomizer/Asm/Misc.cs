@@ -121,6 +121,16 @@ namespace MMR.Randomizer.Asm
         public bool ContinuousDekuHopping { get; set; } = false;
 
         /// <summary>
+        /// Whether or not to enable shop models.
+        /// </summary>
+        public bool ShopModels { get; set; } = true;
+
+        /// <summary>
+        /// Whether or not to enable progressive upgrades.
+        /// </summary>
+        public bool ProgressiveUpgrades { get; set; } = true;
+
+        /// <summary>
         /// Whether or not to allow using the ocarina underwater.
         /// </summary>
         public bool OcarinaUnderwater { get; set; }
@@ -159,6 +169,8 @@ namespace MMR.Randomizer.Asm
             this.FreestandingModels = ((flags >> 24) & 1) == 1;
             this.ArrowCycling = ((flags >> 21) & 1) == 1;
             this.ContinuousDekuHopping = ((flags >> 18) & 1) == 1;
+            this.ShopModels = ((flags >> 17) & 1) == 1;
+            this.ProgressiveUpgrades = ((flags >> 16) & 1) == 1;
         }
 
         /// <summary>
@@ -180,6 +192,8 @@ namespace MMR.Randomizer.Asm
             flags |= (this.ArrowMagic ? (uint)1 : 0) << 20;
             flags |= (this.ElegySpeedup ? (uint)1 : 0) << 19;
             flags |= (this.ContinuousDekuHopping ? (uint)1 : 0) << 18;
+            flags |= (this.ShopModels ? (uint)1 : 0) << 17;
+            flags |= (this.ProgressiveUpgrades ? (uint)1 : 0) << 16;
             return flags;
         }
     }

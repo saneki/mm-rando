@@ -11,10 +11,6 @@ namespace MMR.Randomizer.Utils
     public static class ItemSwapUtils
     {
         const int BOTTLE_CATCH_TABLE = 0xCD7C08;
-        static int cycle_repeat = 0;
-        const int CYCLE_REPEAT_COUNT_ADDRESS = 0xC72D16;
-        const ushort INITIAL_CYCLE_REPEAT_COUNT = 0x74;
-        static ushort cycle_repeat_count = INITIAL_CYCLE_REPEAT_COUNT;
         static int GET_ITEM_TABLE = 0;
 
         public static void ReplaceGetItemTable()
@@ -28,8 +24,6 @@ namespace MMR.Randomizer.Utils
             ReadWriteUtils.WriteToROM(0xBDAEA8, (uint)last_file + 2);
             ResourceUtils.ApplyHack(Resources.mods.standing_hearts);
             ResourceUtils.ApplyHack(Resources.mods.fix_item_checks);
-            cycle_repeat = 0xC72DF4;
-            cycle_repeat_count = INITIAL_CYCLE_REPEAT_COUNT;
             SceneUtils.ResetSceneFlagMask();
             SceneUtils.UpdateSceneFlagMask(0x5B); // red potion
             SceneUtils.UpdateSceneFlagMask(0x91); // chateau romani
@@ -104,7 +98,7 @@ namespace MMR.Randomizer.Utils
             }
         }
 
-        public static void WriteNewItem(Item location, Item item, List<MessageEntry> newMessages, bool updateShop, bool preventDowngrades, bool updateChest, ChestTypeAttribute.ChestType? overrideChestType, bool isExtraStartingItem, bool questItemExtraStorageEnabled)
+        public static void WriteNewItem(Item location, Item item, List<MessageEntry> newMessages, bool updateShop, bool preventDowngrades, bool updateChest, ChestTypeAttribute.ChestType? overrideChestType, bool isExtraStartingItem, bool questItemExtraStorageEnabled, List<ushort> cycleRepeatableLocations)
         {
             System.Diagnostics.Debug.WriteLine($"Writing {item.Name()} --> {location.Location()}");
 
@@ -142,37 +136,13 @@ namespace MMR.Randomizer.Utils
             }
             if (isCycleRepeatable)
             {
-                ReadWriteUtils.WriteToROM(cycle_repeat, (ushort)getItemIndex);
-                cycle_repeat += 2;
-                cycle_repeat_count += 2;
-
-                ReadWriteUtils.WriteToROM(CYCLE_REPEAT_COUNT_ADDRESS, cycle_repeat_count);
+                cycleRepeatableLocations.Add(getItemIndex);
             }
 
             var isRepeatable = item.IsRepeatable() || (!preventDowngrades && item.IsDowngradable());
             if (!isRepeatable)
             {
                 SceneUtils.UpdateSceneFlagMask(getItemIndex);
-            }
-
-            if (item == Item.ItemBottleWitch)
-            {
-                ReadWriteUtils.WriteToROM(0xB4997E, (ushort)getItemIndex);
-            }
-
-            if (item == Item.ItemBottleMadameAroma)
-            {
-                ReadWriteUtils.WriteToROM(0xB4998A, (ushort)getItemIndex);
-            }
-
-            if (item == Item.ItemBottleAliens)
-            {
-                ReadWriteUtils.WriteToROM(0xB49996, (ushort)getItemIndex);
-            }
-            
-            if (item == Item.ItemBottleGoronRace)
-            {
-                ReadWriteUtils.WriteToROM(0xB499A2, (ushort)getItemIndex);
             }
 
             if (updateChest)
@@ -258,19 +228,33 @@ namespace MMR.Randomizer.Utils
                     description = shopTexts.Default;
                 }
 
+                var itemName = item.Name().SurroundWithCommandCheckGetItemReplaceItemName(location);
+                var getItemIndex = location.GetItemIndex().Value;
+                var upper = (char)(getItemIndex >> 8);
+                var lower = (char)(getItemIndex & 0xFF);
+                if (description.Contains("\u0009\u0001\u0000\u0000"))
+                {
+                    description = description.Replace("\u0009\u0001\u0000\u0000", $"\u0009\u0001{upper}{lower}").Wrap(35, "\x11");
+                }
+                else
+                {
+                    // Warning - Custom Shop Keeper descriptions will not work properly with progressive upgrades.
+                    description = description.SurroundWithCommandCheckGetItemReplaceItemDescription(location).SurroundWithCommandAutoWrap();
+                }
+
                 var messageId = ReadWriteUtils.ReadU16(shopInventory.ShopItemAddress + 0x0A);
                 newMessages.Add(new MessageEntry
                 {
                     Id = messageId,
                     Header = null,
-                    Message = MessageUtils.BuildShopDescriptionMessage(item.Name(), 20, description)
+                    Message = MessageUtils.BuildShopDescriptionMessage(itemName, 20, description)
                 });
 
                 newMessages.Add(new MessageEntry
                 {
                     Id = (ushort)(messageId + 1),
                     Header = null,
-                    Message = MessageUtils.BuildShopPurchaseMessage(item.Name(), 20, item)
+                    Message = MessageUtils.BuildShopPurchaseMessage(itemName, 20, item)
                 });
             }
         }

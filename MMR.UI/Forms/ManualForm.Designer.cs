@@ -191,7 +191,7 @@
             // 
             this.lShuffle.Location = new System.Drawing.Point(6, 3);
             this.lShuffle.Name = "lShuffle";
-            this.lShuffle.Size = new System.Drawing.Size(372, 1635);
+            this.lShuffle.Size = new System.Drawing.Size(372, 1695);
             this.lShuffle.TabIndex = 2;
             this.lShuffle.Text = resources.GetString("lShuffle.Text");
             // 

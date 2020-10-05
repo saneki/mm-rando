@@ -118,6 +118,24 @@ namespace MMR.Randomizer.Models.Settings
             set { this.AsmOptions.MiscConfig.Flags.ContinuousDekuHopping = value; }
         }
 
+        /// <summary>
+        /// Updates shop models and text
+        /// </summary>
+        public bool UpdateShopAppearance
+        {
+            get { return this.AsmOptions.MiscConfig.Flags.ShopModels; }
+            set { this.AsmOptions.MiscConfig.Flags.ShopModels = value; }
+        }
+
+        /// <summary>
+        /// Updates shop models and text
+        /// </summary>
+        public bool ProgressiveUpgrades
+        {
+            get { return this.AsmOptions.MiscConfig.Flags.ProgressiveUpgrades; }
+            set { this.AsmOptions.MiscConfig.Flags.ProgressiveUpgrades = value; }
+        }
+
         #endregion
 
         #region Random Elements
@@ -345,11 +363,6 @@ namespace MMR.Randomizer.Models.Settings
         /// Prevent downgrades
         /// </summary>
         public bool PreventDowngrades { get; set; } = true;
-
-        /// <summary>
-        /// Updates shop models and text
-        /// </summary>
-        public bool UpdateShopAppearance { get; set; } = true;
 
         /// <summary>
         /// Updates chest appearance to match contents

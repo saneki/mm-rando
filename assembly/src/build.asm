@@ -34,6 +34,7 @@
 .include "hooks/general.asm"
 .include "hooks/hud_colors.asm"
 .include "hooks/items.asm"
+.include "hooks/message.asm"
 .include "hooks/misc.asm"
 .include "hooks/models.asm"
 .include "hooks/pause.asm"
@@ -45,6 +46,7 @@
 .include "hooks/song_state.asm"
 .include "hooks/speedups.asm"
 .include "hooks/world_colors.asm"
+.include "hooks/mmr_gi.asm"
 
 .if MMR_MODS == 1
     .include "hooks/mmr.asm"
@@ -75,7 +77,6 @@ PAYLOAD_START:
 .include "hud_colors.asm"
 .include "items.asm"
 .include "misc.asm"
-.include "mmr.asm"
 .include "models.asm"
 .include "pause.asm"
 .include "player_actor.asm"

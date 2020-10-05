@@ -258,6 +258,9 @@ Instead of receiving random items to replace randomized starting items (Deku Mas
 4. Enemies
 Switches out enemies with others of a similar type. Working but not perfect - some scenes are currently excluded due to extra logic needed for proper functionality (Woodfall Temple, Ikana Graveyard, Sakon's Hideout, Inverted Stone Tower Temple).
 
+5. Progressive Upgrades
+When you find a sword, wallet, bomb bag, bow/quiver or magic power that game will give you the next upgrade based on your inventory.
+
 Extra Starting Items
 Choose from a list of items to start the game with. Logic will take into consideration that you have these items.</value>
   </data>
@@ -302,6 +305,106 @@ When you die, the moon crashes.
 
 13. Continuous Deku Hopping.
 Press A while hopping across water to keep hopping.</value>
+  </data>
+  <data name="lCosmetic.Text" xml:space="preserve">
+    <value>This section should be quite self-explanatory.
+
+Cosmetic Customization
+Tunic colour
+Sets the colour of Link's tunic. This option can be used when applying a patch file.
+
+Tatl colour scheme
+Select a colour scheme for Tatl. This option can be used when applying a patch file.
+
+Music
+Default will leave music as it is normally. Random will shuffle music around, insert music from other games, while attempting to keep music categorized. None will remove music from the game, however some players have reported that the Frog Choir HP reward locks the game.
+
+Player model
+Choose a character model. Selecting Adult Link alters Link's movement speeds and hitbox size to be the same as zora and changes the voice set. Note that this change can affect some gameplay elements - you cannot fit through some deku palace doorways in human form. Adult Link's model is currently incomplete and will be updated.
+
+
+HUD
+Hearts and Magic
+Customized will use the colors selected using the Customize button. Random Choice will pick random colors from a predefined list. Completely Random will pick a completely random color.
+
+Customize
+Completely customize the HUD colors. Click an element to choose a color, or right-click for more options.
+
+
+Gossip Stone Hints
+Free hints
+Gossip stones will not require you to be wearing the Mask of Truth to read their hints.
+
+Clear hints
+When using non-Vanilla Gossip Stone hints, the text will give exact location and item names, instead of cryptic hints.
+
+Hint distribution
+Select a style of gossip stone hints. Default will not change gossip stone text at all. Random will give random item location hints, sometimes fake hints, and sometimes junk hints. Relevant will attempt to provide a vanilla-like gossip stone hint experience. Competitive is a carefully crafted hint system intended to be used when multiple players are playing the same seed; it provides hints for some specific locations, and provides various hints as to the usefulness of regions.
+
+
+Comfort Options
+Default Hold Z-Target
+The game will set the initial Z-Target style to Hold instead of Switch.
+
+Randomize SFX
+Various sound effects in the game will be replaced with other sound effects. This option can be used when applying a patch file.
+
+Enable Night BGM
+Music will continue playing at night time.
+
+Disable crit wiggle
+You will no longer get weird movement when your health is low.
+
+Shorten cutscenes
+Reduces length of or skips cutscenes during gameplay.
+
+Quick text
+Instantly print every text box.
+
+Increase push speed
+Increase the speed of pushing and pulling blocks and faucets.
+
+Close Cows
+When playing Epona's Song for a group of cows, the closest cow will respond, instead of the default behavior.
+
+Update shops
+In-game shops will display the model of the item for sale, as well as update the text of the items for sale. Other NPCs that sell items will also have their text updated to reflect what you're buying from them, including Tingle, Termina Field Business Scrub, other Business Scrubs, Gorman Bros Milk purchase, the Lottery, and the Milk Bar.
+
+Update chests
+Chest appearance will be updated to match the type of item they contain. Major items (including Bombchu and Hero's Shield if they are references in the logic) will be in Large Gold chests; Moderate items (such as small keys, skulltula tokens, stray fairies, quest items, and trade items) will be in Small Gold chests; Boss Keys will be in Boss Key chests; minor items (such as rupees, pieces of heart, and others) will be in Small Wooden chests.
+
+Update world models
+Show world models as their actual item instead of the original item. This includes Pieces of Heart, Heart Containers, Skulltula Tokens, Stray Fairies, Moon's Tear and the Seahorse.
+
+No downgrades
+Finding a worse version of an item (such as finding the Adult Wallet while already having the Giant Wallet) will instead give you nothing, or a refill (e.g. having the Largest Quiver, but 0 arrows, then finding the Large Quiver will fill you back up to 40 arrows, but your max will remain at 50).
+
+Fix Epona Sword
+Ordinarily, riding Epona without having a Bow will change your sword button to a blank B button. This option prevents that, but may affect weird B glitches.
+
+Quest item extra storage
+Enable Quest Item Storage, which allows for storing multiple quest items in their dedicated inventory slot. Quest items will also always be consumed when used.
+
+Arrow cycling
+Cycle through arrow types when pressing R while an arrow is out when using the bow.
+
+
+Speed Ups
+Skip Younger Beaver
+Modify Beavers to not have to race the younger beaver.
+
+Good Dampe RNG
+Change Dampe ghost flames to always have two on the ground floor and one up the ladder.
+
+Good Dog Race RNG
+Make Gold Dog always win if you have the Mask of Truth.
+
+Faster Lab Fish
+Change Lab Fish to only need to be fed one fish.
+
+Faster Bank
+Change the Bank reward thresholds to 200/500/1000 instead of 200/1000/5000. Also reduces maximum bank capacity from 5000 to 1000.
+</value>
   </data>
   <data name="lCosmetic.Text" xml:space="preserve">
     <value>This section should be quite self-explanatory.
