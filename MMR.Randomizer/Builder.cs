@@ -115,7 +115,8 @@ namespace MMR.Randomizer
             {
                 SequenceInfo TargetSlot = RomData.TargetSequences.Find(u => u.Name.Contains("mm-fileselect"));
                 AssignSequenceSlot(TargetSlot, TestSequenceFileselect, Unassigned, "SONGTEST"); // file select
-                List<SequenceInfo> AllRegularSongs = RomData.SequenceList.FindAll(u => u.Type[0] <= 7);
+                List<SequenceInfo> AllRegularSongs = RomData.SequenceList.FindAll(u =>  u.Type.Intersect(TestSequenceFileselect.Type).Any());
+                SequenceUtils.ConvertSequenceSlotToPointer(0x76, 0x18);  // titlescreen
                 foreach (SequenceInfo songslot in AllRegularSongs)
                 {
                     SequenceUtils.ConvertSequenceSlotToPointer(songslot.MM_seq, 0x18);
