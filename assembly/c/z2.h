@@ -1943,7 +1943,9 @@ typedef struct {
     u16              frozen_timer;                   /* 0x0AE8 */
     u8               unk_0xAEA[0x76];                /* 0x0AEA */
     u16              blast_mask_timer;               /* 0x0B60 */
-    u8               unk_0xB62[0x10];                /* 0x0B62 */
+    u8               unk_0xB62[0x05];                /* 0x0B62 */
+    u8               deku_hop_counter;               /* 0x0B67 */
+    u8               unk_0xB68[0x0A];                /* 0x0B68 */
     u16              floor_type;                     /* 0x0B72, determines sound effect used while walking */
 } z2_link_t;
 

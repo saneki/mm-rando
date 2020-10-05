@@ -117,6 +117,7 @@ namespace MMR.UI.Forms
             TooltipBuilder.SetTooltip(cFDAnywhere, "Allow the Fierce Deity's Mask to be used anywhere. Also addresses some softlocks caused by Fierce Deity.");
             TooltipBuilder.SetTooltip(cByoAmmo, "Arrows, Bombs, and Bombchu will not be provided. You must bring your own. Logic Modes other than No Logic will account for this.");
             TooltipBuilder.SetTooltip(cDeathMoonCrash, "Dying causes the moon to crash, with all that that implies.");
+            TooltipBuilder.SetTooltip(cContinuousDekuHopping, "Press A while hopping across water to keep hopping.");
 
             // Comforts/cosmetics
             TooltipBuilder.SetTooltip(cCutsc, "Enable shortened cutscenes.\n\nCertain cutscenes are skipped or otherwise shortened.\nDISCLAIMER: This may cause crashing in certain emulators.");
@@ -361,6 +362,7 @@ namespace MMR.UI.Forms
             cDrawHash.Checked = _configuration.OutputSettings.GeneratePatch || (_drawHashChecked && (_configuration.OutputSettings.GenerateROM || _configuration.OutputSettings.OutputVC));
             cFastPush.Checked = _configuration.GameplaySettings.FastPush;
             cQuestItemStorage.Checked = _configuration.GameplaySettings.QuestItemStorage;
+            cContinuousDekuHopping.Checked = _configuration.GameplaySettings.ContinuousDekuHopping;
             cUnderwaterOcarina.Checked = _configuration.GameplaySettings.OcarinaUnderwater;
             cFreestanding.Checked = _configuration.GameplaySettings.UpdateWorldModels;
             cArrowCycling.Checked = _configuration.GameplaySettings.ArrowCycling;
@@ -683,6 +685,11 @@ namespace MMR.UI.Forms
         private void cQuestItemStorage_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _configuration.GameplaySettings.QuestItemStorage = cQuestItemStorage.Checked);
+        }
+
+        private void cContinuousDekuHopping_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _configuration.GameplaySettings.ContinuousDekuHopping = cContinuousDekuHopping.Checked);
         }
 
         private void cDisableCritWiggle_CheckedChanged(object sender, EventArgs e)

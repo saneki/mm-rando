@@ -124,6 +124,7 @@ namespace MMR.UI.Forms
             this.cCutsc = new System.Windows.Forms.CheckBox();
             this.cNoDowngrades = new System.Windows.Forms.CheckBox();
             this.tabGimmicks = new System.Windows.Forms.TabPage();
+            this.cContinuousDekuHopping = new System.Windows.Forms.CheckBox();
             this.cDeathMoonCrash = new System.Windows.Forms.CheckBox();
             this.cByoAmmo = new System.Windows.Forms.CheckBox();
             this.cFDAnywhere = new System.Windows.Forms.CheckBox();
@@ -1330,6 +1331,7 @@ namespace MMR.UI.Forms
             // 
             // tabGimmicks
             // 
+            this.tabGimmicks.Controls.Add(this.cContinuousDekuHopping);
             this.tabGimmicks.Controls.Add(this.cDeathMoonCrash);
             this.tabGimmicks.Controls.Add(this.cByoAmmo);
             this.tabGimmicks.Controls.Add(this.cFDAnywhere);
@@ -1356,6 +1358,20 @@ namespace MMR.UI.Forms
             this.tabGimmicks.TabIndex = 3;
             this.tabGimmicks.Text = "Gimmicks";
             this.tabGimmicks.UseVisualStyleBackColor = true;
+            // 
+            // cContinuousDekuHopping
+            // 
+            this.cContinuousDekuHopping.AutoSize = true;
+            this.cContinuousDekuHopping.BackColor = System.Drawing.Color.Transparent;
+            this.cContinuousDekuHopping.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cContinuousDekuHopping.ForeColor = System.Drawing.Color.Black;
+            this.cContinuousDekuHopping.Location = new System.Drawing.Point(393, 230);
+            this.cContinuousDekuHopping.Name = "cContinuousDekuHopping";
+            this.cContinuousDekuHopping.Size = new System.Drawing.Size(151, 17);
+            this.cContinuousDekuHopping.TabIndex = 26;
+            this.cContinuousDekuHopping.Text = "Continuous Deku Hopping";
+            this.cContinuousDekuHopping.UseVisualStyleBackColor = false;
+            this.cContinuousDekuHopping.CheckedChanged += new System.EventHandler(this.cContinuousDekuHopping_CheckedChanged);
             // 
             // cDeathMoonCrash
             // 
@@ -2195,6 +2211,7 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.CheckBox cByoAmmo;
         private System.Windows.Forms.CheckBox cDeathMoonCrash;
         private System.Windows.Forms.CheckBox cElegySpeedups;
+        private System.Windows.Forms.CheckBox cContinuousDekuHopping;
     }
 }
 

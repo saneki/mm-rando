@@ -2,6 +2,7 @@
 #include "actor_ext.h"
 #include "arrow_cycle.h"
 #include "arrow_magic.h"
+#include "deku_hop.h"
 #include "dpad.h"
 #include "external_effects.h"
 #include "gfx.h"
@@ -29,6 +30,7 @@ void before_player_actor_update(z2_link_t *link, z2_game_t *game) {
     external_effects_handle(link, game);
     arrow_cycle_handle(link, game);
     arrow_magic_handle(link, game);
+    deku_hop_handle(link, game);
 }
 
 bool before_damage_process(z2_link_t *link, z2_game_t *game) {
