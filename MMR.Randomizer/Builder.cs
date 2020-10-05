@@ -1616,6 +1616,7 @@ namespace MMR.Randomizer
                     WriteMiscText();
                     ResourceUtils.ApplyHack(Resources.mods.cm_cs);
                     ResourceUtils.ApplyHack(Resources.mods.fix_song_of_healing);
+                    ResourceUtils.ApplyHack(Resources.mods.fix_deku_drowning);
                     WriteFileSelect();
                 }
                 ResourceUtils.ApplyHack(Resources.mods.init_file);

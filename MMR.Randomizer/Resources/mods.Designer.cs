@@ -243,6 +243,16 @@ namespace MMR.Randomizer.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] fix_deku_drowning {
+            get {
+                object obj = ResourceManager.GetObject("fix_deku_drowning", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] fix_deku_princess {
             get {
                 object obj = ResourceManager.GetObject("fix_deku_princess", resourceCulture);
