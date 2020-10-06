@@ -211,9 +211,15 @@ namespace MMR.Randomizer
                 }
             }
 
-            if (_settings.ByoAmmo && _settings.LogicMode != LogicMode.NoLogic)
+            var arrows40 = ItemList
+                .FirstOrDefault(io =>
+                    io.DependsOnItems.Count == 0
+                    && io.Conditionals.Count == 2
+                    && io.Conditionals.Any(c => c.SequenceEqual(new List<Item> { Item.UpgradeBigQuiver }))
+                    && io.Conditionals.Any(c => c.SequenceEqual(new List<Item> { Item.UpgradeBiggestQuiver })));
+            if (arrows40 == null)
             {
-                var arrows40 = new ItemObject
+                arrows40 = new ItemObject
                 {
                     ID = ItemList.Count,
                     TimeAvailable = 63,
@@ -230,7 +236,10 @@ namespace MMR.Randomizer
                     },
                 };
                 ItemList.Add(arrows40);
+            }
 
+            if (_settings.ByoAmmo && _settings.LogicMode != LogicMode.NoLogic)
+            {
                 ItemList[Item.ChestInvertedStoneTowerBombchu10].TimeNeeded = 1;
                 ItemList[Item.ChestLinkTrialBombchu10].TimeNeeded = 1;
                 ItemList[Item.ShopItemBombsBombchu10].TimeNeeded = 1;
@@ -282,7 +291,170 @@ namespace MMR.Randomizer
                 ItemList[Item.MaskRomani].DependsOnItems.Add(escortCremia.Item);
             }
 
-            // todo handle progressive upgrades here.
+            if (_settings.ProgressiveUpgrades && _settings.LogicMode != LogicMode.NoLogic)
+            {
+                arrows40.Conditionals.Clear();
+                arrows40.Conditionals.AddRange(new List<Item>
+                {
+                    Item.ItemBow,
+                    Item.UpgradeBigQuiver,
+                    Item.UpgradeBiggestQuiver,
+                }.Combinations(2).Select(a => a.ToList()));
+
+                var arrows50 = new ItemObject
+                {
+                    ID = ItemList.Count,
+                    TimeAvailable = 63,
+                    DependsOnItems = new List<Item>
+                    {
+                        Item.ItemBow,
+                        Item.UpgradeBigQuiver,
+                        Item.UpgradeBiggestQuiver,
+                    },
+                };
+                ItemList.Add(arrows50);
+
+                var bombs30 = ItemList
+                    .FirstOrDefault(io =>
+                        io.DependsOnItems.Count == 0
+                        && io.Conditionals.Count == 3
+                        && io.Conditionals.Any(c => c.SequenceEqual(new List<Item> { Item.ItemBombBag }))
+                        && io.Conditionals.Any(c => c.SequenceEqual(new List<Item> { Item.UpgradeBigBombBag }))
+                        && io.Conditionals.Any(c => c.SequenceEqual(new List<Item> { Item.UpgradeBiggestBombBag })));
+
+                var bombs40 = ItemList
+                    .FirstOrDefault(io =>
+                        io.DependsOnItems.Count == 0
+                        && io.Conditionals.Count == 2
+                        && io.Conditionals.Any(c => c.SequenceEqual(new List<Item> { Item.UpgradeBigBombBag }))
+                        && io.Conditionals.Any(c => c.SequenceEqual(new List<Item> { Item.UpgradeBiggestBombBag})));
+                if (bombs40 == null)
+                {
+                    bombs40 = new ItemObject
+                    {
+                        ID = ItemList.Count,
+                        TimeAvailable = 63,
+                        Conditionals = new List<Item>
+                        {
+                            Item.ItemBombBag,
+                            Item.UpgradeBigBombBag,
+                            Item.UpgradeBiggestBombBag,
+                        }.Combinations(2).Select(a => a.ToList()).ToList(),
+                    };
+                    ItemList.Add(bombs40);
+                }
+                else
+                {
+                    bombs40.Conditionals.Clear();
+                    bombs40.Conditionals.AddRange(new List<Item>
+                    {
+                        Item.ItemBombBag,
+                        Item.UpgradeBigBombBag,
+                        Item.UpgradeBiggestBombBag,
+                    }.Combinations(2).Select(a => a.ToList()));
+                }
+
+                var bombs50 = new ItemObject
+                {
+                    ID = ItemList.Count,
+                    TimeAvailable = 63,
+                    DependsOnItems = new List<Item>
+                    {
+                        Item.ItemBombBag,
+                        Item.UpgradeBigBombBag,
+                        Item.UpgradeBiggestBombBag,
+                    },
+                };
+                ItemList.Add(arrows50);
+
+                var wallets200 = ItemList
+                    .FirstOrDefault(io =>
+                        io.DependsOnItems.Count == 0
+                        && io.Conditionals.Count == 2
+                        && io.Conditionals.Any(c => c.SequenceEqual(new List<Item> { Item.UpgradeAdultWallet }))
+                        && io.Conditionals.Any(c => c.SequenceEqual(new List<Item> { Item.UpgradeGiantWallet })));
+
+                var wallets500 = new ItemObject
+                {
+                    ID = ItemList.Count,
+                    TimeAvailable = 63,
+                    DependsOnItems = new List<Item>
+                    {
+                        Item.UpgradeAdultWallet,
+                        Item.UpgradeGiantWallet,
+                    },
+                };
+                ItemList.Add(wallets500);
+
+                foreach (var itemObject in ItemList)
+                {
+                    if (itemObject != wallets500 && itemObject.DependsOnItems.Contains(Item.UpgradeGiantWallet))
+                    {
+                        itemObject.DependsOnItems.Remove(Item.UpgradeGiantWallet);
+                        itemObject.DependsOnItems.Add(wallets500.Item);
+                    }
+
+                    if (itemObject != wallets200)
+                    {
+                        foreach (var conditions in itemObject.Conditionals)
+                        {
+                            if (conditions.Contains(Item.UpgradeGiantWallet))
+                            {
+                                conditions.Remove(Item.UpgradeGiantWallet);
+                                conditions.Add(wallets500.Item);
+                            }
+                        }
+                    }
+
+                    if (itemObject != bombs50 && itemObject.DependsOnItems.Contains(Item.UpgradeBiggestBombBag))
+                    {
+                        itemObject.DependsOnItems.Remove(Item.UpgradeBiggestBombBag);
+                        itemObject.DependsOnItems.Add(bombs50.Item);
+                    }
+
+                    if (itemObject != bombs30 && itemObject != bombs40 && itemObject.Item != Item.OtherExplosive)
+                    {
+                        foreach (var conditions in itemObject.Conditionals)
+                        {
+                            if (conditions.Contains(Item.UpgradeBiggestBombBag))
+                            {
+                                conditions.Remove(Item.UpgradeBiggestBombBag);
+                                conditions.Add(bombs50.Item);
+                            }
+
+                            if (conditions.Contains(Item.UpgradeBigBombBag))
+                            {
+                                conditions.Remove(Item.UpgradeBigBombBag);
+                                conditions.Add(bombs40.Item);
+                            }
+                        }
+                    }
+
+                    if (itemObject != arrows50 && itemObject.DependsOnItems.Contains(Item.UpgradeBiggestQuiver))
+                    {
+                        itemObject.DependsOnItems.Remove(Item.UpgradeBiggestQuiver);
+                        itemObject.DependsOnItems.Add(arrows50.Item);
+                    }
+
+                    if (itemObject != arrows40 && itemObject.Item != Item.OtherArrow)
+                    {
+                        foreach (var conditions in itemObject.Conditionals)
+                        {
+                            if (conditions.Contains(Item.UpgradeBiggestQuiver))
+                            {
+                                conditions.Remove(Item.UpgradeBiggestQuiver);
+                                conditions.Add(arrows50.Item);
+                            }
+
+                            if (conditions.Contains(Item.UpgradeBigQuiver))
+                            {
+                                conditions.Remove(Item.UpgradeBigQuiver);
+                                conditions.Add(arrows40.Item);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void PrepareRulesetItemData()
@@ -1434,6 +1606,56 @@ namespace MMR.Randomizer
         }
 
         /// <summary>
+        /// Overwrite junk items with ice traps.
+        /// </summary>
+        /// <param name="iceTraps">Ice traps amount setting</param>
+        /// <param name="appearance">Ice traps appearance setting</param>
+        public void AddIceTraps(IceTraps iceTraps, IceTrapAppearance appearance)
+        {
+            var random = this.Random;
+
+            // Select replaceable junk items of specified amount.
+            var items = IceTrapUtils.SelectJunkItems(_randomized.ItemList, iceTraps, random);
+
+            // Dynamically generate appearance set for ice traps.
+            // Only mimic song items if they are included in the main randomization pool (not in their own pool).
+            var mimics = IceTrapUtils.BuildIceTrapMimicSet(_randomized.ItemList, appearance, _randomized.Settings.AddSongs)
+                .ToArray();
+
+            var list = new List<ItemObject>();
+            foreach (var item in items)
+            {
+                // If check is visible (can be seen via world model), add "graphic override" for imitating other item.
+                var mimic = mimics[random.Next(mimics.Length)];
+                item.ID = (int)Item.IceTrap;
+                item.Mimic = mimic;
+
+                var newLocation = item.NewLocation.Value;
+                if (newLocation.IsVisible() || newLocation.IsShop() || newLocation.IsPurchaseable())
+                {
+                    // Store name override for logging in HTML tracker.
+                    item.NameOverride = $"{Item.IceTrap.Name()} ({mimic.Item.Name()})";
+
+                    // If ice trap quirks enabled and placed as a shop item, use a fake shop item name.
+                    if (_settings.IceTrapQuirks && (newLocation.IsShop() || newLocation.IsPurchaseable()))
+                    {
+                        item.Mimic.FakeName = FakeNameUtils.CreateFakeName(item.Mimic.Item.Name(), random);
+                    }
+                }
+
+                if (_randomized.Settings.UpdateChests)
+                {
+                    // Choose chest type for ice trap appearance.
+                    item.Mimic.ChestType = IceTrapUtils.GetIceTrapChestTypeOverride(appearance, random);
+                }
+
+                list.Add(item);
+            }
+
+            _randomized.IceTraps = list.AsReadOnly();
+        }
+
+        /// <summary>
         /// Randomizes the ROM with respect to the configured ruleset.
         /// </summary>
         public RandomizedResult Randomize(IProgressReporter progressReporter)
@@ -1457,6 +1679,9 @@ namespace MMR.Randomizer
 
                 progressReporter.ReportProgress(30, "Shuffling items...");
                 RandomizeItems();
+
+                // Replace junk items with ice traps according to settings.
+                AddIceTraps(_randomized.Settings.IceTraps, _randomized.Settings.IceTrapAppearance);
                 
                 var freeItemIds = _settings.CustomStartingItemList
                     .Cast<int>()

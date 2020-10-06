@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MMR.Randomizer.GameObjects;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -55,9 +56,70 @@ namespace MMR.Randomizer.Extensions
             return str;
         }
 
+        public static string SurroundWithCommandCheckGetItemAndSkip(this string str, Item location)
+        {
+            var getItemIndex = location.GetItemIndex().Value;
+            var upper = (char)(getItemIndex >> 8);
+            var lower = (char)(getItemIndex & 0xFF);
+            return $"\u0009\u0001{upper}{lower}{str}\u0009\u0002";
+        }
+
+        public static string SurroundWithCommandCheckGetItemReplaceItemName(this string str, Item location)
+        {
+            var getItemIndex = location.GetItemIndex().Value;
+            var upper = (char)(getItemIndex >> 8);
+            var lower = (char)(getItemIndex & 0xFF);
+            return $"\u0009\u0003{upper}{lower}{str}\u0009\u0002";
+        }
+
+        public static string SurroundWithCommandCheckGetItemReplaceItemDescription(this string str, Item location)
+        {
+            var getItemIndex = location.GetItemIndex().Value;
+            var upper = (char)(getItemIndex >> 8);
+            var lower = (char)(getItemIndex & 0xFF);
+            return $"\u0009\u0004{upper}{lower}{str}\u0009\u0002";
+        }
+
+        public static string SurroundWithCommandCheckGetItemReplaceArticle(this string str, Item location)
+        {
+            var getItemIndex = location.GetItemIndex().Value;
+            var upper = (char)(getItemIndex >> 8);
+            var lower = (char)(getItemIndex & 0xFF);
+            return $"\u0009\u0005{upper}{lower}{str}\u0009\u0002";
+        }
+
+        public static string SurroundWithCommandCheckGetItemReplacePronoun(this string str, Item location)
+        {
+            var getItemIndex = location.GetItemIndex().Value;
+            var upper = (char)(getItemIndex >> 8);
+            var lower = (char)(getItemIndex & 0xFF);
+            return $"\u0009\u0006{upper}{lower}{str}\u0009\u0002";
+        }
+
+        public static string SurroundWithCommandCheckGetItemReplaceAmount(this string str, Item location)
+        {
+            var getItemIndex = location.GetItemIndex().Value;
+            var upper = (char)(getItemIndex >> 8);
+            var lower = (char)(getItemIndex & 0xFF);
+            return $"\u0009\u0007{upper}{lower}{str}\u0009\u0002";
+        }
+
+        public static string SurroundWithCommandCheckGetItemReplaceVerb(this string str, Item location)
+        {
+            var getItemIndex = location.GetItemIndex().Value;
+            var upper = (char)(getItemIndex >> 8);
+            var lower = (char)(getItemIndex & 0xFF);
+            return $"\u0009\u0008{upper}{lower}{str}\u0009\u0002";
+        }
+
+        public static string SurroundWithCommandAutoWrap(this string str)
+        {
+            return $"\u0009\u0011{str}\u0009\u0012";
+        }
+
         private static readonly ReadOnlyCollection<int> specialCharacters = new ReadOnlyCollection<int>(new int[]
         {
-            0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x11, 0x12, 0x13, 0x19, 0x1E, 0xBF, 0xC2, 0xC3, 0xE0,
+            0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x09, 0x11, 0x12, 0x13, 0x19, 0x1E, 0xBF, 0xC2, 0xC3, 0xE0,
         });
 
         private static bool HasWidth(char c)

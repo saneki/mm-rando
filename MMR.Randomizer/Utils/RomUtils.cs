@@ -14,14 +14,13 @@ using System.Threading;
 
 namespace MMR.Randomizer.Utils
 {
-
     public static class RomUtils
     {
         const int FILE_TABLE = 0x1A500;
         const int SIGNATURE_ADDRESS = 0x1A4D0;
-        public static void SetStrings(string path, string filename, string ver, string setting)
+        public static void SetStrings(byte[] hack, string ver, string setting)
         {
-            ResourceUtils.ApplyHack(path, filename);
+            ResourceUtils.ApplyHack(hack);
             int veraddr = 0xC44E30;
             int settingaddr = 0xC44E70;
             string verstring = $"MM Rando {ver}\x00";
@@ -39,16 +38,9 @@ namespace MMR.Randomizer.Utils
             ReadWriteUtils.Arr_Insert(buffer, 0, buffer.Length, file.Data, addr);
         }
 
-        public static int AddNewFile(string path, string filename)
+        public static int AddNewFile(byte[] content)
         {
-            byte[] buffer;
-            using (BinaryReader data = new BinaryReader(File.OpenRead(Path.Combine(path, filename))))
-            {
-                int len = (int)data.BaseStream.Length;
-                buffer = new byte[len];
-                data.Read(buffer, 0, len);
-            }
-            int index = RomUtils.AppendFile(buffer);
+            int index = RomUtils.AppendFile(content);
             return RomData.MMFileList[index].Addr;
         }
 
@@ -160,13 +152,28 @@ namespace MMR.Randomizer.Utils
             }
         }
 
+        static RomUtils()
+        {
+            var random = new Random(typeof(RomUtils).Assembly.ManifestModule.ModuleVersionId.GetHashCode());
+            var buffer = new byte[16];
+            random.NextBytes(buffer);
+            key = buffer.ToArray();
+            random.NextBytes(buffer);
+            iv = buffer.ToArray();
+        }
+
+        private static readonly byte[] key;
+        private static readonly byte[] iv;
+
         public static byte[] CreatePatch(string filename, List<MMFile> originalMMFiles)
         {
+            var aes = Aes.Create();
             var hashAlg = new SHA256Managed();
             using (var outStream = filename != null ? (Stream) File.Open(Path.ChangeExtension(filename, "mmr"), FileMode.Create) : new MemoryStream())
-            using (var cryptoStream = new CryptoStream(outStream, hashAlg, CryptoStreamMode.Write))
+            using (var cryptoStream = new CryptoStream(outStream, aes.CreateEncryptor(key, iv), CryptoStreamMode.Write))
+            using (var hashStream = new CryptoStream(cryptoStream, hashAlg, CryptoStreamMode.Write))
             {
-                using (var compressStream = new GZipStream(cryptoStream, CompressionMode.Compress))
+                using (var compressStream = new GZipStream(hashStream, CompressionMode.Compress))
                 using (var writer = new BinaryWriter(compressStream))
                 {
                     writer.Write(ReadWriteUtils.Byteswap32(PatchUtils.PATCH_MAGIC));
@@ -242,60 +249,69 @@ namespace MMR.Randomizer.Utils
         /// <returns>SHA256 hash of the patch.</returns>
         public static byte[] ApplyPatch(string filename)
         {
-            var hashAlg = new SHA256Managed();
-            using (var filestream = File.OpenRead(filename))
-            using (var cryptoStream = new CryptoStream(filestream, hashAlg, CryptoStreamMode.Read))
-            using (var decompressStream = new GZipStream(cryptoStream, CompressionMode.Decompress))
-            using (var memoryStream = new MemoryStream())
+            try
             {
-                decompressStream.CopyTo(memoryStream);
-                memoryStream.Seek(0, SeekOrigin.Begin);
-                using (var reader = new BinaryReader(memoryStream))
+                var aes = Aes.Create();
+                var hashAlg = new SHA256Managed();
+                using (var filestream = File.OpenRead(filename))
+                using (var cryptoStream = new CryptoStream(filestream, aes.CreateDecryptor(key, iv), CryptoStreamMode.Read))
+                using (var hashStream = new CryptoStream(cryptoStream, hashAlg, CryptoStreamMode.Read))
+                using (var decompressStream = new GZipStream(hashStream, CompressionMode.Decompress))
+                using (var memoryStream = new MemoryStream())
                 {
-                    var magic = ReadWriteUtils.ReadU32(reader);
-                    var version = ReadWriteUtils.ReadU32(reader);
-
-                    // Validate patch magic and version values
-                    PatchUtils.Validate(magic, version);
-
-                    while (reader.BaseStream.Position != reader.BaseStream.Length)
+                    decompressStream.CopyTo(memoryStream);
+                    memoryStream.Seek(0, SeekOrigin.Begin);
+                    using (var reader = new BinaryReader(memoryStream))
                     {
-                        var fileIndex = ReadWriteUtils.ReadS32(reader);
-                        var fileAddr = ReadWriteUtils.ReadS32(reader);
-                        var index = ReadWriteUtils.ReadS32(reader);
-                        var isStatic = ReadWriteUtils.ReadS32(reader) != 0 ? true : false;
-                        var length = ReadWriteUtils.ReadS32(reader);
-                        var data = reader.ReadBytes(length);
-                        if (fileIndex >= RomData.MMFileList.Count)
+                        var magic = ReadWriteUtils.ReadU32(reader);
+                        var version = ReadWriteUtils.ReadU32(reader);
+
+                        // Validate patch magic and version values
+                        PatchUtils.Validate(magic, version);
+
+                        while (reader.BaseStream.Position != reader.BaseStream.Length)
                         {
-                            var newFile = new MMFile
+                            var fileIndex = ReadWriteUtils.ReadS32(reader);
+                            var fileAddr = ReadWriteUtils.ReadS32(reader);
+                            var index = ReadWriteUtils.ReadS32(reader);
+                            var isStatic = ReadWriteUtils.ReadS32(reader) != 0 ? true : false;
+                            var length = ReadWriteUtils.ReadS32(reader);
+                            var data = reader.ReadBytes(length);
+                            if (fileIndex >= RomData.MMFileList.Count)
                             {
-                                Addr = fileAddr,
-                                IsCompressed = false,
-                                Data = data,
-                                End = fileAddr + data.Length,
-                                IsStatic = isStatic,
-                            };
-                            RomUtils.AppendFile(newFile);
-                        }
-                        if (index == -1)
-                        {
-                            RomData.MMFileList[fileIndex].Data = data;
-                            if (data.Length == 0)
+                                var newFile = new MMFile
+                                {
+                                    Addr = fileAddr,
+                                    IsCompressed = false,
+                                    Data = data,
+                                    End = fileAddr + data.Length,
+                                    IsStatic = isStatic,
+                                };
+                                RomUtils.AppendFile(newFile);
+                            }
+                            if (index == -1)
                             {
-                                RomData.MMFileList[fileIndex].Cmp_Addr = -1;
-                                RomData.MMFileList[fileIndex].Cmp_End = -1;
+                                RomData.MMFileList[fileIndex].Data = data;
+                                if (data.Length == 0)
+                                {
+                                    RomData.MMFileList[fileIndex].Cmp_Addr = -1;
+                                    RomData.MMFileList[fileIndex].Cmp_End = -1;
+                                }
+                            }
+                            else
+                            {
+                                CheckCompressed(fileIndex);
+                                ReadWriteUtils.Arr_Insert(data, 0, data.Length, RomData.MMFileList[fileIndex].Data, index);
                             }
                         }
-                        else
-                        {
-                            CheckCompressed(fileIndex);
-                            ReadWriteUtils.Arr_Insert(data, 0, data.Length, RomData.MMFileList[fileIndex].Data, index);
-                        }
                     }
-                }
 
-                return hashAlg.Hash;
+                    return hashAlg.Hash;
+                }
+            }
+            catch
+            {
+                throw new IOException("Failed to apply patch. Patch may be invalid.");
             }
         }
 

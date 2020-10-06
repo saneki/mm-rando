@@ -25,6 +25,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using SixLabors.ImageSharp.Formats.Png;
 using System.Windows.Forms;
+using System.Security.Cryptography;
 
 namespace MMR.Randomizer
 {
@@ -34,13 +35,17 @@ namespace MMR.Randomizer
         private CosmeticSettings _cosmeticSettings;
         private MessageTable _messageTable;
         private ExtendedObjects _extendedObjects;
+        private List<MessageEntry> _extraMessages;
+        private Dictionary<int, ItemGraphic> _graphicOverrides;
 
         public Builder(RandomizedResult randomized, CosmeticSettings cosmeticSettings)
         {
             _randomized = randomized;
             _cosmeticSettings = cosmeticSettings;
-            _messageTable = new MessageTable();
+            _messageTable = null;
             _extendedObjects = null;
+            _extraMessages = new List<MessageEntry>();
+            _graphicOverrides = new Dictionary<int, ItemGraphic>();
         }
 
         #region Sequences, sounds and BGM
@@ -284,8 +289,8 @@ namespace MMR.Randomizer
                 BGMShuffle(random, _settings);
             }
 
-            ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-music");
-            ResourceUtils.ApplyHack(Values.ModsDirectory, "inst24-swap-guitar");
+            ResourceUtils.ApplyHack(Resources.mods.fix_music);
+            ResourceUtils.ApplyHack(Resources.mods.inst24_swap_guitar);
             SequenceUtils.RebuildAudioSeq(RomData.SequenceList, _settings);
             SequenceUtils.WriteNewSoundSamples(RomData.InstrumentSetList);
             SequenceUtils.RebuildAudioBank(RomData.InstrumentSetList);
@@ -322,40 +327,26 @@ namespace MMR.Randomizer
                 return;
             }
 
+            if (_randomized.Settings.Character == Character.AdultLink)
+            {
+                PlayerModelUtils.ApplyAdultLinkPatches();
+                return;
+            }
+
             int characterIndex = (int)_randomized.Settings.Character;
 
-            using (var b = new BinaryReader(File.OpenRead(Path.Combine(Values.ObjsDirectory, $"link-{characterIndex}"))))
-            {
-                var obj = new byte[b.BaseStream.Length];
-                b.Read(obj, 0, obj.Length);
-                ResourceUtils.ApplyHack(Values.ModsDirectory, $"fix-link-{characterIndex}");
-                ObjUtils.InsertObj(obj, 0x11);
-            }
+            ResourceUtils.ApplyIndexedHack(characterIndex-1, Resources.mods.fix_link_1, Resources.mods.fix_link_2, Resources.mods.fix_link_3);
+            ObjUtils.InsertIndexedObj(characterIndex - 1, 0x11, Resources.models.link_1, Resources.models.link_2, Resources.models.link_3);
 
             if (_randomized.Settings.Character == Character.Kafei)
             {
-                using (var b = new BinaryReader(File.OpenRead(Path.Combine(Values.ObjsDirectory, "kafei"))))
-                {
-                    var obj = new byte[b.BaseStream.Length];
-                    b.Read(obj, 0, obj.Length);
-                    ObjUtils.InsertObj(obj, 0x1C);
-                    ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-kafei");
-                }
+                ObjUtils.InsertObj(Resources.models.kafei, 0x1C);
+                ResourceUtils.ApplyHack(Resources.mods.fix_kafei);
 
-                using (var b = new BinaryReader(File.OpenRead(Path.Combine(Values.ObjsDirectory, "link-mask"))))
-                {
-                    var obj = new byte[b.BaseStream.Length];
-                    b.Read(obj, 0, obj.Length);
-                    ObjUtils.InsertObj(obj, 0x1FF);
-                    ResourceUtils.ApplyHack(Values.ModsDirectory, "update-kafei-mask-icon");
-                }
+                ObjUtils.InsertObj(Resources.models.link_mask, 0x1FF);
+                ResourceUtils.ApplyHack(Resources.mods.update_kafei_mask_icon);
 
-                using (var b = new BinaryReader(File.OpenRead(Path.Combine(Values.ObjsDirectory, "gi-link-mask"))))
-                {
-                    var obj = new byte[b.BaseStream.Length];
-                    b.Read(obj, 0, obj.Length);
-                    ObjUtils.InsertObj(obj, 0x258);
-                }
+                ObjUtils.InsertObj(Resources.models.gi_link_mask, 0x258);
             }
         }
 
@@ -364,7 +355,7 @@ namespace MMR.Randomizer
             Color t = _cosmeticSettings.TunicColor;
             byte[] color = { t.R, t.G, t.B };
 
-            var otherTunics = ResourceUtils.GetAddresses(Values.AddrsDirectory, "tunic-forms");
+            var otherTunics = ResourceUtils.GetAddresses(Resources.addresses.tunic_forms);
             TunicUtils.UpdateFormTunics(otherTunics, _cosmeticSettings.TunicColor);
 
             var playerModel = DeterminePlayerModel();
@@ -377,7 +368,7 @@ namespace MMR.Randomizer
             }
             else
             {
-                var locations = ResourceUtils.GetAddresses(Values.AddrsDirectory, $"tunic-{characterIndex}");
+                var locations = ResourceUtils.GetIndexedAddresses(characterIndex, Resources.addresses.tunic_0, Resources.addresses.tunic_1, Resources.addresses.tunic_2, Resources.addresses.tunic_3);
                 var objectData = ObjUtils.GetObjectData(0x11);
                 for (int j = 0; j < locations.Count; j++)
                 {
@@ -391,7 +382,7 @@ namespace MMR.Randomizer
         {
             if (_cosmeticSettings.EnableHoldZTargeting)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory, "ztargetinghold");
+                ResourceUtils.ApplyHack(Resources.mods.ztargetinghold);
             }
 
             if (_cosmeticSettings.EnableNightBGM)
@@ -480,23 +471,28 @@ namespace MMR.Randomizer
         private Character DeterminePlayerModel()
         {
             var data = ObjUtils.GetObjectData(0x11);
-            if (data[0x107] == 0x05)
+            var hash = MD5.Create().ComputeHash(data);
+
+            if (hash.SequenceEqual(PlayerModelHash.LinkMM))
             {
                 return Character.LinkMM;
             }
-            if (data[0x107] == 0x07)
+            else if (hash.SequenceEqual(PlayerModelHash.LinkOOT))
             {
                 return Character.LinkOOT;
             }
-            if (data[0xC6] == 0x02)
+            else if (hash.SequenceEqual(PlayerModelHash.AdultLink))
             {
                 return Character.AdultLink;
             }
-            if (data[0xC5] == 0x15)
+            else if (hash.SequenceEqual(PlayerModelHash.Kafei))
             {
                 return Character.Kafei;
             }
-            throw new Exception("Unable to determine player's model.");
+            else
+            {
+                throw new Exception("Unable to determine player's model.");
+            }
         }
 
         private void SetTatlColour(Random random)
@@ -529,7 +525,7 @@ namespace MMR.Randomizer
                 SetTatlColour(random);
                 var selectedColorSchemaIndex = (int)_cosmeticSettings.TatlColorSchema;
                 byte[] c = new byte[8];
-                List<int[]> locs = ResourceUtils.GetAddresses(Values.AddrsDirectory, "tatl-colour");
+                List<int[]> locs = ResourceUtils.GetAddresses(Resources.addresses.tatl_colour);
                 for (int i = 0; i < locs.Count; i++)
                 {
                     ReadWriteUtils.Arr_WriteU32(c, 0, Values.TatlColours[selectedColorSchemaIndex, i << 1]);
@@ -539,7 +535,7 @@ namespace MMR.Randomizer
             }
             else
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory, "rainbow-tatl");
+                ResourceUtils.ApplyHack(Resources.mods.rainbow_tatl);
             }
         }
 
@@ -547,7 +543,7 @@ namespace MMR.Randomizer
         {
             if (_randomized.Settings.QuickTextEnabled)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory, "quick-text");
+                ResourceUtils.ApplyHack(Resources.mods.quick_text);
             }
         }
 
@@ -555,11 +551,11 @@ namespace MMR.Randomizer
         {
             if (_randomized.Settings.ShortenCutscenes)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory, "short-cutscenes");
+                ResourceUtils.ApplyHack(Resources.mods.short_cutscenes);
             //}
             // if (_randomized.Settings.RemoveTatlInterrupts)
             //{
-                ResourceUtils.ApplyHack(Values.ModsDirectory, "remove-tatl-interrupts");
+                ResourceUtils.ApplyHack(Resources.mods.remove_tatl_interrupts);
             }
         }
 
@@ -574,15 +570,15 @@ namespace MMR.Randomizer
             EntranceUtils.WriteEntrances(Values.OldExits.ToArray(), _randomized.NewExits);
             byte[] li = new byte[] { 0x24, 0x02, 0x00, 0x00 };
             List<int[]> addr = new List<int[]>();
-            addr = ResourceUtils.GetAddresses(Values.AddrsDirectory, "d-check");
+            addr = ResourceUtils.GetAddresses(Resources.addresses.d_check);
             for (int i = 0; i < addr.Count; i++)
             {
                 li[3] = (byte)_randomized.NewExitIndices[i];
                 ReadWriteUtils.WriteROMAddr(addr[i], li);
             }
 
-            ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-dungeons");
-            addr = ResourceUtils.GetAddresses(Values.AddrsDirectory, "d-exit");
+            ResourceUtils.ApplyHack(Resources.mods.fix_dungeons);
+            addr = ResourceUtils.GetAddresses(Resources.addresses.d_exit);
 
             for (int i = 0; i < addr.Count; i++)
             {
@@ -600,13 +596,13 @@ namespace MMR.Randomizer
                 }
             }
 
-            addr = ResourceUtils.GetAddresses(Values.AddrsDirectory, "dc-flagload");
+            addr = ResourceUtils.GetAddresses(Resources.addresses.dc_flagload);
             for (int i = 0; i < addr.Count; i++)
             {
                 ReadWriteUtils.WriteROMAddr(addr[i], new byte[] { (byte)((_randomized.NewDCFlags[i] & 0xFF00) >> 8), (byte)(_randomized.NewDCFlags[i] & 0xFF) });
             }
 
-            addr = ResourceUtils.GetAddresses(Values.AddrsDirectory, "dc-flagmask");
+            addr = ResourceUtils.GetAddresses(Resources.addresses.dc_flagmask);
             for (int i = 0; i < addr.Count; i++)
             {
                 ReadWriteUtils.WriteROMAddr(addr[i], new byte[] {
@@ -619,7 +615,7 @@ namespace MMR.Randomizer
         {
             if (_randomized.Settings.SpeedupBeavers)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory, "speedup-beavers");
+                ResourceUtils.ApplyHack(Resources.mods.speedup_beavers);
                 _messageTable.UpdateMessages(new MessageEntry
                 {
                     Id = 0x10D6,
@@ -642,22 +638,22 @@ namespace MMR.Randomizer
 
             if (_randomized.Settings.SpeedupDampe)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory, "speedup-dampe");
+                ResourceUtils.ApplyHack(Resources.mods.speedup_dampe);
             }
 
             if (_randomized.Settings.SpeedupLabFish)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory, "speedup-labfish");
+                ResourceUtils.ApplyHack(Resources.mods.speedup_labfish);
             }
 
             if (_randomized.Settings.SpeedupDogRace)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory, "speedup-dograce");
+                ResourceUtils.ApplyHack(Resources.mods.speedup_dograce);
             }
 
             if (_randomized.Settings.SpeedupBank)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory, "speedup-bank");
+                ResourceUtils.ApplyHack(Resources.mods.speedup_bank);
                 _messageTable.UpdateMessages(new MessageEntry
                 {
                     Id = 0x45C,
@@ -678,25 +674,25 @@ namespace MMR.Randomizer
             int damageMultiplier = (int)_randomized.Settings.DamageMode;
             if (damageMultiplier > 0)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory, "dm-" + damageMultiplier.ToString());
+                ResourceUtils.ApplyIndexedHack(damageMultiplier-1, Resources.mods.dm_1, Resources.mods.dm_2, Resources.mods.dm_3, Resources.mods.dm_4);
             }
 
             int damageEffect = (int)_randomized.Settings.DamageEffect;
             if (damageEffect > 0)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory, "de-" + damageEffect.ToString());
+                ResourceUtils.ApplyIndexedHack(damageEffect - 1, Resources.mods.de_1, Resources.mods.de_2, Resources.mods.de_3, Resources.mods.de_4);
             }
 
             int gravityType = (int)_randomized.Settings.MovementMode;
             if (gravityType > 0)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory, "movement-" + gravityType.ToString());
+                ResourceUtils.ApplyIndexedHack(gravityType - 1, Resources.mods.movement_1, Resources.mods.movement_2, Resources.mods.movement_3, Resources.mods.movement_4);
             }
 
             int floorType = (int)_randomized.Settings.FloorType;
             if (floorType > 0)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory, "floor-" + floorType.ToString());
+                ResourceUtils.ApplyIndexedHack(floorType - 1, Resources.mods.floor_1, Resources.mods.floor_2, Resources.mods.floor_3, Resources.mods.floor_4);
             }
 
             if (_randomized.Settings.ClockSpeed != ClockSpeed.Default)
@@ -721,17 +717,22 @@ namespace MMR.Randomizer
 
             if (_randomized.Settings.AllowFierceDeityAnywhere)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory, "fierce-deity-anywhere");
+                ResourceUtils.ApplyHack(Resources.mods.fierce_deity_anywhere);
             }
 
             if (_randomized.Settings.ByoAmmo)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory, "byo-ammo");
+                ResourceUtils.ApplyHack(Resources.mods.byo_ammo);
             }
 
             if (_randomized.Settings.DeathMoonCrash)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory, "death-moon-crash");
+                ResourceUtils.ApplyHack(Resources.mods.death_moon_crash);
+            }
+
+            if (_randomized.Settings.ContinuousDekuHopping)
+            {
+                ResourceUtils.ApplyHack(Resources.mods.fast_deku_hops);
             }
         }
 
@@ -744,7 +745,7 @@ namespace MMR.Randomizer
                 Message = $"You played the {TextCommands.ColorYellow}Sun's Song{TextCommands.ColorWhite}!\xBF"
             });
 
-            ResourceUtils.ApplyHack(Values.ModsDirectory, "enable-sunssong");
+            ResourceUtils.ApplyHack(Resources.mods.enable_sunssong);
         }
 
         private void WriteBlastMaskCooldown()
@@ -822,7 +823,7 @@ namespace MMR.Randomizer
                     break;
             }
 
-            ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-clock-speed");
+            ResourceUtils.ApplyHack(Resources.mods.fix_clock_speed);
 
             var codeFileAddress = 0xB3C000;
             var hackAddressOffset = 0x8A674;
@@ -935,6 +936,14 @@ namespace MMR.Randomizer
                 }
             }
 
+            if (_randomized.Settings.ProgressiveUpgrades)
+            {
+                itemList = itemList
+                    .GroupBy(item => ItemUtils.ForbiddenStartTogether.FirstOrDefault(fst => fst.Contains(item)))
+                    .SelectMany(g => g.Key == null || g.Key.Contains(Item.StartingShield) ? g.ToList() : g.Key.Skip(g.Count()-1).Take(1))
+                    .ToList();
+            }
+
             itemList = itemList
                 .GroupBy(item => ItemUtils.ForbiddenStartTogether.FirstOrDefault(fst => fst.Contains(item)))
                 .SelectMany(g => g.Key == null ? g.ToList() : g.OrderByDescending(item => g.Key.IndexOf(item)).Take(1))
@@ -1006,18 +1015,21 @@ namespace MMR.Randomizer
 
             if (_randomized.Settings.FixEponaSword)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-epona");
+                ResourceUtils.ApplyHack(Resources.mods.fix_epona);
             }
             if (_randomized.Settings.PreventDowngrades)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-downgrades");
+                ResourceUtils.ApplyHack(Resources.mods.fix_downgrades);
             }
             if (_randomized.Settings.AddCowMilk)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-cow-bottle-check");
+                ResourceUtils.ApplyHack(Resources.mods.fix_cow_bottle_check);
             }
 
+            ResourceUtils.ApplyHack(Resources.mods.update_trade_scrubs);
+
             var newMessages = new List<MessageEntry>();
+            _randomized.Settings.AsmOptions.MMRConfig.CycleRepeatableLocations.Clear();
             foreach (var item in _randomized.ItemList)
             {
                 // Unused item
@@ -1037,9 +1049,43 @@ namespace MMR.Randomizer
                     {
                         overrideChestType = ChestTypeAttribute.ChestType.LargeGold;
                     }
-                    ItemSwapUtils.WriteNewItem(item.NewLocation.Value, item.Item, newMessages, _randomized.Settings.UpdateShopAppearance, _randomized.Settings.PreventDowngrades, _randomized.Settings.UpdateChests && item.IsRandomized, overrideChestType, _randomized.Settings.CustomStartingItemList.Contains(item.Item));
+                    ItemSwapUtils.WriteNewItem(
+                        item.NewLocation.Value,
+                        item.Item, newMessages,
+                        _randomized.Settings.UpdateShopAppearance,
+                        _randomized.Settings.PreventDowngrades,
+                        _randomized.Settings.UpdateChests && item.IsRandomized,
+                        item.Mimic?.ChestType ?? overrideChestType,
+                        _randomized.Settings.CustomStartingItemList.Contains(item.Item),
+                        _randomized.Settings.QuestItemStorage,
+                        _randomized.Settings.AsmOptions.MMRConfig.CycleRepeatableLocations,
+                        item.Mimic
+                    );
                 }
             }
+
+            _randomized.Settings.AsmOptions.MMRConfig.LocationBottleRedPotion = _randomized.ItemList[Item.ItemBottleWitch].NewLocation.Value.GetItemIndex().Value;
+            _randomized.Settings.AsmOptions.MMRConfig.LocationBottleGoldDust = _randomized.ItemList[Item.ItemBottleGoronRace].NewLocation.Value.GetItemIndex().Value;
+            _randomized.Settings.AsmOptions.MMRConfig.LocationBottleMilk = _randomized.ItemList[Item.ItemBottleAliens].NewLocation.Value.GetItemIndex().Value;
+            _randomized.Settings.AsmOptions.MMRConfig.LocationBottleChateau = _randomized.ItemList[Item.ItemBottleMadameAroma].NewLocation.Value.GetItemIndex().Value;
+
+            _randomized.Settings.AsmOptions.MMRConfig.LocationSwordKokiri = _randomized.ItemList[Item.StartingSword].NewLocation.Value.GetItemIndex().Value;
+            _randomized.Settings.AsmOptions.MMRConfig.LocationSwordRazor = _randomized.ItemList[Item.UpgradeRazorSword].NewLocation.Value.GetItemIndex().Value;
+            _randomized.Settings.AsmOptions.MMRConfig.LocationSwordGilded = _randomized.ItemList[Item.UpgradeGildedSword].NewLocation.Value.GetItemIndex().Value;
+
+            _randomized.Settings.AsmOptions.MMRConfig.LocationMagicSmall = _randomized.ItemList[Item.FairyMagic].NewLocation.Value.GetItemIndex().Value;
+            _randomized.Settings.AsmOptions.MMRConfig.LocationMagicLarge = _randomized.ItemList[Item.FairyDoubleMagic].NewLocation.Value.GetItemIndex().Value;
+
+            _randomized.Settings.AsmOptions.MMRConfig.LocationWalletAdult = _randomized.ItemList[Item.UpgradeAdultWallet].NewLocation.Value.GetItemIndex().Value;
+            _randomized.Settings.AsmOptions.MMRConfig.LocationWalletGiant = _randomized.ItemList[Item.UpgradeGiantWallet].NewLocation.Value.GetItemIndex().Value;
+
+            _randomized.Settings.AsmOptions.MMRConfig.LocationBombBagSmall = _randomized.ItemList[Item.ItemBombBag].NewLocation.Value.GetItemIndex().Value;
+            _randomized.Settings.AsmOptions.MMRConfig.LocationBombBagBig = _randomized.ItemList[Item.UpgradeBigBombBag].NewLocation.Value.GetItemIndex().Value;
+            _randomized.Settings.AsmOptions.MMRConfig.LocationBombBagBiggest = _randomized.ItemList[Item.UpgradeBiggestBombBag].NewLocation.Value.GetItemIndex().Value;
+
+            _randomized.Settings.AsmOptions.MMRConfig.LocationQuiverSmall = _randomized.ItemList[Item.ItemBow].NewLocation.Value.GetItemIndex().Value;
+            _randomized.Settings.AsmOptions.MMRConfig.LocationQuiverLarge = _randomized.ItemList[Item.UpgradeBigQuiver].NewLocation.Value.GetItemIndex().Value;
+            _randomized.Settings.AsmOptions.MMRConfig.LocationQuiverLargest = _randomized.ItemList[Item.UpgradeBiggestQuiver].NewLocation.Value.GetItemIndex().Value;
 
             var copyRupeesRegex = new Regex(": [0-9]+ Rupees");
             foreach (var newMessage in newMessages)
@@ -1058,44 +1104,45 @@ namespace MMR.Randomizer
                 foreach (var messageShopText in Enum.GetValues(typeof(MessageShopText)).Cast<MessageShopText>())
                 {
                     var messageShop = messageShopText.GetAttribute<MessageShopAttribute>();
-                    var item1 = _randomized.ItemList.First(io => io.NewLocation == messageShop.Items[0]).Item;
-                    var item2 = _randomized.ItemList.First(io => io.NewLocation == messageShop.Items[1]).Item;
+                    var item1 = _randomized.ItemList.First(io => io.NewLocation == messageShop.Items[0]);
+                    var item2 = _randomized.ItemList.First(io => io.NewLocation == messageShop.Items[1]);
+
                     newMessages.Add(new MessageEntry
                     {
                         Id = (ushort)messageShopText,
                         Header = null,
-                        Message = string.Format(messageShop.MessageFormat, item1.Name() + " ", messageShop.Prices[0], item2.Name() + " ", messageShop.Prices[1])
+                        Message = string.Format(messageShop.MessageFormat, item1.NameForMessage(), messageShop.Prices[0], item2.NameForMessage(), messageShop.Prices[1])
                     });
                 }
 
                 // update business scrub
-                var businessScrubItem = _randomized.ItemList.First(io => io.NewLocation == Item.HeartPieceTerminaBusinessScrub).Item;
+                var businessScrubItem = _randomized.ItemList.First(io => io.NewLocation == Item.HeartPieceTerminaBusinessScrub);
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x1631,
                     Header = null,
-                    Message = $"\x1E\x3A\xD2Please! I'll sell you {MessageUtils.GetArticle(businessScrubItem)}\u0001{businessScrubItem.Name()}\u0000 if you just keep this place a secret...\x19\xBF".Wrap(35, "\u0011")
+                    Message = $"\x1E\x3A\xD2Please! I'll sell you {businessScrubItem.GetArticle()}\u0001{businessScrubItem.NameForMessage()}\u0000 if you just keep this place a secret...".SurroundWithCommandAutoWrap() + "\x19\xBF"
                 });
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x1632,
                     Header = null,
-                    Message = $"\u0006150 Rupees\u0000 for{MessageUtils.GetPronounOrAmount(businessScrubItem).ToLower()}!\u0011 \u0011\u0002\u00C2I'll buy {MessageUtils.GetPronoun(businessScrubItem)}\u0011No thanks\u00BF"
+                    Message = $"\u0006150 Rupees\u0000 for{businessScrubItem.GetPronounOrAmount().ToLower()}!\u0011 \u0011\u0002\u00C2I'll buy {businessScrubItem.GetPronoun()}\u0011No thanks\u00BF"
                 });
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x1634,
                     Header = null,
-                    Message = $"What about{MessageUtils.GetPronounOrAmount(businessScrubItem, "").ToLower()} for \u0006100 Rupees\u0000?\u0011 \u0011\u0002\u00C2I'll buy {MessageUtils.GetPronoun(businessScrubItem)}\u0011No thanks\u00BF"
+                    Message = $"What about{businessScrubItem.GetPronounOrAmount("").ToLower()} for \u0006100 Rupees\u0000?\u0011 \u0011\u0002\u00C2I'll buy {businessScrubItem.GetPronoun()}\u0011No thanks\u00BF"
                 });
 
                 // update biggest bomb bag purchase
-                var biggestBombBagItem = _randomized.ItemList.First(io => io.NewLocation == Item.UpgradeBiggestBombBag).Item;
+                var biggestBombBagItem = _randomized.ItemList.First(io => io.NewLocation == Item.UpgradeBiggestBombBag);
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x15F5,
                     Header = null,
-                    Message = $"I sell {MessageUtils.GetArticle(biggestBombBagItem)}\u0001{MessageUtils.GetAlternateName(biggestBombBagItem)}\u0000, but I'm focusing my marketing efforts on \u0001Gorons\u0000.".Wrap(35, "\u0011").EndTextbox() + "What I'd really like to do is go back home and do business where I'm surrounded by trees and grass.\u0019\u00BF".Wrap(35, "\u0011")
+                    Message = $"I sell {biggestBombBagItem.GetArticle()}\u0001{biggestBombBagItem.AlternateNameForMessage()}\u0000, but I'm focusing my marketing efforts on \u0001Gorons\u0000.".SurroundWithCommandAutoWrap() + "\u0010What I'd really like to do is go back home and do business where I'm surrounded by trees and grass.\u0019\u00BF".Wrap(35, "\u0011")
                 });
                 newMessages.Add(new MessageEntry
                 {
@@ -1107,61 +1154,92 @@ namespace MMR.Randomizer
                 {
                     Id = 0x1600,
                     Header = null,
-                    Message = $"\x1E\x38\x81I'll give you {MessageUtils.GetArticle(biggestBombBagItem, "my ")}\u0001{biggestBombBagItem.Name()}\u0000, regularly priced at \u00061000 Rupees\u0000...".Wrap(35, "\u0011").EndTextbox() + "In return, you'll give me just\u0011\u0006200 Rupees\u0000!\u0019\u00BF"
+                    Message = $"\x1E\x38\x81I'll give you {biggestBombBagItem.GetArticle("my ")}\u0001{biggestBombBagItem.NameForMessage()}\u0000, regularly priced at \u00061000 Rupees\u0000...".SurroundWithCommandAutoWrap() + "\u0010In return, you'll give me just\u0011\u0006200 Rupees\u0000!\u0019\u00BF"
                 });
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x1606,
                     Header = null,
-                    Message = $"\x1E\x38\x81I'll give you {MessageUtils.GetArticle(biggestBombBagItem, "my ")}\u0001{biggestBombBagItem.Name()}\u0000, regularly priced at \u00061000 Rupees\u0000, for just \u0006200 Rupees\u0000!\u0019\u00BF".Wrap(35, "\u0011")
+                    Message = $"\x1E\x38\x81I'll give you {biggestBombBagItem.GetArticle("my ")}\u0001{biggestBombBagItem.NameForMessage()}\u0000, regularly priced at \u00061000 Rupees\u0000, for just \u0006200 Rupees\u0000!".SurroundWithCommandAutoWrap() + "\u0019\u00BF"
                 });
 
                 // update swamp scrub purchase
-                var magicBeanItem = _randomized.ItemList.First(io => io.NewLocation == Item.ShopItemBusinessScrubMagicBean).Item;
+                var magicBeanItem = _randomized.ItemList.First(io => io.NewLocation == Item.ShopItemBusinessScrubMagicBean);
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x15E1,
                     Header = null,
-                    Message = $"\x1E\x39\xA7I'm selling {MessageUtils.GetArticle(magicBeanItem)}\u0001{MessageUtils.GetAlternateName(magicBeanItem)}\u0000 to Deku Scrubs, but I'd really like to leave my hometown.".Wrap(35, "\u0011").EndTextbox() + "I'm hoping to find some success in a livelier place!\u0019\u00BF".Wrap(35, "\u0011")
+                    Message = $"\x1E\x39\xA7I'm selling {magicBeanItem.GetArticle()}\u0001{magicBeanItem.AlternateNameForMessage()}\u0000 to Deku Scrubs, but I'd really like to leave my hometown.".SurroundWithCommandAutoWrap() + "\u0010I'm hoping to find some success in a livelier place!\u0019\u00BF".Wrap(35, "\u0011")
                 });
 
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x15E9,
                     Header = null,
-                    Message = $"\x1E\x3A\u00D2Do you know what {MessageUtils.GetArticle(magicBeanItem)}\u0001{MessageUtils.GetAlternateName(magicBeanItem)}\u0000 {MessageUtils.GetVerb(magicBeanItem)}, sir?".Wrap(35, "\u0011") + $"\u0011I'll sell you{MessageUtils.GetPronounOrAmount(magicBeanItem).ToLower()} for \u000610 Rupees\u0000.\u0019\u00BF"
+                    Message = $"\x1E\x3A\u00D2Do you know what {magicBeanItem.GetArticle()}\u0001{magicBeanItem.AlternateNameForMessage()}\u0000 {magicBeanItem.GetVerb()}, sir?".SurroundWithCommandAutoWrap() + $"\u0011I'll sell you{magicBeanItem.GetPronounOrAmount().ToLower()} for \u000610 Rupees\u0000.\u0019\u00BF"
+                });
+
+                newMessages.Add(new MessageEntry
+                {
+                    Id = 0x15F3,
+                    Header = null,
+                    Message = $"\x1E\x3A\u00D2Do you know what {magicBeanItem.GetArticle()}\u0001{magicBeanItem.AlternateNameForMessage()}\u0000 {magicBeanItem.GetVerb()}?".SurroundWithCommandAutoWrap() + $"\u0011I'll sell you{magicBeanItem.GetPronounOrAmount().ToLower()} for \u000610 Rupees\u0000.\u0019\u00BF"
                 });
 
                 // update ocean scrub purchase
-                var greenPotionItem = _randomized.ItemList.First(io => io.NewLocation == Item.ShopItemBusinessScrubGreenPotion).Item;
+                var greenPotionItem = _randomized.ItemList.First(io => io.NewLocation == Item.ShopItemBusinessScrubGreenPotion);
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x1608,
                     Header = null,
-                    Message = $"\x1E\x39\xA7I'm selling {MessageUtils.GetArticle(greenPotionItem)}\u0001{MessageUtils.GetAlternateName(greenPotionItem)}\u0000, but I'm focusing my marketing efforts on Zoras.".Wrap(35, "\u0011").EndTextbox() + "Actually, I'd like to do business someplace where it's cooler and the air is clean.\u0019\u00BF".Wrap(35, "\u0011")
+                    Message = $"\x1E\x39\xA7I'm selling {greenPotionItem.GetArticle()}\u0001{greenPotionItem.AlternateNameForMessage()}\u0000, but I'm focusing my marketing efforts on Zoras.".SurroundWithCommandAutoWrap() + "\u0010Actually, I'd like to do business someplace where it's cooler and the air is clean.\u0019\u00BF".Wrap(35, "\u0011")
                 });
 
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x1612,
                     Header = null,
-                    Message = $"\x1E\x39\x8CI'll sell you {MessageUtils.GetArticle(greenPotionItem)}\u0001{greenPotionItem.Name()}\u0000 for \u000640 Rupees\u0000!\u00E0\u00BF".Wrap(35, "\u0011")
+                    Message = $"\x1E\x39\x8CI'll sell you {greenPotionItem.GetArticle()}\u0001{greenPotionItem.NameForMessage()}\u0000 for \u000640 Rupees\u0000!".SurroundWithCommandAutoWrap() + "\u00E0\u00BF"
+                });
+
+                var coldifyRegex = new Regex("([A-Z])");
+                var coldItemName = coldifyRegex.Replace(greenPotionItem.Item.Name(), "$1-$1");
+                // TODO coldify replacement item name
+                newMessages.Add(new MessageEntry
+                {
+                    Id = 0x1617,
+                    Header = null,
+                    Message = $"\x1E\x39\x8CI'll s-sell you {greenPotionItem.GetArticle()}\u0001{coldItemName.SurroundWithCommandCheckGetItemReplaceItemName(Item.ShopItemBusinessScrubGreenPotion)}\u0000 for \u000640 Rupees\u0000.".SurroundWithCommandAutoWrap() + "\u00E0\u00BF"
+                });
+
+                newMessages.Add(new MessageEntry
+                {
+                    Id = 0x1618,
+                    Header = null,
+                    Message = $"D-Do we have a deal?\u0011 \u0011\u0002\u00C2Yes\u0011No\u00BF"
                 });
 
                 // update canyon scrub purchase
-                var bluePotionItem = _randomized.ItemList.First(io => io.NewLocation == Item.ShopItemBusinessScrubBluePotion).Item;
+                var bluePotionItem = _randomized.ItemList.First(io => io.NewLocation == Item.ShopItemBusinessScrubBluePotion);
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x161C,
                     Header = null,
-                    Message = $"\x1E\x39\xA7I'm here to sell {MessageUtils.GetArticle(bluePotionItem)}\u0001{MessageUtils.GetAlternateName(bluePotionItem)}\u0000.".Wrap(35, "\u0011").EndTextbox() + "Actually, I want to do business in the sea breeze while listening to the sound of the waves.\u0019\u00BF".Wrap(35, "\u0011")
+                    Message = $"\x1E\x39\xA7I'm here to sell {bluePotionItem.GetArticle()}\u0001{bluePotionItem.AlternateNameForMessage()}\u0000.".SurroundWithCommandAutoWrap() + "\u0010Actually, I want to do business in the sea breeze while listening to the sound of the waves.\u0019\u00BF".Wrap(35, "\u0011")
                 });
 
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x1626,
                     Header = null,
-                    Message = $"\x1E\x3A\u00D2Don't you need {MessageUtils.GetArticle(bluePotionItem)}\u0001{MessageUtils.GetAlternateName(bluePotionItem)}\u0000? I'll sell you{MessageUtils.GetPronounOrAmount(bluePotionItem).ToLower()} for \u0006100 Rupees\u0000.\u0019\u00BF".Wrap(35, "\u0011")
+                    Message = $"\x1E\x3A\u00D2Don't you need {bluePotionItem.GetArticle()}\u0001{bluePotionItem.AlternateNameForMessage()}\u0000? I'll sell you{bluePotionItem.GetPronounOrAmount().ToLower()} for \u0006100 Rupees\u0000.".SurroundWithCommandAutoWrap() + "\u0019\u00BF"
+                });
+
+                newMessages.Add(new MessageEntry
+                {
+                    Id = 0x162D,
+                    Header = null,
+                    Message = $"\x1E\x39\x8CI'll sell you {bluePotionItem.GetArticle()}\u0001{bluePotionItem.NameForMessage()}\u0000 for \u0006100 Rupees\u0000.".SurroundWithCommandAutoWrap() + "\u00E0\u00BF"
                 });
 
                 newMessages.Add(new MessageEntry
@@ -1172,47 +1250,92 @@ namespace MMR.Randomizer
                 });
 
                 // update gorman bros milk purchase
-                var gormanBrosMilkItem = _randomized.ItemList.First(io => io.NewLocation == Item.ShopItemGormanBrosMilk).Item;
+                var gormanBrosMilkItem = _randomized.ItemList.First(io => io.NewLocation == Item.ShopItemGormanBrosMilk);
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x3463,
                     Header = null,
-                    Message = $"Won'tcha buy {MessageUtils.GetArticle(gormanBrosMilkItem)}\u0001{MessageUtils.GetAlternateName(gormanBrosMilkItem)}\u0000?\u0019\u00BF".Wrap(35, "\u0011")
+                    Message = $"Won'tcha buy {gormanBrosMilkItem.GetArticle()}\u0001{gormanBrosMilkItem.AlternateNameForMessage()}\u0000?".SurroundWithCommandAutoWrap() + "\u0019\u00BF"
                 });
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x3466,
                     Header = null,
-                    Message = $"\u000650 Rupees\u0000 will do ya for{MessageUtils.GetPronounOrAmount(gormanBrosMilkItem).ToLower()}.\u0011 \u0011\u0002\u00C2I'll buy {MessageUtils.GetPronoun(gormanBrosMilkItem)}\u0011No thanks\u00BF"
+                    Message = $"\u000650 Rupees\u0000 will do ya for{gormanBrosMilkItem.GetPronounOrAmount().ToLower()}.\u0011 \u0011\u0002\u00C2I'll buy {gormanBrosMilkItem.GetPronoun()}\u0011No thanks\u00BF"
                 });
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x346B,
                     Header = null,
-                    Message = $"Buyin' {MessageUtils.GetArticle(gormanBrosMilkItem)}\u0001{MessageUtils.GetAlternateName(gormanBrosMilkItem)}\u0000?\u0019\u00BF".Wrap(35, "\u0011")
+                    Message = $"Buyin' {gormanBrosMilkItem.GetArticle()}\u0001{gormanBrosMilkItem.AlternateNameForMessage()}\u0000?".SurroundWithCommandAutoWrap() + "\u0019\u00BF"
                 });
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x348F,
                     Header = null,
-                    Message = $"Seems like we're the only ones who have {MessageUtils.GetArticle(gormanBrosMilkItem)}\u0001{MessageUtils.GetAlternateName(gormanBrosMilkItem)}\u0000. Hyuh, hyuh. If you like, I'll sell you{MessageUtils.GetPronounOrAmount(gormanBrosMilkItem).ToLower()}.\u0019\u00BF".Wrap(35, "\u0011")
+                    Message = $"Seems like we're the only ones who have {gormanBrosMilkItem.GetArticle()}\u0001{gormanBrosMilkItem.AlternateNameForMessage()}\u0000. Hyuh, hyuh. If you like, I'll sell you{gormanBrosMilkItem.GetPronounOrAmount().ToLower()}.".SurroundWithCommandAutoWrap() + "\u0019\u00BF"
                 });
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x3490,
                     Header = null,
-                    Message = $"\u000650 Rupees\u0000 will do you for{MessageUtils.GetPronounOrAmount(gormanBrosMilkItem).ToLower()}!\u0011 \u0011\u0002\u00C2I'll buy {MessageUtils.GetPronoun(gormanBrosMilkItem)}\u0011No thanks\u00BF"
+                    Message = $"\u000650 Rupees\u0000 will do you for{gormanBrosMilkItem.GetPronounOrAmount().ToLower()}!\u0011 \u0011\u0002\u00C2I'll buy {gormanBrosMilkItem.GetPronoun()}\u0011No thanks\u00BF"
                 });
 
                 // update lottery message
-                var lotteryItem = _randomized.ItemList.First(io => io.NewLocation == Item.MundaneItemLotteryPurpleRupee).Item;
+                var lotteryItem = _randomized.ItemList.First(io => io.NewLocation == Item.MundaneItemLotteryPurpleRupee);
                 newMessages.Add(new MessageEntry
                 {
                     Id = 0x2B5C,
                     Header = null,
-                    Message = $"Would you like the chance to buy your dreams for \u000610 Rupees\u0000?".Wrap(35, "\u0011").EndTextbox() + $"Pick any three numbers, and if those are picked, you'll win {MessageUtils.GetArticle(lotteryItem)}\u0001{lotteryItem.Name()}\u0000. It's only for the \u0001first\u0000 person!\u0019\u00BF".Wrap(35, "\u0011")
+                    Message = $"Would you like the chance to buy your dreams for \u000610 Rupees\u0000?".Wrap(35, "\u0011").EndTextbox() + $"Pick any three numbers, and if those are picked, you'll win {lotteryItem.GetArticle()}\u0001{lotteryItem.NameForMessage()}\u0000. It's only for the \u0001first\u0000 person!".SurroundWithCommandAutoWrap() + "\u0019\u00BF"
                 });
 
+                // Update messages to match updated world models.
+                if (_randomized.Settings.UpdateWorldModels)
+                {
+                    // Update Moon's Tear messages.
+                    var moonsTearItem = _randomized.ItemList.First(io => io.NewLocation == Item.TradeItemMoonTear);
+                    if (moonsTearItem.Item != Item.TradeItemMoonTear)
+                    {
+                        newMessages.Add(new MessageEntry
+                        {
+                            Id = 0x5E3,
+                            Header = null,
+                            Message = $"That is one of the lunar objects\u0011that has been blazing from the\u0011surface of the moon lately.".EndTextbox() + $"They fall from what looks to be the moon's eye, I call {MessageUtils.GetPronoun(moonsTearItem.DisplayItem)} {MessageUtils.GetArticle(moonsTearItem.DisplayItem)}\u0001{moonsTearItem.DisplayNameWithoutReplacement()}\u0000.".SurroundWithCommandAutoWrap() + $"\u0010They are rare, valued by many\u0011in town.\u00BF"
+                        });
+                        newMessages.Add(new MessageEntry
+                        {
+                            Id = 0x5ED,
+                            Header = null,
+                            Message = $"That ill-mannered troublemaker\u0011from the other day said he'd\u0011break my instruments...".EndTextbox() + $"He said he'd steal my \u0001{moonsTearItem.DisplayNameWithoutReplacement()}\u0000... There was no stopping him.".SurroundWithCommandAutoWrap() + "\u0019\u00BF"
+                        });
+                        newMessages.Add(new MessageEntry
+                        {
+                            Id = 0x5F2,
+                            Header = null,
+                            Message = $"Well, did you find that\u0011\u0001troublemaker\u0000? And that loud\u0011noise...What was that?".EndTextbox() + $"Perhaps another \u0001{moonsTearItem.DisplayNameWithoutReplacement()}\u0000 has fallen nearby...Go through that door and take a look outside.".SurroundWithCommandAutoWrap() + "\u0019\u00BF"
+                        });
+                    }
+
+                    // Update Seahorse messages.
+                    var seahorseItem = _randomized.ItemList.First(io => io.NewLocation == Item.MundaneItemSeahorse);
+                    if (seahorseItem.Item != Item.MundaneItemSeahorse)
+                    {
+                        newMessages.Add(new MessageEntry
+                        {
+                            Id = 0x106F,
+                            Header = null,
+                            Message = $"\u001E\u0069\u004CAre you interested in that?".EndTextbox() + $"It's rare, isn't it? It's called {seahorseItem.GetArticle()}\u0001{seahorseItem.NameForMessage()}\u0000.".SurroundWithCommandAutoWrap() + "\u0019\u00BF"
+                        });
+                        newMessages.Add(new MessageEntry
+                        {
+                            Id = 0x1074,
+                            Header = null,
+                            Message = $"If you want that \u0001{seahorseItem.NameForMessage()}\u0000, bring me a \u0001pictograph\u0000 of a \u0001female pirate\u0000.".SurroundWithCommandAutoWrap() + "\u0019\u00BF"
+                        });
+                    }
+                }
             }
 
             // replace "Razor Sword is now blunt" message with get-item message for Kokiri Sword.
@@ -1233,7 +1356,7 @@ namespace MMR.Randomizer
 
             if (_randomized.Settings.AddSkulltulaTokens)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-skulltula-tokens");
+                ResourceUtils.ApplyHack(Resources.mods.fix_skulltula_tokens);
 
                 newMessages.Add(new MessageEntry
                 {
@@ -1251,7 +1374,7 @@ namespace MMR.Randomizer
 
             if (_randomized.Settings.AddStrayFairies)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-fairies");
+                ResourceUtils.ApplyHack(Resources.mods.fix_fairies);
             }
 
             var dungeonItemMessageIds = new byte[] {
@@ -1302,7 +1425,7 @@ namespace MMR.Randomizer
 
             if (_randomized.Settings.AddShopItems)
             {
-                ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-shop-checks");
+                ResourceUtils.ApplyHack(Resources.mods.fix_shop_checks);
             }
         }
 
@@ -1326,7 +1449,7 @@ namespace MMR.Randomizer
 
         private void WriteTitleScreen()
         {
-            var titleScreen = ResourceUtils.ReadHack(Values.ModsDirectory, "title-screen");
+            var titleScreen = Resources.mods.title_screen;
 
             int rot = _randomized.TitleLogoColor;
             Color l;
@@ -1359,9 +1482,9 @@ namespace MMR.Randomizer
 
         private void WriteFileSelect()
         {
-            ResourceUtils.ApplyHack(Values.ModsDirectory, "file-select");
+            ResourceUtils.ApplyHack(Resources.mods.file_select);
             byte[] SkyboxDefault = new byte[] { 0x91, 0x78, 0x9B, 0x28, 0x00, 0x28 };
-            List<int[]> Addrs = ResourceUtils.GetAddresses(Values.AddrsDirectory, "skybox-init");
+            List<int[]> Addrs = ResourceUtils.GetAddresses(Resources.addresses.skybox_init);
             for (int i = 0; i < 2; i++)
             {
                 Color c = Color.FromArgb(SkyboxDefault[i * 3], SkyboxDefault[i * 3 + 1], SkyboxDefault[i * 3 + 2]);
@@ -1380,7 +1503,7 @@ namespace MMR.Randomizer
             }
 
             byte[] FSDefault = new byte[] { 0x64, 0x96, 0xFF, 0x96, 0xFF, 0xFF, 0x64, 0xFF, 0xFF };
-            Addrs = ResourceUtils.GetAddresses(Values.AddrsDirectory, "fs-colour");
+            Addrs = ResourceUtils.GetAddresses(Resources.addresses.fs_colour);
             for (int i = 0; i < 3; i++)
             {
                 Color c = Color.FromArgb(FSDefault[i * 3], FSDefault[i * 3 + 1], FSDefault[i * 3 + 2]);
@@ -1413,7 +1536,7 @@ namespace MMR.Randomizer
                 return;
             }
             Version v = Assembly.GetExecutingAssembly().GetName().Version;
-            RomUtils.SetStrings(Values.ModsDirectory, "logo-text", $"v{v}", string.Empty);
+            RomUtils.SetStrings(Resources.mods.logo_text, $"v{v}", string.Empty);
         }
 
         private void WriteShopObjects()
@@ -1464,8 +1587,8 @@ namespace MMR.Randomizer
             // Load the symbols and use them to apply the patch data
             var options = _randomized.Settings.AsmOptions;
 
-            // Update internal flags
-            options.MiscConfig.InternalFlags.VanillaLayout = _randomized.Settings.LogicMode == LogicMode.Vanilla;
+            // Finalize Misc configuration.
+            options.MiscConfig.FinalizeSettings(_randomized.Settings);
 
             asm.ApplyPatch(options);
 
@@ -1478,6 +1601,14 @@ namespace MMR.Randomizer
                 var baseAddr = (uint)file.Addr;
                 asm.Symbols.WriteExtendedObjects(extended.GetAddresses(baseAddr));
             }
+
+            // Add extra messages to message table.
+            asm.ExtraMessages.AddMessage(_extraMessages.ToArray());
+            asm.WriteExtMessageTable();
+
+            // Add item graphics to table and write to ROM.
+            asm.MimicTable.Update(_graphicOverrides);
+            asm.WriteMimicItemTable();
         }
 
         private void WriteAsmConfig(AsmContext asm, byte[] hash)
@@ -1561,12 +1692,36 @@ namespace MMR.Randomizer
             }
         }
 
+        /// <summary>
+        /// Write data related to ice traps to ROM.
+        /// </summary>
+        public void WriteIceTraps()
+        {
+            // Add mimic graphic to graphic overrides table.
+            foreach (var item in _randomized.IceTraps)
+            {
+                var newLocation = item.NewLocation.Value;
+                if (newLocation.IsVisible() || newLocation.IsShop())
+                {
+                    var giIndex = item.NewLocation.Value.GetItemIndex().Value;
+                    var graphic = item.Mimic.ResolveGraphic();
+                    _graphicOverrides.Add(giIndex, graphic);
+                }
+            }
+
+            // Add "You are a FOOL!" message to extra messages table.
+            var entry = new MessageEntry(
+                Item.IceTrap.ExclusiveItemEntry().Message,
+                Item.IceTrap.ExclusiveItemMessage());
+            _extraMessages.Add(entry);
+        }
+
         public void MakeROM(OutputSettings outputSettings, IProgressReporter progressReporter)
         {
             using (BinaryReader OldROM = new BinaryReader(File.OpenRead(outputSettings.InputROMFilename)))
             {
                 RomUtils.ReadFileTable(OldROM);
-                _messageTable.InitializeTable();
+                _messageTable = MessageTable.ReadDefault();
             }
 
             var originalMMFileList = RomData.MMFileList.Select(file => file.Clone()).ToList();
@@ -1592,15 +1747,16 @@ namespace MMR.Randomizer
                 if (_randomized.Settings.LogicMode != LogicMode.Vanilla)
                 {
                     progressReporter.ReportProgress(60, "Applying hacks...");
-                    ResourceUtils.ApplyHack(Values.ModsDirectory, "title-screen");
+                    ResourceUtils.ApplyHack(Resources.mods.title_screen);
                     WriteTitleScreen();
-                    ResourceUtils.ApplyHack(Values.ModsDirectory, "misc-changes");
+                    ResourceUtils.ApplyHack(Resources.mods.misc_changes);
                     WriteMiscText();
-                    ResourceUtils.ApplyHack(Values.ModsDirectory, "cm-cs");
-                    ResourceUtils.ApplyHack(Values.ModsDirectory, "fix-song-of-healing");
+                    ResourceUtils.ApplyHack(Resources.mods.cm_cs);
+                    ResourceUtils.ApplyHack(Resources.mods.fix_song_of_healing);
+                    ResourceUtils.ApplyHack(Resources.mods.fix_deku_drowning);
                     WriteFileSelect();
                 }
-                ResourceUtils.ApplyHack(Values.ModsDirectory, "init-file");
+                ResourceUtils.ApplyHack(Resources.mods.init_file);
 
                 progressReporter.ReportProgress(61, "Writing quick text...");
                 WriteQuickText();
@@ -1631,17 +1787,24 @@ namespace MMR.Randomizer
                 progressReporter.ReportProgress(68, "Writing messages...");
                 WriteGossipQuotes();
 
-                MessageTable.WriteMessageTable(_messageTable, _randomized.Settings.QuickTextEnabled);
+                MessageTable.WriteDefault(_messageTable, _randomized.Settings.QuickTextEnabled);
 
                 progressReporter.ReportProgress(69, "Writing startup...");
                 WriteStartupStrings();
 
+                // Overwrite existing items with ice traps.
+                if (_randomized.Settings.IceTraps != IceTraps.None)
+                {
+                    progressReporter.ReportProgress(70, "Writing ice traps...");
+                    WriteIceTraps();
+                }
+
                 // Load Asm data from internal resource files and apply
                 asm = AsmContext.LoadInternal();
-                progressReporter.ReportProgress(70, "Writing ASM patch...");
+                progressReporter.ReportProgress(71, "Writing ASM patch...");
                 WriteAsmPatch(asm);
                 
-                progressReporter.ReportProgress(71, outputSettings.GeneratePatch ? "Generating patch..." : "Computing hash...");
+                progressReporter.ReportProgress(72, outputSettings.GeneratePatch ? "Generating patch..." : "Computing hash...");
                 hash = RomUtils.CreatePatch(outputSettings.GeneratePatch ? outputSettings.OutputROMFilename : null, originalMMFileList);
 
                 // Write subset of Asm config post-patch
