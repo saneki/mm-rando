@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace MMR.Randomizer.Models.Rom
 {
@@ -126,5 +127,10 @@ namespace MMR.Randomizer.Models.Rom
                 return DefaultHeader;
             }
         }
+
+        public bool Equals(MessageEntry entry) =>
+            Id == entry.Id &&
+            Header.SequenceEqual(entry.Header) &&
+            Message.Equals(entry.Message);
     }
 }
