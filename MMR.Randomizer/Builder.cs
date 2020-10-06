@@ -391,78 +391,178 @@ namespace MMR.Randomizer
 
         private void WriteMiscText()
         {
-            _messageTable.UpdateMessages(new MessageEntry
-            {
-                Id = 3108,
-                Header = null,
-                Message = "Say...Did you come to have some\u0011items fashioned?\u0019\u00BF"
-            });
-            _messageTable.UpdateMessages(new MessageEntry
-            {
-                Id = 3130,
-                Header = null,
-                Message = "Gabora, fetch our customer some\u0011coffee, quick-like.\u0011\u0013\u0012Now then, let me take a look at\u0011our offers.\u0011\u0013\u0012Hmmm...\u0019\u00BF"
-            });
-            _messageTable.UpdateMessages(new MessageEntry
-            {
-                Id = 3131,
-                Header = null,
-                Message = "All right... For today's \u0001hot deal\u0000,\u0011it will cost you \u0006100 Rupees\0. It'll\u0011be ready at \u0001sunrise.\u0011\0\u0012So how about it? Wanna grab a\u0011hot item for \u0006100 Rupees\u0000?\u0011\u0002\u00C2I'll do it\u0011No thanks\u00BF"
-            });
-            _messageTable.UpdateMessages(new MessageEntry
-            {
-                Id = 3133,
-                Header = null,
-                Message = "This is a secret, but I'll let you in\u0011on it... The strongest sword out\u0011there was forged using \u0001gold\u0011dust\u0000.... I made it! Me!\u00E0\u00BF"
-            });
-            _messageTable.UpdateMessages(new MessageEntry
-            {
-                Id = 3134,
-                Header = null,
-                Message = "Wanna grab a deal? \u0011\u0002 \u0011\u00C2Yes\u0011No thanks\u00BF"
-            });
-            _messageTable.UpdateMessages(new MessageEntry
-            {
-                Id = 3140,
-                Header = null,
-                Message = "Hey! It's gonna be ready \u0001tomorrow\u0011morning\0. We'll take good care of\u0011it, so don't worry.\u0019\u00BF"
-            });
-            _messageTable.UpdateMessages(new MessageEntry
-            {
-                Id = 3141,
-                Header = null,
-                Message = "Hey! For today's special product\u0011we'll need to get hold of some \u0011\u0001gold dust\u0000.\u0019\u00BF"
-            });
-            _messageTable.UpdateMessages(new MessageEntry
-            {
-                Id = 3142,
-                Header = null,
-                Message = "Why, if it isn't \u0001gold dust\0! And it's\u0011even top quality!!!\u0011\u0013\u0012Why, even if I use it to craft\u0011a nifty item, there'll still be some\u0011left...\u0011\u0012All right! Just for you, I'll do this\u0011for free. But don't tell anyone!\u0019\u00BF"
-            });
-            _messageTable.UpdateMessages(new MessageEntry
-            {
-                Id = 3147,
-                Header = null,
-                Message = "To make our item for you today,\u0011I'll need \u0001gold dust\0, which just so\u0011happens to be first prize at the\u0011Goron racetrack.\u0010If I can just get some gold dust...\u0011and this is just between us...I can\u0011make you the \u0001hottest item\u0011in the lands\u0000... Really!!\u00E0\u00BF"
-            });
-            _messageTable.UpdateMessages(new MessageEntry
-            {
-                Id = 3150,
-                Header = null,
-                Message = "Huh? \u001f\0\nLook, I'm working on\u0011making this item for you. I'm\u0011busy, so don't bother me.\u00E0\u00BF"
-            });
-            _messageTable.UpdateMessages(new MessageEntry
-            {
-                Id = 3153,
-                Header = null,
-                Message = "Behold! My skills in craftsmanship\u0011are truly unrivalled!\u0019\u00BF"
-            });
-            _messageTable.UpdateMessages(new MessageEntry
-            {
-                Id = 3155,
-                Header = null,
-                Message = "Ah! My finest work!\u0011The look in your eye, I can\u0011tell you really wanted this!!\u0019\u00BF"
-            });
+            _messageTable.UpdateMessages(new MessageEntryBuilder()
+                .Id(3108)
+                .Message(it =>
+                {
+                    it.Text("Say...Did you come to have some").NewLine()
+                    .Text("items fashioned?")
+                    .DisableTextSkip2()
+                    .EndFinalTextBox();
+                })
+                .Build()
+            );
+            _messageTable.UpdateMessages(new MessageEntryBuilder()
+                .Id(3130)
+                .Message(it =>
+                {
+                    it.Text("Gabora, fetch our customer some").NewLine()
+                    .Text("coffee, quick-like.").EndTextBox()
+                    .Text("Now then, let me take a look at").NewLine()
+                    .Text("our offers.").EndTextBox()
+                    .Text("Hmmm...")
+                    .DisableTextSkip2()
+                    .EndFinalTextBox();
+                })
+                .Build()
+            );
+            _messageTable.UpdateMessages(new MessageEntryBuilder()
+                .Id(3131)
+                .Message(it =>
+                {
+                    it.Text("All right... For today's ").Red("hot deal").Text(",").NewLine()
+                    .Text("it will cost you ").Pink("100 Rupees").Text(". It'll").NewLine()
+                    .Text("be ready at ").Red("sunrise").Text(".")
+                    .EndTextBox()
+                    .Text("So how about it? Wanna grab a").NewLine()
+                    .Text("hot item for ").Pink("100 Rupees").Text("?").NewLine()
+                    .StartGreenText()
+                    .TwoChoices()
+                    .Text("I'll do it").NewLine()
+                    .Text("No thanks")
+                    .EndFinalTextBox();
+                })
+                .Build()
+            );
+            _messageTable.UpdateMessages(new MessageEntryBuilder()
+                .Id(3133)
+                .Message(it =>
+                {
+                    it.Text("This is a secret, but I'll let you in").NewLine()
+                    .Text("on it... The strongest sword out").NewLine()
+                    .Text("there was forged using ").Red(() => {
+                        it.Text("gold").NewLine().Text("dust");
+                    })
+                    .Text(".... I made it! Me!")
+                    .EndConversation()
+                    .EndFinalTextBox();
+                })
+                .Build()
+            );
+            _messageTable.UpdateMessages(new MessageEntryBuilder()
+                .Id(3134)
+                .Message(it =>
+                {
+                    it.Text("Wanna grab a deal? ").NewLine()
+                    .StartGreenText().Text(" ").NewLine()
+                    .TwoChoices()
+                    .Text("Yes").NewLine()
+                    .Text("No thanks")
+                    .EndFinalTextBox();
+                })
+                .Build()
+            );
+            _messageTable.UpdateMessages(new MessageEntryBuilder()
+                .Id(3140)
+                .Message(it =>
+                {
+                    it.Text("Hey! It's gonna be ready ").Red(() => {
+                        it.Text("tomorrow").NewLine()
+                        .Text("morning");
+                    })
+                    .Text(". We'll take good care of").NewLine()
+                    .Text("it, so don't worry.")
+                    .DisableTextSkip2()
+                    .EndFinalTextBox();
+                })
+                .Build()
+            );
+            _messageTable.UpdateMessages(new MessageEntryBuilder()
+                .Id(3141)
+                .Message(it =>
+                {
+                    it.Text("Hey! For today's special product").NewLine()
+                    .Text("we'll need to get hold of some ").NewLine()
+                    .Red("gold dust").Text(".")
+                    .DisableTextSkip2()
+                    .EndFinalTextBox();
+                })
+                .Build()
+            );
+            _messageTable.UpdateMessages(new MessageEntryBuilder()
+                .Id(3142)
+                .Message(it =>
+                {
+                    it.Text("Why, if it isn't ").Red("gold dust").Text("! And it's").NewLine()
+                    .Text("even top quality!!!")
+                    .EndTextBox()
+                    .Text("Why, even if I use it to craft").NewLine()
+                    .Text("a nifty item, there'll still be some").NewLine()
+                    .Text("left...")
+                    .EndTextBox()
+                    .Text("All right! Just for you, I'll do this").NewLine()
+                    .Text("for free. But don't tell anyone!")
+                    .DisableTextSkip2()
+                    .EndFinalTextBox();
+                })
+                .Build()
+            );
+            _messageTable.UpdateMessages(new MessageEntryBuilder()
+                .Id(3147)
+                .Message(it =>
+                {
+                    it.Text("To make our item for you today,").NewLine()
+                    .Text("I'll need ").Red("gold dust").Text(", which just so").NewLine()
+                    .Text("happens to be first prize at the").NewLine()
+                    .Text("Goron racetrack.")
+                    .EndTextBox()
+                    .Text("If I can just get some gold dust...").NewLine()
+                    .Text("and this is just between us...I can").NewLine()
+                    .Text("make you the ").Red(() => {
+                        it.Text("hottest item").NewLine()
+                        .Text("in the lands");
+                    })
+                    .Text("... Really!!")
+                    .EndConversation()
+                    .EndFinalTextBox();
+                })
+                .Build()
+            );
+            _messageTable.UpdateMessages(new MessageEntryBuilder()
+                .Id(3150)
+                .Message(it =>
+                {
+                    it.Text("Huh? ").PauseText(0x10).Text("Look, I'm working on").NewLine()
+                    .Text("making this item for you. I'm").NewLine()
+                    .Text("busy, so don't bother me.")
+                    .EndConversation()
+                    .EndFinalTextBox();
+                })
+                .Build()
+            );
+            _messageTable.UpdateMessages(new MessageEntryBuilder()
+                .Id(3153)
+                .Message(it =>
+                {
+                    it.Text("Behold! My skills in craftsmanship").NewLine()
+                    .Text("are truly unrivalled!")
+                    .DisableTextSkip2()
+                    .EndFinalTextBox();
+                })
+                .Build()
+            );
+            _messageTable.UpdateMessages(new MessageEntryBuilder()
+                .Id(3155)
+                .Message(it =>
+                {
+                    it.Text("Ah! My finest work!").NewLine()
+                    .Text("The look in your eye, I can").NewLine()
+                    .Text("tell you really wanted this!!")
+                    .DisableTextSkip2()
+                    .EndFinalTextBox();
+                })
+                .Build()
+            );
         }
 
         private Character DeterminePlayerModel()
@@ -613,18 +713,47 @@ namespace MMR.Randomizer
             if (_randomized.Settings.SpeedupBeavers)
             {
                 ResourceUtils.ApplyHack(Resources.mods.speedup_beavers);
+                // TODO handle auto wrapping
+                //_messageTable.UpdateMessages(new MessageEntryBuilder()
+                //    .Id(0x10D6)
+                //    .Message(it =>
+                //    {
+                //        it.PlaySoundEffect(0x291A).Text("There's a total of ").Red("25 rings").Text(". You must swim through them in the right order for it to count. Swim through the ring that's ").Red("flashing").Text(".")
+                //        .EndTextBox()
+                //        .Text("My big brother will show you the way, so follow him and don't get separated!")
+                //        .EndFinalTextBox();
+                //    })
+                //    .Build()
+                //);
                 _messageTable.UpdateMessages(new MessageEntry
                 {
                     Id = 0x10D6,
                     Header = null,
                     Message = "\u001E\u0029\u001AThere's a total of \u000125 rings\u0000. You must swim through them in the right order for it to count. Swim through the ring that's \u0001flashing\u0000.".Wrap(35, "\u0011") + "\u0010My big brother will show you the way, so follow him and don't get separated!\u00BF".Wrap(35, "\u0011")
                 });
-                _messageTable.UpdateMessages(new MessageEntry
-                {
-                    Id = 0x10FA,
-                    Header = null,
-                    Message = "\u001E\u0029\u0019This time, the limit is \u00011:50\u0000.".EndTextbox() + "Don't fall behind!\u00BF"
-                });
+                _messageTable.UpdateMessages(new MessageEntryBuilder()
+                    .Id(0x10FA)
+                    .Message(it =>
+                    {
+                        it.PlaySoundEffect(0x2919).Text("This time, the limit is ").Red("1:50").Text(".")
+                        .EndTextBox()
+                        .Text("Don't fall behind!")
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
+                // TODO handle auto wrapping
+                //_messageTable.UpdateMessages(new MessageEntryBuilder()
+                //    .Id(0x1107)
+                //    .Message(it =>
+                //    {
+                //        it.PlaySoundEffect(0x2919).Text("This time around, you have to beat ").Red("1:40").Text(".")
+                //        .EndTextBox()
+                //        .Text("Don't fall behind!")
+                //        .EndFinalTextBox();
+                //    })
+                //    .Build()
+                //);
                 _messageTable.UpdateMessages(new MessageEntry
                 {
                     Id = 0x1107,
@@ -651,18 +780,41 @@ namespace MMR.Randomizer
             if (_randomized.Settings.SpeedupBank)
             {
                 ResourceUtils.ApplyHack(Resources.mods.speedup_bank);
-                _messageTable.UpdateMessages(new MessageEntry
-                {
-                    Id = 0x45C,
-                    Header = null,
-                    Message = "\u0017What's this? You've already saved\u0011up \u0001500 Rupees\u0000!?!\u0018\u0011\u0013\u0012Well, little guy, here's your special\u0011gift. Take it!\u00E0\u00BF",
-                });
-                _messageTable.UpdateMessages(new MessageEntry
-                {
-                    Id = 0x45D,
-                    Header = null,
-                    Message = "\u0017What's this? You've already saved\u0011up \u00011000 Rupees\u0000?!\u0018\u0011\u0013\u0012Well, little guy, I can't take any\u0011more deposits. Sorry, but this is\u0011all I can give you.\u00E0\u00BF",
-                });
+                _messageTable.UpdateMessages(new MessageEntryBuilder()
+                    .Id(0x45C)
+                    .Message(it =>
+                    {
+                        it.QuickText(() =>
+                        {
+                            it.Text("What's this? You've already saved").NewLine()
+                            .Text("up ").Red("500 Rupees").Text("!?!");
+                        })
+                        .EndTextBox()
+                        .Text("Well, little guy, here's your special").NewLine()
+                        .Text("gift. Take it!")
+                        .EndConversation()
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
+                _messageTable.UpdateMessages(new MessageEntryBuilder()
+                    .Id(0x45D)
+                    .Message(it =>
+                    {
+                        it.QuickText(() =>
+                        {
+                            it.Text("What's this? You've already saved").NewLine()
+                            .Text("up ").Red("1000 Rupees").Text("?!");
+                        })
+                        .EndTextBox()
+                        .Text("Well, little guy, I can't take any").NewLine()
+                        .Text("more deposits. Sorry, but this is").NewLine()
+                        .Text("all I can give you.")
+                        .EndConversation()
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
             }
         }
 
@@ -735,12 +887,19 @@ namespace MMR.Randomizer
 
         private void WriteSunsSong()
         {
-            _messageTable.UpdateMessages(new MessageEntry
-            {
-                Id = 0x1B7D,
-                Header = new byte[11] { 0x03, 0x00, 0xFE, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF },
-                Message = $"You played the {TextCommands.ColorYellow}Sun's Song{TextCommands.ColorWhite}!\xBF"
-            });
+            _messageTable.UpdateMessages(new MessageEntryBuilder()
+                .Id(0x1B7D)
+                .Header(it =>
+                {
+                    it.OcarinaStaff();
+                })
+                .Message(it =>
+                {
+                    it.Text("You played the ").Yellow("Sun's Song").Text("!")
+                    .EndFinalTextBox();
+                })
+                .Build()
+            );
 
             ResourceUtils.ApplyHack(Resources.mods.enable_sunssong);
         }
@@ -1336,12 +1495,22 @@ namespace MMR.Randomizer
             }
 
             // replace "Razor Sword is now blunt" message with get-item message for Kokiri Sword.
-            newMessages.Add(new MessageEntry
-            {
-                Id = 0xF9,
-                Header = new byte[11] { 0x06, 0x00, 0xFE, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF },
-                Message = $"You got the \x01Kokiri Sword\x00!\u0011This is a hidden treasure of\u0011the Kokiri, but you can borrow it\u0011for a while.\u00BF",
-            });
+            newMessages.Add(new MessageEntryBuilder()
+                .Id(0xF9)
+                .Header(it =>
+                {
+                    it.Standard2();
+                })
+                .Message(it =>
+                {
+                    it.Text("You got the ").Red("Kokiri Sword").Text("!").NewLine()
+                    .Text("This is a hidden treasure of").NewLine()
+                    .Text("the Kokiri, but you can borrow it").NewLine()
+                    .Text("for a while.")
+                    .EndFinalTextBox();
+                })
+                .Build()
+            );
 
             // replace Magic Power message
             newMessages.Add(new MessageEntryBuilder()
@@ -1436,21 +1605,21 @@ namespace MMR.Randomizer
                 0x70, 0x71, 0x72, 0x73, 0x77,
             };
 
-            var dungeonNames = new string[]
+            var dungeonNames = new (char color, string dungeonName)[]
             {
-                "\u0006Woodfall Temple\u0000",
-                "\u0002Snowhead Temple\u0000",
-                "\u0005Great Bay Temple\u0000",
-                "\u0004Stone Tower Temple\u0000"
+                (TextCommands.ColorPink, "Woodfall Temple"),
+                (TextCommands.ColorGreen, "Snowhead Temple"),
+                (TextCommands.ColorLightBlue, "Great Bay Temple"),
+                (TextCommands.ColorYellow, "Stone Tower Temple"),
             };
 
-            var dungeonItemMessages = new string[]
+            var dungeonItemNames = new (string article, string itemName)[]
             {
-                "\u0017You found a \u0001Small Key\u0000 for\u0011{0}!\u0018\u00BF",
-                "\u0017You found the \u0001Boss Key\u0000 for\u0011{0}!\u0018\u00BF",
-                "\u0017You found the \u0001Dungeon Map\u0000 for\u0011{0}!\u0018\u00BF",
-                "\u0017You found the \u0001Compass\u0000 for\u0011{0}!\u0018\u00BF",
-                "\u0017You found a \u0001Stray Fairy\u0000 from\u0011{0}!\u0018\u001F\u0000\u0010\u0011This is your \u0001\u000C\u0000 one!\u00BF",
+                ("a ", "Small Key"),
+                ("the ", "Boss Key"),
+                ("the ", "Dungeon Map"),
+                ("the ", "Compass"),
+                ("a ", "Stray Fairy"),
             };
 
             var dungeonItemIcons = new byte[]
@@ -1460,17 +1629,41 @@ namespace MMR.Randomizer
 
             for (var i = 0; i < dungeonItemMessageIds.Length; i++)
             {
+                var itemTypeIndex = i % 5;
+                var dungeonIndex = i / 5;
                 var messageId = dungeonItemMessageIds[i];
-                var icon = dungeonItemIcons[i % 5];
-                var dungeonName = dungeonNames[i / 5];
-                var message = string.Format(dungeonItemMessages[i % 5], dungeonName);
+                var icon = dungeonItemIcons[itemTypeIndex];
+                var dungeonName = dungeonNames[dungeonIndex];
 
-                newMessages.Add(new MessageEntry
-                {
-                    Id = messageId,
-                    Header = new byte[11] { 0x02, 0x00, icon, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF },
-                    Message = message
-                });
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(messageId)
+                    .Header(it =>
+                    {
+                        it.FaintBlue().Icon(icon);
+                    })
+                    .Message(it =>
+                    {
+                        it.QuickText(() =>
+                        {
+                            it.Text("You found ")
+                            .Text(dungeonItemNames[itemTypeIndex].article)
+                            .Red(dungeonItemNames[itemTypeIndex].itemName)
+                            .Text(" for")
+                            .NewLine()
+                            .TextColor(dungeonName.color, dungeonName.dungeonName)
+                            .Text("!")
+                            ;
+                        });
+                        if (itemTypeIndex == 4)
+                        {
+                            it.PauseText(0x10).NewLine()
+                            .Text("This is your ").Red(() => { it.StrayFairyCount(); }).Text(" one!")
+                            ;
+                        }
+                        it.EndFinalTextBox();
+                    })
+                    .Build()
+                );
             }
 
             _messageTable.UpdateMessages(newMessages);

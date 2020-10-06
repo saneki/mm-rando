@@ -46,7 +46,7 @@ namespace MMR.Randomizer.Models.Rom
 
             private byte y = 0x00;
 
-            private byte icon = 0x00;
+            private byte icon = 0xFE;
 
             private ushort nextMessage = 0xFFFF;
 
@@ -58,7 +58,20 @@ namespace MMR.Randomizer.Models.Rom
             {
                 Standard = 0x00,
                 SignPost = 0x01,
-                FaintBlue = 0x02
+                FaintBlue = 0x02,
+                OcarinaStaff = 0x03,
+                Invisible1 = 0x04,
+                Invisible2 = 0x05, // Default Text Color: Black
+                Standard2 = 0x06,
+                Invisible = 0x07,
+                Blue = 0x08,
+                Red1 = 0x09,
+                Invisible3 = 0x0A,
+                Invisible4 = 0x0B, // Text Align: Top of Screen
+                Invisible5 = 0x0C,
+                BombersNotebook = 0x0D,
+                Invisible6 = 0x0E,
+                Red2 = 0x0F,
             }
 
             public HeaderBuilder Standard() =>
@@ -69,6 +82,12 @@ namespace MMR.Randomizer.Models.Rom
 
             public HeaderBuilder FaintBlue() =>
                 SetTextBoxType(TextBoxTypes.FaintBlue);
+
+            public HeaderBuilder OcarinaStaff() =>
+                SetTextBoxType(TextBoxTypes.OcarinaStaff);
+
+            public HeaderBuilder Standard2() =>
+                SetTextBoxType(TextBoxTypes.Standard2);
 
             private HeaderBuilder SetTextBoxType(TextBoxTypes type)
             {
@@ -160,6 +179,14 @@ namespace MMR.Randomizer.Models.Rom
                 Append(0x18);
 
             /// <summary>
+            /// Appends the play sound effect control character (0x1E) and the sound effect id to the message.
+            /// </summary>
+            /// <param name="soundEffectId"></param>
+            /// <returns></returns>
+            public MessageBuilder PlaySoundEffect(ushort soundEffectId) =>
+                Append(0x1E).Append(soundEffectId);
+
+            /// <summary>
             /// Appends the pause delay control character (0x1F) and the pause time (in frames) to the message.
             /// </summary>
             /// <param name="pauseFrames"></param>
@@ -174,6 +201,21 @@ namespace MMR.Randomizer.Models.Rom
             /// <returns></returns>
             public MessageBuilder EndTextBox() =>
                 Append(0x10);
+
+            /// <summary>
+            /// Appends the Stray Fairy count control character (0x0C) to the message.
+            /// <para>
+            /// The game takes care of handling cardinality, like 1st, 2nd, 3rd, 4th, etc.
+            /// It also keeps track of the current Stray Fairy type (meaning, there are not
+            /// two separate control characters for the different dungeons).
+            /// </para>
+            /// <para>
+            /// Multiple occurrences will render multiple times.
+            /// </para>
+            /// </summary>
+            /// <returns></returns>
+            public MessageBuilder StrayFairyCount() =>
+                Append(0x0C);
 
             /// <summary>
             /// Appends the Skulltula count control character (0x0D) to the message.
@@ -199,6 +241,33 @@ namespace MMR.Randomizer.Models.Rom
                 Append(0xBF);
 
             /// <summary>
+            /// Appends the Two Choices control character (0xC2) to the message.
+            /// </summary>
+            /// <returns></returns>
+            public MessageBuilder TwoChoices() =>
+                Append(0xC2);
+
+            /// <summary>
+            /// Appends the Three Choices control character (0xC3) to the message.
+            /// </summary>
+            /// <returns></returns>
+            public MessageBuilder ThreeChoices() =>
+                Append(0xC3);
+
+            /// <summary>
+            /// Appends the End Conversation control character (0xE0) to the message.
+            /// </summary>
+            /// <returns></returns>
+            public MessageBuilder EndConversation() =>
+                Append(0xE0);
+
+            /// <summary>
+            /// Appends the disable text skip II control character (0x19) to the message.
+            /// </summary>
+            /// <returns></returns>
+            public MessageBuilder DisableTextSkip2() => Append(0x19);
+
+            /// <summary>
             /// Appends the new line control character (0x11) to the message.
             /// </summary>
             /// <returns></returns>
@@ -219,8 +288,12 @@ namespace MMR.Randomizer.Models.Rom
 
             #region Text Colors
 
-            private MessageBuilder PushTextColor(char color)
+            public MessageBuilder PushTextColor(char color)
             {
+                if (color < 0 && color > 0x08)
+                {
+                    throw new ArgumentException("Invalid text color.");
+                }
                 colorStack.Push(color);
                 return Append(color);
             }
@@ -250,11 +323,18 @@ namespace MMR.Randomizer.Models.Rom
                 PushTextColor(TextCommands.ColorRed);
 
             /// <summary>
-            /// Appends the start red text control character (0x02) to the message.
+            /// Appends the start green text control character (0x02) to the message.
             /// </summary>
             /// <returns></returns>
             public MessageBuilder StartGreenText() =>
                 PushTextColor(TextCommands.ColorGreen);
+
+            /// <summary>
+            /// Appends the start yellow text control character (0x04) to the message.
+            /// </summary>
+            /// <returns></returns>
+            public MessageBuilder StartYellowText() =>
+                PushTextColor(TextCommands.ColorYellow);
 
             /// <summary>
             /// Appends the start light blue text control character (0x05) to the message.
@@ -321,6 +401,28 @@ namespace MMR.Randomizer.Models.Rom
         #region Color Extensions
 
         /// <summary>
+        /// Appends the given text color control character to the message, and executes the specified action.
+        /// </summary>
+        /// <param name="this">this message builder</param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public static MessageEntryBuilder.MessageBuilder TextColor(this MessageEntryBuilder.MessageBuilder @this, char color, Action action)
+        {
+            @this.PushTextColor(color);
+            action();
+            @this.PopTextColor();
+            return @this;
+        }
+
+        /// <summary>
+        /// Appends the start white text control character (0x00) to the message, and writes the specified text.
+        /// </summary>
+        /// <param name="this">this message builder</param>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static MessageEntryBuilder.MessageBuilder TextColor(this MessageEntryBuilder.MessageBuilder @this, char color, string text) => @this.TextColor(color, () => @this.Text(text));
+
+        /// <summary>
         /// Appends the start white text control character (0x00) to the message, and executes the specified action.
         /// </summary>
         /// <param name="this">this message builder</param>
@@ -384,7 +486,29 @@ namespace MMR.Randomizer.Models.Rom
         /// <param name="this">this message builder</param>
         /// <param name="text"></param>
         /// <returns></returns>
-        public static MessageEntryBuilder.MessageBuilder Green(this MessageEntryBuilder.MessageBuilder @this, string text) => @this.White(() => @this.Green(text));
+        public static MessageEntryBuilder.MessageBuilder Green(this MessageEntryBuilder.MessageBuilder @this, string text) => @this.Green(() => @this.Text(text));
+
+        /// <summary>
+        /// Appends the start yellow text control character (0x04) to the message, and executes the specified action.
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public static MessageEntryBuilder.MessageBuilder Yellow(this MessageEntryBuilder.MessageBuilder @this, Action action)
+        {
+            @this.StartYellowText();
+            action();
+            @this.PopTextColor();
+            return @this;
+        }
+
+        /// <summary>
+        /// Appends the start yellow text control character (0x04) to the message, and writes the specified text.
+        /// </summary>
+        /// <param name="this">this message builder</param>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static MessageEntryBuilder.MessageBuilder Yellow(this MessageEntryBuilder.MessageBuilder @this, string text) => @this.Yellow(() => @this.Text(text));
 
         /// <summary>
         /// Appends the start light blue text control character (0x05) to the message, and executes the specified action.
