@@ -1344,12 +1344,29 @@ namespace MMR.Randomizer
             });
 
             // replace Magic Power message
-            newMessages.Add(new MessageEntry
-            {
-                Id = 0xC8,
-                Header = null,
-                Message = $"\u0017You've been granted \u0002Magic Power\u0000!\u0018\u0011Replenish it with \u0001Magic Jars\u0000\u0011and \u0001Potions\u0000.\u00BF",
-            });
+            newMessages.Add(new MessageEntryBuilder()
+                .Id(0xC8)
+                .Message(it =>
+                {
+                    it.QuickText(() =>
+                    {
+                        it.Text("You've been granted ")
+                        .Green("Magic Power")
+                        .Text("!")
+                        ;
+                    })
+                    .NewLine()
+                    .Text("Replenish it with ")
+                    .Red("Magic Jars")
+                    .NewLine()
+                    .Text("and ")
+                    .Red("Potions")
+                    .Text(".")
+                    .EndFinalTextBox()
+                    ;
+                })
+                .Build()
+            );
 
             if (_randomized.Settings.AddSkulltulaTokens)
             {
@@ -1360,25 +1377,22 @@ namespace MMR.Randomizer
                     .Header(it => { it.FaintBlue().Icon(0x52); })
                     .Message(it =>
                     {
-                        it
-                            .QuickText(() =>
+                        it.QuickText(() =>
+                        {
+                            it.Text("You got an ")
+                            .LightBlue(() =>
                             {
-                                it
-                                    .Text("You got an ")
-                                    .LightBlue(() =>
-                                    {
-                                        it
-                                            .Text("Ocean Gold Skulltula")
-                                            .NewLine()
-                                            .Text("Spirit");
-                                    })
-                                    .White(() => { it.Text("!"); });
+                                it.Text("Ocean Gold Skulltula")
+                                .NewLine()
+                                .Text("Spirit");
                             })
-                            .PauseText(0x0010)
-                            .Text(" This is your ")
-                            .Red(() => { it.SkulltulaCount(); })
-                            .White(() => { it.Text(" one!"); })
-                            .EndFinalTextBox();
+                            .Text("!");
+                        })
+                        .PauseText(0x0010)
+                        .Text(" This is your ")
+                        .Red(() => { it.SkulltulaCount(); })
+                        .Text(" one!")
+                        .EndFinalTextBox();
                     })
                     .Build();
                 newMessages.Add(oceanSkulltulaEntry);
@@ -1388,25 +1402,22 @@ namespace MMR.Randomizer
                     .Header(it => { it.FaintBlue().Icon(0x52); })
                     .Message(it =>
                     {
-                        it
-                            .QuickText(() =>
+                        it.QuickText(() =>
+                        {
+                            it.Text("You got a ")
+                            .Pink(() =>
                             {
-                                it
-                                    .Text("You got a ")
-                                    .Pink(() =>
-                                    {
-                                        it
-                                            .Text("Swamp Gold Skulltula")
-                                            .NewLine()
-                                            .Text("Spirit");
-                                    })
-                                    .White(() => { it.Text("!"); });
+                                it.Text("Swamp Gold Skulltula")
+                                .NewLine()
+                                .Text("Spirit");
                             })
-                            .PauseText(0x0010)
-                            .Text(" This is your ")
-                            .Red(() => { it.SkulltulaCount(); })
-                            .White(() => { it.Text(" one!"); })
-                            .EndFinalTextBox();
+                            .Text("!");
+                        })
+                        .PauseText(0x0010)
+                        .Text(" This is your ")
+                        .Red(() => { it.SkulltulaCount(); })
+                        .Text(" one!")
+                        .EndFinalTextBox();
                     })
                     .Build();
 

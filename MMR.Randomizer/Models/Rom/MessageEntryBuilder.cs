@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using MMR.Common.Extensions;
 using MMR.Randomizer.GameObjects;
 
@@ -142,6 +143,7 @@ namespace MMR.Randomizer.Models.Rom
         public class MessageBuilder
         {
             private string message = "";
+            private Stack<char> colorStack = new Stack<char>();
 
             /// <summary>
             /// Appends the quick text start control character (0x17) to the message.
@@ -217,19 +219,42 @@ namespace MMR.Randomizer.Models.Rom
 
             #region Text Colors
 
+            private MessageBuilder PushTextColor(char color)
+            {
+                colorStack.Push(color);
+                return Append(color);
+            }
+
+            public MessageBuilder PopTextColor()
+            {
+                colorStack.Pop();
+                if (colorStack.Count > 0)
+                {
+                    return Append(colorStack.Peek());
+                }
+                return Append(TextCommands.ColorWhite); // return to default text color.
+            }
+
             /// <summary>
             /// Appends the start white text control character (0x00) to the message.
             /// </summary>
             /// <returns></returns>
             public MessageBuilder StartWhiteText() =>
-                Append(TextCommands.ColorWhite);
+                PushTextColor(TextCommands.ColorWhite);
 
             /// <summary>
             /// Appends the start red text control character (0x01) to the message.
             /// </summary>
             /// <returns></returns>
             public MessageBuilder StartRedText() =>
-                Append(TextCommands.ColorRed);
+                PushTextColor(TextCommands.ColorRed);
+
+            /// <summary>
+            /// Appends the start red text control character (0x02) to the message.
+            /// </summary>
+            /// <returns></returns>
+            public MessageBuilder StartGreenText() =>
+                PushTextColor(TextCommands.ColorGreen);
 
             /// <summary>
             /// Appends the start light blue text control character (0x05) to the message.
@@ -239,14 +264,14 @@ namespace MMR.Randomizer.Models.Rom
             /// </para>
             /// <returns></returns>
             public MessageBuilder StartLightBlueText() =>
-                Append(TextCommands.ColorLightBlue);
+                PushTextColor(TextCommands.ColorLightBlue);
 
             /// <summary>
             /// Appends the start pink text control character (0x06) to the message.
             /// </summary>
             /// <returns></returns>
             public MessageBuilder StartPinkText() =>
-                Append(TextCommands.ColorPink);
+                PushTextColor(TextCommands.ColorPink);
 
             #endregion
 
@@ -296,32 +321,6 @@ namespace MMR.Randomizer.Models.Rom
         #region Color Extensions
 
         /// <summary>
-        /// Appends the start light blue text control character (0x05) to the message, and executes the specified action.
-        /// </summary>
-        /// <param name="this"></param>
-        /// <param name="action"></param>
-        /// <returns></returns>
-        public static MessageEntryBuilder.MessageBuilder LightBlue(this MessageEntryBuilder.MessageBuilder @this, Action action)
-        {
-            @this.StartLightBlueText();
-            action();
-            return @this;
-        }
-
-        /// <summary>
-        /// Appends the start pink text control character (0x05) to the message, and executes the specified action.
-        /// </summary>
-        /// <param name="this"></param>
-        /// <param name="action"></param>
-        /// <returns></returns>
-        public static MessageEntryBuilder.MessageBuilder Pink(this MessageEntryBuilder.MessageBuilder @this, Action action)
-        {
-            @this.StartPinkText();
-            action();
-            return @this;
-        }
-
-        /// <summary>
         /// Appends the start white text control character (0x00) to the message, and executes the specified action.
         /// </summary>
         /// <param name="this">this message builder</param>
@@ -331,8 +330,17 @@ namespace MMR.Randomizer.Models.Rom
         {
             @this.StartWhiteText();
             action();
+            @this.PopTextColor();
             return @this;
         }
+
+        /// <summary>
+        /// Appends the start white text control character (0x00) to the message, and writes the specified text.
+        /// </summary>
+        /// <param name="this">this message builder</param>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static MessageEntryBuilder.MessageBuilder White(this MessageEntryBuilder.MessageBuilder @this, string text) => @this.White(() => @this.Text(text));
 
         /// <summary>
         /// Appends the start red text control character (0x01) to the message, and executes the specified action.
@@ -344,8 +352,83 @@ namespace MMR.Randomizer.Models.Rom
         {
             @this.StartRedText();
             action();
+            @this.PopTextColor();
             return @this;
         }
+
+        /// <summary>
+        /// Appends the start red text control character (0x01) to the message, and writes the specified text.
+        /// </summary>
+        /// <param name="this">this message builder</param>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static MessageEntryBuilder.MessageBuilder Red(this MessageEntryBuilder.MessageBuilder @this, string text) => @this.Red(() => @this.Text(text));
+
+        /// <summary>
+        /// Appends the start green text control character (0x02) to the message, and executes the specified action.
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public static MessageEntryBuilder.MessageBuilder Green(this MessageEntryBuilder.MessageBuilder @this, Action action)
+        {
+            @this.StartGreenText();
+            action();
+            @this.PopTextColor();
+            return @this;
+        }
+
+        /// <summary>
+        /// Appends the start green text control character (0x02) to the message, and writes the specified text.
+        /// </summary>
+        /// <param name="this">this message builder</param>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static MessageEntryBuilder.MessageBuilder Green(this MessageEntryBuilder.MessageBuilder @this, string text) => @this.White(() => @this.Green(text));
+
+        /// <summary>
+        /// Appends the start light blue text control character (0x05) to the message, and executes the specified action.
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public static MessageEntryBuilder.MessageBuilder LightBlue(this MessageEntryBuilder.MessageBuilder @this, Action action)
+        {
+            @this.StartLightBlueText();
+            action();
+            @this.PopTextColor();
+            return @this;
+        }
+
+        /// <summary>
+        /// Appends the start light blue text control character (0x05) to the message, and writes the specified text.
+        /// </summary>
+        /// <param name="this">this message builder</param>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static MessageEntryBuilder.MessageBuilder LightBlue(this MessageEntryBuilder.MessageBuilder @this, string text) => @this.LightBlue(() => @this.Text(text));
+
+        /// <summary>
+        /// Appends the start pink text control character (0x06) to the message, and executes the specified action.
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public static MessageEntryBuilder.MessageBuilder Pink(this MessageEntryBuilder.MessageBuilder @this, Action action)
+        {
+            @this.StartPinkText();
+            action();
+            @this.PopTextColor();
+            return @this;
+        }
+
+        /// <summary>
+        /// Appends the start pink text control character (0x06) to the message, and writes the specified text.
+        /// </summary>
+        /// <param name="this">this message builder</param>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static MessageEntryBuilder.MessageBuilder Pink(this MessageEntryBuilder.MessageBuilder @this, string text) => @this.Pink(() => @this.Text(text));
 
         #endregion
     }

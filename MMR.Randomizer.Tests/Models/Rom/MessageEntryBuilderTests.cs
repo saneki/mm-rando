@@ -34,7 +34,7 @@ namespace MMR.Randomizer.Tests.Models.Rom
 
             builder
                 .QuickTextStart().Text("You got a ").StartPinkText().Text("Swamp Gold Skulltula").NewLine()
-                .Text("Spirit").StartWhiteText().Text("!").QuickTextStop().PauseText(0x0010).Text(" This is your ").StartRedText().SkulltulaCount().StartWhiteText().Text(" one!").EndFinalTextBox();
+                .Text("Spirit").PopTextColor().Text("!").QuickTextStop().PauseText(0x0010).Text(" This is your ").StartRedText().SkulltulaCount().PopTextColor().Text(" one!").EndFinalTextBox();
 
             byte[] initialMessageBytes = Array.ConvertAll(SkulltulaEntry.Message.ToCharArray(), it => (byte) it);
             byte[] builderMessageBytes = Array.ConvertAll(builder.Build().ToCharArray(), it => (byte) it);
@@ -54,7 +54,7 @@ namespace MMR.Randomizer.Tests.Models.Rom
                 {
                     it
                         .QuickTextStart().Text("You got a ").StartPinkText().Text("Swamp Gold Skulltula").NewLine()
-                        .Text("Spirit").StartWhiteText().Text("!").QuickTextStop().PauseText(0x0010).Text(" This is your ").StartRedText().SkulltulaCount().StartWhiteText().Text(" one!").EndFinalTextBox();
+                        .Text("Spirit").PopTextColor().Text("!").QuickTextStop().PauseText(0x0010).Text(" This is your ").StartRedText().SkulltulaCount().PopTextColor().Text(" one!").EndFinalTextBox();
                 })
                 .Build();
 
@@ -82,12 +82,12 @@ namespace MMR.Randomizer.Tests.Models.Rom
                                         .NewLine()
                                         .Text("Spirit");
                                 })
-                                .White(() => { it.Text("!"); });
+                                .Text("!");
                         })
                         .PauseText(0x0010)
                         .Text(" This is your ")
                         .Red(() => { it.SkulltulaCount(); })
-                        .White(() => { it.Text(" one!"); })
+                        .Text(" one!")
                         .EndFinalTextBox();
                 })
                 .Build();
