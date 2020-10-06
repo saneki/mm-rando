@@ -24,6 +24,7 @@ struct misc_config MISC_CONFIG = {
     .continuous_deku_hop = 0,
     .shop_models = 1,
     .progressive_upgrades = 1,
+    .ice_trap_quirks = 0,
 };
 
 union faucet_speed {
@@ -50,11 +51,11 @@ struct ikana_speed {
     f32 initial;
 };
 
-struct misc_config* misc_get_config() {
+struct misc_config* misc_get_config(void) {
     return &MISC_CONFIG;
 }
 
-bool misc_can_use_ocarina_underwater() {
+bool misc_can_use_ocarina_underwater(void) {
     return MISC_CONFIG.ocarina_underwater != 0;
 }
 

@@ -64,7 +64,8 @@ struct misc_config {
             u32 continuous_deku_hop   : 1;
             u32 shop_models           : 1;
             u32 progressive_upgrades  : 1;
-            u32                       : 16;
+            u32 ice_trap_quirks       : 1;
+            u32                       : 15;
         };
         u32 flags;          /* 0x0018 */
     };
@@ -81,8 +82,8 @@ struct misc_config {
 
 extern struct misc_config MISC_CONFIG;
 
-bool misc_can_use_ocarina_underwater();
-struct misc_config* misc_get_config();
+bool misc_can_use_ocarina_underwater(void);
+struct misc_config* misc_get_config(void);
 f32 misc_get_push_block_speed(z2_actor_t *actor, z2_game_t *game);
 void misc_init(void);
 

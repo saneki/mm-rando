@@ -131,6 +131,11 @@ namespace MMR.Randomizer.Asm
         public bool ProgressiveUpgrades { get; set; } = true;
 
         /// <summary>
+        /// Whether or not ice traps should behave slightly differently from other items in certain situations.
+        /// </summary>
+        public bool IceTrapQuirks { get; set; }
+
+        /// <summary>
         /// Whether or not to allow using the ocarina underwater.
         /// </summary>
         public bool OcarinaUnderwater { get; set; }
@@ -171,6 +176,7 @@ namespace MMR.Randomizer.Asm
             this.ContinuousDekuHopping = ((flags >> 18) & 1) == 1;
             this.ShopModels = ((flags >> 17) & 1) == 1;
             this.ProgressiveUpgrades = ((flags >> 16) & 1) == 1;
+            this.IceTrapQuirks = ((flags >> 15) & 1) == 1;
         }
 
         /// <summary>
@@ -194,6 +200,7 @@ namespace MMR.Randomizer.Asm
             flags |= (this.ContinuousDekuHopping ? (uint)1 : 0) << 18;
             flags |= (this.ShopModels ? (uint)1 : 0) << 17;
             flags |= (this.ProgressiveUpgrades ? (uint)1 : 0) << 16;
+            flags |= (this.IceTrapQuirks ? (uint)1 : 0) << 15;
             return flags;
         }
     }

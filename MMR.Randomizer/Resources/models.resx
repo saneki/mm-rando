@@ -118,6 +118,36 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="adult_en_horse" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>models\adult-en-horse.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="adult_link_code_segaddrs" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>models\adult-link-code-segaddrs.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="adult_link_gameplay_keep_vtx_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>models\adult-link-gameplay-keep-vtx-1.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="adult_link_gameplay_keep_vtx_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>models\adult-link-gameplay-keep-vtx-2.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="adult_link_gameplay_keep_vtx_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>models\adult-link-gameplay-keep-vtx-3.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="adult_link_gameplay_keep_vtx_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>models\adult-link-gameplay-keep-vtx-4.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="adult_link_player_actor_data_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>models\adult-link-player-actor-data-1.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="adult_link_player_actor_data_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>models\adult-link-player-actor-data-2.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="adult_obj_epona" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>models\adult-obj-epona.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="adult_obj_link" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>models\adult-obj-link.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="gi_link_mask" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>models\gi-link-mask;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

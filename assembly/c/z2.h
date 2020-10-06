@@ -1465,7 +1465,11 @@ typedef struct {
 
 typedef struct z2_msgbox_ctxt_s {
     u8               unk_0x00[0x19E8];               /* 0x0000 */
-    u8               cur_msg_raw[0x518];             /* 0x19E8 */ // length might be wrong
+    // Struct at 0x168?
+    u8               cur_msg_raw[0x500];             /* 0x19E8 */ // length might be wrong
+    u32              msg_data_offset;                /* 0x1EE8 */
+    u32              msg_data_length;                /* 0x1EEC */
+    u8               unk_0x1EF0[0x10];               /* 0x1EF0 */
     z2_song_ctxt_t  *song_ctxt;                      /* 0x1F00 */
     u8               unk_0x1F04[0x06];               /* 0x1F04 */
     u8               unk_0x1F0A;                     /* 0x1F0A */
@@ -1486,7 +1490,8 @@ typedef struct z2_msgbox_ctxt_s {
     z2_color_rgb16_t cur_char_color;                 /* 0x2018 */
     s16              cur_char_alpha;                 /* 0x201E */
     u8               message_state_2;                /* 0x2020 */
-    u8               unk_0x2021[0x02];               /* 0x2021 */
+    u8               selection;                      /* 0x2021 */
+    u8               unk_0x2022;                     /* 0x2022 */
     u8               message_state_3;                /* 0x2023 */
     u8               unk_0x2024[0x04];               /* 0x2024 */
     u16              playback_song;                  /* 0x2028 */
@@ -1498,8 +1503,11 @@ typedef struct z2_msgbox_ctxt_s {
     s16              score_line_alpha;               /* 0x203C */
     u8               unk_0x203E[0x2C];               /* 0x203E */
     u16              msg_box_screen_y;               /* 0x206A */
-    u8               unk_0x206C[0x54];               /* 0x206C */
-    u8               unk_0x20C0[0x08];               /* 0x20C0 */
+    u8               unk_0x206C[0x18];               /* 0x206C */
+    void            *message_table;                  /* 0x2084 */
+    u8               unk_0x2088[0x08];               /* 0x2088 */
+    s16              message_data_file;              /* 0x2090, 0 = main file, 1 = credits file. */
+    u8               unk_0x2092[0x36];               /* 0x2092 */
     z2_color_rgb16_t normal_char_color;              /* 0x20C8 */
     u8               unk_0x20CE[0x12];               /* 0x20CE */
 } z2_msgbox_ctxt_t;                                  /* 0x20E0 */
@@ -1730,7 +1738,10 @@ typedef struct {
     char             form_name[0x8][0x3];            /* 0x00DE */
     u8               unk_0xF6[0x2];                  /* 0x00F6 */
     z2_save_scene_flags_t save_scene_flags[0x78];    /* 0x00F8 */
-    u8               unk_0xE18[0xC6];                /* 0x0E18 */
+    u8               unk_0xE18[0xA8];                /* 0x0E18 */
+    u16              skull_tokens_1;                 /* 0x0EC0 */
+    u16              skull_tokens_2;                 /* 0x0EC2 */
+    u8               unk_0xEC4[0x1A];                /* 0x0EC4 */
     u16              bank_rupees;                    /* 0x0EDE */
     u8               unk_0xEE0[0x10];                /* 0x0EE0 */
     u32              lottery_guess;                  /* 0x0EF0 */
@@ -1968,6 +1979,23 @@ typedef struct {
 /// =============================================================
 /// Other Actors
 /// =============================================================
+
+/**
+ * En_Box actor (Treasure Chest).
+ **/
+typedef struct {
+    z2_actor_t       common;                         /* 0x0000 */
+    u8               unk_0x144[0xA8];                /* 0x0144 */
+    s16              anim_counter;                   /* 0x01EC, used for fancy light animation? */
+    u8               unk_0x1EE;                      /* 0x01EE */
+    u8               unk_0x1EF;                      /* 0x01EF */
+    u8               unk_0x1F0;                      /* 0x01F0 */
+    u8               chest_type;                     /* 0x01F1 */
+    u8               unk_0x1F2[0x28];                /* 0x01F2 */
+    s16              unk_0x21A;                      /* 0x021A */
+    u32              gi_index;                       /* 0x021C */
+    u32              unk_0x220;                      /* 0x0220 */
+} z2_en_box_t;                                       /* 0x0224 */
 
 /**
  * En_Elf actor.
@@ -2374,6 +2402,7 @@ typedef struct {
 #define z2_CallSetupDList_addr           0x8012C2DC
 
 /* Function Addresses (File Loading) */
+#define z2_RomToRam_addr                 0x80080790
 #define z2_GetFileTable_addr             0x800808F4
 #define z2_GetFilePhysAddr_addr          0x80080950
 #define z2_GetFileNumber_addr            0x800809BC
@@ -2381,6 +2410,8 @@ typedef struct {
 #define z2_ReadFile_addr                 0x80080C90
 #define z2_LoadFileFromArchive_addr      0x80178DAC
 #define z2_LoadVFileFromArchive_addr     0x80178E3C
+
+#define z2_Yaz0_LoadAndDecompressFile_addr 0x80081178
 
 /* Function Addresses (Get Item) */
 #define z2_SetGetItem_addr               0x800B8A1C
@@ -2392,6 +2423,7 @@ typedef struct {
 #define z2_InitButtonNoteColors_addr     0x80147564
 
 /* Function Addresses (Math) */
+#define z2_Math_Sins_addr                0x800FED84
 #define z2_Math_Vec3f_DistXZ_addr        0x800FF92C
 
 /* Function Addresses (Objects) */
@@ -2469,6 +2501,7 @@ typedef void (*z2_CallDList_proc)(z2_gfx_t *gfx);
 typedef void (*z2_PreDraw_proc)(z2_actor_t *actor, z2_game_t *game, u32 unknown);
 
 /* Function Prototypes (File Loading) */
+typedef s32 (*z2_RomToRam_proc)(u32 src, void *dst, u32 length);
 typedef s16 (*z2_GetFileNumber_proc)(u32 vrom_addr);
 typedef u32 (*z2_GetFilePhysAddr_proc)(u32 vrom_addr);
 typedef z2_file_table_t* (*z2_GetFileTable_proc)(u32 vrom_addr);
@@ -2476,6 +2509,8 @@ typedef void (*z2_LoadFile_proc)(z2_loadfile_t *loadfile);
 typedef void (*z2_LoadFileFromArchive_proc)(u32 phys_file, u8 index, u8 *dest, u32 length);
 typedef void (*z2_LoadVFileFromArchive_proc)(u32 virt_file, u8 index, u8 *dest, u32 length);
 typedef void (*z2_ReadFile_proc)(void *mem_addr, u32 vrom_addr, u32 size);
+
+typedef void (*z2_Yaz0_LoadAndDecompressFile_proc)(u32 prom_addr, void *dest, u32 length);
 
 /* Function Prototypes (Get Item) */
 typedef void (*z2_SetGetItem_proc)(z2_actor_t *actor, z2_game_t *game, s32 unk2, u32 unk3);
@@ -2487,6 +2522,7 @@ typedef void (*z2_ReloadButtonTexture_proc)(z2_game_t *game, u8 idx);
 typedef void (*z2_UpdateButtonsState_proc)(u32 state);
 
 /* Function Prototypes (Math) */
+typedef f32 (*z2_Math_Sins_proc)(s16 angle);
 typedef f32 (*z2_Math_Vec3f_DistXZ_proc)(z2_xyzf_t *p1, z2_xyzf_t *p2);
 
 /* Function Prototypes (Objects) */
@@ -2561,6 +2597,9 @@ typedef void (*z2_UnloadRoom_proc)(z2_game_t *game, z2_room_ctxt_t *room_ctxt);
 #define z2_LoadFileFromArchive           ((z2_LoadFileFromArchive_proc)   z2_LoadFileFromArchive_addr)
 #define z2_LoadVFileFromArchive          ((z2_LoadVFileFromArchive_proc)  z2_LoadVFileFromArchive_addr)
 #define z2_ReadFile                      ((z2_ReadFile_proc)              z2_ReadFile_addr)
+#define z2_RomToRam                      ((z2_RomToRam_proc)              z2_RomToRam_addr)
+
+#define z2_Yaz0_LoadAndDecompressFile    ((z2_Yaz0_LoadAndDecompressFile_proc) z2_Yaz0_LoadAndDecompressFile_addr)
 
 /* Functions (Get Item) */
 #define z2_SetGetItem                    ((z2_SetGetItem_proc)            z2_SetGetItem_addr)
@@ -2572,6 +2611,7 @@ typedef void (*z2_UnloadRoom_proc)(z2_game_t *game, z2_room_ctxt_t *room_ctxt);
 #define z2_UpdateButtonsState            ((z2_UpdateButtonsState_proc)    z2_UpdateButtonsState_addr)
 
 /* Functions (Math) */
+#define z2_Math_Sins                     ((z2_Math_Sins_proc)             z2_Math_Sins_addr)
 #define z2_Math_Vec3f_DistXZ             ((z2_Math_Vec3f_DistXZ_proc)     z2_Math_Vec3f_DistXZ_addr)
 
 /* Functions (Objects) */

@@ -24,6 +24,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using SixLabors.ImageSharp.Formats.Png;
+using System.Security.Cryptography;
 
 namespace MMR.Randomizer
 {
@@ -33,13 +34,17 @@ namespace MMR.Randomizer
         private CosmeticSettings _cosmeticSettings;
         private MessageTable _messageTable;
         private ExtendedObjects _extendedObjects;
+        private List<MessageEntry> _extraMessages;
+        private Dictionary<int, ItemGraphic> _graphicOverrides;
 
         public Builder(RandomizedResult randomized, CosmeticSettings cosmeticSettings)
         {
             _randomized = randomized;
             _cosmeticSettings = cosmeticSettings;
-            _messageTable = new MessageTable();
+            _messageTable = null;
             _extendedObjects = null;
+            _extraMessages = new List<MessageEntry>();
+            _graphicOverrides = new Dictionary<int, ItemGraphic>();
         }
 
         #region Sequences, sounds and BGM
@@ -319,6 +324,12 @@ namespace MMR.Randomizer
                 return;
             }
 
+            if (_randomized.Settings.Character == Character.AdultLink)
+            {
+                PlayerModelUtils.ApplyAdultLinkPatches();
+                return;
+            }
+
             int characterIndex = (int)_randomized.Settings.Character;
 
             ResourceUtils.ApplyIndexedHack(characterIndex-1, Resources.mods.fix_link_1, Resources.mods.fix_link_2, Resources.mods.fix_link_3);
@@ -457,23 +468,28 @@ namespace MMR.Randomizer
         private Character DeterminePlayerModel()
         {
             var data = ObjUtils.GetObjectData(0x11);
-            if (data[0x107] == 0x05)
+            var hash = MD5.Create().ComputeHash(data);
+
+            if (hash.SequenceEqual(PlayerModelHash.LinkMM))
             {
                 return Character.LinkMM;
             }
-            if (data[0x107] == 0x07)
+            else if (hash.SequenceEqual(PlayerModelHash.LinkOOT))
             {
                 return Character.LinkOOT;
             }
-            if (data[0xC6] == 0x02)
+            else if (hash.SequenceEqual(PlayerModelHash.AdultLink))
             {
                 return Character.AdultLink;
             }
-            if (data[0xC5] == 0x15)
+            else if (hash.SequenceEqual(PlayerModelHash.Kafei))
             {
                 return Character.Kafei;
             }
-            throw new Exception("Unable to determine player's model.");
+            else
+            {
+                throw new Exception("Unable to determine player's model.");
+            }
         }
 
         private void SetTatlColour(Random random)
@@ -1036,10 +1052,11 @@ namespace MMR.Randomizer
                         _randomized.Settings.UpdateShopAppearance,
                         _randomized.Settings.PreventDowngrades,
                         _randomized.Settings.UpdateChests && item.IsRandomized,
-                        overrideChestType,
+                        item.Mimic?.ChestType ?? overrideChestType,
                         _randomized.Settings.CustomStartingItemList.Contains(item.Item),
                         _randomized.Settings.QuestItemStorage,
-                        _randomized.Settings.AsmOptions.MMRConfig.CycleRepeatableLocations
+                        _randomized.Settings.AsmOptions.MMRConfig.CycleRepeatableLocations,
+                        item.Mimic
                     );
                 }
             }
@@ -1271,6 +1288,51 @@ namespace MMR.Randomizer
                     Message = $"Would you like the chance to buy your dreams for \u000610 Rupees\u0000?".Wrap(35, "\u0011").EndTextbox() + $"Pick any three numbers, and if those are picked, you'll win {lotteryItem.GetArticle()}\u0001{lotteryItem.NameForMessage()}\u0000. It's only for the \u0001first\u0000 person!".SurroundWithCommandAutoWrap() + "\u0019\u00BF"
                 });
 
+                // Update messages to match updated world models.
+                if (_randomized.Settings.UpdateWorldModels)
+                {
+                    // Update Moon's Tear messages.
+                    var moonsTearItem = _randomized.ItemList.First(io => io.NewLocation == Item.TradeItemMoonTear);
+                    if (moonsTearItem.Item != Item.TradeItemMoonTear)
+                    {
+                        newMessages.Add(new MessageEntry
+                        {
+                            Id = 0x5E3,
+                            Header = null,
+                            Message = $"That is one of the lunar objects\u0011that has been blazing from the\u0011surface of the moon lately.".EndTextbox() + $"They fall from what looks to be the moon's eye, I call {MessageUtils.GetPronoun(moonsTearItem.DisplayItem)} {MessageUtils.GetArticle(moonsTearItem.DisplayItem)}\u0001{moonsTearItem.DisplayNameWithoutReplacement()}\u0000.".SurroundWithCommandAutoWrap() + $"\u0010They are rare, valued by many\u0011in town.\u00BF"
+                        });
+                        newMessages.Add(new MessageEntry
+                        {
+                            Id = 0x5ED,
+                            Header = null,
+                            Message = $"That ill-mannered troublemaker\u0011from the other day said he'd\u0011break my instruments...".EndTextbox() + $"He said he'd steal my \u0001{moonsTearItem.DisplayNameWithoutReplacement()}\u0000... There was no stopping him.".SurroundWithCommandAutoWrap() + "\u0019\u00BF"
+                        });
+                        newMessages.Add(new MessageEntry
+                        {
+                            Id = 0x5F2,
+                            Header = null,
+                            Message = $"Well, did you find that\u0011\u0001troublemaker\u0000? And that loud\u0011noise...What was that?".EndTextbox() + $"Perhaps another \u0001{moonsTearItem.DisplayNameWithoutReplacement()}\u0000 has fallen nearby...Go through that door and take a look outside.".SurroundWithCommandAutoWrap() + "\u0019\u00BF"
+                        });
+                    }
+
+                    // Update Seahorse messages.
+                    var seahorseItem = _randomized.ItemList.First(io => io.NewLocation == Item.MundaneItemSeahorse);
+                    if (seahorseItem.Item != Item.MundaneItemSeahorse)
+                    {
+                        newMessages.Add(new MessageEntry
+                        {
+                            Id = 0x106F,
+                            Header = null,
+                            Message = $"\u001E\u0069\u004CAre you interested in that?".EndTextbox() + $"It's rare, isn't it? It's called {seahorseItem.GetArticle()}\u0001{seahorseItem.NameForMessage()}\u0000.".SurroundWithCommandAutoWrap() + "\u0019\u00BF"
+                        });
+                        newMessages.Add(new MessageEntry
+                        {
+                            Id = 0x1074,
+                            Header = null,
+                            Message = $"If you want that \u0001{seahorseItem.NameForMessage()}\u0000, bring me a \u0001pictograph\u0000 of a \u0001female pirate\u0000.".SurroundWithCommandAutoWrap() + "\u0019\u00BF"
+                        });
+                    }
+                }
             }
 
             // replace "Razor Sword is now blunt" message with get-item message for Kokiri Sword.
@@ -1536,6 +1598,14 @@ namespace MMR.Randomizer
                 var baseAddr = (uint)file.Addr;
                 asm.Symbols.WriteExtendedObjects(extended.GetAddresses(baseAddr));
             }
+
+            // Add extra messages to message table.
+            asm.ExtraMessages.AddMessage(_extraMessages.ToArray());
+            asm.WriteExtMessageTable();
+
+            // Add item graphics to table and write to ROM.
+            asm.MimicTable.Update(_graphicOverrides);
+            asm.WriteMimicItemTable();
         }
 
         private void WriteAsmConfig(AsmContext asm, byte[] hash)
@@ -1619,12 +1689,36 @@ namespace MMR.Randomizer
             }
         }
 
+        /// <summary>
+        /// Write data related to ice traps to ROM.
+        /// </summary>
+        public void WriteIceTraps()
+        {
+            // Add mimic graphic to graphic overrides table.
+            foreach (var item in _randomized.IceTraps)
+            {
+                var newLocation = item.NewLocation.Value;
+                if (newLocation.IsVisible() || newLocation.IsShop())
+                {
+                    var giIndex = item.NewLocation.Value.GetItemIndex().Value;
+                    var graphic = item.Mimic.ResolveGraphic();
+                    _graphicOverrides.Add(giIndex, graphic);
+                }
+            }
+
+            // Add "You are a FOOL!" message to extra messages table.
+            var entry = new MessageEntry(
+                Item.IceTrap.ExclusiveItemEntry().Message,
+                Item.IceTrap.ExclusiveItemMessage());
+            _extraMessages.Add(entry);
+        }
+
         public void MakeROM(OutputSettings outputSettings, IProgressReporter progressReporter)
         {
             using (BinaryReader OldROM = new BinaryReader(File.OpenRead(outputSettings.InputROMFilename)))
             {
                 RomUtils.ReadFileTable(OldROM);
-                _messageTable.InitializeTable();
+                _messageTable = MessageTable.ReadDefault();
             }
 
             var originalMMFileList = RomData.MMFileList.Select(file => file.Clone()).ToList();
@@ -1690,17 +1784,24 @@ namespace MMR.Randomizer
                 progressReporter.ReportProgress(68, "Writing messages...");
                 WriteGossipQuotes();
 
-                MessageTable.WriteMessageTable(_messageTable, _randomized.Settings.QuickTextEnabled);
+                MessageTable.WriteDefault(_messageTable, _randomized.Settings.QuickTextEnabled);
 
                 progressReporter.ReportProgress(69, "Writing startup...");
                 WriteStartupStrings();
 
+                // Overwrite existing items with ice traps.
+                if (_randomized.Settings.IceTraps != IceTraps.None)
+                {
+                    progressReporter.ReportProgress(70, "Writing ice traps...");
+                    WriteIceTraps();
+                }
+
                 // Load Asm data from internal resource files and apply
                 asm = AsmContext.LoadInternal();
-                progressReporter.ReportProgress(70, "Writing ASM patch...");
+                progressReporter.ReportProgress(71, "Writing ASM patch...");
                 WriteAsmPatch(asm);
                 
-                progressReporter.ReportProgress(71, outputSettings.GeneratePatch ? "Generating patch..." : "Computing hash...");
+                progressReporter.ReportProgress(72, outputSettings.GeneratePatch ? "Generating patch..." : "Computing hash...");
                 hash = RomUtils.CreatePatch(outputSettings.GeneratePatch ? outputSettings.OutputROMFilename : null, originalMMFileList);
 
                 // Write subset of Asm config post-patch

@@ -63,6 +63,106 @@ namespace MMR.Randomizer.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] adult_en_horse {
+            get {
+                object obj = ResourceManager.GetObject("adult_en_horse", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] adult_link_code_segaddrs {
+            get {
+                object obj = ResourceManager.GetObject("adult_link_code_segaddrs", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] adult_link_gameplay_keep_vtx_1 {
+            get {
+                object obj = ResourceManager.GetObject("adult_link_gameplay_keep_vtx_1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] adult_link_gameplay_keep_vtx_2 {
+            get {
+                object obj = ResourceManager.GetObject("adult_link_gameplay_keep_vtx_2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] adult_link_gameplay_keep_vtx_3 {
+            get {
+                object obj = ResourceManager.GetObject("adult_link_gameplay_keep_vtx_3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] adult_link_gameplay_keep_vtx_4 {
+            get {
+                object obj = ResourceManager.GetObject("adult_link_gameplay_keep_vtx_4", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] adult_link_player_actor_data_1 {
+            get {
+                object obj = ResourceManager.GetObject("adult_link_player_actor_data_1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] adult_link_player_actor_data_2 {
+            get {
+                object obj = ResourceManager.GetObject("adult_link_player_actor_data_2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] adult_obj_epona {
+            get {
+                object obj = ResourceManager.GetObject("adult_obj_epona", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] adult_obj_link {
+            get {
+                object obj = ResourceManager.GetObject("adult_obj_link", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] gi_link_mask {
             get {
                 object obj = ResourceManager.GetObject("gi_link_mask", resourceCulture);

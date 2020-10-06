@@ -29,7 +29,6 @@ u16 mmr_GetNewGiIndex(z2_game_t *game, z2_actor_t *actor, u16 gi_index, bool gra
 #define mmr_SetGiFlag_addr               0x801449D4
 
 /* Function Prototypes */
-typedef u32 (*mmr_GetNewGiIndex_proc)(u32 gi_index, bool grant);
 typedef bool (*mmr_GetGiFlag_proc)(u32 gi_index);
 typedef bool (*mmr_SetGiFlag_proc)(u32 gi_index);
 typedef mmr_gi_t * (*mmr_LoadGiEntry_proc)(u32 gi_index);

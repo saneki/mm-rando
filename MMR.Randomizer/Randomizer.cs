@@ -1606,6 +1606,56 @@ namespace MMR.Randomizer
         }
 
         /// <summary>
+        /// Overwrite junk items with ice traps.
+        /// </summary>
+        /// <param name="iceTraps">Ice traps amount setting</param>
+        /// <param name="appearance">Ice traps appearance setting</param>
+        public void AddIceTraps(IceTraps iceTraps, IceTrapAppearance appearance)
+        {
+            var random = this.Random;
+
+            // Select replaceable junk items of specified amount.
+            var items = IceTrapUtils.SelectJunkItems(_randomized.ItemList, iceTraps, random);
+
+            // Dynamically generate appearance set for ice traps.
+            // Only mimic song items if they are included in the main randomization pool (not in their own pool).
+            var mimics = IceTrapUtils.BuildIceTrapMimicSet(_randomized.ItemList, appearance, _randomized.Settings.AddSongs)
+                .ToArray();
+
+            var list = new List<ItemObject>();
+            foreach (var item in items)
+            {
+                // If check is visible (can be seen via world model), add "graphic override" for imitating other item.
+                var mimic = mimics[random.Next(mimics.Length)];
+                item.ID = (int)Item.IceTrap;
+                item.Mimic = mimic;
+
+                var newLocation = item.NewLocation.Value;
+                if (newLocation.IsVisible() || newLocation.IsShop() || newLocation.IsPurchaseable())
+                {
+                    // Store name override for logging in HTML tracker.
+                    item.NameOverride = $"{Item.IceTrap.Name()} ({mimic.Item.Name()})";
+
+                    // If ice trap quirks enabled and placed as a shop item, use a fake shop item name.
+                    if (_settings.IceTrapQuirks && (newLocation.IsShop() || newLocation.IsPurchaseable()))
+                    {
+                        item.Mimic.FakeName = FakeNameUtils.CreateFakeName(item.Mimic.Item.Name(), random);
+                    }
+                }
+
+                if (_randomized.Settings.UpdateChests)
+                {
+                    // Choose chest type for ice trap appearance.
+                    item.Mimic.ChestType = IceTrapUtils.GetIceTrapChestTypeOverride(appearance, random);
+                }
+
+                list.Add(item);
+            }
+
+            _randomized.IceTraps = list.AsReadOnly();
+        }
+
+        /// <summary>
         /// Randomizes the ROM with respect to the configured ruleset.
         /// </summary>
         public RandomizedResult Randomize(IProgressReporter progressReporter)
@@ -1629,6 +1679,9 @@ namespace MMR.Randomizer
 
                 progressReporter.ReportProgress(30, "Shuffling items...");
                 RandomizeItems();
+
+                // Replace junk items with ice traps according to settings.
+                AddIceTraps(_randomized.Settings.IceTraps, _randomized.Settings.IceTrapAppearance);
                 
                 var freeItemIds = _settings.CustomStartingItemList
                     .Cast<int>()
