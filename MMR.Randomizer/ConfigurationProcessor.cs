@@ -51,10 +51,10 @@ namespace MMR.Randomizer
                 }
                 catch (ROMOverflow ex)
                 {
-                    string nl           = Environment.NewLine;
-                    string[] splitStr   = ex.Message.Split(',');
-                    string size         = splitStr[0];
-                    string platform     = splitStr.Length > 1 ? ex.Message.Split(',')[1] : "anything";
+                    var nl          = Environment.NewLine;
+                    var splitStr    = ex.Message.Split(',');
+                    var size        = splitStr[0];
+                    var platform    = splitStr.Length > 1 ? ex.Message.Split(',')[1] : "anything";
 
                     return $"Error: Rom has expanded past {size},{nl}" +
                             $"and cannot be played on {platform}.{nl}" +

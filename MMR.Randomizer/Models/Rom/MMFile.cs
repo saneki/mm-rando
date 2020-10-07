@@ -24,7 +24,7 @@ namespace MMR.Randomizer.Models.Rom
                 IsCompressed = IsCompressed,
                 WasEdited = WasEdited,
                 IsStatic = IsStatic,
-                Data = Data?.ToArray(),
+                Data = Data?.ToArray()
             };
         }
     }
