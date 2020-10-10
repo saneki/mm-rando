@@ -531,11 +531,6 @@ namespace MMR.Randomizer.Utils
             return Regex.Replace(name, "[0-9]+ ", "");
         }
 
-        public static string GetAlternateName(Item item)
-        {
-            return GetAlternateName(item.Name());
-        }
-
         static string GetRawPlural(string name)
         {
             var useEs = "ch,i,ns,o,sh,ss,x".Split(',').Any(x => name.EndsWith(x));

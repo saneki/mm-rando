@@ -12,7 +12,7 @@ namespace MMR.Randomizer.Extensions
 
         public static string AlternateName(this ItemObject itemObject)
         {
-            return MessageUtils.GetAlternateName(itemObject.DisplayItem);
+            return MessageUtils.GetAlternateName(itemObject.DisplayName());
         }
     }
 }
