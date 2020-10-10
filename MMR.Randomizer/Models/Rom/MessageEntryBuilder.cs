@@ -605,7 +605,7 @@ namespace MMR.Randomizer.Models.Rom
         public static MessageEntryBuilder.MessageBuilder RuntimeVerb(this MessageEntryBuilder.MessageBuilder @this, Item item, Item location)
         {
             return @this
-                .RuntimeAmountStart(location)
+                .RuntimeVerbStart(location)
                 .Text(MessageUtils.GetVerb(item))
                 .RuntimeGenericStop();
         }

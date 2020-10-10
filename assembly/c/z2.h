@@ -1471,7 +1471,9 @@ typedef struct z2_msgbox_ctxt_s {
     u32              msg_data_length;                /* 0x1EEC */
     u8               unk_0x1EF0[0x10];               /* 0x1EF0 */
     z2_song_ctxt_t  *song_ctxt;                      /* 0x1F00 */
-    u8               unk_0x1F04[0x06];               /* 0x1F04 */
+    u16              cur_msg_id;                     /* 0x1F04 */
+    u16              unk_0x1F06;                     /* 0x1F06 */
+    u8               unk_0x1F08[0x02];               /* 0x1F08 */
     u8               unk_0x1F0A;                     /* 0x1F0A */
     u8               unk_0x1F0B[0x05];               /* 0x1F0B */
     u32              unk_0x1F10;                     /* 0x1F10 */

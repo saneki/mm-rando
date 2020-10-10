@@ -1802,6 +1802,29 @@ namespace MMR.Randomizer
                     })
                     .Build()
                 );
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x2B66)
+                    .Message(it =>
+                    {
+                        it.PlaySoundEffect(0x4853)
+                        .Text("Congratulations!")
+                        .EndTextBox()
+                        .RuntimeWrap(() =>
+                        {
+                            it.Text("You win a prize of ")
+                            .RuntimeArticle(lotteryItem.DisplayItem, lotteryItem.NewLocation.Value)
+                            .Red(() =>
+                            {
+                                it.RuntimeItemName(lotteryItem.DisplayName(), lotteryItem.NewLocation.Value);
+                            })
+                            .Text("!")
+                            ;
+                        })
+                        .DisableTextSkip2()
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
 
                 // Update messages to match updated world models.
                 if (_randomized.Settings.UpdateWorldModels)
