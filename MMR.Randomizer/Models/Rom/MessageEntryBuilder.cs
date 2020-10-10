@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using MMR.Common.Extensions;
+using MMR.Randomizer.Attributes;
+using MMR.Randomizer.Extensions;
 using MMR.Randomizer.GameObjects;
+using MMR.Randomizer.Utils;
 
 namespace MMR.Randomizer.Models.Rom
 {
@@ -179,6 +182,69 @@ namespace MMR.Randomizer.Models.Rom
                 Append(0x18);
 
             /// <summary>
+            /// Appends the autowrap start control characters (0x09 0x11) to the message.
+            /// </summary>
+            /// <returns></returns>
+            public MessageBuilder AutoWrapStart() =>
+                Append(0x09).Append(0x11);
+
+            /// <summary>
+            /// Appends the autowrap stop control characters (0x09 0x12) to the message.
+            /// </summary>
+            /// <returns></returns>
+            public MessageBuilder AutoWrapStop() =>
+                Append(0x09).Append(0x12);
+
+            /// <summary>
+            /// Appends the runtime item name start control characters (0x09 0x03) to the message and then appends the location's GetItemIndex
+            /// </summary>
+            /// <returns></returns>
+            public MessageBuilder RuntimeItemNameStart(Item location) =>
+                Append(0x09).Append(0x03).AppendGetItemIndex(location);
+
+            /// <summary>
+            /// Appends the runtime item description start control characters (0x09 0x04) to the message and then appends the location's GetItemIndex
+            /// </summary>
+            /// <returns></returns>
+            public MessageBuilder RuntimeItemDescriptionStart(Item location) =>
+                Append(0x09).Append(0x04).AppendGetItemIndex(location);
+
+            /// <summary>
+            /// Appends the runtime article start control characters (0x09 0x05) to the message and then appends the location's GetItemIndex
+            /// </summary>
+            /// <returns></returns>
+            public MessageBuilder RuntimeArticleStart(Item location) =>
+                Append(0x09).Append(0x05).AppendGetItemIndex(location);
+
+            /// <summary>
+            /// Appends the runtime pronoun start control characters (0x09 0x06) to the message and then appends the location's GetItemIndex
+            /// </summary>
+            /// <returns></returns>
+            public MessageBuilder RuntimePronounStart(Item location) =>
+                Append(0x09).Append(0x06).AppendGetItemIndex(location);
+
+            /// <summary>
+            /// Appends the runtime amount start control characters (0x09 0x07) to the message and then appends the location's GetItemIndex
+            /// </summary>
+            /// <returns></returns>
+            public MessageBuilder RuntimeAmountStart(Item location) =>
+                Append(0x09).Append(0x07).AppendGetItemIndex(location);
+
+            /// <summary>
+            /// Appends the runtime verb start control characters (0x09 0x08) to the message and then appends the location's GetItemIndex
+            /// </summary>
+            /// <returns></returns>
+            public MessageBuilder RuntimeVerbStart(Item location) =>
+                Append(0x09).Append(0x08).AppendGetItemIndex(location);
+
+            /// <summary>
+            /// Appends the generic runtime stop control characters (0x09 0x02) to the message.
+            /// </summary>
+            /// <returns></returns>
+            public MessageBuilder RuntimeGenericStop() =>
+                Append(0x09).Append(0x02);
+
+            /// <summary>
             /// Appends the play sound effect control character (0x1E) and the sound effect id to the message.
             /// </summary>
             /// <param name="soundEffectId"></param>
@@ -266,6 +332,13 @@ namespace MMR.Randomizer.Models.Rom
             /// </summary>
             /// <returns></returns>
             public MessageBuilder DisableTextSkip2() => Append(0x19);
+
+            /// <summary>
+            /// Appends the disable text box close control character (0x1A) to the message.
+            /// Used for shop item descriptions
+            /// </summary>
+            /// <returns></returns>
+            public MessageBuilder DisableTextBoxClose() => Append(0x1A);
 
             /// <summary>
             /// Appends the new line control character (0x11) to the message.
@@ -361,6 +434,11 @@ namespace MMR.Randomizer.Models.Rom
             /// <returns></returns>
             public string Build() => message;
 
+            private MessageBuilder AppendGetItemIndex(Item location)
+            {
+                return Append(location.GetItemIndex().Value);
+            }
+
             private MessageBuilder Append(string text)
             {
                 message += text;
@@ -396,6 +474,148 @@ namespace MMR.Randomizer.Models.Rom
             action();
             @this.QuickTextStop();
             return @this;
+        }
+
+        /// <summary>
+        /// Creates a new message builder and runs <see cref="StringExtensions.Wrap"/> on the result with width 35 and newline "\u0011".
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public static MessageEntryBuilder.MessageBuilder CompileTimeWrap(this MessageEntryBuilder.MessageBuilder @this, Action<MessageEntryBuilder.MessageBuilder> action)
+        {
+            var wrappedMessageBuilder = new MessageEntryBuilder.MessageBuilder();
+            action(wrappedMessageBuilder);
+            var message = wrappedMessageBuilder.Build().Wrap(35, "\u0011");
+            return @this.Text(message);
+        }
+
+        /// <summary>
+        /// Runs <see cref="StringExtensions.Wrap"/> on the text with width 35 and newline "\u0011" and appends the result.
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static MessageEntryBuilder.MessageBuilder CompileTimeWrap(this MessageEntryBuilder.MessageBuilder @this, string text)
+        {
+            return @this.Text(text.Wrap(35, "\u0011"));
+        }
+
+        /// <summary>
+        /// Appends the start autowrap control character (0x09 0x11) to the message, executes the specified action, and
+        /// appends the stop autowrap control character(0x09 0x012) to the end of the message.
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public static MessageEntryBuilder.MessageBuilder RuntimeWrap(this MessageEntryBuilder.MessageBuilder @this, Action action)
+        {
+            @this.AutoWrapStart();
+            action();
+            @this.AutoWrapStop();
+            return @this;
+        }
+
+        /// <summary>
+        /// Appends the start autowrap control character (0x09 0x11) to the message, appends the specified text, and
+        /// appends the stop autowrap control character(0x09 0x012) to the end of the message.
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public static MessageEntryBuilder.MessageBuilder RuntimeWrap(this MessageEntryBuilder.MessageBuilder @this, string text) => @this.RuntimeWrap(() => @this.Text(text));
+
+        public static MessageEntryBuilder.MessageBuilder RuntimeItemName(this MessageEntryBuilder.MessageBuilder @this, string text, Item location)
+        {
+            return @this
+                .RuntimeItemNameStart(location)
+                .Text(text)
+                .RuntimeGenericStop();
+        }
+
+        public static MessageEntryBuilder.MessageBuilder RuntimeItemDescription(this MessageEntryBuilder.MessageBuilder @this, Item item, ShopInventoryAttribute.ShopKeeper shopKeeper, Item location)
+        {
+            var shopTexts = item.ShopTexts();
+            string description;
+            switch (shopKeeper)
+            {
+                case ShopInventoryAttribute.ShopKeeper.WitchShop:
+                    description = shopTexts.WitchShop;
+                    break;
+                case ShopInventoryAttribute.ShopKeeper.TradingPostMain:
+                    description = shopTexts.TradingPostMain;
+                    break;
+                case ShopInventoryAttribute.ShopKeeper.TradingPostPartTimer:
+                    description = shopTexts.TradingPostPartTimer;
+                    break;
+                case ShopInventoryAttribute.ShopKeeper.CuriosityShop:
+                    description = shopTexts.CuriosityShop;
+                    break;
+                case ShopInventoryAttribute.ShopKeeper.BombShop:
+                    description = shopTexts.BombShop;
+                    break;
+                case ShopInventoryAttribute.ShopKeeper.ZoraShop:
+                    description = shopTexts.ZoraShop;
+                    break;
+                case ShopInventoryAttribute.ShopKeeper.GoronShop:
+                    description = shopTexts.GoronShop;
+                    break;
+                case ShopInventoryAttribute.ShopKeeper.GoronShopSpring:
+                    description = shopTexts.GoronShopSpring;
+                    break;
+                default:
+                    description = null;
+                    break;
+            }
+            if (description == null)
+            {
+                description = shopTexts.Default;
+            }
+
+            var getItemIndex = location.GetItemIndex().Value;
+            var upper = (char)(getItemIndex >> 8);
+            var lower = (char)(getItemIndex & 0xFF);
+            if (description.Contains("\u0009\u0001\u0000\u0000"))
+            {
+                return @this.Text(description.Replace("\u0009\u0001\u0000\u0000", $"\u0009\u0001{upper}{lower}"));
+            }
+
+            return @this
+                .RuntimeItemDescriptionStart(location)
+                .Text(description)
+                .RuntimeGenericStop();
+        }
+
+        public static MessageEntryBuilder.MessageBuilder RuntimePronoun(this MessageEntryBuilder.MessageBuilder @this, Item item, Item location)
+        {
+            return @this
+                .RuntimePronounStart(location)
+                .Text(MessageUtils.GetPronoun(item))
+                .RuntimeGenericStop();
+        }
+
+        public static MessageEntryBuilder.MessageBuilder RuntimePronounOrAmount(this MessageEntryBuilder.MessageBuilder @this, Item item, Item location)
+        {
+            return @this
+                .RuntimeAmountStart(location)
+                .Text(MessageUtils.GetPronounOrAmount(item))
+                .RuntimeGenericStop();
+        }
+
+        public static MessageEntryBuilder.MessageBuilder RuntimeVerb(this MessageEntryBuilder.MessageBuilder @this, Item item, Item location)
+        {
+            return @this
+                .RuntimeAmountStart(location)
+                .Text(MessageUtils.GetVerb(item))
+                .RuntimeGenericStop();
+        }
+
+        public static MessageEntryBuilder.MessageBuilder RuntimeArticle(this MessageEntryBuilder.MessageBuilder @this, Item item, Item location, string indefiniteArticle = null)
+        {
+            return @this
+                .RuntimeArticleStart(location)
+                .Text(MessageUtils.GetArticle(item, indefiniteArticle))
+                .RuntimeGenericStop();
         }
 
         #region Color Extensions

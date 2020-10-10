@@ -5,6 +5,7 @@ using MMR.Randomizer.Extensions;
 using MMR.Randomizer.GameObjects;
 using MMR.Randomizer.Models;
 using MMR.Randomizer.Models.Rom;
+using MMR.Randomizer.Models.Settings;
 using System.Collections.Generic;
 
 namespace MMR.Randomizer.Utils
@@ -99,8 +100,11 @@ namespace MMR.Randomizer.Utils
             }
         }
 
-        public static void WriteNewItem(Item location, Item item, List<MessageEntry> newMessages, bool updateShop, bool preventDowngrades, bool updateChest, ChestTypeAttribute.ChestType? overrideChestType, bool isExtraStartingItem, bool questItemExtraStorageEnabled, List<ushort> cycleRepeatableLocations, MimicItem mimic = null)
+        public static void WriteNewItem(ItemObject itemObject, List<MessageEntry> newMessages, GameplaySettings settings, ChestTypeAttribute.ChestType? overrideChestType)
         {
+            var item = itemObject.Item;
+            var location = itemObject.NewLocation.Value;
+            var isExtraStartingItem = settings.CustomStartingItemList.Contains(item);
             System.Diagnostics.Debug.WriteLine($"Writing {item.Name()} --> {location.Location()}");
 
             int f = RomUtils.GetFileIndexForWriting(GET_ITEM_TABLE);
@@ -140,31 +144,31 @@ namespace MMR.Randomizer.Utils
             {
                 isCycleRepeatable = true;
             }
-            if (item.ToString().StartsWith("Trade") && questItemExtraStorageEnabled)
+            if (item.ToString().StartsWith("Trade") && settings.QuestItemStorage)
             {
                 isCycleRepeatable = false;
             }
             if (isCycleRepeatable)
             {
-                cycleRepeatableLocations.Add(getItemIndex);
+                settings.AsmOptions.MMRConfig.CycleRepeatableLocations.Add(getItemIndex);
             }
 
-            var isRepeatable = item.IsRepeatable() || (!preventDowngrades && item.IsDowngradable());
+            var isRepeatable = item.IsRepeatable() || (!settings.PreventDowngrades && item.IsDowngradable());
             if (!isRepeatable)
             {
                 SceneUtils.UpdateSceneFlagMask(getItemIndex);
             }
 
-            if (updateChest)
+            if (settings.UpdateChests)
             {
                 UpdateChest(location, item, overrideChestType);
             }
 
             if (location != item)
             {
-                if (updateShop)
+                if (settings.UpdateShopAppearance)
                 {
-                    UpdateShop(location, item, newMessages, mimic);
+                    UpdateShop(itemObject, newMessages);
                 }
 
                 if (location == Item.StartingSword)
@@ -184,20 +188,21 @@ namespace MMR.Randomizer.Utils
             }
         }
 
-        private static void UpdateShop(Item location, Item item, List<MessageEntry> newMessages, MimicItem mimic = null)
+        private static void UpdateShop(ItemObject itemObject, List<MessageEntry> newMessages)
         {
+            var location = itemObject.NewLocation.Value;
             GetItemEntry newItem;
-            if (mimic != null)
+            if (itemObject.Mimic != null)
             {
-                newItem = RomData.GetItemList[mimic.Item.GetItemIndex().Value];
+                newItem = RomData.GetItemList[itemObject.Mimic.Item.GetItemIndex().Value];
             }
-            else if (item.IsExclusiveItem())
+            else if (itemObject.Item.IsExclusiveItem())
             {
-                newItem = item.ExclusiveItemEntry();
+                newItem = itemObject.Item.ExclusiveItemEntry();
             }
             else
             {
-                newItem = RomData.GetItemList[item.GetItemIndex().Value];
+                newItem = RomData.GetItemList[itemObject.Item.GetItemIndex().Value];
             }
 
             var shopRooms = location.GetAttributes<ShopRoomAttribute>();
@@ -213,71 +218,39 @@ namespace MMR.Randomizer.Utils
                 var index = newItem.Index > 0x7F ? (byte)(0xFF - newItem.Index) : (byte)(newItem.Index - 1);
                 ReadWriteUtils.WriteToROM(shopInventory.ShopItemAddress + 0x03, index);
 
-                var shopTexts = mimic?.Item.ShopTexts() ?? item.ShopTexts();
-                string description;
-                switch (shopInventory.Keeper)
-                {
-                    case ShopInventoryAttribute.ShopKeeper.WitchShop:
-                        description = shopTexts.WitchShop;
-                        break;
-                    case ShopInventoryAttribute.ShopKeeper.TradingPostMain:
-                        description = shopTexts.TradingPostMain;
-                        break;
-                    case ShopInventoryAttribute.ShopKeeper.TradingPostPartTimer:
-                        description = shopTexts.TradingPostPartTimer;
-                        break;
-                    case ShopInventoryAttribute.ShopKeeper.CuriosityShop:
-                        description = shopTexts.CuriosityShop;
-                        break;
-                    case ShopInventoryAttribute.ShopKeeper.BombShop:
-                        description = shopTexts.BombShop;
-                        break;
-                    case ShopInventoryAttribute.ShopKeeper.ZoraShop:
-                        description = shopTexts.ZoraShop;
-                        break;
-                    case ShopInventoryAttribute.ShopKeeper.GoronShop:
-                        description = shopTexts.GoronShop;
-                        break;
-                    case ShopInventoryAttribute.ShopKeeper.GoronShopSpring:
-                        description = shopTexts.GoronShopSpring;
-                        break;
-                    default:
-                        description = null;
-                        break;
-                }
-                if (description == null)
-                {
-                    description = shopTexts.Default;
-                }
-
-                var itemName = item.NameForMessage(location, mimic);
-                var getItemIndex = location.GetItemIndex().Value;
-                var upper = (char)(getItemIndex >> 8);
-                var lower = (char)(getItemIndex & 0xFF);
-                if (description.Contains("\u0009\u0001\u0000\u0000"))
-                {
-                    description = description.Replace("\u0009\u0001\u0000\u0000", $"\u0009\u0001{upper}{lower}").Wrap(35, "\x11");
-                }
-                else
-                {
-                    // Warning - Custom Shop Keeper descriptions will not work properly with progressive upgrades.
-                    description = description.SurroundWithCommandCheckGetItemReplaceItemDescription(location).SurroundWithCommandAutoWrap();
-                }
-
                 var messageId = ReadWriteUtils.ReadU16(shopInventory.ShopItemAddress + 0x0A);
-                newMessages.Add(new MessageEntry
-                {
-                    Id = messageId,
-                    Header = null,
-                    Message = MessageUtils.BuildShopDescriptionMessage(itemName, 20, description)
-                });
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(messageId)
+                    .Message(it =>
+                    {
+                        it.Red(() =>
+                        {
+                            it.RuntimeItemName(itemObject.DisplayName(), location).Text(": ").Text("20 Rupees").NewLine();
+                        })
+                        .RuntimeWrap(() =>
+                        {
+                            it.RuntimeItemDescription(itemObject.DisplayItem, shopInventory.Keeper, location);
+                        })
+                        .DisableTextBoxClose()
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
 
-                newMessages.Add(new MessageEntry
-                {
-                    Id = (ushort)(messageId + 1),
-                    Header = null,
-                    Message = MessageUtils.BuildShopPurchaseMessage(itemName, 20, mimic?.Item ?? item)
-                });
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id((ushort)(messageId + 1))
+                    .Message(it =>
+                    {
+                        it.RuntimeItemName(itemObject.DisplayName(), location).Text(": ").Text("20 Rupees").NewLine()
+                        .Text(" ").NewLine()
+                        .StartGreenText()
+                        .TwoChoices()
+                        .Text("I'll buy ").RuntimePronoun(itemObject.DisplayItem, location).NewLine()
+                        .Text("No thanks")
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
             }
         }
 

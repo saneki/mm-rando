@@ -713,24 +713,26 @@ namespace MMR.Randomizer
             if (_randomized.Settings.SpeedupBeavers)
             {
                 ResourceUtils.ApplyHack(Resources.mods.speedup_beavers);
-                // TODO handle auto wrapping
-                //_messageTable.UpdateMessages(new MessageEntryBuilder()
-                //    .Id(0x10D6)
-                //    .Message(it =>
-                //    {
-                //        it.PlaySoundEffect(0x291A).Text("There's a total of ").Red("25 rings").Text(". You must swim through them in the right order for it to count. Swim through the ring that's ").Red("flashing").Text(".")
-                //        .EndTextBox()
-                //        .Text("My big brother will show you the way, so follow him and don't get separated!")
-                //        .EndFinalTextBox();
-                //    })
-                //    .Build()
-                //);
-                _messageTable.UpdateMessages(new MessageEntry
-                {
-                    Id = 0x10D6,
-                    Header = null,
-                    Message = "\u001E\u0029\u001AThere's a total of \u000125 rings\u0000. You must swim through them in the right order for it to count. Swim through the ring that's \u0001flashing\u0000.".Wrap(35, "\u0011") + "\u0010My big brother will show you the way, so follow him and don't get separated!\u00BF".Wrap(35, "\u0011")
-                });
+                _messageTable.UpdateMessages(new MessageEntryBuilder()
+                    .Id(0x10D6)
+                    .Message(it =>
+                    {
+                        it.PlaySoundEffect(0x291A)
+                        .CompileTimeWrap((wrapped) =>
+                        {
+                            wrapped.Text("There's a total of ")
+                            .Red("25 rings")
+                            .Text(". You must swim through them in the right order for it to count. Swim through the ring that's ")
+                            .Red("flashing")
+                            .Text(".")
+                            ;
+                        })
+                        .EndTextBox()
+                        .CompileTimeWrap("My big brother will show you the way, so follow him and don't get separated!")
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
                 _messageTable.UpdateMessages(new MessageEntryBuilder()
                     .Id(0x10FA)
                     .Message(it =>
@@ -742,24 +744,21 @@ namespace MMR.Randomizer
                     })
                     .Build()
                 );
-                // TODO handle auto wrapping
-                //_messageTable.UpdateMessages(new MessageEntryBuilder()
-                //    .Id(0x1107)
-                //    .Message(it =>
-                //    {
-                //        it.PlaySoundEffect(0x2919).Text("This time around, you have to beat ").Red("1:40").Text(".")
-                //        .EndTextBox()
-                //        .Text("Don't fall behind!")
-                //        .EndFinalTextBox();
-                //    })
-                //    .Build()
-                //);
-                _messageTable.UpdateMessages(new MessageEntry
-                {
-                    Id = 0x1107,
-                    Header = null,
-                    Message = "\u001E\u0029\u0019This time around, you have to beat \u00011:40\u0000.".Wrap(35, "\u0011").EndTextbox() + "Don't fall behind!\u00BF"
-                });
+                _messageTable.UpdateMessages(new MessageEntryBuilder()
+                    .Id(0x1107)
+                    .Message(it =>
+                    {
+                        it.PlaySoundEffect(0x2919)
+                        .CompileTimeWrap((wrapped) =>
+                        {
+                            wrapped.Text("This time around, you have to beat ").Red("1:40").Text(".");
+                        })
+                        .EndTextBox()
+                        .Text("Don't fall behind!")
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
             }
 
             if (_randomized.Settings.SpeedupDampe)
@@ -1205,18 +1204,7 @@ namespace MMR.Randomizer
                     {
                         overrideChestType = ChestTypeAttribute.ChestType.LargeGold;
                     }
-                    ItemSwapUtils.WriteNewItem(
-                        item.NewLocation.Value,
-                        item.Item, newMessages,
-                        _randomized.Settings.UpdateShopAppearance,
-                        _randomized.Settings.PreventDowngrades,
-                        _randomized.Settings.UpdateChests && item.IsRandomized,
-                        item.Mimic?.ChestType ?? overrideChestType,
-                        _randomized.Settings.CustomStartingItemList.Contains(item.Item),
-                        _randomized.Settings.QuestItemStorage,
-                        _randomized.Settings.AsmOptions.MMRConfig.CycleRepeatableLocations,
-                        item.Mimic
-                    );
+                    ItemSwapUtils.WriteNewItem(item, newMessages, _randomized.Settings, item.Mimic?.ChestType ?? overrideChestType);
                 }
             }
 
@@ -1263,189 +1251,557 @@ namespace MMR.Randomizer
                     var item1 = _randomized.ItemList.First(io => io.NewLocation == messageShop.Items[0]);
                     var item2 = _randomized.ItemList.First(io => io.NewLocation == messageShop.Items[1]);
 
-                    newMessages.Add(new MessageEntry
-                    {
-                        Id = (ushort)messageShopText,
-                        Header = null,
-                        Message = string.Format(messageShop.MessageFormat, item1.NameForMessage(), messageShop.Prices[0], item2.NameForMessage(), messageShop.Prices[1])
-                    });
+                    newMessages.Add(new MessageEntryBuilder()
+                        .Id((ushort)messageShopText)
+                        .Message(it =>
+                        {
+                            switch (messageShop.MessageShopStyle)
+                            {
+                                case MessageShopStyle.Tingle:
+                                    it.StartGreenText()
+                                    .ThreeChoices()
+                                    .RuntimeItemName(item1.DisplayName(), item1.NewLocation.Value).Text(": ").Red($"{messageShop.Prices[0]} Rupees").NewLine()
+                                    .RuntimeItemName(item2.DisplayName(), item2.NewLocation.Value).Text(": ").Red($"{messageShop.Prices[1]} Rupees").NewLine()
+                                    .Text("No Thanks")
+                                    .EndFinalTextBox();
+                                    break;
+                                case MessageShopStyle.MilkBar:
+                                    it.Text("What'll it be?")
+                                    .EndTextBox()
+                                    .StartGreenText()
+                                    .ThreeChoices()
+                                    .RuntimeItemName(item1.DisplayName(), item1.NewLocation.Value).Text(": ").Pink($"{messageShop.Prices[0]} Rupees").NewLine()
+                                    .RuntimeItemName(item2.DisplayName(), item2.NewLocation.Value).Text(": ").Pink($"{messageShop.Prices[1]} Rupees").NewLine()
+                                    .Text("Nothing")
+                                    .EndFinalTextBox();
+                                    break;
+                            }
+                        })
+                        .Build()
+                    );
                 }
 
                 // update business scrub
                 var businessScrubItem = _randomized.ItemList.First(io => io.NewLocation == Item.HeartPieceTerminaBusinessScrub);
-                newMessages.Add(new MessageEntry
-                {
-                    Id = 0x1631,
-                    Header = null,
-                    Message = $"\x1E\x3A\xD2Please! I'll sell you {businessScrubItem.GetArticle()}\u0001{businessScrubItem.NameForMessage()}\u0000 if you just keep this place a secret...".SurroundWithCommandAutoWrap() + "\x19\xBF"
-                });
-                newMessages.Add(new MessageEntry
-                {
-                    Id = 0x1632,
-                    Header = null,
-                    Message = $"\u0006150 Rupees\u0000 for{businessScrubItem.GetPronounOrAmount().ToLower()}!\u0011 \u0011\u0002\u00C2I'll buy {businessScrubItem.GetPronoun()}\u0011No thanks\u00BF"
-                });
-                newMessages.Add(new MessageEntry
-                {
-                    Id = 0x1634,
-                    Header = null,
-                    Message = $"What about{businessScrubItem.GetPronounOrAmount("").ToLower()} for \u0006100 Rupees\u0000?\u0011 \u0011\u0002\u00C2I'll buy {businessScrubItem.GetPronoun()}\u0011No thanks\u00BF"
-                });
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x1631)
+                    .Message(it =>
+                    {
+                        it.PlaySoundEffect(0x3AD2)
+                        .RuntimeWrap(() =>
+                        {
+                            it.Text("Please! I'll sell you ")
+                            .RuntimeArticle(businessScrubItem.DisplayItem, businessScrubItem.NewLocation.Value)
+                            .Red(() =>
+                            {
+                                it.RuntimeItemName(businessScrubItem.DisplayName(), businessScrubItem.NewLocation.Value);
+                            })
+                            .Text(" if you just keep this place a secret...")
+                            ;
+                        })
+                        .DisableTextSkip2()
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x1632)
+                    .Message(it =>
+                    {
+                        it.Pink("150 Rupees").Text(" for").RuntimePronounOrAmount(businessScrubItem.DisplayItem, businessScrubItem.NewLocation.Value).Text("!").NewLine()
+                        .Text(" ").NewLine()
+                        .StartGreenText()
+                        .TwoChoices()
+                        .Text("I'll buy ").RuntimePronoun(businessScrubItem.DisplayItem, businessScrubItem.NewLocation.Value).NewLine()
+                        .Text("No thanks")
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x1634)
+                    .Message(it =>
+                    {
+                        it.Text("What about").RuntimePronounOrAmount(businessScrubItem.DisplayItem, businessScrubItem.NewLocation.Value).Text(" for ").Pink("100 Rupees").Text("?").NewLine()
+                        .Text(" ").NewLine()
+                        .StartGreenText()
+                        .TwoChoices()
+                        .Text("I'll buy ").RuntimePronoun(businessScrubItem.DisplayItem, businessScrubItem.NewLocation.Value).NewLine()
+                        .Text("No thanks")
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
 
                 // update biggest bomb bag purchase
                 var biggestBombBagItem = _randomized.ItemList.First(io => io.NewLocation == Item.UpgradeBiggestBombBag);
-                newMessages.Add(new MessageEntry
-                {
-                    Id = 0x15F5,
-                    Header = null,
-                    Message = $"I sell {biggestBombBagItem.GetArticle()}\u0001{biggestBombBagItem.AlternateNameForMessage()}\u0000, but I'm focusing my marketing efforts on \u0001Gorons\u0000.".SurroundWithCommandAutoWrap() + "\u0010What I'd really like to do is go back home and do business where I'm surrounded by trees and grass.\u0019\u00BF".Wrap(35, "\u0011")
-                });
-                newMessages.Add(new MessageEntry
-                {
-                    Id = 0x15FF,
-                    Header = null,
-                    Message = $"\x1E\x39\x8CRight now, I've got a \u0001special\u0011\u0000offer just for you.\u0019\u00BF"
-                });
-                newMessages.Add(new MessageEntry
-                {
-                    Id = 0x1600,
-                    Header = null,
-                    Message = $"\x1E\x38\x81I'll give you {biggestBombBagItem.GetArticle("my ")}\u0001{biggestBombBagItem.NameForMessage()}\u0000, regularly priced at \u00061000 Rupees\u0000...".SurroundWithCommandAutoWrap() + "\u0010In return, you'll give me just\u0011\u0006200 Rupees\u0000!\u0019\u00BF"
-                });
-                newMessages.Add(new MessageEntry
-                {
-                    Id = 0x1606,
-                    Header = null,
-                    Message = $"\x1E\x38\x81I'll give you {biggestBombBagItem.GetArticle("my ")}\u0001{biggestBombBagItem.NameForMessage()}\u0000, regularly priced at \u00061000 Rupees\u0000, for just \u0006200 Rupees\u0000!".SurroundWithCommandAutoWrap() + "\u0019\u00BF"
-                });
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x15F5)
+                    .Message(it =>
+                    {
+                        it.RuntimeWrap(() =>
+                        {
+                            it.Text("I sell ")
+                            .RuntimeArticle(biggestBombBagItem.DisplayItem, biggestBombBagItem.NewLocation.Value)
+                            .Red(() =>
+                            {
+                                it.RuntimeItemName(biggestBombBagItem.AlternateName(), biggestBombBagItem.NewLocation.Value);
+                            })
+                            .Text(", but I'm focusing my marketing effords on ").Red("Gorons").Text(".")
+                            ;
+                        })
+                        .EndTextBox()
+                        .CompileTimeWrap("What I'd really like to do is go back home and do business where I'm surrounded by trees and grass.")
+                        .DisableTextSkip2()
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x15FF)
+                    .Message(it =>
+                    {
+                        it.PlaySoundEffect(0x398C)
+                        .Text("Right now, I've got a ").Red("special").NewLine()
+                        .Text("offer just for you.")
+                        .DisableTextSkip2()
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x1600)
+                    .Message(it =>
+                    {
+                        it.PlaySoundEffect(0x3881)
+                        .RuntimeWrap(() =>
+                        {
+                            it.Text("I'll give you ")
+                            .RuntimeArticle(biggestBombBagItem.DisplayItem, biggestBombBagItem.NewLocation.Value, "my ")
+                            .Red(() =>
+                            {
+                                it.RuntimeItemName(biggestBombBagItem.DisplayName(), biggestBombBagItem.NewLocation.Value);
+                            })
+                            .Text(", regularly priced at ")
+                            .Pink("1000 Rupees")
+                            .Text("...")
+                            ;
+                        })
+                        .EndTextBox()
+                        .Text("In return, you'll give me just").NewLine()
+                        .Pink("200 Rupees").Text("!")
+                        .DisableTextSkip2()
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x1606)
+                    .Message(it =>
+                    {
+                        it.PlaySoundEffect(0x3881)
+                        .RuntimeWrap(() =>
+                        {
+                            it.Text("I'll give you ")
+                            .RuntimeArticle(biggestBombBagItem.DisplayItem, biggestBombBagItem.NewLocation.Value, "my ")
+                            .Red(() =>
+                            {
+                                it.RuntimeItemName(biggestBombBagItem.DisplayName(), biggestBombBagItem.NewLocation.Value);
+                            })
+                            .Text(", regularly priced at ")
+                            .Pink("1000 Rupees")
+                            .Text(", for just ")
+                            .Pink("200 Rupees")
+                            .Text("!")
+                            ;
+                        })
+                        .DisableTextSkip2()
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
 
                 // update swamp scrub purchase
                 var magicBeanItem = _randomized.ItemList.First(io => io.NewLocation == Item.ShopItemBusinessScrubMagicBean);
-                newMessages.Add(new MessageEntry
-                {
-                    Id = 0x15E1,
-                    Header = null,
-                    Message = $"\x1E\x39\xA7I'm selling {magicBeanItem.GetArticle()}\u0001{magicBeanItem.AlternateNameForMessage()}\u0000 to Deku Scrubs, but I'd really like to leave my hometown.".SurroundWithCommandAutoWrap() + "\u0010I'm hoping to find some success in a livelier place!\u0019\u00BF".Wrap(35, "\u0011")
-                });
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x15E1)
+                    .Message(it =>
+                    {
+                        it.PlaySoundEffect(0x39A7)
+                        .RuntimeWrap(() =>
+                        {
+                            it.Text("I'm selling ")
+                            .RuntimeArticle(magicBeanItem.DisplayItem, magicBeanItem.NewLocation.Value)
+                            .Red(() =>
+                            {
+                                it.RuntimeItemName(magicBeanItem.DisplayName(), magicBeanItem.NewLocation.Value);
+                            })
+                            .Text(" to Deku Scrubs, but I'll really like to leave my hometown.")
+                            ;
+                        })
+                        .EndTextBox()
+                        .CompileTimeWrap("I'm hoping to find some success in a livelier place!")
+                        .DisableTextSkip2()
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
 
-                newMessages.Add(new MessageEntry
-                {
-                    Id = 0x15E9,
-                    Header = null,
-                    Message = $"\x1E\x3A\u00D2Do you know what {magicBeanItem.GetArticle()}\u0001{magicBeanItem.AlternateNameForMessage()}\u0000 {magicBeanItem.GetVerb()}, sir?".SurroundWithCommandAutoWrap() + $"\u0011I'll sell you{magicBeanItem.GetPronounOrAmount().ToLower()} for \u000610 Rupees\u0000.\u0019\u00BF"
-                });
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x15E9)
+                    .Message(it =>
+                    {
+                        it.PlaySoundEffect(0x3AD2)
+                        .RuntimeWrap(() =>
+                        {
+                            it.Text("Do you know what ")
+                            .RuntimeArticle(magicBeanItem.DisplayItem, magicBeanItem.NewLocation.Value)
+                            .Red(() =>
+                            {
+                                it.RuntimeItemName(magicBeanItem.AlternateName(), magicBeanItem.NewLocation.Value);
+                            })
+                            .RuntimeVerb(magicBeanItem.DisplayItem, magicBeanItem.NewLocation.Value)
+                            .Text(", sir?")
+                            ;
+                        })
+                        .NewLine()
+                        .Text("I'll sell you").RuntimePronounOrAmount(magicBeanItem.DisplayItem, magicBeanItem.NewLocation.Value).Text(" for ").Pink("10 Rupees").Text(".")
+                        .DisableTextSkip2()
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
 
-                newMessages.Add(new MessageEntry
-                {
-                    Id = 0x15F3,
-                    Header = null,
-                    Message = $"\x1E\x3A\u00D2Do you know what {magicBeanItem.GetArticle()}\u0001{magicBeanItem.AlternateNameForMessage()}\u0000 {magicBeanItem.GetVerb()}?".SurroundWithCommandAutoWrap() + $"\u0011I'll sell you{magicBeanItem.GetPronounOrAmount().ToLower()} for \u000610 Rupees\u0000.\u0019\u00BF"
-                });
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x15F3)
+                    .Message(it =>
+                    {
+                        it.PlaySoundEffect(0x3AD2)
+                        .RuntimeWrap(() =>
+                        {
+                            it.Text("Do you know what ")
+                            .RuntimeArticle(magicBeanItem.DisplayItem, magicBeanItem.NewLocation.Value)
+                            .Red(() =>
+                            {
+                                it.RuntimeItemName(magicBeanItem.AlternateName(), magicBeanItem.NewLocation.Value);
+                            })
+                            .RuntimeVerb(magicBeanItem.DisplayItem, magicBeanItem.NewLocation.Value)
+                            .Text("?")
+                            ;
+                        })
+                        .NewLine()
+                        .Text("I'll sell you").RuntimePronounOrAmount(magicBeanItem.DisplayItem, magicBeanItem.NewLocation.Value).Text(" for ").Pink("10 Rupees").Text(".")
+                        .DisableTextSkip2()
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
 
                 // update ocean scrub purchase
                 var greenPotionItem = _randomized.ItemList.First(io => io.NewLocation == Item.ShopItemBusinessScrubGreenPotion);
-                newMessages.Add(new MessageEntry
-                {
-                    Id = 0x1608,
-                    Header = null,
-                    Message = $"\x1E\x39\xA7I'm selling {greenPotionItem.GetArticle()}\u0001{greenPotionItem.AlternateNameForMessage()}\u0000, but I'm focusing my marketing efforts on Zoras.".SurroundWithCommandAutoWrap() + "\u0010Actually, I'd like to do business someplace where it's cooler and the air is clean.\u0019\u00BF".Wrap(35, "\u0011")
-                });
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x1608)
+                    .Message(it =>
+                    {
+                        it.PlaySoundEffect(0x39A7)
+                        .RuntimeWrap(() =>
+                        {
+                            it.Text("I'm selling ")
+                            .RuntimeArticle(greenPotionItem.DisplayItem, greenPotionItem.NewLocation.Value)
+                            .Red(() =>
+                            {
+                                it.RuntimeItemName(greenPotionItem.AlternateName(), greenPotionItem.NewLocation.Value);
+                            })
+                            .Text(", but I'm focusing my marketing efforts on Zoras.")
+                            ;
+                        })
+                        .EndTextBox()
+                        .CompileTimeWrap("Actually, I'd like to do business someplace where it's cooler and the air is clean.")
+                        .DisableTextSkip2()
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
 
-                newMessages.Add(new MessageEntry
-                {
-                    Id = 0x1612,
-                    Header = null,
-                    Message = $"\x1E\x39\x8CI'll sell you {greenPotionItem.GetArticle()}\u0001{greenPotionItem.NameForMessage()}\u0000 for \u000640 Rupees\u0000!".SurroundWithCommandAutoWrap() + "\u00E0\u00BF"
-                });
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x1612)
+                    .Message(it =>
+                    {
+                        it.PlaySoundEffect(0x398C)
+                        .RuntimeWrap(() =>
+                        {
+                            it.Text("I'll sell you ")
+                            .RuntimeArticle(greenPotionItem.DisplayItem, greenPotionItem.NewLocation.Value)
+                            .Red(() =>
+                            {
+                                it.RuntimeItemName(greenPotionItem.DisplayName(), greenPotionItem.NewLocation.Value);
+                            })
+                            .Text(" for ")
+                            .Pink("40 Rupees")
+                            .Text("!")
+                            ;
+                        })
+                        .EndConversation()
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
 
                 var coldifyRegex = new Regex("([A-Z])");
-                var coldItemName = coldifyRegex.Replace(greenPotionItem.Item.Name(), "$1-$1");
+                var coldItemName = coldifyRegex.Replace(greenPotionItem.DisplayItem.Name(), "$1-$1");
                 // TODO coldify replacement item name
-                newMessages.Add(new MessageEntry
-                {
-                    Id = 0x1617,
-                    Header = null,
-                    Message = $"\x1E\x39\x8CI'll s-sell you {greenPotionItem.GetArticle()}\u0001{coldItemName.SurroundWithCommandCheckGetItemReplaceItemName(Item.ShopItemBusinessScrubGreenPotion)}\u0000 for \u000640 Rupees\u0000.".SurroundWithCommandAutoWrap() + "\u00E0\u00BF"
-                });
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x1617)
+                    .Message(it =>
+                    {
+                        it.PlaySoundEffect(0x398C)
+                        .RuntimeWrap(() =>
+                        {
+                            it.Text("I'll s-sell you ")
+                            .RuntimeArticle(greenPotionItem.DisplayItem, greenPotionItem.NewLocation.Value)
+                            .Red(() =>
+                            {
+                                it.RuntimeItemName(coldItemName, greenPotionItem.NewLocation.Value);
+                            })
+                            .Text(" for ")
+                            .Pink("40 Rupees")
+                            .Text(".")
+                            ;
+                        })
+                        .EndConversation()
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
 
-                newMessages.Add(new MessageEntry
-                {
-                    Id = 0x1618,
-                    Header = null,
-                    Message = $"D-Do we have a deal?\u0011 \u0011\u0002\u00C2Yes\u0011No\u00BF"
-                });
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x1618)
+                    .Message(it =>
+                    {
+                        it.Text("D-Do we have a deal?").NewLine()
+                        .Text(" ").NewLine()
+                        .StartGreenText()
+                        .TwoChoices()
+                        .Text("Yes").NewLine()
+                        .Text("No")
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
 
                 // update canyon scrub purchase
                 var bluePotionItem = _randomized.ItemList.First(io => io.NewLocation == Item.ShopItemBusinessScrubBluePotion);
-                newMessages.Add(new MessageEntry
-                {
-                    Id = 0x161C,
-                    Header = null,
-                    Message = $"\x1E\x39\xA7I'm here to sell {bluePotionItem.GetArticle()}\u0001{bluePotionItem.AlternateNameForMessage()}\u0000.".SurroundWithCommandAutoWrap() + "\u0010Actually, I want to do business in the sea breeze while listening to the sound of the waves.\u0019\u00BF".Wrap(35, "\u0011")
-                });
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x161C)
+                    .Message(it =>
+                    {
+                        it.PlaySoundEffect(0x39A7)
+                        .RuntimeWrap(() =>
+                        {
+                            it.Text("I'm here to sell ")
+                            .RuntimeArticle(bluePotionItem.DisplayItem, bluePotionItem.NewLocation.Value)
+                            .Red(() =>
+                            {
+                                it.RuntimeItemName(bluePotionItem.AlternateName(), bluePotionItem.NewLocation.Value);
+                            })
+                            .Text(".")
+                            ;
+                        })
+                        .EndTextBox()
+                        .CompileTimeWrap("Actually, I want to do business in the sea breeze while listening to the sound of the waves.")
+                        .DisableTextSkip2()
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
 
-                newMessages.Add(new MessageEntry
-                {
-                    Id = 0x1626,
-                    Header = null,
-                    Message = $"\x1E\x3A\u00D2Don't you need {bluePotionItem.GetArticle()}\u0001{bluePotionItem.AlternateNameForMessage()}\u0000? I'll sell you{bluePotionItem.GetPronounOrAmount().ToLower()} for \u0006100 Rupees\u0000.".SurroundWithCommandAutoWrap() + "\u0019\u00BF"
-                });
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x1626)
+                    .Message(it =>
+                    {
+                        it.PlaySoundEffect(0x3AD2)
+                        .RuntimeWrap(() =>
+                        {
+                            it.Text("Don't you need ")
+                            .RuntimeArticle(bluePotionItem.DisplayItem, bluePotionItem.NewLocation.Value)
+                            .Red(() =>
+                            {
+                                it.RuntimeItemName(bluePotionItem.AlternateName(), bluePotionItem.NewLocation.Value);
+                            })
+                            .Text("? I'll sell you")
+                            .RuntimePronounOrAmount(bluePotionItem.DisplayItem, bluePotionItem.NewLocation.Value)
+                            .Text(" for ")
+                            .Pink("100 Rupees")
+                            .Text(".")
+                            ;
+                        })
+                        .DisableTextSkip2()
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
 
-                newMessages.Add(new MessageEntry
-                {
-                    Id = 0x162D,
-                    Header = null,
-                    Message = $"\x1E\x39\x8CI'll sell you {bluePotionItem.GetArticle()}\u0001{bluePotionItem.NameForMessage()}\u0000 for \u0006100 Rupees\u0000.".SurroundWithCommandAutoWrap() + "\u00E0\u00BF"
-                });
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x162D)
+                    .Message(it =>
+                    {
+                        it.PlaySoundEffect(0x398C)
+                        .RuntimeWrap(() =>
+                        {
+                            it.Text("I'll sell you ")
+                            .RuntimeArticle(bluePotionItem.DisplayItem, bluePotionItem.NewLocation.Value)
+                            .Red(() =>
+                            {
+                                it.Text(bluePotionItem.DisplayName());
+                            })
+                            .Text(" for ")
+                            .Pink("100 Rupees")
+                            .Text(".")
+                            ;
+                        })
+                        .EndConversation()
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
 
-                newMessages.Add(new MessageEntry
-                {
-                    Id = 0x15EA,
-                    Header = null,
-                    Message = $"Do we have a deal?\u0011 \u0011\u0002\u00C2Yes\u0011No\u00BF"
-                });
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x15EA)
+                    .Message(it =>
+                    {
+                        it.Text("Do we have a deal?").NewLine()
+                        .Text(" ").NewLine()
+                        .StartGreenText()
+                        .TwoChoices()
+                        .Text("Yes").NewLine()
+                        .Text("No")
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
 
                 // update gorman bros milk purchase
                 var gormanBrosMilkItem = _randomized.ItemList.First(io => io.NewLocation == Item.ShopItemGormanBrosMilk);
-                newMessages.Add(new MessageEntry
-                {
-                    Id = 0x3463,
-                    Header = null,
-                    Message = $"Won'tcha buy {gormanBrosMilkItem.GetArticle()}\u0001{gormanBrosMilkItem.AlternateNameForMessage()}\u0000?".SurroundWithCommandAutoWrap() + "\u0019\u00BF"
-                });
-                newMessages.Add(new MessageEntry
-                {
-                    Id = 0x3466,
-                    Header = null,
-                    Message = $"\u000650 Rupees\u0000 will do ya for{gormanBrosMilkItem.GetPronounOrAmount().ToLower()}.\u0011 \u0011\u0002\u00C2I'll buy {gormanBrosMilkItem.GetPronoun()}\u0011No thanks\u00BF"
-                });
-                newMessages.Add(new MessageEntry
-                {
-                    Id = 0x346B,
-                    Header = null,
-                    Message = $"Buyin' {gormanBrosMilkItem.GetArticle()}\u0001{gormanBrosMilkItem.AlternateNameForMessage()}\u0000?".SurroundWithCommandAutoWrap() + "\u0019\u00BF"
-                });
-                newMessages.Add(new MessageEntry
-                {
-                    Id = 0x348F,
-                    Header = null,
-                    Message = $"Seems like we're the only ones who have {gormanBrosMilkItem.GetArticle()}\u0001{gormanBrosMilkItem.AlternateNameForMessage()}\u0000. Hyuh, hyuh. If you like, I'll sell you{gormanBrosMilkItem.GetPronounOrAmount().ToLower()}.".SurroundWithCommandAutoWrap() + "\u0019\u00BF"
-                });
-                newMessages.Add(new MessageEntry
-                {
-                    Id = 0x3490,
-                    Header = null,
-                    Message = $"\u000650 Rupees\u0000 will do you for{gormanBrosMilkItem.GetPronounOrAmount().ToLower()}!\u0011 \u0011\u0002\u00C2I'll buy {gormanBrosMilkItem.GetPronoun()}\u0011No thanks\u00BF"
-                });
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x3463)
+                    .Message(it =>
+                    {
+                        it.RuntimeWrap(() =>
+                        {
+                            it.Text("Won'tcha buy ")
+                            .RuntimeArticle(gormanBrosMilkItem.DisplayItem, gormanBrosMilkItem.NewLocation.Value)
+                            .Red(() =>
+                            {
+                                it.RuntimeItemName(gormanBrosMilkItem.AlternateName(), gormanBrosMilkItem.NewLocation.Value);
+                            })
+                            .Text("?")
+                            ;
+                        })
+                        .DisableTextSkip2()
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x3466)
+                    .Message(it =>
+                    {
+                        it.Pink("50 Rupees").Text(" will do ya for").RuntimePronounOrAmount(gormanBrosMilkItem.DisplayItem, gormanBrosMilkItem.NewLocation.Value).Text(".").NewLine()
+                        .Text(" ").NewLine()
+                        .StartGreenText()
+                        .TwoChoices()
+                        .Text("I'll buy ").RuntimePronoun(gormanBrosMilkItem.DisplayItem, gormanBrosMilkItem.NewLocation.Value).NewLine()
+                        .Text("No thanks")
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x346B)
+                    .Message(it =>
+                    {
+                        it.RuntimeWrap(() =>
+                        {
+                            it.Text("Buyin' ")
+                            .RuntimeArticle(gormanBrosMilkItem.DisplayItem, gormanBrosMilkItem.NewLocation.Value)
+                            .Red(() =>
+                            {
+                                it.RuntimeItemName(gormanBrosMilkItem.AlternateName(), gormanBrosMilkItem.NewLocation.Value);
+                            })
+                            .Text("?")
+                            ;
+                        })
+                        .DisableTextSkip2()
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x348F)
+                    .Message(it =>
+                    {
+                        it.RuntimeWrap(() =>
+                        {
+                            it.Text("Seems like we're the only ones who have ")
+                            .RuntimeArticle(gormanBrosMilkItem.DisplayItem, gormanBrosMilkItem.NewLocation.Value)
+                            .Red(() =>
+                            {
+                                it.RuntimeItemName(gormanBrosMilkItem.AlternateName(), gormanBrosMilkItem.NewLocation.Value);
+                            })
+                            .Text(". Hyuh, hyuh. If you like, I'll sell you")
+                            .RuntimePronounOrAmount(gormanBrosMilkItem.DisplayItem, gormanBrosMilkItem.NewLocation.Value)
+                            .Text(".")
+                            ;
+                        })
+                        .DisableTextSkip2()
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x3490)
+                    .Message(it =>
+                    {
+                        it.Pink("50 Rupees").Text(" will do you for").RuntimePronounOrAmount(gormanBrosMilkItem.DisplayItem, gormanBrosMilkItem.NewLocation.Value).Text("!").NewLine()
+                        .Text(" ").NewLine()
+                        .StartGreenText()
+                        .TwoChoices()
+                        .Text("I'll buy ").RuntimePronoun(gormanBrosMilkItem.DisplayItem, gormanBrosMilkItem.NewLocation.Value).NewLine()
+                        .Text("No thanks")
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
 
                 // update lottery message
                 var lotteryItem = _randomized.ItemList.First(io => io.NewLocation == Item.MundaneItemLotteryPurpleRupee);
-                newMessages.Add(new MessageEntry
-                {
-                    Id = 0x2B5C,
-                    Header = null,
-                    Message = $"Would you like the chance to buy your dreams for \u000610 Rupees\u0000?".Wrap(35, "\u0011").EndTextbox() + $"Pick any three numbers, and if those are picked, you'll win {lotteryItem.GetArticle()}\u0001{lotteryItem.NameForMessage()}\u0000. It's only for the \u0001first\u0000 person!".SurroundWithCommandAutoWrap() + "\u0019\u00BF"
-                });
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x2B5C)
+                    .Message(it =>
+                    {
+                        it.CompileTimeWrap((wrapped) =>
+                        {
+                            wrapped.Text("Would you like the chance to buy your dreams for ").Pink("10 Rupees").Text("?");
+                        })
+                        .EndTextBox()
+                        .RuntimeWrap(() =>
+                        {
+                            it.Text("Pick any three numbers, and if those are picked, you'll win ")
+                            .RuntimeArticle(lotteryItem.DisplayItem, lotteryItem.NewLocation.Value)
+                            .Red(() =>
+                            {
+                                it.RuntimeItemName(lotteryItem.DisplayName(), lotteryItem.NewLocation.Value);
+                            })
+                            .Text(". It's only for the ")
+                            .Red("first")
+                            .Text(" person!")
+                            ;
+                        })
+                        .DisableTextSkip2()
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
 
                 // Update messages to match updated world models.
                 if (_randomized.Settings.UpdateWorldModels)
@@ -1454,42 +1810,123 @@ namespace MMR.Randomizer
                     var moonsTearItem = _randomized.ItemList.First(io => io.NewLocation == Item.TradeItemMoonTear);
                     if (moonsTearItem.Item != Item.TradeItemMoonTear)
                     {
-                        newMessages.Add(new MessageEntry
-                        {
-                            Id = 0x5E3,
-                            Header = null,
-                            Message = $"That is one of the lunar objects\u0011that has been blazing from the\u0011surface of the moon lately.".EndTextbox() + $"They fall from what looks to be the moon's eye, I call {MessageUtils.GetPronoun(moonsTearItem.DisplayItem)} {MessageUtils.GetArticle(moonsTearItem.DisplayItem)}\u0001{moonsTearItem.DisplayNameWithoutReplacement()}\u0000.".SurroundWithCommandAutoWrap() + $"\u0010They are rare, valued by many\u0011in town.\u00BF"
-                        });
-                        newMessages.Add(new MessageEntry
-                        {
-                            Id = 0x5ED,
-                            Header = null,
-                            Message = $"That ill-mannered troublemaker\u0011from the other day said he'd\u0011break my instruments...".EndTextbox() + $"He said he'd steal my \u0001{moonsTearItem.DisplayNameWithoutReplacement()}\u0000... There was no stopping him.".SurroundWithCommandAutoWrap() + "\u0019\u00BF"
-                        });
-                        newMessages.Add(new MessageEntry
-                        {
-                            Id = 0x5F2,
-                            Header = null,
-                            Message = $"Well, did you find that\u0011\u0001troublemaker\u0000? And that loud\u0011noise...What was that?".EndTextbox() + $"Perhaps another \u0001{moonsTearItem.DisplayNameWithoutReplacement()}\u0000 has fallen nearby...Go through that door and take a look outside.".SurroundWithCommandAutoWrap() + "\u0019\u00BF"
-                        });
+                        newMessages.Add(new MessageEntryBuilder()
+                            .Id(0x5E3)
+                            .Message(it =>
+                            {
+                                it.Text("That is one of the lunar objects").NewLine()
+                                .Text("that has been blazing from the").NewLine()
+                                .Text("surface of the moon lately.")
+                                .EndTextBox()
+                                .CompileTimeWrap((wrapped) =>
+                                {
+                                    wrapped.Text("They fall from what looks to be the moon's eye, I call ")
+                                    .Text(MessageUtils.GetPronoun(moonsTearItem.DisplayItem))
+                                    .Text(" ")
+                                    .Text(MessageUtils.GetArticle(moonsTearItem.DisplayItem))
+                                    .Red(moonsTearItem.DisplayName())
+                                    .Text(".")
+                                    ;
+                                })
+                                .EndTextBox()
+                                .Text("They are rare, valued by many").NewLine()
+                                .Text("in town.")
+                                .EndFinalTextBox();
+                            })
+                            .Build()
+                        );
+                        newMessages.Add(new MessageEntryBuilder()
+                            .Id(0x5ED)
+                            .Message(it =>
+                            {
+                                it.Text($"That ill-mannered troublemaker").NewLine()
+                                .Text("from the other day said he'd").NewLine()
+                                .Text("break my instruments...")
+                                .EndTextBox()
+                                .CompileTimeWrap((wrapped) =>
+                                {
+                                    wrapped.Text("He said he's steal my ")
+                                    .Red(moonsTearItem.DisplayName())
+                                    .Text("... There was no stopping him.")
+                                    ;
+                                })
+                                .DisableTextSkip2()
+                                .EndFinalTextBox();
+                            })
+                            .Build()
+                        );
+                        newMessages.Add(new MessageEntryBuilder()
+                            .Id(0x5F2)
+                            .Message(it =>
+                            {
+                                it.Text($"Well, did you find that").NewLine()
+                                .Red("troublemaker").Text("? And that loud").NewLine()
+                                .Text("noise...What was that?")
+                                .EndTextBox()
+                                .CompileTimeWrap((wrapped) =>
+                                {
+                                    wrapped.Text("Perhaps another ")
+                                    .Red(moonsTearItem.DisplayName())
+                                    .Text(" has falled nearby...Go through that door and take a look outside.")
+                                    ;
+                                })
+                                .DisableTextSkip2()
+                                .EndFinalTextBox();
+                            })
+                            .Build()
+                        );
                     }
 
                     // Update Seahorse messages.
                     var seahorseItem = _randomized.ItemList.First(io => io.NewLocation == Item.MundaneItemSeahorse);
                     if (seahorseItem.Item != Item.MundaneItemSeahorse)
                     {
-                        newMessages.Add(new MessageEntry
-                        {
-                            Id = 0x106F,
-                            Header = null,
-                            Message = $"\u001E\u0069\u004CAre you interested in that?".EndTextbox() + $"It's rare, isn't it? It's called {seahorseItem.GetArticle()}\u0001{seahorseItem.NameForMessage()}\u0000.".SurroundWithCommandAutoWrap() + "\u0019\u00BF"
-                        });
-                        newMessages.Add(new MessageEntry
-                        {
-                            Id = 0x1074,
-                            Header = null,
-                            Message = $"If you want that \u0001{seahorseItem.NameForMessage()}\u0000, bring me a \u0001pictograph\u0000 of a \u0001female pirate\u0000.".SurroundWithCommandAutoWrap() + "\u0019\u00BF"
-                        });
+                        newMessages.Add(new MessageEntryBuilder()
+                            .Id(0x106F)
+                            .Message(it =>
+                            {
+                                it.PlaySoundEffect(0x694C)
+                                .Text("Are you interested in that?")
+                                .EndTextBox()
+                                .RuntimeWrap(() =>
+                                {
+                                    it.Text("It's rare, isn't it? It's called ")
+                                    .RuntimeArticle(seahorseItem.DisplayItem, seahorseItem.NewLocation.Value)
+                                    .Red(() =>
+                                    {
+                                        it.RuntimeItemName(seahorseItem.DisplayName(), seahorseItem.NewLocation.Value);
+                                    })
+                                    .Text(".")
+                                    ;
+                                })
+                                .DisableTextSkip2()
+                                .EndFinalTextBox();
+                            })
+                            .Build()
+                        );
+                        newMessages.Add(new MessageEntryBuilder()
+                            .Id(0x1074)
+                            .Message(it =>
+                            {
+                                it.RuntimeWrap(() =>
+                                {
+                                    it.Text("If you want that ")
+                                    .Red(() =>
+                                    {
+                                        it.RuntimeItemName(seahorseItem.DisplayName(), seahorseItem.NewLocation.Value);
+                                    })
+                                    .Text(", bring me a ")
+                                    .Red("pictograph")
+                                    .Text(" of a ")
+                                    .Red("female pirate")
+                                    .Text(".")
+                                    ;
+                                })
+                                .DisableTextSkip2()
+                                .EndFinalTextBox();
+                            })
+                            .Build()
+                        );
                     }
                 }
             }

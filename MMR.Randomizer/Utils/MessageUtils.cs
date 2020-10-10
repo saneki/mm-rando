@@ -475,32 +475,22 @@ namespace MMR.Randomizer.Utils
             return $"\x1E{sfx}{start} {string.Join(" and ", locationMessages.Select(locationName => $"\x01{locationName}\x00"))} {mid} {string.Join(hasOrder ? " then " : " and ", itemMessages.Select(itemName => $"\x06{itemName}\x00"))}...\xBF".Wrap(35, "\x11");
         }
 
-        public static string BuildShopDescriptionMessage(string title, int cost, string description)
-        {
-            return $"\x01{title}: {cost} Rupees\x11\x00{description}\x1A\xBF";
-        }
-
-        public static string BuildShopPurchaseMessage(string title, int cost, Item item)
-        {
-            return $"{title}: {cost} Rupees\x11 \x11\x02\xC2I'll buy {GetPronoun(item)}\x11No thanks\xBF";
-        }
-
-        public static string GetArticle(Item item, string indefiniteArticle = null, string name = null)
+        public static string GetArticle(Item item, string indefiniteArticle = null)
         {
             var shopTexts = item.ShopTexts();
             return shopTexts.IsMultiple
                 ? ""
                 : shopTexts.IsDefinite
                     ? "the "
-                    : indefiniteArticle ?? (Regex.IsMatch(name ?? item.Name(), "^[aeiou]", RegexOptions.IgnoreCase)
+                    : indefiniteArticle ?? (Regex.IsMatch(item.Name(), "^[aeiou]", RegexOptions.IgnoreCase)
                         ? "an "
                         : "a ");
         }
 
-        public static string GetPronoun(Item item, string name = null)
+        public static string GetPronoun(Item item)
         {
             var shopTexts = item.ShopTexts();
-            var itemAmount = Regex.Replace(name ?? item.Name(), "[^0-9]", "");
+            var itemAmount = Regex.Replace(item.Name(), "[^0-9]", "");
             return shopTexts.IsMultiple && !string.IsNullOrWhiteSpace(itemAmount)
                 ? "them"
                 : "it";

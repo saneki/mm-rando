@@ -2,7 +2,6 @@
 using MMR.Randomizer.GameObjects;
 using MMR.Common.Extensions;
 using MMR.Randomizer.Models.Rom;
-using MMR.Randomizer.Models;
 
 namespace MMR.Randomizer.Extensions
 {
@@ -21,11 +20,6 @@ namespace MMR.Randomizer.Extensions
         public static string Name(this Item item)
         {
             return item.GetAttribute<ItemNameAttribute>()?.Name;
-        }
-
-        public static string NameForMessage(this Item item, Item location, MimicItem mimic = null)
-        {
-            return (mimic?.FakeName ?? mimic?.Item.Name() ?? item.Name()).SurroundWithCommandCheckGetItemReplaceItemName(location);
         }
 
         public static string ProgressiveUpgradeName(this Item item, bool progressiveUpgradesEnabled)
