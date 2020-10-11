@@ -57,6 +57,7 @@ namespace MMR.UI.Forms
             this.bStartingItemEditor = new System.Windows.Forms.Button();
             this.tStartingItemList = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.cProgressiveUpgrades = new System.Windows.Forms.CheckBox();
             this.cNoStartingItems = new System.Windows.Forms.CheckBox();
             this.cDEnt = new System.Windows.Forms.CheckBox();
             this.cEnemy = new System.Windows.Forms.CheckBox();
@@ -126,6 +127,7 @@ namespace MMR.UI.Forms
             this.cNoDowngrades = new System.Windows.Forms.CheckBox();
             this.tabGimmicks = new System.Windows.Forms.TabPage();
             this.cContinuousDekuHopping = new System.Windows.Forms.CheckBox();
+            this.cIceTrapQuirks = new System.Windows.Forms.CheckBox();
             this.lIceTraps = new System.Windows.Forms.Label();
             this.cIceTrapsAppearance = new System.Windows.Forms.ComboBox();
             this.cIceTraps = new System.Windows.Forms.ComboBox();
@@ -187,8 +189,6 @@ namespace MMR.UI.Forms
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
-            this.cProgressiveUpgrades = new System.Windows.Forms.CheckBox();
-            this.cIceTrapQuirks = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -454,6 +454,20 @@ namespace MMR.UI.Forms
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Other Customizations";
+            // 
+            // cProgressiveUpgrades
+            // 
+            this.cProgressiveUpgrades.AutoSize = true;
+            this.cProgressiveUpgrades.BackColor = System.Drawing.Color.Transparent;
+            this.cProgressiveUpgrades.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cProgressiveUpgrades.ForeColor = System.Drawing.Color.Black;
+            this.cProgressiveUpgrades.Location = new System.Drawing.Point(9, 65);
+            this.cProgressiveUpgrades.Name = "cProgressiveUpgrades";
+            this.cProgressiveUpgrades.Size = new System.Drawing.Size(130, 17);
+            this.cProgressiveUpgrades.TabIndex = 21;
+            this.cProgressiveUpgrades.Text = "Progressive Upgrades";
+            this.cProgressiveUpgrades.UseVisualStyleBackColor = false;
+            this.cProgressiveUpgrades.CheckedChanged += new System.EventHandler(this.cProgressiveUpgrades_CheckedChanged);
             // 
             // cNoStartingItems
             // 
@@ -911,6 +925,7 @@ namespace MMR.UI.Forms
             this.groupBox8.Controls.Add(this.lMusic);
             this.groupBox8.Controls.Add(this.bTunic);
             this.groupBox8.Controls.Add(this.cLink);
+            this.groupBox8.Controls.Add(this.cCombatMusicDisable);
             this.groupBox8.Controls.Add(this.cTatl);
             this.groupBox8.Controls.Add(this.cMusic);
             this.groupBox8.Controls.Add(this.lTunic);
@@ -1095,7 +1110,7 @@ namespace MMR.UI.Forms
             "None"});
             this.cMusic.Location = new System.Drawing.Point(107, 74);
             this.cMusic.Name = "cMusic";
-            this.cMusic.Size = new System.Drawing.Size(244, 21);
+            this.cMusic.Size = new System.Drawing.Size(111, 21);
             this.cMusic.TabIndex = 25;
             this.cMusic.SelectedIndexChanged += new System.EventHandler(this.cMusic_SelectedIndexChanged);
             // 
@@ -1119,7 +1134,6 @@ namespace MMR.UI.Forms
             this.groupBox7.Controls.Add(this.cFreestanding);
             this.groupBox7.Controls.Add(this.cEnableNightMusic);
             this.groupBox7.Controls.Add(this.cFastPush);
-            this.groupBox7.Controls.Add(this.cCombatMusicDisable);
             this.groupBox7.Controls.Add(this.cQText);
             this.groupBox7.Controls.Add(this.cShopAppearance);
             this.groupBox7.Controls.Add(this.cSFX);
@@ -1206,11 +1220,11 @@ namespace MMR.UI.Forms
             // cCombatMusicDisable
             // 
             this.cCombatMusicDisable.AutoSize = true;
-            this.cCombatMusicDisable.Location = new System.Drawing.Point(147, 183);
+            this.cCombatMusicDisable.Location = new System.Drawing.Point(224, 77);
             this.cCombatMusicDisable.Name = "cCombatMusicDisable";
             this.cCombatMusicDisable.Size = new System.Drawing.Size(131, 17);
             this.cCombatMusicDisable.TabIndex = 37;
-            this.cCombatMusicDisable.Text = "Combat Music Disable";
+            this.cCombatMusicDisable.Text = "Disable Combat Music";
             this.cCombatMusicDisable.UseVisualStyleBackColor = true;
             this.cCombatMusicDisable.CheckedChanged += new System.EventHandler(this.cCombatMusicDisable_CheckedChanged);
             // 
@@ -1395,6 +1409,20 @@ namespace MMR.UI.Forms
             this.cContinuousDekuHopping.Text = "Continuous Deku Hopping";
             this.cContinuousDekuHopping.UseVisualStyleBackColor = false;
             this.cContinuousDekuHopping.CheckedChanged += new System.EventHandler(this.cContinuousDekuHopping_CheckedChanged);
+            // 
+            // cIceTrapQuirks
+            // 
+            this.cIceTrapQuirks.AutoSize = true;
+            this.cIceTrapQuirks.BackColor = System.Drawing.Color.Transparent;
+            this.cIceTrapQuirks.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cIceTrapQuirks.ForeColor = System.Drawing.Color.Black;
+            this.cIceTrapQuirks.Location = new System.Drawing.Point(393, 255);
+            this.cIceTrapQuirks.Name = "cIceTrapQuirks";
+            this.cIceTrapQuirks.Size = new System.Drawing.Size(92, 17);
+            this.cIceTrapQuirks.TabIndex = 29;
+            this.cIceTrapQuirks.Text = "Enable Quirks";
+            this.cIceTrapQuirks.UseVisualStyleBackColor = false;
+            this.cIceTrapQuirks.CheckedChanged += new System.EventHandler(this.cIceTrapQuirks_CheckedChanged);
             // 
             // lIceTraps
             // 
@@ -1894,7 +1922,7 @@ namespace MMR.UI.Forms
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mLogicEdit});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // mLogicEdit
@@ -2055,34 +2083,6 @@ namespace MMR.UI.Forms
             this.bLoadPatch.Text = "Load Patch...";
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
-            // 
-            // cProgressiveUpgrades
-            // 
-            this.cProgressiveUpgrades.AutoSize = true;
-            this.cProgressiveUpgrades.BackColor = System.Drawing.Color.Transparent;
-            this.cProgressiveUpgrades.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cProgressiveUpgrades.ForeColor = System.Drawing.Color.Black;
-            this.cProgressiveUpgrades.Location = new System.Drawing.Point(9, 65);
-            this.cProgressiveUpgrades.Name = "cProgressiveUpgrades";
-            this.cProgressiveUpgrades.Size = new System.Drawing.Size(130, 17);
-            this.cProgressiveUpgrades.TabIndex = 21;
-            this.cProgressiveUpgrades.Text = "Progressive Upgrades";
-            this.cProgressiveUpgrades.UseVisualStyleBackColor = false;
-            this.cProgressiveUpgrades.CheckedChanged += new System.EventHandler(this.cProgressiveUpgrades_CheckedChanged);
-            // 
-            // cIceTrapQuirks
-            // 
-            this.cIceTrapQuirks.AutoSize = true;
-            this.cIceTrapQuirks.BackColor = System.Drawing.Color.Transparent;
-            this.cIceTrapQuirks.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cIceTrapQuirks.ForeColor = System.Drawing.Color.Black;
-            this.cIceTrapQuirks.Location = new System.Drawing.Point(393, 255);
-            this.cIceTrapQuirks.Name = "cIceTrapQuirks";
-            this.cIceTrapQuirks.Size = new System.Drawing.Size(92, 17);
-            this.cIceTrapQuirks.TabIndex = 29;
-            this.cIceTrapQuirks.Text = "Enable Quirks";
-            this.cIceTrapQuirks.UseVisualStyleBackColor = false;
-            this.cIceTrapQuirks.CheckedChanged += new System.EventHandler(this.cIceTrapQuirks_CheckedChanged);
             // 
             // MainForm
             // 

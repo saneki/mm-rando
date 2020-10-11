@@ -285,15 +285,15 @@ namespace MMR.Randomizer
 
         public static void DisableCombatMusicOnEnemy(GameObjects.Actor actor)
         {
-            int ActorInitVarRomAddr = actor.GetAttribute<ActorInitVarOffsetAttribute>().Offset;
+            int actorInitVarRomAddr = actor.GetAttribute<ActorInitVarOffsetAttribute>().Offset;
             /// each enemy actor has actor init variables, 
             /// if they have combat music is determined if a flag is set in the seventh byte
             /// disabling combat music means disabling this bit for most enemies
-            int ActorFID = (int)actor;
-            RomUtils.CheckCompressed(ActorFID);
-            int ActorFlagLocation = (ActorInitVarRomAddr + 7);// - RomData.MMFileList[ActorFID].Addr; // file offset
-            byte FlagByte = RomData.MMFileList[ActorFID].Data[ActorFlagLocation];
-            RomData.MMFileList[ActorFID].Data[ActorFlagLocation] = (byte)(FlagByte & 0xFB);
+            int actorFileID = (int)actor;
+            RomUtils.CheckCompressed(actorFileID);
+            int actorFlagLocation = (actorInitVarRomAddr + 7);// - RomData.MMFileList[ActorFID].Addr; // file offset
+            byte flagByte = RomData.MMFileList[actorFileID].Data[actorFlagLocation];
+            RomData.MMFileList[actorFileID].Data[actorFlagLocation] = (byte)(flagByte & 0xFB);
         }
 
 

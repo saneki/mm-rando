@@ -376,7 +376,7 @@ namespace MMR.UI.Forms
             cFreestanding.Checked = _configuration.GameplaySettings.UpdateWorldModels;
             cArrowCycling.Checked = _configuration.GameplaySettings.ArrowCycling;
             cCloseCows.Checked = _configuration.GameplaySettings.CloseCows;
-            cCombatMusicDisable.Checked = _configuration.CosmeticSettings.DisableCombatMusic == CombatMusic.All;
+            cCombatMusicDisable.Checked = _configuration.CosmeticSettings.DisableCombatMusic != CombatMusic.Normal;
             cElegySpeedups.Checked = _configuration.GameplaySettings.ElegySpeedup;
 
             // HUD config options
@@ -1271,7 +1271,6 @@ namespace MMR.UI.Forms
             cFreestanding.Visible = v;
             cArrowCycling.Visible = v;
             cCloseCows.Visible = v;
-            cCombatMusicDisable.Visible = v;
             cElegySpeedups.Visible = v;
             cLink.Visible = v;
             lLink.Visible = v;

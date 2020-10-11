@@ -11,7 +11,7 @@ namespace MMR.Randomizer.Attributes.Actor
         ///    the location in the file after decompression where the actor init variables are
         /// </summary>
 
-        public int Offset { get; private set; }
+        public int Offset { get; }
 
         public ActorInitVarOffsetAttribute(int offset)
         {
