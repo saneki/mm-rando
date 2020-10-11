@@ -315,7 +315,7 @@ namespace MMR.Randomizer.Utils
             // this "fills" those slots, now we have fewer slots to fill with remaining music (77 fills 73)
             //  so pointerized slots play the same music, and don't waste a song
             //  but if the player does find this music in-game, it still plays sufficiently random music
-            ConvertSequenceSlotToPointer(0x29, 0x7d); // point zelda(SOTime get cs) at reunion
+            ConvertSequenceSlotToPointer(0x29, 0x0B); // point zelda(SOTime get cs) at healed
 
             // with shortened cutscenes, we pointerize more slots that the player would not hear
             // if using a patch, _randomized is not set, lookup a shortened cutscene byte instead
@@ -338,8 +338,10 @@ namespace MMR.Randomizer.Utils
                 ConvertSequenceSlotToPointer(0x04, 0x45); // point skullkid's theme, during skullkid's backstory cutscene, at kaepora
                 ConvertSequenceSlotToPointer(0x72, 0x45); // point wagonride at kaeopora 
                 ConvertSequenceSlotToPointer(0x2D, 0x3A); // point giants world (oath get cutscene) at observatory
-                ConvertSequenceSlotToPointer(0x70, 0x7D); // point call the giants( cutscene confronting skullkid) at reunion
+                ConvertSequenceSlotToPointer(0x70, 0x0B); // point call the giants( cutscene confronting skullkid) at healed
                 ConvertSequenceSlotToPointer(0x7B, 0x0D); // point maskreveal, the song that plays when the mask shows its alive during moon cutscene, at aliens
+                ConvertSequenceSlotToPointer(0x7D, 0x05); // point reunion at clocktower
+                ConvertSequenceSlotToPointer(0x0B, 0x05); // point healing cutscene at clocktower
             }
 
             if (RomData.TargetSequences.Count + 30 > RomData.SequenceList.Count)
@@ -348,6 +350,9 @@ namespace MMR.Randomizer.Utils
                 ConvertSequenceSlotToPointer(0x08, 0x09); // point chasefail(skullkid chase) at fail
                 ConvertSequenceSlotToPointer(0x19, 0x78); // point clearshort(epona get cs) at dungeonclearshort
             }
+
+            // create some pointerized slots that are otherwise ignored, beacuse this pool gets re-used later for new song slots
+            RomData.PointerizedSequences.Add(new SequenceInfo() { Name = "mm-introcutscene1", MM_seq = 0x1E, PreviousSlot = 0x1E,  Replaces = 0x76});
         }
 
         public static void ConvertSequenceSlotToPointer(int SeqSlotIndex, int SubstituteSlotIndex)
@@ -368,7 +373,8 @@ namespace MMR.Randomizer.Utils
             }
             else
             {
-                throw new IndexOutOfRangeException("Could not convert slot to pointer:" + SeqSlotIndex.ToString("X2"));
+                //throw new IndexOutOfRangeException("Could not convert slot to pointer:" + SeqSlotIndex.ToString("X2"));
+                Debug.WriteLine("Cannot pointerize a songslot that does not exist: " + SeqSlotIndex + " and " + SubstituteSlotIndex);
             }
         }
 
@@ -391,12 +397,6 @@ namespace MMR.Randomizer.Utils
             for (int i = 0; i < 128; i++)
             {
                 MMSequence entry = new MMSequence();
-                if (i == 0x1E) // intro music when link gets ambushed
-                {
-                    entry.Addr = 2;
-                    oldSeq.Add(entry);
-                    continue;
-                }
 
                 int entryaddr = Addresses.SeqTable + (i * 16);
                 entry.Addr = (int)ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, entryaddr - basea);
