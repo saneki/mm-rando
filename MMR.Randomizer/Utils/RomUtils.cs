@@ -330,7 +330,7 @@ namespace MMR.Randomizer.Utils
             {
                 if (file.IsCompressed && file.WasEdited){
                     // lower priority so that the rando can't lock a badly scheduled CPU by using 100%
-                    var previous_thread_priority = Thread.CurrentThread.Priority;
+                    var previousThreadPriority = Thread.CurrentThread.Priority;
                     Thread.CurrentThread.Priority = ThreadPriority.Lowest;
                     byte[] result;
                     var newSize = Yaz.Encode(file.Data, file.Data.Length, out result);
@@ -340,7 +340,7 @@ namespace MMR.Randomizer.Utils
                         ReadWriteUtils.Arr_Insert(result, 0, newSize, file.Data, 0);
                     }
                     // this thread is borrowed, we don't want it to always be the lowest priority, return to previous state
-                    Thread.CurrentThread.Priority = previous_thread_priority;
+                    Thread.CurrentThread.Priority = previousThreadPriority;
                 }
             });
             byte[] ROM = new byte[0x2000000];
@@ -353,14 +353,29 @@ namespace MMR.Randomizer.Utils
                     continue;
                 }
                 RomData.MMFileList[i].Cmp_Addr = ROMAddr;
-                int file_len = RomData.MMFileList[i].Data.Length;
+                int fileLength = RomData.MMFileList[i].Data.Length;
                 if (RomData.MMFileList[i].IsCompressed)
                 {
-                    RomData.MMFileList[i].Cmp_End = ROMAddr + file_len;
+                    RomData.MMFileList[i].Cmp_End = ROMAddr + fileLength;
                 }
-                ReadWriteUtils.Arr_Insert(RomData.MMFileList[i].Data, 0, file_len, ROM, ROMAddr);
-                ROMAddr += file_len;
+                if (ROMAddr + fileLength > ROM.Length) // rom too small
+                {
+                    // assuming the largest file isn't the last one, we still want some extra space for further files
+                    //  padding will reduce the requirements for further resizes
+                    int expansionIncrementSize = 0x40000; // 1mb might be too large, not sure if there is a hardware compatiblity issue here
+                    int expansionLength = (((ROMAddr + fileLength - ROM.Length) / expansionIncrementSize) + 1) * expansionIncrementSize;
+                    byte[] newROM = new byte[ROM.Length + expansionLength];
+                    Buffer.BlockCopy(ROM, 0, newROM, 0, ROM.Length);
+                    Buffer.BlockCopy(new byte[expansionLength], 0, newROM, ROM.Length, expansionLength);
+                    ROM = newROM;
+                    Debug.WriteLine("*** Expanding rom to size 0x" + ROM.Length.ToString("X2") + "***");
+                }
+
+                ReadWriteUtils.Arr_Insert(RomData.MMFileList[i].Data, 0, fileLength, ROM, ROMAddr);
+                ROMAddr += fileLength;
+
             }
+            SequenceUtils.UpdateBankInstrumentPointers(ROM);
             UpdateFileTable(ROM);
             SignROM(ROM);
             FixCRC(ROM);

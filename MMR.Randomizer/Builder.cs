@@ -81,6 +81,7 @@ namespace MMR.Randomizer
                     else
                     {
                         RomData.InstrumentSetList[ReplacementSequence.Instrument] = ReplacementSequence.SequenceBinaryList[0].InstrumentSet;
+                        RomData.InstrumentSetList[ReplacementSequence.Instrument].InstrumentSamples = ReplacementSequence.InstrumentSamples;
                         WriteOutput(" -- v -- Instrument set number " + ReplacementSequence.Instrument.ToString("X2") + " has been claimed -- v --");
                     }
                     ReplacementSequence.SequenceBinaryList = new List<SequenceBinaryData> { ReplacementSequence.SequenceBinaryList[0] }; // lock the one we want
@@ -290,6 +291,7 @@ namespace MMR.Randomizer
             ResourceUtils.ApplyHack(Resources.mods.fix_music);
             ResourceUtils.ApplyHack(Resources.mods.inst24_swap_guitar);
             SequenceUtils.RebuildAudioSeq(RomData.SequenceList, _settings);
+            SequenceUtils.WriteNewSoundSamples(RomData.InstrumentSetList);
             SequenceUtils.RebuildAudioBank(RomData.InstrumentSetList);
         }
 
@@ -2542,12 +2544,20 @@ namespace MMR.Randomizer
 
                 if (outputSettings.GenerateROM)
                 {
+                    if (ROM.Length > 0x4000000) // over 64mb
+                    {
+                        throw new ROMOverflowException("64 MB,hardware (Everdrive)");
+                    }
                     progressReporter.ReportProgress(85, "Writing ROM...");
                     RomUtils.WriteROM(outputSettings.OutputROMFilename, ROM);
                 }
 
                 if (outputSettings.OutputVC)
                 {
+                    if (ROM.Length > 0x2000000) // over 32mb
+                    {
+                        throw new ROMOverflowException("32 MB,WiiVC");
+                    }
                     progressReporter.ReportProgress(90, "Writing VC...");
                     VCInjectionUtils.BuildVC(ROM, _cosmeticSettings.AsmOptions.DPadConfig, Values.VCDirectory, Path.ChangeExtension(outputSettings.OutputROMFilename, "wad"));
                 }
