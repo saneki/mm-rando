@@ -86,6 +86,7 @@ namespace MMR.UI.Forms
 
             TooltipBuilder.SetTooltip(cUserItems, "Only randomize a custom list of items.\n\nThe item list can be edited from the menu: Customize -> Item List Editor. When checked, some settings will become disabled.");
             TooltipBuilder.SetTooltip(cMixSongs, "Enable songs being placed among items in the randomization pool.");
+            TooltipBuilder.SetTooltip(cProgressiveUpgrades, "Enable swords, wallets, magic, bomb bags and quivers to be found in the intended order.");
             TooltipBuilder.SetTooltip(cDChests, "Enable keys, boss keys, maps and compasses being placed in the randomization pool.");
             TooltipBuilder.SetTooltip(cShop, "Enable shop items being placed in the randomization pool.");
             TooltipBuilder.SetTooltip(cBottled, "Enable captured bottle contents being randomized.");
@@ -111,12 +112,16 @@ namespace MMR.UI.Forms
             TooltipBuilder.SetTooltip(cHideClock, "Clock UI will be hidden.");
             TooltipBuilder.SetTooltip(cNoStartingItems, "You will not start with any randomized starting items.");
             TooltipBuilder.SetTooltip(cBlastCooldown, "Adjust the cooldown timer after using the Blast Mask.");
+            TooltipBuilder.SetTooltip(cIceTraps, "Amount of ice traps to be added to pool by replacing junk items.");
+            TooltipBuilder.SetTooltip(cIceTrapsAppearance, "Appearance of ice traps in pool for world models.");
             TooltipBuilder.SetTooltip(cSunsSong, "Enable using the Sun's Song, which speeds up time to 400 units per frame (normal time speed is 3 units per frame) until dawn or dusk or a loading zone.");
             TooltipBuilder.SetTooltip(cUnderwaterOcarina, "Enable using the ocarina underwater.");
             TooltipBuilder.SetTooltip(cTargettingStyle, "Default Z-Targeting style to Hold.");
             TooltipBuilder.SetTooltip(cFDAnywhere, "Allow the Fierce Deity's Mask to be used anywhere. Also addresses some softlocks caused by Fierce Deity.");
             TooltipBuilder.SetTooltip(cByoAmmo, "Arrows, Bombs, and Bombchu will not be provided. You must bring your own. Logic Modes other than No Logic will account for this.");
             TooltipBuilder.SetTooltip(cDeathMoonCrash, "Dying causes the moon to crash, with all that that implies.");
+            TooltipBuilder.SetTooltip(cContinuousDekuHopping, "Press A while hopping across water to keep hopping.");
+            TooltipBuilder.SetTooltip(cIceTrapQuirks, "Ice traps will behave slightly differently from other items in certain situations");
 
             // Comforts/cosmetics
             TooltipBuilder.SetTooltip(cCutsc, "Enable shortened cutscenes.\n\nCertain cutscenes are skipped or otherwise shortened.\nDISCLAIMER: This may cause crashing in certain emulators.");
@@ -146,6 +151,7 @@ namespace MMR.UI.Forms
             TooltipBuilder.SetTooltip(cEnableNightMusic, "Enables playing daytime Background music during nighttime in the field.\n(Clocktown night music can be weird)");
             TooltipBuilder.SetTooltip(cArrowCycling, "Cycle through arrow types when pressing R while an arrow is out when using the bow.");
             TooltipBuilder.SetTooltip(cCloseCows, "When playing Epona's Song for a group of cows, the closest cow will respond, instead of the default behavior.");
+            TooltipBuilder.SetTooltip(cElegySpeedups, "Applies various Elegy of Emptiness speedups.");
         }
 
         /// <summary>
@@ -304,6 +310,7 @@ namespace MMR.UI.Forms
             cAdditional.Checked = _configuration.GameplaySettings.AddOther;
             cSoS.Checked = _configuration.GameplaySettings.ExcludeSongOfSoaring;
             cMixSongs.Checked = _configuration.GameplaySettings.AddSongs;
+            cProgressiveUpgrades.Checked = _configuration.GameplaySettings.ProgressiveUpgrades;
             cBottled.Checked = _configuration.GameplaySettings.RandomizeBottleCatchContents;
             cDChests.Checked = _configuration.GameplaySettings.AddDungeonItems;
             cShop.Checked = _configuration.GameplaySettings.AddShopItems;
@@ -321,6 +328,7 @@ namespace MMR.UI.Forms
             cFDAnywhere.Checked = _configuration.GameplaySettings.AllowFierceDeityAnywhere;
             cByoAmmo.Checked = _configuration.GameplaySettings.ByoAmmo;
             cDeathMoonCrash.Checked = _configuration.GameplaySettings.DeathMoonCrash;
+            cIceTrapQuirks.Checked = _configuration.GameplaySettings.IceTrapQuirks;
             cClockSpeed.SelectedIndex = (int)_configuration.GameplaySettings.ClockSpeed;
             cNoDowngrades.Checked = _configuration.GameplaySettings.PreventDowngrades;
             cShopAppearance.Checked = _configuration.GameplaySettings.UpdateShopAppearance;
@@ -348,6 +356,8 @@ namespace MMR.UI.Forms
             cFloors.SelectedIndex = (int)_configuration.GameplaySettings.FloorType;
             cGossipHints.SelectedIndex = (int)_configuration.GameplaySettings.GossipHintStyle;
             cBlastCooldown.SelectedIndex = (int)_configuration.GameplaySettings.BlastMaskCooldown;
+            cIceTraps.SelectedIndex = (int)_configuration.GameplaySettings.IceTraps;
+            cIceTrapsAppearance.SelectedIndex = (int)_configuration.GameplaySettings.IceTrapAppearance;
             cMusic.SelectedIndex = (int)_configuration.CosmeticSettings.Music;
             bTunic.BackColor = _configuration.CosmeticSettings.TunicColor;
             cTargettingStyle.Checked = _configuration.CosmeticSettings.EnableHoldZTargeting;
@@ -360,10 +370,12 @@ namespace MMR.UI.Forms
             cDrawHash.Checked = _configuration.OutputSettings.GeneratePatch || (_drawHashChecked && (_configuration.OutputSettings.GenerateROM || _configuration.OutputSettings.OutputVC));
             cFastPush.Checked = _configuration.GameplaySettings.FastPush;
             cQuestItemStorage.Checked = _configuration.GameplaySettings.QuestItemStorage;
+            cContinuousDekuHopping.Checked = _configuration.GameplaySettings.ContinuousDekuHopping;
             cUnderwaterOcarina.Checked = _configuration.GameplaySettings.OcarinaUnderwater;
             cFreestanding.Checked = _configuration.GameplaySettings.UpdateWorldModels;
             cArrowCycling.Checked = _configuration.GameplaySettings.ArrowCycling;
             cCloseCows.Checked = _configuration.GameplaySettings.CloseCows;
+            cElegySpeedups.Checked = _configuration.GameplaySettings.ElegySpeedup;
 
             // HUD config options
             var heartItems = ColorSelectionManager.Hearts.GetItems();
@@ -567,6 +579,11 @@ namespace MMR.UI.Forms
             UpdateSingleSetting(() => _configuration.GameplaySettings.AddSongs = cMixSongs.Checked);
         }
 
+        private void cProgressiveUpgrades_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _configuration.GameplaySettings.ProgressiveUpgrades = cProgressiveUpgrades.Checked);
+        }
+
         private void cFreeHints_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _configuration.GameplaySettings.FreeHints = cFreeHints.Checked);
@@ -620,6 +637,11 @@ namespace MMR.UI.Forms
         private void cDeathMoonCrash_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _configuration.GameplaySettings.DeathMoonCrash = cDeathMoonCrash.Checked);
+        }
+
+        private void cIceTrapQuirks_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _configuration.GameplaySettings.IceTrapQuirks = cIceTrapQuirks.Checked);
         }
 
         private void cNoStartingItems_CheckedChanged(object sender, EventArgs e)
@@ -683,6 +705,11 @@ namespace MMR.UI.Forms
             UpdateSingleSetting(() => _configuration.GameplaySettings.QuestItemStorage = cQuestItemStorage.Checked);
         }
 
+        private void cContinuousDekuHopping_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _configuration.GameplaySettings.ContinuousDekuHopping = cContinuousDekuHopping.Checked);
+        }
+
         private void cDisableCritWiggle_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _configuration.GameplaySettings.CritWiggleDisable = cDisableCritWiggle.Checked);
@@ -716,6 +743,11 @@ namespace MMR.UI.Forms
         private void cCloseCows_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _configuration.GameplaySettings.CloseCows = cCloseCows.Checked);
+        }
+
+        private void cElegySpeedups_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _configuration.GameplaySettings.ElegySpeedup = cElegySpeedups.Checked);
         }
 
         private void cMode_SelectedIndexChanged(object sender, EventArgs e)
@@ -763,6 +795,16 @@ namespace MMR.UI.Forms
         private void cBlastCooldown_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _configuration.GameplaySettings.BlastMaskCooldown = (BlastMaskCooldown)cBlastCooldown.SelectedIndex);
+        }
+
+        private void cIceTraps_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _configuration.GameplaySettings.IceTraps = (IceTraps)cIceTraps.SelectedIndex);
+        }
+
+        private void cIceTrapsAppearance_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _configuration.GameplaySettings.IceTrapAppearance = (IceTrapAppearance)cIceTrapsAppearance.SelectedIndex);
         }
 
         private void cVC_CheckedChanged(object sender, EventArgs e)
@@ -882,6 +924,7 @@ namespace MMR.UI.Forms
             if (_configuration.GameplaySettings.LogicMode == LogicMode.Vanilla)
             {
                 cMixSongs.Enabled = false;
+                cProgressiveUpgrades.Enabled = false;
                 cSoS.Enabled = false;
                 cDChests.Enabled = false;
                 cDEnt.Enabled = false;
@@ -909,6 +952,7 @@ namespace MMR.UI.Forms
             else
             {
                 cMixSongs.Enabled = true;
+                cProgressiveUpgrades.Enabled = true;
                 cDEnt.Enabled = true;
                 cSpoiler.Enabled = true;
                 cHTMLLog.Enabled = true;
@@ -1006,6 +1050,7 @@ namespace MMR.UI.Forms
             cDEnt.Enabled = v;
             cNoStartingItems.Enabled = v;
             cMixSongs.Enabled = v;
+            cProgressiveUpgrades.Enabled = v;
             cEnemy.Enabled = v;
 
             bTunic.Enabled = v;
@@ -1037,6 +1082,7 @@ namespace MMR.UI.Forms
             cFreestanding.Enabled = v;
             cArrowCycling.Enabled = v;
             cCloseCows.Enabled = v;
+            cElegySpeedups.Enabled = v;
 
             cSkipBeaver.Enabled = v;
             cGoodDampeRNG.Enabled = v;
@@ -1050,12 +1096,15 @@ namespace MMR.UI.Forms
             cFloors.Enabled = v;
             cClockSpeed.Enabled = v;
             cBlastCooldown.Enabled = v;
+            cIceTraps.Enabled = v;
+            cIceTrapsAppearance.Enabled = v;
             cHideClock.Enabled = v;
             cUnderwaterOcarina.Enabled = v;
             cSunsSong.Enabled = v;
             cFDAnywhere.Enabled = v;
             cByoAmmo.Enabled = v;
             cDeathMoonCrash.Enabled = v;
+            cIceTrapQuirks.Enabled = v;
 
             cSoS.Enabled = v;
             cDChests.Enabled = v;
@@ -1215,6 +1264,7 @@ namespace MMR.UI.Forms
             cFreestanding.Visible = v;
             cArrowCycling.Visible = v;
             cCloseCows.Visible = v;
+            cElegySpeedups.Visible = v;
             cLink.Visible = v;
             lLink.Visible = v;
 
