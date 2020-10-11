@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Diagnostics;
 using System.IO.Compression;
-using MMR.Randomizer.Models.Settings;
 using System.Security.Cryptography;
 
 namespace MMR.Randomizer.Utils
@@ -352,18 +351,18 @@ namespace MMR.Randomizer.Utils
             }
 
             // create some pointerized slots that are otherwise ignored, beacuse this pool gets re-used later for new song slots
-            RomData.PointerizedSequences.Add(new SequenceInfo() { Name = "mm-introcutscene1", MM_seq = 0x1E, PreviousSlot = 0x1E,  Replaces = 0x76});
+            RomData.PointerizedSequences.Add(new SequenceInfo() { Name = "mm-introcutscene1", MM_seq = 0x1E, PreviousSlot = 0x1E, Replaces = 0x76 });
         }
 
-        public static void ConvertSequenceSlotToPointer(int SeqSlotIndex, int SubstituteSlotIndex)
+        public static void ConvertSequenceSlotToPointer(int seqSlotIndex, int substituteSlotIndex)
         {
             // turns the sequence slot into a pointer, which points at another song, at SubstituteSlotIndex
             // the slot at SeqSlotIndex is marked such that, instead of a new sequence being put there
             //  a pointer to another song, at SubstituteSlotIndex, is used instead.
             // this frees up a song slot but its not completely empty if someone finds it
             //  this is the same concept DB used to nulify the intro song
-            var targetSeq = RomData.TargetSequences.Find(u => u.Replaces == SeqSlotIndex);
-            var substituteSeq = RomData.TargetSequences.Find(u => u.Replaces == SubstituteSlotIndex);
+            var targetSeq = RomData.TargetSequences.Find(u => u.Replaces == seqSlotIndex);
+            var substituteSeq = RomData.TargetSequences.Find(u => u.Replaces == substituteSlotIndex);
             if (targetSeq != null && substituteSeq != null)
             {
                 targetSeq.PreviousSlot = targetSeq.Replaces; // we'll need at audioseq build
@@ -374,7 +373,7 @@ namespace MMR.Randomizer.Utils
             else
             {
                 //throw new IndexOutOfRangeException("Could not convert slot to pointer:" + SeqSlotIndex.ToString("X2"));
-                Debug.WriteLine("Cannot pointerize a songslot that does not exist: " + SeqSlotIndex + " and " + SubstituteSlotIndex);
+                Debug.WriteLine("Cannot pointerize a songslot that does not exist: " + seqSlotIndex + " and " + substituteSlotIndex);
             }
         }
 

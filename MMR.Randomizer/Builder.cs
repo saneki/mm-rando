@@ -51,7 +51,7 @@ namespace MMR.Randomizer
 
         // this function decides which songs get shuffled, choosing song -> slot
         //  the audioseq file gets rearanged/built in SequenceUtils::RebuildAudioSeq
-        private void BGMShuffle(Random random, OutputSettings _settings)
+        private void BGMShuffle(Random random, OutputSettings settings)
         {
             // spoiler log output
             StringBuilder log = new StringBuilder();
@@ -60,35 +60,35 @@ namespace MMR.Randomizer
                 Debug.WriteLine(str);
                 log.AppendLine(str);
             }
-            string GetSpacedString(string Start, int Width = 50, string DebugText = "")
+            string GetSpacedString(string start, int width = 50, string debugText = "")
             {
                 // formating for spoiler log
-                int padding = Start.Length <= Width ? Width - Start.Length : 0 + DebugText.Length;
-                return Start + new String(' ', padding - DebugText.Length) + DebugText;
+                int padding = start.Length <= width ? width - start.Length : 0 + debugText.Length;
+                return start + new String(' ', padding - debugText.Length) + debugText;
             }
 
-            void AssignSequenceSlot(SequenceInfo SlotSequence, SequenceInfo ReplacementSequence, List<SequenceInfo> RemainingSongs, string DebugCharacters = "")
+            void AssignSequenceSlot(SequenceInfo slotSequence, SequenceInfo replacementSequence, List<SequenceInfo> remainingSongs, string debugCharacters = "")
             {
                 // if the song has a custom instrument set, lock the sequence, update inst set value, debug output
-                if (ReplacementSequence.SequenceBinaryList != null && ReplacementSequence.SequenceBinaryList[0] != null && ReplacementSequence.SequenceBinaryList[0].InstrumentSet != null)
+                if (replacementSequence.SequenceBinaryList != null && replacementSequence.SequenceBinaryList[0] != null && replacementSequence.SequenceBinaryList[0].InstrumentSet != null)
                 {
-                    ReplacementSequence.Instrument = ReplacementSequence.SequenceBinaryList[0].InstrumentSet.BankSlot; // update to the one we want to use
-                    if (RomData.InstrumentSetList[ReplacementSequence.Instrument].Modified > 0)
+                    replacementSequence.Instrument = replacementSequence.SequenceBinaryList[0].InstrumentSet.BankSlot; // update to the one we want to use
+                    if (RomData.InstrumentSetList[replacementSequence.Instrument].Modified > 0)
                     {
-                        RomData.InstrumentSetList[ReplacementSequence.Instrument].Modified += 1;
-                        WriteOutput(" -- v -- Instrument set number " + ReplacementSequence.Instrument.ToString("X2") + " is being reused -- v --");
+                        RomData.InstrumentSetList[replacementSequence.Instrument].Modified += 1;
+                        WriteOutput(" -- v -- Instrument set number " + replacementSequence.Instrument.ToString("X2") + " is being reused -- v --");
                     }
                     else
                     {
-                        RomData.InstrumentSetList[ReplacementSequence.Instrument] = ReplacementSequence.SequenceBinaryList[0].InstrumentSet;
-                        RomData.InstrumentSetList[ReplacementSequence.Instrument].InstrumentSamples = ReplacementSequence.InstrumentSamples;
-                        WriteOutput(" -- v -- Instrument set number " + ReplacementSequence.Instrument.ToString("X2") + " has been claimed -- v --");
+                        RomData.InstrumentSetList[replacementSequence.Instrument] = replacementSequence.SequenceBinaryList[0].InstrumentSet;
+                        RomData.InstrumentSetList[replacementSequence.Instrument].InstrumentSamples = replacementSequence.InstrumentSamples;
+                        WriteOutput(" -- v -- Instrument set number " + replacementSequence.Instrument.ToString("X2") + " has been claimed -- v --");
                     }
-                    ReplacementSequence.SequenceBinaryList = new List<SequenceBinaryData> { ReplacementSequence.SequenceBinaryList[0] }; // lock the one we want
+                    replacementSequence.SequenceBinaryList = new List<SequenceBinaryData> { replacementSequence.SequenceBinaryList[0] }; // lock the one we want
                 }
-                ReplacementSequence.Replaces = SlotSequence.Replaces; // tells the rando later what song to put into slot_seq
-                WriteOutput(GetSpacedString(SlotSequence.Name, Width: 50, DebugCharacters) + " -> " + ReplacementSequence.Name);
-                RemainingSongs.Remove(ReplacementSequence);
+                replacementSequence.Replaces = slotSequence.Replaces; // tells the rando later what song to put into slot_seq
+                WriteOutput(GetSpacedString(slotSequence.Name, width: 50, debugCharacters) + " -> " + replacementSequence.Name);
+                remainingSongs.Remove(replacementSequence);
             }
 
             // these are places the player may never visit, if they do they are visited very briefly, and very little music is heard
@@ -97,17 +97,17 @@ namespace MMR.Randomizer
             // 72:wagonride, 0E:boatcruise, 29:zelda, 2D:giants, 
             // 2E:guruguru, 7B:maskreveal(gaints summon cutscene), 73:keaton, 70:calling giants
             // 7D is reunion, 0x50 is sword school
-            List<int> LowUseMusicSlots = new List<int> { 0x0F, 0x05, 0x7C, 0x04, 0x42, 0x27, 0x31, 0x45, 0x72, 0x0E, 0x29, 0x2D, 0x2E, 0x7B, 0x73, 0x70, 0x7D, 0x50}; 
+            List<int> lowUseMusicSlots = new List<int> { 0x0F, 0x05, 0x7C, 0x04, 0x42, 0x27, 0x31, 0x45, 0x72, 0x0E, 0x29, 0x2D, 0x2E, 0x7B, 0x73, 0x70, 0x7D, 0x50}; 
 
             // we randomize both slots and songs because if we're low on variety, and we don't sort slots
             //   then all the variety can be dried up for the later slots
             // the biggest example is MM-only, many songs are action/boss but the boss slots are later
             //  as a result boss music is often used up early placed into early action slots
             // if we don't randomize remaining, then we only get upper alphabetical, same every seed
-            List<SequenceInfo> Unassigned = RomData.SequenceList.FindAll(u => u.Replaces == -1);
-            Unassigned = Unassigned.OrderBy(x => random.Next()).ToList();                           // random ordered songs
+            List<SequenceInfo> unassigned = RomData.SequenceList.FindAll(u => u.Replaces == -1);
+            unassigned = unassigned.OrderBy(x => random.Next()).ToList();                           // random ordered songs
             RomData.TargetSequences = RomData.TargetSequences.OrderBy(x => random.Next()).ToList(); // random ordered slots
-            WriteOutput(" Randomizing " + RomData.TargetSequences.Count + " song slots, with " + Unassigned.Count + " available songs:");
+            WriteOutput(" Randomizing " + RomData.TargetSequences.Count + " song slots, with " + unassigned.Count + " available songs:");
 
             // if we have lots of music, let's randomize skulltula house and ikana well to have something unique that isn't cave music
             /*if (RomData.SequenceList.Count > 80 &&RomData.SequenceList.FindAll(u => u.Type.Contains(2)).Count >= 8 + 1){ // tested by asking for all targetseq that have a category of 2, counted (8)
@@ -116,29 +116,29 @@ namespace MMR.Randomizer
             }*/
 
             // DEBUG: if the user has a test sequence it always get put into fileselect, ctd1, and combat for testing
-            SequenceInfo TestSequenceFileselect = RomData.SequenceList.Find(u => u.Name.Contains("songtest") == true);
-            if (TestSequenceFileselect != null)
+            SequenceInfo testSequenceFileselect = RomData.SequenceList.Find(u => u.Name.Contains("songtest") == true);
+            if (testSequenceFileselect != null)
             {
-                SequenceInfo TargetSlot = RomData.TargetSequences.Find(u => u.Name.Contains("mm-fileselect"));
-                AssignSequenceSlot(TargetSlot, TestSequenceFileselect, Unassigned, "SONGTEST"); // file select
-                List<SequenceInfo> AllRegularSongs = RomData.SequenceList.FindAll(u =>  u.Type.Intersect(TestSequenceFileselect.Type).Any());
+                SequenceInfo targetSlot = RomData.TargetSequences.Find(u => u.Name.Contains("mm-fileselect"));
+                AssignSequenceSlot(targetSlot, testSequenceFileselect, unassigned, "SONGTEST"); // file select
+                List<SequenceInfo> allRegularSongs = RomData.SequenceList.FindAll(u =>  u.Type.Intersect(testSequenceFileselect.Type).Any());
                 SequenceUtils.ConvertSequenceSlotToPointer(0x76, 0x18);  // titlescreen
-                foreach (SequenceInfo songslot in AllRegularSongs)
+                foreach (SequenceInfo songslot in allRegularSongs)
                 {
                     SequenceUtils.ConvertSequenceSlotToPointer(songslot.MM_seq, 0x18);
                 }
-                RomData.TargetSequences.Remove(TargetSlot);
+                RomData.TargetSequences.Remove(targetSlot);
             }
 
             // MORE DEBUG: if the user wants to force a song to always show up each seed, but in random slots
-            List<SequenceInfo> ForcedSequences = RomData.SequenceList.FindAll(u => u.Name.Contains("songforce") == true).OrderBy(x => random.Next()).ToList();
-            if (ForcedSequences != null && ForcedSequences.Count > 0)
+            List<SequenceInfo> forcedSequences = RomData.SequenceList.FindAll(u => u.Name.Contains("songforce") == true).OrderBy(x => random.Next()).ToList();
+            if (forcedSequences != null && forcedSequences.Count > 0)
             {
-                foreach(SequenceInfo seq in ForcedSequences)
+                foreach(SequenceInfo seq in forcedSequences)
                 {
                     WriteOutput("Forcing song (" + seq.Name + ") to top of the song pool");
-                    Unassigned.Remove(seq);
-                    Unassigned.Insert(0, seq);
+                    unassigned.Remove(seq);
+                    unassigned.Insert(0, seq);
                 }
             }
 
@@ -147,11 +147,11 @@ namespace MMR.Randomizer
                 bool foundValidReplacement = false; // would really have liked for/else but C# doesn't have it seems
 
                 // we could replace this with a findall(compatible types) but then we lose the small chance of random category music
-                for (int i = 0; i < Unassigned.Count; i++)
+                for (int i = 0; i < unassigned.Count; i++)
                 {
-                    SequenceInfo testSeq = Unassigned[i];
+                    SequenceInfo testSeq = unassigned[i];
                     // increases chance of getting non-mm music, but only if we have lots of music remaining
-                    if (Unassigned.Count > 77 && testSeq.Name.StartsWith("mm") && (random.Next(100) < 40))
+                    if (unassigned.Count > 77 && testSeq.Name.StartsWith("mm") && (random.Next(100) < 40))
                         continue;
 
                     // test if the testSeq can be used with available instrument set slots
@@ -172,13 +172,13 @@ namespace MMR.Randomizer
                         if (testSeq.SequenceBinaryList.Count == 0) // all removed, song is dead.
                         {
                             WriteOutput(GetSpacedString(testSeq.Name) + " cannot be used because it requires custom audiobank(s) already claimed ");
-                            Unassigned.Remove(testSeq);
+                            unassigned.Remove(testSeq);
                             continue;
                         }
 
                         // if the slot we are checking is a rarely used slot, and this song requires a custom instrument set
                         //  skip so we don't waste precious instrument set slots on rarely heard music
-                        if (LowUseMusicSlots.Contains(targetSequence.Replaces) && ! testSeq.SequenceBinaryList.Any(u => u.InstrumentSet == null))
+                        if (lowUseMusicSlots.Contains(targetSequence.Replaces) && ! testSeq.SequenceBinaryList.Any(u => u.InstrumentSet == null))
                         {
                             if(targetSequence.Type[0] < 8) // to reduce spam, limit this only to the regular categories
                             {
@@ -191,7 +191,7 @@ namespace MMR.Randomizer
 
                     // do the target slot and the possible match seq share a category?
                     if (testSeq.Type.Intersect(targetSequence.Type).Any()){
-                        AssignSequenceSlot(targetSequence, testSeq, Unassigned, "");
+                        AssignSequenceSlot(targetSequence, testSeq, unassigned, "");
                         foundValidReplacement = true;
                         break;
                     }
@@ -200,7 +200,7 @@ namespace MMR.Randomizer
                     //  but not put fanfares into bgm, or visa versa
                     // also restrict this nature to when there is plenty of music to work with
                     // (testSeq.Type.Count > targetSequence.Type.Count) DBs code, maybe thought to be safer?
-                    else if (Unassigned.Count > 30
+                    else if (unassigned.Count > 30
                         && testSeq.Type.Count > targetSequence.Type.Count
                         && random.Next(30) == 0
                         && targetSequence.Type[0] <= 16
@@ -208,7 +208,7 @@ namespace MMR.Randomizer
                         && testSeq.Type.Contains(0x10) == targetSequence.Type.Contains(0x10)
                         && !testSeq.Type.Contains(0x16))
                     {
-                        AssignSequenceSlot(targetSequence, testSeq, Unassigned, "LUCK");
+                        AssignSequenceSlot(targetSequence, testSeq, unassigned, "LUCK");
                         foundValidReplacement = true;
                         break;
                     }
@@ -224,19 +224,19 @@ namespace MMR.Randomizer
                     SequenceInfo replacementSong = null;
                     if (targetSequence.Type[0] <= 7 || targetSequence.Type[0] == 16)  // bgm or cutscene
                     {
-                        replacementSong = Unassigned.Find(u => u.Type[0] <= 7 || u.Type[0] == 16 && u.SequenceBinaryList == null);
+                        replacementSong = unassigned.Find(u => u.Type[0] <= 7 || u.Type[0] == 16 && u.SequenceBinaryList == null);
                     }
                     else //if (targetSequence.Type[0] <= 8)                           // fanfares
                     {
-                        replacementSong = Unassigned.Find(u => u.Type[0] >= 8 && u.SequenceBinaryList == null);
+                        replacementSong = unassigned.Find(u => u.Type[0] >= 8 && u.SequenceBinaryList == null);
                     }
 
                     if (replacementSong != null)
                     {
                         WriteOutput(" * generalized replacement with " + replacementSong.Name + " song, with categories: " + String.Join(", ", replacementSong.Type.Select(x => "0x" + x.ToString("X2"))));
                         replacementSong.Replaces = targetSequence.Replaces;
-                        WriteOutput(GetSpacedString(targetSequence.Name, Width: 50, "APROX") + " -> " + replacementSong.Name);
-                        Unassigned.Remove(replacementSong);
+                        WriteOutput(GetSpacedString(targetSequence.Name, width: 50, "APROX") + " -> " + replacementSong.Name);
+                        unassigned.Remove(replacementSong);
                     }
                     else
                     {
@@ -260,12 +260,12 @@ namespace MMR.Randomizer
                             );
 
                             WriteOutput(" * double dipping with song " + replacementSong.Name + ", with categories: " + String.Join(", ", replacementSong.Type.Select(x => "0x" + x.ToString("X2"))));
-                            WriteOutput(GetSpacedString(targetSequence.Name, Width: 50, "COPY") + " -> " + replacementSong.Name);
+                            WriteOutput(GetSpacedString(targetSequence.Name, width: 50, "COPY") + " -> " + replacementSong.Name);
                         }
                         else
                         {
                             WriteOutput(" out of remaining songs:");
-                            foreach (SequenceInfo RemainingSong in Unassigned)
+                            foreach (SequenceInfo RemainingSong in unassigned)
                             {
                                 WriteOutput(" - " + RemainingSong.Name + " with categories " + String.Join(",", RemainingSong.Type));
                             }
@@ -277,15 +277,19 @@ namespace MMR.Randomizer
 
             RomData.SequenceList.RemoveAll(u => u.Replaces == -1); // this still gets used in SequenceUtils.cs::RebuildAudioSeq
 
-            if (_cosmeticSettings.Music == Music.Random && _settings.GenerateSpoilerLog)
+            if (_cosmeticSettings.Music == Music.Random && settings.GenerateSpoilerLog)
             {
-                String dir = Path.GetDirectoryName(_settings.OutputROMFilename);
-                String path = $"{Path.GetFileNameWithoutExtension(_settings.OutputROMFilename)}";
+                String dir = Path.GetDirectoryName(settings.OutputROMFilename);
+                String path = $"{Path.GetFileNameWithoutExtension(settings.OutputROMFilename)}";
                 // spoiler log should already be written by the time we reach this far
                 if (File.Exists(Path.Combine(dir, path + "_SpoilerLog.txt")))
+                {
                     path += "_SpoilerLog.txt";
+                }
                 else // TODO add HTML log compatibility
+                {
                     path += "_SongLog.txt";
+                }
 
                 using (StreamWriter sw = new StreamWriter(Path.Combine(dir, path), append: true))
                 {
