@@ -113,6 +113,7 @@ namespace MMR.UI.Forms
             this.cFreestanding = new System.Windows.Forms.CheckBox();
             this.cEnableNightMusic = new System.Windows.Forms.CheckBox();
             this.cFastPush = new System.Windows.Forms.CheckBox();
+            this.cCombatMusicDisable = new System.Windows.Forms.CheckBox();
             this.cQText = new System.Windows.Forms.CheckBox();
             this.cShopAppearance = new System.Windows.Forms.CheckBox();
             this.cSFX = new System.Windows.Forms.CheckBox();
@@ -1118,6 +1119,7 @@ namespace MMR.UI.Forms
             this.groupBox7.Controls.Add(this.cFreestanding);
             this.groupBox7.Controls.Add(this.cEnableNightMusic);
             this.groupBox7.Controls.Add(this.cFastPush);
+            this.groupBox7.Controls.Add(this.cCombatMusicDisable);
             this.groupBox7.Controls.Add(this.cQText);
             this.groupBox7.Controls.Add(this.cShopAppearance);
             this.groupBox7.Controls.Add(this.cSFX);
@@ -1200,6 +1202,17 @@ namespace MMR.UI.Forms
             this.cFastPush.Text = "Increase push speed";
             this.cFastPush.UseVisualStyleBackColor = true;
             this.cFastPush.CheckedChanged += new System.EventHandler(this.cFastPush_CheckedChanged);
+            // 
+            // cCombatMusicDisable
+            // 
+            this.cCombatMusicDisable.AutoSize = true;
+            this.cCombatMusicDisable.Location = new System.Drawing.Point(147, 183);
+            this.cCombatMusicDisable.Name = "cCombatMusicDisable";
+            this.cCombatMusicDisable.Size = new System.Drawing.Size(131, 17);
+            this.cCombatMusicDisable.TabIndex = 37;
+            this.cCombatMusicDisable.Text = "Combat Music Disable";
+            this.cCombatMusicDisable.UseVisualStyleBackColor = true;
+            this.cCombatMusicDisable.CheckedChanged += new System.EventHandler(this.cCombatMusicDisable_CheckedChanged);
             // 
             // cQText
             // 
@@ -1881,7 +1894,7 @@ namespace MMR.UI.Forms
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mLogicEdit});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // mLogicEdit
@@ -2285,6 +2298,7 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.CheckBox cFasterBank;
         private System.Windows.Forms.CheckBox cCloseCows;
         private System.Windows.Forms.Button bToggleTricks;
+        private System.Windows.Forms.CheckBox cCombatMusicDisable;
         private System.Windows.Forms.CheckBox cByoAmmo;
         private System.Windows.Forms.CheckBox cDeathMoonCrash;
         private System.Windows.Forms.CheckBox cElegySpeedups;
