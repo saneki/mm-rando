@@ -107,6 +107,7 @@ namespace MMR.UI.Forms
             this.cMusic = new System.Windows.Forms.ComboBox();
             this.lTunic = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.cElegySpeedups = new System.Windows.Forms.CheckBox();
             this.cCloseCows = new System.Windows.Forms.CheckBox();
             this.cArrowCycling = new System.Windows.Forms.CheckBox();
             this.cFreestanding = new System.Windows.Forms.CheckBox();
@@ -123,6 +124,11 @@ namespace MMR.UI.Forms
             this.cCutsc = new System.Windows.Forms.CheckBox();
             this.cNoDowngrades = new System.Windows.Forms.CheckBox();
             this.tabGimmicks = new System.Windows.Forms.TabPage();
+            this.cContinuousDekuHopping = new System.Windows.Forms.CheckBox();
+            this.lIceTraps = new System.Windows.Forms.Label();
+            this.cIceTrapsAppearance = new System.Windows.Forms.ComboBox();
+            this.cIceTraps = new System.Windows.Forms.ComboBox();
+            this.cDeathMoonCrash = new System.Windows.Forms.CheckBox();
             this.cByoAmmo = new System.Windows.Forms.CheckBox();
             this.cFDAnywhere = new System.Windows.Forms.CheckBox();
             this.cUnderwaterOcarina = new System.Windows.Forms.CheckBox();
@@ -180,7 +186,8 @@ namespace MMR.UI.Forms
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
-            this.cDeathMoonCrash = new System.Windows.Forms.CheckBox();
+            this.cProgressiveUpgrades = new System.Windows.Forms.CheckBox();
+            this.cIceTrapQuirks = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -435,13 +442,14 @@ namespace MMR.UI.Forms
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.cProgressiveUpgrades);
             this.groupBox3.Controls.Add(this.cNoStartingItems);
             this.groupBox3.Controls.Add(this.cDEnt);
             this.groupBox3.Controls.Add(this.cEnemy);
             this.groupBox3.Controls.Add(this.cMixSongs);
             this.groupBox3.Location = new System.Drawing.Point(337, 212);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(322, 71);
+            this.groupBox3.Size = new System.Drawing.Size(322, 93);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Other Customizations";
@@ -1104,6 +1112,7 @@ namespace MMR.UI.Forms
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.cElegySpeedups);
             this.groupBox7.Controls.Add(this.cCloseCows);
             this.groupBox7.Controls.Add(this.cArrowCycling);
             this.groupBox7.Controls.Add(this.cFreestanding);
@@ -1125,6 +1134,17 @@ namespace MMR.UI.Forms
             this.groupBox7.TabIndex = 34;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Comfort Options";
+            // 
+            // cElegySpeedups
+            // 
+            this.cElegySpeedups.AutoSize = true;
+            this.cElegySpeedups.Location = new System.Drawing.Point(147, 183);
+            this.cElegySpeedups.Name = "cElegySpeedups";
+            this.cElegySpeedups.Size = new System.Drawing.Size(101, 17);
+            this.cElegySpeedups.TabIndex = 37;
+            this.cElegySpeedups.Text = "Elegy speedups";
+            this.cElegySpeedups.UseVisualStyleBackColor = true;
+            this.cElegySpeedups.CheckedChanged += new System.EventHandler(this.cElegySpeedups_CheckedChanged);
             // 
             // cCloseCows
             // 
@@ -1317,6 +1337,11 @@ namespace MMR.UI.Forms
             // 
             // tabGimmicks
             // 
+            this.tabGimmicks.Controls.Add(this.cContinuousDekuHopping);
+            this.tabGimmicks.Controls.Add(this.cIceTrapQuirks);
+            this.tabGimmicks.Controls.Add(this.lIceTraps);
+            this.tabGimmicks.Controls.Add(this.cIceTrapsAppearance);
+            this.tabGimmicks.Controls.Add(this.cIceTraps);
             this.tabGimmicks.Controls.Add(this.cDeathMoonCrash);
             this.tabGimmicks.Controls.Add(this.cByoAmmo);
             this.tabGimmicks.Controls.Add(this.cFDAnywhere);
@@ -1343,6 +1368,73 @@ namespace MMR.UI.Forms
             this.tabGimmicks.TabIndex = 3;
             this.tabGimmicks.Text = "Gimmicks";
             this.tabGimmicks.UseVisualStyleBackColor = true;
+            // 
+            // cContinuousDekuHopping
+            // 
+            this.cContinuousDekuHopping.AutoSize = true;
+            this.cContinuousDekuHopping.BackColor = System.Drawing.Color.Transparent;
+            this.cContinuousDekuHopping.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cContinuousDekuHopping.ForeColor = System.Drawing.Color.Black;
+            this.cContinuousDekuHopping.Location = new System.Drawing.Point(393, 230);
+            this.cContinuousDekuHopping.Name = "cContinuousDekuHopping";
+            this.cContinuousDekuHopping.Size = new System.Drawing.Size(151, 17);
+            this.cContinuousDekuHopping.TabIndex = 26;
+            this.cContinuousDekuHopping.Text = "Continuous Deku Hopping";
+            this.cContinuousDekuHopping.UseVisualStyleBackColor = false;
+            this.cContinuousDekuHopping.CheckedChanged += new System.EventHandler(this.cContinuousDekuHopping_CheckedChanged);
+            // 
+            // lIceTraps
+            // 
+            this.lIceTraps.AutoSize = true;
+            this.lIceTraps.Location = new System.Drawing.Point(157, 256);
+            this.lIceTraps.Name = "lIceTraps";
+            this.lIceTraps.Size = new System.Drawing.Size(55, 13);
+            this.lIceTraps.TabIndex = 28;
+            this.lIceTraps.Text = "Ice Traps:";
+            // 
+            // cIceTrapsAppearance
+            // 
+            this.cIceTrapsAppearance.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cIceTrapsAppearance.FormattingEnabled = true;
+            this.cIceTrapsAppearance.Items.AddRange(new object[] {
+            "Major Items",
+            "Junk Items",
+            "Anything"});
+            this.cIceTrapsAppearance.Location = new System.Drawing.Point(300, 253);
+            this.cIceTrapsAppearance.Name = "cIceTrapsAppearance";
+            this.cIceTrapsAppearance.Size = new System.Drawing.Size(76, 21);
+            this.cIceTrapsAppearance.TabIndex = 27;
+            this.cIceTrapsAppearance.SelectedIndexChanged += new System.EventHandler(this.cIceTrapsAppearance_SelectedIndexChanged);
+            // 
+            // cIceTraps
+            // 
+            this.cIceTraps.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cIceTraps.FormattingEnabled = true;
+            this.cIceTraps.Items.AddRange(new object[] {
+            "None",
+            "Normal",
+            "Extra",
+            "Mayhem",
+            "Onslaught"});
+            this.cIceTraps.Location = new System.Drawing.Point(218, 253);
+            this.cIceTraps.Name = "cIceTraps";
+            this.cIceTraps.Size = new System.Drawing.Size(76, 21);
+            this.cIceTraps.TabIndex = 26;
+            this.cIceTraps.SelectedIndexChanged += new System.EventHandler(this.cIceTraps_SelectedIndexChanged);
+            // 
+            // cDeathMoonCrash
+            // 
+            this.cDeathMoonCrash.AutoSize = true;
+            this.cDeathMoonCrash.BackColor = System.Drawing.Color.Transparent;
+            this.cDeathMoonCrash.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cDeathMoonCrash.ForeColor = System.Drawing.Color.Black;
+            this.cDeathMoonCrash.Location = new System.Drawing.Point(393, 207);
+            this.cDeathMoonCrash.Name = "cDeathMoonCrash";
+            this.cDeathMoonCrash.Size = new System.Drawing.Size(125, 17);
+            this.cDeathMoonCrash.TabIndex = 25;
+            this.cDeathMoonCrash.Text = "Death is Moon Crash";
+            this.cDeathMoonCrash.UseVisualStyleBackColor = false;
+            this.cDeathMoonCrash.CheckedChanged += new System.EventHandler(this.cDeathMoonCrash_CheckedChanged);
             // 
             // cByoAmmo
             // 
@@ -1951,19 +2043,33 @@ namespace MMR.UI.Forms
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
             // 
-            // cDeathMoonCrash
+            // cProgressiveUpgrades
             // 
-            this.cDeathMoonCrash.AutoSize = true;
-            this.cDeathMoonCrash.BackColor = System.Drawing.Color.Transparent;
-            this.cDeathMoonCrash.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cDeathMoonCrash.ForeColor = System.Drawing.Color.Black;
-            this.cDeathMoonCrash.Location = new System.Drawing.Point(393, 207);
-            this.cDeathMoonCrash.Name = "cDeathMoonCrash";
-            this.cDeathMoonCrash.Size = new System.Drawing.Size(125, 17);
-            this.cDeathMoonCrash.TabIndex = 25;
-            this.cDeathMoonCrash.Text = "Death is Moon Crash";
-            this.cDeathMoonCrash.UseVisualStyleBackColor = false;
-            this.cDeathMoonCrash.CheckedChanged += new System.EventHandler(this.cDeathMoonCrash_CheckedChanged);
+            this.cProgressiveUpgrades.AutoSize = true;
+            this.cProgressiveUpgrades.BackColor = System.Drawing.Color.Transparent;
+            this.cProgressiveUpgrades.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cProgressiveUpgrades.ForeColor = System.Drawing.Color.Black;
+            this.cProgressiveUpgrades.Location = new System.Drawing.Point(9, 65);
+            this.cProgressiveUpgrades.Name = "cProgressiveUpgrades";
+            this.cProgressiveUpgrades.Size = new System.Drawing.Size(130, 17);
+            this.cProgressiveUpgrades.TabIndex = 21;
+            this.cProgressiveUpgrades.Text = "Progressive Upgrades";
+            this.cProgressiveUpgrades.UseVisualStyleBackColor = false;
+            this.cProgressiveUpgrades.CheckedChanged += new System.EventHandler(this.cProgressiveUpgrades_CheckedChanged);
+            // 
+            // cIceTrapQuirks
+            // 
+            this.cIceTrapQuirks.AutoSize = true;
+            this.cIceTrapQuirks.BackColor = System.Drawing.Color.Transparent;
+            this.cIceTrapQuirks.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cIceTrapQuirks.ForeColor = System.Drawing.Color.Black;
+            this.cIceTrapQuirks.Location = new System.Drawing.Point(393, 255);
+            this.cIceTrapQuirks.Name = "cIceTrapQuirks";
+            this.cIceTrapQuirks.Size = new System.Drawing.Size(92, 17);
+            this.cIceTrapQuirks.TabIndex = 29;
+            this.cIceTrapQuirks.Text = "Enable Quirks";
+            this.cIceTrapQuirks.UseVisualStyleBackColor = false;
+            this.cIceTrapQuirks.CheckedChanged += new System.EventHandler(this.cIceTrapQuirks_CheckedChanged);
             // 
             // MainForm
             // 
@@ -2181,6 +2287,13 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.Button bToggleTricks;
         private System.Windows.Forms.CheckBox cByoAmmo;
         private System.Windows.Forms.CheckBox cDeathMoonCrash;
+        private System.Windows.Forms.CheckBox cElegySpeedups;
+        private System.Windows.Forms.CheckBox cContinuousDekuHopping;
+        private System.Windows.Forms.CheckBox cProgressiveUpgrades;
+        private System.Windows.Forms.Label lIceTraps;
+        private System.Windows.Forms.ComboBox cIceTrapsAppearance;
+        private System.Windows.Forms.ComboBox cIceTraps;
+        private System.Windows.Forms.CheckBox cIceTrapQuirks;
     }
 }
 

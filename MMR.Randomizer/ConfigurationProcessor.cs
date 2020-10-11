@@ -11,11 +11,6 @@ namespace MMR.Randomizer
     {
         public static string Process(Configuration configuration, int seed, IProgressReporter progressReporter)
         {
-            if (!Directory.Exists(Path.Combine(Values.MainDirectory, "Resources")))
-            {
-                return $"Please extract the entire randomizer archive, including the Resources/ folder and subfolders";
-            }
-
             var randomizer = new Randomizer(configuration.GameplaySettings, seed);
             RandomizedResult randomized = null;
             if (string.IsNullOrWhiteSpace(configuration.OutputSettings.InputPatchFilename))
@@ -53,6 +48,19 @@ namespace MMR.Randomizer
                 try
                 {
                     builder.MakeROM(configuration.OutputSettings, progressReporter);
+                }
+                catch (ROMOverflowException ex)
+                {
+                    var nl          = Environment.NewLine;
+                    var splitStr    = ex.Message.Split(',');
+                    var size        = splitStr[0];
+                    var platform    = splitStr.Length > 1 ? ex.Message.Split(',')[1] : "anything";
+
+                    return $"Error: Rom has expanded past {size},{nl}" +
+                            $"and cannot be played on {platform}.{nl}" +
+                            $"This is most likely caused by sound sample injection for music.{nl}" +
+                            $"Please try another seed, for a different music roll{nl}" +
+                            "or consider reducing how much custom sample music is used.";
                 }
                 catch (PatchMagicException)
                 {

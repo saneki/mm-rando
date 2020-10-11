@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using MMR.Randomizer.Extensions;
 using MMR.Randomizer.GameObjects;
+using MMR.Randomizer.Utils;
 
 namespace MMR.Randomizer.Models
 {
@@ -19,5 +21,17 @@ namespace MMR.Randomizer.Models
         public string TrickTooltip { get; set; }
 
         public bool IsRandomized { get; set; }
+
+        /// <summary>
+        /// Name override used in spoiler log.
+        /// </summary>
+        public string NameOverride { get; set; }
+
+        /// <summary>
+        /// Item which is being mimiced, used by ice traps.
+        /// </summary>
+        public MimicItem Mimic { get; set; }
+
+        public Item DisplayItem => Mimic?.Item ?? Item;
     }
 }
