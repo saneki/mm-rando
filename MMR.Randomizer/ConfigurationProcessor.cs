@@ -49,7 +49,7 @@ namespace MMR.Randomizer
                 {
                     builder.MakeROM(configuration.OutputSettings, progressReporter);
                 }
-                catch (ROMOverflow ex)
+                catch (ROMOverflowException ex)
                 {
                     var nl          = Environment.NewLine;
                     var splitStr    = ex.Message.Split(',');

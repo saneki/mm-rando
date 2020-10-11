@@ -1838,7 +1838,7 @@ namespace MMR.Randomizer
                 {
                     if (ROM.Length > 0x4000000) // over 64mb
                     {
-                        throw new ROMOverflow("64 MB,hardware (Everdrive)");
+                        throw new ROMOverflowException("64 MB,hardware (Everdrive)");
                     }
                     progressReporter.ReportProgress(85, "Writing ROM...");
                     RomUtils.WriteROM(outputSettings.OutputROMFilename, ROM);
@@ -1848,7 +1848,7 @@ namespace MMR.Randomizer
                 {
                     if (ROM.Length > 0x2000000) // over 32mb
                     {
-                        throw new ROMOverflow("32 MB,WiiVC");
+                        throw new ROMOverflowException("32 MB,WiiVC");
                     }
                     progressReporter.ReportProgress(90, "Writing VC...");
                     VCInjectionUtils.BuildVC(ROM, _cosmeticSettings.AsmOptions.DPadConfig, Values.VCDirectory, Path.ChangeExtension(outputSettings.OutputROMFilename, "wad"));
