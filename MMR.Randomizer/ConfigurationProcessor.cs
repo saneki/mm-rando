@@ -51,16 +51,7 @@ namespace MMR.Randomizer
                 }
                 catch (ROMOverflowException ex)
                 {
-                    var nl          = Environment.NewLine;
-                    var splitStr    = ex.Message.Split(',');
-                    var size        = splitStr[0];
-                    var platform    = splitStr.Length > 1 ? ex.Message.Split(',')[1] : "anything";
-
-                    return $"Error: Rom has expanded past {size},{nl}" +
-                            $"and cannot be played on {platform}.{nl}" +
-                            $"This is most likely caused by sound sample injection for music.{nl}" +
-                            $"Please try another seed, for a different music roll{nl}" +
-                            "or consider reducing how much custom sample music is used.";
+                    return $"Error: {ex.Message}";
                 }
                 catch (PatchMagicException)
                 {
