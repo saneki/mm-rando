@@ -1,5 +1,4 @@
 ﻿using MMR.Randomizer.Constants;
-using MMR.Randomizer.Models;
 using MMR.Randomizer.Models.Rom;
 using System;
 using System.Collections.Generic;
@@ -59,7 +58,9 @@ namespace MMR.Randomizer.Utils
                     string sourceName = lines[i];
                     List<int> sourceType = new List<int>();
                     foreach (String part in lines[i + 1].Split(','))
+                    {
                         sourceType.Add(Convert.ToInt32(part, 16));
+                    }
 
                     int sourceInstrument = Convert.ToInt32(lines[i + 2], 16);
 
@@ -81,18 +82,21 @@ namespace MMR.Randomizer.Utils
                         Instrument = targetInstrument
                     };
 
-                    if ( sourceSequence.Name.StartsWith("mm-") )
+                    if (sourceSequence.Name.StartsWith("mm-"))
                     {
                         targetSequence.Replaces = Convert.ToInt32(lines[i + 3], 16);
                         sourceSequence.MM_seq = Convert.ToInt32(lines[i + 3], 16);
-                        if (lines[i+4] == "no-recycle"){
+                        if (lines[i + 4] == "no-recycle")
+                        {
                             //Debug.WriteLine("Player does not want to reuse song: " + sourceSequence.Name);
                             sourceSequence.Name = "drop";
                             i += 1;
                         }
                         i += 4;
                         if (RomData.TargetSequences.Find(u => u.Name == sourceName) != null)
+                        {
                             continue; //old already have it
+                        }
                         RomData.TargetSequences.Add(targetSequence);
                     }
                     else
@@ -151,14 +155,16 @@ namespace MMR.Randomizer.Utils
                     int sourceInstrument = Convert.ToInt32(pieces[1], 16);
                     List<int> sourceType = new List<int>();
                     foreach (String part in sourceTypeString.Split('-'))
+                    {
                         sourceType.Add(Convert.ToInt32(part, 16));
+                    }
 
                     SequenceInfo sourceSequence = new SequenceInfo
                     {
-                        Name                = filename,
-                        Directory           = directory,
-                        Type                = sourceType,
-                        Instrument          = sourceInstrument
+                        Name = filename,
+                        Directory = directory,
+                        Type = sourceType,
+                        Instrument = sourceInstrument
                     };
 
                     RomData.SequenceList.Add(sourceSequence);
@@ -183,11 +189,12 @@ namespace MMR.Randomizer.Utils
 
             foreach (string filePath in Directory.GetFiles(directory, "*.mmrs"))
             {
-                try{
+                try
+                {
                     using (ZipArchive zip = ZipFile.OpenRead(filePath))
                     {
                         var currentSong = new SequenceInfo(); ;
-                        var splitFilePath   = filePath.Split('\\');
+                        var splitFilePath = filePath.Split('\\');
                         currentSong.Name = splitFilePath[splitFilePath.Length - 1];
 
                         //read categories file
@@ -198,11 +205,17 @@ namespace MMR.Randomizer.Utils
                             var categoryData = new StreamReader(categoriesFileEntry.Open(), Encoding.Default).ReadToEnd();
                             var delimitingChar = ',';
                             if (categoryData.Contains("-")) // someone will mess this up, its an easy thing to check for here tho
+                            {
                                 delimitingChar = '-';
+                            }
                             else if (categoryData.Contains("\n"))
+                            {
                                 delimitingChar = '\n';
+                            }
                             foreach (var line in categoryData.Split(delimitingChar))
+                            {
                                 categoriesList.Add(Convert.ToInt32(line, 16));
+                            }
                             currentSong.Type = categoriesList;
                         }
                         else  // there should always be one, if not, print error and skip
@@ -213,69 +226,69 @@ namespace MMR.Randomizer.Utils
 
                         // read list of sound samples
                         var samplesList = new List<SequenceSoundSampleBinaryData>();
-                        foreach (ZipArchiveEntry zipItem in zip.Entries) {
-                            if (zipItem.Name.Contains("zsound"))
-                            {
-                                var sampleData = new byte[zipItem.Length];
-                                zipItem.Open().Read(sampleData, 0, sampleData.Length);
-                                var sampleNameSplit = zipItem.Name.Split('_'); // everything before _ is a comment, readability, discard here
-                                var sampleName = sampleNameSplit.Length > 1 ? sampleNameSplit[sampleNameSplit.Length - 1] : zipItem.Name;
-                                sampleName = sampleName.Split('.')[0];         // we don't need the filetype after here either at this point
-                                uint sampleNameMarker = Convert.ToUInt32(sampleName, 16);
-                                samplesList.Add( 
-                                    new SequenceSoundSampleBinaryData()
-                                    {
-                                        BinaryData  = sampleData,
-                                        Addr        = sampleNameMarker,
-                                        Marker      = sampleNameMarker,
-                                        Hash        = BitConverter.ToInt64(md5lib.ComputeHash(sampleData), 0)
-                                    }
-                                );
-                            }
+                        foreach (ZipArchiveEntry zSoundFile in zip.Entries.Where(e => e.Name.Contains("zsound")))
+                        {
+                            var sampleData = new byte[zSoundFile.Length];
+                            zSoundFile.Open().Read(sampleData, 0, sampleData.Length);
+                            var sampleNameSplit = zSoundFile.Name.Split('_'); // everything before _ is a comment, readability, discard here
+                            var sampleName = sampleNameSplit.Length > 1 ? sampleNameSplit[sampleNameSplit.Length - 1] : zSoundFile.Name;
+                            sampleName = sampleName.Split('.')[0];        // we don't need the filetype after here either at this point
+                            uint sampleNameMarker = Convert.ToUInt32(sampleName, 16);
+                            samplesList.Add(
+                                new SequenceSoundSampleBinaryData()
+                                {
+                                    BinaryData = sampleData,
+                                    Addr = sampleNameMarker,
+                                    Marker = sampleNameMarker,
+                                    Hash = BitConverter.ToInt64(md5lib.ComputeHash(sampleData), 0)
+                                }
+                            );
                         }
                         currentSong.InstrumentSamples = samplesList;
 
                         // per sequence, read sequence and banks if needed
-                        foreach (ZipArchiveEntry zipItem in zip.Entries) {
-                            if (zipItem.Name.Contains("zseq"))
+                        foreach (ZipArchiveEntry zSeqFile in zip.Entries.Where(e => e.Name.Contains("zseq")))
+                        {
+                            // read sequence binary file
+                            var zSeqData = new byte[zSeqFile.Length];
+                            zSeqFile.Open().Read(zSeqData, 0, zSeqData.Length);
+                            var zSeq = new SequenceBinaryData() { SequenceBinary = zSeqData };
+
+                            // zseq filename is the instrument set
+                            var fileNameInstrumentSet = zSeqFile.Name.Substring(0, zSeqFile.Name.LastIndexOf(".zseq"));
+                            currentSong.Instrument = Convert.ToInt32(fileNameInstrumentSet, 16);
+
+                            var bankFileEntry = zip.GetEntry(zSeqFile.Name.Substring(0, zSeqFile.Name.LastIndexOf(".zseq")) + ".zbank");
+                            if (bankFileEntry != null) // custom bank detected
                             {
-                                // read sequence binary file
-                                var zSeqData = new byte[zipItem.Length];
-                                zipItem.Open().Read(zSeqData, 0, zSeqData.Length);
-                                var zSeq = new SequenceBinaryData(){SequenceBinary = zSeqData};
+                                // read bank file
+                                byte[] zBankData = new byte[bankFileEntry.Length];
+                                bankFileEntry.Open().Read(zBankData, 0, zBankData.Length);
 
-                                // zseq filename is the instrument set
-                                var fileNameInstrumentSet = zipItem.Name.Substring(0, zipItem.Name.LastIndexOf(".zseq"));
-                                currentSong.Instrument = Convert.ToInt32(fileNameInstrumentSet, 16);
+                                // read bankmeta file
+                                var bankmetaFileEntry = zip.GetEntry(fileNameInstrumentSet + ".bankmeta");
+                                var bankmetaData = new byte[bankmetaFileEntry.Length];
+                                bankmetaFileEntry.Open().Read(bankmetaData, 0, bankmetaData.Length);
 
-                                var bankFileEntry = zip.GetEntry(zipItem.Name.Substring(0, zipItem.Name.LastIndexOf(".zseq")) + ".zbank");
-                                if (bankFileEntry != null) // custom bank detected
+                                zSeq.InstrumentSet = new InstrumentSetInfo()
                                 {
-                                    // read bank file
-                                    byte[] zBankData = new byte[bankFileEntry.Length];
-                                    bankFileEntry.Open().Read(zBankData, 0, zBankData.Length);
+                                    BankBinary = zBankData,
+                                    BankSlot = currentSong.Instrument,
+                                    BankMetaData = bankmetaData,
+                                    Modified = 1,
+                                    Hash = BitConverter.ToInt64(md5lib.ComputeHash(zBankData), 0),
+                                };
+                            }//if requires bank
 
-                                    // read bankmeta file
-                                    var bankmetaFileEntry = zip.GetEntry(fileNameInstrumentSet + ".bankmeta");
-                                    var bankmetaData = new byte[bankmetaFileEntry.Length];
-                                    bankmetaFileEntry.Open().Read(bankmetaData, 0, bankmetaData.Length);
-
-                                    zSeq.InstrumentSet = new InstrumentSetInfo()
-                                    {
-                                        BankBinary = zBankData,
-                                        BankSlot = currentSong.Instrument,
-                                        BankMetaData = bankmetaData,
-                                        Modified = 1,
-                                        Hash = BitConverter.ToInt64(md5lib.ComputeHash(zBankData), 0),
-                                    };
-                                }//if requires bank
-
-                                // multiple seq possible, add depending on if first or not
-                                if (currentSong.SequenceBinaryList == null)
-                                    currentSong.SequenceBinaryList = new List<SequenceBinaryData> {zSeq};
-                                else
-                                    currentSong.SequenceBinaryList.Add(zSeq);
-                            } //is file zseq
+                            // multiple seq possible, add depending on if first or not
+                            if (currentSong.SequenceBinaryList == null)
+                            {
+                                currentSong.SequenceBinaryList = new List<SequenceBinaryData> { zSeq };
+                            }
+                            else
+                            {
+                                currentSong.SequenceBinaryList.Add(zSeq);
+                            }
                         } // foreach zip entry
 
                         if (currentSong != null && currentSong.SequenceBinaryList != null)
@@ -287,7 +300,7 @@ namespace MMR.Randomizer.Utils
                 }// for each zip
                 catch (Exception e) // log it, continue with other songs
                 {
-                    Debug.WriteLine("Error attempting to read archive: " + filePath  + " -- " + e);
+                    Debug.WriteLine("Error attempting to read archive: " + filePath + " -- " + e);
                 }
             }
         }
@@ -329,7 +342,7 @@ namespace MMR.Randomizer.Utils
                 ConvertSequenceSlotToPointer(0x7B, 0x0D); // point maskreveal, the song that plays when the mask shows its alive during moon cutscene, at aliens
             }
 
-            if (RomData.TargetSequences.Count + 30 > RomData.SequenceList.Count )
+            if (RomData.TargetSequences.Count + 30 > RomData.SequenceList.Count)
             {
                 ConvertSequenceSlotToPointer(0x76, 0x15); // point titlescreen at clocktownday1
                 ConvertSequenceSlotToPointer(0x08, 0x09); // point chasefail(skullkid chase) at fail
@@ -344,14 +357,14 @@ namespace MMR.Randomizer.Utils
             //  a pointer to another song, at SubstituteSlotIndex, is used instead.
             // this frees up a song slot but its not completely empty if someone finds it
             //  this is the same concept DB used to nulify the intro song
-            var TargetSeq = RomData.TargetSequences.Find(u => u.Replaces == SeqSlotIndex);
-            var SubstituteSeq = RomData.TargetSequences.Find(u => u.Replaces == SubstituteSlotIndex);
-            if (TargetSeq != null && SubstituteSeq != null)
+            var targetSeq = RomData.TargetSequences.Find(u => u.Replaces == SeqSlotIndex);
+            var substituteSeq = RomData.TargetSequences.Find(u => u.Replaces == SubstituteSlotIndex);
+            if (targetSeq != null && substituteSeq != null)
             {
-                TargetSeq.PreviousSlot = TargetSeq.Replaces; // we'll need at audioseq build
-                TargetSeq.Replaces = SubstituteSeq.Replaces; // point the target at the substitute
-                RomData.PointerizedSequences.Add(TargetSeq); // save the sequence for audioseq
-                RomData.TargetSequences.Remove(TargetSeq);   // close the slot
+                targetSeq.PreviousSlot = targetSeq.Replaces; // we'll need at audioseq build
+                targetSeq.Replaces = substituteSeq.Replaces; // point the target at the substitute
+                RomData.PointerizedSequences.Add(targetSeq); // save the sequence for audioseq
+                RomData.TargetSequences.Remove(targetSeq);   // close the slot
             }
             else
             {
@@ -361,7 +374,7 @@ namespace MMR.Randomizer.Utils
 
 
         // gets passed RomData.SequenceList in Builder.cs::WriteAudioSeq
-        public static void RebuildAudioSeq(List<SequenceInfo> SequenceList, OutputSettings _settings)
+        public static void RebuildAudioSeq(List<SequenceInfo> sequenceList)
         {
             // spoiler log output DEBUG
             StringBuilder log = new StringBuilder();
@@ -371,7 +384,7 @@ namespace MMR.Randomizer.Utils
                 log.AppendLine(str);
             }
 
-            List<MMSequence> OldSeq = new List<MMSequence>();
+            List<MMSequence> oldSeq = new List<MMSequence>();
             int f = RomUtils.GetFileIndexForWriting(Addresses.SeqTable);
             int basea = RomData.MMFileList[f].Addr;
 
@@ -381,7 +394,7 @@ namespace MMR.Randomizer.Utils
                 if (i == 0x1E) // intro music when link gets ambushed
                 {
                     entry.Addr = 2;
-                    OldSeq.Add(entry);
+                    oldSeq.Add(entry);
                     continue;
                 }
 
@@ -395,47 +408,47 @@ namespace MMR.Randomizer.Utils
                 }
                 else
                 {
-                    int j = SequenceList.FindIndex(u => u.Replaces == i);
+                    int j = sequenceList.FindIndex(u => u.Replaces == i);
                     if (j != -1)
                     {
                         if ((entry.Addr > 0) && (entry.Addr < 128))
                         {
-                            if (SequenceList[j].Replaces != 0x28) // 28 (fairy fountain)
+                            if (sequenceList[j].Replaces != 0x28) // 28 (fairy fountain)
                             {
-                                SequenceList[j].Replaces = entry.Addr;
+                                sequenceList[j].Replaces = entry.Addr;
                             }
                             else
                             {
-                                entry.Data = OldSeq[0x18].Data;
+                                entry.Data = oldSeq[0x18].Data;
                             }
                         }
                     }
                 }
-                OldSeq.Add(entry);
+                oldSeq.Add(entry);
             }
 
-            List<MMSequence> NewSeq = new List<MMSequence>();
+            List<MMSequence> newSeq = new List<MMSequence>();
             int addr = 0;
-            byte[] NewAudioSeq = new byte[0];
+            byte[] newAudioSeq = new byte[0];
             for (int i = 0; i < 128; i++)
             {
                 MMSequence newentry = new MMSequence();
-                if (OldSeq[i].Size == 0)
+                if (oldSeq[i].Size == 0)
                 {
-                    newentry.Addr = OldSeq[i].Addr;
+                    newentry.Addr = oldSeq[i].Addr;
                 }
                 else
                 {
                     newentry.Addr = addr;
                 }
 
-                if (SequenceList.FindAll(u => u.Replaces == i).Count > 1)
+                if (sequenceList.FindAll(u => u.Replaces == i).Count > 1)
                 {
                     WriteOutput("Error: Slot " + i.ToString("X") + " has multiple songs pointing at it!");
                 }
 
                 int p = RomData.PointerizedSequences.FindIndex(u => u.PreviousSlot == i);
-                int j = SequenceList.FindIndex(u => u.Replaces == i);
+                int j = sequenceList.FindIndex(u => u.Replaces == i);
                 if (p != -1)
                 {
                     // found song we want to pointerize
@@ -444,40 +457,40 @@ namespace MMR.Randomizer.Utils
                 else if (j != -1)
                 {
                     // new song to replace old slot found
-                    if (SequenceList[j].MM_seq != -1)
+                    if (sequenceList[j].MM_seq != -1)
                     {
-                        newentry.Data = OldSeq[SequenceList[j].MM_seq].Data;
-                        WriteOutput("Slot " + i.ToString("X2") + " -> " + SequenceList[j].Name);
+                        newentry.Data = oldSeq[sequenceList[j].MM_seq].Data;
+                        WriteOutput("Slot " + i.ToString("X2") + " -> " + sequenceList[j].Name);
 
                     }
-                    else if (SequenceList[j].SequenceBinaryList != null && SequenceList[j].SequenceBinaryList.Count > 0)
+                    else if (sequenceList[j].SequenceBinaryList != null && sequenceList[j].SequenceBinaryList.Count > 0)
                     {
-                        if (SequenceList[j].SequenceBinaryList.Count > 1)
+                        if (sequenceList[j].SequenceBinaryList.Count > 1)
                         {
                             WriteOutput("Warning: writing song with multiple sequence/bank combos, selecting first available");
                         }
-                        newentry.Data = SequenceList[j].SequenceBinaryList[0].SequenceBinary;
-                        WriteOutput("Slot " + i.ToString("X2") + " := " + SequenceList[j].Name + " *");
+                        newentry.Data = sequenceList[j].SequenceBinaryList[0].SequenceBinary;
+                        WriteOutput("Slot " + i.ToString("X2") + " := " + sequenceList[j].Name + " *");
 
                     }
                     else // non mm, load file and add
                     {
                         byte[] data;
-                        if (File.Exists(SequenceList[j].Filename))
+                        if (File.Exists(sequenceList[j].Filename))
                         {
-                            using (var reader = new BinaryReader(File.OpenRead(SequenceList[j].Filename)))
+                            using (var reader = new BinaryReader(File.OpenRead(sequenceList[j].Filename)))
                             {
                                 data = new byte[(int)reader.BaseStream.Length];
                                 reader.Read(data, 0, data.Length);
                             }
                         }
-                        else if (SequenceList[j].Name == nameof(Properties.Resources.mmr_f_sot))
+                        else if (sequenceList[j].Name == nameof(Properties.Resources.mmr_f_sot))
                         {
                             data = Properties.Resources.mmr_f_sot;
                         }
                         else
                         {
-                            throw new Exception("Music not found as file or built-in resource." + SequenceList[j].Filename);
+                            throw new Exception("Music not found as file or built-in resource." + sequenceList[j].Filename);
                         }
 
                         // I think this checks if the sequence type is correct for MM
@@ -488,28 +501,28 @@ namespace MMR.Randomizer.Utils
                         }
 
                         newentry.Data = data;
-                        WriteOutput("Slot " + i.ToString("X2") + " := " + SequenceList[j].Name);
+                        WriteOutput("Slot " + i.ToString("X2") + " := " + sequenceList[j].Name);
 
                     }
                 }
                 else // not found, song wasn't touched by rando, just transfer over
                 {
-                    newentry.Data = OldSeq[i].Data;
+                    newentry.Data = oldSeq[i].Data;
                 }
 
                 // if the sequence is not padded to 16 bytes, the DMA fails
                 //  music can stop from playing and on hardware it will just straight crash
-                var Padding = 0x10 - newentry.Size % 0x10;
-                if (Padding != 0x10)
+                var padding = 0x10 - newentry.Size % 0x10;
+                if (padding != 0x10)
                 {
-                    newentry.Data = newentry.Data.Concat(new byte[Padding]).ToArray();
+                    newentry.Data = newentry.Data.Concat(new byte[padding]).ToArray();
                 }
 
-                NewSeq.Add(newentry);
+                newSeq.Add(newentry);
                 // TODO is there not a better way to write this?
                 if (newentry.Data != null)
                 {
-                    NewAudioSeq = NewAudioSeq.Concat(newentry.Data).ToArray();
+                    newAudioSeq = newAudioSeq.Concat(newentry.Data).ToArray();
                 }
 
                 addr += newentry.Size;
@@ -519,9 +532,9 @@ namespace MMR.Randomizer.Utils
             // audio quality is garbage, sounds like static
             //if (addr > (RomData.MMFileList[4].End - RomData.MMFileList[4].Addr))
             //else
-                //RomData.MMFileList[4].Data = NewAudioSeq;
+            //RomData.MMFileList[4].Data = NewAudioSeq;
 
-            int index = RomUtils.AppendFile(NewAudioSeq);
+            int index = RomUtils.AppendFile(newAudioSeq);
             ResourceUtils.ApplyHack(Resources.mods.reloc_audio);
             RelocateSeq(index);
             RomData.MMFileList[4].Data = new byte[0];
@@ -532,8 +545,8 @@ namespace MMR.Randomizer.Utils
             f = RomUtils.GetFileIndexForWriting(Addresses.SeqTable);
             for (int i = 0; i < 128; i++)
             {
-                ReadWriteUtils.Arr_WriteU32(RomData.MMFileList[f].Data, (Addresses.SeqTable + (i * 16)) - basea, (uint)NewSeq[i].Addr);
-                ReadWriteUtils.Arr_WriteU32(RomData.MMFileList[f].Data, 4 + (Addresses.SeqTable + (i * 16)) - basea, (uint)NewSeq[i].Size);
+                ReadWriteUtils.Arr_WriteU32(RomData.MMFileList[f].Data, (Addresses.SeqTable + (i * 16)) - basea, (uint)newSeq[i].Addr);
+                ReadWriteUtils.Arr_WriteU32(RomData.MMFileList[f].Data, 4 + (Addresses.SeqTable + (i * 16)) - basea, (uint)newSeq[i].Size);
             }
 
             //update inst sets used by each new seq
@@ -547,18 +560,18 @@ namespace MMR.Randomizer.Utils
                 int paddr = (Addresses.InstSetMap - basea) + (i * 2) + 2;
 
                 int j = -1;
-                if (NewSeq[i].Size == 0) // pointer, we need to copy the instrumnet set from the destination
+                if (newSeq[i].Size == 0) // pointer, we need to copy the instrumnet set from the destination
                 {
-                    j = SequenceList.FindIndex(u => u.Replaces == NewSeq[i].Addr);
+                    j = sequenceList.FindIndex(u => u.Replaces == newSeq[i].Addr);
                 }
                 else
                 {
-                    j = SequenceList.FindIndex(u => u.Replaces == i);
+                    j = sequenceList.FindIndex(u => u.Replaces == i);
                 }
 
                 if (j != -1)
                 {
-                    RomData.MMFileList[f].Data[paddr] = (byte)SequenceList[j].Instrument;
+                    RomData.MMFileList[f].Data[paddr] = (byte)sequenceList[j].Instrument;
                 }
 
             }
@@ -597,7 +610,7 @@ namespace MMR.Randomizer.Utils
         {
             var fileTable = 0xF8B0;
             var offset = (fileTable + (f * 0x10) + 8) & 0xFFFF;
-            ReadWriteUtils.WriteToROM(0x00C2739C, new byte[] { 0x3C, 0x08, 0x80, 0x0A, 0x8D, 0x05, (byte) (offset >> 8), (byte)(offset & 0xFF) });
+            ReadWriteUtils.WriteToROM(0x00C2739C, new byte[] { 0x3C, 0x08, 0x80, 0x0A, 0x8D, 0x05, (byte)(offset >> 8), (byte)(offset & 0xFF) });
         }
 
         public static void ReassignSkulltulaHousesMusic(byte replacement_slot = 0x75)
@@ -658,36 +671,40 @@ namespace MMR.Randomizer.Utils
             for (int audiobankIndex = 0; audiobankIndex <= 0x28; ++audiobankIndex)
             {
                 // each bank has one 16 byte sentence of data, first word is address, second is length, last 2 words metadata
-                int audiobankIndexAddr  = Addresses.AudiobankTable + (audiobankIndex * 0x10);
-                int audiobankBankOffset = (ReadWriteUtils.ReadU16(audiobankIndexAddr) << 16)     + ReadWriteUtils.ReadU16(audiobankIndexAddr + 2);
-                int bankLength          = (ReadWriteUtils.ReadU16(audiobankIndexAddr + 4) << 16) + ReadWriteUtils.ReadU16(audiobankIndexAddr + 6);
+                int audiobankIndexAddr = Addresses.AudiobankTable + (audiobankIndex * 0x10);
+                int audiobankBankOffset = (ReadWriteUtils.ReadU16(audiobankIndexAddr) << 16) + ReadWriteUtils.ReadU16(audiobankIndexAddr + 2);
+                int bankLength = (ReadWriteUtils.ReadU16(audiobankIndexAddr + 4) << 16) + ReadWriteUtils.ReadU16(audiobankIndexAddr + 6);
 
                 byte[] bankMetadata = new byte[8];
                 for (int b = 0; b < 8; ++b)
+                {
                     bankMetadata[b] = ReadWriteUtils.Read(audiobankIndexAddr + 8 + b);
+                }
 
                 byte[] bankData = new byte[bankLength];
                 for (int b = 0; b < bankLength; ++b)
+                {
                     bankData[b] = ReadWriteUtils.Read(Addresses.Audiobank + audiobankBankOffset + b);
+                }
 
                 var newInstrumentSet = new InstrumentSetInfo
                 {
-                    BankSlot        = audiobankIndex,
-                    BankMetaData    = bankMetadata,
-                    BankBinary      = bankData
+                    BankSlot = audiobankIndex,
+                    BankMetaData = bankMetadata,
+                    BankBinary = bankData
                 };
 
                 RomData.InstrumentSetList.Add(newInstrumentSet);
             }
         }
 
-        public static void UpdateBankInstrumentPointers( byte[] ROM )
+        public static void UpdateBankInstrumentPointers(byte[] ROM)
         {
             /// the audiobank and new samples are already written to rom, now we need to go back and update all the pointers
             ///   since we cannot know where those samples are on the rom until A) the soundbank is written, and B) the sample file is written
             ///   because the pointer is an offset of the soundbank rom location, and both can shift in BuildRom()
 
-            int soundbankAddr        = RomData.MMFileList[5].Cmp_Addr; // in vanilla it's 0x97f70 but MMR can shift it up because AudioSeq gets re-located
+            int soundbankAddr = RomData.MMFileList[5].Cmp_Addr; // in vanilla it's 0x97f70 but MMR can shift it up because AudioSeq gets re-located
             int audiobankInstSetAddr = RomData.MMFileList[3].Cmp_Addr; // pointer to specific instrument set, starting with 0, updating per loop
             foreach (var instrumentset in RomData.InstrumentSetList)
             {
@@ -697,20 +714,20 @@ namespace MMR.Randomizer.Utils
                     {
                         // for each sample if the bank uses sample, lookup new rom for the sample
                         //   get soundbank offset for said address: address of collection + offset of specific sample in collection, minus soundbank
-                        int    soundbankSampleOffset = RomData.MMFileList[RomData.SamplesFileID].Cmp_Addr 
-                                                      + (int) RomData.ListOfSamples.Find(u => u.Hash == sample.Hash).Addr
+                        int soundbankSampleOffset = RomData.MMFileList[RomData.SamplesFileID].Cmp_Addr
+                                                      + (int)RomData.ListOfSamples.Find(u => u.Hash == sample.Hash).Addr
                                                       - soundbankAddr;
-                        byte[]  sampleOffsetBytes = BitConverter.GetBytes(soundbankSampleOffset);
-                        byte[]  markerBytes       = BitConverter.GetBytes(sample.Marker);
+                        byte[] sampleOffsetBytes = BitConverter.GetBytes(soundbankSampleOffset);
+                        byte[] markerBytes = BitConverter.GetBytes(sample.Marker);
 
                         // find the location in the bank where the Sample Marker is
                         //   per byte, replace with the bytes from SampleOffsetBytes
                         for (int i = 0; i < (instrumentset.BankBinary.Length - 4); i += 1)
                         {
-                            if (   ROM[audiobankInstSetAddr + i + 0] == markerBytes[3]
+                            if (ROM[audiobankInstSetAddr + i + 0] == markerBytes[3]
                                 && ROM[audiobankInstSetAddr + i + 1] == markerBytes[2]
                                 && ROM[audiobankInstSetAddr + i + 2] == markerBytes[1]
-                                && ROM[audiobankInstSetAddr + i + 3] == markerBytes[0] )
+                                && ROM[audiobankInstSetAddr + i + 3] == markerBytes[0])
                             {
                                 ROM[audiobankInstSetAddr + i + 0] = sampleOffsetBytes[3];
                                 ROM[audiobankInstSetAddr + i + 1] = sampleOffsetBytes[2];
@@ -750,13 +767,15 @@ namespace MMR.Randomizer.Utils
                         if (previouslyWrittenSample == null) // if sample not already written once before
                         {
                             // get the rom addr of our new file, our file will start at the end of the last file
-                            sample.Addr = (uint) RomData.MMFileList[fid].Data.Length;
+                            sample.Addr = (uint)RomData.MMFileList[fid].Data.Length;
                             // concat our sample to sample collection file
                             RomData.MMFileList[fid].Data = RomData.MMFileList[fid].Data.Concat(sample.BinaryData).ToArray();
                             // I don't know if samples need to be padded to 0x10 like sequences but might as well
                             int paddingRemainder = RomData.MMFileList[fid].Data.Length % 0x10;
-                            if (paddingRemainder > 0 )
+                            if (paddingRemainder > 0)
+                            {
                                 RomData.MMFileList[fid].Data = RomData.MMFileList[fid].Data.Concat(new byte[paddingRemainder]).ToArray();
+                            }
                             RomData.ListOfSamples.Add(sample);
                         }
                         else // get address of previously used sample
@@ -777,12 +796,13 @@ namespace MMR.Randomizer.Utils
             int audiobankIndexOffset = Addresses.AudiobankTable - RomData.MMFileList[RomUtils.GetFileIndexForWriting(Addresses.AudiobankTable)].Addr;
 
             int audiobankBankOffset = 0;
-            var audiobankData       = new byte[0];
+            var audiobankData = new byte[0];
 
             // for each bank, concat onto the new bank byte object, update the table to match the new instrument sets
-            for (int audiobankIndex = 0; audiobankIndex <= 0x28; ++audiobankIndex){
-                var currentBank         = InstrumentSetList[audiobankIndex];
-                audiobankData           = audiobankData.Concat(currentBank.BankBinary).ToArray();
+            for (int audiobankIndex = 0; audiobankIndex <= 0x28; ++audiobankIndex)
+            {
+                var currentBank = InstrumentSetList[audiobankIndex];
+                audiobankData = audiobankData.Concat(currentBank.BankBinary).ToArray();
 
                 // update address of the bank in the index table
                 RomData.MMFileList[fid].Data[audiobankIndexOffset + (audiobankIndex * 16) + 0] = (byte)((audiobankBankOffset & 0xFF000000) >> 24);
@@ -799,7 +819,9 @@ namespace MMR.Randomizer.Utils
 
                 // update metadata of the bank in the table
                 for (int metadataIter = 0; metadataIter < 8; ++metadataIter)
+                {
                     RomData.MMFileList[fid].Data[audiobankIndexOffset + (audiobankIndex * 16) + 8 + metadataIter] = currentBank.BankMetaData[metadataIter];
+                }
 
                 // adjust the address for the next bank to use
                 audiobankBankOffset += currentBankLength;
