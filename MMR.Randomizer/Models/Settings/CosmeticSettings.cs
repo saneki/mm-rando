@@ -1,6 +1,8 @@
 ﻿using MMR.Randomizer.Asm;
+using MMR.Randomizer.GameObjects;
 using MMR.Randomizer.Models.Colors;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace MMR.Randomizer.Models.Settings
@@ -30,11 +32,6 @@ namespace MMR.Randomizer.Models.Settings
         public bool RandomizeSounds { get; set; }
 
         /// <summary>
-        /// The color of Link's tunic
-        /// </summary>
-        public Color TunicColor { get; set; } = Color.FromArgb(0x1E, 0x69, 0x1B);
-
-        /// <summary>
         /// Replaces Tatl's colors
         /// </summary>
         public TatlColorSchema TatlColorSchema { get; set; }
@@ -55,6 +52,14 @@ namespace MMR.Randomizer.Models.Settings
         public bool EnableNightBGM { get; set; }
 
         public CombatMusic DisableCombatMusic { get; set; }
+
+        public Dictionary<TransformationForm, bool> UseTunicColors { get; set; } = new Dictionary<TransformationForm, bool>();
+
+        public Dictionary<TransformationForm, Color> TunicColors { get; set; } = new Dictionary<TransformationForm, Color>();
+
+        public Dictionary<TransformationForm, FreePlayInstrument> FreePlayInstruments { get; set; } = new Dictionary<TransformationForm, FreePlayInstrument>();
+
+        public Dictionary<TransformationForm, PlaybackInstrument> PlaybackInstruments { get; set; } = new Dictionary<TransformationForm, PlaybackInstrument>();
 
         #region Asm Getters / Setters
 

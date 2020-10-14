@@ -389,30 +389,88 @@ namespace MMR.Randomizer
 
         private void WriteTunicColor()
         {
-            Color t = _cosmeticSettings.TunicColor;
-            byte[] color = { t.R, t.G, t.B };
+            if (_cosmeticSettings.UseTunicColors[TransformationForm.Human])
+            {
+                Color t = _cosmeticSettings.TunicColors[TransformationForm.Human];
+                byte[] color = { t.R, t.G, t.B };
+
+                var playerModel = DeterminePlayerModel();
+                var characterIndex = (int)playerModel;
+                if (playerModel == Character.Kafei)
+                {
+                    var objectData = ObjUtils.GetObjectData(0x11);
+                    TunicUtils.UpdateKafeiTunic(ref objectData, t);
+                    ObjUtils.InsertObj(objectData, 0x11);
+                }
+                else
+                {
+                    var locations = ResourceUtils.GetIndexedAddresses(characterIndex, Resources.addresses.tunic_0, Resources.addresses.tunic_1, Resources.addresses.tunic_2, Resources.addresses.tunic_3);
+                    var objectData = ObjUtils.GetObjectData(0x11);
+                    for (int j = 0; j < locations.Count; j++)
+                    {
+                        ReadWriteUtils.WriteFileAddr(locations[j], color, objectData);
+                    }
+                    ObjUtils.InsertObj(objectData, 0x11);
+                };
+            }
+
+            var tunicForms = new List<TransformationForm>
+            {
+                TransformationForm.Deku,
+                TransformationForm.Goron,
+                TransformationForm.Zora,
+                TransformationForm.Zora,
+                TransformationForm.FierceDeity,
+            };
 
             var otherTunics = ResourceUtils.GetAddresses(Resources.addresses.tunic_forms);
-            TunicUtils.UpdateFormTunics(otherTunics, _cosmeticSettings.TunicColor);
 
-            var playerModel = DeterminePlayerModel();
-            var characterIndex = (int)playerModel;          
-            if (playerModel == Character.Kafei)
+            for (var i = 0; i < tunicForms.Count; i++)
             {
-                var objectData = ObjUtils.GetObjectData(0x11);
-                TunicUtils.UpdateKafeiTunic(ref objectData, t);
-                ObjUtils.InsertObj(objectData, 0x11);
-            }
-            else
-            {
-                var locations = ResourceUtils.GetIndexedAddresses(characterIndex, Resources.addresses.tunic_0, Resources.addresses.tunic_1, Resources.addresses.tunic_2, Resources.addresses.tunic_3);
-                var objectData = ObjUtils.GetObjectData(0x11);
-                for (int j = 0; j < locations.Count; j++)
+                if (_cosmeticSettings.UseTunicColors[tunicForms[i]])
                 {
-                    ReadWriteUtils.WriteFileAddr(locations[j], color, objectData);
+                    var t = _cosmeticSettings.TunicColors[tunicForms[i]];
+                    TunicUtils.UpdateFormTunics(i, otherTunics, t);
                 }
-                ObjUtils.InsertObj(objectData, 0x11);
-            };
+            }
+        }
+
+        private void WriteInstruments(Random random)
+        {
+            var codeFileAddress = 0xB3C000;
+            var playbackInstrumentsOffset = 0x12A8DC; // data for playback instruments
+            var freePlayInstrumentsOffset = 0x12A8E4; // data for free play instruments
+            foreach (var form in Enum.GetValues(typeof(TransformationForm)).Cast<TransformationForm>().Where(form => form != TransformationForm.FierceDeity))
+            {
+                var index = form.Id();
+
+                if (form == TransformationForm.Human)
+                {
+                    // human and FD use the same instrument indices
+                    index = 0;
+                }
+
+                var freePlayInstrument = _cosmeticSettings.FreePlayInstruments[form];
+                var playbackInstrument = _cosmeticSettings.PlaybackInstruments[form];
+
+                if (freePlayInstrument == FreePlayInstrument.Random)
+                {
+                    freePlayInstrument = Enum.GetValues(typeof(FreePlayInstrument)).Cast<FreePlayInstrument>().Skip(1).ToList().Random(random);
+                }
+
+                if (playbackInstrument == PlaybackInstrument.Random)
+                {
+                    playbackInstrument = Enum.GetValues(typeof(PlaybackInstrument)).Cast<PlaybackInstrument>().Skip(2).ToList().Random(random);
+                }
+
+                if (playbackInstrument == PlaybackInstrument.SyncedRandom)
+                {
+                    playbackInstrument = freePlayInstrument.PlaybackInstrumentPair();
+                }
+
+                ReadWriteUtils.WriteToROM(codeFileAddress + freePlayInstrumentsOffset + index, freePlayInstrument.Id());
+                ReadWriteUtils.WriteToROM(codeFileAddress + playbackInstrumentsOffset + index, playbackInstrument.Id());
+            }
         }
 
         private void WriteMiscellaneousChanges()
@@ -2566,6 +2624,7 @@ namespace MMR.Randomizer
             progressReporter.ReportProgress(72, "Writing cosmetics...");
             WriteTatlColour(new Random(BitConverter.ToInt32(hash, 0)));
             WriteTunicColor();
+            WriteInstruments(new Random(BitConverter.ToInt32(hash, 0)));
 
             progressReporter.ReportProgress(73, "Writing music...");
             WriteAudioSeq(new Random(BitConverter.ToInt32(hash, 0)), outputSettings);

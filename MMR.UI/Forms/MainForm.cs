@@ -1,6 +1,7 @@
 ﻿using MMR.Randomizer.Models.Settings;
 using MMR.UI.Forms.Tooltips;
 using MMR.Randomizer;
+using MMR.Common.Extensions;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -14,6 +15,10 @@ using MMR.Randomizer.Utils;
 using MMR.Randomizer.Asm;
 using MMR.Randomizer.Models.Colors;
 using MMR.Common.Utils;
+using MMR.Randomizer.GameObjects;
+using MMR.Randomizer.Extensions;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace MMR.UI.Forms
 {
@@ -51,6 +56,7 @@ namespace MMR.UI.Forms
             InitializeSettings();
             InitializeTooltips();
             InitializeHUDGroupBox();
+            InitializeTransformationFormSettings();
 
             ItemEditor = new ItemEditForm();
             UpdateCustomItemAmountLabel();
@@ -68,8 +74,6 @@ namespace MMR.UI.Forms
 
 
             Text = AssemblyVersion;
-
-            LoadSettings();
         }
 
         private void InitializeTooltips()
@@ -137,7 +141,6 @@ namespace MMR.UI.Forms
             TooltipBuilder.SetTooltip(cDrawHash, "Draw hash icons on the File Select screen.");
             TooltipBuilder.SetTooltip(cQuestItemStorage, "Enable Quest Item Storage, which allows for storing multiple quest items in their dedicated inventory slot. Quest items will also always be consumed when used.");
             TooltipBuilder.SetTooltip(cDisableCritWiggle, "Disable crit wiggle movement modification when 1 heart of health or less.");
-            TooltipBuilder.SetTooltip(bTunic, "Select the color of Link's Tunic.");
             TooltipBuilder.SetTooltip(cLink, "Select a character model to replace Link's default model.");
             TooltipBuilder.SetTooltip(cTatl, "Select a color scheme to replace Tatl's default color scheme.");
             TooltipBuilder.SetTooltip(cGossipHints, "Select a Gossip Stone hint style\n\n - Default: Vanilla Gossip Stone hints.\n - Random: Hints will contain locations of random items.\n - Relevant: Hints will contain locations of items loosely related to the vanilla hint or the area.\n - Competitive: Guaranteed hints about time-consuming checks, 2 hints about locations with important items, 3 hints about locations with no important items.");
@@ -169,6 +172,163 @@ namespace MMR.UI.Forms
             cHUDMagicComboBox.SelectedIndex = 0;
         }
 
+        Regex addSpacesRegex = new Regex("(?<!^)([A-Z])");
+        void InitializeTransformationFormSettings()
+        {
+            foreach (var form in Enum.GetValues(typeof(TransformationForm)).Cast<TransformationForm>())
+            {
+                var tabPage = new TabPage
+                {
+                    Tag = form,
+                    Text = addSpacesRegex.Replace(form.ToString(), " $1"),
+                    UseVisualStyleBackColor = true,
+                };
+                var bTunic = CreateTunicColorButton(form);
+                tabPage.Controls.Add(bTunic);
+                tabPage.Controls.Add(CreateTunicColorCheckBox(form, bTunic));
+                if (form != TransformationForm.FierceDeity)
+                {
+                    tabPage.Controls.Add(new Label
+                    {
+                        Text = "Instrument:",
+                        Location = new Point(26, 33),
+                        Size = new Size(59, 13),
+                    });
+                    tabPage.Controls.Add(new Label
+                    {
+                        Text = "Song Playback:",
+                        Location = new Point(3, 78),
+                        Size = new Size(82, 13),
+                    });
+                    var cPlaybackInstrument = CreatePlaybackInstrumentComboBox(form);
+                    var cFreePlayInstrument = CreateFreePlayInstrumentComboBox(form, cPlaybackInstrument);
+                    tabPage.Controls.Add(cFreePlayInstrument);
+                    tabPage.Controls.Add(cPlaybackInstrument);
+                    tabPage.Controls.Add(CreateInstrumentSyncCheckBox(form, cFreePlayInstrument, cPlaybackInstrument));
+                }
+                tFormCosmetics.TabPages.Add(tabPage);
+            }
+        }
+
+        private CheckBox CreateTunicColorCheckBox(TransformationForm transformationForm, Button bTunic)
+        {
+            var checkBox = new CheckBox
+            {
+                Tag = transformationForm,
+                Name = "cTunic",
+                Text = "Tunic color:",
+                Location = new Point(6, 7),
+                Size = new Size(82, 17),
+            };
+            checkBox.CheckedChanged += create_cTunic_CheckedChanged(bTunic);
+            return checkBox;
+        }
+
+        private Button CreateTunicColorButton(TransformationForm transformationForm)
+        {
+            var button = new Button
+            {
+                Tag = transformationForm,
+                Name = "bTunic",
+                Location = new Point(91, 3),
+                Size = new Size(135, 23),
+                BackColor = Color.FromArgb(0x1E, 0x69, 0x1B),
+                FlatStyle = FlatStyle.Flat,
+            };
+            TooltipBuilder.SetTooltip(button, "Select the color of this form's Tunic.");
+            button.Click += bTunic_Click;
+            return button;
+        }
+
+        private ComboBox CreateFreePlayInstrumentComboBox(TransformationForm transformationForm, ComboBox cPlaybackInstrument)
+        {
+            var data = Enum.GetValues(typeof(FreePlayInstrument)).Cast<FreePlayInstrument>().ToDictionary(x => x, x => addSpacesRegex.Replace(x.ToString(), " $1"));
+            var comboBox = new ComboBox
+            {
+                Tag = transformationForm,
+                Name = "cFreePlayInstrument",
+                Location = new Point(91, 30),
+                Size = new Size(135, 21),
+                DropDownStyle = ComboBoxStyle.DropDownList,
+                DataSource = new BindingSource(data, null),
+                DisplayMember = "Value",
+                ValueMember = "Key",
+            };
+            comboBox.SelectedIndexChanged += create_cFreePlayInstruments_SelectedIndexChanged(cPlaybackInstrument);
+            return comboBox;
+        }
+
+        private EventHandler create_cFreePlayInstruments_SelectedIndexChanged(ComboBox cPlaybackInstrument)
+        {
+            void cFreePlayInstruments_SelectedIndexChanged(object sender, EventArgs e)
+            {
+                var comboBox = (ComboBox)sender;
+                var form = (TransformationForm)comboBox.Tag;
+                var value = (FreePlayInstrument)comboBox.SelectedValue;
+                _configuration.CosmeticSettings.FreePlayInstruments[form] = value;
+                if (!cPlaybackInstrument.Enabled)
+                {
+                    cPlaybackInstrument.SelectedValue = value.PlaybackInstrumentPair();
+                }
+            }
+            return cFreePlayInstruments_SelectedIndexChanged;
+        }
+
+        private CheckBox CreateInstrumentSyncCheckBox(TransformationForm transformationForm, ComboBox cFreePlayInstrument, ComboBox cPlaybackInstrument)
+        {
+            var checkBox = new CheckBox
+            {
+                Tag = transformationForm,
+                Name = "cInstrumentSync",
+                Appearance = Appearance.Button,
+                Location = new Point(135, 51),
+                Size = new Size(41, 23),
+                Text = "Sync",
+            };
+            checkBox.CheckedChanged += create_cInstrumentSync_CheckedChanged(cFreePlayInstrument, cPlaybackInstrument);
+            return checkBox;
+        }
+
+        private EventHandler create_cInstrumentSync_CheckedChanged(ComboBox cFreePlayInstrument, ComboBox cPlaybackInstrument)
+        {
+            void cInstrumentSync_CheckedChanged(object sender, EventArgs e)
+            {
+                var checkBox = (CheckBox)sender;
+                cPlaybackInstrument.Enabled = !checkBox.Checked;
+                if (checkBox.Checked)
+                {
+                    cPlaybackInstrument.SelectedValue = ((FreePlayInstrument)cFreePlayInstrument.SelectedValue).PlaybackInstrumentPair();
+                }
+            }
+            return cInstrumentSync_CheckedChanged;
+        }
+
+        private ComboBox CreatePlaybackInstrumentComboBox(TransformationForm transformationForm)
+        {
+            var data = Enum.GetValues(typeof(PlaybackInstrument)).Cast<PlaybackInstrument>().ToDictionary(x => x, x => addSpacesRegex.Replace(x.ToString(), " $1"));
+            var comboBox = new ComboBox
+            {
+                Tag = transformationForm,
+                Name = "cPlaybackInstrument",
+                Location = new Point(91, 74),
+                Size = new Size(135, 21),
+                DropDownStyle = ComboBoxStyle.DropDownList,
+                DataSource = new BindingSource(data, null),
+                DisplayMember = "Value",
+                ValueMember = "Key",
+            };
+            comboBox.SelectedIndexChanged += cPlayBackInstruments_SelectedIndexChanged;
+            return comboBox;
+        }
+
+        private void cPlayBackInstruments_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var comboBox = (ComboBox)sender;
+            var form = (TransformationForm)comboBox.Tag;
+            var value = (PlaybackInstrument)comboBox.SelectedValue;
+            _configuration.CosmeticSettings.PlaybackInstruments[form] = value;
+        }
+
         #region Forms Code
 
         private void mmrMain_Load(object sender, EventArgs e)
@@ -177,6 +337,8 @@ namespace MMR.UI.Forms
             _isUpdating = true;
 
             InitializeBackgroundWorker();
+
+            LoadSettings();
 
             _isUpdating = false;
         }
@@ -209,15 +371,38 @@ namespace MMR.UI.Forms
             TryRandomize(sender as BackgroundWorker, e);
         }
 
+        private EventHandler create_cTunic_CheckedChanged(Button bTunic)
+        {
+            void cTunic_CheckedChanged(object sender, EventArgs e)
+            {
+                _isUpdating = true;
+
+                var checkBox = (CheckBox)sender;
+                var form = (TransformationForm)checkBox.Tag;
+                _configuration.CosmeticSettings.UseTunicColors[form] = checkBox.Checked;
+                var color = _configuration.CosmeticSettings.TunicColors[form];
+                bTunic.Enabled = checkBox.Checked;
+                bTunic.BackColor = bTunic.Enabled ? color : Color.Transparent;
+
+                _isUpdating = false;
+            };
+            return cTunic_CheckedChanged;
+        }
+
         private void bTunic_Click(object sender, EventArgs e)
         {
-            _isUpdating = true;
+            var result = cTunic.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                _isUpdating = true;
 
-            cTunic.ShowDialog();
-            _configuration.CosmeticSettings.TunicColor = cTunic.Color;
-            bTunic.BackColor = cTunic.Color;
+                var button = (Button)sender;
+                var form = (TransformationForm)button.Tag;
+                _configuration.CosmeticSettings.TunicColors[form] = cTunic.Color;
+                button.BackColor = cTunic.Color;
 
-            _isUpdating = false;
+                _isUpdating = false;
+            }
         }
 
         private void bopen_Click(object sender, EventArgs e)
@@ -360,7 +545,32 @@ namespace MMR.UI.Forms
             cIceTraps.SelectedIndex = (int)_configuration.GameplaySettings.IceTraps;
             cIceTrapsAppearance.SelectedIndex = (int)_configuration.GameplaySettings.IceTrapAppearance;
             cMusic.SelectedIndex = (int)_configuration.CosmeticSettings.Music;
-            bTunic.BackColor = _configuration.CosmeticSettings.TunicColor;
+            foreach (TabPage cosmeticFormTab in tFormCosmetics.TabPages)
+            {
+                var form = (TransformationForm)cosmeticFormTab.Tag;
+
+                var bTunic = cosmeticFormTab.Controls.Find("bTunic", false)[0];
+                bTunic.Enabled = _configuration.CosmeticSettings.UseTunicColors.GetValueOrDefault(form);
+                bTunic.BackColor = bTunic.Enabled ? _configuration.CosmeticSettings.TunicColors.GetValueOrDefault(form) : Color.Transparent;
+
+                var cTunic = (CheckBox)cosmeticFormTab.Controls.Find("cTunic", false)[0];
+                cTunic.Checked = bTunic.Enabled;
+
+                if (form != TransformationForm.FierceDeity)
+                {
+                    var cFreePlayInstrument = (ComboBox)cosmeticFormTab.Controls.Find("cFreePlayInstrument", false)[0];
+                    cFreePlayInstrument.SelectedValue = _configuration.CosmeticSettings.FreePlayInstruments[form];
+
+                    var cPlaybackInstrument = (ComboBox)cosmeticFormTab.Controls.Find("cPlaybackInstrument", false)[0];
+                    cPlaybackInstrument.SelectedValue = _configuration.CosmeticSettings.PlaybackInstruments[form];
+
+                    if (_configuration.CosmeticSettings.FreePlayInstruments[form].PlaybackInstrumentPair() == _configuration.CosmeticSettings.PlaybackInstruments[form])
+                    {
+                        var cInstrumentSync = (CheckBox)cosmeticFormTab.Controls.Find("cInstrumentSync", false)[0];
+                        cInstrumentSync.Checked = true;
+                    }
+                }
+            }
             cTargettingStyle.Checked = _configuration.CosmeticSettings.EnableHoldZTargeting;
             cEnableNightMusic.Checked = _configuration.CosmeticSettings.EnableNightBGM;
 
@@ -1060,7 +1270,8 @@ namespace MMR.UI.Forms
             cProgressiveUpgrades.Enabled = v;
             cEnemy.Enabled = v;
 
-            bTunic.Enabled = v;
+            //bHumanTunic.Enabled = v;
+            tFormCosmetics.Enabled = v;
             cTatl.Enabled = v;
             cMusic.Enabled = v;
             cEnableNightMusic.Enabled = v;
@@ -1249,34 +1460,16 @@ namespace MMR.UI.Forms
                 if (!tSettings.TabPages.Contains(tabMain))
                 {
                     tSettings.TabPages.Insert(0, tabMain);
-                    tSettings.TabPages.Add(tabGimmicks);
+                    tSettings.TabPages.Insert(1, tabGimmicks);
+                    tSettings.TabPages.Insert(2, tabComfort);
                 }
             }
             else
             {
                 tSettings.TabPages.Remove(tabMain);
                 tSettings.TabPages.Remove(tabGimmicks);
+                tSettings.TabPages.Remove(tabComfort);
             }
-
-            // Comfort/Cosmetics
-            cCutsc.Visible = v;
-            cQText.Visible = v;
-            cNoDowngrades.Visible = v;
-            cShopAppearance.Visible = v;
-            cUpdateChests.Visible = v;
-            cEponaSword.Visible = v;
-            cDisableCritWiggle.Visible = v;
-            cQuestItemStorage.Visible = v;
-            cFastPush.Visible = v;
-            cFreestanding.Visible = v;
-            cArrowCycling.Visible = v;
-            cCloseCows.Visible = v;
-            cElegySpeedups.Visible = v;
-            cLink.Visible = v;
-            lLink.Visible = v;
-
-            gHints.Visible = v;
-            gSpeedUps.Visible = v;
 
             // Other..?
             cDummy.Enabled = v;
@@ -1364,6 +1557,35 @@ namespace MMR.UI.Forms
             tJunkLocationsList.Text = _configuration.GameplaySettings.CustomJunkLocationsString;
 
             HudConfig.Update(_configuration.CosmeticSettings.AsmOptions.HudColorsConfig.Colors);
+
+            foreach (var form in Enum.GetValues(typeof(TransformationForm)).Cast<TransformationForm>())
+            {
+                if (!_configuration.CosmeticSettings.UseTunicColors.ContainsKey(form))
+                {
+                    _configuration.CosmeticSettings.UseTunicColors[form] = false;
+                }
+                if (!_configuration.CosmeticSettings.TunicColors.ContainsKey(form))
+                {
+                    // TODO unique default tunic colors
+                    _configuration.CosmeticSettings.TunicColors[form] = Color.FromArgb(0x1E, 0x69, 0x1B);
+                }
+                if (!_configuration.CosmeticSettings.FreePlayInstruments.ContainsKey(form))
+                {
+                    var def = form.DefaultFreePlayInstrument();
+                    if (def.HasValue)
+                    {
+                        _configuration.CosmeticSettings.FreePlayInstruments[form] = def.Value;
+                    }
+                }
+                if (!_configuration.CosmeticSettings.PlaybackInstruments.ContainsKey(form))
+                {
+                    var def = form.DefaultPlaybackInstrument();
+                    if (def.HasValue)
+                    {
+                        _configuration.CosmeticSettings.PlaybackInstruments[form] = def.Value;
+                    }
+                }
+            }
 
             UpdateJunkLocationAmountLabel();
             UpdateCustomStartingItemAmountLabel();
