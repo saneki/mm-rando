@@ -122,7 +122,7 @@ namespace MMR.UI.Forms
             TooltipBuilder.SetTooltip(cUnderwaterOcarina, "Enable using the ocarina underwater.");
             TooltipBuilder.SetTooltip(cTargettingStyle, "Default Z-Targeting style to Hold.");
             TooltipBuilder.SetTooltip(cFDAnywhere, "Allow the Fierce Deity's Mask to be used anywhere. Also addresses some softlocks caused by Fierce Deity.");
-            TooltipBuilder.SetTooltip(cByoAmmo, "Arrows, Bombs, and Bombchu will not be provided. You must bring your own. Logic Modes other than No Logic will account for this.");
+            TooltipBuilder.SetTooltip(cByoAmmo, "Arrows, Bombs, and Bombchu will not be provided for minigames. You must bring your own. Logic Modes other than No Logic will account for this.");
             TooltipBuilder.SetTooltip(cDeathMoonCrash, "Dying causes the moon to crash, with all that that implies.");
             TooltipBuilder.SetTooltip(cContinuousDekuHopping, "Press A while hopping across water to keep hopping.");
             TooltipBuilder.SetTooltip(cIceTrapQuirks, "Ice traps will behave slightly differently from other items in certain situations");
