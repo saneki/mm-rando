@@ -23,9 +23,9 @@ namespace MMR.Randomizer.Utils
             return itemList.FindAll(x => {
                 return (x.IsRandomized || onslaught)
                 && x.NewLocation != null
-                && ItemUtils.JunkItems.Contains(x.Item)
+                && ItemUtils.IsJunk(x.Item)
                 && !ItemUtils.IsStartingLocation(x.NewLocation.Value)
-                && !x.Item.Name().Contains("Heart");
+                && (x.Item == GameObjects.Item.RecoveryHeart || !x.Item.Name().Contains("Heart"));
             }).ToArray();
         }
 

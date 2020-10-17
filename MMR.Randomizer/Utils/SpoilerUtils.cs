@@ -29,7 +29,7 @@ namespace MMR.Randomizer.Utils
                 SettingsString = settingsString,
                 Seed = randomized.Seed,
                 RandomizeDungeonEntrances = settings.RandomizeDungeonEntrances,
-                ItemList = itemList.Where(u => !u.Item.IsFake()).ToList(),
+                ItemList = itemList.ToList(),
                 NewDestinationIndices = randomized.NewDestinationIndices,
                 Logic = randomized.Logic,
                 GossipHints = randomized.GossipQuotes?.ToDictionary(me => (GossipQuote) me.Id, (me) =>

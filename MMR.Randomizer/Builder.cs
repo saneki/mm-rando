@@ -1226,6 +1226,12 @@ namespace MMR.Randomizer
             }
         }
 
+        private ushort GetLocationIdOfItem(Item item)
+        {
+            var itemObject = _randomized.ItemList[item];
+            return itemObject.Item != Item.RecoveryHeart ? itemObject.NewLocation.Value.GetItemIndex().Value : (ushort)0;
+        }
+
         private void WriteItems()
         {
             var freeItems = new List<Item>();
@@ -1306,28 +1312,28 @@ namespace MMR.Randomizer
                 }
             }
 
-            _randomized.Settings.AsmOptions.MMRConfig.LocationBottleRedPotion = _randomized.ItemList[Item.ItemBottleWitch].NewLocation.Value.GetItemIndex().Value;
-            _randomized.Settings.AsmOptions.MMRConfig.LocationBottleGoldDust = _randomized.ItemList[Item.ItemBottleGoronRace].NewLocation.Value.GetItemIndex().Value;
-            _randomized.Settings.AsmOptions.MMRConfig.LocationBottleMilk = _randomized.ItemList[Item.ItemBottleAliens].NewLocation.Value.GetItemIndex().Value;
-            _randomized.Settings.AsmOptions.MMRConfig.LocationBottleChateau = _randomized.ItemList[Item.ItemBottleMadameAroma].NewLocation.Value.GetItemIndex().Value;
+            _randomized.Settings.AsmOptions.MMRConfig.LocationBottleRedPotion = GetLocationIdOfItem(Item.ItemBottleWitch);
+            _randomized.Settings.AsmOptions.MMRConfig.LocationBottleGoldDust = GetLocationIdOfItem(Item.ItemBottleGoronRace);
+            _randomized.Settings.AsmOptions.MMRConfig.LocationBottleMilk = GetLocationIdOfItem(Item.ItemBottleAliens);
+            _randomized.Settings.AsmOptions.MMRConfig.LocationBottleChateau = GetLocationIdOfItem(Item.ItemBottleMadameAroma);
 
-            _randomized.Settings.AsmOptions.MMRConfig.LocationSwordKokiri = _randomized.ItemList[Item.StartingSword].NewLocation.Value.GetItemIndex().Value;
-            _randomized.Settings.AsmOptions.MMRConfig.LocationSwordRazor = _randomized.ItemList[Item.UpgradeRazorSword].NewLocation.Value.GetItemIndex().Value;
-            _randomized.Settings.AsmOptions.MMRConfig.LocationSwordGilded = _randomized.ItemList[Item.UpgradeGildedSword].NewLocation.Value.GetItemIndex().Value;
+            _randomized.Settings.AsmOptions.MMRConfig.LocationSwordKokiri = GetLocationIdOfItem(Item.StartingSword);
+            _randomized.Settings.AsmOptions.MMRConfig.LocationSwordRazor = GetLocationIdOfItem(Item.UpgradeRazorSword);
+            _randomized.Settings.AsmOptions.MMRConfig.LocationSwordGilded = GetLocationIdOfItem(Item.UpgradeGildedSword);
 
-            _randomized.Settings.AsmOptions.MMRConfig.LocationMagicSmall = _randomized.ItemList[Item.FairyMagic].NewLocation.Value.GetItemIndex().Value;
-            _randomized.Settings.AsmOptions.MMRConfig.LocationMagicLarge = _randomized.ItemList[Item.FairyDoubleMagic].NewLocation.Value.GetItemIndex().Value;
+            _randomized.Settings.AsmOptions.MMRConfig.LocationMagicSmall = GetLocationIdOfItem(Item.FairyMagic);
+            _randomized.Settings.AsmOptions.MMRConfig.LocationMagicLarge = GetLocationIdOfItem(Item.FairyDoubleMagic);
 
-            _randomized.Settings.AsmOptions.MMRConfig.LocationWalletAdult = _randomized.ItemList[Item.UpgradeAdultWallet].NewLocation.Value.GetItemIndex().Value;
-            _randomized.Settings.AsmOptions.MMRConfig.LocationWalletGiant = _randomized.ItemList[Item.UpgradeGiantWallet].NewLocation.Value.GetItemIndex().Value;
+            _randomized.Settings.AsmOptions.MMRConfig.LocationWalletAdult = GetLocationIdOfItem(Item.UpgradeAdultWallet);
+            _randomized.Settings.AsmOptions.MMRConfig.LocationWalletGiant = GetLocationIdOfItem(Item.UpgradeGiantWallet);
 
-            _randomized.Settings.AsmOptions.MMRConfig.LocationBombBagSmall = _randomized.ItemList[Item.ItemBombBag].NewLocation.Value.GetItemIndex().Value;
-            _randomized.Settings.AsmOptions.MMRConfig.LocationBombBagBig = _randomized.ItemList[Item.UpgradeBigBombBag].NewLocation.Value.GetItemIndex().Value;
-            _randomized.Settings.AsmOptions.MMRConfig.LocationBombBagBiggest = _randomized.ItemList[Item.UpgradeBiggestBombBag].NewLocation.Value.GetItemIndex().Value;
+            _randomized.Settings.AsmOptions.MMRConfig.LocationBombBagSmall = GetLocationIdOfItem(Item.ItemBombBag);
+            _randomized.Settings.AsmOptions.MMRConfig.LocationBombBagBig = GetLocationIdOfItem(Item.UpgradeBigBombBag);
+            _randomized.Settings.AsmOptions.MMRConfig.LocationBombBagBiggest = GetLocationIdOfItem(Item.UpgradeBiggestBombBag);
 
-            _randomized.Settings.AsmOptions.MMRConfig.LocationQuiverSmall = _randomized.ItemList[Item.ItemBow].NewLocation.Value.GetItemIndex().Value;
-            _randomized.Settings.AsmOptions.MMRConfig.LocationQuiverLarge = _randomized.ItemList[Item.UpgradeBigQuiver].NewLocation.Value.GetItemIndex().Value;
-            _randomized.Settings.AsmOptions.MMRConfig.LocationQuiverLargest = _randomized.ItemList[Item.UpgradeBiggestQuiver].NewLocation.Value.GetItemIndex().Value;
+            _randomized.Settings.AsmOptions.MMRConfig.LocationQuiverSmall = GetLocationIdOfItem(Item.ItemBow);
+            _randomized.Settings.AsmOptions.MMRConfig.LocationQuiverLarge = GetLocationIdOfItem(Item.UpgradeBigQuiver);
+            _randomized.Settings.AsmOptions.MMRConfig.LocationQuiverLargest = GetLocationIdOfItem(Item.UpgradeBiggestQuiver);
 
             var copyRupeesRegex = new Regex(": [0-9]+ Rupees");
             foreach (var newMessage in newMessages)

@@ -293,7 +293,7 @@ namespace MMR.Randomizer.Utils
                         {
                             var chosen = restrictionAttributes.Random(random);
                             var candidateItem = chosen.Type == GossipRestrictAttribute.RestrictionType.Item
-                                ? randomizedResult.ItemList.Single(io => io.Item == chosen.Item)
+                                ? randomizedResult.ItemList.Single(io => io.ID == (int)chosen.Item)
                                 : randomizedResult.ItemList.Single(io => io.NewLocation == chosen.Item);
                             if (isMoonGossipStone || unusedItems.Contains(candidateItem))
                             {
@@ -309,7 +309,7 @@ namespace MMR.Randomizer.Utils
                         {
                             if (randomizedResult.Settings.GossipHintStyle == GossipHintStyle.Competitive)
                             {
-                                item = unusedItems.FirstOrDefault(io => unusedItems.Count(x => x.Item == io.Item) == 1);
+                                item = unusedItems.FirstOrDefault(io => unusedItems.Count(x => x.ID == io.ID) == 1);
                                 if (item == null)
                                 {
                                     item = unusedItems.Random(random);

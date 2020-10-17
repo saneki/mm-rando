@@ -1627,7 +1627,7 @@ namespace MMR.Randomizer
             {
                 // If check is visible (can be seen via world model), add "graphic override" for imitating other item.
                 var mimic = mimics[random.Next(mimics.Length)];
-                item.ID = (int)Item.IceTrap;
+                item.ItemOverride = Item.IceTrap;
                 item.Mimic = mimic;
 
                 var newLocation = item.NewLocation.Value;
@@ -1679,6 +1679,11 @@ namespace MMR.Randomizer
 
                 progressReporter.ReportProgress(30, "Shuffling items...");
                 RandomizeItems();
+
+                foreach (var item in _settings.CustomStartingItemList)
+                {
+                    ItemList[item].ItemOverride = Item.RecoveryHeart;
+                }
 
                 // Replace junk items with ice traps according to settings.
                 AddIceTraps(_randomized.Settings.IceTraps, _randomized.Settings.IceTrapAppearance);

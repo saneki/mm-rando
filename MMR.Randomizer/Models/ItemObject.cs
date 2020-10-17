@@ -8,7 +8,7 @@ namespace MMR.Randomizer.Models
     public class ItemObject
     {
         public int ID { get; set; }
-        public Item Item => (Item)ID; // todo?
+        public Item Item => ItemOverride ?? (Item)ID; // todo?
         public string Name { get; set; }
         public List<Item> DependsOnItems { get; set; } = new List<Item>();
         public List<List<Item>> Conditionals { get; set; } = new List<List<Item>>();
@@ -26,6 +26,11 @@ namespace MMR.Randomizer.Models
         /// Name override used in spoiler log.
         /// </summary>
         public string NameOverride { get; set; }
+
+        /// <summary>
+        /// Used for Ice Traps and Recovery Hearts.
+        /// </summary>
+        public Item? ItemOverride { get; set; }
 
         /// <summary>
         /// Item which is being mimiced, used by ice traps.

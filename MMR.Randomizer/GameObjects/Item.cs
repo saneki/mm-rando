@@ -3497,5 +3497,12 @@ namespace MMR.Randomizer.GameObjects
         [ExclusiveItemGraphic(0, 0)]
         [ExclusiveItemMessage(0x9000, "\u0017You are a \u0003FOOL\u0000!\u0018\u00BF")]
         IceTrap,
+
+        [ItemName("Recovery Heart")]
+        [GossipItemHint("health")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [ShopText("Replenishes a small amount of your life energy.")]
+        [GetItemIndex(0x0A)]
+        RecoveryHeart,
     }
 }

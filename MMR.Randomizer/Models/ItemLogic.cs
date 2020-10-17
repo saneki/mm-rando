@@ -1,10 +1,7 @@
 ﻿using MMR.Randomizer.Extensions;
-using MMR.Randomizer.Utils;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
 using MMR.Randomizer.GameObjects;
 
 namespace MMR.Randomizer.Models

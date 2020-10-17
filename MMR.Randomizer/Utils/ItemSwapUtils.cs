@@ -104,7 +104,6 @@ namespace MMR.Randomizer.Utils
         {
             var item = itemObject.Item;
             var location = itemObject.NewLocation.Value;
-            var isExtraStartingItem = settings.CustomStartingItemList.Contains(item);
             System.Diagnostics.Debug.WriteLine($"Writing {item.Name()} --> {location.Location()}");
 
             int f = RomUtils.GetFileIndexForWriting(GET_ITEM_TABLE);
@@ -120,9 +119,7 @@ namespace MMR.Randomizer.Utils
             }
             else
             {
-                newItem = isExtraStartingItem
-                    ? Items.RecoveryHeart // Warning: this will not work well for starting with Bottle contents (currently impossible), because you'll first have to acquire the Recovery Heart before getting the bottle-less version. Also may interfere with future implementation of progressive upgrades.
-                    : RomData.GetItemList[item.GetItemIndex().Value];
+                newItem = RomData.GetItemList[item.GetItemIndex().Value];
             }
 
             var data = new byte[]
@@ -164,13 +161,13 @@ namespace MMR.Randomizer.Utils
                 UpdateChest(location, item, overrideChestType);
             }
 
+            if (settings.UpdateShopAppearance)
+            {
+                UpdateShop(itemObject, newMessages);
+            }
+
             if (location != item)
             {
-                if (settings.UpdateShopAppearance)
-                {
-                    UpdateShop(itemObject, newMessages);
-                }
-
                 if (location == Item.StartingSword)
                 {
                     ResourceUtils.ApplyHack(Resources.mods.fix_sword_song_of_time);
