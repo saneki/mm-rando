@@ -371,6 +371,7 @@ namespace MMR.Randomizer.Utils
             var locationNames = new List<string>();
             bool hasOrder = item.NewLocation.Value.HasAttribute<GossipCombineOrderAttribute>();
             var combined = new List<ItemObject>();
+            combined.Add(item);
             if (forceClear || clearHints)
             {
                 itemNames.Add(item.Item.ProgressiveUpgradeName(progressiveUpgradesEnabled));
