@@ -116,7 +116,7 @@ namespace MMR.Randomizer.Utils
                 unusedItems = hintableItems.GroupBy(io => io.NewLocation.Value.GetAttribute<GossipCompetitiveHintAttribute>().Priority)
                                         .OrderByDescending(g => g.Key)
                                         .Select(g => g.OrderBy(_ => random.Next()).AsEnumerable())
-                                        .Aggregate((g1, g2) => g1.Concat(g2))
+                                        .Aggregate(Enumerable.Empty<ItemObject>(), (g1, g2) => g1.Concat(g2))
                                         .Take(numberOfLocationHints)
                                         .ToList();
                 var combinedItems = unusedItems
