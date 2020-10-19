@@ -30,11 +30,12 @@ void chest_write_gi_index(z2_en_box_t *actor, z2_game_t *game) {
 /**
  * Hook function used to update the chest get-item index before opening.
  **/
-void chest_update_gi_index(z2_en_box_t *actor, z2_game_t *game, bool grant) {
+u32 chest_get_new_gi_index(z2_en_box_t *actor, z2_game_t *game, bool grant) {
     if (!MISC_CONFIG.vanilla_layout) {
         // Resolve new gi-table index if not ice trap.
         if (actor->gi_index != 0x76) {
-            actor->gi_index = mmr_GetNewGiIndex(game, &(actor->common), actor->gi_index, grant);
+            return mmr_GetNewGiIndex(game, &(actor->common), actor->gi_index, grant);
         }
     }
+    return actor->gi_index;
 }

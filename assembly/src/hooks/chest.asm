@@ -53,11 +53,13 @@
 ;   beqz    v0, 0x80868F70         ;; Branch if flag not set
 ;   addiu   v1, r0, 0x000A         ;; V1 = 0xA
 ;   sw      v1, 0x021C(s0)         ;; If flag already set, replace gi-table index with hardcoded value: 0xA
+;   lw      v0, 0x021C(s0)         ;;
 .org 0x80868F5C
     or      a0, s0, r0             ;; A0 = Actor
     lw      a1, 0x0084 (sp)        ;; A1 = GlobalContext
-    jal     chest_update_gi_index  ;; Call function to update gi-table index actor field.
+    jal     chest_get_new_gi_index ;; Call function to update gi-table index actor field.
     or      a2, r0, r0             ;; A2 = false (do not update flags)
+    nop                            ;;
     nop                            ;;
 
 ;==================================================================================================

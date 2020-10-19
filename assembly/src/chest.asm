@@ -17,5 +17,5 @@
 
 chest_update_gi_index_while_opening_hook:
     lw      a1, 0x0084 (sp)        ;; A1 = GlobalContext
-    j       chest_update_gi_index  ;; Call function to update flags
+    j       chest_get_new_gi_index ;; Call function to update flags
     ori     a2, r0, 0x0001         ;; grant = true (update flags)
