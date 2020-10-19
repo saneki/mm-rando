@@ -1952,8 +1952,8 @@ typedef struct {
     u8               unk_0x156[0xF4];                /* 0x0156 */
     u16              current_animation_id;           /* 0x024A */
     u8               unk_0x24C[0x138];               /* 0x024C */
-    u16              get_item;                       /* 0x0348 */
-    u8               unk_0x34A[0x722];               /* 0x034A */
+    u16              get_item;                       /* 0x0384 */
+    u8               unk_0x386[0x6E6];               /* 0x0386 */
     union {
         struct {
             u32      action_state1;                  /* 0x0A6C */
