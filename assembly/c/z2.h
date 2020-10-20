@@ -1770,7 +1770,7 @@ typedef struct {
     u8               lotteries[0x09];                /* 0x0FEC */
     u8               spider_masks[0x06];             /* 0x0FF5 */
     u8               bomber_code[0x05];              /* 0x0FFB */
-    u8               unk_0xFF0[0x0A];                /* 0x1000 */
+    u8               unk_0x1000[0x0A];               /* 0x1000 */
     u16              checksum;                       /* 0x100A */
     u8               event_inf[0x08];                /* 0x100C */
     u8               unk_0x1014[0x02];               /* 0x1014 */

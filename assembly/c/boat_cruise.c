@@ -63,7 +63,7 @@ void boat_cruise_handle_idle(z2_bg_ingate_t *canoe, z2_game_t *game) {
 bool boat_cruise_should_end_archery(z2_bg_ingate_t *canoe, z2_game_t *game) {
     bool finished = (canoe->flags & 2) == 2;
     if (MISC_CONFIG.speedups.boat_archery) {
-        return (z2_file.minigame_counter >= 20) || finished;
+        return finished || (((z2_file.event_inf[3] & 0x20) != 0) && (z2_file.minigame_counter >= 20));
     } else {
         return finished;
     }
