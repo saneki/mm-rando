@@ -1779,7 +1779,9 @@ typedef struct {
     u8               unk_0x101A[0xC6];               /* 0x101A */
     u8               pictobox_photo[0x2BC0];         /* 0x10E0 */
     s32              file_index;                     /* 0x3CA0 */
-    u8               unk_0x3CA4[0x0C];               /* 0x3CA4 */
+    u8               unk_0x3CA4[0x04];               /* 0x3CA4 */
+    u32              title_screen_mod;               /* 0x3CA8 */
+    u32              entrance_mod;                   /* 0x3CAC */
     s32              void_flag;                      /* 0x3CB0 */
     u8               unk_0x3CB4[0x11C];              /* 0x3CB4 */
     u8               timers[0x40];                   /* 0x3DD0 */

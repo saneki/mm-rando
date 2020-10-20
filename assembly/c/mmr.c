@@ -107,10 +107,16 @@ u16 mmr_CheckProgressiveUpgrades(u16 gi_index) {
 
 u16 mmr_GetNewGiIndex(z2_game_t *game, z2_actor_t *actor, u16 gi_index, bool grant) {
     if (z2_file.cutscene_id != 0) {
-        return gi_index;
+        grant = false;
     }
     u16 new_gi_index = gi_index;
-    bool flagged = mmr_CheckBottleAndGetGiFlag(gi_index, &new_gi_index);
+    bool flagged;
+    if (z2_file.title_screen_mod != 0) {
+        flagged = false;
+        grant = false;
+    } else {
+        flagged = mmr_CheckBottleAndGetGiFlag(gi_index, &new_gi_index);
+    }
     if (!flagged) {
         if (grant) {
             mmr_SetGiFlag(new_gi_index);
