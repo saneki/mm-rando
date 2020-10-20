@@ -1138,75 +1138,39 @@ namespace MMR.UI.Forms
         /// </summary>
         private void ToggleCheckBoxes()
         {
-            if (_configuration.GameplaySettings.LogicMode == LogicMode.Vanilla)
+            var vanillaMode = _configuration.GameplaySettings.LogicMode == LogicMode.Vanilla;
+            cMixSongs.Enabled = !vanillaMode;
+            cProgressiveUpgrades.Enabled = !vanillaMode;
+            cSoS.Enabled = !vanillaMode;
+            cDChests.Enabled = !vanillaMode;
+            cDEnt.Enabled = !vanillaMode;
+            cBottled.Enabled = !vanillaMode;
+            cShop.Enabled = !vanillaMode;
+            cSpoiler.Enabled = !vanillaMode;
+            cHTMLLog.Enabled = !vanillaMode;
+            cGossipHints.Enabled = !vanillaMode;
+            cAdditional.Enabled = !vanillaMode;
+            cUserItems.Enabled = !vanillaMode;
+            cMoonItems.Enabled = !vanillaMode;
+            cFairyRewards.Enabled = !vanillaMode;
+            cNutChest.Enabled = !vanillaMode && _configuration.GameplaySettings.LogicMode != LogicMode.Casual;
+            cCrazyStartingItems.Enabled = !vanillaMode;
+            cNoStartingItems.Enabled = !vanillaMode && (_configuration.GameplaySettings.AddOther || _configuration.GameplaySettings.UseCustomItemList);
+            cCowMilk.Enabled = !vanillaMode;
+            cSpiders.Enabled = !vanillaMode;
+            cStrayFairies.Enabled = !vanillaMode;
+            cMundaneRewards.Enabled = !vanillaMode;
+            tJunkLocationsList.Enabled = !vanillaMode && _configuration.GameplaySettings.LogicMode != LogicMode.NoLogic;
+            bJunkLocationsEditor.Enabled = !vanillaMode && _configuration.GameplaySettings.LogicMode != LogicMode.NoLogic;
+            bToggleTricks.Enabled = !vanillaMode && _configuration.GameplaySettings.LogicMode != LogicMode.NoLogic;
+            cIceTraps.Enabled = !vanillaMode;
+            cIceTrapsAppearance.Enabled = !vanillaMode;
+            cIceTrapQuirks.Enabled = !vanillaMode;
+
+            if (!vanillaMode && !cNoStartingItems.Enabled)
             {
-                cMixSongs.Enabled = false;
-                cProgressiveUpgrades.Enabled = false;
-                cSoS.Enabled = false;
-                cDChests.Enabled = false;
-                cDEnt.Enabled = false;
-                cBottled.Enabled = false;
-                cShop.Enabled = false;
-                cSpoiler.Enabled = false;
-                cHTMLLog.Enabled = false;
-                cGossipHints.Enabled = false;
-                cAdditional.Enabled = false;
-                cUserItems.Enabled = false;
-                cMoonItems.Enabled = false;
-                cFairyRewards.Enabled = false;
-                cNutChest.Enabled = false;
-                cCrazyStartingItems.Enabled = false;
-                cNoStartingItems.Enabled = false;
-                cCowMilk.Enabled = false;
-                cSpiders.Enabled = false;
-                cStrayFairies.Enabled = false;
-                cMundaneRewards.Enabled = false;
-
-                tJunkLocationsList.Enabled = false;
-                bJunkLocationsEditor.Enabled = false;
-                bToggleTricks.Enabled = false;
-            }
-            else
-            {
-                cMixSongs.Enabled = true;
-                cProgressiveUpgrades.Enabled = true;
-                cDEnt.Enabled = true;
-                cSpoiler.Enabled = true;
-                cHTMLLog.Enabled = true;
-                cGossipHints.Enabled = true;
-                cUserItems.Enabled = true;
-
-                cSoS.Enabled = true;
-                cDChests.Enabled = true;
-                cBottled.Enabled = true;
-                cShop.Enabled = true;
-                cAdditional.Enabled = true;
-                cMoonItems.Enabled = true;
-                cFairyRewards.Enabled = true;
-                cNutChest.Enabled = _configuration.GameplaySettings.LogicMode != LogicMode.Casual;
-                cCrazyStartingItems.Enabled = true;
-                cCowMilk.Enabled = true;
-                cSpiders.Enabled = true;
-                cStrayFairies.Enabled = true;
-                cMundaneRewards.Enabled = true;
-
-                tCustomItemList.Enabled = true;
-                bItemListEditor.Enabled = true;
-
-                tStartingItemList.Enabled = true;
-                bStartingItemEditor.Enabled = true;
-
-                tJunkLocationsList.Enabled = _configuration.GameplaySettings.LogicMode != LogicMode.NoLogic;
-                bJunkLocationsEditor.Enabled = _configuration.GameplaySettings.LogicMode != LogicMode.NoLogic;
-
-                bToggleTricks.Enabled = _configuration.GameplaySettings.LogicMode != LogicMode.NoLogic;
-
-                cNoStartingItems.Enabled = _configuration.GameplaySettings.AddOther || _configuration.GameplaySettings.UseCustomItemList;
-                if (!cNoStartingItems.Enabled)
-                {
-                    cNoStartingItems.Checked = false;
-                    _configuration.GameplaySettings.NoStartingItems = false;
-                }
+                cNoStartingItems.Checked = false;
+                _configuration.GameplaySettings.NoStartingItems = false;
             }
 
             bLoadLogic.Enabled = _configuration.GameplaySettings.LogicMode == LogicMode.UserLogic;
