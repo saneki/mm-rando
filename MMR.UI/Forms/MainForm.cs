@@ -234,6 +234,7 @@ namespace MMR.UI.Forms
                 Size = new Size(135, 23),
                 BackColor = Color.FromArgb(0x1E, 0x69, 0x1B),
                 FlatStyle = FlatStyle.Flat,
+                Text = "Default",
             };
             TooltipBuilder.SetTooltip(button, "Select the color of this form's Tunic.");
             button.Click += bTunic_Click;
@@ -383,6 +384,7 @@ namespace MMR.UI.Forms
                 var color = _configuration.CosmeticSettings.TunicColors[form];
                 bTunic.Enabled = checkBox.Checked;
                 bTunic.BackColor = bTunic.Enabled ? color : Color.Transparent;
+                bTunic.Text = bTunic.Enabled ? string.Empty : "Default";
 
                 _isUpdating = false;
             };
