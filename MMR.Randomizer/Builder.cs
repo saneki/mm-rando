@@ -395,9 +395,6 @@ namespace MMR.Randomizer
             {
                 SceneUtils.ReenableNightBGM();
             }
-
-            Add5NutsToField();
-            AddSingleStickToField();
         }
 
         private void WriteMiscText()
@@ -1657,7 +1654,10 @@ namespace MMR.Randomizer
                 asm = AsmContext.LoadInternal();
                 progressReporter.ReportProgress(70, "Writing ASM patch...");
                 WriteAsmPatch(asm);
-                
+
+                Add5NutsToField();
+                AddSingleStickToField();
+
                 progressReporter.ReportProgress(71, outputSettings.GeneratePatch ? "Generating patch..." : "Computing hash...");
                 hash = RomUtils.CreatePatch(outputSettings.GeneratePatch ? outputSettings.OutputROMFilename : null, originalMMFileList);
 
