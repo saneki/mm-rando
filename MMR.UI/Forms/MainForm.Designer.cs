@@ -126,6 +126,8 @@ namespace MMR.UI.Forms
             this.cFDAnywhere = new System.Windows.Forms.CheckBox();
             this.cUnderwaterOcarina = new System.Windows.Forms.CheckBox();
             this.cGravity = new System.Windows.Forms.ComboBox();
+            this.cNutAndStickDrops = new System.Windows.Forms.ComboBox();
+            this.lNutAndStickDrops = new System.Windows.Forms.Label();
             this.cDType = new System.Windows.Forms.ComboBox();
             this.cSunsSong = new System.Windows.Forms.CheckBox();
             this.cFloors = new System.Windows.Forms.ComboBox();
@@ -1329,10 +1331,12 @@ namespace MMR.UI.Forms
             this.tabGimmicks.Controls.Add(this.lDType);
             this.tabGimmicks.Controls.Add(this.lBlastMask);
             this.tabGimmicks.Controls.Add(this.lGravity);
+            this.tabGimmicks.Controls.Add(this.cNutAndStickDrops);
             this.tabGimmicks.Controls.Add(this.lFloors);
             this.tabGimmicks.Controls.Add(this.cHideClock);
             this.tabGimmicks.Controls.Add(this.label4);
             this.tabGimmicks.Controls.Add(this.cClockSpeed);
+            this.tabGimmicks.Controls.Add(this.lNutAndStickDrops);
             this.tabGimmicks.Controls.Add(this.label6);
             this.tabGimmicks.Location = new System.Drawing.Point(4, 22);
             this.tabGimmicks.Name = "tabGimmicks";
@@ -1383,6 +1387,22 @@ namespace MMR.UI.Forms
             this.cGravity.Size = new System.Drawing.Size(158, 21);
             this.cGravity.TabIndex = 0;
             this.cGravity.SelectedIndexChanged += new System.EventHandler(this.cGravity_SelectedIndexChanged);
+            // 
+            // cNutAndStickDrops
+            // 
+            this.cNutAndStickDrops.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cNutAndStickDrops.FormattingEnabled = true;
+            this.cNutAndStickDrops.Items.AddRange(new object[] {
+            "Default",
+            "Light",
+            "Medium",
+            "Extra",
+            "Mayhem"});
+            this.cNutAndStickDrops.Location = new System.Drawing.Point(476, 31);
+            this.cNutAndStickDrops.Name = "cNutAndStickDrops";
+            this.cNutAndStickDrops.Size = new System.Drawing.Size(121, 21);
+            this.cNutAndStickDrops.TabIndex = 26;
+            this.cNutAndStickDrops.SelectedIndexChanged += new System.EventHandler(this.cNutAndStickDrops_SelectedIndexChanged);
             // 
             // cDType
             // 
@@ -1553,6 +1573,15 @@ namespace MMR.UI.Forms
             this.cClockSpeed.Size = new System.Drawing.Size(158, 21);
             this.cClockSpeed.TabIndex = 15;
             this.cClockSpeed.SelectedIndexChanged += new System.EventHandler(this.cClockSpeed_SelectedIndexChanged);
+            // 
+            // lNutAndStickDrops
+            // 
+            this.lNutAndStickDrops.AutoSize = true;
+            this.lNutAndStickDrops.Location = new System.Drawing.Point(473, 14);
+            this.lNutAndStickDrops.Name = "lNutAndStickDrops";
+            this.lNutAndStickDrops.Size = new System.Drawing.Size(169, 13);
+            this.lNutAndStickDrops.TabIndex = 25;
+            this.lNutAndStickDrops.Text = "Termina Field Nut and Stick Drops";
             // 
             // label6
             // 
@@ -2087,6 +2116,8 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.Button bLoadPatch;
         private System.Windows.Forms.CheckBox cClearHints;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lNutAndStickDrops;
+        private System.Windows.Forms.ComboBox cNutAndStickDrops;
         private System.Windows.Forms.ComboBox cClockSpeed;
         private System.Windows.Forms.CheckBox cHideClock;
         private System.Windows.Forms.CheckBox cNoDowngrades;
