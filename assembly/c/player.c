@@ -6,6 +6,10 @@ bool player_can_receive_item(z2_game_t *game) {
     u16 current_animation_id = link->current_animation_id;
     bool result = false;
     switch (current_animation_id) {
+        case 0xE208: // rolling - Goron
+            result = game->common.input[0].raw.pad.a != 0;
+            break;
+        case 0xDD28: // rolling - Human, Goron, Zora
         case 0xDF20: // idle - Human with sword
         case 0xDF28: // idle - Human, Deku
         case 0xE260: // idle - Goron
@@ -14,7 +18,6 @@ bool player_can_receive_item(z2_game_t *game) {
         case 0xD918: // walking with sword
         case 0xDE40: // walking - Human, Deku, Goron, Zora
         case 0xD920: // walking - Fierce Deity
-        case 0xE208: // rolling - Goron
         case 0xD800: // backwalking after backflip - Human, Goron, Zora, Fierce Deity
         case 0xDD18: // backwalking after backflip - Deku
         case 0xD928: // sidewalking - Fierce Deity
