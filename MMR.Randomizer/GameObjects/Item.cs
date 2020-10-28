@@ -15,6 +15,7 @@ namespace MMR.Randomizer.GameObjects
         MaskDeku,
 
         // items
+        [Progressive]
         [StartingItem(0xC5CE25, 0x01)]
         [StartingItem(0xC5CE6F, 0x01)]
         [ItemName("Hero's Bow"), LocationName("Hero's Bow Chest"), Region(Region.WoodfallTemple)]
@@ -48,6 +49,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x27)]
         ItemLightArrow,
 
+        [Progressive]
         [StartingItem(0xC5CE2A, 0x06)]
         [StartingItem(0xC5CE6F, 0x08)]
         [ItemName("Bomb Bag"), LocationName("Bomb Bag Purchase"), Region(Region.WestClockTown)]
@@ -101,6 +103,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x41)]
         ItemHookshot,
 
+        [Progressive]
         [StartingItem(0xC5CDED, 0x30)]
         [StartingItem(0xC5CDF4, 0x01)]
         [ItemName("Magic Power"), LocationName("Town Great Fairy Non-Human"), Region(Region.NorthClockTown)]
@@ -118,6 +121,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x12D)]
         FairySpinAttack,
 
+        [Progressive]
         [StartingItem(0xC5CDED, 0x60)]
         [StartingItem(0xC5CDF4, 0x01)]
         [StartingItem(0xC5CDF5, 0x01)]
@@ -209,7 +213,8 @@ namespace MMR.Randomizer.GameObjects
         ItemNotebook,
 
         //upgrades
-        [Repeatable]
+        [Progressive]
+        [Downgradable]
         [StartingItem(0xC5CE21, 0x02)]
         [StartingItem(0xC5CE00, 0x4E)]
         [ItemName("Razor Sword"), LocationName("Mountain Smithy Day 1"), Region(Region.MountainVillage)]
@@ -219,7 +224,8 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x38)]
         UpgradeRazorSword,
 
-        [Downgradable, Repeatable]
+        [Progressive]
+        [Downgradable]
         [StartingItem(0xC5CE21, 0x03)]
         [StartingItem(0xC5CE00, 0x4F)]
         [ItemName("Gilded Sword"), LocationName("Mountain Smithy Day 2"), Region(Region.MountainVillage)]
@@ -239,6 +245,8 @@ namespace MMR.Randomizer.GameObjects
         UpgradeMirrorShield,
 
         [RupeeRepeatable]
+        [Progressive]
+        [Downgradable]
         [StartingItem(0xC5CE25, 0x01)]
         [StartingItem(0xC5CE6F, 0x02)]
         [ItemName("Large Quiver"), LocationName("Town Archery #1"), Region(Region.EastClockTown)]
@@ -250,6 +258,7 @@ namespace MMR.Randomizer.GameObjects
         UpgradeBigQuiver,
 
         [RupeeRepeatable]
+        [Progressive]
         [Downgradable]
         [StartingItem(0xC5CE25, 0x01)]
         [StartingItem(0xC5CE6F, 0x03)]
@@ -261,6 +270,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x24)]
         UpgradeBiggestQuiver,
 
+        [Progressive]
         [Downgradable]
         [StartingItem(0xC5CE2A, 0x06)]
         [StartingItem(0xC5CE6F, 0x10)]
@@ -275,6 +285,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x1C)]
         UpgradeBigBombBag,
 
+        [Progressive]
         [Downgradable, Purchaseable]
         [StartingItem(0xC5CE2A, 0x06)]
         [StartingItem(0xC5CE6F, 0x18)]
@@ -285,6 +296,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x1D)]
         UpgradeBiggestBombBag,
 
+        [Progressive]
         [StartingItem(0xC5CE6E, 0x10)]
         [ItemName("Adult Wallet"), LocationName("Bank Reward #1"), Region(Region.WestClockTown)]
         [GossipLocationHint("a keeper of wealth"), GossipItemHint("a coin case", "great wealth")]
@@ -293,6 +305,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x08)]
         UpgradeAdultWallet,
 
+        [Progressive]
         [Downgradable]
         [StartingItem(0xC5CE6E, 0x20)]
         [ItemName("Giant Wallet"), LocationName("Ocean Spider House Day 1 Reward"), Region(Region.GreatBayCoast)]
@@ -2153,6 +2166,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x128)]
         ChestPreClocktownDekuNut,
 
+        [Progressive]
         [StartingItem(0xC5CE21, 0x01)]
         [StartingItem(0xC5CE00, 0x4D)]
         [ItemName("Kokiri Sword"), LocationName("Starting Sword"), Region(Region.Misc)]

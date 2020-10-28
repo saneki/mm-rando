@@ -314,7 +314,7 @@ namespace MMR.Randomizer
                 };
                 ItemList.Add(arrows50);
 
-                var bombs30 = ItemList
+                var bombs20 = ItemList
                     .FirstOrDefault(io =>
                         io.DependsOnItems.Count == 0
                         && io.Conditionals.Count == 3
@@ -322,15 +322,15 @@ namespace MMR.Randomizer
                         && io.Conditionals.Any(c => c.SequenceEqual(new List<Item> { Item.UpgradeBigBombBag }))
                         && io.Conditionals.Any(c => c.SequenceEqual(new List<Item> { Item.UpgradeBiggestBombBag })));
 
-                var bombs40 = ItemList
+                var bombs30 = ItemList
                     .FirstOrDefault(io =>
                         io.DependsOnItems.Count == 0
                         && io.Conditionals.Count == 2
                         && io.Conditionals.Any(c => c.SequenceEqual(new List<Item> { Item.UpgradeBigBombBag }))
                         && io.Conditionals.Any(c => c.SequenceEqual(new List<Item> { Item.UpgradeBiggestBombBag})));
-                if (bombs40 == null)
+                if (bombs30 == null)
                 {
-                    bombs40 = new ItemObject
+                    bombs30 = new ItemObject
                     {
                         ID = ItemList.Count,
                         TimeAvailable = 63,
@@ -341,12 +341,12 @@ namespace MMR.Randomizer
                             Item.UpgradeBiggestBombBag,
                         }.Combinations(2).Select(a => a.ToList()).ToList(),
                     };
-                    ItemList.Add(bombs40);
+                    ItemList.Add(bombs30);
                 }
                 else
                 {
-                    bombs40.Conditionals.Clear();
-                    bombs40.Conditionals.AddRange(new List<Item>
+                    bombs30.Conditionals.Clear();
+                    bombs30.Conditionals.AddRange(new List<Item>
                     {
                         Item.ItemBombBag,
                         Item.UpgradeBigBombBag,
@@ -354,7 +354,7 @@ namespace MMR.Randomizer
                     }.Combinations(2).Select(a => a.ToList()));
                 }
 
-                var bombs50 = new ItemObject
+                var bombs40 = new ItemObject
                 {
                     ID = ItemList.Count,
                     TimeAvailable = 63,
@@ -365,7 +365,60 @@ namespace MMR.Randomizer
                         Item.UpgradeBiggestBombBag,
                     },
                 };
-                ItemList.Add(arrows50);
+                ItemList.Add(bombs40);
+
+                var sword1 = ItemList
+                    .FirstOrDefault(io =>
+                        io.DependsOnItems.Count == 0
+                        && io.Conditionals.Count == 3
+                        && io.Conditionals.Any(c => c.SequenceEqual(new List<Item> { Item.StartingSword }))
+                        && io.Conditionals.Any(c => c.SequenceEqual(new List<Item> { Item.UpgradeRazorSword }))
+                        && io.Conditionals.Any(c => c.SequenceEqual(new List<Item> { Item.UpgradeGildedSword })));
+
+                var sword2 = ItemList
+                    .FirstOrDefault(io =>
+                        io.DependsOnItems.Count == 0
+                        && io.Conditionals.Count == 2
+                        && io.Conditionals.Any(c => c.SequenceEqual(new List<Item> { Item.UpgradeRazorSword }))
+                        && io.Conditionals.Any(c => c.SequenceEqual(new List<Item> { Item.UpgradeGildedSword })));
+                if (sword2 == null)
+                {
+                    sword2 = new ItemObject
+                    {
+                        ID = ItemList.Count,
+                        TimeAvailable = 63,
+                        Conditionals = new List<Item>
+                        {
+                            Item.StartingSword,
+                            Item.UpgradeRazorSword,
+                            Item.UpgradeGildedSword,
+                        }.Combinations(2).Select(a => a.ToList()).ToList(),
+                    };
+                    ItemList.Add(sword2);
+                }
+                else
+                {
+                    sword2.Conditionals.Clear();
+                    sword2.Conditionals.AddRange(new List<Item>
+                    {
+                        Item.StartingSword,
+                        Item.UpgradeRazorSword,
+                        Item.UpgradeGildedSword,
+                    }.Combinations(2).Select(a => a.ToList()));
+                }
+
+                var sword3 = new ItemObject
+                {
+                    ID = ItemList.Count,
+                    TimeAvailable = 63,
+                    DependsOnItems = new List<Item>
+                    {
+                        Item.StartingSword,
+                        Item.UpgradeRazorSword,
+                        Item.UpgradeGildedSword,
+                    },
+                };
+                ItemList.Add(sword3);
 
                 var wallets200 = ItemList
                     .FirstOrDefault(io =>
@@ -386,8 +439,45 @@ namespace MMR.Randomizer
                 };
                 ItemList.Add(wallets500);
 
+                var magicAny = ItemList
+                    .FirstOrDefault(io =>
+                        io.DependsOnItems.Count == 0
+                        && io.Conditionals.Count == 2
+                        && io.Conditionals.Any(c => c.SequenceEqual(new List<Item> { Item.FairyMagic }))
+                        && io.Conditionals.Any(c => c.SequenceEqual(new List<Item> { Item.FairyDoubleMagic })));
+
+                var magicLarge = new ItemObject
+                {
+                    ID = ItemList.Count,
+                    TimeAvailable = 63,
+                    DependsOnItems = new List<Item>
+                    {
+                        Item.FairyMagic,
+                        Item.FairyDoubleMagic,
+                    },
+                };
+                ItemList.Add(magicLarge);
+
                 foreach (var itemObject in ItemList)
                 {
+                    if (itemObject != magicLarge && itemObject.DependsOnItems.Contains(Item.FairyDoubleMagic))
+                    {
+                        itemObject.DependsOnItems.Remove(Item.FairyDoubleMagic);
+                        itemObject.DependsOnItems.Add(magicLarge.Item);
+                    }
+
+                    if (itemObject != magicAny)
+                    {
+                        foreach (var conditions in itemObject.Conditionals)
+                        {
+                            if (conditions.Contains(Item.FairyDoubleMagic))
+                            {
+                                conditions.Remove(Item.FairyDoubleMagic);
+                                conditions.Add(magicLarge.Item);
+                            }
+                        }
+                    }
+
                     if (itemObject != wallets500 && itemObject.DependsOnItems.Contains(Item.UpgradeGiantWallet))
                     {
                         itemObject.DependsOnItems.Remove(Item.UpgradeGiantWallet);
@@ -406,26 +496,50 @@ namespace MMR.Randomizer
                         }
                     }
 
-                    if (itemObject != bombs50 && itemObject.DependsOnItems.Contains(Item.UpgradeBiggestBombBag))
+                    if (itemObject != sword3 && itemObject.DependsOnItems.Contains(Item.UpgradeGildedSword))
                     {
-                        itemObject.DependsOnItems.Remove(Item.UpgradeBiggestBombBag);
-                        itemObject.DependsOnItems.Add(bombs50.Item);
+                        itemObject.DependsOnItems.Remove(Item.UpgradeGildedSword);
+                        itemObject.DependsOnItems.Add(sword3.Item);
                     }
 
-                    if (itemObject != bombs30 && itemObject != bombs40 && itemObject.Item != Item.OtherExplosive)
+                    if (itemObject != sword1 && itemObject != sword2)
+                    {
+                        foreach (var conditions in itemObject.Conditionals)
+                        {
+                            if (conditions.Contains(Item.UpgradeGildedSword))
+                            {
+                                conditions.Remove(Item.UpgradeGildedSword);
+                                conditions.Add(sword3.Item);
+                            }
+
+                            if (conditions.Contains(Item.UpgradeRazorSword))
+                            {
+                                conditions.Remove(Item.UpgradeRazorSword);
+                                conditions.Add(sword2.Item);
+                            }
+                        }
+                    }
+
+                    if (itemObject != bombs40 && itemObject.DependsOnItems.Contains(Item.UpgradeBiggestBombBag))
+                    {
+                        itemObject.DependsOnItems.Remove(Item.UpgradeBiggestBombBag);
+                        itemObject.DependsOnItems.Add(bombs40.Item);
+                    }
+
+                    if (itemObject != bombs20 && itemObject != bombs30 && itemObject.Item != Item.OtherExplosive)
                     {
                         foreach (var conditions in itemObject.Conditionals)
                         {
                             if (conditions.Contains(Item.UpgradeBiggestBombBag))
                             {
                                 conditions.Remove(Item.UpgradeBiggestBombBag);
-                                conditions.Add(bombs50.Item);
+                                conditions.Add(bombs40.Item);
                             }
 
                             if (conditions.Contains(Item.UpgradeBigBombBag))
                             {
                                 conditions.Remove(Item.UpgradeBigBombBag);
-                                conditions.Add(bombs40.Item);
+                                conditions.Add(bombs30.Item);
                             }
                         }
                     }

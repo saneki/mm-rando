@@ -151,6 +151,10 @@ namespace MMR.Randomizer.Utils
             }
 
             var isRepeatable = item.IsRepeatable() || (!settings.PreventDowngrades && item.IsDowngradable());
+            if (settings.ProgressiveUpgrades && item.HasAttribute<ProgressiveAttribute>())
+            {
+                isRepeatable = false;
+            }
             if (!isRepeatable)
             {
                 SceneUtils.UpdateSceneFlagMask(getItemIndex);
