@@ -975,11 +975,6 @@ namespace MMR.Randomizer
             {
                 ResourceUtils.ApplyHack(Resources.mods.death_moon_crash);
             }
-
-            if (_randomized.Settings.ContinuousDekuHopping)
-            {
-                ResourceUtils.ApplyHack(Resources.mods.fast_deku_hops);
-            }
         }
 
         private void WriteSunsSong()
