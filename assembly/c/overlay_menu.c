@@ -12,20 +12,35 @@ static sprite_t skulltula_icon = {
     G_IM_FMT_RGBA, G_IM_SIZ_32b, 4
 };
 
+// Clock Town stray fairy icon image buffer, written to by randomizer.
+u8 TOWN_FAIRY_BYTES[0xC00] = { 0 };
+
+// Clock Town stray fairy icon.
+static sprite_t town_fairy_icon = {
+    TOWN_FAIRY_BYTES, 32, 24, 1,
+    G_IM_FMT_RGBA, G_IM_SIZ_32b, 4
+};
+
 struct dungeon_entry {
     u8 index;
     u8 remains;
-    char name[12];
+    u8 is_dungeon;
+    u8 has_fairies;
+    u8 has_tokens;
+    char name[9];
 };
 
-struct dungeon_entry dungeons[4] = {
-    { 0, 0x5D, "Woodfall" },
-    { 1, 0x5E, "Snowhead" },
-    { 2, 0x5F, "GreatBay" },
-    { 3, 0x60, "StnTower" },
+static struct dungeon_entry dungeons[7] = {
+    { 0, 0x5D, 1, 1, 0, "Woodfall" },
+    { 1, 0x5E, 1, 1, 0, "Snowhead" },
+    { 2, 0x5F, 1, 1, 0, "GreatBay" },
+    { 3, 0x60, 1, 1, 0, "StnTower" },
+    { 4, 0,    0, 1, 0, "ClockTwn" },
+    { 5, 0,    0, 0, 1, "Swamp" },
+    { 6, 0,    0, 0, 2, "Ocean" },
 };
 
-static int g_dungeon_count = 4;
+static int g_dungeon_count = 7;
 
 /**
  * Get text for a specific amount, with a limited digit count (1 or 2).
@@ -147,7 +162,7 @@ void overlay_menu_draw(z2_game_t *game) {
     // Draw remains.
     for (int i = 0; i < g_dungeon_count; i++) {
         struct dungeon_entry *d = &(dungeons[i]);
-        if (has_remains(d->index)) {
+        if (d->is_dungeon && has_remains(d->index)) {
             int top = start_top + ((icon_size + padding) * i);
             sprite_load(db, &icon_sprite, d->remains, 1);
             sprite_draw(db, &icon_sprite, 0, left, top, icon_size, icon_size);
@@ -166,14 +181,16 @@ void overlay_menu_draw(z2_game_t *game) {
     // Draw small keys.
     for (int i = 0; i < g_dungeon_count; i++) {
         struct dungeon_entry *d = &(dungeons[i]);
-        // Get key count for dungeon.
-        u8 keys = z2_file.dungeon_keys[d->index];
-        // Get key count as text.
-        char count[2] = "0";
-        get_count_text(keys, count, 1);
-        // Draw key count as text.
-        int top = start_top + ((icon_size + padding) * i) + 1;
-        text_print(count, left + 4, top);
+        if (d->is_dungeon) {
+            // Get key count for dungeon.
+            u8 keys = z2_file.dungeon_keys[d->index];
+            // Get key count as text.
+            char count[2] = "0";
+            get_count_text(keys, count, 1);
+            // Draw key count as text.
+            int top = start_top + ((icon_size + padding) * i) + 1;
+            text_print(count, left + 4, top);
+        }
     }
     left += icon_size + padding;
 
@@ -181,9 +198,11 @@ void overlay_menu_draw(z2_game_t *game) {
     sprite_load(db, &icon_24_sprite, 6, 1);
     for (int i = 0; i < g_dungeon_count; i++) {
         struct dungeon_entry *d = &(dungeons[i]);
-        if (z2_file.dungeon_items[d->index].boss_key) {
-            int top = start_top + ((icon_size + padding) * i);
-            sprite_draw(db, &icon_24_sprite, 0, left, top, icon_size, icon_size);
+        if (d->is_dungeon) {
+            if (z2_file.dungeon_items[d->index].boss_key) {
+                int top = start_top + ((icon_size + padding) * i);
+                sprite_draw(db, &icon_24_sprite, 0, left, top, icon_size, icon_size);
+            }
         }
     }
     left += icon_size + padding;
@@ -192,9 +211,11 @@ void overlay_menu_draw(z2_game_t *game) {
     sprite_load(db, &icon_24_sprite, 8, 1);
     for (int i = 0; i < g_dungeon_count; i++) {
         struct dungeon_entry *d = &(dungeons[i]);
-        if (z2_file.dungeon_items[d->index].map) {
-            int top = start_top + ((icon_size + padding) * i);
-            sprite_draw(db, &icon_24_sprite, 0, left, top, icon_size, icon_size);
+        if (d->is_dungeon) {
+            if (z2_file.dungeon_items[d->index].map) {
+                int top = start_top + ((icon_size + padding) * i);
+                sprite_draw(db, &icon_24_sprite, 0, left, top, icon_size, icon_size);
+            }
         }
     }
     left += icon_size + padding;
@@ -203,68 +224,80 @@ void overlay_menu_draw(z2_game_t *game) {
     sprite_load(db, &icon_24_sprite, 7, 1);
     for (int i = 0; i < g_dungeon_count; i++) {
         struct dungeon_entry *d = &(dungeons[i]);
-        if (z2_file.dungeon_items[d->index].compass) {
-            int top = start_top + ((icon_size + padding) * i);
-            sprite_draw(db, &icon_24_sprite, 0, left, top, icon_size, icon_size);
+        if (d->is_dungeon) {
+            if (z2_file.dungeon_items[d->index].compass) {
+                int top = start_top + ((icon_size + padding) * i);
+                sprite_draw(db, &icon_24_sprite, 0, left, top, icon_size, icon_size);
+            }
         }
     }
     left += icon_size + padding;
 
-    // Draw stray fairy icon.
+    // Draw stray fairy, skulltula token icons.
     for (int i = 0; i < g_dungeon_count; i++) {
         struct dungeon_entry *d = &(dungeons[i]);
         int top = start_top + ((icon_size + padding) * i) - 2;
-        sprite_load(db, &fairy_sprite, d->index, 1);
-        sprite_draw(db, &fairy_sprite, 0, left, top, 20, 15);
+        if (d->has_fairies) {
+            // Draw dungeon fairy icons (32-bit RGBA). Otherwise, draw Clock Town fairy icon.
+            if (d->is_dungeon) {
+                sprite_load(db, &fairy_sprite, d->index, 1);
+                sprite_draw(db, &fairy_sprite, 0, left, top, 20, 15);
+            } else {
+                // Draw Clock Town fairy icon.
+                sprite_load(db, &town_fairy_icon, 0, 1);
+                sprite_draw(db, &town_fairy_icon, 0, left, top, 20, 15);
+            }
+        } else if (d->has_tokens) {
+            // Draw skulltula token icon.
+            sprite_load(db, &skulltula_icon, 0, 1);
+            sprite_draw(db, &skulltula_icon, 0, left + 2, top, 16, 12);
+        }
     }
     left += 20 + padding;
 
-    // Draw stray fairy count.
+    // Draw stray fairy count, skulltula token count.
     for (int i = 0; i < g_dungeon_count; i++) {
         struct dungeon_entry *d = &(dungeons[i]);
-        // Get fairy count for dungeon.
-        u8 fairies = z2_file.stray_fairies[d->index];
-        char count[3] = " 0";
-        get_count_text(fairies, count, 2);
-        // Draw fairy count as text.
         int top = start_top + ((icon_size + padding) * i);
-        if (fairies >= 15) {
-            // Use green text if at maximum.
-            z2_color_rgba8_t color = { 0x78, 0xFF, 0x00, 0xFF };
-            text_print_with_color(count, left, top, color);
-        } else {
-            text_print(count, left, top);
-        }
-    }
-
-    // Draw skulltula token counts.
-    const char * spider_houses[2] = { "Swamp", "Ocean" };
-    int left2 = bg_left + padding;
-    int top2 = bg_top + (icon_size * 5) + (padding * 6);
-    sprite_load(db, &skulltula_icon, 0, 1);
-    for (int i = 0; i < 2; i++) {
-        int butts = left2 + 6 + ((font_sprite.tile_w * 8) + (icon_size * 2) + (padding * 3)) * i;
-        // Draw skulltula token icon.
-        sprite_draw(db, &skulltula_icon, 0, butts, top2, 16, 12);
-        butts += icon_size + padding;
-        // Draw spider house name.
-        text_print(spider_houses[i], butts, top2);
-        butts += (font_sprite.tile_w * 6) + padding;
-        // Get skulltula token count.
-        int tokens = z2_file.skull_tokens_1;
-        if (i == 1) {
-            tokens = z2_file.skull_tokens_2;
-        }
-        // Get count as text.
-        char count[3] = " 0";
-        get_count_text(tokens, count, 2);
-        // Draw token count as text.
-        if (tokens >= 30) {
-            // Use green text if at maximum.
-            z2_color_rgba8_t color = { 0x78, 0xFF, 0x00, 0xFF };
-            text_print_with_color(count, butts, top2, color);
-        } else {
-            text_print(count, butts, top2);
+        if (d->has_fairies) {
+            // Get stray fairy count for dungeon or town.
+            u8 fairies = 0;
+            if (d->is_dungeon) {
+                // Get fairy count for dungeon.
+                fairies = z2_file.stray_fairies[d->index];
+            } else {
+                // Check for Clock Town fairy, flag: 0x801F0570 & 0x80
+                bool has_town_fairy = (z2_file.week_event_inf.week_event_inf_bytes[8] & 0x80) != 0;
+                fairies = has_town_fairy ? 1 : 0;
+            }
+            // Get count as text.
+            char count[3] = " 0";
+            get_count_text(fairies, count, 2);
+            // Draw fairy count as text.
+            if ((d->is_dungeon && fairies >= 15) || (!d->is_dungeon && fairies > 0)) {
+                // Use green text if at maximum.
+                z2_color_rgba8_t color = { 0x78, 0xFF, 0x00, 0xFF };
+                text_print_with_color(count, left, top, color);
+            } else {
+                text_print(count, left, top);
+            }
+        } else if (d->has_tokens) {
+            // Get skulltula token count.
+            int tokens = z2_file.skull_tokens_1;
+            if (d->has_tokens == 2) {
+                tokens = z2_file.skull_tokens_2;
+            }
+            // Get count as text.
+            char count[3] = " 0";
+            get_count_text(tokens, count, 2);
+            // Draw token count as text.
+            if (tokens >= 30) {
+                // Use green text if at maximum.
+                z2_color_rgba8_t color = { 0x78, 0xFF, 0x00, 0xFF };
+                text_print_with_color(count, left, top, color);
+            } else {
+                text_print(count, left, top);
+            }
         }
     }
 
