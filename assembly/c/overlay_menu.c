@@ -259,39 +259,36 @@ void overlay_menu_draw(z2_game_t *game) {
     for (int i = 0; i < g_dungeon_count; i++) {
         struct dungeon_entry *d = &(dungeons[i]);
         int top = start_top + ((icon_size + padding) * i);
+        // Get total count and maximum count for stray fairies or skulltula tokens.
+        int total = 0;
+        int maximum = 0;
         if (d->has_fairies) {
             // Get stray fairy count for dungeon or town.
-            u8 fairies = 0;
             if (d->is_dungeon) {
                 // Get fairy count for dungeon.
-                fairies = z2_file.stray_fairies[d->index];
+                total = z2_file.stray_fairies[d->index];
+                maximum = 15;
             } else {
                 // Check for Clock Town fairy, flag: 0x801F0570 & 0x80
                 bool has_town_fairy = (z2_file.week_event_inf.week_event_inf_bytes[8] & 0x80) != 0;
-                fairies = has_town_fairy ? 1 : 0;
-            }
-            // Get count as text.
-            char count[3] = " 0";
-            get_count_text(fairies, count, 2);
-            // Draw fairy count as text.
-            if ((d->is_dungeon && fairies >= 15) || (!d->is_dungeon && fairies > 0)) {
-                // Use green text if at maximum.
-                z2_color_rgba8_t color = { 0x78, 0xFF, 0x00, 0xFF };
-                text_print_with_color(count, left, top, color);
-            } else {
-                text_print(count, left, top);
+                total = has_town_fairy ? 1 : 0;
+                maximum = 1;
             }
         } else if (d->has_tokens) {
             // Get skulltula token count.
-            int tokens = z2_file.skull_tokens_1;
+            total = z2_file.skull_tokens_1;
             if (d->has_tokens == 2) {
-                tokens = z2_file.skull_tokens_2;
+                total = z2_file.skull_tokens_2;
             }
+            maximum = 30;
+        }
+        // Display count as text.
+        if (d->has_fairies || d->has_tokens) {
             // Get count as text.
             char count[3] = " 0";
-            get_count_text(tokens, count, 2);
-            // Draw token count as text.
-            if (tokens >= 30) {
+            get_count_text(total, count, 2);
+            // Draw fairy/token count as text.
+            if (total >= maximum) {
                 // Use green text if at maximum.
                 z2_color_rgba8_t color = { 0x78, 0xFF, 0x00, 0xFF };
                 text_print_with_color(count, left, top, color);
