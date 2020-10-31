@@ -138,14 +138,6 @@ static bool is_any_item_usable(const u8 *dpad, const bool *usable) {
     return false;
 }
 
-static bool check_action_state(z2_link_t *link) {
-    // Make sure certain action state flags are cleared before processing input
-    if ((link->action_state1 & DPAD_ACTION_STATE1) != 0)
-        return false;
-    else
-        return true;
-}
-
 static void load_texture(u8 *buf, int idx, int length, u8 item) {
     u32 phys = z2_GetFilePhysAddr(z2_item_texture_file);
     u8 *dest = buf + (idx * length);
@@ -261,9 +253,11 @@ bool dpad_handle(z2_link_t *link, z2_game_t *game) {
         z2_file.buttons_state.state != Z2_BUTTONS_STATE_BLACK_SCREEN)
         return false;
 
-    // Check action state flags
-    if (!check_action_state(link))
+    // Make sure certain Link state flags are cleared before processing D-Pad input.
+    u32 flags1 = Z2_ACTION_STATE1_HOLD | Z2_ACTION_STATE1_MOVE_SCENE | Z2_ACTION_STATE1_EPONA;
+    if ((link->action_state1 & flags1) != 0) {
         return false;
+    }
 
     if (pad_pressed.du && g_usable[0]) {
         return try_use_item(game, link, DPAD_CONFIG.primary.du);
