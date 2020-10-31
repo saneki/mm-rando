@@ -153,7 +153,7 @@ namespace MMR.Randomizer
                 {
                     SequenceInfo testSeq = unassigned[i];
                     // increases chance of getting non-mm music, but only if we have lots of music remaining
-                    if (unassigned.Count > 77 && testSeq.Name.StartsWith("mm") && (random.Next(100) < 40))
+                    if (unassigned.Count > 77 && testSeq.Name.StartsWith("mm") && testSeq.Type[0] < 0x100 && (random.Next(100) < 40))
                         continue;
 
                     // test if the testSeq can be used with available instrument set slots
