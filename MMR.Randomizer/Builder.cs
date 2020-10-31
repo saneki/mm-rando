@@ -123,6 +123,8 @@ namespace MMR.Randomizer
                 AssignSequenceSlot(targetSlot, testSequenceFileselect, unassigned, "SONGTEST"); // file select
                 List<SequenceInfo> allRegularSongs = RomData.SequenceList.FindAll(u =>  u.Type.Intersect(testSequenceFileselect.Type).Any());
                 SequenceUtils.ConvertSequenceSlotToPointer(0x76, 0x18);  // titlescreen
+                SequenceUtils.ConvertSequenceSlotToPointer(0x15, 0x18);  // clocktown 1
+                SequenceUtils.ConvertSequenceSlotToPointer(0x1a, 0x18);  // combat
                 foreach (SequenceInfo songslot in allRegularSongs)
                 {
                     SequenceUtils.ConvertSequenceSlotToPointer(songslot.MM_seq, 0x18);
