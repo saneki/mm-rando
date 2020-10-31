@@ -11,7 +11,8 @@
 // We do need to handle some of them though.
 #define DPAD_ACTION_STATE1 (       \
     Z2_ACTION_STATE1_HOLD        | \
-    Z2_ACTION_STATE1_MOVE_SCENE    \
+    Z2_ACTION_STATE1_MOVE_SCENE  | \
+    Z2_ACTION_STATE1_EPONA         \
 )
 
 typedef enum {
