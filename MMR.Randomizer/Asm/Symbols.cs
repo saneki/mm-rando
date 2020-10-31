@@ -145,6 +145,16 @@ namespace MMR.Randomizer.Asm
         }
 
         /// <summary>
+        /// Write bytes for Clock Town stray fairy icon to ROM.
+        /// </summary>
+        public void WriteClockTownStrayFairyIcon()
+        {
+            var addr = this["TOWN_FAIRY_BYTES"];
+            var icon = ImageUtils.GetClockTownStrayFairyIcon();
+            ReadWriteUtils.WriteToROM((int)addr, icon);
+        }
+
+        /// <summary>
         /// Write the D-Pad configuration structure to ROM.
         /// </summary>
         /// <param name="config">D-Pad config</param>
@@ -397,6 +407,7 @@ namespace MMR.Randomizer.Asm
         /// <param name="options">Options</param>
         public void ApplyConfiguration(AsmOptionsGameplay options)
         {
+            this.WriteClockTownStrayFairyIcon();
             this.WriteMiscConfig(options.MiscConfig);
             this.WriteMMRConfig(options.MMRConfig);
         }
