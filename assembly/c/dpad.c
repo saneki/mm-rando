@@ -184,7 +184,7 @@ static u16 update_y_position(u16 x, u16 y, u16 padding) {
     return y;
 }
 
-static bool is_minigame_frame() {
+static bool is_minigame_frame(void) {
     bool result = false;
 
     if (g_was_minigame)
@@ -219,7 +219,7 @@ void dpad_clear_item_textures(void) {
     }
 }
 
-void dpad_init() {
+void dpad_init(void) {
     // If using default values, overwrite DPAD_CONFIG items with defaults
     if (DPAD_CONFIG.state == DPAD_STATE_TYPE_DEFAULTS) {
         for (int i = 0; i < 4; i++) {
@@ -228,7 +228,7 @@ void dpad_init() {
     }
 }
 
-bool dpad_is_enabled() {
+bool dpad_is_enabled(void) {
     return (DPAD_CONFIG.state == DPAD_STATE_TYPE_ENABLED)
         || (DPAD_CONFIG.state == DPAD_STATE_TYPE_DEFAULTS);
 }
