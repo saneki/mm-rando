@@ -60,6 +60,11 @@ struct hud_color_config {
 
     // Version 2
     z2_color_rgb8_t dpad;
+
+    // Version 3
+    z2_color_rgb8_t menu_border_1;
+    z2_color_rgb8_t menu_border_2;
+    z2_color_rgb8_t menu_subtitle_text;
 };
 
 extern struct hud_color_config HUD_COLOR_CONFIG;

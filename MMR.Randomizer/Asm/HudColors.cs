@@ -62,6 +62,9 @@ namespace MMR.Randomizer.Asm
         public Color ScoreLines { get; set; } = Color.FromArgb(0xFF, 0x00, 0x00);
         public Color ScoreNote { get; set; } = Color.FromArgb(0xFF, 0x64, 0x00);
         public Color DPad { get; set; } = Color.FromArgb(0x80, 0x80, 0x80);
+        public Color MenuBorder1 { get; set; } = Color.FromArgb(0xB4, 0xB4, 0x78);
+        public Color MenuBorder2 { get; set; } = Color.FromArgb(0x96, 0x8C, 0x5A);
+        public Color MenuSubtitleText { get; set; } = Color.FromArgb(0xFF, 0xC8, 0x00);
 
         /// <summary>
         /// Get all colors in the order of serialization.
@@ -115,6 +118,9 @@ namespace MMR.Randomizer.Asm
             ScoreLines,
             ScoreNote,
             DPad,
+            MenuBorder1,
+            MenuBorder2,
+            MenuSubtitleText,
         };
 
         public HudColors()
@@ -145,9 +151,13 @@ namespace MMR.Randomizer.Asm
             {
                 return this.All.Take(46).ToArray();
             }
-            else
+            else if (version == 2)
             {
                 return this.All.Take(47).ToArray();
+            }
+            else
+            {
+                return this.All.Take(50).ToArray();
             }
         }
 
@@ -250,6 +260,12 @@ namespace MMR.Randomizer.Asm
         public Tuple<Color, Color> MagicOverride { get; set; } = null;
 
         /// <summary>
+        /// Optional hue shift for color of miscellaneous UI elements (pause menu border).
+        /// </summary>
+        [JsonIgnore]
+        public Tuple<float> HueShift { get; set; } = null;
+
+        /// <summary>
         /// Get the finalized <see cref="HudColors"/> after applying color overrides.
         /// </summary>
         /// <returns>Finalized colors</returns>
@@ -270,6 +286,14 @@ namespace MMR.Randomizer.Asm
             {
                 colors.Magic = this.MagicOverride.Item1;
                 colors.MagicInf = this.MagicOverride.Item2;
+            }
+
+            if (this.HueShift != null)
+            {
+                // Apply hue shift for pause menu border color.
+                colors.MenuBorder1 = colors.MenuBorder1.ShiftHue(this.HueShift.Item1);
+                colors.MenuBorder2 = colors.MenuBorder2.ShiftHue(this.HueShift.Item1);
+                colors.MenuSubtitleText = colors.MenuSubtitleText.ShiftHue(this.HueShift.Item1).Brighten(0.3f);
             }
 
             return colors;

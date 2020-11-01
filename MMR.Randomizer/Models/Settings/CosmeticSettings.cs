@@ -27,6 +27,11 @@ namespace MMR.Randomizer.Models.Settings
         public string MagicSelection { get; set; } = ColorSelectionManager.MagicMeter.GetItems()[0].Name;
 
         /// <summary>
+        /// Whether or not to perform hue shift for colors of miscellaneous UI elements.
+        /// </summary>
+        public bool ShiftHueMiscUI { get; set; }
+
+        /// <summary>
         /// Randomize sound effects
         /// </summary>
         public bool RandomizeSounds { get; set; }
