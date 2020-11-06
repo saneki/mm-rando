@@ -1423,7 +1423,7 @@ namespace MMR.Randomizer
                     .Id(0x1634)
                     .Message(it =>
                     {
-                        it.Text("What about").RuntimePronounOrAmount(businessScrubItem.DisplayItem, businessScrubItem.NewLocation.Value).Text(" for ").Pink("100 Rupees").Text("?").NewLine()
+                        it.Text("What about for ").Pink("100 Rupees").Text("?").NewLine()
                         .Text(" ").NewLine()
                         .StartGreenText()
                         .TwoChoices()

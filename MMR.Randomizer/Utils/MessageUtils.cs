@@ -497,23 +497,23 @@ namespace MMR.Randomizer.Utils
                 : "it";
         }
 
-        public static string GetPronounOrAmount(Item item, string it = " It", string name = null)
+        public static string GetPronounOrAmount(Item item)
         {
             var shopTexts = item.ShopTexts();
-            var itemAmount = Regex.Replace(name ?? item.Name(), "[^0-9]", "");
+            var itemAmount = Regex.Replace(item.Name(), "[^0-9]", "");
             return shopTexts.IsMultiple
                 ? string.IsNullOrWhiteSpace(itemAmount)
-                    ? it
+                    ? " it"
                     : " " + itemAmount
                 : shopTexts.IsDefinite
-                    ? it
-                    : " One";
+                    ? " it"
+                    : " one";
         }
 
-        public static string GetVerb(Item item, string name = null)
+        public static string GetVerb(Item item)
         {
             var shopTexts = item.ShopTexts();
-            var itemAmount = Regex.Replace(name ?? item.Name(), "[^0-9]", "");
+            var itemAmount = Regex.Replace(item.Name(), "[^0-9]", "");
             return shopTexts.IsMultiple && !string.IsNullOrWhiteSpace(itemAmount)
                 ? "are"
                 : "is";
