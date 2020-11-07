@@ -2342,8 +2342,7 @@ namespace MMR.Randomizer
                 //ResourceUtils.ApplyHack(ModsDir + "postman-testing");
                 return;
             }
-            Version v = Assembly.GetExecutingAssembly().GetName().Version;
-            RomUtils.SetStrings(Resources.mods.logo_text, $"v{v}", string.Empty);
+            RomUtils.SetStrings(Resources.mods.logo_text, $"v{Randomizer.AssemblyVersion}", string.Empty);
         }
 
         private void WriteShopObjects()

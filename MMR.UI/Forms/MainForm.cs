@@ -40,16 +40,6 @@ namespace MMR.UI.Forms
 
         public const string SETTINGS_EXTENSION = ".json";
 
-
-        public static string AssemblyVersion
-        {
-            get
-            {
-                Version v = typeof(Randomizer).Assembly.GetName().Version;
-                return $"Majora's Mask Randomizer v{v}";
-            }
-        }
-
         public MainForm()
         {
             InitializeComponent();
@@ -73,7 +63,7 @@ namespace MMR.UI.Forms
             HudConfig = new HudConfigForm();
 
 
-            Text = AssemblyVersion;
+            Text = $"Majora's Mask Randomizer v{Randomizer.AssemblyVersion}";
         }
 
         private void InitializeTooltips()
@@ -1383,11 +1373,6 @@ namespace MMR.UI.Forms
             _configuration.OutputSettings.InputPatchFilename = null;
 
             MessageBox.Show("Generation complete!", "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
-        }
-
-        private bool ValidateSettingsFile(String[] lines)
-        {
-            return lines.Length > 0 && (lines[0].Equals("#MMR Settings File [" + AssemblyVersion + "]") || lines[0].Equals("#MMR Settings File [dev]"));
         }
 
         private bool CheckLogicFileExists()
