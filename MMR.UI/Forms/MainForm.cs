@@ -155,6 +155,7 @@ namespace MMR.UI.Forms
             TooltipBuilder.SetTooltip(cArrowCycling, "Cycle through arrow types when pressing R while an arrow is out when using the bow.");
             TooltipBuilder.SetTooltip(cCloseCows, "When playing Epona's Song for a group of cows, the closest cow will respond, instead of the default behavior.");
             TooltipBuilder.SetTooltip(cCombatMusicDisable, "Disables combat music around all regular (non boss or miniboss) enemies in the game.");
+            TooltipBuilder.SetTooltip(cHueShiftMiscUI, "Shifts the color of miscellaneous UI elements.");
             TooltipBuilder.SetTooltip(cElegySpeedups, "Applies various Elegy of Emptiness speedups.");
         }
 
@@ -589,6 +590,7 @@ namespace MMR.UI.Forms
             cArrowCycling.Checked = _configuration.GameplaySettings.ArrowCycling;
             cCloseCows.Checked = _configuration.GameplaySettings.CloseCows;
             cCombatMusicDisable.Checked = _configuration.CosmeticSettings.DisableCombatMusic != CombatMusic.Normal;
+            cHueShiftMiscUI.Checked = _configuration.CosmeticSettings.ShiftHueMiscUI;
             cElegySpeedups.Checked = _configuration.GameplaySettings.ElegySpeedup;
 
             // HUD config options
@@ -962,6 +964,11 @@ namespace MMR.UI.Forms
         private void cCombatMusicDisable_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _configuration.CosmeticSettings.DisableCombatMusic = cCombatMusicDisable.Checked ? CombatMusic.All : CombatMusic.Normal);
+        }
+
+        private void cHueShiftMiscUI_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _configuration.CosmeticSettings.ShiftHueMiscUI = cHueShiftMiscUI.Checked);
         }
 
         private void cElegySpeedups_CheckedChanged(object sender, EventArgs e)
