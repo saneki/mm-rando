@@ -2458,6 +2458,12 @@ namespace MMR.Randomizer
                 config.MagicOverride = ColorSelectionManager.MagicMeter.GetItems().FirstOrDefault(csi => csi.Name == _cosmeticSettings.HeartsSelection)?.GetColors(random);
             else
                 config.MagicOverride = null;
+
+            // Get random values for hue shift.
+            if (_cosmeticSettings.ShiftHueMiscUI)
+            {
+                config.HueShift = new Tuple<float>((float)(random.NextDouble() * 360.0));
+            }
         }
 
         /// <summary>

@@ -138,14 +138,6 @@ static bool is_any_item_usable(const u8 *dpad, const bool *usable) {
     return false;
 }
 
-static bool check_action_state(z2_link_t *link) {
-    // Make sure certain action state flags are cleared before processing input
-    if ((link->action_state1 & DPAD_ACTION_STATE1) != 0)
-        return false;
-    else
-        return true;
-}
-
 static void load_texture(u8 *buf, int idx, int length, u8 item) {
     u32 phys = z2_GetFilePhysAddr(z2_item_texture_file);
     u8 *dest = buf + (idx * length);
@@ -192,7 +184,7 @@ static u16 update_y_position(u16 x, u16 y, u16 padding) {
     return y;
 }
 
-static bool is_minigame_frame() {
+static bool is_minigame_frame(void) {
     bool result = false;
 
     if (g_was_minigame)
@@ -227,7 +219,7 @@ void dpad_clear_item_textures(void) {
     }
 }
 
-void dpad_init() {
+void dpad_init(void) {
     // If using default values, overwrite DPAD_CONFIG items with defaults
     if (DPAD_CONFIG.state == DPAD_STATE_TYPE_DEFAULTS) {
         for (int i = 0; i < 4; i++) {
@@ -236,7 +228,7 @@ void dpad_init() {
     }
 }
 
-bool dpad_is_enabled() {
+bool dpad_is_enabled(void) {
     return (DPAD_CONFIG.state == DPAD_STATE_TYPE_ENABLED)
         || (DPAD_CONFIG.state == DPAD_STATE_TYPE_DEFAULTS);
 }
@@ -261,9 +253,11 @@ bool dpad_handle(z2_link_t *link, z2_game_t *game) {
         z2_file.buttons_state.state != Z2_BUTTONS_STATE_BLACK_SCREEN)
         return false;
 
-    // Check action state flags
-    if (!check_action_state(link))
+    // Make sure certain Link state flags are cleared before processing D-Pad input.
+    u32 flags1 = Z2_ACTION_STATE1_HOLD | Z2_ACTION_STATE1_MOVE_SCENE | Z2_ACTION_STATE1_EPONA;
+    if ((link->action_state1 & flags1) != 0) {
         return false;
+    }
 
     if (pad_pressed.du && g_usable[0]) {
         return try_use_item(game, link, DPAD_CONFIG.primary.du);
@@ -284,6 +278,8 @@ bool dpad_handle(z2_link_t *link, z2_game_t *game) {
  * Draws D-Pad textures to the overlay display list.
  **/
 void dpad_draw(z2_game_t *game) {
+    bool is_minigame = is_minigame_frame();
+
     // If disabled or hiding, don't draw
     if (DPAD_CONFIG.state == DPAD_STATE_TYPE_DISABLED || DPAD_CONFIG.display == DPAD_DISPLAY_NONE)
         return;
@@ -294,7 +290,7 @@ void dpad_draw(z2_game_t *game) {
 
     // Check for minigame frame, and do nothing unless transitioning into minigame
     // In which case the C-buttons alpha will be used instead for fade-in
-    if (is_minigame_frame() && z2_file.buttons_state.previous_state != Z2_BUTTONS_STATE_MINIGAME)
+    if (is_minigame && z2_file.buttons_state.previous_state != Z2_BUTTONS_STATE_MINIGAME)
         return;
 
     // Check if C button items are disabled for a specific entrance.
@@ -308,7 +304,7 @@ void dpad_draw(z2_game_t *game) {
     if (z2_file.buttons_state.state == Z2_BUTTONS_STATE_MINIGAME ||
         z2_file.buttons_state.state == Z2_BUTTONS_STATE_BOAT_ARCHERY ||
         z2_file.buttons_state.state == Z2_BUTTONS_STATE_SWORDSMAN_GAME ||
-        is_minigame_frame())
+        is_minigame)
         prim_alpha = game->hud_ctxt.c_left_alpha & 0xFF;
 
     // Check if any items shown on the D-Pad are usable
