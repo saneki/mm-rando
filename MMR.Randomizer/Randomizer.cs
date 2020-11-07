@@ -1330,7 +1330,7 @@ namespace MMR.Randomizer
             var availableStartingItems = (_settings.NoStartingItems
                 ? ItemUtils.AllRupees()
                 : ItemUtils.StartingItems())
-                .Where(item => !ItemList[item].NewLocation.HasValue && !ForbiddenStartingItems.Contains(item))
+                .Where(item => !ItemList[item].NewLocation.HasValue && !ForbiddenStartingItems.Contains(item) && !_settings.CustomStartingItemList.Contains(item))
                 .Cast<Item?>()
                 .ToList();
             foreach (var location in freeItemLocations)
@@ -1341,7 +1341,7 @@ namespace MMR.Randomizer
                     placedItem = availableStartingItems.RandomOrDefault(Random);
                     if (placedItem == null)
                     {
-                        throw new Exception("Failed to replace a starting item.");
+                        throw new Exception("Failed to replace a starting item. Not enough items that can be started with are randomized or too many Extra Starting Items are selected.");
                     }
                     ItemList[placedItem.Value].NewLocation = location;
                     ItemList[placedItem.Value].IsRandomized = true;
