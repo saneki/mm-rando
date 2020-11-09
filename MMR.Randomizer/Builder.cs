@@ -1168,7 +1168,7 @@ namespace MMR.Randomizer
                 PutOrCombine(startingItems, 0xC5CE71, 0x02);
             }
 
-            var itemList = items.ToList();
+            var itemList = items.Where(item => item != Item.RecoveryHeart).ToList();
 
             if (_randomized.Settings.CustomStartingItemList != null)
             {
