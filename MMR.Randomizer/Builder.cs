@@ -2605,7 +2605,7 @@ namespace MMR.Randomizer
                 WriteStartupStrings();
 
                 // Overwrite existing items with ice traps.
-                if (_randomized.Settings.IceTraps != IceTraps.None)
+                if (_randomized.Settings.LogicMode != LogicMode.Vanilla && _randomized.Settings.IceTraps != IceTraps.None)
                 {
                     progressReporter.ReportProgress(70, "Writing ice traps...");
                     WriteIceTraps();
