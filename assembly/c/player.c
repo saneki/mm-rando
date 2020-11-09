@@ -4,6 +4,9 @@
 
 bool player_can_receive_item(z2_game_t *game) {
     z2_link_t *link = Z2_LINK(game);
+    if ((link->action_state1 & Z2_ACTION_STATE1_AIM ) != 0) {
+        return false;
+    }
     u16 current_animation_id = link->current_animation_id;
     bool result = false;
     switch (current_animation_id) {
