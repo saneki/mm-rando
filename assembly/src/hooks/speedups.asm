@@ -48,7 +48,7 @@
 ;   addiu   v0, r0, 0x0001
 .org 0x80BA4AE0 ; Offset: 0x1420
     jal     toto_handle_advance_formal_replay_hook
-    addiu   a2, r0, 0x0028
+    nop
 
 ; Update behavior when advancing Toto cutscene state (2).
 ; Replaces:
@@ -56,7 +56,7 @@
 ;   addiu   v0, r0, 0x0001
 .org 0x80BA4AF4 ; Offset: 0x1434
     jal     toto_handle_advance_formal_replay_hook
-    addiu   a2, r0, 0x0014
+    nop
 
 ; Update behavior when advancing Toto cutscene state (3).
 ; Replaces:
@@ -64,7 +64,7 @@
 ;   addiu   v0, r0, 0x0001
 .org 0x80BA4B04 ; Offset: 0x1444
     jal     toto_handle_advance_formal_replay_hook
-    addiu   a2, r0, 0x0004
+    nop
 
 ;==================================================================================================
 ; Check Speedups - Saving Bomb Shop Lady

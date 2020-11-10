@@ -147,16 +147,13 @@ toto_before_advance_formal_replay_hook:
     addiu   sp, sp, 0x18
 
 toto_handle_advance_formal_replay_hook:
+    ; Load params from stack for calling hook function.
     lw      a0, 0x0020 (sp)
+    jal     toto_handle_advance_formal_replay
     lw      a1, 0x0024 (sp)
 
-    addiu   sp, sp, -0x18
-    addu    ra, ra, a2
-    sw      ra, 0x0014 (sp)
-
-    jal     toto_handle_advance_formal_replay
-    nop
-
-    lw      ra, 0x0014 (sp)
+    ; Return from caller function early.
+    lw      ra, 0x001C (sp)
+    lw      s0, 0x0018 (sp)
     jr      ra
-    addiu   sp, sp, 0x18
+    addiu   sp, sp, 0x20
