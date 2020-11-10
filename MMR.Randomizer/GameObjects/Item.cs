@@ -905,6 +905,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x76)]
         SongElegy,
 
+        [Visible]
         [StartingItem(0xC5CE72, 0x04)]
         [ItemName("Oath to Order"), LocationName("Boss Blue Warp"), Region(Region.Misc)]
         [GossipLocationHint("cleansed evil", "a fallen evil"), GossipItemHint("a song of summoning", "a song of giants")]
