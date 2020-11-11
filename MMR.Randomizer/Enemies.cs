@@ -294,6 +294,13 @@ namespace MMR.Randomizer
             int actorFlagLocation = (actorInitVarRomAddr + 7);// - RomData.MMFileList[ActorFID].Addr; // file offset
             byte flagByte = RomData.MMFileList[actorFileID].Data[actorFlagLocation];
             RomData.MMFileList[actorFileID].Data[actorFlagLocation] = (byte)(flagByte & 0xFB);
+
+            if (actor == GameObjects.Actor.DekuBabaWithered) // special case: when they regrow music returns
+            {
+                // when they finish regrowing their combat music bit is reset, we need to no-op this to stop it
+                // 	[ori t3,t1,0x0005] which is [35 2B 00 05] becomes [00 00 00 00]
+                ReadWriteUtils.Arr_WriteU32(RomData.MMFileList[actorFileID].Data, 0x12BC, 0x00000000);
+            }
         }
 
 
