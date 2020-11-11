@@ -702,7 +702,7 @@
 0
 
 - Inverted Stone Tower Temple access
-116,120,4,468,461
+116,120,4,461
 
 0
 0
