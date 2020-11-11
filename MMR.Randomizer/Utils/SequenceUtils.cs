@@ -41,78 +41,101 @@ namespace MMR.Randomizer.Utils
             }
 
             // multiple directory search
-            List<String> directories = Directory.GetDirectories(Values.MusicDirectory).ToList();
+            var directories = new List<string>();
+            if (!Directory.Exists(Values.MusicDirectory))
+            {
+                Directory.CreateDirectory(Values.MusicDirectory); // we still need for MM-only
+            }
+            directories.Add(Values.MusicDirectory);
+            directories.AddRange(Directory.GetDirectories(Values.MusicDirectory).ToList());
             foreach (string d in directories.ToList()) // another layer deep to be safe
             {
                 List<String> deeper_directories = Directory.GetDirectories(d).ToList();
                 directories.AddRange(deeper_directories);
             }
-            directories.Add(Values.MusicDirectory);
 
             foreach (String directory in directories)
             {
                 int i = 0;
                 while (i < lines.Length)
                 {
-                    string sourceName = lines[i];
-                    List<int> sourceType = new List<int>();
-                    foreach (String part in lines[i + 1].Split(','))
+                    try
                     {
-                        sourceType.Add(Convert.ToInt32(part, 16));
+                        string sourceName = lines[i];
+                        List<int> sourceType = new List<int>();
+                        foreach (String part in lines[i + 1].Split(','))
+                        {
+                            sourceType.Add(Convert.ToInt32(part, 16));
+                        }
+
+                        int sourceInstrument = Convert.ToInt32(lines[i + 2], 16);
+
+                        var targetName = lines[i];
+                        var targetType = sourceType;
+                        var targetInstrument = Convert.ToInt32(lines[i + 2], 16);
+
+                        SequenceInfo sourceSequence = new SequenceInfo
+                        {
+                            Name = sourceName,
+                            Type = sourceType,
+                            Instrument = sourceInstrument
+                        };
+
+                        SequenceInfo targetSequence = new SequenceInfo
+                        {
+                            Name = targetName,
+                            Type = targetType,
+                            Instrument = targetInstrument
+                        };
+
+                        if (sourceSequence.Name.StartsWith("mm-"))
+                        {
+                            targetSequence.Replaces = Convert.ToInt32(lines[i + 3], 16);
+                            sourceSequence.MM_seq = Convert.ToInt32(lines[i + 3], 16);
+                            if (lines[i + 4] == "no-recycle")
+                            {
+                                //Debug.WriteLine("Player does not want to reuse song: " + sourceSequence.Name);
+                                sourceSequence.Name = "drop";
+                                i += 1;
+                            }
+                            i += 4;
+                            if (RomData.TargetSequences.Find(u => u.Name == sourceName) != null)
+                            {
+                                continue; //old already have it
+                            }
+                            RomData.TargetSequences.Add(targetSequence);
+                        }
+                        else
+                        {
+                            i += 3;
+                            if (File.Exists(Path.Combine(directory, sourceName)) == false)
+                            {
+                                // if sequence file doesn't exist, was removed by user, ignore it
+                                continue;
+                            }
+                            sourceSequence.Directory = directory;
+                        };
+
+                        if (sourceSequence.MM_seq != 0x18 && sourceSequence.Name != "drop")
+                        {
+                            RomData.SequenceList.Add(sourceSequence);
+                        };
                     }
-
-                    int sourceInstrument = Convert.ToInt32(lines[i + 2], 16);
-
-                    var targetName = lines[i];
-                    var targetType = sourceType;
-                    var targetInstrument = Convert.ToInt32(lines[i + 2], 16);
-
-                    SequenceInfo sourceSequence = new SequenceInfo
+                    catch (Exception e)
                     {
-                        Name = sourceName,
-                        Type = sourceType,
-                        Instrument = sourceInstrument
-                    };
-
-                    SequenceInfo targetSequence = new SequenceInfo
-                    {
-                        Name = targetName,
-                        Type = targetType,
-                        Instrument = targetInstrument
-                    };
-
-                    if (sourceSequence.Name.StartsWith("mm-"))
-                    {
-                        targetSequence.Replaces = Convert.ToInt32(lines[i + 3], 16);
-                        sourceSequence.MM_seq = Convert.ToInt32(lines[i + 3], 16);
-                        if (lines[i + 4] == "no-recycle")
+                        string aboveLines = "";
+                        string nl = "\n";
+                        if (i > 3)
                         {
-                            //Debug.WriteLine("Player does not want to reuse song: " + sourceSequence.Name);
-                            sourceSequence.Name = "drop";
-                            i += 1;
+                            aboveLines += lines[i - 3] + nl + lines[i - 2] + nl + lines[i - 1] + nl;
                         }
-                        i += 4;
-                        if (RomData.TargetSequences.Find(u => u.Name == sourceName) != null)
-                        {
-                            continue; //old already have it
-                        }
-                        RomData.TargetSequences.Add(targetSequence);
+                        throw new Exception( "Error while reading SEQS.txt:\n"
+                                           + e.Message + "\n\n"
+                                           + "Caused by the line with the arrow:\n\n"
+                                           + aboveLines
+                                           + lines[i] + "  <--\n"
+                                           + lines[i+1] + nl + lines[i+2] + nl + lines[i+3]);
                     }
-                    else
-                    {
-                        i += 3;
-                        if (File.Exists(Path.Combine(directory, sourceName)) == false)
-                        {
-                            // if sequence file doesn't exist, was removed by user, ignore it
-                            continue;
-                        }
-                        sourceSequence.Directory = directory;
-                    };
-
-                    if (sourceSequence.MM_seq != 0x18 && sourceSequence.Name != "drop")
-                    {
-                        RomData.SequenceList.Add(sourceSequence);
-                    };
                 } // end while (i < lines.Length)
 
                 RomData.SequenceList.Add(new SequenceInfo

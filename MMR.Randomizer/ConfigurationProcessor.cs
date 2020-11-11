@@ -42,6 +42,11 @@ namespace MMR.Randomizer
                 {
                     return "Cannot verify input ROM is Majora's Mask (U).";
                 }
+                if (configuration.OutputSettings.OutputVC && !Directory.Exists(Values.VCDirectory))
+                {
+                    return "Error: vc folder is missing and WiiVC wad creation was selected.\n\n"
+                        + "If you did not extract the whole randomizer, you must extract the vc folder. If this is a beta release, copy the vc folder from the main release.";
+                }
 
                 var builder = new Builder(randomized, configuration.CosmeticSettings);
 
