@@ -201,5 +201,6 @@ void misc_init(void) {
     if (MISC_CONFIG.vanilla_layout) {
         // Mod files with code required for freestanding models are not included if using vanilla layout.
         MISC_CONFIG.freestanding = 0;
+        MISC_CONFIG.shop_models = 0;
     }
 }
