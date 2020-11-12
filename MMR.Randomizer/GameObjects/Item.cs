@@ -3465,7 +3465,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x1CA)]
         MundaneItemCuriosityShopGoldRupee,
 
-        [Visible]
+        [Visible, Purchaseable]
         [Repeatable, Temporary, Overwritable]
         [ItemName("Seahorse"), LocationName("Fisherman Pictograph"), Region(Region.GreatBayCoast)]
         [GossipLocationHint("a fisherman"), GossipItemHint("a sea creature")]
