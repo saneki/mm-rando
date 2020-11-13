@@ -2666,7 +2666,12 @@ namespace MMR.Randomizer
                         throw new ROMOverflowException("32 MB", "WiiVC");
                     }
                     progressReporter.ReportProgress(90, "Writing VC...");
-                    VCInjectionUtils.BuildVC(ROM, _cosmeticSettings.AsmOptions.DPadConfig, Values.VCDirectory, Path.ChangeExtension(outputSettings.OutputROMFilename, "wad"));
+                    var fileName = Path.ChangeExtension(outputSettings.OutputROMFilename, "wad");
+                    if (!Path.IsPathRooted(fileName))
+                    {
+                        fileName = Path.Combine(Values.MainDirectory, fileName);
+                    }
+                    VCInjectionUtils.BuildVC(ROM, _cosmeticSettings.AsmOptions.DPadConfig, Values.VCDirectory, fileName);
                 }
             }
             progressReporter.ReportProgress(100, "Done!");
