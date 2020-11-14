@@ -5,11 +5,9 @@ namespace MMR.Randomizer.GameObjects
     /// <summary>
     /// Same As Bank 0
     /// </summary>
-    public enum PlaybackInstrument
+    public enum Instrument
     {
         Random,
-
-        SyncedRandom,
 
         //[Id(0x00)]
         //DustyFootsteps,
