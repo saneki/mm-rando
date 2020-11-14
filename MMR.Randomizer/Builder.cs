@@ -1584,6 +1584,7 @@ namespace MMR.Randomizer
                             {
                                 it.RuntimeItemName(magicBeanItem.AlternateName(), magicBeanItem.NewLocation.Value);
                             })
+                            .Text(" ")
                             .RuntimeVerb(magicBeanItem.DisplayItem, magicBeanItem.NewLocation.Value)
                             .Text("?")
                             ;
