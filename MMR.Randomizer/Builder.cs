@@ -443,6 +443,7 @@ namespace MMR.Randomizer
             var playbackInstrumentsOffset = 0x12A8DC; // data for playback instruments
             var freePlayInstrumentsOffset = 0x12A8E4; // data for free play instruments
             var freePlayInstrumentsArrayAddress = 0x51CBE;
+            var previouslyUsedInstruments = new List<Instrument>();
             foreach (var form in Enum.GetValues(typeof(TransformationForm)).Cast<TransformationForm>().Where(form => form != TransformationForm.FierceDeity))
             {
                 var index = form.Id();
@@ -462,13 +463,17 @@ namespace MMR.Randomizer
 
                 if (instrument == Instrument.Random)
                 {
-                    instrument = Enum.GetValues(typeof(Instrument)).Cast<Instrument>().Skip(1).ToList().Random(random);
+                    instrument = Enum.GetValues(typeof(Instrument)).Cast<Instrument>()
+                        .Where(u => ! previouslyUsedInstruments.Contains(u)).Skip(1).ToList()
+                        .Random(random);
                 }
 
+                previouslyUsedInstruments.Add(instrument);
                 var freePlayInstrumentIndex = ReadWriteUtils.Read(codeFileAddress + freePlayInstrumentsOffset + index) - 1;
                 ReadWriteUtils.WriteToROM(freePlayInstrumentsArrayAddress + freePlayInstrumentIndex, instrument.Id());
 
                 ReadWriteUtils.WriteToROM(codeFileAddress + playbackInstrumentsOffset + index, instrument.Id());
+                Debug.WriteLine($" form: {form} was assigned instrument: {instrument}");
             }
         }
 
