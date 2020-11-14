@@ -185,12 +185,6 @@ namespace MMR.UI.Forms
                         Location = new Point(26, 33),
                         Size = new Size(59, 13),
                     });
-                    tabPage.Controls.Add(new Label
-                    {
-                        Text = "Song Playback:",
-                        Location = new Point(3, 78),
-                        Size = new Size(82, 13),
-                    });
                     tabPage.Controls.Add(CreateInstrumentComboBox(form));
                 }
                 tFormCosmetics.TabPages.Add(tabPage);
@@ -235,7 +229,7 @@ namespace MMR.UI.Forms
             {
                 Tag = transformationForm,
                 Name = "cInstrument",
-                Location = new Point(91, 74),
+                Location = new Point(91, 30),
                 Size = new Size(135, 21),
                 DropDownStyle = ComboBoxStyle.DropDownList,
                 DataSource = new BindingSource(data, null),

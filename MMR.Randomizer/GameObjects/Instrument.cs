@@ -369,8 +369,8 @@ namespace MMR.Randomizer.GameObjects
         //[Id(0x79)]
         //SpiderCrawlingAround,
 
-        [Id(0x7E)]
-        NpcVoices,
+        //[Id(0x7E)]
+        //NpcVoices,
 
     }
 }
