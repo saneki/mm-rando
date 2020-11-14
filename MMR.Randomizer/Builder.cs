@@ -444,7 +444,7 @@ namespace MMR.Randomizer
             var freePlayInstrumentsOffset = 0x12A8E4; // data for free play instruments
             var freePlayInstrumentsArrayAddress = 0x51CBE;
             var previouslyUsedInstruments = new List<Instrument>();
-            foreach (var form in Enum.GetValues(typeof(TransformationForm)).Cast<TransformationForm>().Where(form => form != TransformationForm.FierceDeity))
+            foreach (var form in Enum.GetValues(typeof(TransformationForm)).Cast<TransformationForm>().Where(form => form != TransformationForm.FierceDeity).OrderBy(f => _cosmeticSettings.Instruments[f] == Instrument.Random))
             {
                 var index = form.Id();
 
@@ -458,6 +458,7 @@ namespace MMR.Randomizer
 
                 if (instrument == form.DefaultInstrument())
                 {
+                    previouslyUsedInstruments.Add(instrument);
                     continue;
                 }
 
