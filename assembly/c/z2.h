@@ -2069,6 +2069,15 @@ typedef struct {
 } z2_en_girla_t;
 
 /**
+ * En_Item00 actor (Collectable Field Item)
+ **/
+typedef struct {
+    z2_actor_t       common;                         /* 0x0000 */
+    u8               unk_0x144[0x04];                /* 0x0144 */
+    u16              collectable_flag;               /* 0x0148 */
+} z2_en_item00_t;
+
+/**
  * En_Toto actor (Toto)
  **/
 typedef struct z2_en_toto_s {
@@ -2400,6 +2409,7 @@ typedef struct {
 
 /* Function Addresses (Drawing) */
 #define z2_BaseDrawCollectable_addr      0x800A7128
+#define z2_DrawRupee_addr                0x800A72AC
 #define z2_DrawHeartPiece_addr           0x800A75B8
 #define z2_PreDraw2_addr                 0x800B8050
 #define z2_PreDraw1_addr                 0x800B8118
@@ -2592,6 +2602,7 @@ typedef void (*z2_UnloadRoom_proc)(z2_game_t *game, z2_room_ctxt_t *room_ctxt);
 #define z2_BaseDrawCollectable           ((z2_ActorDraw_proc)             z2_BaseDrawCollectable_addr)
 #define z2_BaseDrawGiModel               ((z2_BaseDrawGiModel_proc)       z2_BaseDrawGiModel_addr)
 #define z2_CallSetupDList                ((z2_CallDList_proc)             z2_CallSetupDList_addr)
+#define z2_DrawRupee                     ((z2_ActorDraw_proc)             z2_DrawRupee_addr)
 #define z2_DrawHeartPiece                ((z2_ActorDraw_proc)             z2_DrawHeartPiece_addr)
 #define z2_PreDraw1                      ((z2_PreDraw_proc)               z2_PreDraw1_addr)
 #define z2_PreDraw2                      ((z2_PreDraw_proc)               z2_PreDraw2_addr)

@@ -73,7 +73,8 @@ struct misc_config {
         struct {
             // Version 1 flags
             u32 vanilla_layout     : 1;
-            u32                    : 31;
+            u32                    : 15;
+            u32 collectable_table_file_index: 16;
         };
         u32 internal;
     };                      /* 0x001C */

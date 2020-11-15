@@ -215,6 +215,8 @@ namespace MMR.Randomizer.Asm
         /// </summary>
         public bool VanillaLayout { get; set; }
 
+        public ushort CollectableTableFileIndex { get; set; }
+
         /// <summary>
         /// Convert to a <see cref="uint"/> integer.
         /// </summary>
@@ -223,6 +225,7 @@ namespace MMR.Randomizer.Asm
         {
             uint flags = 0;
             flags |= (this.VanillaLayout ? (uint)1 : 0) << 31;
+            flags |= CollectableTableFileIndex;
             return flags;
         }
     }
@@ -322,6 +325,7 @@ namespace MMR.Randomizer.Asm
 
             // Update internal flags.
             this.InternalFlags.VanillaLayout = settings.LogicMode == LogicMode.Vanilla;
+            this.InternalFlags.CollectableTableFileIndex = ItemSwapUtils.COLLECTABLE_TABLE_FILE_INDEX;
         }
 
         /// <summary>

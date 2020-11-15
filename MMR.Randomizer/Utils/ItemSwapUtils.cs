@@ -14,6 +14,7 @@ namespace MMR.Randomizer.Utils
     {
         const int BOTTLE_CATCH_TABLE = 0xCD7C08;
         static int GET_ITEM_TABLE = 0;
+        public static ushort COLLECTABLE_TABLE_FILE_INDEX { get; private set; } = 0;
 
         public static void ReplaceGetItemTable()
         {
@@ -24,6 +25,8 @@ namespace MMR.Randomizer.Utils
             ResourceUtils.ApplyHack(Resources.mods.update_chests);
             RomUtils.AddNewFile(Resources.mods.chest_table);
             ReadWriteUtils.WriteToROM(0xBDAEA8, (uint)last_file + 2);
+            RomUtils.AddNewFile(Resources.mods.collectable_table);
+            COLLECTABLE_TABLE_FILE_INDEX = (ushort)(last_file + 3);
             ResourceUtils.ApplyHack(Resources.mods.standing_hearts);
             ResourceUtils.ApplyHack(Resources.mods.fix_item_checks);
             SceneUtils.ResetSceneFlagMask();

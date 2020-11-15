@@ -127,6 +127,9 @@
   <data name="cm_cs" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>mods\cm-cs;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="collectable_table" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>mods\collectable-table;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="death_moon_crash" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>mods\death-moon-crash;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
