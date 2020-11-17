@@ -1178,6 +1178,8 @@ namespace MMR.Randomizer
                 itemList.AddRange(_randomized.Settings.CustomStartingItemList);
             }
 
+            itemList = itemList.Distinct().ToList();
+
             itemList.Add(Item.StartingHeartContainer1);
             while (itemList.Count(item => item.Name() == "Piece of Heart") >= 4)
             {
