@@ -2704,7 +2704,7 @@ typedef bool (*z2_IsMessageClosed_proc)(z2_actor_t *actor, z2_game_t *game);
 /* Functions (Get Item) */
 #define z2_SetGetItem                    ((z2_SetGetItem_proc)            z2_SetGetItem_addr)
 #define z2_SetGetItemLongrange           ((z2_SetGetItemLongrange_proc)   z2_SetGetItemLongrange_addr)
-#define z2_GiveItem                      ((z2_GiveItem_proc)              z2_GiveItem_addr);
+#define z2_GiveItem                      ((z2_GiveItem_proc)              z2_GiveItem_addr)
 
 /* Functions (HUD) */
 #define z2_HudSetAButtonText             ((z2_HudSetAButtonText_proc)     z2_HudSetAButtonText_addr)
