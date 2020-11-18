@@ -213,21 +213,22 @@ void models_draw_heart_piece(z2_actor_t *actor, z2_game_t *game) {
  * Hook function for drawing Item00 actors as their new item.
  **/
 bool models_draw_item00(z2_en_item00_t *actor, z2_game_t *game) {
+    bool result = false;
     if (MISC_CONFIG.freestanding) {
         u16 index = item00_get_gi_index(actor, game);
         if (index > 0) {
             // TODO render rupees as rupees
             models_draw_from_gi_table(&(actor->common), game, 22.0, index);
-            return true;
+            result = true;
         }
     }
     // TODO check if item00 are randomized
     if (actor->unk_state == 0x23) {
-        if (z2_IsMessageClosed(game)) {
+        if (z2_IsMessageClosed(&(actor->common), game)) {
             player_unpause(game);
         }
     }
-    return false;
+    return result;
 }
 
 /**

@@ -2618,7 +2618,7 @@ typedef void (*z2_SetBGM2_proc)(u16 bgm_id);
 
 /* Function Prototypes (Text) */
 typedef void (*z2_ShowMessage_proc)(z2_game_t *game, u16 message_id, u8 something); // TODO figure out something?
-typedef bool (*z2_IsMessageClosed_proc)(z2_game_t *game);
+typedef bool (*z2_IsMessageClosed_proc)(z2_actor_t *actor, z2_game_t *game);
 
 /* Functions */
 #define z2_CanInteract                   ((z2_CanInteract_proc)           z2_CanInteract_addr)
