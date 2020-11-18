@@ -43,6 +43,7 @@
 .include "hooks/hud_colors.asm"
 .include "hooks/item00.asm"
 .include "hooks/items.asm"
+.include "hooks/knight.asm"
 .include "hooks/message.asm"
 .include "hooks/message_table.asm"
 .include "hooks/misc.asm"
@@ -56,13 +57,12 @@
 .include "hooks/scene.asm"
 .include "hooks/song_state.asm"
 .include "hooks/speedups.asm"
+.include "hooks/stray_fairy_group.asm"
 .include "hooks/world_colors.asm"
 .include "hooks/mmr_gi.asm"
 
 .if MMR_MODS == 1
     .include "hooks/mmr.asm"
-.else
-    .include "hooks/bug_fixes.asm"
 .endif
 
 ;==================================================================================================
@@ -89,6 +89,7 @@ PAYLOAD_START:
 .include "hud_colors.asm"
 .include "item00.asm"
 .include "items.asm"
+.include "knight.asm"
 .include "message_table.asm"
 .include "misc.asm"
 .include "models.asm"
@@ -99,6 +100,7 @@ PAYLOAD_START:
 .include "rooms.asm"
 .include "savedata.asm"
 .include "speedups.asm"
+.include "stray_fairy_group.asm"
 .include "world_colors.asm"
 .importobj "../build/bundle.o"
 .align 8
