@@ -2,6 +2,7 @@
 #include "misc.h"
 #include "z2.h"
 #include "mmr.h"
+#include "player.h"
 
 u16 item00_get_gi_index(z2_en_item00_t *actor, z2_game_t *game) {
     return *(u16*)(&actor->common.unk_0xE0); // TODO pick a definitely unused part of the item00 actor memory
@@ -27,5 +28,7 @@ bool item00_give_item(z2_en_item00_t *actor, z2_game_t *game) {
     if (gi_index == 0) {
         return false;
     }
-    // TODO
+    mmr_GiveItem(game, &(actor->common), gi_index);
+    player_pause(game);
+    return true;
 }

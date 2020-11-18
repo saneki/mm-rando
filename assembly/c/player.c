@@ -32,6 +32,18 @@ bool player_can_receive_item(z2_game_t *game) {
     return result;
 }
 
+void player_pause(z2_game_t *game) {
+    z2_link_t *link = Z2_LINK(game);
+    link->common.frozen = 0x64;
+    link->state_flags[0] |= 0x0200;
+}
+
+void player_unpause(z2_game_t *game) {
+    z2_link_t *link = Z2_LINK(game);
+    link->common.frozen = 0;
+    link->state_flags[0] &= 0xFFFFFDFF;
+}
+
 /**
  * Hook function to check whether or not freezing should void Zora.
  **/

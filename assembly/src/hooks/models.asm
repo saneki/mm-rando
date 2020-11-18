@@ -11,16 +11,20 @@
     jal     models_draw_heart_piece
 
 ;==================================================================================================
-; Freestanding Models (Rupees)
+; Freestanding Models (Item00 Not Heart Piece)
 ;==================================================================================================
 
 .headersize(G_CODE_RAM - G_CODE_FILE)
 
 ; Rupee draw function call.
 ; Replaces:
-;   jal     0x800A72AC
-.org 0x800A7174
-    jal     models_draw_rupee
+;   lui     at, 0x801E
+;   addu    at, at, t9
+;   lw      t9, 0xBFF4 (at)
+.org 0x800A715C
+    jal     models_draw_item00_hook
+    nop
+    nop
 
 ;==================================================================================================
 ; Freestanding Models (Skulltula Token)

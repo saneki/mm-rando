@@ -2076,6 +2076,8 @@ typedef struct {
     z2_actor_t       common;                         /* 0x0000 */
     u8               unk_0x144[0x04];                /* 0x0144 */
     u16              collectable_flag;               /* 0x0148 */
+    u16              unk_0x14A;                      /* 0x014A */
+    u16              unk_state;                      /* 0x014C */
 } z2_en_item00_t;
 
 /**
@@ -2383,7 +2385,6 @@ typedef struct {
 #define z2_RemoveItem_addr               0x801149A0
 #define z2_ToggleSfxDampen_addr          0x8019C300
 #define z2_HandleLinearVelocity_addr     0x800FF2F8 // just guessing the name
-#define z2_SetGetItemLongrange_addr      0x800B8BD0
 
 /* Scene Flags */
 #define z2_get_generic_flag_addr         0x800B5BB0
@@ -2452,6 +2453,7 @@ typedef struct {
 
 /* Function Addresses (Get Item) */
 #define z2_SetGetItem_addr               0x800B8A1C
+#define z2_SetGetItemLongrange_addr      0x800B8BD0
 #define z2_GiveItem_addr                 0x80112E80
 
 /* Function Addresses (HUD) */
@@ -2483,6 +2485,7 @@ typedef struct {
 
 /* Function Addresses (Text) */
 #define z2_ShowMessage_addr              0x801518B0
+#define z2_IsMessageClosed_addr          0x800B867C
 
 /* Relocatable Functions (Pause Menu) */
 #define z2_PauseDrawItemIcon_vram        0x80821AD4
@@ -2514,7 +2517,6 @@ typedef void (*z2_WriteHeartColors_proc)(z2_game_t *game);
 typedef void (*z2_RemoveItem_proc)(u32 item, u8 slot);
 typedef void (*z2_ToggleSfxDampen_proc)(int enable);
 typedef void (*z2_HandleLinearVelocity_proc)(f32 *linear_velocity, f32 a1, f32 a2, f32 a3); // unknown variables
-typedef bool (*z2_SetGetItemLongrange_proc)(z2_actor_t *actor, z2_game_t *game, u16 gi_index);
 
 /* Function Prototypes (Scene Flags) */
 // TODO parameters
@@ -2581,6 +2583,7 @@ typedef void (*z2_Yaz0_LoadAndDecompressFile_proc)(u32 prom_addr, void *dest, u3
 
 /* Function Prototypes (Get Item) */
 typedef void (*z2_SetGetItem_proc)(z2_actor_t *actor, z2_game_t *game, s32 unk2, u32 unk3);
+typedef bool (*z2_SetGetItemLongrange_proc)(z2_actor_t *actor, z2_game_t *game, u16 gi_index);
 typedef void (*z2_GiveItem_proc)(z2_game_t *game, u8 item_id);
 
 /* Function Prototypes (HUD) */
@@ -2615,6 +2618,7 @@ typedef void (*z2_SetBGM2_proc)(u16 bgm_id);
 
 /* Function Prototypes (Text) */
 typedef void (*z2_ShowMessage_proc)(z2_game_t *game, u16 message_id, u8 something); // TODO figure out something?
+typedef bool (*z2_IsMessageClosed_proc)(z2_game_t *game);
 
 /* Functions */
 #define z2_CanInteract                   ((z2_CanInteract_proc)           z2_CanInteract_addr)
@@ -2631,7 +2635,6 @@ typedef void (*z2_ShowMessage_proc)(z2_game_t *game, u16 message_id, u8 somethin
 #define z2_RemoveItem                    ((z2_RemoveItem_proc)            z2_RemoveItem_addr)
 #define z2_ToggleSfxDampen               ((z2_ToggleSfxDampen_proc)       z2_ToggleSfxDampen_addr)
 #define z2_HandleLinearVelocity          ((z2_HandleLinearVelocity_proc)  z2_HandleLinearVelocity_addr)
-#define z2_SetGetItemLongrange           ((z2_SetGetItemLongrange_proc)   z2_SetGetItemLongrange_addr)
 
 /* Functions (Scene Flags) */
 #define z2_get_generic_flag ((z2_get_generic_flag_proc) z2_get_generic_flag_addr)
@@ -2700,6 +2703,7 @@ typedef void (*z2_ShowMessage_proc)(z2_game_t *game, u16 message_id, u8 somethin
 
 /* Functions (Get Item) */
 #define z2_SetGetItem                    ((z2_SetGetItem_proc)            z2_SetGetItem_addr)
+#define z2_SetGetItemLongrange           ((z2_SetGetItemLongrange_proc)   z2_SetGetItemLongrange_addr)
 #define z2_GiveItem                      ((z2_GiveItem_proc)              z2_GiveItem_addr);
 
 /* Functions (HUD) */
@@ -2731,5 +2735,6 @@ typedef void (*z2_ShowMessage_proc)(z2_game_t *game, u16 message_id, u8 somethin
 
 /* Functions (Text) */
 #define z2_ShowMessage                   ((z2_ShowMessage_proc)           z2_ShowMessage_addr)
+#define z2_IsMessageClosed               ((z2_IsMessageClosed_proc)       z2_IsMessageClosed_addr)
 
 #endif // Z2_H

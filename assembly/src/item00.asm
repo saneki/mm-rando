@@ -34,10 +34,11 @@ item00_give_item_hook:
 
     lui     t3, 0x800A
     b       @@caller_return
-    addiu   t3, t3, 0x6FD8
+    addiu   t3, t3, 0x70CC
 
 @@displaced_code:
     lhu     t3, 0x001C (s0)
+    sll     t3, t3, 2
     lui     at, 0x801E
     addu    at, at, t3
     lw      t3, 0xBF24 (at)

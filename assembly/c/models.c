@@ -10,6 +10,7 @@
 #include "util.h"
 #include "z2.h"
 #include "item00.h"
+#include "player.h"
 
 #define slot_count 12
 
@@ -209,20 +210,24 @@ void models_draw_heart_piece(z2_actor_t *actor, z2_game_t *game) {
 }
 
 /**
- * Hook function for drawing Rupee actors as their new item.
+ * Hook function for drawing Item00 actors as their new item.
  **/
-void models_draw_rupee(z2_en_item00_t *actor, z2_game_t *game) {
+bool models_draw_item00(z2_en_item00_t *actor, z2_game_t *game) {
     if (MISC_CONFIG.freestanding) {
         u16 index = item00_get_gi_index(actor, game);
         if (index > 0) {
             // TODO render rupees as rupees
             models_draw_from_gi_table(&(actor->common), game, 22.0, index);
-        } else {
-            z2_DrawRupee(&(actor->common), game);
+            return true;
         }
-    } else {
-        z2_DrawRupee(&(actor->common), game);
     }
+    // TODO check if item00 are randomized
+    if (actor->unk_state == 0x23) {
+        if (z2_IsMessageClosed(game)) {
+            player_unpause(game);
+        }
+    }
+    return false;
 }
 
 /**
