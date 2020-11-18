@@ -2430,6 +2430,7 @@ typedef struct {
 
 /* Function Addresses (Get Item) */
 #define z2_SetGetItem_addr               0x800B8A1C
+#define z2_GiveItem_addr                 0x80112E80
 
 /* Function Addresses (HUD) */
 #define z2_UpdateButtonsState_addr       0x8010EF68
@@ -2454,6 +2455,12 @@ typedef struct {
 /* Function Addresses (Rooms) */
 #define z2_LoadRoom_addr                 0x8012E96C
 #define z2_UnloadRoom_addr               0x8012EBF8
+
+/* Function Addresses (Sound) */
+#define z2_SetBGM2_addr                  0x801A3098
+
+/* Function Addresses (Text) */
+#define z2_ShowMessage_addr              0x801518B0
 
 /* Relocatable Functions (Pause Menu) */
 #define z2_PauseDrawItemIcon_vram        0x80821AD4
@@ -2530,6 +2537,7 @@ typedef void (*z2_Yaz0_LoadAndDecompressFile_proc)(u32 prom_addr, void *dest, u3
 
 /* Function Prototypes (Get Item) */
 typedef void (*z2_SetGetItem_proc)(z2_actor_t *actor, z2_game_t *game, s32 unk2, u32 unk3);
+typedef void (*z2_GiveItem_proc)(z2_game_t *game, u8 item_id);
 
 /* Function Prototypes (HUD) */
 typedef void (*z2_HudSetAButtonText_proc)(z2_game_t *game, u16 text_id);
@@ -2557,6 +2565,12 @@ typedef void (*z2_RngSetSeed_proc)(u32 seed);
 /* Function Prototypes (Rooms) */
 typedef void (*z2_LoadRoom_proc)(z2_game_t *game, z2_room_ctxt_t *room_ctxt, uint8_t room_id);
 typedef void (*z2_UnloadRoom_proc)(z2_game_t *game, z2_room_ctxt_t *room_ctxt);
+
+/* Function Prototypes (Sound) */
+typedef void (*z2_SetBGM2_proc)(u16 bgm_id);
+
+/* Function Prototypes (Text) */
+typedef void (*z2_ShowMessage_proc)(z2_game_t *game, u16 message_id, u8 something); // TODO figure out something?
 
 /* Functions */
 #define z2_CanInteract                   ((z2_CanInteract_proc)           z2_CanInteract_addr)
@@ -2621,6 +2635,7 @@ typedef void (*z2_UnloadRoom_proc)(z2_game_t *game, z2_room_ctxt_t *room_ctxt);
 
 /* Functions (Get Item) */
 #define z2_SetGetItem                    ((z2_SetGetItem_proc)            z2_SetGetItem_addr)
+#define z2_GiveItem                      ((z2_GiveItem_proc)              z2_GiveItem_addr);
 
 /* Functions (HUD) */
 #define z2_HudSetAButtonText             ((z2_HudSetAButtonText_proc)     z2_HudSetAButtonText_addr)
@@ -2645,5 +2660,11 @@ typedef void (*z2_UnloadRoom_proc)(z2_game_t *game, z2_room_ctxt_t *room_ctxt);
 /* Functions (Rooms) */
 #define z2_LoadRoom                      ((z2_LoadRoom_proc)              z2_LoadRoom_addr)
 #define z2_UnloadRoom                    ((z2_UnloadRoom_proc)            z2_UnloadRoom_addr)
+
+/* Functions (Sound) */
+#define z2_SetBGM2                       ((z2_SetBGM2_proc)               z2_SetBGM2_addr)
+
+/* Functions (Text) */
+#define z2_ShowMessage                   ((z2_ShowMessage_proc)           z2_ShowMessage_addr)
 
 #endif // Z2_H

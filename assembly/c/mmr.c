@@ -145,6 +145,21 @@ u16 mmr_GetNewGiIndex(z2_game_t *game, z2_actor_t *actor, u16 gi_index, bool gra
     return new_gi_index;
 }
 
+u16 fanfares[5] = { 0x0922, 0x0924, 0x0037, 0x0039, 0x0052 };
+
+void mmr_GiveItem(z2_game_t *game, z2_actor_t *actor, u16 gi_index) {
+    gi_index = mmr_GetNewGiIndex(game, actor, gi_index, true);
+    mmr_gi_t *entry = mmr_get_gi_entry(gi_index);
+    z2_ShowMessage(game, entry->message, 0);
+    u8 sound_type = entry->type & 0x0F;
+    if (sound_type == 0) {
+        z2_PlaySfx(0x4831);
+    } else {
+        z2_SetBGM2(fanfares[sound_type-1]);
+    }
+    z2_GiveItem(game, entry->item);
+}
+
 void mmr_init(void) {
     // If using vanilla layout, gi-table mod file is not included.
     if (!MISC_CONFIG.vanilla_layout) {

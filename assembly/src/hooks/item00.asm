@@ -11,3 +11,11 @@
     jal     item00_constructor_hook
     nop
 
+; Replaces:
+;   lui     at, 0x801E
+;   addu    at, at, t3
+;   lw      t3, 0xBF24 (at)
+.org 0x800A6E1C
+    jal     item00_give_item_hook
+    nop
+    nop

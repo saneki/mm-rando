@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include "misc.h"
 #include "z2.h"
 #include "mmr.h"
@@ -19,4 +20,12 @@ void item00_constructor(z2_en_item00_t *actor, z2_game_t *game) {
         // TODO optimization. maybe read the whole scene block when a scene loads.
         z2_ReadFile(&actor->common.unk_0xE0, start, 2); // TODO pick a definitely unused part of the item00 actor memory
     }
+}
+
+bool item00_give_item(z2_en_item00_t *actor, z2_game_t *game) {
+    u16 gi_index = item00_get_gi_index(actor, game);
+    if (gi_index == 0) {
+        return false;
+    }
+    // TODO
 }
