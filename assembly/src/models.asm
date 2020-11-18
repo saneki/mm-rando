@@ -248,9 +248,9 @@ models_draw_item00_hook:
     beq     v0, r0, @@displaced_code
     nop
 
-    lui     t3, 0x800A
+    lui     t9, 0x800A
     b       @@caller_return
-    addiu   t3, t3, 0x729C
+    addiu   t9, t9, 0x729C
 
 @@displaced_code:
     lhu     t9, 0x001C (s0)
