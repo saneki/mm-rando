@@ -215,10 +215,21 @@ void models_draw_heart_piece(z2_actor_t *actor, z2_game_t *game) {
 bool models_draw_item00(z2_en_item00_t *actor, z2_game_t *game) {
     bool result = false;
     if (MISC_CONFIG.freestanding) {
-        u16 index = item00_get_gi_index(actor, game);
-        if (index > 0) {
-            // TODO render rupees as rupees
-            models_draw_from_gi_table(&(actor->common), game, 22.0, index);
+        u16 gi_index = item00_get_gi_index(actor);
+        if (gi_index > 0) {
+            if (actor->unk_state != 0x23) {
+                u16 draw_gi_index = mmr_GetNewGiIndex(game, 0, gi_index, false);
+                item00_set_draw_gi_index(actor, draw_gi_index);
+            }
+            u16 gi_index_to_draw = item00_get_draw_gi_index(actor);
+
+            // TODO render rupees as rupees?
+            struct model model;
+            mmr_gi_t *entry = models_prepare_gi_entry(&model, game, gi_index_to_draw, false);
+
+            z2_CallSetupDList(z2_game.common.gfx);
+            draw_model(model, &(actor->common), game, 22.0);
+
             result = true;
         }
     }
@@ -234,14 +245,20 @@ bool models_draw_item00(z2_en_item00_t *actor, z2_game_t *game) {
 /**
  * Hook function for rotating En_Item00 actors (Heart Piece).
  **/
-void models_rotate_en_item00(z2_actor_t *actor, z2_game_t *game) {
-    // MMR Heart Pieces use masked variable 0x1D or greater.
-    if (MISC_CONFIG.freestanding && (actor->variable & 0xFF) >= 0x1D) {
-        // Rotate Heart Piece.
-        u16 index = actor->variable + 0x80;
-        models_rotate(actor, game, index, 0x3C0);
+void models_rotate_en_item00(z2_en_item00_t *actor, z2_game_t *game) {
+    u16 index = 0;
+    if (MISC_CONFIG.freestanding) {
+        // MMR Heart Pieces use masked variable 0x1D or greater.
+        if ((actor->common.variable & 0xFF) >= 0x1D) {
+            index = actor->common.variable + 0x80;
+        } else {
+            index = item00_get_gi_index(actor);
+        }
+    }
+    if (index > 0) {
+        models_rotate(&(actor->common), game, index, 0x3C0);
     } else {
-        actor->rot_2.y += 0x3C0;
+        actor->common.rot_2.y += 0x3C0;
     }
 }
 
