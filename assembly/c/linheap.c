@@ -40,7 +40,11 @@ void linheap_clear(struct linheap *heap) {
  * Finish advancing origin pointer.
  **/
 void linheap_finish_advance(struct linheap *heap) {
-    if (heap->advance <= heap->cur2) {
+    // Three possibilities when advancing:
+    // - Advance was placed on cur1, not cycleable. cur2 could not have allocated and may be reset to base.
+    // - Advance was placed on cur2, not cycleable. Can replace cur2 with cur1 and reset cur2 to base.
+    // - Advance was placed on cur1, is cycleable. Both cur1 and cur2 should remain as is.
+    if (heap->advance < heap->origin) {
         // If cur2 was used for advance, place cur1 at cur2 and reset cur2 to start.
         heap->cur1 = heap->cur2;
         heap->cur2 = heap->buffer;
