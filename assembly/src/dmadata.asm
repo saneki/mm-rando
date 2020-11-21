@@ -149,3 +149,7 @@ DefineDmaFile G_EN_ELFGRP_DMA, G_EN_ELFGRP_FILE, 305
 ; ovl_En_GirlA (Shop Inventory Data)
 DefineDmaFile G_EN_GIRLA_DMA, G_EN_GIRLA_FILE, 40
 .definelabel  G_EN_GIRLA_VRAM, 0x80863870
+
+; ovl_En_Invisible_Ruppe (Invisible Rupee)
+DefineDmaFile G_EN_INVISIBLE_RUPEE_DMA, G_EN_INVISIBLE_RUPEE_FILE, 646
+.definelabel  G_EN_INVISIBLE_RUPEE_VRAM, 0x80C258A0

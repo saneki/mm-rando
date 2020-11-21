@@ -4,13 +4,14 @@
 #include "mmr.h"
 #include "player.h"
 
-u16 item00_get_gi_index(z2_en_item00_t *actor) {
-    return *(u16*)(&actor->common.unk_0xE0); // TODO pick a definitely unused part of the item00 actor memory
+// TODO pick a definitely unused part of the item00 actor memory
+void item00_set_gi_index(z2_en_item00_t *actor, u16 gi_index) {
+    u16* pointer = (u16*)(&actor->common.unk_0xE0);
+    *pointer = gi_index;
 }
 
-u16 item00_get_draw_gi_index(z2_en_item00_t *actor) {
+u16 item00_get_gi_index(z2_en_item00_t *actor) {
     u16* pointer = (u16*)(&actor->common.unk_0xE0);
-    pointer++;
     return *pointer;
 }
 
@@ -18,6 +19,12 @@ void item00_set_draw_gi_index(z2_en_item00_t *actor, u16 draw_gi_index) {
     u16* pointer = (u16*)(&actor->common.unk_0xE0);
     pointer++;
     *pointer = draw_gi_index;
+}
+
+u16 item00_get_draw_gi_index(z2_en_item00_t *actor) {
+    u16* pointer = (u16*)(&actor->common.unk_0xE0);
+    pointer++;
+    return *pointer;
 }
 
 void item00_constructor(z2_en_item00_t *actor, z2_game_t *game) {
@@ -31,10 +38,10 @@ void item00_constructor(z2_en_item00_t *actor, z2_game_t *game) {
 
         // TODO optimization. check if this works on compressed files.
         // TODO optimization. maybe read the whole scene block when a scene loads.
-        z2_ReadFile(&actor->common.unk_0xE0, start, 2); // TODO pick a definitely unused part of the item00 actor memory
-
-        u16 gi_index = item00_get_gi_index(actor);
+        u16 gi_index;
+        z2_ReadFile(&gi_index, start, 2);
         if (gi_index > 0) {
+            item00_set_gi_index(actor, gi_index);
             u16 draw_gi_index = mmr_GetNewGiIndex(game, 0, gi_index, false);
             item00_set_draw_gi_index(actor, draw_gi_index);
         }

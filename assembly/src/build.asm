@@ -41,6 +41,7 @@
 .include "hooks/game.asm"
 .include "hooks/general.asm"
 .include "hooks/hud_colors.asm"
+.include "hooks/invisible_rupee.asm"
 .include "hooks/item00.asm"
 .include "hooks/items.asm"
 .include "hooks/knight.asm"

@@ -2386,7 +2386,7 @@ typedef struct {
 #define z2_ToggleSfxDampen_addr          0x8019C300
 #define z2_HandleLinearVelocity_addr     0x800FF2F8 // just guessing the name
 
-/* Scene Flags */
+/* Funciton Addresses (Scene Flags) */
 #define z2_get_generic_flag_addr         0x800B5BB0
 #define z2_set_generic_flag_addr         0x800B5BF4
 #define z2_remove_generic_flag_addr      0x800B5C34
@@ -2405,6 +2405,17 @@ typedef struct {
 #define z2_load_scene_flags_addr         0x800B9170
 #define z2_check_scene_pairs_addr        0x80169CBC
 #define z2_store_scene_flags_addr        0x80169D40
+
+/* Function Addresses (Spawners) */
+#define z2_fixed_drop_spawn_addr         0x800A7730
+#define z2_rupee_drop_spawn_addr         0x800A7AD4
+#define z2_random_drop_spawn_addr        0x800A7D28
+#define z2_spawn_map_actors_addr         0x800B9334
+#define z2_actor_spawn_1_addr            0x800BAC60
+#define z2_actor_spawn_2_addr            0x800BAE14
+#define z2_object_spawn_addr             0x8012F2E0
+#define z2_load_objects_addr             0x8012F4FC
+#define z2_load_scene_addr               0x801693D4
 
 /* Function Addresses (Actors) */
 #define z2_ActorDtor_addr                0x800B6948
@@ -2539,6 +2550,18 @@ typedef void (*z2_load_scene_flags_proc)();
 typedef void (*z2_check_scene_pairs_proc)();
 typedef void (*z2_store_scene_flags_proc)();
 
+/* Function Prototypes (Spawners) */
+// TODO parameters
+typedef z2_en_item00_t* (*z2_fixed_drop_spawn_proc)(z2_game_t *game, z2_xyzf_t *position, u16 type);
+typedef void (*z2_rupee_drop_spawn_proc)();
+typedef void (*z2_random_drop_spawn_proc)();
+typedef void (*z2_spawn_map_actors_proc)();
+typedef void (*z2_actor_spawn_1_proc)();
+typedef void (*z2_actor_spawn_2_proc)();
+typedef void (*z2_object_spawn_proc)();
+typedef void (*z2_load_objects_proc)();
+typedef void (*z2_load_scene_proc)();
+
 /* Function Prototypes (Actors) */
 typedef void (*z2_ActorProc_proc)(z2_actor_t *actor, z2_game_t *game);
 typedef void (*z2_ActorRemove_proc)(z2_actor_ctxt_t *ctxt, z2_actor_t *actor, z2_game_t *game);
@@ -2655,6 +2678,17 @@ typedef bool (*z2_IsMessageClosed_proc)(z2_actor_t *actor, z2_game_t *game);
 #define z2_load_scene_flags ((z2_load_scene_flags_proc) z2_load_scene_flags_addr)
 #define z2_check_scene_pairs ((z2_check_scene_pairs_proc) z2_check_scene_pairs_addr)
 #define z2_store_scene_flags ((z2_store_scene_flags_proc) z2_store_scene_flags_addr)
+
+/* Functions (Spawners) */
+#define z2_fixed_drop_spawn ((z2_fixed_drop_spawn_proc) z2_fixed_drop_spawn_addr)
+#define z2_rupee_drop_spawn ((z2_rupee_drop_spawn_proc) z2_rupee_drop_spawn_addr)
+#define z2_random_drop_spawn ((z2_random_drop_spawn_proc) z2_random_drop_spawn_addr)
+#define z2_spawn_map_actors ((z2_spawn_map_actors_proc) z2_spawn_map_actors_addr)
+#define z2_actor_spawn_1 ((z2_actor_spawn_1_proc) z2_actor_spawn_1_addr)
+#define z2_actor_spawn_2 ((z2_actor_spawn_2_proc) z2_actor_spawn_2_addr)
+#define z2_object_spawn ((z2_object_spawn_proc) z2_object_spawn_addr)
+#define z2_load_objects ((z2_load_objects_proc) z2_load_objects_addr)
+#define z2_load_scene ((z2_load_scene_proc) z2_load_scene_addr)
 
 /* Functions (Actors) */
 #define z2_ActorDtor                     ((z2_ActorProc_proc)             z2_ActorDtor_addr)
