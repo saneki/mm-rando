@@ -85,6 +85,7 @@ PAYLOAD_START:
 .include "elegy_speedup.asm"
 .include "extended_objects.asm"
 .include "file_select.asm"
+.include "game.asm"
 .include "hud_colors.asm"
 .include "items.asm"
 .include "message_table.asm"
