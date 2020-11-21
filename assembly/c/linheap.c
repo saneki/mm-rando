@@ -56,6 +56,10 @@ void linheap_finish_advance(struct linheap *heap) {
     heap->origin = heap->advance;
     heap->advance = NULL;
     heap->cycleable = false;
+    // If heap is completely empty after finish, can clear it.
+    if (linheap_is_empty(heap)) {
+        linheap_clear(heap);
+    }
 }
 
 /**
@@ -73,6 +77,13 @@ void linheap_init(struct linheap *heap, void *base) {
 bool linheap_is_allocated(const struct linheap *heap, void *address) {
     u8 *addr = (u8 *)address;
     return (heap->buffer <= addr && addr < heap->cur2) || (heap->origin <= addr && addr < heap->cur1);
+}
+
+/**
+ * Check whether or not the heap contains any allocated data.
+ **/
+bool linheap_is_empty(const struct linheap *heap) {
+    return (heap->cur1 == heap->origin) && (heap->cur2 == heap->buffer);
 }
 
 /**
