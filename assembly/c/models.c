@@ -213,7 +213,20 @@ void models_draw_heart_piece(z2_actor_t *actor, z2_game_t *game) {
  * Hook function for drawing Item00 actors as their new item.
  **/
 bool models_draw_item00(z2_en_item00_t *actor, z2_game_t *game) {
-    bool result = false;
+    if (actor->unk_state == 0x23 && item00_get_gi_index(actor) > 0) {
+        if (z2_IsMessageClosed(&(actor->common), game)) {
+            player_unpause(game);
+        }
+
+        if (actor->disappear_countdown == 0x0F) {
+            return true;
+        }
+    }
+
+    if ((actor->disappear_countdown_copy & actor->render_frame_mask) != 0) {
+        return true;
+    }
+
     if (MISC_CONFIG.freestanding) {
         u16 gi_index = item00_get_gi_index(actor);
         if (gi_index > 0) {
@@ -230,16 +243,11 @@ bool models_draw_item00(z2_en_item00_t *actor, z2_game_t *game) {
             z2_CallSetupDList(z2_game.common.gfx);
             draw_model(model, &(actor->common), game, 22.0);
 
-            result = true;
+            return true;
         }
     }
-    // TODO check if item00 are randomized
-    if (actor->unk_state == 0x23) {
-        if (z2_IsMessageClosed(&(actor->common), game)) {
-            player_unpause(game);
-        }
-    }
-    return result;
+
+    return false;
 }
 
 /**

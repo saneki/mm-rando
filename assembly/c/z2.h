@@ -2078,6 +2078,9 @@ typedef struct {
     u16              collectable_flag;               /* 0x0148 */
     u16              unk_0x14A;                      /* 0x014A */
     u16              unk_state;                      /* 0x014C */
+    u16              disappear_countdown_copy;       /* 0x014E */ // Copied from disappear_countdown
+    u16              render_frame_mask;              /* 0x0150 */ // (disappear_countdown_copy & render_frame_mask) != 0 means dont render
+    u16              disappear_countdown;            /* 0x0152 */
 } z2_en_item00_t;
 
 /**
