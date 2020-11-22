@@ -29,7 +29,11 @@ u16 item00_get_draw_gi_index(z2_en_item00_t *actor) {
 
 void item00_constructor(z2_en_item00_t *actor, z2_game_t *game) {
     if (actor->collectable_flag != 0) {
-        u16 collectable_table_index = game->scene_index * 0x60 + actor->collectable_flag;
+        u16 scene_index = game->scene_index;
+        if (scene_index != 0x18 && actor->collectable_flag < 0x20) { // Stone Tower Temple (Inverted) has distinct collectable switches
+            scene_index = z2_check_scene_pairs(scene_index);
+        }
+        u16 collectable_table_index = scene_index * 0x60 + actor->collectable_flag;
         
         u32 index = MISC_CONFIG.collectable_table_file_index;
         z2_file_table_t entry = z2_file_table[index];

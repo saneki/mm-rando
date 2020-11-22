@@ -2550,7 +2550,7 @@ typedef void (*z2_remove_temp_clear_flag_proc)();
 typedef void (*z2_get_collectible_flag_proc)();
 typedef void (*z2_set_collectibe_flag_proc)();
 typedef void (*z2_load_scene_flags_proc)();
-typedef void (*z2_check_scene_pairs_proc)();
+typedef u16 (*z2_check_scene_pairs_proc)(u16 scene_id);
 typedef void (*z2_store_scene_flags_proc)();
 
 /* Function Prototypes (Spawners) */
