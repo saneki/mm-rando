@@ -14,7 +14,7 @@ knight_give_item_hook:
     nop
 
     jal     0x801DC650
-    addiu   a2, r0, 0x0076
+    addiu   a2, r0, 0x01CB
 
     b       @@caller_return
     addiu   v0, r0, 0x0001
