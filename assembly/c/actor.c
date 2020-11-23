@@ -1,5 +1,6 @@
 #include "actor_ext.h"
 #include "models.h"
+#include "world_skulltula.h"
 #include "z2.h"
 
 /**
@@ -10,6 +11,8 @@ void actor_after_dtor(z2_actor_t *actor, z2_game_t *game) {
     actor_ext_after_actor_dtor(actor);
     // Unload actor model information after dtor.
     models_after_actor_dtor(actor);
+    // Handle destructor if actor is used by World of Skulltula debug.
+    world_skulltula_debug_after_actor_dtor(actor);
 }
 
 z2_actor_t* actor_spawn(z2_game_t *game, u8 id, z2_xyzf_t pos, z2_rot_t rot, u16 var) {

@@ -13,6 +13,7 @@
 #include "models.h"
 #include "text.h"
 #include "util.h"
+#include "world_skulltula.h"
 #include "z2.h"
 
 void c_init() {
@@ -33,6 +34,8 @@ void before_player_actor_update(z2_link_t *link, z2_game_t *game) {
     arrow_cycle_handle(link, game);
     arrow_magic_handle(link, game);
     deku_hop_handle(link, game);
+    // Process inputs for World of Skulltula debugging feature.
+    world_skulltula_debug_process(link, game);
 }
 
 bool before_damage_process(z2_link_t *link, z2_game_t *game) {

@@ -1,6 +1,7 @@
 #include "actor_ext.h"
 #include "loaded_models.h"
 #include "models.h"
+#include "world_skulltula.h"
 #include "z2.h"
 
 /**
@@ -13,4 +14,6 @@ void scene_after_init(z2_game_t *game) {
     models_clear_object_heap();
     // Clear loaded actor model info
     loaded_models_clear_actor_models();
+    // Attempt to load object data for World of Skulltula.
+    world_skulltula_after_scene_init(game);
 }
