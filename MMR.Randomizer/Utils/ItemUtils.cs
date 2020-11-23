@@ -75,11 +75,6 @@ namespace MMR.Randomizer.Utils
                    && item <= Item.BottleCatchMushroom;
         }
 
-        public static bool IsMoonLocation(Item location)
-        {
-            return location >= Item.HeartPieceDekuTrial && location <= Item.ChestLinkTrialBombchu10;
-        }
-
         public static bool IsStartingLocation(Item location)
         {
             return location == Item.MaskDeku || location == Item.SongHealing

@@ -1029,7 +1029,7 @@ namespace MMR.Randomizer
                 return false;
             }
 
-            if (currentItem.IsTemporary() && ItemUtils.IsMoonLocation(target))
+            if (currentItem.IsTemporary() && target.Region() == Region.TheMoon)
             {
                 Debug.WriteLine($"{currentItem} cannot be placed on the moon.");
                 return false;
