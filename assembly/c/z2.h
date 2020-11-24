@@ -2373,7 +2373,7 @@ typedef struct {
 #define z2_WriteHeartColors_addr         0x8010069C
 #define z2_RemoveItem_addr               0x801149A0
 #define z2_ToggleSfxDampen_addr          0x8019C300
-#define z2_HandleLinearVelocity_addr     0x800FF2F8 // just guessing the name
+#define z2_HandleInputVelocity_addr      0x800FF2F8
 #define z2_SetGetItemLongrange_addr      0x800B8BD0
 
 /* Scene Flags */
@@ -2496,7 +2496,7 @@ typedef void (*z2_UseItem_proc)(z2_game_t *game, z2_link_t *link, u8 item);
 typedef void (*z2_WriteHeartColors_proc)(z2_game_t *game);
 typedef void (*z2_RemoveItem_proc)(u32 item, u8 slot);
 typedef void (*z2_ToggleSfxDampen_proc)(int enable);
-typedef void (*z2_HandleLinearVelocity_proc)(f32 *linear_velocity, f32 a1, f32 a2, f32 a3); // unknown variables
+typedef void (*z2_HandleInputVelocity_proc)(f32 *linear_velocity, f32 input_velocity, f32 increaseBy, f32 decreaseBy);
 typedef bool (*z2_SetGetItemLongrange_proc)(z2_actor_t *actor, z2_game_t *game, u16 gi_index);
 
 /* Function Prototypes (Scene Flags) */
@@ -2606,7 +2606,7 @@ typedef void (*z2_UnloadRoom_proc)(z2_game_t *game, z2_room_ctxt_t *room_ctxt);
 #define z2_WriteHeartColors              ((z2_WriteHeartColors_proc)      z2_WriteHeartColors_addr)
 #define z2_RemoveItem                    ((z2_RemoveItem_proc)            z2_RemoveItem_addr)
 #define z2_ToggleSfxDampen               ((z2_ToggleSfxDampen_proc)       z2_ToggleSfxDampen_addr)
-#define z2_HandleLinearVelocity          ((z2_HandleLinearVelocity_proc)  z2_HandleLinearVelocity_addr)
+#define z2_HandleInputVelocity           ((z2_HandleInputVelocity_proc)   z2_HandleInputVelocity_addr)
 #define z2_SetGetItemLongrange           ((z2_SetGetItemLongrange_proc)   z2_SetGetItemLongrange_addr)
 
 /* Functions (Scene Flags) */
