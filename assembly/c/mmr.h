@@ -26,18 +26,12 @@ void mmr_GiveItem(z2_game_t *game, z2_actor_t *actor, u16 gi_index);
 
 /* Function Addresses */
 #define mmr_LoadGiEntry_addr             0x801449A4
-#define mmr_GetGiFlag_addr               0x80144A28
-#define mmr_SetGiFlag_addr               0x801449D4
 
 /* Function Prototypes */
-typedef bool (*mmr_GetGiFlag_proc)(u32 gi_index);
-typedef bool (*mmr_SetGiFlag_proc)(u32 gi_index);
 typedef mmr_gi_t * (*mmr_LoadGiEntry_proc)(u32 gi_index);
 
 /* Functions */
 #define mmr_LoadGiEntry   ((mmr_LoadGiEntry_proc)   mmr_LoadGiEntry_addr)
-#define mmr_GetGiFlag     ((mmr_GetGiFlag_proc)     mmr_GetGiFlag_addr)
-#define mmr_SetGiFlag     ((mmr_SetGiFlag_proc)     mmr_SetGiFlag_addr)
 
 // Magic number for misc_config: "MMRC"
 #define MMR_CONFIG_MAGIC 0x4D4D5243

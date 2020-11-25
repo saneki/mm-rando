@@ -48,6 +48,52 @@ mmr_gi_t * mmr_get_gi_entry(u16 index) {
     return &g_gi_table[index - 1];
 }
 
+u8 * mmr_GiFlag(u16 gi_index) {
+    u8* address = (u8*)(&z2_file.scene_flags);
+    // skip scenes' Clear flags, because they don't get saved
+    if (gi_index >= 0x60) {
+        address += 4;
+    }
+    if (gi_index >= 0xE0) {
+        address += 4;
+    }
+    if (gi_index >= 0x160) {
+        address += 4;
+    }
+    if (gi_index >= 0x1E0) {
+        address += 4;
+    }
+    if (gi_index >= 0x260) {
+        address += 4;
+    }
+    if (gi_index >= 0x2E0) {
+        address += 4;
+    }
+    if (gi_index >= 0x360) {
+        address += 4;
+    }
+    if (gi_index >= 0x380) { // skip scene 7 (Grottos)
+        address += 0x14;
+    }
+    // TODO maybe skip Cutscene Map?
+    address += (gi_index >> 3);
+    return address;
+}
+
+// TODO remove function from MMR mod files.
+bool mmr_GetGiFlag(u16 gi_index) {
+    u8 bit = gi_index & 7;
+    u8 *byte = mmr_GiFlag(gi_index);
+    return (*byte >> bit)&1;
+}
+
+// TODO remove function from MMR mod files.
+void mmr_SetGiFlag(u16 gi_index) {
+    u8 bit = gi_index & 7;
+    u8 *byte = mmr_GiFlag(gi_index);
+    *byte |= (1 << bit);
+}
+
 bool mmr_CheckBottleAndGetGiFlag(u16 gi_index, u16 *new_gi_index) {
     if (gi_index == MMR_CONFIG.location_bottle_red_potion) {
         gi_index = 0x5B;
