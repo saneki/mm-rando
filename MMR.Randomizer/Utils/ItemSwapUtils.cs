@@ -1,4 +1,4 @@
-﻿using MMR.Common.Extensions;
+using MMR.Common.Extensions;
 using MMR.Randomizer.Attributes;
 using MMR.Randomizer.Constants;
 using MMR.Randomizer.Extensions;
@@ -109,6 +109,16 @@ namespace MMR.Randomizer.Utils
             var location = itemObject.NewLocation.Value;
             System.Diagnostics.Debug.WriteLine($"Writing {item.Name()} --> {location.Location()}");
 
+            if (!itemObject.IsRandomized)
+            {
+                var collectableIndex = location.GetCollectableIndex();
+                if (collectableIndex.HasValue)
+                {
+                    ReadWriteUtils.Arr_WriteU16(RomData.MMFileList[COLLECTABLE_TABLE_FILE_INDEX].Data, collectableIndex.Value * 2, 0);
+                    return;
+                }
+            }
+
             int f = RomUtils.GetFileIndexForWriting(GET_ITEM_TABLE);
             int baseaddr = GET_ITEM_TABLE - RomData.MMFileList[f].Addr;
             var getItemIndex = location.GetItemIndex().Value;
@@ -116,7 +126,11 @@ namespace MMR.Randomizer.Utils
             var fileData = RomData.MMFileList[f].Data;
 
             GetItemEntry newItem;
-            if (item.IsExclusiveItem())
+            if (!itemObject.IsRandomized && location.IsInvisibleRupee())
+            {
+                newItem = new GetItemEntry();
+            }
+            else if (item.IsExclusiveItem())
             {
                 newItem = item.ExclusiveItemEntry();
             }

@@ -12,6 +12,16 @@ namespace MMR.Randomizer.Extensions
             return item.GetAttribute<GetItemIndexAttribute>()?.Index;
         }
 
+        public static ushort? GetCollectableIndex(this Item item)
+        {
+            return item.GetAttribute<CollectableIndexAttribute>()?.Index;
+        }
+
+        public static bool IsInvisibleRupee(this Item item)
+        {
+            return item.HasAttribute<InvisibleRupeeAttribute>();
+        }
+
         public static int[] GetBottleItemIndices(this Item item)
         {
             return item.GetAttribute<GetBottleItemIndicesAttribute>()?.Indices;
