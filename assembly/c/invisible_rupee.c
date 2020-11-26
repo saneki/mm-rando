@@ -9,7 +9,7 @@ bool invisible_rupee_give_item(z2_actor_t *actor, z2_game_t *game) {
     z2_en_item00_t* item = z2_fixed_drop_spawn(game, &actor->pos_2, type);
 
     u16 flag = actor->variable >> 2;
-    u16 gi_index = 0x34D + flag;
+    u16 gi_index = 0x350 + flag;
     mmr_gi_t* entry = mmr_get_gi_entry(gi_index);
     if (entry->item != 0 && entry->message != 0) {
         item00_set_gi_index(item, gi_index);
