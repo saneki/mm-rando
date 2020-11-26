@@ -3,6 +3,12 @@
 #include "objheap.h"
 #include "z2.h"
 
+enum objheap_op {
+    OP_NONE,
+    OP_ADVANCE,
+    OP_REVERT,
+};
+
 static void load_object_file(u32 object_id, u8 *buf) {
     z2_obj_file_t *entry = extended_objects_get((s16)object_id);
     u32 vrom_start = entry->vrom_start;
@@ -30,6 +36,15 @@ static void objheap_item_load_object(struct objheap_item *object, u32 object_id)
  * Return pointer to data of object by Id tied to specific room, or allocate if necessary.
  **/
 struct objheap_item* objheap_allocate(struct objheap *heap, u32 object_id, s8 room) {
+    // Collectible actors will usually have a room value of -1. These seem to draw regardless of the current room the game has loaded.
+    if (room == -1) {
+        // Hackily treat as tied to the current room. When transitioning to other room, should allocate new data for that room before current data is freed.
+        if (heap->op == OP_ADVANCE) {
+            room = heap->nex_room;
+        } else {
+            room = heap->cur_room;
+        }
+    }
     // Sanity check: ensure object is from relevant room.
     if (room == heap->cur_room || room == heap->nex_room) {
         // Do initial pass to check if object is already loaded for the specific room.
@@ -102,13 +117,29 @@ static void objheap_invalidate_items(struct objheap *heap) {
 /**
  * Handle room unload, in which case the heap should either finish advance or revert advance.
  **/
-void objheap_handle_room_unload(struct objheap *heap, s8 cur_room) {
-    if (heap->nex_room == cur_room) {
+void objheap_handle_advance_or_revert(struct objheap *heap) {
+    if (heap->op == OP_ADVANCE) {
         // Old room => Old & New rooms => New room
         objheap_finish_advance(heap);
-    } else if (heap->cur_room == cur_room) {
+    } else if (heap->op == OP_REVERT) {
         // Old room => Old & New rooms => Old room
         objheap_revert_advance(heap);
+    }
+    heap->op = OP_NONE;
+}
+
+
+void objheap_handle_room_unload(struct objheap *heap, s8 cur_room) {
+    // Update operation based on room unload.
+    if (heap->nex_room == cur_room) {
+        // Advance
+        heap->op = OP_ADVANCE;
+    } else if (heap->cur_room == cur_room) {
+        // Revert
+        heap->op = OP_REVERT;
+    } else {
+        // Should not reach.
+        heap->op = OP_NONE;
     }
 }
 
@@ -136,6 +167,7 @@ void objheap_init(struct objheap *heap, void *base, size_t size, struct objheap_
         objheap_item_clear(&objs[i]);
     }
     heap->cur_room = heap->nex_room = -1;
+    heap->op = OP_NONE;
 }
 
 /**

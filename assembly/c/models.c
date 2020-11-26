@@ -545,8 +545,6 @@ struct models_state {
     z2_gfx_t *gfx;
     // Pointer to poly_opa, used to check if objheap should finish advance.
     const Gfx *prev_opa;
-    // Current room index.
-    s8 cur_room;
 };
 
 static struct models_state g_state = { 0 };
@@ -564,9 +562,8 @@ void models_after_prepare_display_buffers(z2_gfx_t *gfx) {
     // to RDP. While this is very likely, it is not guaranteed.
     // If alternative Opa buffer has been cleared, both DLists should be rid of pointers to object data in previous room.
     if (g_state.prev_opa != NULL && gfx->poly_opa.buf != g_state.prev_opa) {
-        objheap_handle_room_unload(&g_objheap, g_state.cur_room);
+        objheap_handle_advance_or_revert(&g_objheap);
         g_state.prev_opa = NULL;
-        g_state.cur_room = -1;
     }
 }
 
@@ -577,7 +574,12 @@ void models_prepare_after_room_unload(z2_game_t *game) {
     // Note: During frame processing loop, unloads room before drawing actors.
     // Not sure how to get alternative Opa buffer, so get current and check if non-NULL and non-equal (there are only 2).
     g_state.prev_opa = g_state.gfx->poly_opa.buf;
-    g_state.cur_room = (s8)game->room_ctxt.rooms[0].idx;
+
+    // Determine operation before finish advancing or reverting.
+    // Normally, objects from previously loaded rooms would no longer draw so this isn't an issue, but is required for hack
+    // used to draw actors with 0xFF room, so that the pointer can be safely swapped to data of the relevant room.
+    s8 cur_room = (s8)game->room_ctxt.rooms[0].idx;
+    objheap_handle_room_unload(&g_objheap, cur_room);
 }
 
 /**
