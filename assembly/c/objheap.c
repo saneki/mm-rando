@@ -43,6 +43,13 @@ struct objheap_item* objheap_allocate(struct objheap *heap, u32 object_id, s8 ro
                 unused = obj;
             }
         }
+        // If two rooms loaded and allocating object for previous room, prevent allocating object data if not already in heap.
+        // This is to ensure that we can safely revert advancing if unloading the new room first, as all new object data will be for the new room.
+        // For example, going from: Old room loaded => Old & New rooms loaded => Old room loaded
+        // This behavior is relevant to the room transition between Sewers and Astral Observatory.
+        if (heap->cur_room != heap->nex_room && room == heap->cur_room) {
+            return NULL;
+        }
         // If unused object slot was found, use it for allocation.
         if (unused != NULL) {
             struct objheap_item *obj = unused;
@@ -70,10 +77,9 @@ void objheap_clear(struct objheap *heap) {
 }
 
 /**
- * Finish advance on underlying linheap, and clear objheap item entries from previous room.
+ * Invalidate all object data not in the current room.
  **/
-void objheap_finish_advance(struct objheap *heap) {
-    heap->cur_room = heap->nex_room;
+static void objheap_invalidate_items(struct objheap *heap) {
     for (size_t i = 0; i < heap->count; i++) {
         struct objheap_item *obj = &heap->objs[i];
         // Invalidate object data slot if designated for previous room.
@@ -81,6 +87,29 @@ void objheap_finish_advance(struct objheap *heap) {
             objheap_item_clear(obj);
         }
     }
+}
+
+/**
+ * Handle room unload, in which case the heap should either finish advance or revert advance.
+ **/
+void objheap_handle_room_unload(struct objheap *heap, s8 cur_room) {
+    if (heap->nex_room == cur_room) {
+        // Old room => Old & New rooms => New room
+        objheap_finish_advance(heap);
+    } else if (heap->cur_room == cur_room) {
+        // Old room => Old & New rooms => Old room
+        objheap_revert_advance(heap);
+    }
+}
+
+/**
+ * Finish advance on underlying linheap, and clear objheap item entries from previous room.
+ **/
+void objheap_finish_advance(struct objheap *heap) {
+    // Advance room index.
+    heap->cur_room = heap->nex_room;
+    // Invalidate items for previously-loaded room.
+    objheap_invalidate_items(heap);
     // Finish advance in underlying heap.
     linheap_finish_advance(&heap->linheap);
 }
@@ -112,4 +141,16 @@ void objheap_init_room(struct objheap *heap, s8 room) {
 void objheap_prepare_advance(struct objheap *heap, s8 room) {
     heap->nex_room = room;
     linheap_prepare_advance(&heap->linheap);
+}
+
+/**
+ * Revert advance on underlying heap, and clear objheap item entries from unloaded room.
+ **/
+void objheap_revert_advance(struct objheap *heap) {
+    // Revert room index.
+    heap->nex_room = heap->cur_room;
+    // Invalidate items for previously-loaded room.
+    objheap_invalidate_items(heap);
+    // Revert advance on underlying linheap.
+    linheap_revert_advance(&heap->linheap);
 }

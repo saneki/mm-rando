@@ -107,3 +107,21 @@ void linheap_prepare_advance(struct linheap *heap) {
         heap->advance = heap->cur2;
     }
 }
+
+/**
+* Revert to previous state before preparing advance.
+**/
+void linheap_revert_advance(struct linheap *heap) {
+    if (heap->origin <= heap->advance) {
+        heap->cur1 = heap->advance;
+        // If cycleable, cur2 was 0 before prepare and can revert.
+        if (heap->cycleable) {
+            heap->cur2 = heap->buffer;
+        }
+    }
+    else {
+        // cur1 should have not moved since prepare, revert cur2.
+        heap->cur2 = heap->advance;
+    }
+    heap->advance = NULL;
+}
