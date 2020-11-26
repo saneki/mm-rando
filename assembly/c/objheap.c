@@ -33,11 +33,14 @@ struct objheap_item* objheap_allocate(struct objheap *heap, u32 object_id, s8 ro
     // Sanity check: ensure object is from relevant room.
     if (room == heap->cur_room || room == heap->nex_room) {
         // Do initial pass to check if object is already loaded for the specific room.
-        struct objheap_item *unused = NULL;
+        struct objheap_item *other = NULL, *unused = NULL;
         for (size_t i = 0; i < heap->count; i++) {
             struct objheap_item *obj = &heap->objs[i];
             if (obj->object_id == object_id && obj->room == room) {
                 return obj;
+            } else if (obj->object_id == object_id) {
+                // Remember same object data allocated for other room, for memcpy if needed.
+                other = obj;
             } else if (obj->object_id == 0 && unused == NULL) {
                 // Remember for allocating if object not found.
                 unused = obj;
@@ -58,7 +61,14 @@ struct objheap_item* objheap_allocate(struct objheap *heap, u32 object_id, s8 ro
             obj->buf = linheap_alloc(&heap->linheap, objsize);
             if (obj->buf != NULL) {
                 obj->room = room;
-                objheap_item_load_object(obj, object_id);
+                if (other != NULL) {
+                    // Copy existing memory from loaded object data.
+                    obj->object_id = other->object_id;
+                    z2_memcpy(obj->buf, other->buf, objsize);
+                } else {
+                    // Load object from file.
+                    objheap_item_load_object(obj, object_id);
+                }
                 return obj;
             }
         }
