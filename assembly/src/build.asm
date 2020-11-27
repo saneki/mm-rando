@@ -46,6 +46,7 @@
 .include "hooks/message_table.asm"
 .include "hooks/misc.asm"
 .include "hooks/models.asm"
+.include "hooks/objects.asm"
 .include "hooks/pause.asm"
 .include "hooks/player_actor.asm"
 .include "hooks/pushblock.asm"

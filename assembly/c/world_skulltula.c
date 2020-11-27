@@ -47,12 +47,6 @@ typedef u32 (*func_0x8012F2E0_proc)(z2_obj_ctxt_t *ctxt, s16 object_id);
 typedef void * (*func_0x8012F73C_proc)(z2_obj_ctxt_t *ctxt, u32 index, s16 object_id);
 #define func_0x8012F73C ((func_0x8012F73C_proc) 0x8012F73C)
 
-#define BLACKLISTED_SCENE_COUNT (2)
-static u8 g_blacklisted_scenes[BLACKLISTED_SCENE_COUNT] = {
-    0x32, // Romain Ranch
-    0x5E, // Stock Pot Inn
-};
-
 static void load_object_file(u32 object_id, u8 *buf) {
     z2_obj_file_t *entry = extended_objects_get((s16)object_id);
     u32 vrom_start = entry->vrom_start;
@@ -84,19 +78,6 @@ static void world_skulltula_debug_init(struct world_skulltula_debug *debug) {
     debug->amount_index = 1;
     debug->enabled = false;
     world_skulltula_debug_clear_path(debug);
-}
-
-/**
- * Check if a specific scene is blacklisted from loading extra objects.
- * This is a temporary solution for crashes to Inn & Ranch.
- **/
-static bool world_skulltula_is_scene_blacklisted(u8 scene) {
-    for (int i = 0; i < BLACKLISTED_SCENE_COUNT; i++) {
-        if (g_blacklisted_scenes[i] == scene) {
-            return true;
-        }
-    }
-    return false;
 }
 
 static void world_skulltula_debug_build_path(struct world_skulltula_debug *debug) {
@@ -260,13 +241,19 @@ void world_skulltula_after_scene_init(z2_game_t *game) {
 
     // Attempt to load object 0x20 for Skullwalltula actor.
     u8 scene = (u8)z2_file.scene;
-    if (!world_skulltula_is_scene_blacklisted(scene)) {
-        // Attempt to load Skullwalltula object if not already loaded.
-        s8 index = z2_GetObjectIndex(&game->obj_ctxt, 0x20);
-        if (index < 0) {
-            s8 result = func_0x8012F2E0(&game->obj_ctxt, 0x20);
-        }
-        // Enable debug feature.
-        g_debug.enabled = true;
+    // Attempt to load Skullwalltula object if not already loaded.
+    s8 index = z2_GetObjectIndex(&game->obj_ctxt, 0x20);
+    if (index < 0) {
+        s8 result = func_0x8012F2E0(&game->obj_ctxt, 0x20);
     }
+    // Enable debug feature.
+    g_debug.enabled = true;
+}
+
+/**
+ * Whether or not World Skulltula are enabled.
+ **/
+bool world_skulltula_enabled(void) {
+    // For now, just use debug flag.
+    return g_debug_enable;
 }
