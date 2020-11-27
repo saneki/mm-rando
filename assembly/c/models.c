@@ -590,6 +590,11 @@ void models_prepare_before_room_load(z2_room_ctxt_t *room_ctxt, s8 room_index) {
         // If loading first room in scene, remember room index.
         objheap_init_room(&g_objheap, room_index);
     } else {
+        // Safeguard: If previous Opa DList pointer is non-NULL, still waiting to flush advance or revert operation.
+        // If attempting to prepare advance before this has happened, prevent flushing advance or revert operations.
+        if (g_state.prev_opa) {
+            g_state.prev_opa = NULL;
+        }
         // If not loading first room in scene, prepare objheap for advance.
         objheap_prepare_advance(&g_objheap, room_index);
     }

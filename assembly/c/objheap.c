@@ -185,6 +185,7 @@ void objheap_init_room(struct objheap *heap, s8 room) {
  **/
 void objheap_prepare_advance(struct objheap *heap, s8 room) {
     heap->nex_room = room;
+    heap->op = OP_NONE;
     linheap_prepare_advance(&heap->linheap);
 }
 
