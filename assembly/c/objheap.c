@@ -115,9 +115,10 @@ static void objheap_invalidate_items(struct objheap *heap) {
 }
 
 /**
- * Handle room unload, in which case the heap should either finish advance or revert advance.
+ * Flush heap operation, in which case the heap should either finish advance or revert advance.
+ * These operations also update the relevant room indexes.
  **/
-void objheap_handle_advance_or_revert(struct objheap *heap) {
+void objheap_flush_operation(struct objheap *heap) {
     if (heap->op == OP_ADVANCE) {
         // Old room => Old & New rooms => New room
         objheap_finish_advance(heap);
@@ -128,7 +129,9 @@ void objheap_handle_advance_or_revert(struct objheap *heap) {
     heap->op = OP_NONE;
 }
 
-
+/**
+ * Handle room unload, which will determine and store which operation to perform when ready.
+ **/
 void objheap_handle_room_unload(struct objheap *heap, s8 cur_room) {
     // Update operation based on room unload.
     if (heap->nex_room == cur_room) {

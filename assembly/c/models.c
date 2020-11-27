@@ -562,7 +562,7 @@ void models_after_prepare_display_buffers(z2_gfx_t *gfx) {
     // to RDP. While this is very likely, it is not guaranteed.
     // If alternative Opa buffer has been cleared, both DLists should be rid of pointers to object data in previous room.
     if (g_state.prev_opa != NULL && gfx->poly_opa.buf != g_state.prev_opa) {
-        objheap_handle_advance_or_revert(&g_objheap);
+        objheap_flush_operation(&g_objheap);
         g_state.prev_opa = NULL;
     }
 }
