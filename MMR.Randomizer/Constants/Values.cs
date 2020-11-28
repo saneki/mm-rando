@@ -31,5 +31,10 @@ namespace MMR.Randomizer.Constants
                 0x02, 0x80, 0x20, 0x80
         });
 
+        public static readonly ReadOnlyCollection<byte> DCSceneIds
+            = new ReadOnlyCollection<byte>(new byte[] {
+                0x1F, 0x44, 0x36, 0x5F
+        });
+
     }
 }

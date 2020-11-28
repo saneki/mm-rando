@@ -50,7 +50,6 @@ namespace MMR.Randomizer.GameObjects
         EntranceSnowheadFromSnowheadTemple,
 
         [Region(Region.SnowheadTemple)]
-        [ExitAddress(0xB81B3A)]
         [Spawn(Scene.MountainVillage, 7)]
         EntranceMountainVillageFromSnowheadClear, // one way
 
@@ -63,7 +62,6 @@ namespace MMR.Randomizer.GameObjects
         EntranceIkanaCanyonFromIkanaClear, // one way
 
         [Region(Region.WoodfallTemple)]
-        [ExitAddress(0xB81AB6)]
         [Spawn(Scene.WoodfallTemple, 1)]
         EntranceWoodfallTemplePrisonFromOdolwasLair, // one way
     }

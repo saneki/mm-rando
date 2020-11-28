@@ -809,9 +809,11 @@ namespace MMR.Randomizer
             };
 
             byte[] li = new byte[] { 0x24, 0x02, 0x00, 0x00 };
+            byte[] addiuAtR0 = new byte[] { 0x24, 0x01, 0x00, 0x00 };
             var dCheckAddr = ResourceUtils.GetAddresses(Resources.addresses.d_check);
             var dcFlagloadAddr = ResourceUtils.GetAddresses(Resources.addresses.dc_flagload);
             var dcFlagmaskAddr = ResourceUtils.GetAddresses(Resources.addresses.dc_flagmask);
+            var dGiantsCsAddr = ResourceUtils.GetAddresses(Resources.addresses.d_giants_cs);
             for (var i = 0; i < clears.Count; i++)
             {
                 var clear = clears[i];
@@ -825,6 +827,10 @@ namespace MMR.Randomizer
                 // Alter the Boss Warp to set the correct clear flag and next entrance.
                 li[3] = (byte)newIndex;
                 ReadWriteUtils.WriteROMAddr(dCheckAddr[i], li);
+
+                // Alter the Giants Cutscene to set the correct exit value.
+                addiuAtR0[3] = Values.DCSceneIds[i];
+                ReadWriteUtils.WriteROMAddr(dGiantsCsAddr[newIndex], addiuAtR0);
 
                 // Alter which address is checked when determining if an area is cleared.
                 ReadWriteUtils.WriteROMAddr(dcFlagloadAddr[i], new byte[] { (byte)((Values.DCFlags[newIndex] & 0xFF00) >> 8), (byte)(Values.DCFlags[newIndex] & 0xFF) });
