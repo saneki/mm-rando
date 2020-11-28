@@ -29,6 +29,12 @@ struct pathbuf {
 
 static struct pathbuf g_debug_pathbuf = { 0 };
 
+// Empty path with 0 nodes.
+static struct path_entry g_empty_path = {
+    .info = 0x00FFFFFF,
+    .segaddr = 0,
+};
+
 struct world_skulltula_debug {
     u32 magic;
     u32 command;
@@ -152,7 +158,7 @@ static void world_skulltula_debug_process_command(z2_link_t *link, z2_game_t *ga
             // For initial position, use first path node.
             debug->pos = g_debug_pathbuf.nodes[0];
             // Respawn Skullwalltula.
-            world_skulltula_debug_spawn(game, debug, 0x0002);
+            world_skulltula_debug_spawn(game, debug, 0xFE02);
             z2_en_sw_t *sw = (z2_en_sw_t*)debug->spawned;
             // Point to entry.
             if (sw) {
@@ -302,4 +308,22 @@ void world_skulltula_after_scene_init(z2_game_t *game) {
 bool world_skulltula_enabled(void) {
     // For now, just use debug flag.
     return g_debug_enable;
+}
+
+/**
+ * Hook function used to get path entry of Skullwalltula actor.
+ **/
+struct path_entry * world_skulltula_get_path_override(z2_game_t *game, u32 path_index, u32 unknown, u32 *node) {
+    if (g_debug_enable) {
+        if (path_index != 0xFE) {
+            // If index less than 0xFE, use default behavior.
+            return (struct path_entry *)z2_Scene_GetPathEntry(game, path_index, unknown, node);
+        } else {
+            // If 0xFE, use "empty" path for overwriting later.
+            return &g_empty_path;
+        }
+    } else {
+        // Default behavior (get path from scene data).
+        return (struct path_entry *)z2_Scene_GetPathEntry(game, path_index, unknown, node);
+    }
 }

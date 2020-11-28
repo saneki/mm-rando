@@ -34,6 +34,10 @@ DefineDmaFile G_EN_TORCH2_DMA, G_EN_TORCH2_FILE, 65
 DefineDmaFile G_ITEM_B_HEART_DMA, G_ITEM_B_HEART_FILE, 80
 .definelabel  G_ITEM_B_HEART_VRAM, 0x808BCDF0
 
+; ovl_En_Sw (Skullwalltula)
+DefineDmaFile G_EN_SW_DMA, G_EN_SW_FILE, 96
+.definelabel  G_EN_SW_VRAM, 0x808D8940
+
 ; ovl_Obj_Oshihiki (Pushblock)
 DefineDmaFile G_OBJ_OSHIHIKI_DMA, G_OBJ_OSHIHIKI_FILE, 115
 .definelabel  G_OBJ_OSHIHIKI_VRAM, 0x80917290

@@ -2478,6 +2478,9 @@ typedef struct {
 #define z2_LoadRoom_addr                 0x8012E96C
 #define z2_UnloadRoom_addr               0x8012EBF8
 
+/* Function Addresses (Scene) */
+#define z2_Scene_GetPathEntry_addr       0x8013BEDC
+
 /* Relocatable Functions (Pause Menu) */
 #define z2_PauseDrawItemIcon_vram        0x80821AD4
 
@@ -2603,6 +2606,9 @@ typedef void (*z2_RngSetSeed_proc)(u32 seed);
 typedef void (*z2_LoadRoom_proc)(z2_game_t *game, z2_room_ctxt_t *room_ctxt, uint8_t room_id);
 typedef void (*z2_UnloadRoom_proc)(z2_game_t *game, z2_room_ctxt_t *room_ctxt);
 
+/* Function Prototypes (Scene) */
+typedef void* (*z2_Scene_GetPathEntry_proc)(z2_game_t *game, u32 path_index, u32 unknown, u32 *node);
+
 /* Functions */
 #define z2_CanInteract                   ((z2_CanInteract_proc)           z2_CanInteract_addr)
 #define z2_CanInteract2                  ((z2_CanInteract2_proc)          z2_CanInteract2_addr)
@@ -2710,5 +2716,8 @@ typedef void (*z2_UnloadRoom_proc)(z2_game_t *game, z2_room_ctxt_t *room_ctxt);
 /* Functions (Rooms) */
 #define z2_LoadRoom                      ((z2_LoadRoom_proc)              z2_LoadRoom_addr)
 #define z2_UnloadRoom                    ((z2_UnloadRoom_proc)            z2_UnloadRoom_addr)
+
+/* Functions (Scene) */
+#define z2_Scene_GetPathEntry            ((z2_Scene_GetPathEntry_proc)    z2_Scene_GetPathEntry_addr)
 
 #endif // Z2_H
