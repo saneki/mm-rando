@@ -343,6 +343,12 @@ namespace MMR.Randomizer.Models.Settings
         /// </summary>
         public bool DeathMoonCrash { get; set; }
 
+        /// <summary>
+        /// Whether or not to randomly distribute Gold Skulltula locations throughout the world.
+        /// </summary>
+        [JsonIgnore]
+        public bool WorldSkulltula { get; set; } = true;
+
         #endregion
 
         #region Comfort / Cosmetics

@@ -25,6 +25,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using SixLabors.ImageSharp.Formats.Png;
 using System.Security.Cryptography;
+using MMR.Randomizer.Skulltula;
 
 namespace MMR.Randomizer
 {
@@ -2613,6 +2614,12 @@ namespace MMR.Randomizer
                 {
                     progressReporter.ReportProgress(70, "Writing ice traps...");
                     WriteIceTraps();
+                }
+
+                // Perform World Skulltula hacks.
+                if (_randomized.Settings.WorldSkulltula)
+                {
+                    SkulltulaUtils.PerformHacks();
                 }
 
                 // Load Asm data from internal resource files and apply
