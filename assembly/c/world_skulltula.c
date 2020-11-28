@@ -15,13 +15,15 @@ static bool g_debug_enable = false;
 // Amounts to move Skullwalltula actor when debugging.
 static s16 g_amounts[AMOUNT_COUNT] = { 1, 8 };
 
+#define PATH_NODE_MAX (10)
+
 struct path_entry {
     u32 info;
     u32 segaddr;
 };
 
 struct pathbuf {
-    z2_xyz_t nodes[6];
+    z2_xyz_t nodes[PATH_NODE_MAX];
     struct path_entry entry;
 };
 
@@ -35,7 +37,7 @@ struct world_skulltula_debug {
     z2_rot_t rot;
     size_t amount_index;
     u32 path_count;
-    z2_xyz_t path[6];
+    z2_xyz_t path[PATH_NODE_MAX];
     bool enabled;
 };
 
@@ -76,7 +78,7 @@ static size_t get_object_size(u32 object_id) {
  **/
 static void world_skulltula_debug_clear_path(struct world_skulltula_debug *debug) {
     debug->path_count = 0;
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < PATH_NODE_MAX; i++) {
         debug->path[i].x = debug->path[i].y = debug->path[i].z = 0;
     }
 }
@@ -134,7 +136,7 @@ static void world_skulltula_debug_process_command(z2_link_t *link, z2_game_t *ga
         }
     } else if (cmd == 4) {
         // Append current position as path node.
-        if (debug->path_count < 6) {
+        if (debug->path_count < PATH_NODE_MAX) {
             z2_xyz_t cur;
             cur.x = (s16)debug->spawned->pos_2.x;
             cur.y = (s16)debug->spawned->pos_2.y;
