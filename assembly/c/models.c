@@ -562,7 +562,7 @@ void models_after_prepare_display_buffers(z2_gfx_t *gfx) {
     // to RDP. While this is very likely, it is not guaranteed.
     // If alternative Opa buffer has been cleared, both DLists should be rid of pointers to object data in previous room.
     if (g_state.prev_opa != NULL && gfx->poly_opa.buf != g_state.prev_opa) {
-        objheap_finish_advance(&g_objheap);
+        objheap_flush_operation(&g_objheap);
         g_state.prev_opa = NULL;
     }
 }
@@ -574,6 +574,12 @@ void models_prepare_after_room_unload(z2_game_t *game) {
     // Note: During frame processing loop, unloads room before drawing actors.
     // Not sure how to get alternative Opa buffer, so get current and check if non-NULL and non-equal (there are only 2).
     g_state.prev_opa = g_state.gfx->poly_opa.buf;
+
+    // Determine operation before finish advancing or reverting.
+    // Normally, objects from previously loaded rooms would no longer draw so this isn't an issue, but is required for hack
+    // used to draw actors with 0xFF room, so that the pointer can be safely swapped to data of the relevant room.
+    s8 cur_room = (s8)game->room_ctxt.rooms[0].idx;
+    objheap_handle_room_unload(&g_objheap, cur_room);
 }
 
 /**
@@ -584,6 +590,11 @@ void models_prepare_before_room_load(z2_room_ctxt_t *room_ctxt, s8 room_index) {
         // If loading first room in scene, remember room index.
         objheap_init_room(&g_objheap, room_index);
     } else {
+        // Safeguard: If previous Opa DList pointer is non-NULL, still waiting to flush advance or revert operation.
+        // If attempting to prepare advance before this has happened, prevent flushing advance or revert operations.
+        if (g_state.prev_opa) {
+            g_state.prev_opa = NULL;
+        }
         // If not loading first room in scene, prepare objheap for advance.
         objheap_prepare_advance(&g_objheap, room_index);
     }
