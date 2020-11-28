@@ -73,16 +73,6 @@ namespace MMR.Randomizer.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] d_exit {
-            get {
-                object obj = ResourceManager.GetObject("d_exit", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
         internal static byte[] dc_flagload {
             get {
                 object obj = ResourceManager.GetObject("dc_flagload", resourceCulture);
