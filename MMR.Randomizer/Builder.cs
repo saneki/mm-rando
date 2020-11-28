@@ -761,53 +761,78 @@ namespace MMR.Randomizer
 
         private void WriteDungeons()
         {
-            if ((_randomized.Settings.LogicMode == LogicMode.Vanilla) || (!_randomized.Settings.RandomizeDungeonEntrances))
+            if (_randomized.Settings.LogicMode == LogicMode.Vanilla || !_randomized.Settings.RandomizeDungeonEntrances)
             {
                 return;
             }
 
-            EntranceUtils.WriteEntrances(Values.OldEntrances.ToArray(), _randomized.NewEntrances);
-            EntranceUtils.WriteEntrances(Values.OldExits.ToArray(), _randomized.NewExits);
+            SceneUtils.ReadSceneTable();
+            SceneUtils.GetMaps();
+
+            var entrances = new List<Item>
+            {
+                Item.AreaWoodFallTempleAccess,
+                Item.AreaWoodFallTempleClear,
+                Item.AreaSnowheadTempleAccess,
+                Item.AreaSnowheadTempleClear,
+                Item.AreaGreatBayTempleAccess,
+                Item.AreaGreatBayTempleClear,
+                Item.AreaInvertedStoneTowerTempleAccess,
+                Item.AreaStoneTowerClear,
+            };
+
+            foreach (var entrance in entrances)
+            {
+                var newSpawns = entrance.DungeonEntrances();
+                var exits = _randomized.ItemList[entrance].NewLocation.Value.DungeonEntrances();
+
+                var mainExit = exits[0];
+                var mainSpawn = newSpawns[0];
+
+                EntranceSwapUtils.WriteNewEntrance(mainExit, mainSpawn);
+
+                if (exits.Count > 1 && newSpawns.Count > 1)
+                {
+                    var pairExit = newSpawns[1];
+                    var pairSpawn = exits[1];
+
+                    EntranceSwapUtils.WriteNewEntrance(pairExit, pairSpawn);
+                }
+            }
+
+            var clears = new List<Item>
+            {
+                Item.AreaWoodFallTempleClear,
+                Item.AreaSnowheadTempleClear,
+                Item.AreaStoneTowerClear,
+                Item.AreaGreatBayTempleClear,
+            };
+
             byte[] li = new byte[] { 0x24, 0x02, 0x00, 0x00 };
-            List<int[]> addr = new List<int[]>();
-            addr = ResourceUtils.GetAddresses(Resources.addresses.d_check);
-            for (int i = 0; i < addr.Count; i++)
+            var dCheckAddr = ResourceUtils.GetAddresses(Resources.addresses.d_check);
+            var dcFlagloadAddr = ResourceUtils.GetAddresses(Resources.addresses.dc_flagload);
+            var dcFlagmaskAddr = ResourceUtils.GetAddresses(Resources.addresses.dc_flagmask);
+            for (var i = 0; i < clears.Count; i++)
             {
-                li[3] = (byte)_randomized.NewExitIndices[i];
-                ReadWriteUtils.WriteROMAddr(addr[i], li);
-            }
-
-            ResourceUtils.ApplyHack(Resources.mods.fix_dungeons);
-            addr = ResourceUtils.GetAddresses(Resources.addresses.d_exit);
-
-            for (int i = 0; i < addr.Count; i++)
-            {
-                if (i == 2)
+                var clear = clears[i];
+                var exit = _randomized.ItemList.SingleOrDefault(io => io.NewLocation == clear).Item;
+                var newIndex = clears.IndexOf(exit);
+                if (newIndex < 0)
                 {
-                    ReadWriteUtils.WriteROMAddr(addr[i], new byte[] {
-                        (byte)((Values.OldExits[_randomized.NewDestinationIndices[i + 1]] & 0xFF00) >> 8),
-                        (byte)(Values.OldExits[_randomized.NewDestinationIndices[i + 1]] & 0xFF) });
+                    throw new Exception("Error randomizing dungoens.");
                 }
-                else
-                {
-                    ReadWriteUtils.WriteROMAddr(addr[i], new byte[] {
-                        (byte)((Values.OldExits[_randomized.NewDestinationIndices[i]] & 0xFF00) >> 8),
-                        (byte)(Values.OldExits[_randomized.NewDestinationIndices[i]] & 0xFF) });
-                }
-            }
 
-            addr = ResourceUtils.GetAddresses(Resources.addresses.dc_flagload);
-            for (int i = 0; i < addr.Count; i++)
-            {
-                ReadWriteUtils.WriteROMAddr(addr[i], new byte[] { (byte)((_randomized.NewDCFlags[i] & 0xFF00) >> 8), (byte)(_randomized.NewDCFlags[i] & 0xFF) });
-            }
+                // Alter the Boss Warp to set the correct clear flag and next entrance.
+                li[3] = (byte)newIndex;
+                ReadWriteUtils.WriteROMAddr(dCheckAddr[i], li);
 
-            addr = ResourceUtils.GetAddresses(Resources.addresses.dc_flagmask);
-            for (int i = 0; i < addr.Count; i++)
-            {
-                ReadWriteUtils.WriteROMAddr(addr[i], new byte[] {
-                    (byte)((_randomized.NewDCMasks[i] & 0xFF00) >> 8),
-                    (byte)(_randomized.NewDCMasks[i] & 0xFF) });
+                // Alter which address is checked when determining if an area is cleared.
+                ReadWriteUtils.WriteROMAddr(dcFlagloadAddr[i], new byte[] { (byte)((Values.DCFlags[newIndex] & 0xFF00) >> 8), (byte)(Values.DCFlags[newIndex] & 0xFF) });
+
+                // Alter the bit mask to use when determining if an area is cleared.
+                ReadWriteUtils.WriteROMAddr(dcFlagmaskAddr[i], new byte[] {
+                    (byte)((Values.DCFlagMasks[newIndex] & 0xFF00) >> 8),
+                    (byte)(Values.DCFlagMasks[newIndex] & 0xFF) });
             }
         }
 
@@ -1300,6 +1325,11 @@ namespace MMR.Randomizer
             {
                 // Unused item
                 if (item.NewLocation == null)
+                {
+                    continue;
+                }
+
+                if (item.Item.DungeonEntrances() != null)
                 {
                     continue;
                 }
