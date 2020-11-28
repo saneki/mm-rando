@@ -25,5 +25,6 @@ void linheap_init(struct linheap *heap, void *base);
 bool linheap_is_allocated(const struct linheap *heap, void *address);
 bool linheap_is_empty(const struct linheap *heap);
 void linheap_prepare_advance(struct linheap *heap);
+void linheap_revert_advance(struct linheap *heap);
 
 #endif // LINHEAP_H
