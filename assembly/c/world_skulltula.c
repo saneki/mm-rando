@@ -15,6 +15,18 @@ static bool g_debug_enable = false;
 // Amounts to move Skullwalltula actor when debugging.
 static s16 g_amounts[AMOUNT_COUNT] = { 1, 8 };
 
+struct path_entry {
+    u32 info;
+    u32 segaddr;
+};
+
+struct pathbuf {
+    z2_xyz_t nodes[6];
+    struct path_entry entry;
+};
+
+static struct pathbuf g_debug_pathbuf = { 0 };
+
 struct world_skulltula_debug {
     u32 magic;
     u32 command;
@@ -80,19 +92,31 @@ static void world_skulltula_debug_init(struct world_skulltula_debug *debug) {
     world_skulltula_debug_clear_path(debug);
 }
 
-static void world_skulltula_debug_build_path(struct world_skulltula_debug *debug) {
-    if (debug->path_count > 0) {
-        for (int i = 0; i < debug->path_count; i++) {
-            // Todo
-        }
+static void world_skulltula_debug_build_pathbuf(struct world_skulltula_debug *debug, struct pathbuf *pathbuf) {
+    // Copy over nodes.
+    for (int i = 0; i < debug->path_count; i++) {
+        pathbuf->nodes[i] = debug->path[i];
     }
+    // Build info value with node count.
+    pathbuf->entry.info = ((u8)debug->path_count << 24) | 0xFFFFFF;
+    // Build segaddr for direct reference (index 0).
+    pathbuf->entry.segaddr = ((u32)pathbuf & 0xFFFFFF);
+}
+
+static void world_skulltula_debug_spawn(z2_game_t *game, struct world_skulltula_debug *debug, u16 var) {
+    // u16 var = 0xFF02;
+    z2_xyz_t pos = debug->pos;
+    z2_rot_t rot = debug->rot;
+    if (debug->spawned) {
+        z2_ActorRemove(&game->actor_ctxt, debug->spawned, game);
+    }
+    debug->spawned = z2_SpawnActor(&game->actor_ctxt, game, 0x50, (f32)pos.x, (f32)pos.y, (f32)pos.z, rot.x, rot.y, rot.z, var);
 }
 
 /**
- * Process debug commands.
+ * Process specified debug command.
  **/
-static void world_skulltula_debug_process_command(z2_link_t *link, z2_game_t *game, struct world_skulltula_debug *debug) {
-    u32 cmd = debug->command;
+static void world_skulltula_debug_process_command(z2_link_t *link, z2_game_t *game, struct world_skulltula_debug *debug, u32 cmd) {
     if (cmd == 1) {
         // Copy Link position and rotation to debug.
         debug->pos.x = (s16)link->common.pos_2.x;
@@ -101,20 +125,49 @@ static void world_skulltula_debug_process_command(z2_link_t *link, z2_game_t *ga
         debug->rot = link->common.rot_2;
     } else if (cmd == 2) {
         // Spawn or update Skullwalltula actor at position in debug.
-        u16 var = 0xFF02;
-        z2_xyz_t pos = debug->pos;
-        z2_rot_t rot = debug->rot;
-        if (debug->spawned) {
-            z2_ActorRemove(&game->actor_ctxt, debug->spawned, game);
-        }
-        debug->spawned = z2_SpawnActor(&game->actor_ctxt, game, 0x50, (f32)pos.x, (f32)pos.y, (f32)pos.z, rot.x, rot.y, rot.z, var);
+        world_skulltula_debug_spawn(game, debug, 0xFF02);
     } else if (cmd == 3) {
         // Despawn existing Skullwalltula actor.
         if (debug->spawned) {
             z2_ActorRemove(&game->actor_ctxt, debug->spawned, game);
             debug->spawned = NULL;
         }
+    } else if (cmd == 4) {
+        // Append current position as path node.
+        if (debug->path_count < 6) {
+            z2_xyz_t cur;
+            cur.x = (s16)debug->spawned->pos_2.x;
+            cur.y = (s16)debug->spawned->pos_2.y;
+            cur.z = (s16)debug->spawned->pos_2.z;
+            debug->path[debug->path_count++] = cur;
+        }
+    } else if (cmd == 5) {
+        // Clear current path.
+        world_skulltula_debug_clear_path(debug);
+    } else if (cmd == 6) {
+        world_skulltula_debug_build_pathbuf(debug, &g_debug_pathbuf);
+        if (debug->spawned && debug->path_count > 1) {
+            // For initial position, use first path node.
+            debug->pos = g_debug_pathbuf.nodes[0];
+            // Respawn Skullwalltula.
+            world_skulltula_debug_spawn(game, debug, 0x0002);
+            z2_en_sw_t *sw = (z2_en_sw_t*)debug->spawned;
+            // Point to entry.
+            if (sw) {
+                // Point to path entry.
+                sw->path_entry = &g_debug_pathbuf.entry;
+                sw->path_node_index = 1;
+            }
+            world_skulltula_debug_clear_path(debug);
+        }
     }
+}
+
+/**
+ * Process current debug command in RDRAM.
+ **/
+static void world_skulltula_debug_process_current_command(z2_link_t *link, z2_game_t *game, struct world_skulltula_debug *debug) {
+    world_skulltula_debug_process_command(link, game, debug, debug->command);
     // Reset command value.
     debug->command = 0;
 }
@@ -132,37 +185,29 @@ static void world_skulltula_debug_process_input(z2_link_t *link, z2_game_t *game
         // Force Link to full health.
         z2_file.current_health = z2_file.max_health = 0x140;
         // Spawn at Link's current position.
-        debug->command = 1;
-        world_skulltula_debug_process_command(link, game, debug);
-        debug->command = 2;
-        world_skulltula_debug_process_command(link, game, debug);
+        world_skulltula_debug_process_command(link, game, debug, 1);
+        world_skulltula_debug_process_command(link, game, debug, 2);
         // Clear Z bit.
         pad.z = 0;
     }
 
     // A + L: append current Skullwalltula position as node to path list.
     if (pad.a && raw.l) {
-        if (debug->path_count < 6) {
-            z2_xyz_t cur;
-            cur.x = (s16)debug->spawned->pos_2.x;
-            cur.y = (s16)debug->spawned->pos_2.y;
-            cur.z = (s16)debug->spawned->pos_2.z;
-            debug->path[debug->path_count++] = cur;
-        }
+        world_skulltula_debug_process_command(link, game, debug, 4);
         // Clear A bit.
         pad.a = 0;
     }
 
     // B + L: clear path list.
     if (pad.b && raw.l) {
-        world_skulltula_debug_clear_path(debug);
+        world_skulltula_debug_process_command(link, game, debug, 5);
         // Clear B bit.
         pad.b = 0;
     }
 
     // R + L: build path list to buffer for usage.
     if (pad.r && raw.l) {
-        world_skulltula_debug_build_path(debug);
+        world_skulltula_debug_process_command(link, game, debug, 6);
         // Clear R bit.
         pad.r = 0;
     }
@@ -199,8 +244,7 @@ static void world_skulltula_debug_process_input(z2_link_t *link, z2_game_t *game
     // If movement occurred, update position.
     if (raw.du || raw.dl || raw.dr || raw.dd) {
         // Respawn Skullwalltula at updated position.
-        debug->command = 2;
-        world_skulltula_debug_process_command(link, game, debug);
+        world_skulltula_debug_process_command(link, game, debug, 2);
     }
 
     // Clear inputs for D-Pad and L.
@@ -217,7 +261,7 @@ static void world_skulltula_debug_process_input(z2_link_t *link, z2_game_t *game
 void world_skulltula_debug_process(z2_link_t *link, z2_game_t *game) {
     if (g_debug_enable && g_debug.enabled) {
         // First process debug command if using direct RDRAM for input.
-        world_skulltula_debug_process_command(link, game, &g_debug);
+        world_skulltula_debug_process_current_command(link, game, &g_debug);
         // Process debug controller input.
         world_skulltula_debug_process_input(link, game, &g_debug);
     }

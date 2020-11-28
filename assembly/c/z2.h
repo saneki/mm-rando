@@ -2131,6 +2131,17 @@ typedef struct z2_bg_ingate_s {
     u8               unk_0x16A[0x26];                /* 0x016A */
 } z2_bg_ingate_t;                                    /* 0x0190 */
 
+/**
+ * En_Sw (Skullwalltula)
+ **/
+typedef struct z2_en_sw_s {
+    z2_actor_t       common;                         /* 0x0000 */
+    u8               unk_0x144[0xA0];                /* 0x0144 */
+    void            *path_entry;                     /* 0x01E4 */
+    u8               unk_0x1E8[0x2B8];               /* 0x01E8 */
+    u32              path_node_index;                /* 0x04A0 */
+} z2_en_sw_t;
+
 /// =============================================================
 /// Actor Cutscene
 /// =============================================================
