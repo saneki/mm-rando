@@ -1,0 +1,27 @@
+Scenes:
+  - Index: 0x14
+    Name: 'Deku Palace'
+    Spiders:
+      - Name: "Deku Palace Garden - Between Torches"
+        Room: 2
+        Path: [[[0xFECE, 0x002D, 0x042C]]]
+  - Index: 0x63
+    Name: 'Clock Tower Interior'
+    Spiders:
+      - Name: "Clock Tower Interior - Wall Around Entrance Door"
+        Description: "Crawls next to and above entrance door."
+        Path: [[[0x0078, 0x0011, 0x010E], [0x0078, 0x00D9, 0x010E], [0xFFC9, 0x00D9, 0x010E]]]
+      - Name: "Clock Tower Interior - Behind Waterwheel"
+        Description: "Crawls behind wall used by waterwheel."
+        Path: [[[0xFFBF, 0xFEDD, 0x001E], [0xFFBF, 0xFF2C, 0x001E], [0x0041, 0xFF2C, 0x001E], [0x0041, 0xFEDD, 0x001E]]]
+      - Name: "Clock Tower Interior - Wall Around Iron Door"
+        Description: "Crawls on wall around iron door."
+        Path: [[[0xFF9F, 0xFF17, 0xFD67], [0xFF9F, 0xFF7C, 0xFD67], [0x006B, 0xFF7C, 0xFD67], [0x006B, 0xFF1D, 0xFD67]]]
+      - Name: "Clock Tower Interior - River Floor"
+        Description: "Crawls along river floor."
+        Path:
+          - [[0x0238, 0xFE5C, 0xFFF9], [0x00D0, 0xFE5C, 0xFFF9]]
+          - [[0xFF58, 0xFE5C, 0xFFF9], [0xFDD0, 0xFE5C, 0xFFF9]]
+      - Name: "Clock Tower Interior - Along Grates"
+        Path:
+          - [[0xFD8A, 0xFEFB, 0xFF64], [0xFD8A, 0xFEFB, 0x009B]]

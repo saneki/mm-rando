@@ -1,4 +1,6 @@
-﻿namespace MMR.Randomizer.Asm
+﻿using MMR.Randomizer.Skulltula;
+
+namespace MMR.Randomizer.Asm
 {
     /// <summary>
     /// Core options used for Asm.
@@ -14,6 +16,11 @@
         /// Miscellaneous configuration.
         /// </summary>
         public MMRConfig MMRConfig { get; set; } = new MMRConfig();
+
+        /// <summary>
+        /// World Skulltula configuration, if any.
+        /// </summary>
+        public Spiders SpiderConfig { get; set; }
     }
 
     /// <summary>

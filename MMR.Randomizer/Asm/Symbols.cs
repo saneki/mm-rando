@@ -1,5 +1,6 @@
 ﻿using MMR.Randomizer.GameObjects;
 using MMR.Randomizer.Models.Rom;
+using MMR.Randomizer.Skulltula.Models;
 using MMR.Randomizer.Utils;
 using Newtonsoft.Json.Linq;
 using System;
@@ -243,6 +244,18 @@ namespace MMR.Randomizer.Asm
         }
 
         /// <summary>
+        /// Write a <see cref="SpiderConfigStruct"/> to the ROM.
+        /// </summary>
+        /// <param name="config">Skulltula config</param>
+        public void WriteWorldSkulltulaConfig(SpiderConfigStruct config)
+        {
+            // Todo: Magic and version?
+            var addr = this["WORLD_SKULLTULA_CONFIG"];
+            var bytes = config.ToBytes();
+            ReadWriteUtils.WriteToROM((int)(addr + 8), bytes);
+        }
+
+        /// <summary>
         /// Try and write a <see cref="DPadConfig"/> to the ROM.
         /// </summary>
         /// <param name="config">D-Pad config</param>
@@ -410,6 +423,13 @@ namespace MMR.Randomizer.Asm
             this.WriteClockTownStrayFairyIcon();
             this.WriteMiscConfig(options.MiscConfig);
             this.WriteMMRConfig(options.MMRConfig);
+
+            // If World Skulltula configuration, write to ROM.
+            if (options.SpiderConfig != null)
+            {
+                // Write config to ROM.
+                this.WriteWorldSkulltulaConfig(options.SpiderConfig.ConfigStruct);
+            }
         }
 
         /// <summary>

@@ -4,8 +4,13 @@
 #include "world_skulltula.h"
 #include "z2.h"
 
-// World of Skulltula debug struct magic: "SKUL"
-#define WORLD_SKULLTULA_DEBUG_MAGIC (0x534B554C)
+struct world_skulltula_config WORLD_SKULLTULA_CONFIG = {
+    .magic = WORLD_SKULLTULA_CONFIG_MAGIC,
+    .version = 0,
+};
+
+// World of Skulltula debug struct magic: "SDBG"
+#define WORLD_SKULLTULA_DEBUG_MAGIC (0x53444247)
 
 // Whether or not the debug feature is enabled.
 static bool g_debug_enable = false;
@@ -34,6 +39,15 @@ static struct path_entry g_empty_path = {
     .info = 0x00FFFFFF,
     .segaddr = 0,
 };
+
+struct world_skulltula_scene_config {
+    u32 count;
+    u32 flags[0xC];
+    u8 nodebuf[0x100];
+    struct path_entry entries[0xC];
+};
+
+static struct world_skulltula_scene_config g_scene_config = { 0 };
 
 struct world_skulltula_debug {
     u32 magic;
@@ -285,21 +299,44 @@ void world_skulltula_debug_after_actor_dtor(z2_actor_t *actor) {
 }
 
 /**
+ * Helper function called to apply fixes after loading scene config structure from file data.
+ **/
+void world_skulltula_scene_config_apply_fixup(struct world_skulltula_scene_config *config) {
+    // Fix segmented addresses in path entries to use direct reference (base index 0).
+    for (u32 i = 0; i < config->count; i++) {
+        // Randomizer places offset relative to path node buffer into segaddr field.
+        u32 offset = config->entries[i].segaddr;
+        config->entries[i].segaddr = (u32)(config->nodebuf + offset) & 0xFFFFFF;
+    }
+}
+
+/**
  * Helper function called to load required object if possible.
  **/
 void world_skulltula_after_scene_init(z2_game_t *game) {
     // Initialize debug structure.
     world_skulltula_debug_init(&g_debug);
 
-    // Attempt to load object 0x20 for Skullwalltula actor.
-    u8 scene = (u8)z2_file.scene;
-    // Attempt to load Skullwalltula object if not already loaded.
+    // Attempt to load object 0x20 for Skullwalltula actor if not already loaded.
     s8 index = z2_GetObjectIndex(&game->obj_ctxt, 0x20);
     if (index < 0) {
         s8 result = func_0x8012F2E0(&game->obj_ctxt, 0x20);
     }
     // Enable debug feature.
     g_debug.enabled = true;
+
+    // Load scene-specific config structure from file.
+    if (WORLD_SKULLTULA_CONFIG.scene_mapping_file_index != 0) {
+        u8 scene = (u8)game->scene_index;
+        u32 vrom = z2_file_table[WORLD_SKULLTULA_CONFIG.scene_mapping_file_index].vrom_start;
+        u8 vindex = WORLD_SKULLTULA_CONFIG.file_indexes_by_scene[scene];
+        if (vindex > 0) {
+            z2_LoadVFileFromArchive(vrom, vindex - 1, (void*)&g_scene_config, sizeof(g_scene_config));
+            world_skulltula_scene_config_apply_fixup(&g_scene_config);
+        } else {
+            g_scene_config.count = 0;
+        }
+    }
 }
 
 /**

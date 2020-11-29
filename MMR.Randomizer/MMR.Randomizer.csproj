@@ -58,6 +58,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>mods.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\skulltula.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>skulltula.resx</DependentUpon>
+    </Compile>
     <Compile Update="Templates\HtmlSpoiler.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -458,6 +463,10 @@
     <EmbeddedResource Update="Resources\mods.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>mods.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\skulltula.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>skulltula.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

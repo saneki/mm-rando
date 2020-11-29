@@ -2,7 +2,7 @@
 
 namespace MMR.Randomizer.Skulltula
 {
-    public static class SkulltulaUtils
+    public static class SpiderUtils
     {
         /// <summary>
         /// Update restrictions for specific scenes to allow using sword, hookshot, and bow.
@@ -30,6 +30,7 @@ namespace MMR.Randomizer.Skulltula
         /// </summary>
         public static void PerformHacks()
         {
+            // Update restrictions for specific scenes to allow sword, hookshot, etc.
             UpdateSceneRestrictions();
         }
     }

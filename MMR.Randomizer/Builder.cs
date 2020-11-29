@@ -9,6 +9,7 @@ using MMR.Randomizer.Models.Colors;
 using MMR.Randomizer.Models.Rom;
 using MMR.Randomizer.Models.Settings;
 using MMR.Randomizer.Models.SoundEffects;
+using MMR.Randomizer.Skulltula;
 using MMR.Randomizer.Utils;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
@@ -25,7 +26,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using SixLabors.ImageSharp.Formats.Png;
 using System.Security.Cryptography;
-using MMR.Randomizer.Skulltula;
 
 namespace MMR.Randomizer
 {
@@ -2540,6 +2540,21 @@ namespace MMR.Randomizer
             _extraMessages.Add(entry);
         }
 
+        /// <summary>
+        /// Write Skullwalltula locations if randomized.
+        /// </summary>
+        public void WriteSkulltulaLocations()
+        {
+            // Construct spiders config with internal JSON file.
+            var spiders = _randomized.Settings.AsmOptions.SpiderConfig = Spiders.FromResource();
+            // Load all specified locations and treat as randomized.
+            spiders.RandomizeLocations();
+            // Build scene directory file and append to file list, and build config structure.
+            spiders.Write();
+            // Perform specific hacks for World Skulltula feature.
+            SpiderUtils.PerformHacks();
+        }
+
         public void MakeROM(OutputSettings outputSettings, IProgressReporter progressReporter)
         {
             using (BinaryReader OldROM = new BinaryReader(File.OpenRead(outputSettings.InputROMFilename)))
@@ -2623,10 +2638,10 @@ namespace MMR.Randomizer
                     WriteIceTraps();
                 }
 
-                // Perform World Skulltula hacks.
+                // Write Skullwalltula locations if using World Skulltula feature.
                 if (_randomized.Settings.WorldSkulltula)
                 {
-                    SkulltulaUtils.PerformHacks();
+                    WriteSkulltulaLocations();
                 }
 
                 // Load Asm data from internal resource files and apply
