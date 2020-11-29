@@ -1761,8 +1761,13 @@ typedef struct {
                 u8   flag_0x0E;                      /* 0x0F06 */
             };
             u8       unk_0x0F[0x08];                 /* 0x0F07 */
+            // 0F0C & 0x01 = Woodfall Temple Raised
+            // 0F0C & 0x02 = Swamp Clear
             u8       great_spin;                     /* 0x0F0F */
             u8       unk_0x18[0x4C];                 /* 0x0F10 */
+            // 0F19 & 0x80 = Mountain Clear
+            // 0F2C & 0x20 = Canyon Clear
+            // 0F2F & 0x80 = Ocean Clear
         };
         u8           week_event_inf_bytes[0x64];     /* 0x0EF8 */
     }                week_event_inf;
