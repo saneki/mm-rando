@@ -13,36 +13,10 @@ namespace MMR.Randomizer.Asm
         public uint Address;
         public byte[] Bytes;
 
-        private PatchData(uint address, byte[] bytes)
+        public PatchData(uint address, byte[] bytes)
         {
             this.Address = address;
             this.Bytes = bytes;
-        }
-
-        /// <summary>
-        /// Parse a <see cref="PatchData"/> from a line in the patch file.
-        /// </summary>
-        /// <param name="line">Line</param>
-        /// <returns>PatchData</returns>
-        public static PatchData FromLine(string line)
-        {
-            line = line.Trim();
-
-            // Check if comment or blank line
-            if (line.StartsWith(";") || line == "")
-                return null;
-
-            var fields = line.Split(',');
-            if (fields.Length != 2)
-                throw new Exception(String.Format("PatchData line must be two fields separated by a comma: {0}", line));
-
-            var address = Convert.ToUInt32(fields[0], 16);
-            var dataValue = Convert.ToUInt32(fields[1], 16);
-            var bytes = BitConverter.GetBytes(dataValue);
-            if (BitConverter.IsLittleEndian)
-                Array.Reverse(bytes);
-
-            return new PatchData(address, bytes);
         }
     }
 
@@ -137,39 +111,45 @@ namespace MMR.Randomizer.Asm
         }
 
         /// <summary>
-        /// Load a <see cref="Patcher"/> from lines.
+        /// Get whether or not an address is relevant to be included in the patch data.
         /// </summary>
-        /// <param name="lines">Lines</param>
-        /// <returns>Patcher</returns>
-        public static Patcher FromLines(string[] lines)
+        /// <param name="address">Address to check</param>
+        /// <returns>true if relevant, false if not.</returns>
+        public static bool IsAddressRelevant(uint address)
         {
-            // Parse each line of patch data into a list
-            var list = new List<PatchData>();
-            foreach (var line in lines)
-            {
-                var data = PatchData.FromLine(line);
-                if (data == null)
-                    continue;
+            // If patch address is before or within MMFile table, ignore.
+            return TABLE_END <= address;
+        }
 
-                // If patch address is before or within MMFile table, ignore
-                if (TABLE_END <= data.Address)
+        /// <summary>
+        /// Create <see cref="Patcher"/> from ALV data.
+        /// </summary>
+        /// <param name="rawBytes">ALV raw bytes</param>
+        /// <returns><see cref="Patcher"/>.</returns>
+        public static Patcher FromAlv(byte[] rawBytes)
+        {
+            var list = new List<PatchData>();
+            var alvReader = new AlvReader(rawBytes);
+            foreach (var entry in alvReader)
+            {
+                var data = new PatchData(entry.Address, entry.Data.ToArray());
+                if (IsAddressRelevant(data.Address))
                     list.Add(data);
             }
-
             var patcher = new Patcher();
             patcher._data = list.ToArray();
             return patcher;
         }
 
         /// <summary>
-        /// Load a <see cref="Patcher"/> from a <see cref="string"/>.
+        /// Create <see cref="Patcher"/> from GZip-compressed ALV data.
         /// </summary>
-        /// <param name="full">String</param>
-        /// <returns>Patcher</returns>
-        public static Patcher FromString(string full)
+        /// <param name="compressedBytes">GZip-compressed ALV data</param>
+        /// <returns><see cref="Patcher"/>.</returns>
+        public static Patcher FromCompressedAlv(byte[] compressedBytes)
         {
-            var lines = full.Split('\n');
-            return FromLines(lines);
+            var decompressedBytes = CompressionUtils.GZipDecompress(compressedBytes);
+            return FromAlv(decompressedBytes);
         }
 
         /// <summary>
@@ -178,7 +158,7 @@ namespace MMR.Randomizer.Asm
         /// <returns>Patcher</returns>
         public static Patcher Load()
         {
-            return FromString(Resources.asm.rom_patch);
+            return FromCompressedAlv(Resources.asm.rom_patch);
         }
 
         /// <summary>
