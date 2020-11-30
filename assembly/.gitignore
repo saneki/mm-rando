@@ -8,6 +8,7 @@ armips*
 # Ignore build files
 build/*.o
 build/*.txt
+data/generated/*.bin
 data/generated/*.json
 data/generated/*.txt
 
