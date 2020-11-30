@@ -14,6 +14,15 @@ data/generated/*.txt
 # Ignore private vagrant directory
 .vagrant*
 
+# Ignore contents of "input" and "output" except for .gitkeep
+input/*
+output/*
+!input/.gitkeep
+!output/.gitkeep
+
+# Ignore Randomizer settings file
+settings.json
+
 # Ignore ROM files
 *.z64
 *.n64
