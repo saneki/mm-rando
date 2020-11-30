@@ -7,6 +7,11 @@
 // World of Skulltula config struct magic: "SKUL"
 #define WORLD_SKULLTULA_CONFIG_MAGIC (0x534B554C)
 
+struct path_entry {
+    u32 info;
+    u32 segaddr;
+};
+
 struct world_skulltula_config {
     u32 magic;
     u32 version;
@@ -16,9 +21,14 @@ struct world_skulltula_config {
     u8 file_indexes_by_scene[0x74];
 };
 
-void world_skulltula_debug_after_actor_dtor(z2_actor_t *actor);
+struct world_skulltula_scene_config {
+    u32 count;
+    u32 flags[0xC];
+    u8 nodebuf[0x100];
+    struct path_entry entries[0xC];
+};
+
 void world_skulltula_after_scene_init(z2_game_t *game);
-void world_skulltula_debug_process(z2_link_t *link, z2_game_t *game);
 bool world_skulltula_enabled(void);
 
 #endif // WORLD_SKULLTULA_H

@@ -1,6 +1,6 @@
 #include "actor_ext.h"
 #include "models.h"
-#include "world_skulltula.h"
+#include "world_skulltula_debug.h"
 #include "z2.h"
 
 /**

@@ -13,7 +13,7 @@
 #include "models.h"
 #include "text.h"
 #include "util.h"
-#include "world_skulltula.h"
+#include "world_skulltula_debug.h"
 #include "z2.h"
 
 void c_init() {
