@@ -1,4 +1,4 @@
-﻿using MMR.Randomizer.Models.Rom;
+﻿using MMR.Randomizer.Skulltula.Models.Rom;
 
 namespace MMR.Randomizer.Skulltula
 {

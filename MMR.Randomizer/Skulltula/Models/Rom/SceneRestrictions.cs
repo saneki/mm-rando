@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MMR.Randomizer.Models.Rom
+namespace MMR.Randomizer.Skulltula.Models.Rom
 {
     /// <summary>
     /// Scene restriction value.

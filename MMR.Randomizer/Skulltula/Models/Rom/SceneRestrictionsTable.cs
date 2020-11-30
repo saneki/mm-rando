@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using MMR.Randomizer.Utils;
 
-namespace MMR.Randomizer.Models.Rom
+namespace MMR.Randomizer.Skulltula.Models.Rom
 {
     /// <summary>
     /// Table of <see cref="SceneRestrictions"/>.
