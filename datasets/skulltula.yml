@@ -1,5 +1,5 @@
 Scenes:
-  - Index: 0x14
+  - Index: 0x2B
     Name: 'Deku Palace'
     Spiders:
       - Name: "Deku Palace Garden - Between Torches"
@@ -11,6 +11,7 @@ Scenes:
       - Name: "Clock Tower Interior - Wall Around Entrance Door"
         Description: "Crawls next to and above entrance door."
         Path: [[[0x0078, 0x0011, 0x010E], [0x0078, 0x00D9, 0x010E], [0xFFC9, 0x00D9, 0x010E]]]
+        Rotation: 0x8000
       - Name: "Clock Tower Interior - Behind Waterwheel"
         Description: "Crawls behind wall used by waterwheel."
         Path: [[[0xFFBF, 0xFEDD, 0x001E], [0xFFBF, 0xFF2C, 0x001E], [0x0041, 0xFF2C, 0x001E], [0x0041, 0xFEDD, 0x001E]]]

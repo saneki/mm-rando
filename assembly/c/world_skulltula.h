@@ -29,6 +29,7 @@ struct world_skulltula_scene_config {
 };
 
 void world_skulltula_after_scene_init(z2_game_t *game);
+void world_skulltula_after_spawn_room_actors(z2_game_t *game);
 bool world_skulltula_enabled(void);
 
 #endif // WORLD_SKULLTULA_H

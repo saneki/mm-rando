@@ -15,3 +15,8 @@ actor_after_dtor_hook:
     lw      ra, 0x0010 (sp)
     jr      ra
     addiu   sp, sp, 0x18
+
+actor_after_spawn_room_actors_hook:
+    sh      t9, 0x8846 (at) ;; Displaced code
+    j       actor_after_spawn_room_actors
+    or      a0, s7, r0      ;; A0 = GlobalContext

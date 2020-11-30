@@ -11,31 +11,24 @@
         public byte Room { get; }
 
         /// <summary>
-        /// First flags byte.
+        /// Flags byte.
         /// </summary>
-        public byte Flags1 { get; }
+        public byte Flags { get; }
 
         /// <summary>
-        /// Second flags byte (currently unused).
+        /// Initial rotation value for Y axis.
         /// </summary>
-        public byte Flags2 { get; }
+        public ushort Rotation { get; }
 
-        /// <summary>
-        /// Third flags byte (currently unused).
-        /// </summary>
-        public byte Flags3 { get; }
-
-        public SpiderInfo(byte room, SpiderTime time)
+        public SpiderInfo(byte room, ushort rotation, SpiderTime time)
         {
             this.Room = room;
+            this.Rotation = rotation;
 
-            // Build flags1.
-            byte flags1 = 0;
-            flags1 |= (byte)((time == SpiderTime.Night ? 1 : 0) << 7);
-            this.Flags1 = flags1;
-
-            // Set unused flags to 0.
-            this.Flags2 = this.Flags3 = 0;
+            // Build flags.
+            byte flags = 0;
+            flags |= (byte)((time == SpiderTime.Night ? 1 : 0) << 7);
+            this.Flags = flags;
         }
 
         /// <summary>
@@ -46,17 +39,18 @@
         public static SpiderInfo From(SpiderLocation location)
         {
             var room = location.Room;
+            var rotation = location.Rotation;
             var time = location.Time;
-            return new SpiderInfo(room, time);
+            return new SpiderInfo(room, rotation, time);
         }
 
         public byte[] ToBytes()
         {
             return new byte[4] {
                 this.Room,
-                this.Flags1,
-                this.Flags2,
-                this.Flags3,
+                this.Flags,
+                (byte)(this.Rotation >> 8),
+                (byte)(this.Rotation & 0xFF),
             };
         }
     }

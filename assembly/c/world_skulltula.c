@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include "actor.h"
 #include "extended_objects.h"
 #include "util.h"
 #include "world_skulltula.h"
@@ -51,6 +52,38 @@ static void world_skulltula_scene_config_apply_fixup(struct world_skulltula_scen
 }
 
 /**
+ * Helper function called to spawn Skullwalltula actors for the current room.
+ **/
+static void world_skulltula_scene_spawn_actors(z2_game_t *game, struct world_skulltula_scene_config *config) {
+    u8 cur_room = game->room_ctxt.rooms[0].idx;
+    for (u32 i = 0; i < config->count; i++) {
+        u32 info = config->flags[i];
+        u8 room = (u8)(info >> 24);
+        if (room == cur_room) {
+            struct path_entry entry = config->entries[i];
+            u8 node_count = (u8)(entry.info >> 24);
+            // Requires at least one node to get initial position.
+            if (node_count > 0) {
+                s16 *values = (s16*)(entry.segaddr |= 0x80000000);
+                // Use first path node as initial position.
+                z2_xyzf_t pos = {
+                    .x = (f32)values[0],
+                    .y = (f32)values[1],
+                    .z = (f32)values[2],
+                };
+                // Use default rotation values with custom Y value.
+                z2_rot_t rot = { 0 };
+                rot.y = (u16)(info & 0xFFFF);
+                // Get path index for actor variable, 0xFF if stationary.
+                u8 pathindex = (node_count > 1) ? (0x80 + i) : 0xFF;
+                u16 variable = (u16)(pathindex << 8) | 0x0002;
+                actor_spawn(game, 0x50, pos, rot, variable);
+            }
+        }
+    }
+}
+
+/**
  * Helper function called to load required object if possible.
  **/
 void world_skulltula_after_scene_init(z2_game_t *game) {
@@ -76,6 +109,14 @@ void world_skulltula_after_scene_init(z2_game_t *game) {
 }
 
 /**
+ * Helper function called after spawning actors when loading room.
+ **/
+void world_skulltula_after_spawn_room_actors(z2_game_t *game) {
+    // Spawn Skullwalltula actors for current room.
+    world_skulltula_scene_spawn_actors(game, &g_scene_config);
+}
+
+/**
  * Helper function called to check whether or not World Skulltula are enabled.
  **/
 bool world_skulltula_enabled(void) {
@@ -86,13 +127,17 @@ bool world_skulltula_enabled(void) {
  * Hook function used to get path entry of Skullwalltula actor.
  **/
 struct path_entry * world_skulltula_get_path_override(z2_game_t *game, u32 path_index, u32 unknown, u32 *node) {
-    if (world_skulltula_debug_enabled()) {
-        if (path_index != 0xFE) {
-            // If index less than 0xFE, use default behavior.
+    if (world_skulltula_enabled()) {
+        if (path_index < 0x80 || path_index == 0xFF) {
+            // If index less than 0x80, use default behavior.
             return (struct path_entry *)z2_Scene_GetPathEntry(game, path_index, unknown, node);
-        } else {
+        } else if (path_index == 0xFE) {
             // If 0xFE, use "empty" path for overwriting later.
             return &g_empty_path;
+        } else {
+            // If in range [0x80, 0xFE), use scene config path buffer.
+            u8 index = (u8)path_index - 0x80;
+            return &g_scene_config.entries[index];
         }
     } else {
         // Default behavior (get path from scene data).

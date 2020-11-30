@@ -35,6 +35,11 @@ namespace MMR.Randomizer.Skulltula.Models.Json
         public byte? Room;
 
         /// <summary>
+        /// Optional initial rotation value for Y axis.
+        /// </summary>
+        public ushort? Rotation;
+
+        /// <summary>
         /// Convert raw path node values to <see cref="ActorPath"/> paths.
         /// </summary>
         /// <returns>Actor paths.</returns>

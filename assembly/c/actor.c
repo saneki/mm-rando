@@ -1,5 +1,6 @@
 #include "actor_ext.h"
 #include "models.h"
+#include "world_skulltula.h"
 #include "world_skulltula_debug.h"
 #include "z2.h"
 
@@ -13,6 +14,14 @@ void actor_after_dtor(z2_actor_t *actor, z2_game_t *game) {
     models_after_actor_dtor(actor);
     // Handle destructor if actor is used by World of Skulltula debug.
     world_skulltula_debug_after_actor_dtor(actor);
+}
+
+/**
+ * Hook function called after actors have been spawned when loading a room.
+ **/
+void actor_after_spawn_room_actors(z2_game_t *game) {
+    // Spawn World Skulltula for current room.
+    world_skulltula_after_spawn_room_actors(game);
 }
 
 z2_actor_t* actor_spawn(z2_game_t *game, u8 id, z2_xyzf_t pos, z2_rot_t rot, u16 var) {

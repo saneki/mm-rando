@@ -36,6 +36,11 @@ namespace MMR.Randomizer.Skulltula.Models
         public byte Room { get; }
 
         /// <summary>
+        /// Initial rotation value for Y axis.
+        /// </summary>
+        public ushort Rotation { get; }
+
+        /// <summary>
         /// Scene index.
         /// </summary>
         public byte Scene { get; }
@@ -45,8 +50,8 @@ namespace MMR.Randomizer.Skulltula.Models
         /// </summary>
         public SpiderTime Time { get; } = SpiderTime.Any;
 
-        public SpiderLocation(byte scene, byte room, string name, string description, IList<ActorPath> paths, SpiderPool pool, SpiderTime time = SpiderTime.Any) =>
-            (Scene, Room, Name, Description, Paths, Pool, Time) = (scene, room, name, description, new ReadOnlyCollection<ActorPath>(paths), pool, time);
+        public SpiderLocation(byte scene, byte room, string name, string description, IList<ActorPath> paths, SpiderPool pool, ushort rotation = 0, SpiderTime time = SpiderTime.Any) =>
+            (Scene, Room, Name, Description, Paths, Pool, Rotation, Time) = (scene, room, name, description, new ReadOnlyCollection<ActorPath>(paths), pool, rotation, time);
 
         /// <summary>
         /// Create <see cref="SpiderLocation"/> from documents describing Skullwalltula locations.
@@ -61,7 +66,8 @@ namespace MMR.Randomizer.Skulltula.Models
             var name = locationJson.Name;
             var description = locationJson.Description;
             var paths = locationJson.GetActorPaths();
-            return new SpiderLocation(scene, room, name, description, paths, null);
+            var rotation = locationJson.Rotation.GetValueOrDefault(0);
+            return new SpiderLocation(scene, room, name, description, paths, null, rotation);
         }
     }
 }

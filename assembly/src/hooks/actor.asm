@@ -14,3 +14,16 @@
     jal     actor_after_dtor_hook
     sw      a1, 0x001C (sp)
     nop
+
+;==================================================================================================
+; After Spawning Room Actors
+;==================================================================================================
+
+.headersize(G_CODE_RAM - G_CODE_FILE)
+
+; Replaced:
+;   subu    t9, r0, v1
+;   sh      t9, 0x8846 (at)
+.org 0x800B9454
+    jal     actor_after_spawn_room_actors_hook
+    subu    t9, r0, v1
