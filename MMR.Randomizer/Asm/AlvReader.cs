@@ -29,10 +29,13 @@ namespace MMR.Randomizer.Asm
             public Entry(uint address, ReadOnlyMemory<byte> data) => (Address, Data) = (address, data);
         }
 
+        /// <inheritdoc/>
         public class Enumerator : IEnumerator<Entry>
         {
+            /// <inheritdoc/>
             object IEnumerator.Current => this.CurrentEntry.Value;
 
+            /// <inheritdoc/>
             Entry IEnumerator<Entry>.Current => this.CurrentEntry.Value;
 
             /// <summary>
@@ -47,6 +50,13 @@ namespace MMR.Randomizer.Asm
 
             public Enumerator(AlvReader reader) => _reader = reader;
 
+            /// <inheritdoc/>
+            public void Dispose()
+            {
+                // Should not need to dispose of anything?
+            }
+
+            /// <inheritdoc/>
             public bool MoveNext()
             {
                 var (success, entry) = _reader.ReadEntry();
@@ -54,15 +64,11 @@ namespace MMR.Randomizer.Asm
                 return success;
             }
 
+            /// <inheritdoc/>
             public void Reset()
             {
                 // Reset underlying reader.
                 _reader.Reset();
-            }
-
-            public void Dispose()
-            {
-                // Should not need to dispose of anything?
             }
         }
 
@@ -78,11 +84,13 @@ namespace MMR.Randomizer.Asm
 
         public AlvReader(byte[] full) => Full = new ReadOnlyMemory<byte>(full);
 
+        /// <inheritdoc/>
         public IEnumerator<Entry> GetEnumerator()
         {
             return new Enumerator(this);
         }
 
+        /// <inheritdoc/>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
