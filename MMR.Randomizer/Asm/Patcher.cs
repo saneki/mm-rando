@@ -6,26 +6,11 @@ using System.Collections.Generic;
 namespace MMR.Randomizer.Asm
 {
     /// <summary>
-    /// Address with bytes to patch.
-    /// </summary>
-    public class PatchData
-    {
-        public uint Address;
-        public byte[] Bytes;
-
-        public PatchData(uint address, byte[] bytes)
-        {
-            this.Address = address;
-            this.Bytes = bytes;
-        }
-    }
-
-    /// <summary>
     /// Patcher for assembly patch file.
     /// </summary>
     public class Patcher
     {
-        private PatchData[] _data;
+        private AlvReader.Entry[] _data;
 
         /// <summary>
         /// Address of the end of the MMFile table.
@@ -71,18 +56,16 @@ namespace MMR.Randomizer.Asm
         public byte[] GetFileData(uint start, uint length)
         {
             var bytes = new byte[length];
-
-            // Zero out file bytes
-            Array.Clear(bytes, 0, bytes.Length);
-
+            var memory = new Memory<byte>(bytes);
             foreach (var data in _data)
+            {
                 if (start <= data.Address)
                 {
-                    // Get address relative to our MMFile
-                    var addr = data.Address - start;
-                    ReadWriteUtils.Arr_Insert(data.Bytes, 0, data.Bytes.Length, bytes, (int)addr);
+                    // Get offset relative to MMFile start.
+                    var offset = data.Address - start;
+                    data.Data.CopyTo(memory.Slice((int)offset));
                 }
-
+            }
             return bytes;
         }
 
@@ -128,13 +111,12 @@ namespace MMR.Randomizer.Asm
         /// <returns><see cref="Patcher"/>.</returns>
         public static Patcher FromAlv(byte[] rawBytes)
         {
-            var list = new List<PatchData>();
+            var list = new List<AlvReader.Entry>();
             var alvReader = new AlvReader(rawBytes);
             foreach (var entry in alvReader)
             {
-                var data = new PatchData(entry.Address, entry.Data.ToArray());
-                if (IsAddressRelevant(data.Address))
-                    list.Add(data);
+                if (IsAddressRelevant(entry.Address))
+                    list.Add(entry);
             }
             var patcher = new Patcher();
             patcher._data = list.ToArray();
@@ -168,7 +150,7 @@ namespace MMR.Randomizer.Asm
         {
             foreach (var data in _data)
                 if (TABLE_END <= data.Address && data.Address < symbols.PayloadStart)
-                    ReadWriteUtils.WriteToROM((int)data.Address, data.Bytes);
+                    ReadWriteUtils.WriteToROM((int)data.Address, data.Data);
         }
     }
 }

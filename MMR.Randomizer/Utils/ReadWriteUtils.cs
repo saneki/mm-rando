@@ -78,6 +78,14 @@ namespace MMR.Randomizer.Utils
             Arr_Insert(val, 0, val.Length, RomData.MMFileList[f].Data, dest);
         }
 
+        public static void WriteToROM(int Addr, ReadOnlyMemory<byte> val)
+        {
+            int f = RomUtils.GetFileIndexForWriting(Addr);
+            int dest = Addr - RomData.MMFileList[f].Addr;
+            var memory = new Memory<byte>(RomData.MMFileList[f].Data);
+            val.CopyTo(memory.Slice(dest));
+        }
+
         public static void Arr_Insert(byte[] src, int start, int len, byte[] dest, int addr)
         {
             for (int i = 0; i < len; i++)
