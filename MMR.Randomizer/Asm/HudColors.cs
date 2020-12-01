@@ -1,6 +1,6 @@
-﻿using MMR.Randomizer.Extensions;
+﻿using Be.IO;
+using MMR.Randomizer.Extensions;
 using MMR.Randomizer.Models.Colors;
-using MMR.Randomizer.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -329,9 +329,9 @@ namespace MMR.Randomizer.Asm
         public byte[] ToBytes()
         {
             using (var memStream = new MemoryStream())
-            using (var writer = new BinaryWriter(memStream))
+            using (var writer = new BeBinaryWriter(memStream))
             {
-                ReadWriteUtils.WriteU32(writer, this.Version);
+                writer.Write(this.Version);
 
                 foreach (var color in this.Colors)
                 {

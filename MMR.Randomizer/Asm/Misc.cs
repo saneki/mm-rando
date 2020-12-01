@@ -1,4 +1,5 @@
-﻿using MMR.Randomizer.Models;
+﻿using Be.IO;
+using MMR.Randomizer.Models;
 using MMR.Randomizer.Models.Settings;
 using MMR.Randomizer.Utils;
 using System.IO;
@@ -245,24 +246,24 @@ namespace MMR.Randomizer.Asm
         public byte[] ToBytes()
         {
             using (var memStream = new MemoryStream())
-            using (var writer = new BinaryWriter(memStream))
+            using (var writer = new BeBinaryWriter(memStream))
             {
-                ReadWriteUtils.WriteU32(writer, this.Version);
+                writer.Write(this.Version);
 
                 // Version 0
                 writer.Write(this.Hash);
-                writer.Write(ReadWriteUtils.Byteswap32(this.Flags));
+                writer.Write(this.Flags);
 
                 // Version 1
                 if (this.Version >= 1)
                 {
-                    writer.Write(ReadWriteUtils.Byteswap32(this.InternalFlags));
+                    writer.Write(this.InternalFlags);
                 }
 
                 // Version 3
                 if (this.Version >= 3)
                 {
-                    writer.Write(ReadWriteUtils.Byteswap32(this.Speedups));
+                    writer.Write(this.Speedups);
                 }
 
                 return memStream.ToArray();
