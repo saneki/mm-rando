@@ -1779,6 +1779,12 @@ typedef struct {
     u8               unk_0x1000[0x0A];               /* 0x1000 */
     u16              checksum;                       /* 0x100A */
     u8               event_inf[0x08];                /* 0x100C */
+    // (cleared if you leave temple)
+    // 1011 & 0x40 = Gyorg Intro cutscene seen
+    // 1011 & 0x20 = Twinmold Intro cutscene seen
+    // 1011 & 0x10 = Odolwa Intro cutscene seen
+    // 1011 & 0x08 = Goht Unfrozen cutscene seen
+    // 1012 & 0x04 = Goht Intro cutscene seen
     u8               unk_0x1014[0x02];               /* 0x1014 */
     u16              jinx_timer;                     /* 0x1016 */
     s16              rupee_timer;                    /* 0x1018 */
@@ -1790,6 +1796,7 @@ typedef struct {
     u32              entrance_mod;                   /* 0x3CAC */
     s32              void_flag;                      /* 0x3CB0 */
     u8               unk_0x3CB4[0x11C];              /* 0x3CB4 */
+    // u16 3D04 = after death entrance
     u8               timers[0x40];                   /* 0x3DD0 */
     u8               unk_0x3E10[0x108];              /* 0x3E10‬ */
     u8               buttons_usable[0x05];           /* 0x3F18, B, C-left, C-down, C-right, A buttons. */
