@@ -39,7 +39,7 @@ def create_diff(base_path, compare_path, output_path, compress=True, virtual=Fal
         data = builder.build(addr_translate=table.resolve)
     if compress:
         # Write to compressed file.
-        with gzip.open(output_path, 'wb') as out_f:
+        with gzip.GzipFile(filename=output_path, mode='wb', mtime=0) as out_f:
             out_f.write(data)
     else:
         # Write to non-compressed file.
