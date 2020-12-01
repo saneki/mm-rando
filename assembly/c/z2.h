@@ -1785,6 +1785,7 @@ typedef struct {
     // 1011 & 0x10 = Odolwa Intro cutscene seen
     // 1011 & 0x08 = Goht Unfrozen cutscene seen
     // 1012 & 0x04 = Goht Intro cutscene seen
+    // 1012 & 0x02 = Majora Intro cutscene seen
     u8               unk_0x1014[0x02];               /* 0x1014 */
     u16              jinx_timer;                     /* 0x1016 */
     s16              rupee_timer;                    /* 0x1018 */
