@@ -430,16 +430,15 @@ namespace MMR.Randomizer.Models.Settings
             return JsonConvert.SerializeObject(this, _jsonSerializerSettings);
         }
 
-        private static JsonSerializerSettings _jsonSerializerSettings = new JsonSerializerSettings
+        private readonly static JsonSerializerSettings _jsonSerializerSettings = new JsonSerializerSettings
         {
             ContractResolver = new WritablePropertiesOnlyResolver(),
             NullValueHandling = NullValueHandling.Ignore,
+            Converters =
+            {
+                new StringEnumConverter(),
+            }
         };
-
-        static GameplaySettings()
-        {
-            _jsonSerializerSettings.Converters.Add(new StringEnumConverter());
-        }
 
         public string Validate()
         {
