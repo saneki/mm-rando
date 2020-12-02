@@ -1,4 +1,5 @@
 ﻿using Be.IO;
+using MMR.Common.Extensions;
 using System.IO;
 using System.Linq;
 
@@ -66,12 +67,12 @@ namespace MMR.Randomizer.Asm
             using (var memStream = new MemoryStream())
             using (var writer = new BeBinaryWriter(memStream))
             {
-                writer.Write(this.Version);
+                writer.WriteUInt32(this.Version);
 
                 // Version 0
-                writer.Write(this.Items);
-                writer.Write(this.State);
-                writer.Write(this.Display);
+                writer.WriteBytes(this.Items);
+                writer.WriteByte(this.State);
+                writer.WriteByte(this.Display);
 
                 return memStream.ToArray();
             }

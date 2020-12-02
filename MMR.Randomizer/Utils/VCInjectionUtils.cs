@@ -1,4 +1,5 @@
 ﻿using Be.IO;
+using MMR.Common.Extensions;
 using MMR.Randomizer.Asm;
 using System.Diagnostics;
 using System.IO;
@@ -92,12 +93,12 @@ namespace MMR.Randomizer.Utils
                     if (used[i])
                     {
                         // If using this D-Pad direction, write its button flag
-                        app1.Write((uint)buttons[i]);
+                        app1.WriteUInt32((uint)buttons[i]);
                     }
                     else
                     {
                         // Otherwise write the button flag for the L button
-                        app1.Write((uint)VCControllerButton.L);
+                        app1.WriteUInt32((uint)VCControllerButton.L);
                     }
                 }
             }

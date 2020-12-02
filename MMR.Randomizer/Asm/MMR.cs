@@ -1,4 +1,5 @@
 ﻿using Be.IO;
+using MMR.Common.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -48,37 +49,37 @@ namespace MMR.Randomizer.Asm
             using (var memStream = new MemoryStream())
             using (var writer = new BeBinaryWriter(memStream))
             {
-                writer.Write(this.Version);
+                writer.WriteUInt32(this.Version);
 
                 foreach (var val in this.CycleRepeatableLocations)
                 {
-                    writer.Write(val);
+                    writer.WriteUInt16(val);
                 }
 
-                writer.Write(CycleRepeatableLocationsLength);
+                writer.WriteUInt16(CycleRepeatableLocationsLength);
 
-                writer.Write(this.LocationBottleRedPotion);
-                writer.Write(this.LocationBottleGoldDust);
-                writer.Write(this.LocationBottleMilk);
-                writer.Write(this.LocationBottleChateau);
+                writer.WriteUInt16(this.LocationBottleRedPotion);
+                writer.WriteUInt16(this.LocationBottleGoldDust);
+                writer.WriteUInt16(this.LocationBottleMilk);
+                writer.WriteUInt16(this.LocationBottleChateau);
 
-                writer.Write(this.LocationSwordKokiri);
-                writer.Write(this.LocationSwordRazor);
-                writer.Write(this.LocationSwordGilded);
+                writer.WriteUInt16(this.LocationSwordKokiri);
+                writer.WriteUInt16(this.LocationSwordRazor);
+                writer.WriteUInt16(this.LocationSwordGilded);
 
-                writer.Write(this.LocationMagicSmall);
-                writer.Write(this.LocationMagicLarge);
+                writer.WriteUInt16(this.LocationMagicSmall);
+                writer.WriteUInt16(this.LocationMagicLarge);
 
-                writer.Write(this.LocationWalletAdult);
-                writer.Write(this.LocationWalletGiant);
+                writer.WriteUInt16(this.LocationWalletAdult);
+                writer.WriteUInt16(this.LocationWalletGiant);
 
-                writer.Write(this.LocationBombBagSmall);
-                writer.Write(this.LocationBombBagBig);
-                writer.Write(this.LocationBombBagBiggest);
+                writer.WriteUInt16(this.LocationBombBagSmall);
+                writer.WriteUInt16(this.LocationBombBagBig);
+                writer.WriteUInt16(this.LocationBombBagBiggest);
 
-                writer.Write(this.LocationQuiverSmall);
-                writer.Write(this.LocationQuiverLarge);
-                writer.Write(this.LocationQuiverLargest);
+                writer.WriteUInt16(this.LocationQuiverSmall);
+                writer.WriteUInt16(this.LocationQuiverLarge);
+                writer.WriteUInt16(this.LocationQuiverLargest);
 
                 return memStream.ToArray();
             }
