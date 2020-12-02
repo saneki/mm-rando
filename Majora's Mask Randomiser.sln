@@ -17,8 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MMR.Common.Tests", "MMR.Com
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MMR.Randomizer.Tests", "MMR.Randomizer.Tests\MMR.Randomizer.Tests.csproj", "{74C3DFDA-DE64-4E29-9E97-56ADE2CC8BEB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Be.IO", "Be.IO\src\Be.IO\Be.IO.csproj", "{1256000A-1118-465A-B465-AB23692E38CF}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,14 +81,6 @@ Global
 		{74C3DFDA-DE64-4E29-9E97-56ADE2CC8BEB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{74C3DFDA-DE64-4E29-9E97-56ADE2CC8BEB}.Release|x86.ActiveCfg = Release|Any CPU
 		{74C3DFDA-DE64-4E29-9E97-56ADE2CC8BEB}.Release|x86.Build.0 = Release|Any CPU
-		{1256000A-1118-465A-B465-AB23692E38CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1256000A-1118-465A-B465-AB23692E38CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1256000A-1118-465A-B465-AB23692E38CF}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{1256000A-1118-465A-B465-AB23692E38CF}.Debug|x86.Build.0 = Debug|Any CPU
-		{1256000A-1118-465A-B465-AB23692E38CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1256000A-1118-465A-B465-AB23692E38CF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1256000A-1118-465A-B465-AB23692E38CF}.Release|x86.ActiveCfg = Release|Any CPU
-		{1256000A-1118-465A-B465-AB23692E38CF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
