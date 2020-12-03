@@ -756,11 +756,11 @@ namespace MMR.Randomizer
             // if (_randomized.Settings.RemoveTatlInterrupts)
             //{
                 ResourceUtils.ApplyHack(Resources.mods.remove_tatl_interrupts);
-                //ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_odolwa_intro);
-                //ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_goht_intro);
-                //ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_gyorg_intro);
-                //ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_twinmold_intro);
-                //ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_majora_intro);
+                ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_odolwa_intro);
+                ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_goht_intro);
+                ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_gyorg_intro);
+                ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_twinmold_intro);
+                ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_majora_intro);
             }
         }
 
