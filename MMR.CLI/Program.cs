@@ -120,14 +120,21 @@ namespace MMR.CLI
                 }
                 configuration.OutputSettings.OutputROMFilename = outputArg.SingleOrDefault();
             }
-            configuration.OutputSettings.OutputROMFilename ??= "output/";
-            if (Directory.Exists(configuration.OutputSettings.OutputROMFilename))
+            configuration.OutputSettings.OutputROMFilename ??= "output";
+            var directory = Path.GetDirectoryName(configuration.OutputSettings.OutputROMFilename);
+            var filename = Path.GetFileName(configuration.OutputSettings.OutputROMFilename);
+            if (!Directory.Exists(directory))
             {
-                configuration.OutputSettings.OutputROMFilename = Path.Combine(configuration.OutputSettings.OutputROMFilename, FileUtils.MakeFilenameValid(DateTime.UtcNow.ToString("o")));
+                Console.WriteLine($"Directory not found '{directory}'");
+                return -1;
             }
-            if (Path.GetExtension(configuration.OutputSettings.OutputROMFilename) != ".z64")
+            if (string.IsNullOrWhiteSpace(filename))
             {
-                configuration.OutputSettings.OutputROMFilename += ".z64";
+                filename = FileUtils.MakeFilenameValid(DateTime.UtcNow.ToString("o")) + ".z64";
+            }
+            else if (Path.GetExtension(filename) != ".z64")
+            {
+                filename = Path.ChangeExtension(filename, "z64");
             }
 
             var inputArg = argsDictionary.GetValueOrDefault("-input");
