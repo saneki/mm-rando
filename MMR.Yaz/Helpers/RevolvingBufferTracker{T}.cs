@@ -68,7 +68,6 @@ namespace MMR.Yaz.Helpers
         /// <param name="self">Revolving buffer tracker.</param>
         /// <param name="item">Item to push.</param>
         /// <param name="buffer">Underlying buffer.</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Push(ref RevolvingBufferTracker<T> self, T item, Span<T> buffer)
         {
             if (self.Amount < buffer.Length)
