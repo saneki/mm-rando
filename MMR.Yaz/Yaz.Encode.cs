@@ -101,7 +101,7 @@ namespace MMR.Yaz
                 ThrowArgumentOutOfRangeExceptionForDeltas("windowBuf");
             }
 
-            return EncodeRaw_Internal(src, dst, recents, windowBuf);
+            return EncodeRaw_Internal(src, dst, recents, windowBuf, lookupScheme);
         }
 
         /// <summary>
