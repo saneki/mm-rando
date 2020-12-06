@@ -124,7 +124,7 @@ namespace MMR.Yaz
             int codeBytePlace = 0, commandBit = 0, dstPlace = 0, srcPlace = 0;
 
             // Helper for tracking state of "Deltas" revolving buffer.
-            var window = new RevolvingBufferTracker<int>();
+            var window = new RevolvingBufferTracker<int>(windowBuf);
 
             // Recent lookup result.
             var result = LookupResult.NoneFound();
@@ -147,17 +147,17 @@ namespace MMR.Yaz
                     if (useLookAheadScheme)
                     {
                         // Perform lookup for both current byte and next byte.
-                        result = LookupWithAhead(src, srcPlace, ref window, windowBuf, recents);
+                        result = LookupWithAhead(src, srcPlace, ref window, recents);
                     }
                     else
                     {
                         // Perform standard lookup for only the current byte.
-                        result = Lookup(src, srcPlace, ref window, windowBuf, recents);
+                        result = Lookup(src, srcPlace, ref window, recents);
                     }
                 }
 
                 // Append to Deltas window and Recents.
-                Remember(src, srcPlace, ref window, windowBuf, recents);
+                Remember(src, srcPlace, ref window, recents);
 
                 // If found chunk in lookup, encode information about it.
                 if (!result.SkipByte && result.Found)
@@ -190,7 +190,7 @@ namespace MMR.Yaz
                     // Todo: Maybe don't do this if already finished encoding?
                     for (int j = 1; j < result.Length; j++)
                     {
-                        Remember(src, srcPlace + j, ref window, windowBuf, recents);
+                        Remember(src, srcPlace + j, ref window, recents);
                     }
 
                     srcPlace += result.Length;
@@ -218,14 +218,12 @@ namespace MMR.Yaz
         /// <param name="src">Source buffer.</param>
         /// <param name="position">Position in source buffer.</param>
         /// <param name="window">Deltas window.</param>
-        /// <param name="windowBuf">Deltas window buffer.</param>
         /// <param name="recents">Recents buffer.</param>
         /// <returns></returns>
         static LookupResult Lookup(
             ReadOnlySpan<byte> src,
             int position,
             ref RevolvingBufferTracker<int> window,
-            Span<int> windowBuf,
             Span<int> recents)
         {
             // Get offset to previous index of current byte value.
@@ -233,7 +231,7 @@ namespace MMR.Yaz
             var recent = recents[c] - 1;
 
             // Check if: recent is 0 (no previous byte with this value), or offset is out-of-range of window.
-            if (recent < 0 || windowBuf.Length < (position - recent))
+            if (recent < 0 || window.Length < (position - recent))
             {
                 return LookupResult.NoneFound();
             }
@@ -243,7 +241,7 @@ namespace MMR.Yaz
                 var searchPosition = recent;
 
                 var currentSlice = src.Slice(position, Math.Min(MaxCompare, src.Length - position));
-                var windowStartPosition = Math.Max(position - windowBuf.Length, 0);
+                var windowStartPosition = Math.Max(position - window.Length, 0);
                 var result = LookupResult.NoneFound();
 
                 // Follow chain backwards and look for matches.
@@ -280,7 +278,7 @@ namespace MMR.Yaz
 
                     // Get search position relative to window start, and update search position.
                     var windowIndex = searchPosition - windowStartPosition;
-                    searchPosition = RevolvingBufferTracker<int>.Get(ref window, windowIndex, windowBuf);
+                    searchPosition = window.Get(windowIndex);
 
                     // If next index is less-than 0, no previous instance of this value.
                     if (searchPosition < 0)
@@ -299,7 +297,6 @@ namespace MMR.Yaz
         /// <param name="src">Source buffer.</param>
         /// <param name="position">Position in source buffer.</param>
         /// <param name="window">Deltas window.</param>
-        /// <param name="windowBuf">Deltas window buffer.</param>
         /// <param name="recents">Recents buffer.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -307,22 +304,21 @@ namespace MMR.Yaz
             ReadOnlySpan<byte> src,
             int position,
             ref RevolvingBufferTracker<int> window,
-            Span<int> windowBuf,
             Span<int> recents)
         {
-            var result1 = Lookup(src, position, ref window, windowBuf, recents);
+            var result1 = Lookup(src, position, ref window, recents);
             if (result1.Offset >= 0 && (position + 1) < src.Length)
             {
                 // Store recent value for restoring afterwards.
                 var prevRecent = recents[src[position]];
-                Remember(src, position, ref window, windowBuf, recents);
+                Remember(src, position, ref window, recents);
 
                 // Perform lookup for next byte.
-                var result2 = Lookup(src, position + 1, ref window, windowBuf, recents);
+                var result2 = Lookup(src, position + 1, ref window, recents);
 
                 // Restore recent, pop previous delta value.
                 recents[src[position]] = prevRecent;
-                RevolvingBufferTracker<int>.Pop(ref window);
+                window.Pop();
 
                 if (result2.Length >= result1.Length + 2)
                 {
@@ -339,20 +335,18 @@ namespace MMR.Yaz
         /// <param name="src">Source buffer.</param>
         /// <param name="position">Position in source buffer.</param>
         /// <param name="window">Deltas window.</param>
-        /// <param name="windowBuf">Deltas window buffer.</param>
         /// <param name="recents">Recents buffer.</param>
         static void Remember(
             ReadOnlySpan<byte> src,
             int position,
             ref RevolvingBufferTracker<int> window,
-            Span<int> windowBuf,
             Span<int> recents)
         {
             // Updates both Recents and Window.
             var value = src[position];
             var recent = recents[value] - 1;
             recents[value] = position + 1;
-            RevolvingBufferTracker<int>.Push(ref window, recent, windowBuf);
+            window.Push(recent);
         }
 
         /// <summary>

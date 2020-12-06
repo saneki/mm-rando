@@ -12,90 +12,101 @@ namespace MMR.Yaz.Helpers
         /// <summary>
         /// Amount of items currently being used.
         /// </summary>
-        public int Amount { get; private set; }
+        public int Amount { readonly get; private set; }
 
         /// <summary>
         /// Origin index of buffer.
         /// </summary>
-        public int Origin { get; private set; }
+        public int Origin { readonly get; private set; }
+
+        /// <summary>
+        /// Underlying buffer.
+        /// </summary>
+        public readonly Span<T> Buffer;
+
+        /// <summary>
+        /// Get full length of buffer.
+        /// </summary>
+        public readonly int Length => Buffer.Length;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public RevolvingBufferTracker(Span<T> buffer)
+        {
+            this.Amount = 0;
+            this.Origin = 0;
+            this.Buffer = buffer;
+        }
 
         /// <summary>
         /// Get an element at the specified index in a revolving buffer.
         /// </summary>
-        /// <param name="self">Revolving buffer tracker.</param>
         /// <param name="index">Index.</param>
-        /// <param name="buffer">Underlying buffer.</param>
         /// <returns>Element at specified index.</returns>
         /// <remarks>Does not check if the gotten byte is in bounds.</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static T Get(ref RevolvingBufferTracker<T> self, int index, Span<T> buffer)
+        public readonly T Get(int index)
         {
-            var position = self.Origin + index;
-            if (position < buffer.Length)
+            var position = this.Origin + index;
+            if (position < this.Buffer.Length)
             {
-                return buffer[position];
+                return this.Buffer[position];
             }
             else
             {
-                return buffer[position - buffer.Length];
+                return this.Buffer[position - this.Buffer.Length];
             }
         }
 
         /// <summary>
         /// Put a given element into a revolving buffer at the specified index.
         /// </summary>
-        /// <param name="self">Revolving buffer tracker.</param>
         /// <param name="index">Index.</param>
         /// <param name="item">Item to put.</param>
-        /// <param name="buffer">Underlying buffer.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void Put(ref RevolvingBufferTracker<T> self, int index, T item, Span<T> buffer)
+        public void Put(int index, T item)
         {
-            var position = self.Origin + index;
-            if (position < buffer.Length)
+            var position = this.Origin + index;
+            if (position < this.Buffer.Length)
             {
-                buffer[position] = item;
+                this.Buffer[position] = item;
             }
             else
             {
-                buffer[position - buffer.Length] = item;
+                this.Buffer[position - this.Buffer.Length] = item;
             }
         }
 
         /// <summary>
         /// Push an item to the "top" of the revolving buffer.
         /// </summary>
-        /// <param name="self">Revolving buffer tracker.</param>
         /// <param name="item">Item to push.</param>
-        /// <param name="buffer">Underlying buffer.</param>
-        public static void Push(ref RevolvingBufferTracker<T> self, T item, Span<T> buffer)
+        public void Push(T item)
         {
-            if (self.Amount < buffer.Length)
+            if (this.Amount < this.Buffer.Length)
             {
                 // Console.WriteLine("Amount: {0:X4}, Origin: {1:X4}, Length: {2:X4}", self.Amount, self.Origin, buffer.Length);
                 // Buffer is not yet full, overwrite unused item.
                 /// var position = self.Origin + self.Amount;
-                Put(ref self, self.Amount, item, buffer);
-                self.Amount++;
+                Put(this.Amount, item);
+                this.Amount++;
             }
             else
             {
                 // Buffer is full, advance origin and overwrite last byte.
-                Put(ref self, 0, item, buffer);
-                self.Origin = (self.Origin + 1) < buffer.Length ? (self.Origin + 1) : 0;
+                Put(0, item);
+                this.Origin = (this.Origin + 1) < this.Buffer.Length ? (this.Origin + 1) : 0;
             }
         }
 
         /// <summary>
         /// Pop an item from the "top" of the revolving buffer.
         /// </summary>
-        /// <param name="self">Revolving buffer tracker.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void Pop(ref RevolvingBufferTracker<T> self)
+        public void Pop()
         {
-            if (self.Amount != 0)
+            if (this.Amount != 0)
             {
-                self.Amount--;
+                this.Amount--;
             }
         }
     }
