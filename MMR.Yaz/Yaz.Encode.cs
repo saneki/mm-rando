@@ -56,11 +56,11 @@ namespace MMR.Yaz
         /// <param name="src">Source buffer.</param>
         /// <param name="dst">Destination buffer.</param>
         /// <returns>Length of encoded bytes.</returns>
-        /// <remarks>Uses at least 9 KiB of stack-allocated space (<c>0x2400</c> bytes).</remarks>
+        /// <remarks>Uses at least 17 KiB of stack-allocated space (<c>0x4400</c> bytes).</remarks>
         public static int EncodeRaw(ReadOnlySpan<byte> src, Span<byte> dst)
         {
             Span<int> recents = stackalloc int[0x100];
-            Span<ushort> windowBuf = stackalloc ushort[0x1000];
+            Span<int> windowBuf = stackalloc int[0x1000];
 
             // Call internal to skip bounds checks.
             return EncodeRaw_Internal(src, dst, recents, windowBuf);
@@ -75,7 +75,7 @@ namespace MMR.Yaz
         public static int EncodeRawManaged(ReadOnlySpan<byte> src, Span<byte> dst)
         {
             Span<int> recents = new int[0x100];
-            Span<ushort> windowBuf = new ushort[0x1000];
+            Span<int> windowBuf = new int[0x1000];
 
             // Call internal to skip bounds checks.
             return EncodeRaw_Internal(src, dst, recents, windowBuf);
@@ -89,7 +89,7 @@ namespace MMR.Yaz
         /// <param name="recents">Provided buffer for storing Recents.</param>
         /// <param name="windowBuf">Provided buffer for storing Deltas.</param>
         /// <returns>Length of encoded bytes.</returns>
-        public static int EncodeRaw(ReadOnlySpan<byte> src, Span<byte> dst, Span<int> recents, Span<ushort> windowBuf, LookupScheme lookupScheme = LookupScheme.LookAhead)
+        public static int EncodeRaw(ReadOnlySpan<byte> src, Span<byte> dst, Span<int> recents, Span<int> windowBuf, LookupScheme lookupScheme = LookupScheme.LookAhead)
         {
             if (recents.Length < 0x100)
             {
@@ -117,14 +117,14 @@ namespace MMR.Yaz
             ReadOnlySpan<byte> src,
             Span<byte> dst,
             Span<int> recents,
-            Span<ushort> windowBuf,
+            Span<int> windowBuf,
             LookupScheme lookupScheme = LookupScheme.LookAhead)
         {
             // Variables to keep track of indexes for src/dst buffers, and code byte.
             int codeBytePlace = 0, commandBit = 0, dstPlace = 0, srcPlace = 0;
 
             // Helper for tracking state of "Deltas" revolving buffer.
-            var window = new RevolvingBufferTracker<ushort>();
+            var window = new RevolvingBufferTracker<int>();
 
             // Recent lookup result.
             var result = LookupResult.NoneFound();
@@ -224,8 +224,8 @@ namespace MMR.Yaz
         static LookupResult Lookup(
             ReadOnlySpan<byte> src,
             int position,
-            ref RevolvingBufferTracker<ushort> window,
-            Span<ushort> windowBuf,
+            ref RevolvingBufferTracker<int> window,
+            Span<int> windowBuf,
             Span<int> recents)
         {
             // Get offset to previous index of current byte value.
@@ -280,16 +280,13 @@ namespace MMR.Yaz
 
                     // Get search position relative to window start, and update search position.
                     var windowIndex = searchPosition - windowStartPosition;
-                    var prevDelta = RevolvingBufferTracker<ushort>.Get(ref window, windowIndex, windowBuf);
+                    searchPosition = RevolvingBufferTracker<int>.Get(ref window, windowIndex, windowBuf);
 
-                    // If delta value is 0, no previous instance of this value.
-                    if (prevDelta == 0)
+                    // If next index is less-than 0, no previous instance of this value.
+                    if (searchPosition < 0)
                     {
                         break;
                     }
-
-                    // Apply delta to get next search position.
-                    searchPosition = windowStartPosition + (windowIndex - prevDelta);
                 }
 
                 return result;
@@ -309,8 +306,8 @@ namespace MMR.Yaz
         static LookupResult LookupWithAhead(
             ReadOnlySpan<byte> src,
             int position,
-            ref RevolvingBufferTracker<ushort> window,
-            Span<ushort> windowBuf,
+            ref RevolvingBufferTracker<int> window,
+            Span<int> windowBuf,
             Span<int> recents)
         {
             var result1 = Lookup(src, position, ref window, windowBuf, recents);
@@ -325,7 +322,7 @@ namespace MMR.Yaz
 
                 // Restore recent, pop previous delta value.
                 recents[src[position]] = prevRecent;
-                RevolvingBufferTracker<ushort>.Pop(ref window);
+                RevolvingBufferTracker<int>.Pop(ref window);
 
                 if (result2.Length >= result1.Length + 2)
                 {
@@ -347,22 +344,15 @@ namespace MMR.Yaz
         static void Remember(
             ReadOnlySpan<byte> src,
             int position,
-            ref RevolvingBufferTracker<ushort> window,
-            Span<ushort> windowBuf,
+            ref RevolvingBufferTracker<int> window,
+            Span<int> windowBuf,
             Span<int> recents)
         {
             // Updates both Recents and Window.
             var value = src[position];
             var recent = recents[value] - 1;
             recents[value] = position + 1;
-            ushort delta = 0;
-            // Ensure we have a recent, and delta isn't larger than window length.
-            if (recent >= 0 && (position - recent) <= windowBuf.Length)
-            {
-                // Append delta if within window.
-                delta = (ushort)(position - recent);
-            }
-            RevolvingBufferTracker<ushort>.Push(ref window, delta, windowBuf);
+            RevolvingBufferTracker<int>.Push(ref window, recent, windowBuf);
         }
 
         /// <summary>
