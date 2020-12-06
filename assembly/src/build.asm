@@ -34,6 +34,7 @@
 .include "hooks/business_scrub.asm"
 .include "hooks/chest.asm"
 .include "hooks/cows.asm"
+.include "hooks/don_gero.asm"
 .include "hooks/dpad.asm"
 .include "hooks/elegy_speedup.asm"
 .include "hooks/extended_objects.asm"
