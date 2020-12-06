@@ -84,9 +84,7 @@ namespace MMR.Yaz.Helpers
         {
             if (this.Amount < this.Buffer.Length)
             {
-                // Console.WriteLine("Amount: {0:X4}, Origin: {1:X4}, Length: {2:X4}", self.Amount, self.Origin, buffer.Length);
                 // Buffer is not yet full, overwrite unused item.
-                /// var position = self.Origin + self.Amount;
                 Put(this.Amount, item);
                 this.Amount++;
             }
