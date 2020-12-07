@@ -17,7 +17,7 @@
             "label": "Build CLI",
             "type": "shell",
             "group": "build",
-            "command": "dotnet build ..\\MMR.CLI\\MMR.CLI.csproj -c ${input:configuration}",
+            "command": "dotnet build ../MMR.CLI/MMR.CLI.csproj -c ${input:configuration}",
             "presentation": {
                 "reveal": "always"
             },
@@ -27,7 +27,7 @@
             "label": "Run CLI",
             "type": "shell",
             "group": "build",
-            "command": "dotnet \"..\\MMR.CLI\\bin\\${input:configuration}\\netcoreapp3.1\\MMR.CLI.dll\" -input \"input\\Rom.z64\" -settings \"..\\MMR.UI\\bin\\${input:configuration}\\settings.json\"",
+            "command": "dotnet \"../MMR.CLI/bin/${input:configuration}/netcoreapp3.1/MMR.CLI.dll\" -input \"input/Rom.z64\" -settings \"../MMR.UI/bin/${input:configuration}/settings.json\"",
             "presentation": {
                 "reveal": "always"
             },
