@@ -48,7 +48,7 @@ namespace MMR.Randomizer.Asm
         public bool SoundCheck { get; set; }
 
         /// <summary>
-        /// Whether or not to change Don Gero to set a different value when rolling away.
+        /// Whether or not to change the hungry Goron to set a different value when rolling away and add more coordinates to his path.
         /// </summary>
         public bool DonGero { get; set; }
 
