@@ -1,4 +1,7 @@
 {
+    "files.exclude": {
+        "**/*.o": true
+    },
     "terminal.integrated.automationShell.windows": null,
     "terminal.integrated.shell.windows": "cmd.exe",
     "terminal.integrated.shellArgs.windows": [
