@@ -124,7 +124,7 @@ namespace MMR.CLI
             configuration.OutputSettings.OutputROMFilename ??= "output/";
             if (!Path.IsPathRooted(configuration.OutputSettings.OutputROMFilename))
             {
-                configuration.OutputSettings.OutputROMFilename = Path.Combine(Values.MainDirectory, configuration.OutputSettings.OutputROMFilename);
+                configuration.OutputSettings.OutputROMFilename = Path.Combine(Directory.GetCurrentDirectory(), configuration.OutputSettings.OutputROMFilename);
             }
             var directory = Path.GetDirectoryName(configuration.OutputSettings.OutputROMFilename);
             var filename = Path.GetFileName(configuration.OutputSettings.OutputROMFilename);
@@ -141,6 +141,7 @@ namespace MMR.CLI
             {
                 filename = Path.ChangeExtension(filename, "z64");
             }
+            configuration.OutputSettings.OutputROMFilename = Path.Combine(directory, filename);
 
             var inputArg = argsDictionary.GetValueOrDefault("-input");
             if (inputArg != null)
