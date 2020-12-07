@@ -1,0 +1,10 @@
+{
+    "files.exclude": {
+        "**/*.o": true
+    },
+    "terminal.integrated.automationShell.windows": null,
+    "terminal.integrated.shell.windows": "cmd.exe",
+    "terminal.integrated.shellArgs.windows": [
+        "/k", "${env:ProgramFiles(x86)}\\Microsoft Visual Studio\\2019\\Community\\Common7\\Tools\\VsDevCmd.bat"
+    ]
+}

@@ -623,6 +623,66 @@ namespace MMR.Randomizer.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] shorten_cutscene_don_gero {
+            get {
+                object obj = ResourceManager.GetObject("shorten_cutscene_don_gero", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] shorten_cutscene_goht_intro {
+            get {
+                object obj = ResourceManager.GetObject("shorten_cutscene_goht_intro", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] shorten_cutscene_gyorg_intro {
+            get {
+                object obj = ResourceManager.GetObject("shorten_cutscene_gyorg_intro", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] shorten_cutscene_majora_intro {
+            get {
+                object obj = ResourceManager.GetObject("shorten_cutscene_majora_intro", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] shorten_cutscene_odolwa_intro {
+            get {
+                object obj = ResourceManager.GetObject("shorten_cutscene_odolwa_intro", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] shorten_cutscene_twinmold_intro {
+            get {
+                object obj = ResourceManager.GetObject("shorten_cutscene_twinmold_intro", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] speedup_bank {
             get {
                 object obj = ResourceManager.GetObject("speedup_bank", resourceCulture);

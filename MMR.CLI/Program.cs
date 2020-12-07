@@ -11,6 +11,7 @@ using MMR.Common.Utils;
 using System.IO;
 using System.Linq.Expressions;
 using MMR.Randomizer.Models.Colors;
+using MMR.Randomizer.Constants;
 
 namespace MMR.CLI
 {
@@ -121,13 +122,24 @@ namespace MMR.CLI
                 configuration.OutputSettings.OutputROMFilename = outputArg.SingleOrDefault();
             }
             configuration.OutputSettings.OutputROMFilename ??= "output/";
-            if (Directory.Exists(configuration.OutputSettings.OutputROMFilename))
+            if (!Path.IsPathRooted(configuration.OutputSettings.OutputROMFilename))
             {
-                configuration.OutputSettings.OutputROMFilename = Path.Combine(configuration.OutputSettings.OutputROMFilename, FileUtils.MakeFilenameValid(DateTime.UtcNow.ToString("o")));
+                configuration.OutputSettings.OutputROMFilename = Path.Combine(Values.MainDirectory, configuration.OutputSettings.OutputROMFilename);
             }
-            if (Path.GetExtension(configuration.OutputSettings.OutputROMFilename) != ".z64")
+            var directory = Path.GetDirectoryName(configuration.OutputSettings.OutputROMFilename);
+            var filename = Path.GetFileName(configuration.OutputSettings.OutputROMFilename);
+            if (!Directory.Exists(directory))
             {
-                configuration.OutputSettings.OutputROMFilename += ".z64";
+                Console.WriteLine($"Directory not found '{directory}'");
+                return -1;
+            }
+            if (string.IsNullOrWhiteSpace(filename))
+            {
+                filename = FileUtils.MakeFilenameValid(DateTime.UtcNow.ToString("o")) + ".z64";
+            }
+            else if (Path.GetExtension(filename) != ".z64")
+            {
+                filename = Path.ChangeExtension(filename, "z64");
             }
 
             var inputArg = argsDictionary.GetValueOrDefault("-input");

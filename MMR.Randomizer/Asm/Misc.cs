@@ -50,6 +50,11 @@ namespace MMR.Randomizer.Asm
         public bool SoundCheck { get; set; }
 
         /// <summary>
+        /// Whether or not to change the hungry Goron to set a different value when rolling away and add more coordinates to his path.
+        /// </summary>
+        public bool DonGero { get; set; }
+
+        /// <summary>
         /// Convert to a <see cref="uint"/> integer.
         /// </summary>
         /// <returns>Integer</returns>
@@ -60,6 +65,7 @@ namespace MMR.Randomizer.Asm
             flags |= (this.BlastMaskThief ? (uint)1 : 0) << 30;
             flags |= (this.FishermanGame ? (uint)1 : 0) << 29;
             flags |= (this.BoatArchery ? (uint)1 : 0) << 28;
+            flags |= (this.DonGero ? (uint)1 : 0) << 27;
             return flags;
         }
     }
@@ -321,6 +327,7 @@ namespace MMR.Randomizer.Asm
             this.Speedups.BoatArchery = settings.ShortenCutscenes;
             this.Speedups.FishermanGame = settings.ShortenCutscenes;
             this.Speedups.SoundCheck = settings.ShortenCutscenes;
+            this.Speedups.DonGero = settings.ShortenCutscenes;
 
             // Update internal flags.
             this.InternalFlags.VanillaLayout = settings.LogicMode == LogicMode.Vanilla;

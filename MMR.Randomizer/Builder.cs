@@ -1,4 +1,4 @@
-﻿using MMR.Common.Extensions;
+using MMR.Common.Extensions;
 using MMR.Randomizer.Asm;
 using MMR.Randomizer.Attributes;
 using MMR.Randomizer.Constants;
@@ -752,11 +752,18 @@ namespace MMR.Randomizer
             if (_randomized.Settings.ShortenCutscenes)
             {
                 ResourceUtils.ApplyHack(Resources.mods.short_cutscenes);
+                ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_odolwa_intro);
+                ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_goht_intro);
+                ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_gyorg_intro);
+                ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_twinmold_intro);
+                ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_majora_intro);
+                ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_don_gero);
             //}
             // if (_randomized.Settings.RemoveTatlInterrupts)
             //{
                 ResourceUtils.ApplyHack(Resources.mods.remove_tatl_interrupts);
             }
+
         }
 
         private void WriteDungeons()

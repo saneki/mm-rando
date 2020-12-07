@@ -149,3 +149,7 @@ DefineDmaFile G_EN_ELFGRP_DMA, G_EN_ELFGRP_FILE, 305
 ; ovl_En_GirlA (Shop Inventory Data)
 DefineDmaFile G_EN_GIRLA_DMA, G_EN_GIRLA_FILE, 40
 .definelabel  G_EN_GIRLA_VRAM, 0x80863870
+
+; ovl_En_Geg (Don Gero)
+DefineDmaFile G_EN_GEG_DMA, G_EN_GEG_FILE, 529
+.definelabel  G_EN_GEG_VRAM, 0x80BB16D0
