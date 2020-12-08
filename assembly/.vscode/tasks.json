@@ -17,7 +17,7 @@
             "label": "Build CLI",
             "type": "shell",
             "group": "build",
-            "command": "dotnet build ../MMR.CLI/MMR.CLI.csproj -c ${input:configuration}",
+            "command": "dotnet build ../MMR.CLI/MMR.CLI.csproj -c ${input:configuration} --no-incremental",
             "presentation": {
                 "reveal": "always"
             },
