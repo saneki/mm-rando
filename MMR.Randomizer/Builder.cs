@@ -1247,8 +1247,15 @@ namespace MMR.Randomizer
                 .SelectMany(g => g.Key == null ? g.ToList() : g.OrderByDescending(item => g.Key.IndexOf(item)).Take(1))
                 .ToList();
 
+            _randomized.Settings.AsmOptions.MMRConfig.ExtraStartingMaps = TingleMap.None;
             foreach (var item in itemList)
             {
+                var startingTingleMap = item.GetAttribute<StartingTingleMapAttribute>();
+                if (startingTingleMap != null)
+                {
+                    _randomized.Settings.AsmOptions.MMRConfig.ExtraStartingMaps |= startingTingleMap.TingleMap;
+                    continue;
+                }
                 var startingItemValues = item.GetAttributes<StartingItemAttribute>();
                 if (!startingItemValues.Any() && !_randomized.Settings.NoStartingItems)
                 {

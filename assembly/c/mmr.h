@@ -69,6 +69,19 @@ struct mmr_config {
     u16 location_quiver_small;
     u16 location_quiver_large;
     u16 location_quiver_largest;
+
+    union {
+        struct {
+            u8             : 2;
+            u8    canyon   : 1;
+            u8    ocean    : 1;
+            u8    ranch    : 1;
+            u8    mountain : 1;
+            u8    swamp    : 1;
+            u8    town     : 1;
+        };
+        u8 byte;
+    } extra_starting_maps;
 };
 
 extern struct mmr_config MMR_CONFIG;

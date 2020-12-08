@@ -1,5 +1,6 @@
 ﻿using Be.IO;
 using MMR.Common.Extensions;
+using MMR.Randomizer.GameObjects;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -39,6 +40,8 @@ namespace MMR.Randomizer.Asm
         public ushort LocationQuiverSmall;
         public ushort LocationQuiverLarge;
         public ushort LocationQuiverLargest;
+
+        public byte ExtraStartingMaps;
 
         /// <summary>
         /// Convert to bytes.
@@ -81,6 +84,8 @@ namespace MMR.Randomizer.Asm
                 writer.WriteUInt16(this.LocationQuiverLarge);
                 writer.WriteUInt16(this.LocationQuiverLargest);
 
+                writer.WriteByte(this.ExtraStartingMaps);
+
                 return memStream.ToArray();
             }
         }
@@ -116,6 +121,8 @@ namespace MMR.Randomizer.Asm
         public ushort LocationQuiverSmall { get; set; }
         public ushort LocationQuiverLarge { get; set; }
         public ushort LocationQuiverLargest { get; set; }
+
+        public TingleMap ExtraStartingMaps { get; set; }
 
         public MMRConfig()
         {
@@ -224,7 +231,9 @@ namespace MMR.Randomizer.Asm
                 LocationQuiverSmall = this.LocationQuiverSmall,
                 LocationQuiverLarge = this.LocationQuiverLarge,
                 LocationQuiverLargest = this.LocationQuiverLargest,
-    };
+
+                ExtraStartingMaps = (byte)this.ExtraStartingMaps,
+            };
         }
     }
 }

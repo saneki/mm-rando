@@ -38,6 +38,7 @@
 .include "hooks/dpad.asm"
 .include "hooks/elegy_speedup.asm"
 .include "hooks/extended_objects.asm"
+.include "hooks/file_init.asm"
 .include "hooks/file_select.asm"
 .include "hooks/game.asm"
 .include "hooks/general.asm"

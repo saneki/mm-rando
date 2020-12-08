@@ -2037,6 +2037,7 @@ namespace MMR.Randomizer.GameObjects
 
         //maps
         [Purchaseable]
+        [StartingTingleMap(TingleMap.Town)]
         [ItemName("Map of Clock Town"), LocationName("Clock Town Map Purchase"), Region(Region.NorthClockTown)]
         [GossipLocationHint("a map maker", "a forest fairy"), GossipItemHint("a world map")]
         [ShopText("Map of Clock Town.")]
@@ -2045,6 +2046,7 @@ namespace MMR.Randomizer.GameObjects
         ItemTingleMapTown,
 
         [Purchaseable]
+        [StartingTingleMap(TingleMap.Swamp)]
         [ItemName("Map of Woodfall"), LocationName("Woodfall Map Purchase"), Region(Region.RoadToSouthernSwamp)]
         [GossipLocationHint("a map maker", "a forest fairy"), GossipItemHint("a world map")]
         [ShopText("Map of the south.")]
@@ -2053,6 +2055,7 @@ namespace MMR.Randomizer.GameObjects
         ItemTingleMapWoodfall,
 
         [Purchaseable]
+        [StartingTingleMap(TingleMap.Mountain)]
         [ItemName("Map of Snowhead"), LocationName("Snowhead Map Purchase"), Region(Region.RoadToSouthernSwamp)]
         [GossipLocationHint("a map maker", "a forest fairy"), GossipItemHint("a world map")]
         [ShopText("Map of the north.")]
@@ -2061,6 +2064,7 @@ namespace MMR.Randomizer.GameObjects
         ItemTingleMapSnowhead,
 
         [Purchaseable]
+        [StartingTingleMap(TingleMap.Ranch)]
         [ItemName("Map of Romani Ranch"), LocationName("Romani Ranch Map Purchase"), Region(Region.MilkRoad)]
         [GossipLocationHint("a map maker", "a forest fairy"), GossipItemHint("a world map")]
         [ShopText("Map of the ranch.")]
@@ -2069,6 +2073,7 @@ namespace MMR.Randomizer.GameObjects
         ItemTingleMapRanch,
 
         [Purchaseable]
+        [StartingTingleMap(TingleMap.Ocean)]
         [ItemName("Map of Great Bay"), LocationName("Great Bay Map Purchase"), Region(Region.MilkRoad)]
         [GossipLocationHint("a map maker", "a forest fairy"), GossipItemHint("a world map")]
         [ShopText("Map of the west.")]
@@ -2077,6 +2082,7 @@ namespace MMR.Randomizer.GameObjects
         ItemTingleMapGreatBay,
 
         [Purchaseable]
+        [StartingTingleMap(TingleMap.Canyon)]
         [ItemName("Map of Stone Tower"), LocationName("Stone Tower Map Purchase"), Region(Region.GreatBayCoast)]
         [GossipLocationHint("a map maker", "a forest fairy"), GossipItemHint("a world map")]
         [ShopText("Map of the east.")]
