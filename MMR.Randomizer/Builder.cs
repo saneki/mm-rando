@@ -757,6 +757,8 @@ namespace MMR.Randomizer
                 ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_gyorg_intro);
                 ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_twinmold_intro);
                 ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_majora_intro);
+                ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_igos_intro);
+                ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_wart_intro);
                 ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_don_gero);
             //}
             // if (_randomized.Settings.RemoveTatlInterrupts)

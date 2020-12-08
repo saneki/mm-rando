@@ -653,6 +653,16 @@ namespace MMR.Randomizer.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] shorten_cutscene_igos_intro {
+            get {
+                object obj = ResourceManager.GetObject("shorten_cutscene_igos_intro", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] shorten_cutscene_majora_intro {
             get {
                 object obj = ResourceManager.GetObject("shorten_cutscene_majora_intro", resourceCulture);
@@ -676,6 +686,16 @@ namespace MMR.Randomizer.Resources {
         internal static byte[] shorten_cutscene_twinmold_intro {
             get {
                 object obj = ResourceManager.GetObject("shorten_cutscene_twinmold_intro", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] shorten_cutscene_wart_intro {
+            get {
+                object obj = ResourceManager.GetObject("shorten_cutscene_wart_intro", resourceCulture);
                 return ((byte[])(obj));
             }
         }
