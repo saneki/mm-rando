@@ -26,7 +26,7 @@ var RomPath = $"{ScriptDirectory}/input/Rom.z64";
 {
     var cliDllPath = Path.GetFullPath($"{RandoCliPath}/bin/{config}/netcoreapp3.1/MMR.CLI.dll");
     var settingsPath = Path.GetFullPath($"{RandoUiPath}/bin/{config}/settings.json");
-    await $@"dotnet '{cliDllPath}' -input '{RomPath}' {(useUiConfig ? $"-settings '{settingsPath}'" : "")}";
+    await $"dotnet '{cliDllPath}' -input '{RomPath}' {(useUiConfig ? $"-settings '{settingsPath}'" : "")}";
 }
 
 /// Build Asm blob and MMR.CLI, and run MMR.CLI to generate a patched ROM.
