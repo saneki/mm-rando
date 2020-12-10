@@ -7,9 +7,9 @@ using System;
 const string DefaultConfig = "Release";
 
 var ScriptDirectory = "%NakeScriptDirectory%";
-var RandoCliPath = Path.GetFullPath($"{ScriptDirectory}/../MMR.CLI");
-var RandoUiPath = Path.GetFullPath($"{ScriptDirectory}/../MMR.UI");
-var RomPath = Path.GetFullPath($"{ScriptDirectory}/input/Rom.z64");
+var RandoCliPath = $"{ScriptDirectory}/../MMR.CLI";
+var RandoUiPath = $"{ScriptDirectory}/../MMR.UI";
+var RomPath = $"{ScriptDirectory}/input/Rom.z64";
 
 /// Build Asm blob using docker-compose.
 [Nake] async Task RunDockerCompose() => await "docker-compose up --abort-on-container-exit";
