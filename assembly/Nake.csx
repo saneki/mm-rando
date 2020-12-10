@@ -7,22 +7,27 @@ using System;
 const string DefaultConfig = "Release";
 
 var ScriptDirectory = "%NakeScriptDirectory%";
-var RandoCliPath = $"{ScriptDirectory}/../MMR.CLI";
-var RandoUiPath = $"{ScriptDirectory}/../MMR.UI";
-var RomPath = $"{ScriptDirectory}/input/Rom.z64";
+var RandoCliPath = Path.GetFullPath($"{ScriptDirectory}/../MMR.CLI");
+var RandoUiPath = Path.GetFullPath($"{ScriptDirectory}/../MMR.UI");
+var RomPath = Path.GetFullPath($"{ScriptDirectory}/input/Rom.z64");
 
 /// Build Asm blob using docker-compose.
 [Nake] async Task RunDockerCompose() => await "docker-compose up --abort-on-container-exit";
 
 /// Build MMR.CLI.
-[Nake] async Task BuildRandoCli(string config, bool incremental = false) => await
-    $"dotnet build {RandoCliPath}/MMR.CLI.csproj -c {config} {(incremental ? "" : "--no-incremental")}";
+[Nake] async Task BuildRandoCli(string config, bool incremental = false)
+{
+    var projectPath = Path.GetFullPath($"{RandoCliPath}/MMR.CLI.csproj");
+    await $"dotnet build '{projectPath}' -c {config} {(incremental ? "" : "--no-incremental")}";
+}
 
 /// Run MMR.CLI to generate a patched ROM.
-[Nake] async Task RunRandoCli(string config, bool useUiConfig = true) => await
-    $@"dotnet '{RandoCliPath}/bin/{config}/netcoreapp3.1/MMR.CLI.dll' \
-    -input '{RomPath}' \
-    {(useUiConfig ? $"-settings '{RandoUiPath}/bin/{config}/settings.json'" : "")}";
+[Nake] async Task RunRandoCli(string config, bool useUiConfig = true)
+{
+    var cliDllPath = Path.GetFullPath($"{RandoCliPath}/bin/{config}/netcoreapp3.1/MMR.CLI.dll");
+    var settingsPath = Path.GetFullPath($"{RandoUiPath}/bin/{config}/settings.json");
+    await $@"dotnet '{cliDllPath}' -input '{RomPath}' {(useUiConfig ? $"-settings '{settingsPath}'" : "")}";
+}
 
 /// Build Asm blob and MMR.CLI, and run MMR.CLI to generate a patched ROM.
 [Nake] async Task BuildAllAndRun(string config)
