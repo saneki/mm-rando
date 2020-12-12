@@ -102,6 +102,10 @@ DefineDmaFile G_BG_KIN2_SHELF_DMA, G_BG_KIN2_SHELF_FILE, 488
 DefineDmaFile G_BG_IKANA_BLOCK_DMA, G_BG_IKANA_BLOCK_FILE, 495
 .definelabel  G_BG_IKANA_BLOCK_VRAM, 0x80B7EA60
 
+; ovl_En_Zog (Mikau)
+DefineDmaFile G_EN_ZOG_DMA, G_EN_ZOG_FILE, 507
+.definelabel  G_EN_ZOG_VRAM, 0x80B93310
+
 ; ovl_Obj_Boat (Pirates' Fortress Boat)
 DefineDmaFile G_OBJ_BOAT_DMA, G_OBJ_BOAT_FILE, 515
 .definelabel  G_OBJ_BOAT_VRAM, 0x80B9AF50
