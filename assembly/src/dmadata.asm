@@ -30,6 +30,10 @@ DefineDmaFile G_EN_BOX_DMA, G_EN_BOX_FILE, 44
 DefineDmaFile G_EN_TORCH2_DMA, G_EN_TORCH2_FILE, 65
 .definelabel  G_EN_TORCH2_VRAM, 0x808A31B0
 
+; ovl_En_Ossan (Trading Post Shopkeeper)
+DefineDmaFile G_EN_OSSAN_DMA, G_EN_OSSAN_FILE, 70
+.definelabel  G_EN_OSSAN_VRAM, 0x808A80A0
+
 ; ovl_Item_B_Heart (Heart Container)
 DefineDmaFile G_ITEM_B_HEART_DMA, G_ITEM_B_HEART_FILE, 80
 .definelabel  G_ITEM_B_HEART_VRAM, 0x808BCDF0
@@ -62,6 +66,10 @@ DefineDmaFile G_BG_DBLUE_MOVEBG_DMA, G_BG_DBLUE_MOVEBG_FILE, 290
 DefineDmaFile G_EN_SI_DMA, G_EN_SI_FILE, 216
 .definelabel  G_EN_SI_VRAM, 0x8098CA20
 
+; ovl_En_Sob1 (Shopkeeper for Bomb Shop, Goron Shop, Zora Shop)
+DefineDmaFile G_EN_SOB1_DMA, G_EN_SOB1_FILE, 276
+.definelabel  G_EN_SOB1_VRAM, 0x80A0C810
+
 ; ovl_Dm_Hina (Boss Remains)
 DefineDmaFile G_DM_HINA_DMA, G_DM_HINA_FILE, 284
 .definelabel  G_DM_HINA_VRAM, 0x80A1F410
@@ -69,6 +77,10 @@ DefineDmaFile G_DM_HINA_DMA, G_DM_HINA_FILE, 284
 ; ovl_Eff_Change (Camera Refocuser for Elegy)
 DefineDmaFile G_EFF_CHANGE_DMA, G_EFF_CHANGE_FILE, 318
 .definelabel  G_EFF_CHANGE_VRAM, 0x80A4C490
+
+; ovl_En_Trt (Kotake, No Broom)
+DefineDmaFile G_EN_TRT_DMA, G_EN_TRT_FILE, 354
+.definelabel  G_EN_TRT_VRAM, 0x80A8B770
 
 ; ovl_En_Time_Tag
 DefineDmaFile G_EN_TIME_TAG_DMA, G_EN_TIME_TAG_FILE, 392
@@ -81,6 +93,10 @@ DefineDmaFile G_EN_ELFORG_DMA, G_EN_ELFORG_FILE, 397
 ; ovl_En_Sellnuts (Clock Town Business Scrub)
 DefineDmaFile G_EN_SELLNUTS_DMA, G_EN_SELLNUTS_FILE, 409
 .definelabel  G_EN_SELLNUTS_VRAM, 0x80ADADD0
+
+; ovl_En_Fsn (Curiosity Shop Proprietor)
+DefineDmaFile G_EN_FSN_DMA, G_EN_FSN_FILE, 415
+.definelabel  G_EN_FSN_VRAM, 0x80AE1B70
 
 ; ovl_En_Col_Man
 DefineDmaFile G_EN_COL_MAN_DMA, G_EN_COL_MAN_FILE, 434

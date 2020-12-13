@@ -587,3 +587,39 @@
     ori     t7, t7, 0x00FF   ;; Alpha = 0xFF.
     sw      t7, 0x0004 (v0)
     sw      t2, 0x0000 (v0)
+
+;==================================================================================================
+; Shop Cursor Color
+;==================================================================================================
+
+; Write cursor color for Trading Post.
+.headersize(G_EN_OSSAN_VRAM - G_EN_OSSAN_FILE)
+.org 0x808AAAF8 ; Offset: 0x2A58
+    addiu   a1, a0, 0x220 ;; A1 = Output array.
+    mfc1    a2, f0        ;; A2 = Amount.
+    j       HudColors_WriteShopCursorColor
+    or      a3, r0, r0    ;; A3 = Shop type (0).
+
+; Write cursor color for Curiosity Shop.
+.headersize(G_EN_FSN_VRAM - G_EN_FSN_FILE)
+.org 0x80AE2D90 ; Offset: 0x1220
+    addiu   a1, a0, 0x3B4  ;; A1 = Output array.
+    mfc1    a2, f0         ;; A2 = Amount.
+    j       HudColors_WriteShopCursorColor
+    ori     a3, r0, 0x0001 ;; A3 = Shop type (1).
+
+; Write cursor color for Bomb Shop, Goron Shop, Zora Shop.
+.headersize(G_EN_SOB1_VRAM - G_EN_SOB1_FILE)
+.org 0x80A0EFDC ; Offset: 0x27CC
+    addiu   a1, a0, 0x30C  ;; A1 = Output array.
+    mfc1    a2, f0         ;; A2 = Amount.
+    j       HudColors_WriteShopCursorColor
+    ori     a3, r0, 0x0002 ;; A3 = Shop type (2).
+
+; Write cursor color for Potion Hut.
+.headersize(G_EN_TRT_VRAM - G_EN_TRT_FILE)
+.org 0x80A8E56C ; Offset: 0x2DFC
+    addiu   a1, a0, 0x3F0  ;; A1 = Output array.
+    mfc1    a2, f0         ;; A2 = Amount.
+    j       HudColors_WriteShopCursorColor
+    ori     a3, r0, 0x0003 ;; A3 = Shop type (3).
