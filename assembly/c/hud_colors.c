@@ -416,3 +416,20 @@ void hud_colors_main_menu_init(void) {
     z2_file_select_ctxt.heart_rgb[1].g = HUD_COLOR_CONFIG.heart_dd.g;
     z2_file_select_ctxt.heart_rgb[1].b = HUD_COLOR_CONFIG.heart_dd.b;
 }
+
+/**
+ * Hook function called to get song score note color as integer.
+ **/
+u32 hud_colors_get_score_note_color(void) {
+    return color_rgb8_to_int(HUD_COLOR_CONFIG.score_note, 0xFF);
+}
+
+/**
+ * Hook function called to write song score lines color to RDRAM.
+ **/
+void hud_colors_update_score_lines_color(z2_game_t *game) {
+    // Update song score lines color.
+    game->msgbox_ctxt.score_line_color.r = HUD_COLOR_CONFIG.score_lines.r;
+    game->msgbox_ctxt.score_line_color.g = HUD_COLOR_CONFIG.score_lines.g;
+    game->msgbox_ctxt.score_line_color.b = HUD_COLOR_CONFIG.score_lines.b;
+}

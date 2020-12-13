@@ -264,7 +264,7 @@ namespace MMR.Randomizer.Asm
         /// Optional hue shift for color of miscellaneous UI elements (pause menu border).
         /// </summary>
         [JsonIgnore]
-        public Tuple<float> HueShift { get; set; } = null;
+        public Tuple<float, float, float> HueShift { get; set; } = null;
 
         /// <summary>
         /// Get the finalized <see cref="HudColors"/> after applying color overrides.
@@ -295,6 +295,12 @@ namespace MMR.Randomizer.Asm
                 colors.MenuBorder1 = colors.MenuBorder1.ShiftHue(this.HueShift.Item1);
                 colors.MenuBorder2 = colors.MenuBorder2.ShiftHue(this.HueShift.Item1);
                 colors.MenuSubtitleText = colors.MenuSubtitleText.ShiftHue(this.HueShift.Item1).Brighten(0.3f);
+
+                // Apply hue shift for score lines color.
+                colors.ScoreLines = colors.ScoreLines.ShiftHue(this.HueShift.Item2);
+
+                // Apply hue shift for score note color.
+                colors.ScoreNote = colors.ScoreNote.ShiftHue(this.HueShift.Item3);
             }
 
             return colors;

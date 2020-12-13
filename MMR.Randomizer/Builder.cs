@@ -2515,7 +2515,7 @@ namespace MMR.Randomizer
             // Get random values for hue shift.
             if (_cosmeticSettings.ShiftHueMiscUI)
             {
-                config.HueShift = new Tuple<float>((float)(random.NextDouble() * 360.0));
+                config.HueShift = new Tuple<float, float, float>((float)(random.NextDouble() * 360.0), (float)(random.NextDouble() * 360.0), (float)(random.NextDouble() * 360.0));
             }
         }
 

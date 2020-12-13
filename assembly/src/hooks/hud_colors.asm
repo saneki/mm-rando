@@ -537,3 +537,51 @@
     jal     hud_colors_get_menu_subtitle_text_color_hook
     addiu   t7, v0, 0x0008
     lw      ra, 0x00C0 (sp) ;; Restore RA.
+
+;==================================================================================================
+; Song Score Lines Color
+;==================================================================================================
+
+.headersize(G_CODE_RAM - G_CODE_FILE)
+
+; Replaces:
+;   lui     at, 0x0001
+;   addu    at, at, v0
+;   sh      a0, 0x2034 (at) ;; Red = 0xFF
+;   lui     at, 0x0001
+;   addu    at, at, v0
+;   sh      r0, 0x2036 (at) ;; Green = 0x00
+;   lui     at, 0x0001
+;   addu    at, at, v0
+;   sh      r0, 0x2038 (at) ;; Blue = 0x00
+.org 0x80150C2C
+.area 0x24
+    sw      v0, 0x0034 (sp) ;; Store V0 in reserved stack space.
+    sw      v1, 0x0038 (sp) ;; Store V1 in reserved stack space.
+    jal     hud_colors_update_score_lines_color
+    lw      a0, 0x0030 (sp) ;; A0 = GlobalContext.
+    addiu   a0, r0, 0x00FF  ;; Restore: A0 = 0xFF.
+    lw      v0, 0x0034 (sp) ;; Restore V0.
+    lw      v1, 0x0038 (sp) ;; Restore V1.
+    nop
+    nop
+.endarea
+
+;==================================================================================================
+; Song Score Note Color
+;==================================================================================================
+
+.headersize(G_CODE_RAM - G_CODE_FILE)
+
+; Replaces:
+;   or      v1, v0, r0       ;; V1 = V0.
+;   lui     t7, 0xFF64       ;;
+;   ori     t7, t7, 0x00FF   ;; T7 = 0xFF6400FF (color value).
+;   sw      t7, 0x0004 (v1)  ;; Write lower 32-bits of SetPrimColor instruction (color value).
+;   sw      t2, 0x0000 (v1)  ;; Write higher 32-bits of SetPrimColor instruction.
+.org 0x80152B4C
+    sw      ra, -0x0004 (sp) ;; Store RA (messy).
+    jal     hud_colors_get_score_note_color_hook
+    sw      t2, 0x0000 (v0)
+    sw      t7, 0x0004 (v1)
+    lw      ra, -0x0004 (sp) ;; Restore RA.

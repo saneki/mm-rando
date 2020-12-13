@@ -593,3 +593,35 @@ hud_colors_get_menu_subtitle_text_color_hook:
     lw      ra, 0x0028 (sp)
     jr      ra
     addiu   sp, sp, 0x30
+
+; Note: Reserves final 4 bytes of stack frame for parent RA.
+hud_colors_get_score_note_color_hook:
+    addiu   sp, sp, -0x38
+    sw      ra, 0x002C (sp)
+    sw      a0, 0x0010 (sp)
+    sw      a1, 0x0014 (sp)
+    sw      a2, 0x0018 (sp)
+    sw      a3, 0x001C (sp)
+    sw      v0, 0x0020 (sp)
+    sw      t0, 0x0024 (sp)
+
+    jal     hud_colors_get_score_note_color
+    sw      t1, 0x0028 (sp)
+
+    ; Move result into T7.
+    or      t7, v0, r0
+
+    lw      a0, 0x0010 (sp)
+    lw      a1, 0x0014 (sp)
+    lw      a2, 0x0018 (sp)
+    lw      a3, 0x001C (sp)
+    lw      v0, 0x0020 (sp)
+    lw      t0, 0x0024 (sp)
+    lw      t1, 0x0028 (sp)
+
+    ; Displaced code.
+    or      v1, v0, r0
+
+    lw      ra, 0x002C (sp)
+    jr      ra
+    addiu   sp, sp, 0x38
