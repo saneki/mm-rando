@@ -749,24 +749,43 @@ namespace MMR.Randomizer
 
         private void WriteCutscenes()
         {
-            if (_randomized.Settings.ShortenCutscenes)
-            {
-                ResourceUtils.ApplyHack(Resources.mods.short_cutscenes);
-                ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_don_gero);
-            //}
-            // if (_randomized.Settings.RemoveTatlInterrupts)
+            //if (_randomized.Settings.ShortenCutscenes)
             //{
-                ResourceUtils.ApplyHack(Resources.mods.remove_tatl_interrupts);
-            }
-            _randomized.Settings.ShortenCutscene = ShortenCutscene.IntroGoht | ShortenCutscene.IntroOdolwa;
-            foreach (var value in Enum.GetValues(typeof(ShortenCutscene)).Cast<ShortenCutscene>())
+            //    ResourceUtils.ApplyHack(Resources.mods.short_cutscenes);
+            //    ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_don_gero);
+            ////}
+            //// if (_randomized.Settings.RemoveTatlInterrupts)
+            ////{
+            //    ResourceUtils.ApplyHack(Resources.mods.remove_tatl_interrupts);
+            //}
+            //_randomized.Settings.ShortenCutscene = ShortenCutsceneBossIntro.Goht | ShortenCutsceneBossIntro.Odolwa;
+            //foreach (var value in Enum.GetValues(typeof(ShortenCutsceneBossIntro)).Cast<ShortenCutsceneBossIntro>())
+            //{
+            //    if (_randomized.Settings.ShortenCutscene.HasFlag(value))
+            //    {
+            //        var hackContentAttribute = value.GetAttribute<HackContentAttribute>();
+            //        if (hackContentAttribute != null && hackContentAttribute.HackContent != null)
+            //        {
+            //            ResourceUtils.ApplyHack(hackContentAttribute.HackContent);
+            //        }
+            //    }
+            //}
+
+            foreach (var shortenCutsceneGroup in _randomized.Settings.ShortenCutscenes
+                .GetType()
+                .GetProperties()
+                .Select(p => p.GetValue(_randomized.Settings.ShortenCutscenes)).Cast<Enum>())
             {
-                if (_randomized.Settings.ShortenCutscene.HasFlag(value))
+                foreach (var value in Enum.GetValues(shortenCutsceneGroup.GetType()).Cast<Enum>())
                 {
-                    var hackContentAttribute = value.GetAttribute<HackContentAttribute>();
-                    if (hackContentAttribute != null && hackContentAttribute.HackContent != null)
+                    if (shortenCutsceneGroup.HasFlag(value))
                     {
-                        ResourceUtils.ApplyHack(hackContentAttribute.HackContent);
+                        Debug.WriteLine($"Applying Shortened Cutscene: {value}");
+                        var hackContentAttributes = value.GetAttributes<HackContentAttribute>();
+                        foreach (var hackContent in hackContentAttributes.Select(h => h.HackContent))
+                        {
+                            ResourceUtils.ApplyHack(hackContent);
+                        }
                     }
                 }
             }

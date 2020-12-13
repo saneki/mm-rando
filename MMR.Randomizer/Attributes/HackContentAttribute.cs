@@ -3,6 +3,7 @@ using System.Reflection;
 
 namespace MMR.Randomizer.Attributes
 {
+    [AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
     public class HackContentAttribute : Attribute
     {
         public byte[] HackContent { get; }
@@ -11,7 +12,7 @@ namespace MMR.Randomizer.Attributes
         {
             if (modResourcePropertyName != null)
             {
-                HackContent = (byte[])typeof(Resources.mods).GetProperty(modResourcePropertyName, BindingFlags.Static).GetValue(null);
+                HackContent = (byte[])typeof(Resources.mods).GetProperty(modResourcePropertyName, BindingFlags.Static | BindingFlags.NonPublic).GetValue(null);
             }
         }
     }
