@@ -15,7 +15,6 @@ namespace MMR.Randomizer.Attributes
 
             if (condition != null)
             {
-                typeof(GameplaySettings).GetProperty(condition);
                 var parameter = Expression.Parameter(typeof(GameplaySettings));
                 Condition = Expression.Lambda<Func<GameplaySettings, bool>>(Expression.Property(parameter, condition), parameter).Compile();
             }

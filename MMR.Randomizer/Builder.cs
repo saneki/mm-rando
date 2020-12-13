@@ -749,23 +749,28 @@ namespace MMR.Randomizer
 
         private void WriteCutscenes()
         {
-            if (_randomized.Settings.ShortenCutscenes)
+            foreach (var shortenCutsceneGroup in _randomized.Settings.ShortenCutsceneSettings
+                .GetType()
+                .GetProperties()
+                .Select(p => p.GetValue(_randomized.Settings.ShortenCutsceneSettings)).Cast<Enum>())
             {
-                ResourceUtils.ApplyHack(Resources.mods.short_cutscenes);
-                ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_odolwa_intro);
-                ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_goht_intro);
-                ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_gyorg_intro);
-                ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_twinmold_intro);
-                ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_majora_intro);
-                ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_igos_intro);
-                ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_wart_intro);
-                ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_don_gero);
-            //}
-            // if (_randomized.Settings.RemoveTatlInterrupts)
-            //{
-                ResourceUtils.ApplyHack(Resources.mods.remove_tatl_interrupts);
+                foreach (var value in Enum.GetValues(shortenCutsceneGroup.GetType()).Cast<Enum>())
+                {
+                    if (Convert.ToInt32(value) == 0)
+                    {
+                        continue;
+                    }
+                    if (shortenCutsceneGroup.HasFlag(value))
+                    {
+                        Debug.WriteLine($"Applying Shortened Cutscene: {value}");
+                        var hackContentAttributes = value.GetAttributes<HackContentAttribute>();
+                        foreach (var hackContent in hackContentAttributes.Select(h => h.HackContent))
+                        {
+                            ResourceUtils.ApplyHack(hackContent);
+                        }
+                    }
+                }
             }
-
         }
 
         private void WriteDungeons()
@@ -1299,7 +1304,7 @@ namespace MMR.Randomizer
                 freeItems.Add(Item.StartingHeartContainer1);
                 freeItems.Add(Item.StartingHeartContainer2);
 
-                if (_randomized.Settings.ShortenCutscenes)
+                if (_randomized.Settings.ShortenCutsceneSettings.General.HasFlag(ShortenCutsceneGeneral.EverythingElse))
                 {
                     //giants cs were removed
                     freeItems.Add(Item.SongOath);

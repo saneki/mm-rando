@@ -350,7 +350,7 @@ namespace MMR.Randomizer.Models.Settings
         /// <summary>
         /// Certain cutscenes will play shorter, or will be skipped
         /// </summary>
-        public bool ShortenCutscenes { get; set; }
+        public ShortenCutsceneSettings ShortenCutsceneSettings { get; set; }
 
         /// <summary>
         /// Text is fast-forwarded
