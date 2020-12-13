@@ -573,6 +573,8 @@
 
 .headersize(G_CODE_RAM - G_CODE_FILE)
 
+@ScoreNoteColor equ (HUD_COLOR_CONFIG + 0xBC)
+
 ; Replaces:
 ;   or      v1, v0, r0       ;; V1 = V0.
 ;   lui     t7, 0xFF64       ;;
@@ -580,8 +582,8 @@
 ;   sw      t7, 0x0004 (v1)  ;; Write lower 32-bits of SetPrimColor instruction (color value).
 ;   sw      t2, 0x0000 (v1)  ;; Write higher 32-bits of SetPrimColor instruction.
 .org 0x80152B4C
-    sw      ra, -0x0004 (sp) ;; Store RA (messy).
-    jal     hud_colors_get_score_note_color_hook
+    lui     t7, hi(@ScoreNoteColor)
+    lw      t7, lo(@ScoreNoteColor) (t7)
+    ori     t7, t7, 0x00FF   ;; Alpha = 0xFF.
+    sw      t7, 0x0004 (v0)
     sw      t2, 0x0000 (v0)
-    sw      t7, 0x0004 (v1)
-    lw      ra, -0x0004 (sp) ;; Restore RA.

@@ -418,13 +418,6 @@ void hud_colors_main_menu_init(void) {
 }
 
 /**
- * Hook function called to get song score note color as integer.
- **/
-u32 hud_colors_get_score_note_color(void) {
-    return color_rgb8_to_int(HUD_COLOR_CONFIG.score_note, 0xFF);
-}
-
-/**
  * Hook function called to write song score lines color to RDRAM.
  **/
 void hud_colors_update_score_lines_color(z2_game_t *game) {
