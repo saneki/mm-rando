@@ -6,5 +6,7 @@
 
 ; Replaces:
 ;   jr      ra
+;   nop
 .org 0x80144960
     j       file_after_init
+    lw      a0, 0x0038 (sp)

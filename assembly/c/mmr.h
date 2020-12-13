@@ -82,6 +82,10 @@ struct mmr_config {
         };
         u8 byte;
     } extra_starting_maps;
+    u8 unused; // padding
+
+    u8 extra_starting_item_ids[0x10]; // probably don't need much more than this, but can increase later if we need to.
+    u16 extra_starting_item_ids_length;
 };
 
 extern struct mmr_config MMR_CONFIG;

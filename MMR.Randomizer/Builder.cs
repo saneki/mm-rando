@@ -1255,12 +1255,21 @@ namespace MMR.Randomizer
                 .ToList();
 
             _randomized.Settings.AsmOptions.MMRConfig.ExtraStartingMaps = TingleMap.None;
+            _randomized.Settings.AsmOptions.MMRConfig.ExtraStartingItemIds.Clear();
             foreach (var item in itemList)
             {
                 var startingTingleMap = item.GetAttribute<StartingTingleMapAttribute>();
                 if (startingTingleMap != null)
                 {
                     _randomized.Settings.AsmOptions.MMRConfig.ExtraStartingMaps |= startingTingleMap.TingleMap;
+                    continue;
+                }
+                if (item.HasAttribute<StartingItemIdAttribute>())
+                {
+                    foreach (var startingItemIdAttribute in item.GetAttributes<StartingItemIdAttribute>())
+                    {
+                        _randomized.Settings.AsmOptions.MMRConfig.ExtraStartingItemIds.Add(startingItemIdAttribute.ItemId);
+                    }
                     continue;
                 }
                 var startingItemValues = item.GetAttributes<StartingItemAttribute>();

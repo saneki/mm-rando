@@ -114,7 +114,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x12C)]
         FairyMagic,
         
-        // todo allow as starting item
+        [StartingItemId(0x9C)]
         [ItemName("Spin Attack"), LocationName("Woodfall Great Fairy"), Region(Region.Woodfall)]
         [GossipLocationHint("a magical being"), GossipItemHint("a magic attack"), GossipCompetitiveHint(3, nameof(GameplaySettings.AddStrayFairies))]
         [ShopText("Increases the power of your spin attack.", isDefinite: true)]
