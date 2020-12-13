@@ -323,11 +323,11 @@ namespace MMR.Randomizer.Asm
         public void FinalizeSettings(GameplaySettings settings)
         {
             // Update speedup flags which correspond with ShortenCutscenes.
-            this.Speedups.BlastMaskThief = settings.ShortenCutscenes;
-            this.Speedups.BoatArchery = settings.ShortenCutscenes;
-            this.Speedups.FishermanGame = settings.ShortenCutscenes;
-            this.Speedups.SoundCheck = settings.ShortenCutscenes;
-            this.Speedups.DonGero = settings.ShortenCutscenes;
+            this.Speedups.BlastMaskThief = settings.ShortenCutsceneSettings.General.HasFlag(ShortenCutsceneGeneral.BlastMaskThief);
+            this.Speedups.BoatArchery = settings.ShortenCutsceneSettings.General.HasFlag(ShortenCutsceneGeneral.BoatArchery);
+            this.Speedups.FishermanGame = settings.ShortenCutsceneSettings.General.HasFlag(ShortenCutsceneGeneral.FishermanGame);
+            this.Speedups.SoundCheck = settings.ShortenCutsceneSettings.General.HasFlag(ShortenCutsceneGeneral.MilkBarPerformance);
+            this.Speedups.DonGero = settings.ShortenCutsceneSettings.General.HasFlag(ShortenCutsceneGeneral.HungryGoron);
 
             // Update internal flags.
             this.InternalFlags.VanillaLayout = settings.LogicMode == LogicMode.Vanilla;

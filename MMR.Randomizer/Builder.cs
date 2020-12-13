@@ -749,35 +749,17 @@ namespace MMR.Randomizer
 
         private void WriteCutscenes()
         {
-            //if (_randomized.Settings.ShortenCutscenes)
-            //{
-            //    ResourceUtils.ApplyHack(Resources.mods.short_cutscenes);
-            //    ResourceUtils.ApplyHack(Resources.mods.shorten_cutscene_don_gero);
-            ////}
-            //// if (_randomized.Settings.RemoveTatlInterrupts)
-            ////{
-            //    ResourceUtils.ApplyHack(Resources.mods.remove_tatl_interrupts);
-            //}
-            //_randomized.Settings.ShortenCutscene = ShortenCutsceneBossIntro.Goht | ShortenCutsceneBossIntro.Odolwa;
-            //foreach (var value in Enum.GetValues(typeof(ShortenCutsceneBossIntro)).Cast<ShortenCutsceneBossIntro>())
-            //{
-            //    if (_randomized.Settings.ShortenCutscene.HasFlag(value))
-            //    {
-            //        var hackContentAttribute = value.GetAttribute<HackContentAttribute>();
-            //        if (hackContentAttribute != null && hackContentAttribute.HackContent != null)
-            //        {
-            //            ResourceUtils.ApplyHack(hackContentAttribute.HackContent);
-            //        }
-            //    }
-            //}
-
-            foreach (var shortenCutsceneGroup in _randomized.Settings.ShortenCutscenes
+            foreach (var shortenCutsceneGroup in _randomized.Settings.ShortenCutsceneSettings
                 .GetType()
                 .GetProperties()
-                .Select(p => p.GetValue(_randomized.Settings.ShortenCutscenes)).Cast<Enum>())
+                .Select(p => p.GetValue(_randomized.Settings.ShortenCutsceneSettings)).Cast<Enum>())
             {
                 foreach (var value in Enum.GetValues(shortenCutsceneGroup.GetType()).Cast<Enum>())
                 {
+                    if (Convert.ToInt32(value) == 0)
+                    {
+                        continue;
+                    }
                     if (shortenCutsceneGroup.HasFlag(value))
                     {
                         Debug.WriteLine($"Applying Shortened Cutscene: {value}");
@@ -1322,7 +1304,7 @@ namespace MMR.Randomizer
                 freeItems.Add(Item.StartingHeartContainer1);
                 freeItems.Add(Item.StartingHeartContainer2);
 
-                if (_randomized.Settings.ShortenCutscenes)
+                if (_randomized.Settings.ShortenCutsceneSettings.General.HasFlag(ShortenCutsceneGeneral.EverythingElse))
                 {
                     //giants cs were removed
                     freeItems.Add(Item.SongOath);

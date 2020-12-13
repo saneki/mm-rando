@@ -47,6 +47,7 @@ namespace MMR.UI.Forms
             InitializeTooltips();
             InitializeHUDGroupBox();
             InitializeTransformationFormSettings();
+            InitializeShortenCutsceneSettings();
 
             ItemEditor = new ItemEditForm();
             UpdateCustomItemAmountLabel();
@@ -118,7 +119,6 @@ namespace MMR.UI.Forms
             TooltipBuilder.SetTooltip(cIceTrapQuirks, "Ice traps will behave slightly differently from other items in certain situations.");
 
             // Comforts/cosmetics
-            TooltipBuilder.SetTooltip(cCutsc, "Enable shortened cutscenes.\n\nCertain cutscenes are skipped or otherwise shortened.\nDISCLAIMER: This may cause crashing in certain emulators.");
             TooltipBuilder.SetTooltip(cQText, "Enable quick text. Dialogs are fast-forwarded to choices/end of dialog.");
             TooltipBuilder.SetTooltip(cSFX, "Randomize sound effects that are played throughout the game.");
             TooltipBuilder.SetTooltip(cMusic, "Select a music option\n\n - Default: Vanilla background music.\n - Random: Randomized background music.\n - None: No background music. Causes softlock on Frog Choir HP.");
@@ -164,7 +164,75 @@ namespace MMR.UI.Forms
         }
 
         Regex addSpacesRegex = new Regex("(?<!^)([A-Z])");
-        void InitializeTransformationFormSettings()
+
+        private void InitializeShortenCutsceneSettings()
+        {
+            foreach (var shortenCutsceneGroup in typeof(ShortenCutsceneSettings)
+                .GetProperties()
+                )
+            {
+                var tabPage = new TabPage
+                {
+                    Tag = shortenCutsceneGroup,
+                    Text = addSpacesRegex.Replace(shortenCutsceneGroup.Name, " $1"),
+                    UseVisualStyleBackColor = true,
+                };
+                tShortenCutscenes.TabPages.Add(tabPage);
+
+                var initialX = 6;
+                var initialY = 7;
+                var deltaX = 150;
+                var deltaY = 23;
+                var width = 150;
+                var height = 17;
+                var currentX = initialX;
+                var currentY = initialY;
+                foreach (var value in Enum.GetValues(shortenCutsceneGroup.PropertyType).Cast<Enum>())
+                {
+                    if (Convert.ToInt32(value) == 0)
+                    {
+                        continue;
+                    }
+                    var checkBox = new CheckBox
+                    {
+                        Tag = value,
+                        Name = "cShortenCutscene_" + value.ToString(),
+                        Text = addSpacesRegex.Replace(value.ToString(), " $1"),
+                        Location = new Point(currentX, currentY),
+                        Size = new Size(width, height),
+                    };
+                    var description = value.GetAttribute<DescriptionAttribute>()?.Description;
+                    if (description != null)
+                    {
+                        TooltipBuilder.SetTooltip(checkBox, description);
+                    }
+                    checkBox.CheckedChanged += cShortenCutscene_CheckedChanged;
+                    tabPage.Controls.Add(checkBox);
+                    currentX += deltaX;
+                    if (currentX > tShortenCutscenes.Width - width)
+                    {
+                        currentX = initialX;
+                        currentY += deltaY;
+                    }
+                }
+            }
+        }
+
+        private void cShortenCutscene_CheckedChanged(object sender, EventArgs e)
+        {
+            var checkBox = (CheckBox)sender;
+            var propertyInfo = (PropertyInfo)checkBox.Parent.Tag;
+            var cutsceneFlag = (int)checkBox.Tag;
+            if (_configuration.GameplaySettings.ShortenCutsceneSettings == null)
+            {
+                _configuration.GameplaySettings.ShortenCutsceneSettings = new ShortenCutsceneSettings();
+            }
+            var value = (int)propertyInfo.GetValue(_configuration.GameplaySettings.ShortenCutsceneSettings);
+            var newValue = checkBox.Checked ? value | cutsceneFlag : value & ~cutsceneFlag;
+            UpdateSingleSetting(() => propertyInfo.SetValue(_configuration.GameplaySettings.ShortenCutsceneSettings, newValue));
+        }
+
+        private void InitializeTransformationFormSettings()
         {
             foreach (var form in Enum.GetValues(typeof(TransformationForm)).Cast<TransformationForm>())
             {
@@ -423,7 +491,24 @@ namespace MMR.UI.Forms
             cDEnt.Checked = _configuration.GameplaySettings.RandomizeDungeonEntrances;
             cSFX.Checked = _configuration.CosmeticSettings.RandomizeSounds;
             cEnemy.Checked = _configuration.GameplaySettings.RandomizeEnemies;
-            cCutsc.Checked = _configuration.GameplaySettings.ShortenCutscenes;
+            if (_configuration.GameplaySettings.ShortenCutsceneSettings == null)
+            {
+                _configuration.GameplaySettings.ShortenCutsceneSettings = new ShortenCutsceneSettings();
+            }
+            foreach (TabPage shortenCutsceneTab in tShortenCutscenes.TabPages)
+            {
+                var shortenCutsceneGroup = (PropertyInfo)shortenCutsceneTab.Tag;
+                var value = (Enum)shortenCutsceneGroup.GetValue(_configuration.GameplaySettings.ShortenCutsceneSettings);
+                foreach (var flagValue in Enum.GetValues(shortenCutsceneGroup.PropertyType).Cast<Enum>())
+                {
+                    if (Convert.ToInt32(flagValue) == 0)
+                    {
+                        continue;
+                    }
+                    var cShortenCutscene = (CheckBox)shortenCutsceneTab.Controls.Find("cShortenCutscene_" + flagValue.ToString(), false)[0];
+                    cShortenCutscene.Checked = value.HasFlag(flagValue);
+                }
+            }
             cQText.Checked = _configuration.GameplaySettings.QuickTextEnabled;
             cFreeHints.Checked = _configuration.GameplaySettings.FreeHints;
             cMoonItems.Checked = _configuration.GameplaySettings.AddMoonItems;
@@ -651,11 +736,6 @@ namespace MMR.UI.Forms
         private void cBottled_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _configuration.GameplaySettings.RandomizeBottleCatchContents = cBottled.Checked);
-        }
-
-        private void cCutsc_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdateSingleSetting(() => _configuration.GameplaySettings.ShortenCutscenes = cCutsc.Checked);
         }
 
         private void cDChests_CheckedChanged(object sender, EventArgs e)
@@ -1170,7 +1250,6 @@ namespace MMR.UI.Forms
             cTargettingStyle.Enabled = v;
             cSFX.Enabled = v;
             cDisableCritWiggle.Enabled = v;
-            cCutsc.Enabled = v;
             cQText.Enabled = v;
             cFastPush.Enabled = v;
             cShopAppearance.Enabled = v;
@@ -1260,7 +1339,10 @@ namespace MMR.UI.Forms
             _configuration = new Configuration
             {
                 OutputSettings = new OutputSettings(),
-                GameplaySettings = new GameplaySettings(),
+                GameplaySettings = new GameplaySettings
+                {
+                    ShortenCutsceneSettings = new ShortenCutsceneSettings(),
+                },
                 CosmeticSettings = new CosmeticSettings(),
             };
 
@@ -1397,32 +1479,39 @@ namespace MMR.UI.Forms
             var path = Path.ChangeExtension(filename ?? DEFAULT_SETTINGS_FILENAME, SETTINGS_EXTENSION);
             if (File.Exists(path))
             {
-                Configuration newConfiguration;
-                using (StreamReader Req = new StreamReader(File.OpenRead(path)))
+                try
                 {
-                    newConfiguration = Configuration.FromJson(Req.ReadToEnd());
-                }
+                    Configuration newConfiguration;
+                    using (StreamReader Req = new StreamReader(File.OpenRead(path)))
+                    {
+                        newConfiguration = Configuration.FromJson(Req.ReadToEnd());
+                    }
 
-                if (newConfiguration.GameplaySettings.Logic != null)
-                {
-                    newConfiguration.GameplaySettings.UserLogicFileName = path;
-                    newConfiguration.GameplaySettings.Logic = null;
+                    if (newConfiguration.GameplaySettings.Logic != null)
+                    {
+                        newConfiguration.GameplaySettings.UserLogicFileName = path;
+                        newConfiguration.GameplaySettings.Logic = null;
+                    }
+                    if (File.Exists(newConfiguration.GameplaySettings.UserLogicFileName))
+                    {
+                        tbUserLogic.Text = Path.GetFileNameWithoutExtension(newConfiguration.GameplaySettings.UserLogicFileName);
+                    }
+                    else
+                    {
+                        newConfiguration.GameplaySettings.UserLogicFileName = string.Empty;
+                    }
+                    if (filename != null)
+                    {
+                        _configuration.GameplaySettings = newConfiguration.GameplaySettings;
+                    }
+                    else
+                    {
+                        _configuration = newConfiguration;
+                    }
                 }
-                if (File.Exists(newConfiguration.GameplaySettings.UserLogicFileName))
+                catch (Exception e)
                 {
-                    tbUserLogic.Text = Path.GetFileNameWithoutExtension(newConfiguration.GameplaySettings.UserLogicFileName);
-                }
-                else
-                {
-                    newConfiguration.GameplaySettings.UserLogicFileName = string.Empty;
-                }
-                if (filename != null)
-                {
-                    _configuration.GameplaySettings = newConfiguration.GameplaySettings;
-                }
-                else
-                {
-                    _configuration = newConfiguration;
+                    MessageBox.Show(e.Message, "Error loading settings file.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
