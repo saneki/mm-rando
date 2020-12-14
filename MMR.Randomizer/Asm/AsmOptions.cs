@@ -35,5 +35,10 @@
         /// HUD colors configuration.
         /// </summary>
         public HudColorsConfig HudColorsConfig { get; set; } = new HudColorsConfig();
+
+        /// <summary>
+        /// World colors configuration.
+        /// </summary>
+        public WorldColorsConfig WorldColorsConfig { get; set; } = new WorldColorsConfig();
     }
 }
