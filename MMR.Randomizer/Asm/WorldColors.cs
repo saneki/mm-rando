@@ -19,6 +19,10 @@ namespace MMR.Randomizer.Asm
         public Color GoronRollOuterEnergyPrim2 { get; set; } = Color.FromArgb(0xFF, 0x9B, 0x00);
         public Color GoronRollOuterEnergyEnv1 { get; set; } = Color.FromArgb(0x64, 0x00, 0x00);
         public Color GoronRollOuterEnergyEnv2 { get; set; } = Color.FromArgb(0xC8, 0x00, 0x00);
+        public Color ZoraEnergyEnv1 { get; set; } = Color.FromArgb(0x00, 0x00, 0x64);
+        public Color ZoraEnergyEnv2 { get; set; } = Color.FromArgb(0x00, 0x96, 0xFF);
+        public Color ZoraEnergyPrim1 { get; set; } = Color.FromArgb(0x00, 0x96, 0xFF);
+        public Color ZoraEnergyPrim2 { get; set; } = Color.FromArgb(0xAA, 0xFF, 0xFF);
         public Color BlueBubble { get; set; } = Color.FromArgb(0x00, 0x00, 0xFF);
 
         /// <summary>
@@ -31,6 +35,18 @@ namespace MMR.Randomizer.Asm
                     colors.GoronRollInnerEnergyPrim,
                     colors.GoronRollOuterEnergyPrim1,
                     colors.GoronRollOuterEnergyPrim2
+                };
+            }
+        }
+
+        /// <summary>
+        /// Get the default set of Zora energy colors.
+        /// </summary>
+        public static Color[] DefaultZoraEnergyColors {
+            get {
+                return new Color[]
+                {
+                    new WorldColors().ZoraEnergyPrim1,
                 };
             }
         }

@@ -28,6 +28,10 @@ namespace MMR.Randomizer.Asm
                 var options = new GoronColorOptions(colors[0], colors[1], colors[2]);
                 SetGoronRollEnergyColors(options);
             }
+            else if (form == TransformationForm.Zora)
+            {
+                SetZoraEnergyColor(colors[0]);
+            }
         }
 
         /// <summary>
@@ -55,6 +59,7 @@ namespace MMR.Randomizer.Asm
         public void PatchObjects()
         {
             this.Colors.PatchGoronEnergyColors(ObjUtils.GetObjectData(0x14C));
+            PatchZoraEnergyColors(ObjUtils.GetObjectData(0x14D));
         }
 
         static Color FromRgb(Rgb rgb)
