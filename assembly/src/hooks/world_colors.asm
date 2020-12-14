@@ -22,12 +22,33 @@
 .endarea
 
 ;==================================================================================================
+; Goron Punching Energy Color
+;==================================================================================================
+
+.headersize(G_CODE_RAM - G_CODE_FILE)
+
+@GoronPunchEnergyColor equ (WORLD_COLOR_CONFIG + 0x8)
+
+; Goron punch energy color (SetEnvColor).
+; Replaces:
+;   andi    t3, t0, 0x00FF
+;   lui     at, 0xFF00
+.org 0x801274E4
+    lui     at, hi(@GoronPunchEnergyColor)
+    lw      at, lo(@GoronPunchEnergyColor) (at)
+
+; Replaces:
+;   or      t4, t3, at
+.org 0x801274F4
+    or      t4, t0, at
+
+;==================================================================================================
 ; Goron Rolling Interior Energy Color
 ;==================================================================================================
 
 .headersize(G_PLAYER_ACTOR_VRAM - G_PLAYER_ACTOR_FILE)
 
-@GoronInnerEnergyColor equ (WORLD_COLOR_CONFIG + 0x8)
+@GoronInnerEnergyColor equ (WORLD_COLOR_CONFIG + 0xC)
 
 ; Goron inner energy color (SetEnvColor).
 ; Replaces:

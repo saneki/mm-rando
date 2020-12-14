@@ -45,6 +45,10 @@ namespace MMR.Randomizer.Asm
 
         public void SetGoronRollEnergyColors(GoronColorOptions options)
         {
+            Colors.GoronPunchEnergyPrim = GetPunchPrim(options.Main);
+            Colors.GoronPunchEnergyEnv1 = options.Extra1;
+            Colors.GoronPunchEnergyEnv2 = options.Extra1;
+
             var inner = Mix(options.Main, Colors.GoronRollInnerEnergyEnv);
             Colors.GoronRollInnerEnergyEnv = inner.Item1;
             Colors.GoronRollInnerEnergyPrim = inner.Item2;
@@ -56,6 +60,14 @@ namespace MMR.Randomizer.Asm
             var outer2 = Mix(options.Extra2, Colors.GoronRollOuterEnergyEnv2);
             Colors.GoronRollOuterEnergyEnv2 = outer2.Item1;
             Colors.GoronRollOuterEnergyPrim2 = outer2.Item2;
+
+            Color GetPunchPrim(Color color)
+            {
+                var converter = new ColorSpaceConverter();
+                var curHsv = converter.ToHsv(ToRgb(color));
+                var resultHsv = new Hsv(curHsv.H, (curHsv.S / 5f) * 4f, curHsv.V);
+                return FromRgb(converter.ToRgb(resultHsv));
+            }
 
             (Color env, Color prim) Mix(Color color, Color env)
             {

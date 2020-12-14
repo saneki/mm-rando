@@ -8,7 +8,8 @@
 struct world_color_config {
     u32 magic;
     u32 version;
-    rgbs_t goron_energy;
+    rgbs_t goron_punch;
+    rgbs_t goron_rolling;
     rgbs_t blue_bubble;
 };
 

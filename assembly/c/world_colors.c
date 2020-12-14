@@ -6,7 +6,8 @@
 struct world_color_config WORLD_COLOR_CONFIG = {
     .magic = WORLD_COLOR_CONFIG_MAGIC,
     .version = 0,
-    .goron_energy = { 0x9B, 0x00, 0x00, },
+    .goron_punch = { 0xFF, 0x00, 0x00 },
+    .goron_rolling = { 0x9B, 0x00, 0x00, },
     .blue_bubble = { 0x00, 0x00, 0xFF, },
 };
 

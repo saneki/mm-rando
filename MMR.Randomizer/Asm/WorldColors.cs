@@ -1,4 +1,5 @@
 ﻿using MMR.Randomizer.Extensions;
+using MMR.Randomizer.Utils;
 using System;
 using System.Drawing;
 
@@ -9,6 +10,9 @@ namespace MMR.Randomizer.Asm
     /// </summary>
     public class WorldColors
     {
+        public Color GoronPunchEnergyPrim { get; set; } = Color.FromArgb(0xFF, 0xC8, 0x32);
+        public Color GoronPunchEnergyEnv1 { get; set; } = Color.FromArgb(0xFF, 0x00, 0x00);
+        public Color GoronPunchEnergyEnv2 { get; set; } = Color.FromArgb(0xFF, 0x00, 0x00);
         public Color GoronRollInnerEnergyPrim { get; set; } = Color.FromArgb(0xFF, 0x9B, 0x00);
         public Color GoronRollInnerEnergyEnv { get; set; } = Color.FromArgb(0x9B, 0x00, 0x00);
         public Color GoronRollOuterEnergyPrim1 { get; set; } = Color.FromArgb(0xFF, 0x00, 0x00);
@@ -23,6 +27,14 @@ namespace MMR.Randomizer.Asm
         /// <param name="data">Object data.</param>
         public void PatchGoronEnergyColors(Span<byte> data)
         {
+            // Patch SetPrimColor instruction for Goron punch energy color.
+            var punchDListOffset = 0x11AB8;
+            GoronPunchEnergyPrim.ToBytesRGB(0xFF).CopyTo(data.Slice(punchDListOffset + 0x1C));
+
+            // Patch SetEnvColor color values for Goron punch in code file: RDRAM: 0x801BFDE0, Offset: 0x11A320.
+            var punchEnvColorAddr = 0xB3C000 + 0x11A320;
+            ReadWriteUtils.WriteToROM(punchEnvColorAddr, GoronPunchEnergyEnv2.ToBytesRGB(0));
+
             // Patch SetPrimColor instruction for interior of Goron roll energy color.
             var innerOffset = 0x127CC;
             var innerPrim = GoronRollInnerEnergyPrim.ToBytesRGB(0xFF);
@@ -45,6 +57,7 @@ namespace MMR.Randomizer.Asm
         /// </summary>
         public Color[] StructColors => new Color[]
         {
+            GoronPunchEnergyEnv1,
             GoronRollInnerEnergyEnv,
             BlueBubble,
         };
