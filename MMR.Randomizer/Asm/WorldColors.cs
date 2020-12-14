@@ -22,6 +22,20 @@ namespace MMR.Randomizer.Asm
         public Color BlueBubble { get; set; } = Color.FromArgb(0x00, 0x00, 0xFF);
 
         /// <summary>
+        /// Get the default set of Goron energy colors.
+        /// </summary>
+        public static Color[] DefaultGoronEnergyColors {
+            get {
+                var colors = new WorldColors();
+                return new Color[] {
+                    colors.GoronRollInnerEnergyPrim,
+                    colors.GoronRollOuterEnergyPrim1,
+                    colors.GoronRollOuterEnergyPrim2
+                };
+            }
+        }
+
+        /// <summary>
         /// Patch Goron object data to write new outer energy colors.
         /// </summary>
         /// <param name="data">Object data.</param>

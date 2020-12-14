@@ -59,6 +59,16 @@ namespace MMR.Randomizer.Models.Settings
 
         public CombatMusic DisableCombatMusic { get; set; }
 
+        public Dictionary<TransformationForm, bool> UseEnergyColors { get; set; } = new Dictionary<TransformationForm, bool>()
+        {
+            { TransformationForm.Goron, false },
+        };
+
+        public Dictionary<TransformationForm, Color[]> EnergyColors { get; set; } = new Dictionary<TransformationForm, Color[]>()
+        {
+            { TransformationForm.Goron, WorldColors.DefaultGoronEnergyColors },
+        };
+
         public Dictionary<TransformationForm, bool> UseTunicColors { get; set; } = new Dictionary<TransformationForm, bool>()
         {
             { TransformationForm.Human, false },

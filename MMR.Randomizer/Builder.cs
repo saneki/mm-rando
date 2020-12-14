@@ -2474,6 +2474,7 @@ namespace MMR.Randomizer
         private void WriteAsmConfig(AsmContext asm, byte[] hash)
         {
             UpdateHudColorOverrides(hash);
+            _cosmeticSettings.AsmOptions.FinalizeSettings(_cosmeticSettings);
 
             // Apply Asm configuration (after hash has been calculated)
             var options = _cosmeticSettings.AsmOptions;
@@ -2484,6 +2485,7 @@ namespace MMR.Randomizer
         private void WriteAsmConfigPostPatch(AsmContext asm, byte[] hash)
         {
             UpdateHudColorOverrides(hash);
+            _cosmeticSettings.AsmOptions.FinalizeSettings(_cosmeticSettings);
 
             // Apply current configuration on top of existing Asm patch file
             var options = _cosmeticSettings.AsmOptions;

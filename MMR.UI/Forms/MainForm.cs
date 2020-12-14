@@ -187,8 +187,54 @@ namespace MMR.UI.Forms
                     });
                     tabPage.Controls.Add(CreateInstrumentComboBox(form));
                 }
+                if (_configuration.CosmeticSettings.UseEnergyColors.TryGetValue(form, out var use))
+                {
+                    var bEnergy = CreateEnergyColorButtons(form);
+                    foreach (var button in bEnergy)
+                    {
+                        tabPage.Controls.Add(button);
+                    }
+                    tabPage.Controls.Add(CreateEnergyColorCheckBox(form));
+                }
                 tFormCosmetics.TabPages.Add(tabPage);
             }
+        }
+
+        private CheckBox CreateEnergyColorCheckBox(TransformationForm transformationForm)
+        {
+            var checkBox = new CheckBox
+            {
+                Tag = transformationForm,
+                Name = "cEnergy",
+                Text = "Energy color:",
+                Location = new Point(6, 67),
+                Size = new Size(88, 17),
+            };
+            checkBox.CheckedChanged += create_cEnergy_CheckedChanged();
+            return checkBox;
+        }
+
+        private Button[] CreateEnergyColorButtons(TransformationForm transformationForm)
+        {
+            var current = _configuration.CosmeticSettings.EnergyColors[transformationForm];
+            var buttons = new List<Button>();
+            for (int i = 0; i < current.Length; i++)
+            {
+                var button = new Button
+                {
+                    Tag = transformationForm,
+                    Name = $"bEnergy{i}",
+                    Location = new Point(91 + (i * 34), 63),
+                    Size = new Size(32, 23),
+                    BackColor = current[i],
+                    FlatStyle = FlatStyle.Flat,
+                    Text = "",
+                };
+                TooltipBuilder.SetTooltip(button, "Select the energy color for this form.");
+                button.Click += bEnergy_Click;
+                buttons.Add(button);
+            }
+            return buttons.ToArray();
         }
 
         private CheckBox CreateTunicColorCheckBox(TransformationForm transformationForm, Button bTunic)
@@ -288,6 +334,38 @@ namespace MMR.UI.Forms
         private void bgWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             TryRandomize(sender as BackgroundWorker, e);
+        }
+
+        private EventHandler create_cEnergy_CheckedChanged()
+        {
+            void cEnergy_CheckedChanged(object sender, EventArgs e)
+            {
+                _isUpdating = true;
+
+                var checkBox = (CheckBox)sender;
+                var form = (TransformationForm)checkBox.Tag;
+                _configuration.CosmeticSettings.UseEnergyColors[form] = checkBox.Checked;
+
+                _isUpdating = false;
+            };
+            return cEnergy_CheckedChanged;
+        }
+
+        private void bEnergy_Click(object sender, EventArgs e)
+        {
+            var result = cEnergy.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                _isUpdating = true;
+
+                var button = (Button)sender;
+                var form = (TransformationForm)button.Tag;
+                var index = int.Parse(button.Name.Substring(7));
+                _configuration.CosmeticSettings.EnergyColors[form][index] = cEnergy.Color;
+                button.BackColor = cEnergy.Color;
+
+                _isUpdating = false;
+            }
         }
 
         private EventHandler create_cTunic_CheckedChanged(Button bTunic)
@@ -480,6 +558,19 @@ namespace MMR.UI.Forms
                 {
                     var cInstrument = (ComboBox)cosmeticFormTab.Controls.Find("cInstrument", false)[0];
                     cInstrument.SelectedValue = _configuration.CosmeticSettings.Instruments[form];
+                }
+
+                if (_configuration.CosmeticSettings.UseEnergyColors.TryGetValue(form, out var use))
+                {
+                    var cEnergy = (CheckBox)cosmeticFormTab.Controls.Find("cEnergy", false)[0];
+                    cEnergy.Checked = use;
+
+                    var colors = _configuration.CosmeticSettings.EnergyColors[form];
+                    for (int i = 0; i < colors.Length; i++)
+                    {
+                        var bEnergy = (Button)cosmeticFormTab.Controls.Find($"bEnergy{i}", false)[0];
+                        bEnergy.BackColor = colors[i];
+                    }
                 }
             }
             cTargettingStyle.Checked = _configuration.CosmeticSettings.EnableHoldZTargeting;

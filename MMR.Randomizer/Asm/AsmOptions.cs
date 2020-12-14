@@ -1,4 +1,6 @@
-﻿namespace MMR.Randomizer.Asm
+﻿using MMR.Randomizer.Models.Settings;
+
+namespace MMR.Randomizer.Asm
 {
     /// <summary>
     /// Core options used for Asm.
@@ -40,5 +42,14 @@
         /// World colors configuration.
         /// </summary>
         public WorldColorsConfig WorldColorsConfig { get; set; } = new WorldColorsConfig();
+
+        /// <summary>
+        /// Finalize all settings given a <see cref="CosmeticSettings"/>.
+        /// </summary>
+        /// <param name="settings">Cosmetic settings.</param>
+        public void FinalizeSettings(CosmeticSettings settings)
+        {
+            WorldColorsConfig.FinalizeSettings(settings);
+        }
     }
 }
