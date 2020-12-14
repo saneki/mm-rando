@@ -195,9 +195,26 @@ namespace MMR.UI.Forms
                         tabPage.Controls.Add(button);
                     }
                     tabPage.Controls.Add(CreateEnergyColorCheckBox(form));
+                    tabPage.Controls.Add(CreateEnergyColorRandomizeButton(form));
                 }
                 tFormCosmetics.TabPages.Add(tabPage);
             }
+        }
+
+        private Button CreateEnergyColorRandomizeButton(TransformationForm transformationForm)
+        {
+            var button = new Button
+            {
+                Tag = transformationForm,
+                Name = "cEnergyRandomize",
+                Text = "🎲",
+                Location = new Point(91 + (3 * 34), 62),
+                Size = new Size(25, 25),
+            };
+            button.Font = new Font(button.Font.FontFamily, 12);
+            TooltipBuilder.SetTooltip(button, "Randomize the energy colors for this form.");
+            button.Click += bEnergyRandomize_Click;
+            return button;
         }
 
         private CheckBox CreateEnergyColorCheckBox(TransformationForm transformationForm)
@@ -366,6 +383,27 @@ namespace MMR.UI.Forms
 
                 _isUpdating = false;
             }
+        }
+
+        private void bEnergyRandomize_Click(object sender, EventArgs e)
+        {
+            _isUpdating = true;
+
+            var button = (Button)sender;
+            var form = (TransformationForm)button.Tag;
+            var random = new Random();
+            var selected = tFormCosmetics.SelectedTab;
+            for (int i = 0; i < _configuration.CosmeticSettings.EnergyColors[form].Length; i++)
+            {
+                var color = RandomUtils.GetRandomColor(random);
+                // Update the color in cosmetic settings.
+                _configuration.CosmeticSettings.EnergyColors[form][i] = color;
+                // Find the respective energy color button and update its color.
+                var bEnergy = (Button)selected.Controls.Find($"bEnergy{i}", false)[0];
+                bEnergy.BackColor = color;
+            }
+
+            _isUpdating = false;
         }
 
         private EventHandler create_cTunic_CheckedChanged(Button bTunic)
