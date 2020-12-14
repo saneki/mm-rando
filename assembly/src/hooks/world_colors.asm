@@ -64,3 +64,40 @@
 ;   lw      v0, 0x02C0 (a1)
 .org 0x80846C08 ; Offset: 0x19178
     addiu   v0, v0, 0x0008
+
+;==================================================================================================
+; Sword Spin Energy Color
+;==================================================================================================
+
+.headersize(G_EN_M_THUNDER_VRAM - G_EN_M_THUNDER_FILE)
+
+@SwordSlashBluePriColor equ (WORLD_COLOR_CONFIG + 0x10)
+@SwordSlashBlueEnvColor equ (WORLD_COLOR_CONFIG + 0x14)
+
+; Prim color (1).
+; Replaces:
+;   lui     at, 0xAAFF
+;   ori     at, at, 0xFF00
+.org 0x808B6B64 ; Offset: 0x17A4
+    lui     at, hi(@SwordSlashBluePriColor)
+    lw      at, lo(@SwordSlashBluePriColor) (at)
+
+; Prim color (2).
+; Replaces:
+;   lui     at, 0xAAFF
+;   ori     at, at, 0xFF00
+.org 0x808B6F90 ; Offset: 0x1BD0
+    lui     at, hi(@SwordSlashBluePriColor)
+    lw      at, lo(@SwordSlashBluePriColor) (at)
+
+; Env color (first half).
+; Replaces:
+;   lui     t9, 0x0064
+.org 0x808B6F68 ; Offset: 0x1BA8
+    lui     t9, hi(@SwordSlashBlueEnvColor)
+
+; Env color (second half).
+; Replaces:
+;   ori     t9, t9, 0xFF80
+.org 0x808B6FAC ; Offset: 0x1BEC
+    lw      t9, lo(@SwordSlashBlueEnvColor) (t9)

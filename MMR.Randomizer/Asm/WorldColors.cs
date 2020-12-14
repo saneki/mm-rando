@@ -23,7 +23,22 @@ namespace MMR.Randomizer.Asm
         public Color ZoraEnergyEnv2 { get; set; } = Color.FromArgb(0x00, 0x96, 0xFF);
         public Color ZoraEnergyPrim1 { get; set; } = Color.FromArgb(0x00, 0x96, 0xFF);
         public Color ZoraEnergyPrim2 { get; set; } = Color.FromArgb(0xAA, 0xFF, 0xFF);
+        public Color SwordEnergyBlueEnv1 { get; set; } = Color.FromArgb(0x00, 0x64, 0xFF);
+        public Color SwordEnergyBlueEnv2 { get; set; } = Color.FromArgb(0x00, 0x00, 0xFF);
+        public Color SwordEnergyBluePrim { get; set; } = Color.FromArgb(0xAA, 0xFF, 0xFF);
         public Color BlueBubble { get; set; } = Color.FromArgb(0x00, 0x00, 0xFF);
+
+        /// <summary>
+        /// Get the default set of Human energy colors.
+        /// </summary>
+        public static Color[] DefaultHumanEnergyColors {
+            get {
+                return new Color[]
+                {
+                    new WorldColors().SwordEnergyBlueEnv1,
+                };
+            }
+        }
 
         /// <summary>
         /// Get the default set of Goron energy colors.
@@ -89,6 +104,8 @@ namespace MMR.Randomizer.Asm
         {
             GoronPunchEnergyEnv1,
             GoronRollInnerEnergyEnv,
+            SwordEnergyBluePrim,
+            SwordEnergyBlueEnv1,
             BlueBubble,
         };
     }

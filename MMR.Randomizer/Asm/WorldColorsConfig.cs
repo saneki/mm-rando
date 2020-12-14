@@ -23,7 +23,11 @@ namespace MMR.Randomizer.Asm
         /// <param name="colors">Energy colors to apply.</param>
         void ApplyEnergyColors(TransformationForm form, Color[] colors)
         {
-            if (form == TransformationForm.Goron)
+            if (form == TransformationForm.Human)
+            {
+                SetHumanEnergyColor(colors[0]);
+            }
+            else if (form == TransformationForm.Goron)
             {
                 var options = new GoronColorOptions(colors[0], colors[1], colors[2]);
                 SetGoronRollEnergyColors(options);
@@ -58,6 +62,7 @@ namespace MMR.Randomizer.Asm
         /// </summary>
         public void PatchObjects()
         {
+            PatchHumanEnergyColors(ObjUtils.GetObjectData(1));
             this.Colors.PatchGoronEnergyColors(ObjUtils.GetObjectData(0x14C));
             PatchZoraEnergyColors(ObjUtils.GetObjectData(0x14D));
         }

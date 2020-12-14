@@ -8,6 +8,8 @@ struct world_color_config WORLD_COLOR_CONFIG = {
     .version = 0,
     .goron_punch = { 0xFF, 0x00, 0x00 },
     .goron_rolling = { 0x9B, 0x00, 0x00, },
+    .sword_blue_pri = { 0xAA, 0xFF, 0xFF, },
+    .sword_blue_env = { 0x00, 0x64, 0xFF, },
     .blue_bubble = { 0x00, 0x00, 0xFF, },
 };
 
@@ -25,4 +27,9 @@ u32 world_colors_get_blue_bubble_color(z2_actor_t *actor, z2_game_t *game) {
     }
 
     return color_rgb2int(color.rgb, 0);
+}
+
+void WorldColors_Init(void) {
+    // Set alpha values for specific colors.
+    WORLD_COLOR_CONFIG.sword_blue_env.s = 0x80;
 }

@@ -10,7 +10,11 @@ struct world_color_config {
     u32 version;
     rgbs_t goron_punch;
     rgbs_t goron_rolling;
+    rgbs_t sword_blue_pri;
+    rgbs_t sword_blue_env;
     rgbs_t blue_bubble;
 };
+
+void WorldColors_Init(void);
 
 #endif // WORLD_COLORS_H

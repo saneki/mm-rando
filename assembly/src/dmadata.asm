@@ -34,6 +34,10 @@ DefineDmaFile G_EN_TORCH2_DMA, G_EN_TORCH2_FILE, 65
 DefineDmaFile G_EN_OSSAN_DMA, G_EN_OSSAN_FILE, 70
 .definelabel  G_EN_OSSAN_VRAM, 0x808A80A0
 
+; ovl_En_M_Thunder (Spin Attack & Sword Beam Effects)
+DefineDmaFile G_EN_M_THUNDER_DMA, G_EN_M_THUNDER_FILE, 76
+.definelabel  G_EN_M_THUNDER_VRAM, 0x808B53C0
+
 ; ovl_Item_B_Heart (Heart Container)
 DefineDmaFile G_ITEM_B_HEART_DMA, G_ITEM_B_HEART_FILE, 80
 .definelabel  G_ITEM_B_HEART_VRAM, 0x808BCDF0
