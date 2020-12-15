@@ -1403,5 +1403,10 @@ namespace MMR.UI.Forms
             var selected = (ColorSelectionItem)combobox.SelectedItem;
             _configuration.CosmeticSettings.MagicSelection = selected.Name;
         }
+
+        private void cLowHealthSFXComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _configuration.GameplaySettings.LowHealthSFX = (LowHealthSFX)cLowHealthSFXComboBox.SelectedIndex);
+        }
     }
 }

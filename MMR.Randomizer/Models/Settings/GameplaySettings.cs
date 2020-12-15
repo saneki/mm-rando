@@ -277,6 +277,11 @@ namespace MMR.Randomizer.Models.Settings
         /// </summary>
         public bool AllowFierceDeityAnywhere { get; set; }
 
+        /// <summary>
+        /// Sets the Low health beeping sfx
+        /// </summary>
+        public LowHealthSFX LowHealthSFX { get; set; }
+
         #endregion
 
         #region Comfort / Cosmetics

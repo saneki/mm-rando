@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MMR.Randomizer.Models.Settings;
+using System;
 using System.Drawing;
+using System.Linq;
 
 namespace MMR.UI.Forms
 {
@@ -106,10 +108,10 @@ namespace MMR.UI.Forms
             this.cMusic = new System.Windows.Forms.ComboBox();
             this.lTunic = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.cCloseCows = new System.Windows.Forms.CheckBox();
             this.cArrowCycling = new System.Windows.Forms.CheckBox();
             this.cFreestanding = new System.Windows.Forms.CheckBox();
             this.cEnableNightMusic = new System.Windows.Forms.CheckBox();
-            this.cDisableLowHealthBeep = new System.Windows.Forms.CheckBox();
             this.cFastPush = new System.Windows.Forms.CheckBox();
             this.cQText = new System.Windows.Forms.CheckBox();
             this.cShopAppearance = new System.Windows.Forms.CheckBox();
@@ -121,7 +123,10 @@ namespace MMR.UI.Forms
             this.cQuestItemStorage = new System.Windows.Forms.CheckBox();
             this.cCutsc = new System.Windows.Forms.CheckBox();
             this.cNoDowngrades = new System.Windows.Forms.CheckBox();
+            this.cDisableLowHealthBeep = new System.Windows.Forms.CheckBox();
             this.tabGimmicks = new System.Windows.Forms.TabPage();
+            this.cLowHealthSFXComboBox = new System.Windows.Forms.ComboBox();
+            this.cLowHealthSFXLabel = new System.Windows.Forms.Label();
             this.cFDAnywhere = new System.Windows.Forms.CheckBox();
             this.cUnderwaterOcarina = new System.Windows.Forms.CheckBox();
             this.cGravity = new System.Windows.Forms.ComboBox();
@@ -180,7 +185,6 @@ namespace MMR.UI.Forms
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
-            this.cCloseCows = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -1116,6 +1120,17 @@ namespace MMR.UI.Forms
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Comfort Options";
             // 
+            // cCloseCows
+            // 
+            this.cCloseCows.AutoSize = true;
+            this.cCloseCows.Location = new System.Drawing.Point(9, 183);
+            this.cCloseCows.Name = "cCloseCows";
+            this.cCloseCows.Size = new System.Drawing.Size(81, 17);
+            this.cCloseCows.TabIndex = 36;
+            this.cCloseCows.Text = "Close Cows";
+            this.cCloseCows.UseVisualStyleBackColor = true;
+            this.cCloseCows.CheckedChanged += new System.EventHandler(this.cCloseCows_CheckedChanged);
+            // 
             // cArrowCycling
             // 
             this.cArrowCycling.AutoSize = true;
@@ -1148,17 +1163,6 @@ namespace MMR.UI.Forms
             this.cEnableNightMusic.Text = "Enable Night BGM";
             this.cEnableNightMusic.UseVisualStyleBackColor = true;
             this.cEnableNightMusic.CheckedChanged += new System.EventHandler(this.cEnableNightMusic_CheckedChanged);
-            //
-            // cDisableLowHealthBeep
-            //
-            this.cDisableLowHealthBeep.AutoSize = true;
-            this.cDisableLowHealthBeep.Location = new System.Drawing.Point(147, 183);
-            this.cDisableLowHealthBeep.Name = "cDisableLowHealthBeep";
-            this.cDisableLowHealthBeep.Size = new System.Drawing.Size(114, 17);
-            this.cDisableLowHealthBeep.TabIndex = 45;
-            this.cDisableLowHealthBeep.Text = "Disable LowHeart SFX";
-            this.cDisableLowHealthBeep.UseVisualStyleBackColor = true;
-            this.cDisableLowHealthBeep.CheckedChanged += new System.EventHandler(this.cDisableLowHealthBeep_CheckedChanged);
             // 
             // cFastPush
             // 
@@ -1305,8 +1309,21 @@ namespace MMR.UI.Forms
             this.cNoDowngrades.UseVisualStyleBackColor = false;
             this.cNoDowngrades.CheckedChanged += new System.EventHandler(this.cNoDowngrades_CheckedChanged);
             // 
+            // cDisableLowHealthBeep
+            // 
+            this.cDisableLowHealthBeep.AutoSize = true;
+            this.cDisableLowHealthBeep.Location = new System.Drawing.Point(147, 183);
+            this.cDisableLowHealthBeep.Name = "cDisableLowHealthBeep";
+            this.cDisableLowHealthBeep.Size = new System.Drawing.Size(133, 17);
+            this.cDisableLowHealthBeep.TabIndex = 45;
+            this.cDisableLowHealthBeep.Text = "Disable LowHeart SFX";
+            this.cDisableLowHealthBeep.UseVisualStyleBackColor = true;
+            this.cDisableLowHealthBeep.CheckedChanged += new System.EventHandler(this.cDisableLowHealthBeep_CheckedChanged);
+            // 
             // tabGimmicks
             // 
+            this.tabGimmicks.Controls.Add(this.cLowHealthSFXComboBox);
+            this.tabGimmicks.Controls.Add(this.cLowHealthSFXLabel);
             this.tabGimmicks.Controls.Add(this.cFDAnywhere);
             this.tabGimmicks.Controls.Add(this.cUnderwaterOcarina);
             this.tabGimmicks.Controls.Add(this.cGravity);
@@ -1331,6 +1348,39 @@ namespace MMR.UI.Forms
             this.tabGimmicks.TabIndex = 3;
             this.tabGimmicks.Text = "Gimmicks";
             this.tabGimmicks.UseVisualStyleBackColor = true;
+            // 
+            // cLowHealthSFXComboBox
+            // 
+            this.cLowHealthSFXComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cLowHealthSFXComboBox.FormattingEnabled = true;
+            this.cLowHealthSFXComboBox.Items.AddRange(new object[] {
+            "Default",
+            "Disabled",
+            "Random",
+            "Chicks",
+            "Knockdown",
+            "Panting",
+            "SilverRupee",
+            "TatlDash",
+            "Baybee",
+            "DogBark",
+            "Cow",
+            "SecretLadder",
+            "AmusedFather"});
+            this.cLowHealthSFXComboBox.Location = new System.Drawing.Point(25, 45);
+            this.cLowHealthSFXComboBox.Name = "cLowHealthSFXComboBox";
+            this.cLowHealthSFXComboBox.Size = new System.Drawing.Size(121, 21);
+            this.cLowHealthSFXComboBox.TabIndex = 25;
+            this.cLowHealthSFXComboBox.SelectedIndexChanged += new System.EventHandler(this.cLowHealthSFXComboBox_SelectedIndexChanged);
+            // 
+            // cLowHealthSFXLabel
+            // 
+            this.cLowHealthSFXLabel.AutoSize = true;
+            this.cLowHealthSFXLabel.Location = new System.Drawing.Point(22, 27);
+            this.cLowHealthSFXLabel.Name = "cLowHealthSFXLabel";
+            this.cLowHealthSFXLabel.Size = new System.Drawing.Size(84, 13);
+            this.cLowHealthSFXLabel.TabIndex = 24;
+            this.cLowHealthSFXLabel.Text = "Low Health SFX";
             // 
             // cFDAnywhere
             // 
@@ -1763,7 +1813,7 @@ namespace MMR.UI.Forms
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mLogicEdit});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // mLogicEdit
@@ -1948,17 +1998,6 @@ namespace MMR.UI.Forms
             this.bLoadPatch.Text = "Load Patch...";
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
-            // 
-            // cCloseCows
-            // 
-            this.cCloseCows.AutoSize = true;
-            this.cCloseCows.Location = new System.Drawing.Point(9, 183);
-            this.cCloseCows.Name = "cCloseCows";
-            this.cCloseCows.Size = new System.Drawing.Size(81, 17);
-            this.cCloseCows.TabIndex = 36;
-            this.cCloseCows.Text = "Close Cows";
-            this.cCloseCows.UseVisualStyleBackColor = true;
-            this.cCloseCows.CheckedChanged += new System.EventHandler(this.cCloseCows_CheckedChanged);
             // 
             // MainForm
             // 
@@ -2176,6 +2215,8 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.CheckBox cArrowCycling;
         private System.Windows.Forms.CheckBox cFasterBank;
         private System.Windows.Forms.CheckBox cCloseCows;
+        private System.Windows.Forms.ComboBox cLowHealthSFXComboBox;
+        private System.Windows.Forms.Label cLowHealthSFXLabel;
     }
 }
 
