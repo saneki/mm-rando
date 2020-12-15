@@ -4,18 +4,22 @@ namespace MMR.Randomizer.Models.Settings
 {
     public enum LowHealthSFX
     {
-        Default = -3,
-        Disabled = -2,
+        Default = -3, // vanilla behavior
+        Disabled = -2, // no sound at all
         Random = -1,
 
-        Chicks = SoundEffect.LittleChickChirp,
-        Panting = SoundEffect.ChildLinkPantLowHealth,
+        // specific sfx
+        CuccoChicks = SoundEffect.LittleChickChirp,
+        CuccoClucking = SoundEffect.CuccoClucking,
+        LinkPanting = SoundEffect.ChildLinkPantLowHealth,
+        DogBark = SoundEffect.DogBark,
         SilverRupee = SoundEffect.SilverRupeeGet,
         TatlDash = SoundEffect.TatlDashNormal,
-        Baybee = SoundEffect.MikauBaybee,
-        DogBark = SoundEffect.DogBark,
-        Cow = SoundEffect.CowMoo,
-        SecretLadder = SoundEffect.SecretLadderAppears,
+        TatlMessage = SoundEffect.TatlMessage,
+        MikauBaby = SoundEffect.MikauBaybee,
+        CowMooing = SoundEffect.CowMoo,
+        LadderWarp = SoundEffect.SecretLadderAppears,
         AmusedFather = SoundEffect.SwampTouristProprietorHehHeh,
+        TingleChuckle = SoundEffect.TingleChuckle,
     }
 }

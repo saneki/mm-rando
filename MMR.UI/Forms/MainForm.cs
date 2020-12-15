@@ -107,6 +107,7 @@ namespace MMR.UI.Forms
             TooltipBuilder.SetTooltip(cDMult, "Select a damage mode, affecting how much damage Link takes:\n\n - Default: Link takes normal damage.\n - 2x: Link takes double damage.\n - 4x: Link takes quadruple damage.\n - 1-hit KO: Any damage kills Link.\n - Doom: Hardcore mode. Link's hearts are slowly being drained continuously.");
             TooltipBuilder.SetTooltip(cDType, "Select an effect to occur whenever Link is being damaged:\n\n - Default: Vanilla effects occur.\n - Fire: All damage burns Link.\n - Ice: All damage freezes Link.\n - Shock: All damage shocks link.\n - Knockdown: All damage knocks Link down.\n - Random: Any random effect of the above.");
             TooltipBuilder.SetTooltip(cGravity, "Select a movement modifier:\n\n - Default: No movement modifier.\n - High speed: Link moves at a much higher velocity.\n - Super low gravity: Link can jump very high.\n - Low gravity: Link can jump high.\n - High gravity: Link can barely jump.");
+            TooltipBuilder.SetTooltip(cLowHealthSFXComboBox, "Select a Low Health SFX setting:\n\n - Default: Vanilla sound.\n - Disabled: No sound will play.\n - Random: a random SFX will be chosen.\n - Specific SFX: a specific SFX will play as the low health sfx.");
             TooltipBuilder.SetTooltip(cFloors, "Select a floortype for every floor ingame:\n\n - Default: Vanilla floortypes.\n - Sand: Link sinks slowly into every floor, affecting movement speed.\n - Ice: Every floor is slippery.\n - Snow: Similar to sand. \n - Random: Any random floortypes of the above.");
             TooltipBuilder.SetTooltip(cClockSpeed, "Modify the speed of time.");
             TooltipBuilder.SetTooltip(cHideClock, "Clock UI will be hidden.");
@@ -398,6 +399,7 @@ namespace MMR.UI.Forms
             cLink.SelectedIndex = (int)_configuration.GameplaySettings.Character;
             cTatl.SelectedIndex = (int)_configuration.CosmeticSettings.TatlColorSchema;
             cGravity.SelectedIndex = (int)_configuration.GameplaySettings.MovementMode;
+            cLowHealthSFXComboBox.SelectedIndex = cLowHealthSFXComboBox.Items.IndexOf(_configuration.GameplaySettings.LowHealthSFX.ToString());
             cFloors.SelectedIndex = (int)_configuration.GameplaySettings.FloorType;
             cGossipHints.SelectedIndex = (int)_configuration.GameplaySettings.GossipHintStyle;
             cBlastCooldown.SelectedIndex = (int)_configuration.GameplaySettings.BlastMaskCooldown;
@@ -405,7 +407,6 @@ namespace MMR.UI.Forms
             bTunic.BackColor = _configuration.CosmeticSettings.TunicColor;
             cTargettingStyle.Checked = _configuration.CosmeticSettings.EnableHoldZTargeting;
             cEnableNightMusic.Checked = _configuration.CosmeticSettings.EnableNightBGM;
-            cDisableLowHealthBeep.Checked = _configuration.CosmeticSettings.DisableLowHealthBeep;
 
             // Misc config options
             cDisableCritWiggle.Checked = _configuration.GameplaySettings.CritWiggleDisable;
@@ -560,10 +561,6 @@ namespace MMR.UI.Forms
             UpdateSingleSetting(() => _configuration.CosmeticSettings.EnableNightBGM = cEnableNightMusic.Checked);
         }
 
-        private void cDisableLowHealthBeep_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdateSingleSetting(() => _configuration.CosmeticSettings.DisableLowHealthBeep = cDisableLowHealthBeep.Checked);
-        }
 
         private void cMusic_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1406,7 +1403,23 @@ namespace MMR.UI.Forms
 
         private void cLowHealthSFXComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _configuration.GameplaySettings.LowHealthSFX = (LowHealthSFX)cLowHealthSFXComboBox.SelectedIndex);
+            // should probably make the object[] obj support both string and index to avoid this search, but it's low use
+            var comboboxArrayObj = cLowHealthSFXComboBox.Items[ cLowHealthSFXComboBox.SelectedIndex ];
+            var SFXOptionList = Enum.GetValues(typeof(LowHealthSFX)).Cast<LowHealthSFX>().ToList();
+            var SFXOption = SFXOptionList.Find(u => u.ToString() == comboboxArrayObj.ToString());
+            UpdateSingleSetting(() => _configuration.GameplaySettings.LowHealthSFX = SFXOption);
+        }
+
+        public static string[] GetLowHealthSFXOptionList()
+        {
+            // has to be here in a separate function, this code confuses MainForm.Designer
+            // cannot use Enum.GetNames because it returns a list sorted by absolute value,
+            //  so negative values are shufled as positive, known bug, marked will-not-fix
+            return Enum.GetValues(typeof(LowHealthSFX)) // get all enum values
+                .Cast<LowHealthSFX>().ToList()          // to list for sorting
+                .OrderBy(o => o)                        // sort by enum value, which puts our negative meta options on top
+                .Select(s => s.ToString())              // get list of strings
+                .ToArray();                             // back to string[]
         }
     }
 }

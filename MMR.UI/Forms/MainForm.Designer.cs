@@ -123,7 +123,6 @@ namespace MMR.UI.Forms
             this.cQuestItemStorage = new System.Windows.Forms.CheckBox();
             this.cCutsc = new System.Windows.Forms.CheckBox();
             this.cNoDowngrades = new System.Windows.Forms.CheckBox();
-            this.cDisableLowHealthBeep = new System.Windows.Forms.CheckBox();
             this.tabGimmicks = new System.Windows.Forms.TabPage();
             this.cLowHealthSFXComboBox = new System.Windows.Forms.ComboBox();
             this.cLowHealthSFXLabel = new System.Windows.Forms.Label();
@@ -1112,7 +1111,6 @@ namespace MMR.UI.Forms
             this.groupBox7.Controls.Add(this.cQuestItemStorage);
             this.groupBox7.Controls.Add(this.cCutsc);
             this.groupBox7.Controls.Add(this.cNoDowngrades);
-            this.groupBox7.Controls.Add(this.cDisableLowHealthBeep);
             this.groupBox7.Location = new System.Drawing.Point(373, 6);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(286, 211);
@@ -1309,17 +1307,6 @@ namespace MMR.UI.Forms
             this.cNoDowngrades.UseVisualStyleBackColor = false;
             this.cNoDowngrades.CheckedChanged += new System.EventHandler(this.cNoDowngrades_CheckedChanged);
             // 
-            // cDisableLowHealthBeep
-            // 
-            this.cDisableLowHealthBeep.AutoSize = true;
-            this.cDisableLowHealthBeep.Location = new System.Drawing.Point(147, 183);
-            this.cDisableLowHealthBeep.Name = "cDisableLowHealthBeep";
-            this.cDisableLowHealthBeep.Size = new System.Drawing.Size(133, 17);
-            this.cDisableLowHealthBeep.TabIndex = 45;
-            this.cDisableLowHealthBeep.Text = "Disable LowHeart SFX";
-            this.cDisableLowHealthBeep.UseVisualStyleBackColor = true;
-            this.cDisableLowHealthBeep.CheckedChanged += new System.EventHandler(this.cDisableLowHealthBeep_CheckedChanged);
-            // 
             // tabGimmicks
             // 
             this.tabGimmicks.Controls.Add(this.cLowHealthSFXComboBox);
@@ -1353,22 +1340,9 @@ namespace MMR.UI.Forms
             // 
             this.cLowHealthSFXComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cLowHealthSFXComboBox.FormattingEnabled = true;
-            this.cLowHealthSFXComboBox.Items.AddRange(new object[] {
-            "Default",
-            "Disabled",
-            "Random",
-            "Chicks",
-            "Knockdown",
-            "Panting",
-            "SilverRupee",
-            "TatlDash",
-            "Baybee",
-            "DogBark",
-            "Cow",
-            "SecretLadder",
-            "AmusedFather"});
             this.cLowHealthSFXComboBox.Location = new System.Drawing.Point(25, 45);
             this.cLowHealthSFXComboBox.Name = "cLowHealthSFXComboBox";
+            this.cLowHealthSFXComboBox.Items.AddRange( MainForm.GetLowHealthSFXOptionList() );
             this.cLowHealthSFXComboBox.Size = new System.Drawing.Size(121, 21);
             this.cLowHealthSFXComboBox.TabIndex = 25;
             this.cLowHealthSFXComboBox.SelectedIndexChanged += new System.EventHandler(this.cLowHealthSFXComboBox_SelectedIndexChanged);
@@ -1379,7 +1353,7 @@ namespace MMR.UI.Forms
             this.cLowHealthSFXLabel.Location = new System.Drawing.Point(22, 27);
             this.cLowHealthSFXLabel.Name = "cLowHealthSFXLabel";
             this.cLowHealthSFXLabel.Size = new System.Drawing.Size(84, 13);
-            this.cLowHealthSFXLabel.TabIndex = 24;
+            this.cLowHealthSFXLabel.TabIndex = 25;
             this.cLowHealthSFXLabel.Text = "Low Health SFX";
             // 
             // cFDAnywhere
@@ -2209,7 +2183,6 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mLogicEdit;
         private System.Windows.Forms.CheckBox cEnableNightMusic;
-        private System.Windows.Forms.CheckBox cDisableLowHealthBeep;
         private System.Windows.Forms.CheckBox cFreestanding;
         private System.Windows.Forms.CheckBox cFDAnywhere;
         private System.Windows.Forms.CheckBox cArrowCycling;

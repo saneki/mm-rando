@@ -845,7 +845,7 @@ namespace MMR.Randomizer
             }
 
             var shuffledSoundEffects = new Dictionary<SoundEffect, SoundEffect>();
-            shuffledSoundEffects.Remove(SoundEffect.LowHealthBeep);
+            shuffledSoundEffects.Remove(SoundEffect.LowHealthBeep); // handled in next function
 
             var replacableSounds = SoundEffects.Replacable();
             foreach (var sound in replacableSounds)
@@ -885,7 +885,7 @@ namespace MMR.Randomizer
             if (_randomized.Settings.LowHealthSFX == LowHealthSFX.Disabled)
             {
                 // we can mute the SFX by nulling the function call to play the low health sfx
-                // turning JAL 0x80XXXXXX into NOP
+                // turning JAL 0x80XXXXXX into NOP, in RAM this is location 801018E4
                 ReadWriteUtils.WriteToROM(0x0B97E24, (uint)0x00000000);
             }
             else if (_randomized.Settings.LowHealthSFX >= 0)
@@ -895,7 +895,6 @@ namespace MMR.Randomizer
             else if(_randomized.Settings.LowHealthSFX == LowHealthSFX.Random)
             {
                 var soundPool = SoundEffects.FilterByTags(SoundEffect.LowHealthBeep.ReplacableByTags());
-
                 if (soundPool.Count > 0)
                 {
                     SoundEffect.LowHealthBeep.ReplaceWith(soundPool.Random(random));
