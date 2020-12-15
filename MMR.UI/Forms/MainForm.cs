@@ -1427,6 +1427,7 @@ namespace MMR.UI.Forms
                     tSettings.TabPages.Insert(0, tabMain);
                     tSettings.TabPages.Insert(1, tabGimmicks);
                     tSettings.TabPages.Insert(2, tabComfort);
+                    tSettings.TabPages.Insert(3, tabShortenCutscenes);
                 }
             }
             else
@@ -1434,6 +1435,7 @@ namespace MMR.UI.Forms
                 tSettings.TabPages.Remove(tabMain);
                 tSettings.TabPages.Remove(tabGimmicks);
                 tSettings.TabPages.Remove(tabComfort);
+                tSettings.TabPages.Remove(tabShortenCutscenes);
             }
 
             // Other..?

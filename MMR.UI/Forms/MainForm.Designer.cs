@@ -98,6 +98,8 @@ namespace MMR.UI.Forms
             this.lDMult = new System.Windows.Forms.Label();
             this.lDType = new System.Windows.Forms.Label();
             this.lBlastMask = new System.Windows.Forms.Label();
+            this.lNutAndStickDrops = new System.Windows.Forms.Label();
+            this.cNutAndStickDrops = new System.Windows.Forms.ComboBox();
             this.lGravity = new System.Windows.Forms.Label();
             this.lFloors = new System.Windows.Forms.Label();
             this.cHideClock = new System.Windows.Forms.CheckBox();
@@ -132,8 +134,6 @@ namespace MMR.UI.Forms
             this.cDisableCritWiggle = new System.Windows.Forms.CheckBox();
             this.cQuestItemStorage = new System.Windows.Forms.CheckBox();
             this.cNoDowngrades = new System.Windows.Forms.CheckBox();
-            this.cNutAndStickDrops = new System.Windows.Forms.ComboBox();
-            this.lNutAndStickDrops = new System.Windows.Forms.Label();
             this.tabShortenCutscenes = new System.Windows.Forms.TabPage();
             this.tShortenCutscenes = new System.Windows.Forms.TabControl();
             this.tabCosmetics = new System.Windows.Forms.TabPage();
@@ -195,6 +195,12 @@ namespace MMR.UI.Forms
             this.tpPatchSettings = new System.Windows.Forms.TabPage();
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.tSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -220,6 +226,11 @@ namespace MMR.UI.Forms
             this.ttOutput.SuspendLayout();
             this.tpOutputSettings.SuspendLayout();
             this.tpPatchSettings.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox10.SuspendLayout();
+            this.groupBox11.SuspendLayout();
+            this.groupBox12.SuspendLayout();
             this.SuspendLayout();
             // 
             // bopen
@@ -780,32 +791,12 @@ namespace MMR.UI.Forms
             // 
             // tabGimmicks
             // 
-            this.tabGimmicks.Controls.Add(this.cContinuousDekuHopping);
-            this.tabGimmicks.Controls.Add(this.cIceTrapQuirks);
-            this.tabGimmicks.Controls.Add(this.lIceTraps);
-            this.tabGimmicks.Controls.Add(this.cIceTrapsAppearance);
-            this.tabGimmicks.Controls.Add(this.cIceTraps);
-            this.tabGimmicks.Controls.Add(this.cDeathMoonCrash);
-            this.tabGimmicks.Controls.Add(this.cByoAmmo);
-            this.tabGimmicks.Controls.Add(this.cFDAnywhere);
-            this.tabGimmicks.Controls.Add(this.cUnderwaterOcarina);
-            this.tabGimmicks.Controls.Add(this.cGravity);
-            this.tabGimmicks.Controls.Add(this.cDType);
-            this.tabGimmicks.Controls.Add(this.cSunsSong);
-            this.tabGimmicks.Controls.Add(this.cFloors);
-            this.tabGimmicks.Controls.Add(this.cDMult);
-            this.tabGimmicks.Controls.Add(this.cBlastCooldown);
-            this.tabGimmicks.Controls.Add(this.lDMult);
-            this.tabGimmicks.Controls.Add(this.lDType);
-            this.tabGimmicks.Controls.Add(this.lBlastMask);
-            this.tabGimmicks.Controls.Add(this.lNutAndStickDrops);
-            this.tabGimmicks.Controls.Add(this.cNutAndStickDrops);
-            this.tabGimmicks.Controls.Add(this.lGravity);
-            this.tabGimmicks.Controls.Add(this.lFloors);
-            this.tabGimmicks.Controls.Add(this.cHideClock);
+            this.tabGimmicks.Controls.Add(this.groupBox12);
+            this.tabGimmicks.Controls.Add(this.groupBox11);
+            this.tabGimmicks.Controls.Add(this.groupBox10);
+            this.tabGimmicks.Controls.Add(this.groupBox5);
+            this.tabGimmicks.Controls.Add(this.groupBox1);
             this.tabGimmicks.Controls.Add(this.label4);
-            this.tabGimmicks.Controls.Add(this.cClockSpeed);
-            this.tabGimmicks.Controls.Add(this.label6);
             this.tabGimmicks.Location = new System.Drawing.Point(4, 22);
             this.tabGimmicks.Name = "tabGimmicks";
             this.tabGimmicks.Padding = new System.Windows.Forms.Padding(3);
@@ -820,7 +811,7 @@ namespace MMR.UI.Forms
             this.cContinuousDekuHopping.BackColor = System.Drawing.Color.Transparent;
             this.cContinuousDekuHopping.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cContinuousDekuHopping.ForeColor = System.Drawing.Color.Black;
-            this.cContinuousDekuHopping.Location = new System.Drawing.Point(393, 230);
+            this.cContinuousDekuHopping.Location = new System.Drawing.Point(6, 95);
             this.cContinuousDekuHopping.Name = "cContinuousDekuHopping";
             this.cContinuousDekuHopping.Size = new System.Drawing.Size(151, 17);
             this.cContinuousDekuHopping.TabIndex = 26;
@@ -834,7 +825,7 @@ namespace MMR.UI.Forms
             this.cIceTrapQuirks.BackColor = System.Drawing.Color.Transparent;
             this.cIceTrapQuirks.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cIceTrapQuirks.ForeColor = System.Drawing.Color.Black;
-            this.cIceTrapQuirks.Location = new System.Drawing.Point(393, 255);
+            this.cIceTrapQuirks.Location = new System.Drawing.Point(6, 95);
             this.cIceTrapQuirks.Name = "cIceTrapQuirks";
             this.cIceTrapQuirks.Size = new System.Drawing.Size(92, 17);
             this.cIceTrapQuirks.TabIndex = 29;
@@ -845,11 +836,11 @@ namespace MMR.UI.Forms
             // lIceTraps
             // 
             this.lIceTraps.AutoSize = true;
-            this.lIceTraps.Location = new System.Drawing.Point(157, 256);
+            this.lIceTraps.Location = new System.Drawing.Point(6, 16);
             this.lIceTraps.Name = "lIceTraps";
-            this.lIceTraps.Size = new System.Drawing.Size(55, 13);
+            this.lIceTraps.Size = new System.Drawing.Size(43, 13);
             this.lIceTraps.TabIndex = 28;
-            this.lIceTraps.Text = "Ice Traps:";
+            this.lIceTraps.Text = "Amount";
             // 
             // cIceTrapsAppearance
             // 
@@ -859,9 +850,9 @@ namespace MMR.UI.Forms
             "Major Items",
             "Junk Items",
             "Anything"});
-            this.cIceTrapsAppearance.Location = new System.Drawing.Point(300, 253);
+            this.cIceTrapsAppearance.Location = new System.Drawing.Point(6, 68);
             this.cIceTrapsAppearance.Name = "cIceTrapsAppearance";
-            this.cIceTrapsAppearance.Size = new System.Drawing.Size(76, 21);
+            this.cIceTrapsAppearance.Size = new System.Drawing.Size(138, 21);
             this.cIceTrapsAppearance.TabIndex = 27;
             this.cIceTrapsAppearance.SelectedIndexChanged += new System.EventHandler(this.cIceTrapsAppearance_SelectedIndexChanged);
             // 
@@ -875,9 +866,9 @@ namespace MMR.UI.Forms
             "Extra",
             "Mayhem",
             "Onslaught"});
-            this.cIceTraps.Location = new System.Drawing.Point(218, 253);
+            this.cIceTraps.Location = new System.Drawing.Point(6, 30);
             this.cIceTraps.Name = "cIceTraps";
-            this.cIceTraps.Size = new System.Drawing.Size(76, 21);
+            this.cIceTraps.Size = new System.Drawing.Size(138, 21);
             this.cIceTraps.TabIndex = 26;
             this.cIceTraps.SelectedIndexChanged += new System.EventHandler(this.cIceTraps_SelectedIndexChanged);
             // 
@@ -887,7 +878,7 @@ namespace MMR.UI.Forms
             this.cDeathMoonCrash.BackColor = System.Drawing.Color.Transparent;
             this.cDeathMoonCrash.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cDeathMoonCrash.ForeColor = System.Drawing.Color.Black;
-            this.cDeathMoonCrash.Location = new System.Drawing.Point(393, 207);
+            this.cDeathMoonCrash.Location = new System.Drawing.Point(6, 98);
             this.cDeathMoonCrash.Name = "cDeathMoonCrash";
             this.cDeathMoonCrash.Size = new System.Drawing.Size(125, 17);
             this.cDeathMoonCrash.TabIndex = 25;
@@ -901,7 +892,7 @@ namespace MMR.UI.Forms
             this.cByoAmmo.BackColor = System.Drawing.Color.Transparent;
             this.cByoAmmo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cByoAmmo.ForeColor = System.Drawing.Color.Black;
-            this.cByoAmmo.Location = new System.Drawing.Point(393, 184);
+            this.cByoAmmo.Location = new System.Drawing.Point(6, 121);
             this.cByoAmmo.Name = "cByoAmmo";
             this.cByoAmmo.Size = new System.Drawing.Size(80, 17);
             this.cByoAmmo.TabIndex = 24;
@@ -915,7 +906,7 @@ namespace MMR.UI.Forms
             this.cFDAnywhere.BackColor = System.Drawing.Color.Transparent;
             this.cFDAnywhere.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cFDAnywhere.ForeColor = System.Drawing.Color.Black;
-            this.cFDAnywhere.Location = new System.Drawing.Point(393, 161);
+            this.cFDAnywhere.Location = new System.Drawing.Point(127, 65);
             this.cFDAnywhere.Name = "cFDAnywhere";
             this.cFDAnywhere.Size = new System.Drawing.Size(195, 17);
             this.cFDAnywhere.TabIndex = 23;
@@ -927,7 +918,7 @@ namespace MMR.UI.Forms
             // 
             this.cUnderwaterOcarina.AutoSize = true;
             this.cUnderwaterOcarina.BackColor = System.Drawing.Color.Transparent;
-            this.cUnderwaterOcarina.Location = new System.Drawing.Point(393, 115);
+            this.cUnderwaterOcarina.Location = new System.Drawing.Point(127, 19);
             this.cUnderwaterOcarina.Name = "cUnderwaterOcarina";
             this.cUnderwaterOcarina.Size = new System.Drawing.Size(121, 17);
             this.cUnderwaterOcarina.TabIndex = 22;
@@ -945,7 +936,7 @@ namespace MMR.UI.Forms
             "Super low gravity",
             "Low gravity",
             "High gravity"});
-            this.cGravity.Location = new System.Drawing.Point(218, 144);
+            this.cGravity.Location = new System.Drawing.Point(6, 30);
             this.cGravity.Name = "cGravity";
             this.cGravity.Size = new System.Drawing.Size(158, 21);
             this.cGravity.TabIndex = 0;
@@ -962,7 +953,7 @@ namespace MMR.UI.Forms
             "Shock",
             "Knockdown",
             "Random"});
-            this.cDType.Location = new System.Drawing.Point(218, 117);
+            this.cDType.Location = new System.Drawing.Point(6, 71);
             this.cDType.Name = "cDType";
             this.cDType.Size = new System.Drawing.Size(158, 21);
             this.cDType.TabIndex = 0;
@@ -974,7 +965,7 @@ namespace MMR.UI.Forms
             this.cSunsSong.BackColor = System.Drawing.Color.Transparent;
             this.cSunsSong.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cSunsSong.ForeColor = System.Drawing.Color.Black;
-            this.cSunsSong.Location = new System.Drawing.Point(393, 138);
+            this.cSunsSong.Location = new System.Drawing.Point(127, 42);
             this.cSunsSong.Name = "cSunsSong";
             this.cSunsSong.Size = new System.Drawing.Size(116, 17);
             this.cSunsSong.TabIndex = 21;
@@ -992,7 +983,7 @@ namespace MMR.UI.Forms
             "Ice",
             "Snow",
             "Random"});
-            this.cFloors.Location = new System.Drawing.Point(218, 172);
+            this.cFloors.Location = new System.Drawing.Point(6, 68);
             this.cFloors.Name = "cFloors";
             this.cFloors.Size = new System.Drawing.Size(158, 21);
             this.cFloors.TabIndex = 0;
@@ -1008,7 +999,7 @@ namespace MMR.UI.Forms
             "4x",
             "1-hit KO",
             "Doom"});
-            this.cDMult.Location = new System.Drawing.Point(218, 90);
+            this.cDMult.Location = new System.Drawing.Point(6, 33);
             this.cDMult.Name = "cDMult";
             this.cDMult.Size = new System.Drawing.Size(158, 21);
             this.cDMult.TabIndex = 0;
@@ -1025,56 +1016,81 @@ namespace MMR.UI.Forms
             "Short",
             "Long",
             "Very Long"});
-            this.cBlastCooldown.Location = new System.Drawing.Point(218, 226);
+            this.cBlastCooldown.Location = new System.Drawing.Point(6, 30);
             this.cBlastCooldown.Name = "cBlastCooldown";
-            this.cBlastCooldown.Size = new System.Drawing.Size(158, 21);
+            this.cBlastCooldown.Size = new System.Drawing.Size(106, 21);
             this.cBlastCooldown.TabIndex = 20;
             this.cBlastCooldown.SelectedIndexChanged += new System.EventHandler(this.cBlastCooldown_SelectedIndexChanged);
             // 
             // lDMult
             // 
             this.lDMult.AutoSize = true;
-            this.lDMult.Location = new System.Drawing.Point(133, 93);
+            this.lDMult.Location = new System.Drawing.Point(6, 19);
             this.lDMult.Name = "lDMult";
-            this.lDMult.Size = new System.Drawing.Size(79, 13);
+            this.lDMult.Size = new System.Drawing.Size(76, 13);
             this.lDMult.TabIndex = 1;
-            this.lDMult.Text = "Damage mode:";
+            this.lDMult.Text = "Damage mode";
             // 
             // lDType
             // 
             this.lDType.AutoSize = true;
-            this.lDType.Location = new System.Drawing.Point(127, 120);
+            this.lDType.Location = new System.Drawing.Point(6, 57);
             this.lDType.Name = "lDType";
-            this.lDType.Size = new System.Drawing.Size(85, 13);
+            this.lDType.Size = new System.Drawing.Size(82, 13);
             this.lDType.TabIndex = 1;
-            this.lDType.Text = "Damage effects:";
+            this.lDType.Text = "Damage effects";
             // 
             // lBlastMask
             // 
             this.lBlastMask.AutoSize = true;
-            this.lBlastMask.Location = new System.Drawing.Point(100, 228);
+            this.lBlastMask.Location = new System.Drawing.Point(7, 16);
             this.lBlastMask.Name = "lBlastMask";
-            this.lBlastMask.Size = new System.Drawing.Size(112, 13);
+            this.lBlastMask.Size = new System.Drawing.Size(109, 13);
             this.lBlastMask.TabIndex = 19;
-            this.lBlastMask.Text = "Blast Mask Cooldown:";
+            this.lBlastMask.Text = "Blast Mask Cooldown";
+            // 
+            // lNutAndStickDrops
+            // 
+            this.lNutAndStickDrops.AutoSize = true;
+            this.lNutAndStickDrops.Location = new System.Drawing.Point(7, 54);
+            this.lNutAndStickDrops.Name = "lNutAndStickDrops";
+            this.lNutAndStickDrops.Size = new System.Drawing.Size(103, 13);
+            this.lNutAndStickDrops.TabIndex = 25;
+            this.lNutAndStickDrops.Text = "Nut and Stick Drops";
+            // 
+            // cNutAndStickDrops
+            // 
+            this.cNutAndStickDrops.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cNutAndStickDrops.FormattingEnabled = true;
+            this.cNutAndStickDrops.Items.AddRange(new object[] {
+            "Default",
+            "Light",
+            "Medium",
+            "Extra",
+            "Mayhem"});
+            this.cNutAndStickDrops.Location = new System.Drawing.Point(6, 68);
+            this.cNutAndStickDrops.Name = "cNutAndStickDrops";
+            this.cNutAndStickDrops.Size = new System.Drawing.Size(106, 21);
+            this.cNutAndStickDrops.TabIndex = 26;
+            this.cNutAndStickDrops.SelectedIndexChanged += new System.EventHandler(this.cNutAndStickDrops_SelectedIndexChanged);
             // 
             // lGravity
             // 
             this.lGravity.AutoSize = true;
-            this.lGravity.Location = new System.Drawing.Point(152, 147);
+            this.lGravity.Location = new System.Drawing.Point(6, 16);
             this.lGravity.Name = "lGravity";
-            this.lGravity.Size = new System.Drawing.Size(60, 13);
+            this.lGravity.Size = new System.Drawing.Size(82, 13);
             this.lGravity.TabIndex = 1;
-            this.lGravity.Text = "Movement:";
+            this.lGravity.Text = "Gravity / Speed";
             // 
             // lFloors
             // 
             this.lFloors.AutoSize = true;
-            this.lFloors.Location = new System.Drawing.Point(151, 175);
+            this.lFloors.Location = new System.Drawing.Point(6, 54);
             this.lFloors.Name = "lFloors";
-            this.lFloors.Size = new System.Drawing.Size(61, 13);
+            this.lFloors.Size = new System.Drawing.Size(58, 13);
             this.lFloors.TabIndex = 1;
-            this.lFloors.Text = "Floor types:";
+            this.lFloors.Text = "Floor types";
             // 
             // cHideClock
             // 
@@ -1082,11 +1098,11 @@ namespace MMR.UI.Forms
             this.cHideClock.BackColor = System.Drawing.Color.Transparent;
             this.cHideClock.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cHideClock.ForeColor = System.Drawing.Color.Black;
-            this.cHideClock.Location = new System.Drawing.Point(393, 92);
+            this.cHideClock.Location = new System.Drawing.Point(6, 62);
             this.cHideClock.Name = "cHideClock";
-            this.cHideClock.Size = new System.Drawing.Size(92, 17);
+            this.cHideClock.Size = new System.Drawing.Size(62, 17);
             this.cHideClock.TabIndex = 17;
-            this.cHideClock.Text = "Hide Clock UI";
+            this.cHideClock.Text = "Hide UI";
             this.cHideClock.UseVisualStyleBackColor = false;
             this.cHideClock.CheckedChanged += new System.EventHandler(this.cHideClock_CheckedChanged);
             // 
@@ -1098,10 +1114,10 @@ namespace MMR.UI.Forms
             this.label4.ForeColor = System.Drawing.Color.Black;
             this.label4.Location = new System.Drawing.Point(198, 14);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(252, 52);
+            this.label4.Size = new System.Drawing.Size(237, 52);
             this.label4.TabIndex = 14;
-            this.label4.Text = "WARNING!\r\nThese settings are not considered in logic and some\r\ncan cause the seed" +
-    " to be unbeatable.\r\nUse at your own risk!";
+            this.label4.Text = "WARNING!\r\nMost of these settings are not considered in logic\r\nand some can cause " +
+    "the seed to be unbeatable.\r\nUse at your own risk!";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // cClockSpeed
@@ -1115,20 +1131,20 @@ namespace MMR.UI.Forms
             "2x",
             "3x",
             "6x"});
-            this.cClockSpeed.Location = new System.Drawing.Point(218, 199);
+            this.cClockSpeed.Location = new System.Drawing.Point(6, 35);
             this.cClockSpeed.Name = "cClockSpeed";
-            this.cClockSpeed.Size = new System.Drawing.Size(158, 21);
+            this.cClockSpeed.Size = new System.Drawing.Size(141, 21);
             this.cClockSpeed.TabIndex = 15;
             this.cClockSpeed.SelectedIndexChanged += new System.EventHandler(this.cClockSpeed_SelectedIndexChanged);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(143, 202);
+            this.label6.Location = new System.Drawing.Point(3, 21);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(69, 13);
+            this.label6.Size = new System.Drawing.Size(38, 13);
             this.label6.TabIndex = 16;
-            this.label6.Text = "Clock speed:";
+            this.label6.Text = "Speed";
             // 
             // tabComfort
             // 
@@ -1586,23 +1602,6 @@ namespace MMR.UI.Forms
             this.gCosmeticMusicSound.TabIndex = 46;
             this.gCosmeticMusicSound.TabStop = false;
             this.gCosmeticMusicSound.Text = "Music / Sound";
-            // cNutAndStickDrops
-            // 
-            this.cNutAndStickDrops.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cNutAndStickDrops.FormattingEnabled = true;
-            this.cNutAndStickDrops.Items.AddRange(new object[] {
-            "Default",
-            "Light",
-            "Medium",
-            "Extra",
-            "Mayhem"});
-            this.cNutAndStickDrops.Location = new System.Drawing.Point(476, 31);
-            this.cNutAndStickDrops.Name = "cNutAndStickDrops";
-            this.cNutAndStickDrops.Size = new System.Drawing.Size(121, 21);
-            this.cNutAndStickDrops.TabIndex = 26;
-            this.cNutAndStickDrops.SelectedIndexChanged += new System.EventHandler(this.cNutAndStickDrops_SelectedIndexChanged);
-            // 
-            // cDType
             // 
             // lMusic
             // 
@@ -1762,18 +1761,8 @@ namespace MMR.UI.Forms
             this.btn_hud.UseVisualStyleBackColor = true;
             this.btn_hud.Click += new System.EventHandler(this.btn_hud_Click);
             // 
-            // lNutAndStickDrops
-            // 
-            this.lNutAndStickDrops.AutoSize = true;
-            this.lNutAndStickDrops.Location = new System.Drawing.Point(473, 14);
-            this.lNutAndStickDrops.Name = "lNutAndStickDrops";
-            this.lNutAndStickDrops.Size = new System.Drawing.Size(169, 13);
-            this.lNutAndStickDrops.TabIndex = 25;
-            this.lNutAndStickDrops.Text = "Termina Field Nut and Stick Drops";
-            // 
-            // label6
-            //
             // tFormCosmetics
+            // 
             this.tFormCosmetics.Location = new System.Drawing.Point(6, 3);
             this.tFormCosmetics.Name = "tFormCosmetics";
             this.tFormCosmetics.SelectedIndex = 0;
@@ -2152,6 +2141,86 @@ namespace MMR.UI.Forms
             this.bLoadPatch.UseVisualStyleBackColor = true;
             this.bLoadPatch.Click += new System.EventHandler(this.BLoadPatch_Click);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.cClockSpeed);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.cHideClock);
+            this.groupBox1.Location = new System.Drawing.Point(3, 163);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(153, 142);
+            this.groupBox1.TabIndex = 30;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Clock";
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.label2);
+            this.groupBox5.Controls.Add(this.lIceTraps);
+            this.groupBox5.Controls.Add(this.cIceTraps);
+            this.groupBox5.Controls.Add(this.cIceTrapsAppearance);
+            this.groupBox5.Controls.Add(this.cIceTrapQuirks);
+            this.groupBox5.Location = new System.Drawing.Point(6, 6);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(150, 151);
+            this.groupBox5.TabIndex = 31;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Ice Traps";
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.cFloors);
+            this.groupBox10.Controls.Add(this.lFloors);
+            this.groupBox10.Controls.Add(this.lGravity);
+            this.groupBox10.Controls.Add(this.cGravity);
+            this.groupBox10.Controls.Add(this.cContinuousDekuHopping);
+            this.groupBox10.Location = new System.Drawing.Point(491, 6);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(170, 151);
+            this.groupBox10.TabIndex = 32;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "Movement";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 54);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(65, 13);
+            this.label2.TabIndex = 30;
+            this.label2.Text = "Appearance";
+            // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.cDType);
+            this.groupBox11.Controls.Add(this.lDType);
+            this.groupBox11.Controls.Add(this.cDeathMoonCrash);
+            this.groupBox11.Controls.Add(this.cByoAmmo);
+            this.groupBox11.Controls.Add(this.cDMult);
+            this.groupBox11.Controls.Add(this.lDMult);
+            this.groupBox11.Location = new System.Drawing.Point(491, 163);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(170, 142);
+            this.groupBox11.TabIndex = 33;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "Challenges";
+            // 
+            // groupBox12
+            // 
+            this.groupBox12.Controls.Add(this.cFDAnywhere);
+            this.groupBox12.Controls.Add(this.cBlastCooldown);
+            this.groupBox12.Controls.Add(this.cUnderwaterOcarina);
+            this.groupBox12.Controls.Add(this.cSunsSong);
+            this.groupBox12.Controls.Add(this.lBlastMask);
+            this.groupBox12.Controls.Add(this.lNutAndStickDrops);
+            this.groupBox12.Controls.Add(this.cNutAndStickDrops);
+            this.groupBox12.Location = new System.Drawing.Point(162, 80);
+            this.groupBox12.Name = "groupBox12";
+            this.groupBox12.Size = new System.Drawing.Size(323, 225);
+            this.groupBox12.TabIndex = 34;
+            this.groupBox12.TabStop = false;
+            this.groupBox12.Text = "Other";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2219,6 +2288,16 @@ namespace MMR.UI.Forms
             this.tpOutputSettings.PerformLayout();
             this.tpPatchSettings.ResumeLayout(false);
             this.tpPatchSettings.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
+            this.groupBox12.ResumeLayout(false);
+            this.groupBox12.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2389,6 +2468,12 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.GroupBox gCosmeticMusicSound;
         private System.Windows.Forms.TabPage tabShortenCutscenes;
         private System.Windows.Forms.TabControl tShortenCutscenes;
+        private System.Windows.Forms.GroupBox groupBox12;
+        private System.Windows.Forms.GroupBox groupBox11;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 
