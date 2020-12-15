@@ -1,6 +1,7 @@
 ﻿using MMR.Randomizer.Asm;
 using MMR.Randomizer.Utils;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -69,11 +70,27 @@ namespace MMR.Randomizer.Models.Settings
         }
 
         /// <summary>
+        /// Whether or not to apply Elegy of Emptiness speedups.
+        /// </summary>
+        public bool ElegySpeedup {
+            get { return this.AsmOptions.MiscConfig.Flags.ElegySpeedup; }
+            set { this.AsmOptions.MiscConfig.Flags.ElegySpeedup = value; }
+        }
+
+        /// <summary>
         /// Whether or not to enable faster pushing and pulling speeds.
         /// </summary>
         public bool FastPush {
             get { return this.AsmOptions.MiscConfig.Flags.FastPush; }
             set { this.AsmOptions.MiscConfig.Flags.FastPush = value; }
+        }
+
+        /// <summary>
+        /// Whether or not ice traps should behave slightly differently from other items in certain situations.
+        /// </summary>
+        public bool IceTrapQuirks {
+            get { return this.AsmOptions.MiscConfig.Flags.IceTrapQuirks; }
+            set { this.AsmOptions.MiscConfig.Flags.IceTrapQuirks = value; }
         }
 
         /// <summary>
@@ -100,6 +117,33 @@ namespace MMR.Randomizer.Models.Settings
             set { this.AsmOptions.MiscConfig.Flags.QuestItemStorage = value; }
         }
 
+        /// <summary>
+        /// Whether or not to enable Continuous Deku Hopping.
+        /// </summary>
+        public bool ContinuousDekuHopping
+        {
+            get { return this.AsmOptions.MiscConfig.Flags.ContinuousDekuHopping; }
+            set { this.AsmOptions.MiscConfig.Flags.ContinuousDekuHopping = value; }
+        }
+
+        /// <summary>
+        /// Updates shop models and text
+        /// </summary>
+        public bool UpdateShopAppearance
+        {
+            get { return this.AsmOptions.MiscConfig.Flags.ShopModels; }
+            set { this.AsmOptions.MiscConfig.Flags.ShopModels = value; }
+        }
+
+        /// <summary>
+        /// Updates shop models and text
+        /// </summary>
+        public bool ProgressiveUpgrades
+        {
+            get { return this.AsmOptions.MiscConfig.Flags.ProgressiveUpgrades; }
+            set { this.AsmOptions.MiscConfig.Flags.ProgressiveUpgrades = value; }
+        }
+
         #endregion
 
         #region Random Elements
@@ -108,6 +152,8 @@ namespace MMR.Randomizer.Models.Settings
         /// Selected mode of logic (affects randomization rules)
         /// </summary>
         public LogicMode LogicMode { get; set; }
+
+        public List<int> EnabledTricks { get; set; } = new List<int>();
 
         /// <summary>
         /// Add songs to the randomization pool
@@ -228,6 +274,16 @@ namespace MMR.Randomizer.Models.Settings
         /// </summary>
         public string CustomJunkLocationsString { get; set; }
 
+        /// <summary>
+        /// Defines number of ice traps.
+        /// </summary>
+        public IceTraps IceTraps { get; set; }
+
+        /// <summary>
+        /// Defines appearance pool for visible ice traps.
+        /// </summary>
+        public IceTrapAppearance IceTrapAppearance { get; set; }
+
         #endregion
 
         #region Gimmicks
@@ -251,6 +307,8 @@ namespace MMR.Randomizer.Models.Settings
         /// Sets the type of floor globally
         /// </summary>
         public FloorType FloorType { get; set; }
+
+        public NutAndStickDrops NutandStickDrops { get; set; }
 
         /// <summary>
         /// Sets the clock speed.
@@ -281,6 +339,16 @@ namespace MMR.Randomizer.Models.Settings
         /// Sets the Low health beeping sfx
         /// </summary>
         public LowHealthSFX LowHealthSFX { get; set; }
+      
+        /// <summary>
+        /// Arrows, Bombs, and Bombchu will not be provided. You must bring your own. Logic Modes other than No Logic will account for this.
+        /// </summary>
+        public bool ByoAmmo { get; set; }
+
+        /// <summary>
+        /// Dying causes the moon to crash, with all that that implies.
+        /// </summary>
+        public bool DeathMoonCrash { get; set; }
 
         #endregion
 
@@ -289,7 +357,7 @@ namespace MMR.Randomizer.Models.Settings
         /// <summary>
         /// Certain cutscenes will play shorter, or will be skipped
         /// </summary>
-        public bool ShortenCutscenes { get; set; }
+        public ShortenCutsceneSettings ShortenCutsceneSettings { get; set; }
 
         /// <summary>
         /// Text is fast-forwarded
@@ -320,11 +388,6 @@ namespace MMR.Randomizer.Models.Settings
         /// Prevent downgrades
         /// </summary>
         public bool PreventDowngrades { get; set; } = true;
-
-        /// <summary>
-        /// Updates shop models and text
-        /// </summary>
-        public bool UpdateShopAppearance { get; set; } = true;
 
         /// <summary>
         /// Updates chest appearance to match contents
@@ -369,211 +432,20 @@ namespace MMR.Randomizer.Models.Settings
 
         #region Functions
 
-        public void Update(string settings)
-        {
-            var parts = settings.Split('-')
-                .Select(p => Base36Utils.Decode(p))
-                .ToArray();
-
-            if (parts.Any(p => p > int.MaxValue))
-            {
-                throw new ArgumentException(nameof(settings));
-            }
-
-            int part1 = (int)parts[0];
-            int part2 = (int)parts[1];
-            int part3 = (int)parts[2];
-            int part4 = (int)parts[3];
-            int part5 = (int)parts[4];
-
-            UseCustomItemList = (part1 & 8192) > 0;
-
-            if (UseCustomItemList)
-            {
-                CrazyStartingItems = false;
-                AddNutChest = false;
-                AddMoonItems = false;
-                AddFairyRewards = false;
-                AddOther = false;
-                ExcludeSongOfSoaring = false;
-                RandomizeBottleCatchContents = false;
-                AddDungeonItems = false;
-                AddShopItems = false;
-                AddCowMilk = false;
-                AddSkulltulaTokens = false;
-                AddStrayFairies = false;
-                AddMundaneRewards = false;
-            }
-            else
-            {
-                AddMundaneRewards = (part1 & 1073741824) > 0;
-                AddStrayFairies = (part1 & 536870912) > 0;
-                AddSkulltulaTokens = (part1 & 268435456) > 0;
-                AddCowMilk = (part1 & 134217728) > 0;
-                AddFairyRewards = (part1 & 67108864) > 0;
-                CrazyStartingItems = (part1 & 4194304) > 0;
-                AddNutChest = (part1 & 2097152) > 0;
-                AddMoonItems = (part1 & 32768) > 0;
-                AddOther = (part1 & 4096) > 0;
-                ExcludeSongOfSoaring = (part1 & 1024) > 0;
-                RandomizeBottleCatchContents = (part1 & 128) > 0;
-                AddDungeonItems = (part1 & 64) > 0;
-                AddShopItems = (part1 & 32) > 0;
-            }
-
-            UpdateChests = (part1 & 33554432) > 0;
-            FixEponaSword = (part1 & 16777216) > 0;
-            NoStartingItems = (UseCustomItemList || AddOther) && (part1 & 8388608) > 0;
-            UpdateShopAppearance = (part1 & 1048576) > 0;
-            PreventDowngrades = (part1 & 524288) > 0;
-            EnableSunsSong = (part1 & 262144) > 0;
-            HideClock = (part1 & 131072) > 0;
-            ClearHints = (part1 & 65536) > 0;
-            FreeHints = (part1 & 16384) > 0;
-            // 8192 - UseCustomItemList, see above
-            AllowFierceDeityAnywhere = (part1 & 2048) > 0;
-            UpdateWorldModels = (part1 & 512) > 0;
-            AddSongs = (part1 & 256) > 0;
-            RandomizeDungeonEntrances = (part1 & 16) > 0;
-            ArrowCycling = (part1 & 8) > 0;
-            RandomizeEnemies = (part1 & 4) > 0;
-            ShortenCutscenes = (part1 & 2) > 0;
-            QuickTextEnabled = (part1 & 1) > 0;
-
-            var damageMultiplierIndex = (int)((part2 & 0xF0000000) >> 28);
-            var damageTypeIndex = (part2 & 0xF000000) >> 24;
-            var modeIndex = (part2 & 0xFF0000) >> 16;
-            var characterIndex = (part2 & 0xFF00) >> 8;
-            // = part2 & 0xFF;
-
-            var gravityTypeIndex = (int)((part3 & 0xF0000000) >> 28);
-            var floorTypeIndex = (part3 & 0xF000000) >> 24;
-            // = Color.FromArgb(
-            //    (part3 & 0xFF0000) >> 16,
-            //    (part3 & 0xFF00) >> 8,
-            //    part3 & 0xFF);
-
-            var clockSpeedIndex = (byte)(part4 & 0xFF);
-            var gossipHintsIndex = (byte)((part4 & 0xFF00) >> 8);
-            var blastmaskCooldown = (byte)((part4 & 0xFF0000) >> 16);
-            // = (byte)((part4 & 0xFF000000) >> 24);
-
-            SpeedupBeavers = (part5 & (1 << 0)) > 0;
-            SpeedupDampe = (part5 & (1 << 1)) > 0;
-            SpeedupDogRace = (part5 & (1 << 2)) > 0;
-            SpeedupLabFish = (part5 & (1 << 3)) > 0;
-
-            CritWiggleDisable = (part5 & (1 << 4)) > 0;
-            SpeedupBank = (part5 & (1 << 5)) > 0;
-            FastPush = (part5 & (1 << 6)) > 0;
-            OcarinaUnderwater = (part5 & (1 << 7)) > 0;
-            QuestItemStorage = (part5 & (1 << 8)) > 0;
-            CloseCows = (part5 & (1 << 9)) > 0;
-
-            DamageMode = (DamageMode)damageMultiplierIndex;
-            DamageEffect = (DamageEffect)damageTypeIndex;
-            LogicMode = (LogicMode)modeIndex;
-            Character = (Character)characterIndex;
-            MovementMode = (MovementMode)gravityTypeIndex;
-            FloorType = (FloorType)floorTypeIndex;
-            ClockSpeed = (ClockSpeed)clockSpeedIndex;
-            GossipHintStyle = (GossipHintStyle)gossipHintsIndex;
-            BlastMaskCooldown = (BlastMaskCooldown)blastmaskCooldown;
-        }
-
-
-        private int[] BuildSettingsBytes()
-        {
-            int[] parts = new int[5];
-
-            if (UseCustomItemList)
-            {
-                parts[0] += 8192;
-            }
-            else
-            {
-                if (AddMundaneRewards) { parts[0] += 1073741824; }
-                if (AddStrayFairies) { parts[0] += 536870912; }
-                if (AddSkulltulaTokens) { parts[0] += 268435456; }
-                if (AddCowMilk) { parts[0] += 134217728; }
-                if (AddFairyRewards) { parts[0] += 67108864; }
-                if (CrazyStartingItems) { parts[0] += 4194304; }
-                if (AddNutChest) { parts[0] += 2097152; }
-                if (AddMoonItems) { parts[0] += 32768; }
-                if (AddOther) { parts[0] += 4096; }
-                if (ExcludeSongOfSoaring) { parts[0] += 1024; }
-                if (RandomizeBottleCatchContents) { parts[0] += 128; }
-                if (AddDungeonItems) { parts[0] += 64; }
-                if (AddShopItems) { parts[0] += 32; }
-            }
-            if (UpdateChests) { parts[0] += 33554432; }
-            if (FixEponaSword) { parts[0] += 16777216; }
-            if (NoStartingItems && (UseCustomItemList || AddOther)) { parts[0] += 8388608; }
-            if (UpdateShopAppearance) { parts[0] += 1048576; }
-            if (PreventDowngrades) { parts[0] += 524288; }
-            if (EnableSunsSong) { parts[0] += 262144; }
-            if (HideClock) { parts[0] += 131072; };
-            if (ClearHints) { parts[0] += 65536; };
-            if (FreeHints) { parts[0] += 16384; };
-            if (AllowFierceDeityAnywhere) { parts[0] += 2048; }
-            if (UpdateWorldModels) { parts[0] += 512; };
-            if (AddSongs) { parts[0] += 256; };
-            if (RandomizeDungeonEntrances) { parts[0] += 16; };
-            if (ArrowCycling) { parts[0] += 8; };
-            if (RandomizeEnemies) { parts[0] += 4; };
-            if (ShortenCutscenes) { parts[0] += 2; };
-            if (QuickTextEnabled) { parts[0] += 1; };
-
-            parts[1] = ((byte)LogicMode << 16)
-                | ((byte)Character << 8)
-                //| ((byte)TatlColorSchema)
-                | ((byte)DamageEffect << 24)
-                | ((byte)DamageMode << 28)
-                ;
-
-            parts[2] = 
-                //(TunicColor.R << 16) |
-                //(TunicColor.G << 8) |
-                //(TunicColor.B) |
-                ((byte)FloorType << 24) |
-                ((byte)MovementMode << 28)
-                ;
-
-            parts[3] = 
-                (byte)ClockSpeed |
-                ((byte)GossipHintStyle << 8) |
-                ((byte)BlastMaskCooldown << 16)
-                //((byte)Music << 24)
-                ;
-
-            if (SpeedupBeavers) { parts[4] += (1 << 0); }
-            if (SpeedupDampe) { parts[4] += (1 << 1); }
-            if (SpeedupDogRace) { parts[4] += (1 << 2); }
-            if (SpeedupLabFish) { parts[4] += (1 << 3); }
-
-            if (CritWiggleDisable) { parts[4] += (1 << 4); }
-            if (SpeedupBank) { parts[4] += (1 << 5); }
-            if (FastPush) { parts[4] += (1 << 6); }
-            if (OcarinaUnderwater) { parts[4] += (1 << 7); }
-            if (QuestItemStorage) { parts[4] += (1 << 8); }
-            if (CloseCows) { parts[4] += (1 << 9); }
-
-            return parts;
-        }
-
-        private string EncodeSettings()
-        {
-            var partsEncoded = BuildSettingsBytes()
-                .Select(p => Base36Utils.Encode(p))
-                .ToArray();
-
-            return string.Join("-", partsEncoded);
-        }
-
         public override string ToString()
         {
-            return EncodeSettings();
+            return JsonConvert.SerializeObject(this, _jsonSerializerSettings);
         }
+
+        private readonly static JsonSerializerSettings _jsonSerializerSettings = new JsonSerializerSettings
+        {
+            ContractResolver = new WritablePropertiesOnlyResolver(),
+            NullValueHandling = NullValueHandling.Ignore,
+            Converters =
+            {
+                new StringEnumConverter(),
+            }
+        };
 
         public string Validate()
         {

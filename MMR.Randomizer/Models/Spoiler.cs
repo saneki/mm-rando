@@ -15,7 +15,7 @@ namespace MMR.Randomizer.Models
 
         public string SettingsString { get; set; }
 
-        public bool RandomizeDungeonEntrances { get; set; }
+        public Dictionary<Item, Item> DungeonEntrances { get; set; }
 
         public int Seed { get; set; }
 
@@ -24,12 +24,6 @@ namespace MMR.Randomizer.Models
         public List<ItemLogic> Logic { get; set; }
 
         public Dictionary<GossipQuote, string> GossipHints { get; set; }
-
-        public string CustomItemListString { get; set; }
-
-        public string CustomStartingItemListString { get; set; }
-
-        public string CustomJunkLocationsString { get; set; }
 
         public string LogicJson
         {
@@ -47,16 +41,6 @@ namespace MMR.Randomizer.Models
                 }
             }
         }
-
-        public int[] NewDestinationIndices { get; set; }
-
-        public Item[] Entrances { get; set; } = new Item[]
-        {
-            Item.AreaWoodFallTempleAccess,
-            Item.AreaSnowheadTempleAccess,
-            Item.AreaInvertedStoneTowerTempleAccess,
-            Item.AreaGreatBayTempleAccess,
-        };
     }
 }
 
