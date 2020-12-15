@@ -132,6 +132,8 @@ namespace MMR.UI.Forms
             this.cDisableCritWiggle = new System.Windows.Forms.CheckBox();
             this.cQuestItemStorage = new System.Windows.Forms.CheckBox();
             this.cNoDowngrades = new System.Windows.Forms.CheckBox();
+            this.cNutAndStickDrops = new System.Windows.Forms.ComboBox();
+            this.lNutAndStickDrops = new System.Windows.Forms.Label();
             this.tabShortenCutscenes = new System.Windows.Forms.TabPage();
             this.tShortenCutscenes = new System.Windows.Forms.TabControl();
             this.tabCosmetics = new System.Windows.Forms.TabPage();
@@ -796,6 +798,8 @@ namespace MMR.UI.Forms
             this.tabGimmicks.Controls.Add(this.lDMult);
             this.tabGimmicks.Controls.Add(this.lDType);
             this.tabGimmicks.Controls.Add(this.lBlastMask);
+            this.tabGimmicks.Controls.Add(this.lNutAndStickDrops);
+            this.tabGimmicks.Controls.Add(this.cNutAndStickDrops);
             this.tabGimmicks.Controls.Add(this.lGravity);
             this.tabGimmicks.Controls.Add(this.lFloors);
             this.tabGimmicks.Controls.Add(this.cHideClock);
@@ -1582,6 +1586,23 @@ namespace MMR.UI.Forms
             this.gCosmeticMusicSound.TabIndex = 46;
             this.gCosmeticMusicSound.TabStop = false;
             this.gCosmeticMusicSound.Text = "Music / Sound";
+            // cNutAndStickDrops
+            // 
+            this.cNutAndStickDrops.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cNutAndStickDrops.FormattingEnabled = true;
+            this.cNutAndStickDrops.Items.AddRange(new object[] {
+            "Default",
+            "Light",
+            "Medium",
+            "Extra",
+            "Mayhem"});
+            this.cNutAndStickDrops.Location = new System.Drawing.Point(476, 31);
+            this.cNutAndStickDrops.Name = "cNutAndStickDrops";
+            this.cNutAndStickDrops.Size = new System.Drawing.Size(121, 21);
+            this.cNutAndStickDrops.TabIndex = 26;
+            this.cNutAndStickDrops.SelectedIndexChanged += new System.EventHandler(this.cNutAndStickDrops_SelectedIndexChanged);
+            // 
+            // cDType
             // 
             // lMusic
             // 
@@ -1741,8 +1762,18 @@ namespace MMR.UI.Forms
             this.btn_hud.UseVisualStyleBackColor = true;
             this.btn_hud.Click += new System.EventHandler(this.btn_hud_Click);
             // 
-            // tFormCosmetics
+            // lNutAndStickDrops
             // 
+            this.lNutAndStickDrops.AutoSize = true;
+            this.lNutAndStickDrops.Location = new System.Drawing.Point(473, 14);
+            this.lNutAndStickDrops.Name = "lNutAndStickDrops";
+            this.lNutAndStickDrops.Size = new System.Drawing.Size(169, 13);
+            this.lNutAndStickDrops.TabIndex = 25;
+            this.lNutAndStickDrops.Text = "Termina Field Nut and Stick Drops";
+            // 
+            // label6
+            //
+            // tFormCosmetics
             this.tFormCosmetics.Location = new System.Drawing.Point(6, 3);
             this.tFormCosmetics.Name = "tFormCosmetics";
             this.tFormCosmetics.SelectedIndex = 0;
@@ -2261,6 +2292,8 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.Button bLoadPatch;
         private System.Windows.Forms.CheckBox cClearHints;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lNutAndStickDrops;
+        private System.Windows.Forms.ComboBox cNutAndStickDrops;
         private System.Windows.Forms.ComboBox cClockSpeed;
         private System.Windows.Forms.CheckBox cHideClock;
         private System.Windows.Forms.CheckBox cNoDowngrades;
