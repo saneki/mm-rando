@@ -20,9 +20,14 @@ namespace MMR.Randomizer.Asm
         public Color ZoraEnergyEnv2 { get; set; } = Color.FromArgb(0x00, 0x96, 0xFF);
         public Color ZoraEnergyPrim1 { get; set; } = Color.FromArgb(0x00, 0x96, 0xFF);
         public Color ZoraEnergyPrim2 { get; set; } = Color.FromArgb(0xAA, 0xFF, 0xFF);
-        public Color SwordEnergyBlueEnv1 { get; set; } = Color.FromArgb(0x00, 0x64, 0xFF);
-        public Color SwordEnergyBlueEnv2 { get; set; } = Color.FromArgb(0x00, 0x00, 0xFF);
+        public Color SwordEnergyEnv { get; set; } = Color.FromArgb(0x00, 0x64, 0xFF);
+        public Color SwordEnergyPrim { get; set; } = Color.FromArgb(0xAA, 0xFF, 0xFF);
+        public Color SwordEnergyBlueEnv1 { get; set; } = Color.FromArgb(0x00, 0x00, 0xFF);
+        public Color SwordEnergyBlueEnv2 { get; set; } = Color.FromArgb(0x00, 0x64, 0xFF);
         public Color SwordEnergyBluePrim { get; set; } = Color.FromArgb(0xAA, 0xFF, 0xFF);
+        public Color SwordEnergyRedEnv1 { get; set; } = Color.FromArgb(0xFF, 0x00, 0x00);
+        public Color SwordEnergyRedEnv2 { get; set; } = Color.FromArgb(0xFF, 0x64, 0x00);
+        public Color SwordEnergyRedPrim { get; set; } = Color.FromArgb(0xFF, 0xFF, 0xAA);
         public Color BlueBubble { get; set; } = Color.FromArgb(0x00, 0x00, 0xFF);
 
         /// <summary>
@@ -30,9 +35,11 @@ namespace MMR.Randomizer.Asm
         /// </summary>
         public static Color[] DefaultHumanEnergyColors {
             get {
+                var colors = new WorldColors();
                 return new Color[]
                 {
-                    new WorldColors().SwordEnergyBlueEnv1,
+                    colors.SwordEnergyBlueEnv2,
+                    colors.SwordEnergyRedEnv2,
                 };
             }
         }
@@ -71,7 +78,9 @@ namespace MMR.Randomizer.Asm
             GoronPunchEnergyEnv1,
             GoronRollInnerEnergyEnv,
             SwordEnergyBluePrim,
-            SwordEnergyBlueEnv1,
+            SwordEnergyRedPrim,
+            SwordEnergyEnv,
+            SwordEnergyPrim,
             BlueBubble,
         };
     }

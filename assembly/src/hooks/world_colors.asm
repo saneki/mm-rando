@@ -72,9 +72,35 @@
 .headersize(G_EN_M_THUNDER_VRAM - G_EN_M_THUNDER_FILE)
 
 @SwordSlashBluePriColor equ (WORLD_COLOR_CONFIG + 0x10)
-@SwordSlashBlueEnvColor equ (WORLD_COLOR_CONFIG + 0x14)
+@SwordSlashRedPriColor  equ (WORLD_COLOR_CONFIG + 0x14)
+@SwordSlashEnvColor     equ (WORLD_COLOR_CONFIG + 0x18)
+@SwordSlashPriColor     equ (WORLD_COLOR_CONFIG + 0x1C)
 
-; Prim color (1).
+; Red prim color (part 1).
+; Replaces:
+;   addiu   at, r0, 0xAA00
+;   ctc1    t5, fcsr
+;   or      t9, t7, at
+;   sw      t9, 0x0004 (v1)
+.org 0x808B6A68 ; Offset: 0x16A8
+    lui     at, hi(@SwordSlashRedPriColor)
+    lw      at, lo(@SwordSlashRedPriColor) (at)
+    or      t9, t7, at
+    ctc1    t5, fcsr
+
+; Red prim color (part 2).
+; Replaces:
+;   sw      t5, 0x02C0 (t0)
+.org 0x808B6A88 ; Offset: 0x16C8
+    sw      t9, 0x0004 (v1)
+
+; Red prim color (part 3).
+; Replaces:
+;   lw      v0, 0x02C0 (t0)
+.org 0x808B6A94 ; Offset: 0x16D4
+    or      v0, t5, r0
+
+; Blue prim color.
 ; Replaces:
 ;   lui     at, 0xAAFF
 ;   ori     at, at, 0xFF00
@@ -82,22 +108,22 @@
     lui     at, hi(@SwordSlashBluePriColor)
     lw      at, lo(@SwordSlashBluePriColor) (at)
 
-; Prim color (2).
+; Prim color, used for both.
 ; Replaces:
 ;   lui     at, 0xAAFF
 ;   ori     at, at, 0xFF00
 .org 0x808B6F90 ; Offset: 0x1BD0
-    lui     at, hi(@SwordSlashBluePriColor)
-    lw      at, lo(@SwordSlashBluePriColor) (at)
+    lui     at, hi(@SwordSlashPriColor)
+    lw      at, lo(@SwordSlashPriColor) (at)
 
 ; Env color (first half).
 ; Replaces:
 ;   lui     t9, 0x0064
 .org 0x808B6F68 ; Offset: 0x1BA8
-    lui     t9, hi(@SwordSlashBlueEnvColor)
+    lui     t9, hi(@SwordSlashEnvColor)
 
 ; Env color (second half).
 ; Replaces:
 ;   ori     t9, t9, 0xFF80
 .org 0x808B6FAC ; Offset: 0x1BEC
-    lw      t9, lo(@SwordSlashBlueEnvColor) (t9)
+    lw      t9, lo(@SwordSlashEnvColor) (t9)

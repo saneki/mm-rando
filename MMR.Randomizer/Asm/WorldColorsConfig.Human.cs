@@ -23,27 +23,45 @@ namespace MMR.Randomizer.Asm
         /// <param name="data">GameplayKeep object data.</param>
         void PatchSwordSpinEnergyColors(Span<byte> data)
         {
+            // Write colors for blue sword spin energy.
             var offset1 = 0x25850;
-            Colors.SwordEnergyBlueEnv2.ToBytesRGB(0x80).CopyTo(data.Slice(offset1 + 0xA4));
-
+            Colors.SwordEnergyBlueEnv1.ToBytesRGB(0x80).CopyTo(data.Slice(offset1 + 0xA4));
             var offset2 = 0x25970;
-            Colors.SwordEnergyBlueEnv1.ToBytesRGB(0x80).CopyTo(data.Slice(offset2 + 0xA4));
+            Colors.SwordEnergyBlueEnv2.ToBytesRGB(0x80).CopyTo(data.Slice(offset2 + 0xA4));
+
+            // Write colors for red sword spin energy, uses offsets of specific Display Lists.
+            var redOffset1 = 0x25DD0;
+            Colors.SwordEnergyRedEnv1.ToBytesRGB(0x80).CopyTo(data.Slice(redOffset1 + 0xA4));
+            var redOffset2 = 0x25EF0;
+            Colors.SwordEnergyRedEnv2.ToBytesRGB(0x80).CopyTo(data.Slice(redOffset2 + 0xA4));
         }
 
         /// <summary>
         /// Update Human energy colors from given base colors.
         /// </summary>
-        /// <param name="color">Blue sword spin energy color.</param>
-        public void SetHumanEnergyColor(Color color)
+        /// <param name="blueColor">Blue sword spin energy color.</param>
+        /// <param name="redColor">Red sword spin energy color.</param>
+        public void SetHumanEnergyColor(Color blueColor, Color redColor)
         {
             var converter = new ColorSpaceConverter();
-            var hsv = converter.ToHsv(ToRgb(color));
-            var adjustedHsv = new Hsv(hsv.H, Math.Min(hsv.S * 3f, 1f), hsv.V);
-            var adjusted = FromRgb(converter.ToRgb(adjustedHsv));
 
-            Colors.SwordEnergyBlueEnv1 = color;
-            Colors.SwordEnergyBlueEnv2 = adjusted;
+            // Update color for normal spin.
+            var blueHsv = converter.ToHsv(ToRgb(blueColor));
+            var blueAdjustedHsv = new Hsv(blueHsv.H, Math.Min(blueHsv.S * 3f, 1f), blueHsv.V);
+            var blueAdjusted = FromRgb(converter.ToRgb(blueAdjustedHsv));
+
+            Colors.SwordEnergyBlueEnv1 = blueColor;
+            Colors.SwordEnergyBlueEnv2 = blueAdjusted;
             Colors.SwordEnergyBluePrim = Color.White;
+
+            // Update color for greater spin.
+            var redHsv = converter.ToHsv(ToRgb(redColor));
+            var redAdjustedHsv = new Hsv(redHsv.H, Math.Min(redHsv.S * 3f, 1f), redHsv.V);
+            var redAdjusted = FromRgb(converter.ToRgb(redAdjustedHsv));
+
+            Colors.SwordEnergyRedEnv1 = redColor;
+            Colors.SwordEnergyRedEnv2 = redAdjusted;
+            Colors.SwordEnergyRedPrim = Color.White;
         }
     }
 }

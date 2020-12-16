@@ -25,7 +25,7 @@ namespace MMR.Randomizer.Asm
         {
             if (form == TransformationForm.Human)
             {
-                SetHumanEnergyColor(colors[0]);
+                SetHumanEnergyColor(colors[0], colors[1]);
             }
             else if (form == TransformationForm.Goron)
             {
