@@ -1,7 +1,4 @@
-﻿using MMR.Randomizer.Extensions;
-using MMR.Randomizer.Utils;
-using System;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace MMR.Randomizer.Asm
 {
@@ -64,37 +61,6 @@ namespace MMR.Randomizer.Asm
                     new WorldColors().ZoraEnergyPrim1,
                 };
             }
-        }
-
-        /// <summary>
-        /// Patch Goron object data to write new outer energy colors.
-        /// </summary>
-        /// <param name="data">Object data.</param>
-        public void PatchGoronEnergyColors(Span<byte> data)
-        {
-            // Patch SetPrimColor instruction for Goron punch energy color.
-            var punchDListOffset = 0x11AB8;
-            GoronPunchEnergyPrim.ToBytesRGB(0xFF).CopyTo(data.Slice(punchDListOffset + 0x1C));
-
-            // Patch SetEnvColor color values for Goron punch in code file: RDRAM: 0x801BFDE0, Offset: 0x11A320.
-            var punchEnvColorAddr = 0xB3C000 + 0x11A320;
-            ReadWriteUtils.WriteToROM(punchEnvColorAddr, GoronPunchEnergyEnv2.ToBytesRGB(0));
-
-            // Patch SetPrimColor instruction for interior of Goron roll energy color.
-            var innerOffset = 0x127CC;
-            var innerPrim = GoronRollInnerEnergyPrim.ToBytesRGB(0xFF);
-            innerPrim.CopyTo(data.Slice(innerOffset));
-
-            // Patch color table used to generate DLists for exterior of Goron roll energy effect.
-            var outerOffset = 0x14660;
-            var outerPrim1 = GoronRollOuterEnergyPrim1.ToBytesRGB(0xFF);
-            var outerPrim2 = GoronRollOuterEnergyPrim2.ToBytesRGB(0xFF);
-            var outerEnv1 = GoronRollOuterEnergyEnv1.ToBytesRGB(0xFF);
-            var outerEnv2 = GoronRollOuterEnergyEnv2.ToBytesRGB(0xFF);
-            outerPrim1.CopyTo(data.Slice(outerOffset + 0));
-            outerPrim2.CopyTo(data.Slice(outerOffset + 5));
-            outerEnv1.CopyTo(data.Slice(outerOffset + 0xC));
-            outerEnv2.CopyTo(data.Slice(outerOffset + 0x10));
         }
 
         /// <summary>

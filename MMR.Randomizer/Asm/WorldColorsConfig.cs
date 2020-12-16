@@ -63,7 +63,7 @@ namespace MMR.Randomizer.Asm
         public void PatchObjects()
         {
             PatchHumanEnergyColors(ObjUtils.GetObjectData(1));
-            this.Colors.PatchGoronEnergyColors(ObjUtils.GetObjectData(0x14C));
+            PatchGoronEnergyColors(ObjUtils.GetObjectData(0x14C));
             PatchZoraEnergyColors(ObjUtils.GetObjectData(0x14D));
         }
 
