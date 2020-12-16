@@ -6,17 +6,17 @@
 struct world_color_config WORLD_COLOR_CONFIG = {
     .magic = WORLD_COLOR_CONFIG_MAGIC,
     .version = 0,
-    .goron_punch = { 0xFF, 0x00, 0x00 },
-    .goron_rolling = { 0x9B, 0x00, 0x00, },
-    .sword_blue_pri = { 0xAA, 0xFF, 0xFF, },
-    .sword_red_pri = { 0xFF, 0xFF, 0xAA, },
-    .sword_slash_env = { 0x00, 0x64, 0xFF, },
-    .sword_slash_pri = { 0xAA, 0xFF, 0xFF, },
-    .blue_bubble = { 0x00, 0x00, 0xFF, },
+    .goronEnergyPunch        = { 0xFF, 0x00, 0x00, },
+    .goronEnergyRolling      = { 0x9B, 0x00, 0x00, },
+    .swordSlashEnergyBluePri = { 0xAA, 0xFF, 0xFF, },
+    .swordSlashEnergyRedPri  = { 0xFF, 0xFF, 0xAA, },
+    .swordSlashEnergyEnv     = { 0x00, 0x64, 0xFF, },
+    .swordSlashEnergyPri     = { 0xAA, 0xFF, 0xFF, },
+    .blueBubble              = { 0x00, 0x00, 0xFF, },
 };
 
 u32 world_colors_get_blue_bubble_color(z2_actor_t *actor, z2_game_t *game) {
-    rgbs_t color = WORLD_COLOR_CONFIG.blue_bubble;
+    rgbs_t color = WORLD_COLOR_CONFIG.blueBubble;
     if ((color.s & COLOR_SPECIAL_INSTANCE) != 0) {
         bool created = false;
         struct actor_ext *ext = actor_ext_setup(actor, &created);
@@ -33,5 +33,5 @@ u32 world_colors_get_blue_bubble_color(z2_actor_t *actor, z2_game_t *game) {
 
 void WorldColors_Init(void) {
     // Set alpha values for specific colors.
-    WORLD_COLOR_CONFIG.sword_slash_env.s = 0x80;
+    WORLD_COLOR_CONFIG.swordSlashEnergyEnv.s = 0x80;
 }
