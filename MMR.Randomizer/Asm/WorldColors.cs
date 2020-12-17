@@ -30,6 +30,8 @@ namespace MMR.Randomizer.Asm
         public Color SwordEnergyRedPrim { get; set; } = Color.FromArgb(0xFF, 0xFF, 0xAA);
         public Color SwordBeamEnergyEnv { get; set; } = Color.FromArgb(0x00, 0x64, 0xFF);
         public Color SwordBeamEnergyPrim { get; set; } = Color.FromArgb(0xAA, 0xFF, 0xFF);
+        public Color FierceDeitySparklesInner { get; set; } = Color.FromArgb(0x64, 0xFF, 0xFF);
+        public Color FierceDeitySparklesOuter { get; set; } = Color.FromArgb(0x00, 0x64, 0x64);
         public Color BlueBubble { get; set; } = Color.FromArgb(0x00, 0x00, 0xFF);
 
         /// <summary>

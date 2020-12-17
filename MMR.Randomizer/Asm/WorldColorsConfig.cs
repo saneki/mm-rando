@@ -69,6 +69,8 @@ namespace MMR.Randomizer.Asm
             PatchHumanEnergyColors(ObjUtils.GetObjectData(1));
             PatchGoronEnergyColors(ObjUtils.GetObjectData(0x14C));
             PatchZoraEnergyColors(ObjUtils.GetObjectData(0x14D));
+            var playerActor = RomData.MMFileList[38];
+            PatchFierceDeityEnergyColors(playerActor.Data);
         }
 
         static Color FromRgb(Rgb rgb)
