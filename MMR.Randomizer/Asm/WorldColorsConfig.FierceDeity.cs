@@ -9,7 +9,7 @@ namespace MMR.Randomizer.Asm
         /// <summary>
         /// Patch Player Actor file data to write Fierce Deity energy colors.
         /// </summary>
-        /// <param name="data">Player Actor file data.</param>
+        /// <param name="playerActorData">Player Actor file data.</param>
         public void PatchFierceDeityEnergyColors(Span<byte> playerActorData)
         {
             PatchFierceDeitySparkleColors(playerActorData);
