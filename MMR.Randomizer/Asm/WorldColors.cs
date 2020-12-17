@@ -28,6 +28,8 @@ namespace MMR.Randomizer.Asm
         public Color SwordEnergyRedEnv1 { get; set; } = Color.FromArgb(0xFF, 0x00, 0x00);
         public Color SwordEnergyRedEnv2 { get; set; } = Color.FromArgb(0xFF, 0x64, 0x00);
         public Color SwordEnergyRedPrim { get; set; } = Color.FromArgb(0xFF, 0xFF, 0xAA);
+        public Color SwordBeamEnergyEnv { get; set; } = Color.FromArgb(0x00, 0x64, 0xFF);
+        public Color SwordBeamEnergyPrim { get; set; } = Color.FromArgb(0xAA, 0xFF, 0xFF);
         public Color BlueBubble { get; set; } = Color.FromArgb(0x00, 0x00, 0xFF);
 
         /// <summary>
@@ -71,6 +73,18 @@ namespace MMR.Randomizer.Asm
         }
 
         /// <summary>
+        /// Get the default set of Fierce Deity energy colors.
+        /// </summary>
+        public static Color[] DefaultFierceDeityEnergyColors {
+            get {
+                return new Color[]
+                {
+                    new WorldColors().SwordBeamEnergyEnv,
+                };
+            }
+        }
+
+        /// <summary>
         /// Get colors to write in <see cref="WorldColorsConfigStruct"/> structure.
         /// </summary>
         public Color[] StructColors => new Color[]
@@ -81,6 +95,8 @@ namespace MMR.Randomizer.Asm
             SwordEnergyRedPrim,
             SwordEnergyEnv,
             SwordEnergyPrim,
+            SwordBeamEnergyEnv,
+            SwordBeamEnergyPrim,
             BlueBubble,
         };
     }

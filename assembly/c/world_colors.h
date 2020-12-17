@@ -14,6 +14,8 @@ struct world_color_config {
     rgbs_t swordSlashEnergyRedPri;
     rgbs_t swordSlashEnergyEnv;
     rgbs_t swordSlashEnergyPri;
+    rgbs_t swordBeamEnergyEnv;
+    rgbs_t swordBeamEnergyPri;
     rgbs_t blueBubble;
 };
 

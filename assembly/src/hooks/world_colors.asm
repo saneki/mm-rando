@@ -127,3 +127,32 @@
 ;   ori     t9, t9, 0xFF80
 .org 0x808B6FAC ; Offset: 0x1BEC
     lw      t9, lo(@SwordSlashEnvColor) (t9)
+
+;==================================================================================================
+; Fierce Deity Sword Beam Energy Color
+;==================================================================================================
+
+.headersize(G_EN_M_THUNDER_VRAM - G_EN_M_THUNDER_FILE)
+
+@SwordBeamEnvColor equ (WORLD_COLOR_CONFIG + 0x20)
+@SwordBeamPriColor equ (WORLD_COLOR_CONFIG + 0x24)
+
+; Prim color.
+; Replaces:
+;   lui     at, 0xAAFF
+;   ori     at, at, 0xFF00
+.org 0x808B6C64 ; Offset: 0x18A4
+    lui     at, hi(@SwordBeamPriColor)
+    lw      at, lo(@SwordBeamPriColor) (at)
+
+; Env color (part 1).
+; Replaces:
+;   lui     t6, 0x0064
+.org 0x808B6BE8 ; Offset: 0x1828
+    lui     t6, hi(@SwordBeamEnvColor)
+
+; Env color (part 2).
+; Replaces:
+;   ori     t6, t6, 0xFF80
+.org 0x808B6C84 ; Offset: 0x18C4
+    lw      t6, lo(@SwordBeamEnvColor) (t6)

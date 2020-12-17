@@ -12,6 +12,8 @@ struct world_color_config WORLD_COLOR_CONFIG = {
     .swordSlashEnergyRedPri  = { 0xFF, 0xFF, 0xAA, },
     .swordSlashEnergyEnv     = { 0x00, 0x64, 0xFF, },
     .swordSlashEnergyPri     = { 0xAA, 0xFF, 0xFF, },
+    .swordBeamEnergyEnv      = { 0x00, 0x64, 0xFF, },
+    .swordBeamEnergyPri      = { 0xAA, 0xFF, 0xFF, },
     .blueBubble              = { 0x00, 0x00, 0xFF, },
 };
 
@@ -34,4 +36,5 @@ u32 world_colors_get_blue_bubble_color(z2_actor_t *actor, z2_game_t *game) {
 void WorldColors_Init(void) {
     // Set alpha values for specific colors.
     WORLD_COLOR_CONFIG.swordSlashEnergyEnv.s = 0x80;
+    WORLD_COLOR_CONFIG.swordBeamEnergyEnv.s = 0x80;
 }

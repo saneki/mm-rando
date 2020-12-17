@@ -36,6 +36,10 @@ namespace MMR.Randomizer.Asm
             {
                 SetZoraEnergyColor(colors[0]);
             }
+            else if (form == TransformationForm.FierceDeity)
+            {
+                SetFierceDeityEnergyColors(colors[0]);
+            }
         }
 
         /// <summary>
