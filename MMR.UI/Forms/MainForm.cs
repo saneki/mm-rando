@@ -1627,6 +1627,7 @@ namespace MMR.UI.Forms
                 .Select(s => s.ToString())              // get list of strings
                 .ToArray();                             // back to string[]
         }
+
         private void bToggleTricks_Click(object sender, EventArgs e)
         {
             try

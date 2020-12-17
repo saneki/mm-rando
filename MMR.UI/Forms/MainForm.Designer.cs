@@ -1755,10 +1755,10 @@ namespace MMR.UI.Forms
             // 
             this.cLowHealthSFXComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cLowHealthSFXComboBox.FormattingEnabled = true;
-            this.cLowHealthSFXComboBox.Items.AddRange(GetLowHealthSFXOptionList());
             this.cLowHealthSFXComboBox.Location = new System.Drawing.Point(6, 141);
             this.cLowHealthSFXComboBox.Name = "cLowHealthSFXComboBox";
             this.cLowHealthSFXComboBox.Size = new System.Drawing.Size(121, 21);
+            this.cLowHealthSFXComboBox.Items.AddRange(MainForm.GetLowHealthSFXOptionList());
             this.cLowHealthSFXComboBox.TabIndex = 25;
             this.cLowHealthSFXComboBox.SelectedIndexChanged += new System.EventHandler(this.cLowHealthSFXComboBox_SelectedIndexChanged);
             // 
