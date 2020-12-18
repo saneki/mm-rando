@@ -317,7 +317,7 @@ namespace MMR.DiscordBot.Modules
                 return;
             }
 
-            await ReplyAsync(string.Join('\n', settingsPaths));
+            await ReplyAsync("List of settings:\n" + string.Join('\n', settingsPaths.Select(p => Path.GetFileNameWithoutExtension(p))));
         }
     }
 }
