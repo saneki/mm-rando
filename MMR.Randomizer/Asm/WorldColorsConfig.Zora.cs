@@ -27,10 +27,10 @@ namespace MMR.Randomizer.Asm
         }
 
         /// <summary>
-        /// Update Zora energy colors from a given base color.
+        /// Update Zora energy colors from the given base color.
         /// </summary>
         /// <param name="color">Base color.</param>
-        public void SetZoraEnergyColor(Color color)
+        public void SetZoraEnergyColors(Color color)
         {
             var converter = new ColorSpaceConverter();
             var hsv = converter.ToHsv(ToRgb(color));

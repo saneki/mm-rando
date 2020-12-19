@@ -27,7 +27,7 @@ namespace MMR.Randomizer.Asm
         }
 
         /// <summary>
-        /// Update Fierce Deity energy colors from given base color.
+        /// Update Fierce Deity energy colors from the given base color.
         /// </summary>
         /// <param name="color">Sword beam energy color.</param>
         public void SetFierceDeityEnergyColors(Color color)

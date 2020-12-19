@@ -39,68 +39,52 @@ namespace MMR.Randomizer.Asm
         public Color BlueBubble { get; set; } = Color.FromArgb(0x00, 0x00, 0xFF);
 
         /// <summary>
+        /// Instance of <see cref="WorldColors"/> with default values.
+        /// </summary>
+        public static readonly WorldColors Defaults = new WorldColors();
+
+        /// <summary>
         /// Get the default set of Human energy colors.
         /// </summary>
-        public static Color[] DefaultHumanEnergyColors {
-            get {
-                var colors = new WorldColors();
-                return new Color[]
-                {
-                    colors.SwordEnergyBlueEnv2,
-                    colors.SwordEnergyRedEnv2,
-                };
-            }
-        }
+        public static Color[] DefaultHumanEnergyColors => new Color[]
+        {
+            Defaults.SwordEnergyBlueEnv2,
+            Defaults.SwordEnergyRedEnv2,
+        };
 
         /// <summary>
         /// Get the default set of Deku energy colors.
         /// </summary>
-        public static Color[] DefaultDekuEnergyColors {
-            get {
-                return new Color[]
-                {
-                    new WorldColors().DekuSparklesOuter,
-                };
-            }
-        }
+        public static Color[] DefaultDekuEnergyColors => new Color[]
+        {
+            Defaults.DekuSparklesOuter,
+        };
 
         /// <summary>
         /// Get the default set of Goron energy colors.
         /// </summary>
-        public static Color[] DefaultGoronEnergyColors {
-            get {
-                var colors = new WorldColors();
-                return new Color[] {
-                    colors.GoronRollInnerEnergyPrim,
-                    colors.GoronRollOuterEnergyPrim1,
-                    colors.GoronRollOuterEnergyPrim2
-                };
-            }
-        }
+        public static Color[] DefaultGoronEnergyColors => new Color[]
+        {
+            Defaults.GoronRollInnerEnergyPrim,
+            Defaults.GoronRollOuterEnergyPrim1,
+            Defaults.GoronRollOuterEnergyPrim2,
+        };
 
         /// <summary>
         /// Get the default set of Zora energy colors.
         /// </summary>
-        public static Color[] DefaultZoraEnergyColors {
-            get {
-                return new Color[]
-                {
-                    new WorldColors().ZoraEnergyPrim1,
-                };
-            }
-        }
+        public static Color[] DefaultZoraEnergyColors => new Color[]
+        {
+            Defaults.ZoraEnergyPrim1,
+        };
 
         /// <summary>
         /// Get the default set of Fierce Deity energy colors.
         /// </summary>
-        public static Color[] DefaultFierceDeityEnergyColors {
-            get {
-                return new Color[]
-                {
-                    new WorldColors().SwordBeamEnergyEnv,
-                };
-            }
-        }
+        public static Color[] DefaultFierceDeityEnergyColors => new Color[]
+        {
+            Defaults.SwordBeamEnergyEnv,
+        };
 
         /// <summary>
         /// Get colors to write in <see cref="WorldColorsConfigStruct"/> structure.

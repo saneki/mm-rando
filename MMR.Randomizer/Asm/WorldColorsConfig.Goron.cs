@@ -76,7 +76,11 @@ namespace MMR.Randomizer.Asm
             outerEnv2.CopyTo(data.Slice(outerOffset + 0x10));
         }
 
-        public void SetGoronRollEnergyColors(GoronColorOptions options)
+        /// <summary>
+        /// Set Goron energy colors from the given options.
+        /// </summary>
+        /// <param name="options">Color options.</param>
+        public void SetGoronEnergyColors(GoronColorOptions options)
         {
             Colors.GoronPunchEnergyPrim = GetPunchPrim(options.Main);
             Colors.GoronPunchEnergyEnv1 = options.Extra1;

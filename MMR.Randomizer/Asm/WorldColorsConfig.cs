@@ -25,7 +25,7 @@ namespace MMR.Randomizer.Asm
         {
             if (form == TransformationForm.Human)
             {
-                SetHumanEnergyColor(colors[0], colors[1]);
+                SetHumanEnergyColors(colors[0], colors[1]);
             }
             else if (form == TransformationForm.Deku)
             {
@@ -34,11 +34,11 @@ namespace MMR.Randomizer.Asm
             else if (form == TransformationForm.Goron)
             {
                 var options = new GoronColorOptions(colors[0], colors[1], colors[2]);
-                SetGoronRollEnergyColors(options);
+                SetGoronEnergyColors(options);
             }
             else if (form == TransformationForm.Zora)
             {
-                SetZoraEnergyColor(colors[0]);
+                SetZoraEnergyColors(colors[0]);
             }
             else if (form == TransformationForm.FierceDeity)
             {
@@ -70,11 +70,11 @@ namespace MMR.Randomizer.Asm
         /// </summary>
         public void PatchObjects()
         {
+            var playerActor = RomData.MMFileList[38];
             PatchHumanEnergyColors(ObjUtils.GetObjectData(1));
+            PatchDekuEnergyColors(playerActor.Data);
             PatchGoronEnergyColors(ObjUtils.GetObjectData(0x14C));
             PatchZoraEnergyColors(ObjUtils.GetObjectData(0x14D));
-            var playerActor = RomData.MMFileList[38];
-            PatchDekuEnergyColors(playerActor.Data);
             PatchFierceDeityEnergyColors(playerActor.Data);
         }
 

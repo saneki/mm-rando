@@ -37,11 +37,11 @@ namespace MMR.Randomizer.Asm
         }
 
         /// <summary>
-        /// Update Human energy colors from given base colors.
+        /// Update Human energy colors from the given base colors.
         /// </summary>
         /// <param name="blueColor">Blue sword spin energy color.</param>
         /// <param name="redColor">Red sword spin energy color.</param>
-        public void SetHumanEnergyColor(Color blueColor, Color redColor)
+        public void SetHumanEnergyColors(Color blueColor, Color redColor)
         {
             var converter = new ColorSpaceConverter();
 
