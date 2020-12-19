@@ -47,7 +47,7 @@ namespace MMR.Randomizer.Asm
 
             // Update color for normal spin.
             var blueHsv = converter.ToHsv(ToRgb(blueColor));
-            var blueAdjustedHsv = new Hsv(blueHsv.H, Math.Min(blueHsv.S * 3f, 1f), blueHsv.V);
+            var blueAdjustedHsv = new Hsv(blueHsv.H, Increase(blueHsv.S), Increase(blueHsv.V));
             var blueAdjusted = FromRgb(converter.ToRgb(blueAdjustedHsv));
             Colors.SwordEnergyBlueEnv1 = blueColor;
             Colors.SwordEnergyBlueEnv2 = blueAdjusted;
@@ -55,7 +55,7 @@ namespace MMR.Randomizer.Asm
 
             // Update color for greater spin.
             var redHsv = converter.ToHsv(ToRgb(redColor));
-            var redAdjustedHsv = new Hsv(redHsv.H, Math.Min(redHsv.S * 3f, 1f), redHsv.V);
+            var redAdjustedHsv = new Hsv(redHsv.H, Increase(redHsv.S), Increase(redHsv.V));
             var redAdjusted = FromRgb(converter.ToRgb(redAdjustedHsv));
             Colors.SwordEnergyRedEnv1 = redColor;
             Colors.SwordEnergyRedEnv2 = redAdjusted;
@@ -70,6 +70,8 @@ namespace MMR.Randomizer.Asm
             // Update color for sword charge sparks.
             Colors.SwordChargeSparksBlue = blueAdjusted;
             Colors.SwordChargeSparksRed = redAdjusted;
+
+            float Increase(float input, float mult = 3f) => Math.Min(input * mult, 1f);
         }
     }
 }
