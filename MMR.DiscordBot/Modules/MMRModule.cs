@@ -14,6 +14,7 @@ using System.Collections.Generic;
 
 namespace MMR.DiscordBot.Modules
 {
+    [Group("mmr")]
     public class MMRModule : ModuleBase<SocketCommandContext>
     {
         public UserSeedRepository UserSeedRepository { get; set; }
@@ -72,7 +73,6 @@ namespace MMR.DiscordBot.Modules
         }
 
         [Command("seed")]
-        [RequireOwner]
         public async Task Seed([Remainder] string settingName = null)
         {
             if (_tournamentChannels.Contains(Context.Channel.Id))
@@ -158,7 +158,6 @@ namespace MMR.DiscordBot.Modules
         }
 
         [Command("spoiler")]
-        [RequireOwner]
         public async Task Spoiler()
         {
             if (_tournamentChannels.Contains(Context.Channel.Id))

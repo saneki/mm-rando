@@ -47,7 +47,7 @@ namespace MMR.DiscordBot.Services
 
             // This value holds the offset where the prefix ends
             var argPos = 0;
-            if (!message.HasStringPrefix("!mmr ", ref argPos))
+            if (!message.HasStringPrefix("!", ref argPos))
             {
                 return;
             }
