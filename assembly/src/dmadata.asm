@@ -50,6 +50,10 @@ DefineDmaFile G_OBJ_OSHIHIKI_DMA, G_OBJ_OSHIHIKI_FILE, 115
 DefineDmaFile G_BG_INGATE_DMA, G_BG_INGATE_FILE, 153
 .definelabel  G_BG_INGATE_VRAM, 0x80953A90
 
+; ovl_Effect_Ss_Dust (Deku Flower Dust)
+DefineDmaFile G_EFFECT_SS_DUST_DMA, G_EFFECT_SS_DUST_FILE, 180
+.definelabel  G_EFFECT_SS_DUST_VRAM, 0x80977210
+
 ; ovl_En_Cow
 DefineDmaFile G_EN_COW_DMA, G_EN_COW_FILE, 227
 .definelabel  G_EN_COW_VRAM, 0x8099C290
