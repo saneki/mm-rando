@@ -1224,7 +1224,6 @@ namespace MMR.Randomizer
             }
 
             var shuffledSoundEffects = new Dictionary<SoundEffect, SoundEffect>();
-            shuffledSoundEffects.Remove(SoundEffect.LowHealthBeep); // handled in next function
 
             var replacableSounds = SoundEffects.Replacable();
             foreach (var sound in replacableSounds)
@@ -1236,6 +1235,8 @@ namespace MMR.Randomizer
                     shuffledSoundEffects[sound] = soundPool.Random(random);
                 }
             }
+
+            shuffledSoundEffects.Remove(SoundEffect.LowHealthBeep); // handled in the WriteLowHealthSound function
 
             foreach (var sounds in shuffledSoundEffects)
             {

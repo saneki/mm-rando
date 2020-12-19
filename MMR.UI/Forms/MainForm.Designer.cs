@@ -1684,7 +1684,7 @@ namespace MMR.UI.Forms
             this.gCosmeticMusicSound.Controls.Add(this.lLowHealthSFXComboBox);
             this.gCosmeticMusicSound.Location = new System.Drawing.Point(7, 138);
             this.gCosmeticMusicSound.Name = "gCosmeticMusicSound";
-            this.gCosmeticMusicSound.Size = new System.Drawing.Size(243, 162);
+            this.gCosmeticMusicSound.Size = new System.Drawing.Size(243, 169);
             this.gCosmeticMusicSound.TabIndex = 46;
             this.gCosmeticMusicSound.TabStop = false;
             this.gCosmeticMusicSound.Text = "Music / Sound";
@@ -1776,7 +1776,7 @@ namespace MMR.UI.Forms
             this.cHUDGroupBox.Controls.Add(this.cHUDTableLayoutPanel);
             this.cHUDGroupBox.Location = new System.Drawing.Point(256, 138);
             this.cHUDGroupBox.Name = "cHUDGroupBox";
-            this.cHUDGroupBox.Size = new System.Drawing.Size(401, 162);
+            this.cHUDGroupBox.Size = new System.Drawing.Size(401, 169);
             this.cHUDGroupBox.TabIndex = 44;
             this.cHUDGroupBox.TabStop = false;
             this.cHUDGroupBox.Text = "HUD";
@@ -2084,7 +2084,7 @@ namespace MMR.UI.Forms
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mLogicEdit});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // mLogicEdit
