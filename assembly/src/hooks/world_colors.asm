@@ -71,30 +71,30 @@
 
 .headersize(G_EN_M_THUNDER_VRAM - G_EN_M_THUNDER_FILE)
 
-@SwordChargeBlueEnvColor equ (WORLD_COLOR_CONFIG + 0x10)
-@SwordChargeBluePriColor equ (WORLD_COLOR_CONFIG + 0x14)
-@SwordChargeRedEnvColor  equ (WORLD_COLOR_CONFIG + 0x18)
-@SwordChargeRedPriColor  equ (WORLD_COLOR_CONFIG + 0x1C)
+@SwordChargeBluEnvColor equ (WORLD_COLOR_CONFIG + 0x10)
+@SwordChargeBluPriColor equ (WORLD_COLOR_CONFIG + 0x14)
+@SwordChargeRedEnvColor equ (WORLD_COLOR_CONFIG + 0x18)
+@SwordChargeRedPriColor equ (WORLD_COLOR_CONFIG + 0x1C)
 
 ; Charge blue prim color.
 ; Replaces:
 ;   lui     at, 0xAAFF
 ;   ori     at, at, 0xFF00
 .org 0x808B6F90 ; Offset: 0x1BD0
-    lui     at, hi(@SwordChargeBluePriColor)
-    lw      at, lo(@SwordChargeBluePriColor) (at)
+    lui     at, hi(@SwordChargeBluPriColor)
+    lw      at, lo(@SwordChargeBluPriColor) (at)
 
 ; Charge blue env color (part 1).
 ; Replaces:
 ;   lui     t9, 0x0064
 .org 0x808B6F68 ; Offset: 0x1BA8
-    lui     t9, hi(@SwordChargeBlueEnvColor)
+    lui     t9, hi(@SwordChargeBluEnvColor)
 
 ; Charge blue env color (part 2).
 ; Replaces:
 ;   ori     t9, t9, 0xFF80
 .org 0x808B6FAC ; Offset: 0x1BEC
-    lw      t9, lo(@SwordChargeBlueEnvColor) (t9)
+    lw      t9, lo(@SwordChargeBluEnvColor) (t9)
 
 ; Charge red color (part 1).
 ; Replaces:
@@ -127,8 +127,8 @@
 
 .headersize(G_EN_M_THUNDER_VRAM - G_EN_M_THUNDER_FILE)
 
-@SwordSlashBluePriColor equ (WORLD_COLOR_CONFIG + 0x20)
-@SwordSlashRedPriColor  equ (WORLD_COLOR_CONFIG + 0x24)
+@SwordSlashBluPriColor equ (WORLD_COLOR_CONFIG + 0x20)
+@SwordSlashRedPriColor equ (WORLD_COLOR_CONFIG + 0x24)
 
 ; Red prim color (part 1).
 ; Replaces:
@@ -159,8 +159,8 @@
 ;   lui     at, 0xAAFF
 ;   ori     at, at, 0xFF00
 .org 0x808B6B64 ; Offset: 0x17A4
-    lui     at, hi(@SwordSlashBluePriColor)
-    lw      at, lo(@SwordSlashBluePriColor) (at)
+    lui     at, hi(@SwordSlashBluPriColor)
+    lw      at, lo(@SwordSlashBluPriColor) (at)
 
 ;==================================================================================================
 ; Fierce Deity Sword Beam Energy Color

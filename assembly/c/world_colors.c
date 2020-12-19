@@ -8,11 +8,11 @@ struct world_color_config WORLD_COLOR_CONFIG = {
     .version = 0,
     .goronEnergyPunch        = { 0xFF, 0x00, 0x00, },
     .goronEnergyRolling      = { 0x9B, 0x00, 0x00, },
-    .swordChargeEnergyBlueEnv = { 0x00, 0x64, 0xFF, },
-    .swordChargeEnergyBluePri = { 0xAA, 0xFF, 0xFF, },
+    .swordChargeEnergyBluEnv = { 0x00, 0x64, 0xFF, },
+    .swordChargeEnergyBluPri = { 0xAA, 0xFF, 0xFF, },
     .swordChargeEnergyRedEnv = { 0xFF, 0x64, 0x00, },
     .swordChargeEnergyRedPri = { 0xFF, 0xFF, 0xAA, },
-    .swordSlashEnergyBluePri = { 0xAA, 0xFF, 0xFF, },
+    .swordSlashEnergyBluPri  = { 0xAA, 0xFF, 0xFF, },
     .swordSlashEnergyRedPri  = { 0xFF, 0xFF, 0xAA, },
     .swordBeamEnergyEnv      = { 0x00, 0x64, 0xFF, },
     .swordBeamEnergyPri      = { 0xAA, 0xFF, 0xFF, },
@@ -37,7 +37,7 @@ u32 WorldColors_GetBlueBubbleColor(z2_actor_t *actor, z2_game_t *game) {
 
 void WorldColors_Init(void) {
     // Set alpha values for specific colors.
-    WORLD_COLOR_CONFIG.swordChargeEnergyBlueEnv.s = 0x80;
+    WORLD_COLOR_CONFIG.swordChargeEnergyBluEnv.s = 0x80;
     WORLD_COLOR_CONFIG.swordChargeEnergyRedEnv.s = 0x80;
     WORLD_COLOR_CONFIG.swordBeamEnergyEnv.s = 0x80;
 }
