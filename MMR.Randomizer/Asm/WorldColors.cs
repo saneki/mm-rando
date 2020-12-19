@@ -7,19 +7,23 @@ namespace MMR.Randomizer.Asm
     /// </summary>
     public class WorldColors
     {
-        public Color GoronPunchEnergyPrim { get; set; } = Color.FromArgb(0xFF, 0xC8, 0x32);
+        public Color DekuDustInner { get; set; } = Color.FromArgb(0xFF, 0xFF, 0x37);
+        public Color DekuDustOuter { get; set; } = Color.FromArgb(0x64, 0x32, 0x00);
+        public Color DekuSparklesInner { get; set; } = Color.FromArgb(0xFF, 0xC8, 0xC8);
+        public Color DekuSparklesOuter { get; set; } = Color.FromArgb(0xFF, 0xFF, 0x00);
+        public Color FierceDeitySparklesInner { get; set; } = Color.FromArgb(0x64, 0xFF, 0xFF);
+        public Color FierceDeitySparklesOuter { get; set; } = Color.FromArgb(0x00, 0x64, 0x64);
         public Color GoronPunchEnergyEnv1 { get; set; } = Color.FromArgb(0xFF, 0x00, 0x00);
         public Color GoronPunchEnergyEnv2 { get; set; } = Color.FromArgb(0xFF, 0x00, 0x00);
-        public Color GoronRollInnerEnergyPrim { get; set; } = Color.FromArgb(0xFF, 0x9B, 0x00);
+        public Color GoronPunchEnergyPrim { get; set; } = Color.FromArgb(0xFF, 0xC8, 0x32);
         public Color GoronRollInnerEnergyEnv { get; set; } = Color.FromArgb(0x9B, 0x00, 0x00);
-        public Color GoronRollOuterEnergyPrim1 { get; set; } = Color.FromArgb(0xFF, 0x00, 0x00);
-        public Color GoronRollOuterEnergyPrim2 { get; set; } = Color.FromArgb(0xFF, 0x9B, 0x00);
+        public Color GoronRollInnerEnergyPrim { get; set; } = Color.FromArgb(0xFF, 0x9B, 0x00);
         public Color GoronRollOuterEnergyEnv1 { get; set; } = Color.FromArgb(0x64, 0x00, 0x00);
         public Color GoronRollOuterEnergyEnv2 { get; set; } = Color.FromArgb(0xC8, 0x00, 0x00);
-        public Color ZoraEnergyEnv1 { get; set; } = Color.FromArgb(0x00, 0x00, 0x64);
-        public Color ZoraEnergyEnv2 { get; set; } = Color.FromArgb(0x00, 0x96, 0xFF);
-        public Color ZoraEnergyPrim1 { get; set; } = Color.FromArgb(0x00, 0x96, 0xFF);
-        public Color ZoraEnergyPrim2 { get; set; } = Color.FromArgb(0xAA, 0xFF, 0xFF);
+        public Color GoronRollOuterEnergyPrim1 { get; set; } = Color.FromArgb(0xFF, 0x00, 0x00);
+        public Color GoronRollOuterEnergyPrim2 { get; set; } = Color.FromArgb(0xFF, 0x9B, 0x00);
+        public Color SwordBeamEnergyEnv { get; set; } = Color.FromArgb(0x00, 0x64, 0xFF);
+        public Color SwordBeamEnergyPrim { get; set; } = Color.FromArgb(0xAA, 0xFF, 0xFF);
         public Color SwordEnergyEnv { get; set; } = Color.FromArgb(0x00, 0x64, 0xFF);
         public Color SwordEnergyPrim { get; set; } = Color.FromArgb(0xAA, 0xFF, 0xFF);
         public Color SwordEnergyBlueEnv1 { get; set; } = Color.FromArgb(0x00, 0x00, 0xFF);
@@ -28,14 +32,10 @@ namespace MMR.Randomizer.Asm
         public Color SwordEnergyRedEnv1 { get; set; } = Color.FromArgb(0xFF, 0x00, 0x00);
         public Color SwordEnergyRedEnv2 { get; set; } = Color.FromArgb(0xFF, 0x64, 0x00);
         public Color SwordEnergyRedPrim { get; set; } = Color.FromArgb(0xFF, 0xFF, 0xAA);
-        public Color SwordBeamEnergyEnv { get; set; } = Color.FromArgb(0x00, 0x64, 0xFF);
-        public Color SwordBeamEnergyPrim { get; set; } = Color.FromArgb(0xAA, 0xFF, 0xFF);
-        public Color FierceDeitySparklesInner { get; set; } = Color.FromArgb(0x64, 0xFF, 0xFF);
-        public Color FierceDeitySparklesOuter { get; set; } = Color.FromArgb(0x00, 0x64, 0x64);
-        public Color DekuDustInner { get; set; } = Color.FromArgb(0xFF, 0xFF, 0x37);
-        public Color DekuDustOuter { get; set; } = Color.FromArgb(0x64, 0x32, 0x00);
-        public Color DekuSparklesInner { get; set; } = Color.FromArgb(0xFF, 0xC8, 0xC8);
-        public Color DekuSparklesOuter { get; set; } = Color.FromArgb(0xFF, 0xFF, 0x00);
+        public Color ZoraEnergyEnv1 { get; set; } = Color.FromArgb(0x00, 0x00, 0x64);
+        public Color ZoraEnergyEnv2 { get; set; } = Color.FromArgb(0x00, 0x96, 0xFF);
+        public Color ZoraEnergyPrim1 { get; set; } = Color.FromArgb(0x00, 0x96, 0xFF);
+        public Color ZoraEnergyPrim2 { get; set; } = Color.FromArgb(0xAA, 0xFF, 0xFF);
         public Color BlueBubble { get; set; } = Color.FromArgb(0x00, 0x00, 0xFF);
 
         /// <summary>
