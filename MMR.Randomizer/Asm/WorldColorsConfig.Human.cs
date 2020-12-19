@@ -66,6 +66,10 @@ namespace MMR.Randomizer.Asm
             Colors.SwordChargeBlueEnergyPrim = Color.White;
             Colors.SwordChargeRedEnergyEnv = redColor;
             Colors.SwordChargeRedEnergyPrim = Color.White;
+
+            // Update color for sword charge sparks.
+            Colors.SwordChargeSparksBlue = blueAdjusted;
+            Colors.SwordChargeSparksRed = redAdjusted;
         }
     }
 }

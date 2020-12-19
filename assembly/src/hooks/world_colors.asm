@@ -122,13 +122,52 @@
     addiu   v0, v0, 0x0008
 
 ;==================================================================================================
+; Sword Spin Charge Sparks Color
+;==================================================================================================
+
+.headersize(G_EFF_DUST_VRAM - G_EFF_DUST_FILE)
+
+@SwordChargeSparksBluColor equ (WORLD_COLOR_CONFIG + 0x20)
+@SwordChargeSparksRedColor equ (WORLD_COLOR_CONFIG + 0x24)
+
+; Red sparks env color.
+; Replaces:
+;   lui     t5, 0xFF00
+;   addiu   t3, v0, 0x0008
+;   sw      t3, 0x02C0 (s1)
+.org 0x80919ACC ; Offset: 0xF8C
+    lui     t5, hi(@SwordChargeSparksRedColor)
+    lw      t5, lo(@SwordChargeSparksRedColor) (t5)
+    nop
+
+; Replaces:
+;   lw      v0, 0x02C0 (s1)
+.org 0x80919AE4 ; Offset: 0xFA4
+    addiu   v0, v0, 0x0008
+
+; Blue sparks env color.
+; Replaces:
+;   ori     t8, r0, 0xFF00
+;   addiu   t6, v0, 0x0008
+;   sw      t6, 0x02C0 (s1)
+.org 0x80919AF0 ; Offset: 0xFB0
+    lui     t8, hi(@SwordChargeSparksBluColor)
+    lw      t8, lo(@SwordChargeSparksBluColor) (t8)
+    nop
+
+; Replaces:
+;   lw      v0, 0x02C0 (s1)
+.org 0x80919B04 ; Offset: 0xFC4
+    addiu   v0, v0, 0x0008
+
+;==================================================================================================
 ; Sword Spin Attack Energy Color
 ;==================================================================================================
 
 .headersize(G_EN_M_THUNDER_VRAM - G_EN_M_THUNDER_FILE)
 
-@SwordSlashBluPriColor equ (WORLD_COLOR_CONFIG + 0x20)
-@SwordSlashRedPriColor equ (WORLD_COLOR_CONFIG + 0x24)
+@SwordSlashBluPriColor equ (WORLD_COLOR_CONFIG + 0x28)
+@SwordSlashRedPriColor equ (WORLD_COLOR_CONFIG + 0x2C)
 
 ; Red prim color (part 1).
 ; Replaces:
@@ -168,8 +207,8 @@
 
 .headersize(G_EN_M_THUNDER_VRAM - G_EN_M_THUNDER_FILE)
 
-@SwordBeamEnvColor equ (WORLD_COLOR_CONFIG + 0x28)
-@SwordBeamPriColor equ (WORLD_COLOR_CONFIG + 0x2C)
+@SwordBeamEnvColor equ (WORLD_COLOR_CONFIG + 0x30)
+@SwordBeamPriColor equ (WORLD_COLOR_CONFIG + 0x34)
 
 ; Prim color.
 ; Replaces:

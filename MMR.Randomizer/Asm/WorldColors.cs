@@ -28,6 +28,8 @@ namespace MMR.Randomizer.Asm
         public Color SwordChargeBlueEnergyPrim { get; set; } = Color.FromArgb(0xAA, 0xFF, 0xFF);
         public Color SwordChargeRedEnergyEnv { get; set; } = Color.FromArgb(0xFF, 0x64, 0x00);
         public Color SwordChargeRedEnergyPrim { get; set; } = Color.FromArgb(0xFF, 0xFF, 0xAA);
+        public Color SwordChargeSparksBlue { get; set; } = Color.FromArgb(0x00, 0x00, 0xFF);
+        public Color SwordChargeSparksRed { get; set; } = Color.FromArgb(0xFF, 0x00, 0x00);
         public Color SwordEnergyBlueEnv1 { get; set; } = Color.FromArgb(0x00, 0x00, 0xFF);
         public Color SwordEnergyBlueEnv2 { get; set; } = Color.FromArgb(0x00, 0x64, 0xFF);
         public Color SwordEnergyBluePrim { get; set; } = Color.FromArgb(0xAA, 0xFF, 0xFF);
@@ -99,6 +101,8 @@ namespace MMR.Randomizer.Asm
             SwordChargeBlueEnergyPrim,
             SwordChargeRedEnergyEnv,
             SwordChargeRedEnergyPrim,
+            SwordChargeSparksBlue,
+            SwordChargeSparksRed,
             SwordEnergyBluePrim,
             SwordEnergyRedPrim,
             SwordBeamEnergyEnv,

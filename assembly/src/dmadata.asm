@@ -46,6 +46,10 @@ DefineDmaFile G_ITEM_B_HEART_DMA, G_ITEM_B_HEART_FILE, 80
 DefineDmaFile G_OBJ_OSHIHIKI_DMA, G_OBJ_OSHIHIKI_FILE, 115
 .definelabel  G_OBJ_OSHIHIKI_VRAM, 0x80917290
 
+; ovl_Eff_Dust (Spin Attack Charge Particles)
+DefineDmaFile G_EFF_DUST_DMA, G_EFF_DUST_FILE, 116
+.definelabel  G_EFF_DUST_VRAM, 0x80918B40
+
 ; ovl_Bg_Ingate (Boat Cruise Canoe)
 DefineDmaFile G_BG_INGATE_DMA, G_BG_INGATE_FILE, 153
 .definelabel  G_BG_INGATE_VRAM, 0x80953A90
