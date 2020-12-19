@@ -32,6 +32,10 @@ namespace MMR.Randomizer.Asm
         public Color SwordBeamEnergyPrim { get; set; } = Color.FromArgb(0xAA, 0xFF, 0xFF);
         public Color FierceDeitySparklesInner { get; set; } = Color.FromArgb(0x64, 0xFF, 0xFF);
         public Color FierceDeitySparklesOuter { get; set; } = Color.FromArgb(0x00, 0x64, 0x64);
+        public Color DekuDustInner { get; set; } = Color.FromArgb(0xFF, 0xFF, 0x37);
+        public Color DekuDustOuter { get; set; } = Color.FromArgb(0x64, 0x32, 0x00);
+        public Color DekuSparklesInner { get; set; } = Color.FromArgb(0xFF, 0xC8, 0xC8);
+        public Color DekuSparklesOuter { get; set; } = Color.FromArgb(0xFF, 0xFF, 0x00);
         public Color BlueBubble { get; set; } = Color.FromArgb(0x00, 0x00, 0xFF);
 
         /// <summary>
@@ -44,6 +48,18 @@ namespace MMR.Randomizer.Asm
                 {
                     colors.SwordEnergyBlueEnv2,
                     colors.SwordEnergyRedEnv2,
+                };
+            }
+        }
+
+        /// <summary>
+        /// Get the default set of Deku energy colors.
+        /// </summary>
+        public static Color[] DefaultDekuEnergyColors {
+            get {
+                return new Color[]
+                {
+                    new WorldColors().DekuSparklesOuter,
                 };
             }
         }

@@ -62,6 +62,7 @@ namespace MMR.Randomizer.Models.Settings
         public Dictionary<TransformationForm, bool> UseEnergyColors { get; set; } = new Dictionary<TransformationForm, bool>()
         {
             { TransformationForm.Human, false },
+            { TransformationForm.Deku, false },
             { TransformationForm.Goron, false },
             { TransformationForm.Zora, false },
             { TransformationForm.FierceDeity, false },
@@ -70,6 +71,7 @@ namespace MMR.Randomizer.Models.Settings
         public Dictionary<TransformationForm, Color[]> EnergyColors { get; set; } = new Dictionary<TransformationForm, Color[]>()
         {
             { TransformationForm.Human, WorldColors.DefaultHumanEnergyColors },
+            { TransformationForm.Deku, WorldColors.DefaultDekuEnergyColors },
             { TransformationForm.Goron, WorldColors.DefaultGoronEnergyColors },
             { TransformationForm.Zora, WorldColors.DefaultZoraEnergyColors },
             { TransformationForm.FierceDeity, WorldColors.DefaultFierceDeityEnergyColors },

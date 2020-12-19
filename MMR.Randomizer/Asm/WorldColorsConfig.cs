@@ -27,6 +27,10 @@ namespace MMR.Randomizer.Asm
             {
                 SetHumanEnergyColor(colors[0], colors[1]);
             }
+            else if (form == TransformationForm.Deku)
+            {
+                SetDekuEnergyColors(colors[0]);
+            }
             else if (form == TransformationForm.Goron)
             {
                 var options = new GoronColorOptions(colors[0], colors[1], colors[2]);
@@ -70,6 +74,7 @@ namespace MMR.Randomizer.Asm
             PatchGoronEnergyColors(ObjUtils.GetObjectData(0x14C));
             PatchZoraEnergyColors(ObjUtils.GetObjectData(0x14D));
             var playerActor = RomData.MMFileList[38];
+            PatchDekuEnergyColors(playerActor.Data);
             PatchFierceDeityEnergyColors(playerActor.Data);
         }
 
