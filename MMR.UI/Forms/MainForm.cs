@@ -48,6 +48,7 @@ namespace MMR.UI.Forms
             InitializeHUDGroupBox();
             InitializeTransformationFormSettings();
             InitializeShortenCutsceneSettings();
+            InitalizeLowHealthSFXOptions();
 
             ItemEditor = new ItemEditForm();
             UpdateCustomItemAmountLabel();
@@ -102,6 +103,7 @@ namespace MMR.UI.Forms
             TooltipBuilder.SetTooltip(cDMult, "Select a damage mode, affecting how much damage Link takes:\n\n - Default: Link takes normal damage.\n - 2x: Link takes double damage.\n - 4x: Link takes quadruple damage.\n - 1-hit KO: Any damage kills Link.\n - Doom: Hardcore mode. Link's hearts are slowly being drained continuously.");
             TooltipBuilder.SetTooltip(cDType, "Select an effect to occur whenever Link is being damaged:\n\n - Default: Vanilla effects occur.\n - Fire: All damage burns Link.\n - Ice: All damage freezes Link.\n - Shock: All damage shocks link.\n - Knockdown: All damage knocks Link down.\n - Random: Any random effect of the above.");
             TooltipBuilder.SetTooltip(cGravity, "Select a movement modifier:\n\n - Default: No movement modifier.\n - High speed: Link moves at a much higher velocity.\n - Super low gravity: Link can jump very high.\n - Low gravity: Link can jump high.\n - High gravity: Link can barely jump.");
+            TooltipBuilder.SetTooltip(cLowHealthSFXComboBox, "Select a Low Health SFX setting:\n\n - Default: Vanilla sound.\n - Disabled: No sound will play.\n - Random: a random SFX will be chosen.\n - Specific SFX: a specific SFX will play as the low health sfx.");
             TooltipBuilder.SetTooltip(cNutAndStickDrops, "Adds Deku nuts and Deku sticks to drop tables in the field:\n\n - Default: No change, vanilla behavior.\n - Light: one stick and nut 1/16 chance termina bush.\n - Medium: More nuts, twice the chance\n - Extra: More sticks, more nuts, more drop locations.\n - Mayhem: You're crazy in the coconut!");
             TooltipBuilder.SetTooltip(cFloors, "Select a floortype for every floor ingame:\n\n - Default: Vanilla floortypes.\n - Sand: Link sinks slowly into every floor, affecting movement speed.\n - Ice: Every floor is slippery.\n - Snow: Similar to sand. \n - Random: Any random floortypes of the above.");
             TooltipBuilder.SetTooltip(cClockSpeed, "Modify the speed of time.");
@@ -217,6 +219,14 @@ namespace MMR.UI.Forms
                     }
                 }
             }
+        }
+
+        private void InitalizeLowHealthSFXOptions()
+        {
+            string[] listOfOptions = Enum.GetNames(typeof(LowHealthSFX));
+            this.cLowHealthSFXComboBox.Items.Clear();
+            this.cLowHealthSFXComboBox.Items.AddRange(listOfOptions);
+            this.cLowHealthSFXComboBox.SelectedItem = "Default";
         }
 
         private void cShortenCutscene_CheckedChanged(object sender, EventArgs e)
@@ -545,6 +555,7 @@ namespace MMR.UI.Forms
             cLink.SelectedIndex = (int)_configuration.GameplaySettings.Character;
             cTatl.SelectedIndex = (int)_configuration.CosmeticSettings.TatlColorSchema;
             cGravity.SelectedIndex = (int)_configuration.GameplaySettings.MovementMode;
+            cLowHealthSFXComboBox.SelectedIndex = cLowHealthSFXComboBox.Items.IndexOf(_configuration.CosmeticSettings.LowHealthSFX.ToString());
             cNutAndStickDrops.SelectedIndex = (int)_configuration.GameplaySettings.NutandStickDrops;
             cFloors.SelectedIndex = (int)_configuration.GameplaySettings.FloorType;
             cGossipHints.SelectedIndex = (int)_configuration.GameplaySettings.GossipHintStyle;
@@ -571,7 +582,6 @@ namespace MMR.UI.Forms
             }
             cTargettingStyle.Checked = _configuration.CosmeticSettings.EnableHoldZTargeting;
             cEnableNightMusic.Checked = _configuration.CosmeticSettings.EnableNightBGM;
-
 
             // Misc config options
             cDisableCritWiggle.Checked = _configuration.GameplaySettings.CritWiggleDisable;
@@ -729,6 +739,7 @@ namespace MMR.UI.Forms
         {
             UpdateSingleSetting(() => _configuration.CosmeticSettings.EnableNightBGM = cEnableNightMusic.Checked);
         }
+
 
         private void cMusic_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1603,6 +1614,15 @@ namespace MMR.UI.Forms
             var combobox = (ComboBox)sender;
             var selected = (ColorSelectionItem)combobox.SelectedItem;
             _configuration.CosmeticSettings.MagicSelection = selected.Name;
+        }
+
+        private void cLowHealthSFXComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // should probably make the object[] obj support both string and index to avoid this search, but it's low use
+            var comboboxArrayObj = cLowHealthSFXComboBox.Items[ cLowHealthSFXComboBox.SelectedIndex ];
+            var SFXOptionList = Enum.GetValues(typeof(LowHealthSFX)).Cast<LowHealthSFX>().ToList();
+            var SFXOption = SFXOptionList.Find(u => u.ToString() == comboboxArrayObj.ToString());
+            UpdateSingleSetting(() => _configuration.CosmeticSettings.LowHealthSFX = SFXOption);
         }
 
         private void bToggleTricks_Click(object sender, EventArgs e)

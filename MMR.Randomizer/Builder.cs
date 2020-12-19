@@ -1224,6 +1224,7 @@ namespace MMR.Randomizer
             }
 
             var shuffledSoundEffects = new Dictionary<SoundEffect, SoundEffect>();
+            shuffledSoundEffects.Remove(SoundEffect.LowHealthBeep); // handled in next function
 
             var replacableSounds = SoundEffects.Replacable();
             foreach (var sound in replacableSounds)
@@ -1253,8 +1254,31 @@ namespace MMR.Randomizer
             }
         }
 
-        private void SoundEffectShuffle()
+        private void WriteLowHealthSound(Random random)
         {
+            if (_cosmeticSettings.LowHealthSFX == LowHealthSFX.Default)
+            {
+                return;
+            }
+            
+            if (_cosmeticSettings.LowHealthSFX == LowHealthSFX.Disabled)
+            {
+                // we can mute the SFX by nulling the function call to play the low health sfx
+                // turning JAL 0x80XXXXXX into NOP, in RAM this is location 801018E4
+                ReadWriteUtils.WriteToROM(0x0B97E24, (uint) 0x00000000);
+            }
+            else if ((int) _cosmeticSettings.LowHealthSFX > (int) LowHealthSFX.Random)
+            {
+                SoundEffect.LowHealthBeep.ReplaceWith( (SoundEffect) _cosmeticSettings.LowHealthSFX);
+            }
+            else if(_cosmeticSettings.LowHealthSFX == LowHealthSFX.Random)
+            {
+                var soundPool = SoundEffects.FilterByTags(SoundEffect.LowHealthBeep.ReplacableByTags());
+                if (soundPool.Count > 0)
+                {
+                    SoundEffect.LowHealthBeep.ReplaceWith(soundPool.Random(random));
+                }
+            }
         }
 
         private void WriteEnemies()
@@ -2783,6 +2807,7 @@ namespace MMR.Randomizer
 
             progressReporter.ReportProgress(74, "Writing sound effects...");
             WriteSoundEffects(new Random(BitConverter.ToInt32(hash, 0)));
+            WriteLowHealthSound(new Random(BitConverter.ToInt32(hash, 0)));
 
             if (outputSettings.GenerateROM || outputSettings.OutputVC)
             {
