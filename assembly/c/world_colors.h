@@ -10,10 +10,12 @@ struct world_color_config {
     u32 version;
     rgbs_t goronEnergyPunch;
     rgbs_t goronEnergyRolling;
+    rgbs_t swordChargeEnergyBlueEnv;
+    rgbs_t swordChargeEnergyBluePri;
+    rgbs_t swordChargeEnergyRedEnv;
+    rgbs_t swordChargeEnergyRedPri;
     rgbs_t swordSlashEnergyBluePri;
     rgbs_t swordSlashEnergyRedPri;
-    rgbs_t swordSlashEnergyEnv;
-    rgbs_t swordSlashEnergyPri;
     rgbs_t swordBeamEnergyEnv;
     rgbs_t swordBeamEnergyPri;
     rgbs_t blueBubble;

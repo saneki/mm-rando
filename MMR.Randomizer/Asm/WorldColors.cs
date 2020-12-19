@@ -24,8 +24,10 @@ namespace MMR.Randomizer.Asm
         public Color GoronRollOuterEnergyPrim2 { get; set; } = Color.FromArgb(0xFF, 0x9B, 0x00);
         public Color SwordBeamEnergyEnv { get; set; } = Color.FromArgb(0x00, 0x64, 0xFF);
         public Color SwordBeamEnergyPrim { get; set; } = Color.FromArgb(0xAA, 0xFF, 0xFF);
-        public Color SwordEnergyEnv { get; set; } = Color.FromArgb(0x00, 0x64, 0xFF);
-        public Color SwordEnergyPrim { get; set; } = Color.FromArgb(0xAA, 0xFF, 0xFF);
+        public Color SwordChargeBlueEnergyEnv { get; set; } = Color.FromArgb(0x00, 0x64, 0xFF);
+        public Color SwordChargeBlueEnergyPrim { get; set; } = Color.FromArgb(0xAA, 0xFF, 0xFF);
+        public Color SwordChargeRedEnergyEnv { get; set; } = Color.FromArgb(0xFF, 0x64, 0x00);
+        public Color SwordChargeRedEnergyPrim { get; set; } = Color.FromArgb(0xFF, 0xFF, 0xAA);
         public Color SwordEnergyBlueEnv1 { get; set; } = Color.FromArgb(0x00, 0x00, 0xFF);
         public Color SwordEnergyBlueEnv2 { get; set; } = Color.FromArgb(0x00, 0x64, 0xFF);
         public Color SwordEnergyBluePrim { get; set; } = Color.FromArgb(0xAA, 0xFF, 0xFF);
@@ -93,10 +95,12 @@ namespace MMR.Randomizer.Asm
         {
             GoronPunchEnergyEnv1,
             GoronRollInnerEnergyEnv,
+            SwordChargeBlueEnergyEnv,
+            SwordChargeBlueEnergyPrim,
+            SwordChargeRedEnergyEnv,
+            SwordChargeRedEnergyPrim,
             SwordEnergyBluePrim,
             SwordEnergyRedPrim,
-            SwordEnergyEnv,
-            SwordEnergyPrim,
             SwordBeamEnergyEnv,
             SwordBeamEnergyPrim,
             BlueBubble,

@@ -66,15 +66,69 @@
     addiu   v0, v0, 0x0008
 
 ;==================================================================================================
-; Sword Spin Energy Color
+; Sword Spin Charge Energy Color
 ;==================================================================================================
 
 .headersize(G_EN_M_THUNDER_VRAM - G_EN_M_THUNDER_FILE)
 
-@SwordSlashBluePriColor equ (WORLD_COLOR_CONFIG + 0x10)
-@SwordSlashRedPriColor  equ (WORLD_COLOR_CONFIG + 0x14)
-@SwordSlashEnvColor     equ (WORLD_COLOR_CONFIG + 0x18)
-@SwordSlashPriColor     equ (WORLD_COLOR_CONFIG + 0x1C)
+@SwordChargeBlueEnvColor equ (WORLD_COLOR_CONFIG + 0x10)
+@SwordChargeBluePriColor equ (WORLD_COLOR_CONFIG + 0x14)
+@SwordChargeRedEnvColor  equ (WORLD_COLOR_CONFIG + 0x18)
+@SwordChargeRedPriColor  equ (WORLD_COLOR_CONFIG + 0x1C)
+
+; Charge blue prim color.
+; Replaces:
+;   lui     at, 0xAAFF
+;   ori     at, at, 0xFF00
+.org 0x808B6F90 ; Offset: 0x1BD0
+    lui     at, hi(@SwordChargeBluePriColor)
+    lw      at, lo(@SwordChargeBluePriColor) (at)
+
+; Charge blue env color (part 1).
+; Replaces:
+;   lui     t9, 0x0064
+.org 0x808B6F68 ; Offset: 0x1BA8
+    lui     t9, hi(@SwordChargeBlueEnvColor)
+
+; Charge blue env color (part 2).
+; Replaces:
+;   ori     t9, t9, 0xFF80
+.org 0x808B6FAC ; Offset: 0x1BEC
+    lw      t9, lo(@SwordChargeBlueEnvColor) (t9)
+
+; Charge red color (part 1).
+; Replaces:
+;   lui     t8, 0xFF64
+.org 0x808B6EE0 ; Offset: 0x1B20
+    lui     t8, hi(@SwordChargeRedEnvColor)
+
+; Charge red color (part 2).
+; Replaces:
+;   addiu   t9, v0, 0x0008
+;   sw      t9, 0x02C0 (t0)
+;   sw      t5, 0x0000 (v0)
+;   lw      t6, 0x00B8 (sp)
+;   addiu   at, r0, 0xAA00
+.org 0x808B6EF8 ; Offset: 0x1B38
+    lui     at, hi(@SwordChargeRedPriColor)
+    lw      at, lo(@SwordChargeRedPriColor) (at)
+    sw      t5, 0x0000 (v0)
+    lw      t6, 0x00B8 (sp)
+    lw      t8, lo(@SwordChargeRedEnvColor) (t8)
+
+; Replaces:
+;   lw      v0, 0x02C0 (t0)
+.org 0x808B6F18 ; Offset: 0x1B58
+    addiu   v0, v0, 0x0008
+
+;==================================================================================================
+; Sword Spin Attack Energy Color
+;==================================================================================================
+
+.headersize(G_EN_M_THUNDER_VRAM - G_EN_M_THUNDER_FILE)
+
+@SwordSlashBluePriColor equ (WORLD_COLOR_CONFIG + 0x20)
+@SwordSlashRedPriColor  equ (WORLD_COLOR_CONFIG + 0x24)
 
 ; Red prim color (part 1).
 ; Replaces:
@@ -108,34 +162,14 @@
     lui     at, hi(@SwordSlashBluePriColor)
     lw      at, lo(@SwordSlashBluePriColor) (at)
 
-; Prim color, used for both.
-; Replaces:
-;   lui     at, 0xAAFF
-;   ori     at, at, 0xFF00
-.org 0x808B6F90 ; Offset: 0x1BD0
-    lui     at, hi(@SwordSlashPriColor)
-    lw      at, lo(@SwordSlashPriColor) (at)
-
-; Env color (first half).
-; Replaces:
-;   lui     t9, 0x0064
-.org 0x808B6F68 ; Offset: 0x1BA8
-    lui     t9, hi(@SwordSlashEnvColor)
-
-; Env color (second half).
-; Replaces:
-;   ori     t9, t9, 0xFF80
-.org 0x808B6FAC ; Offset: 0x1BEC
-    lw      t9, lo(@SwordSlashEnvColor) (t9)
-
 ;==================================================================================================
 ; Fierce Deity Sword Beam Energy Color
 ;==================================================================================================
 
 .headersize(G_EN_M_THUNDER_VRAM - G_EN_M_THUNDER_FILE)
 
-@SwordBeamEnvColor equ (WORLD_COLOR_CONFIG + 0x20)
-@SwordBeamPriColor equ (WORLD_COLOR_CONFIG + 0x24)
+@SwordBeamEnvColor equ (WORLD_COLOR_CONFIG + 0x28)
+@SwordBeamPriColor equ (WORLD_COLOR_CONFIG + 0x2C)
 
 ; Prim color.
 ; Replaces:
