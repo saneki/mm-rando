@@ -48,6 +48,7 @@ namespace MMR.UI.Forms
             InitializeHUDGroupBox();
             InitializeTransformationFormSettings();
             InitializeShortenCutsceneSettings();
+            InitalizeLowHealthSFXOptions();
 
             ItemEditor = new ItemEditForm();
             UpdateCustomItemAmountLabel();
@@ -218,6 +219,19 @@ namespace MMR.UI.Forms
                     }
                 }
             }
+        }
+
+        private void InitalizeLowHealthSFXOptions()
+        {
+            // cannot use Enum.GetNames because it returns a list sorted by absolute value,
+            //  so negative values are shufled as positive, known bug, marked will-not-fix
+            string[] listOfOptions = Enum.GetValues(typeof(LowHealthSFX)) // get all enum values
+                                    .Cast<LowHealthSFX>().ToList()        // to list for sorting
+                                    .OrderBy(o => o)                      // sort by enum value, which puts our negative meta options on top
+                                    .Select(s => s.ToString())            // get list of strings
+                                    .ToArray();                           // back to string[], because it wants object[]
+            this.cLowHealthSFXComboBox.Items.Clear();
+            this.cLowHealthSFXComboBox.Items.AddRange(listOfOptions);
         }
 
         private void cShortenCutscene_CheckedChanged(object sender, EventArgs e)
@@ -1614,18 +1628,6 @@ namespace MMR.UI.Forms
             var SFXOptionList = Enum.GetValues(typeof(LowHealthSFX)).Cast<LowHealthSFX>().ToList();
             var SFXOption = SFXOptionList.Find(u => u.ToString() == comboboxArrayObj.ToString());
             UpdateSingleSetting(() => _configuration.GameplaySettings.LowHealthSFX = SFXOption);
-        }
-
-        public static string[] GetLowHealthSFXOptionList()
-        {
-            // has to be here in a separate function, this code confuses MainForm.Designer
-            // cannot use Enum.GetNames because it returns a list sorted by absolute value,
-            //  so negative values are shufled as positive, known bug, marked will-not-fix
-            return Enum.GetValues(typeof(LowHealthSFX)) // get all enum values
-                .Cast<LowHealthSFX>().ToList()          // to list for sorting
-                .OrderBy(o => o)                        // sort by enum value, which puts our negative meta options on top
-                .Select(s => s.ToString())              // get list of strings
-                .ToArray();                             // back to string[]
         }
 
         private void bToggleTricks_Click(object sender, EventArgs e)
