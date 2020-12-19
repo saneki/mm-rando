@@ -16,7 +16,7 @@
     lui     t8, 0xFB00
     addiu   t7, v0, 0x0008
     sw      t7, 0x02C0 (s0)
-    jal     world_colors_get_blue_bubble_color_hook
+    jal     WorldColors_GetBlueBubbleColor_Hook
     sw      t8, 0x0000 (v0)
     sw      t9, 0x0004 (v0)
 .endarea
