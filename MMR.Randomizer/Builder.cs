@@ -1256,22 +1256,22 @@ namespace MMR.Randomizer
 
         private void WriteLowHealthSound(Random random)
         {
-            if (_randomized.Settings.LowHealthSFX == LowHealthSFX.Default)
+            if (_cosmeticSettings.LowHealthSFX == LowHealthSFX.Default)
             {
                 return;
             }
             
-            if (_randomized.Settings.LowHealthSFX == LowHealthSFX.Disabled)
+            if (_cosmeticSettings.LowHealthSFX == LowHealthSFX.Disabled)
             {
                 // we can mute the SFX by nulling the function call to play the low health sfx
                 // turning JAL 0x80XXXXXX into NOP, in RAM this is location 801018E4
-                ReadWriteUtils.WriteToROM(0x0B97E24, (uint)0x00000000);
+                ReadWriteUtils.WriteToROM(0x0B97E24, (uint) 0x00000000);
             }
-            else if (_randomized.Settings.LowHealthSFX >= 0)
+            else if ((int) _cosmeticSettings.LowHealthSFX > (int) LowHealthSFX.Random)
             {
-                SoundEffect.LowHealthBeep.ReplaceWith((SoundEffect)_randomized.Settings.LowHealthSFX);
+                SoundEffect.LowHealthBeep.ReplaceWith( (SoundEffect) _cosmeticSettings.LowHealthSFX);
             }
-            else if(_randomized.Settings.LowHealthSFX == LowHealthSFX.Random)
+            else if(_cosmeticSettings.LowHealthSFX == LowHealthSFX.Random)
             {
                 var soundPool = SoundEffects.FilterByTags(SoundEffect.LowHealthBeep.ReplacableByTags());
                 if (soundPool.Count > 0)

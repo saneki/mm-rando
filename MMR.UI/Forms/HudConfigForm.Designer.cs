@@ -51,7 +51,7 @@
             this.btn_mapplayer = new System.Windows.Forms.Button();
             this.btn_mapentrance = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.lLowHealthSFXComboBox = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.ctxtMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.btn_dpad = new System.Windows.Forms.Button();
@@ -315,16 +315,16 @@
             this.label1.TabIndex = 20;
             this.label1.Text = "99";
             // 
-            // lLowHealthSFXComboBox
+            // label2
             // 
-            this.lLowHealthSFXComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lLowHealthSFXComboBox.AutoSize = true;
-            this.lLowHealthSFXComboBox.ForeColor = System.Drawing.Color.White;
-            this.lLowHealthSFXComboBox.Location = new System.Drawing.Point(42, 382);
-            this.lLowHealthSFXComboBox.Name = "lLowHealthSFXComboBox";
-            this.lLowHealthSFXComboBox.Size = new System.Drawing.Size(25, 13);
-            this.lLowHealthSFXComboBox.TabIndex = 21;
-            this.lLowHealthSFXComboBox.Text = "200";
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(42, 382);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(25, 13);
+            this.label2.TabIndex = 21;
+            this.label2.Text = "200";
             // 
             // label3
             // 
@@ -366,7 +366,7 @@
             this.Controls.Add(this.btn_inverted);
             this.Controls.Add(this.btn_clockemblem);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.lLowHealthSFXComboBox);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btn_mapentrance);
             this.Controls.Add(this.btn_mapplayer);
@@ -419,7 +419,7 @@
         private System.Windows.Forms.Button btn_mapplayer;
         private System.Windows.Forms.Button btn_mapentrance;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label lLowHealthSFXComboBox;
+        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ContextMenuStrip ctxtMenu;
         private System.Windows.Forms.Button btn_dpad;

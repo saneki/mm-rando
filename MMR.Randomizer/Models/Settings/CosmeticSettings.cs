@@ -58,9 +58,9 @@ namespace MMR.Randomizer.Models.Settings
         public bool EnableNightBGM { get; set; }
 
         /// <summary>
-        /// Disables the Low Health Beep sfx from playing
+        /// Sets the Low health beeping sfx
         /// </summary>
-        public bool DisableLowHealthBeep { get; set; }
+        public LowHealthSFX LowHealthSFX { get; set; }
 
         public CombatMusic DisableCombatMusic { get; set; }
 

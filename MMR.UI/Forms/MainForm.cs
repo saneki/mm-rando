@@ -223,15 +223,10 @@ namespace MMR.UI.Forms
 
         private void InitalizeLowHealthSFXOptions()
         {
-            // cannot use Enum.GetNames because it returns a list sorted by absolute value,
-            //  so negative values are shufled as positive, known bug, marked will-not-fix
-            string[] listOfOptions = Enum.GetValues(typeof(LowHealthSFX)) // get all enum values
-                                    .Cast<LowHealthSFX>().ToList()        // to list for sorting
-                                    .OrderBy(o => o)                      // sort by enum value, which puts our negative meta options on top
-                                    .Select(s => s.ToString())            // get list of strings
-                                    .ToArray();                           // back to string[], because it wants object[]
+            string[] listOfOptions = Enum.GetNames(typeof(LowHealthSFX));
             this.cLowHealthSFXComboBox.Items.Clear();
             this.cLowHealthSFXComboBox.Items.AddRange(listOfOptions);
+            this.cLowHealthSFXComboBox.SelectedItem = "Default";
         }
 
         private void cShortenCutscene_CheckedChanged(object sender, EventArgs e)
@@ -560,7 +555,7 @@ namespace MMR.UI.Forms
             cLink.SelectedIndex = (int)_configuration.GameplaySettings.Character;
             cTatl.SelectedIndex = (int)_configuration.CosmeticSettings.TatlColorSchema;
             cGravity.SelectedIndex = (int)_configuration.GameplaySettings.MovementMode;
-            cLowHealthSFXComboBox.SelectedIndex = cLowHealthSFXComboBox.Items.IndexOf(_configuration.GameplaySettings.LowHealthSFX.ToString());
+            cLowHealthSFXComboBox.SelectedIndex = cLowHealthSFXComboBox.Items.IndexOf(_configuration.CosmeticSettings.LowHealthSFX.ToString());
             cNutAndStickDrops.SelectedIndex = (int)_configuration.GameplaySettings.NutandStickDrops;
             cFloors.SelectedIndex = (int)_configuration.GameplaySettings.FloorType;
             cGossipHints.SelectedIndex = (int)_configuration.GameplaySettings.GossipHintStyle;
@@ -1627,7 +1622,7 @@ namespace MMR.UI.Forms
             var comboboxArrayObj = cLowHealthSFXComboBox.Items[ cLowHealthSFXComboBox.SelectedIndex ];
             var SFXOptionList = Enum.GetValues(typeof(LowHealthSFX)).Cast<LowHealthSFX>().ToList();
             var SFXOption = SFXOptionList.Find(u => u.ToString() == comboboxArrayObj.ToString());
-            UpdateSingleSetting(() => _configuration.GameplaySettings.LowHealthSFX = SFXOption);
+            UpdateSingleSetting(() => _configuration.CosmeticSettings.LowHealthSFX = SFXOption);
         }
 
         private void bToggleTricks_Click(object sender, EventArgs e)

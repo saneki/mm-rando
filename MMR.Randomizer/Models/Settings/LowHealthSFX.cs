@@ -4,9 +4,9 @@ namespace MMR.Randomizer.Models.Settings
 {
     public enum LowHealthSFX
     {
-        Default = -3, // vanilla behavior
-        Disabled = -2, // no sound at all
-        Random = -1,
+        Default = 0, // vanilla behavior
+        Disabled = 1, // no sound at all
+        Random = 2,
 
         // specific sfx
         CuccoChicks = SoundEffect.LittleChickChirp,
