@@ -1787,9 +1787,9 @@ namespace MMR.UI.Forms
             this.cHueShiftMiscUI.AutoSize = true;
             this.cHueShiftMiscUI.Location = new System.Drawing.Point(9, 79);
             this.cHueShiftMiscUI.Name = "cHueShiftMiscUI";
-            this.cHueShiftMiscUI.Size = new System.Drawing.Size(109, 17);
+            this.cHueShiftMiscUI.Size = new System.Drawing.Size(198, 17);
             this.cHueShiftMiscUI.TabIndex = 1;
-            this.cHueShiftMiscUI.Text = "Hue Shift Misc UI";
+            this.cHueShiftMiscUI.Text = "Randomize Hue of Miscellaneous UI";
             this.cHueShiftMiscUI.UseVisualStyleBackColor = true;
             this.cHueShiftMiscUI.CheckedChanged += new System.EventHandler(this.cHueShiftMiscUI_CheckedChanged);
             // 
