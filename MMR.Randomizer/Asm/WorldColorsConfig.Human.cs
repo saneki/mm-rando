@@ -12,7 +12,7 @@ namespace MMR.Randomizer.Asm
         /// Patch GameplayKeep object data to write new energy colors.
         /// </summary>
         /// <param name="data">GameplayKeep object data.</param>
-        public void PatchHumanEnergyColors(Span<byte> data)
+        void PatchHumanEnergyColors(Span<byte> data)
         {
             PatchSwordSpinEnergyColors(data);
         }
@@ -41,7 +41,7 @@ namespace MMR.Randomizer.Asm
         /// </summary>
         /// <param name="blueColor">Blue sword spin energy color.</param>
         /// <param name="redColor">Red sword spin energy color.</param>
-        public void SetHumanEnergyColors(Color blueColor, Color redColor)
+        void SetHumanEnergyColors(Color blueColor, Color redColor)
         {
             var converter = new ColorSpaceConverter();
             var blueAdjusted = converter.TranslateHsv(blueColor, hsv => new Hsv(hsv.H, Increase(hsv.S), Increase(hsv.V)));

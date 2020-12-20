@@ -49,7 +49,7 @@ namespace MMR.Randomizer.Asm
         /// Patch Goron object data to write new energy colors.
         /// </summary>
         /// <param name="data">Object data.</param>
-        public void PatchGoronEnergyColors(Span<byte> data)
+        void PatchGoronEnergyColors(Span<byte> data)
         {
             // Patch SetPrimColor instruction for Goron punch energy color.
             var punchDListOffset = 0x11AB8;
@@ -80,7 +80,7 @@ namespace MMR.Randomizer.Asm
         /// Set Goron energy colors from the given options.
         /// </summary>
         /// <param name="options">Color options.</param>
-        public void SetGoronEnergyColors(GoronColorOptions options)
+        void SetGoronEnergyColors(GoronColorOptions options)
         {
             Colors.GoronPunchEnergyPrim = GetPunchPrim(options.Main);
             Colors.GoronPunchEnergyEnv1 = options.Extra1;

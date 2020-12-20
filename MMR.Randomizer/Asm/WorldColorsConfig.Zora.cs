@@ -12,7 +12,7 @@ namespace MMR.Randomizer.Asm
         /// Patch Zora object data to write new energy colors.
         /// </summary>
         /// <param name="data">Zora object data.</param>
-        public void PatchZoraEnergyColors(Span<byte> data)
+        void PatchZoraEnergyColors(Span<byte> data)
         {
             // Offset to DList containing color instructions.
             var offset = 0x11760;
@@ -30,7 +30,7 @@ namespace MMR.Randomizer.Asm
         /// Update Zora energy colors from the given base color.
         /// </summary>
         /// <param name="color">Base color.</param>
-        public void SetZoraEnergyColors(Color color)
+        void SetZoraEnergyColors(Color color)
         {
             var converter = new ColorSpaceConverter();
             var darker = converter.TranslateHsv(color, hsv => new Hsv((hsv.H + 35f) % 360f, hsv.S, hsv.V * 0.392f));

@@ -12,7 +12,7 @@ namespace MMR.Randomizer.Asm
         /// Patch Player Actor file data to write Fierce Deity energy colors.
         /// </summary>
         /// <param name="playerActorData">Player Actor file data.</param>
-        public void PatchFierceDeityEnergyColors(Span<byte> playerActorData)
+        void PatchFierceDeityEnergyColors(Span<byte> playerActorData)
         {
             PatchFierceDeitySparkleColors(playerActorData);
         }
@@ -32,7 +32,7 @@ namespace MMR.Randomizer.Asm
         /// Update Fierce Deity energy colors from the given base color.
         /// </summary>
         /// <param name="color">Sword beam energy color.</param>
-        public void SetFierceDeityEnergyColors(Color color)
+        void SetFierceDeityEnergyColors(Color color)
         {
             var converter = new ColorSpaceConverter();
             var adjusted = converter.TranslateHsv(color, hsv => new Hsv(hsv.H, Increase(hsv.S), Increase(hsv.V)));

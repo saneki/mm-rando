@@ -10,7 +10,7 @@ namespace MMR.Randomizer.Asm
         /// Patch Player Actor file data to write Deku energy colors.
         /// </summary>
         /// <param name="playerActorData">Player Actor file data.</param>
-        public void PatchDekuEnergyColors(Span<byte> playerActorData)
+        void PatchDekuEnergyColors(Span<byte> playerActorData)
         {
             var offset = 0x2FEA0;
             // Write colors of dust effect caused by using deku flowers.
@@ -25,7 +25,7 @@ namespace MMR.Randomizer.Asm
         /// Update Deku energy colors from the given base color.
         /// </summary>
         /// <param name="color">Base color.</param>
-        public void SetDekuEnergyColors(Color color)
+        void SetDekuEnergyColors(Color color)
         {
             Colors.DekuDustInner = color.Brighten(0.2f);
             Colors.DekuDustOuter = color.Darken(0.4f);
