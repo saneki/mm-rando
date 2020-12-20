@@ -229,3 +229,40 @@
 ;   ori     t6, t6, 0xFF80
 .org 0x808B6C84 ; Offset: 0x18C4
     lw      t6, lo(@SwordBeamEnvColor) (t6)
+
+;==================================================================================================
+; Fierce Deity Sword Beam Damage Color
+;==================================================================================================
+
+.headersize(G_CODE_RAM - G_CODE_FILE)
+
+@SwordBeamDamageEnvColor equ (WORLD_COLOR_CONFIG + 0x38)
+
+; Replaces:
+;   lh      t7, 0x0C3E (a2)
+;   lbu     t3, 0x0C3B (a2)
+;   lh      t5, 0x0C3C (a2)
+;   addiu   t6, t7, 0x00FF
+;   andi    t2, t6, 0x00FF
+;   sll     t8, t2, 8
+;   sll     t9, t3, 24
+;   addiu   t2, t5, 0x00FF
+;   andi    t4, t2, 0x00FF
+;   sll     t3, t4, 16
+;   or      t7, t8, t9
+;   or      t8, t7, t3
+.org 0x800BF1B4
+.area 0x30
+    lui     t8, hi(@SwordBeamDamageEnvColor)
+    lw      t8, lo(@SwordBeamDamageEnvColor) (t8)
+    addiu   at, r0, 0xFF00 ;; AT = 0xFFFFFF00 (bitmask)
+    and     t8, t8, at
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+.endarea

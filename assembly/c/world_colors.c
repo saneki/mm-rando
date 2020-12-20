@@ -18,6 +18,7 @@ struct world_color_config WORLD_COLOR_CONFIG = {
     .swordSlashEnergyRedPri  = { 0xFF, 0xFF, 0xAA, },
     .swordBeamEnergyEnv      = { 0x00, 0x64, 0xFF, },
     .swordBeamEnergyPri      = { 0xAA, 0xFF, 0xFF, },
+    .swordBeamDamageEnv      = { 0x00, 0xFF, 0xFF, },
     .blueBubble              = { 0x00, 0x00, 0xFF, },
 };
 

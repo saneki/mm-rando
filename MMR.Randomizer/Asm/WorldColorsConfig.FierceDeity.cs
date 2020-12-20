@@ -1,4 +1,6 @@
 ﻿using MMR.Randomizer.Extensions;
+using SixLabors.ImageSharp.ColorSpaces;
+using SixLabors.ImageSharp.ColorSpaces.Conversion;
 using System;
 using System.Drawing;
 
@@ -32,12 +34,21 @@ namespace MMR.Randomizer.Asm
         /// <param name="color">Sword beam energy color.</param>
         public void SetFierceDeityEnergyColors(Color color)
         {
+            var converter = new ColorSpaceConverter();
+            var hsv = converter.ToHsv(ToRgb(color));
+            var adjustedHsv = new Hsv(hsv.H, Increase(hsv.S), Increase(hsv.V));
+            var adjusted = FromRgb(converter.ToRgb(adjustedHsv));
+
+            // Update sword beam damage colors.
+            Colors.SwordBeamDamageEnv = adjusted;
             // Update sword beam energy colors.
             Colors.SwordBeamEnergyEnv = color;
             Colors.SwordBeamEnergyPrim = Color.White;
             // Update sparkle colors.
             Colors.FierceDeitySparklesInner = color.Brighten(0.5f);
             Colors.FierceDeitySparklesOuter = color;
+
+            float Increase(float input, float mult = 3f) => Math.Min(input * mult, 1f);
         }
     }
 }
