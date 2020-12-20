@@ -268,6 +268,16 @@ namespace MMR.UI.Forms
                 }
                 if (_configuration.CosmeticSettings.UseEnergyColors.TryGetValue(form, out var use))
                 {
+                    tabPage.Controls.Add(new Label
+                    {
+                        Name = "lEnergyColorDefault",
+                        Text = "Default",
+                        Location = new Point(91, 63),
+                        Size = new Size(135, 23),
+                        TextAlign = ContentAlignment.MiddleCenter,
+                        Visible = !use,
+                        BorderStyle = BorderStyle.FixedSingle,
+                    });
                     var bEnergy = CreateEnergyColorButtons(form);
                     foreach (var button in bEnergy)
                     {
@@ -288,7 +298,8 @@ namespace MMR.UI.Forms
                 Name = "cEnergyRandomize",
                 Text = "🎲",
                 Location = new Point(91 + (3 * 34), 62),
-                Size = new Size(25, 25),
+                Size = new Size(33, 25),
+                TextAlign = ContentAlignment.TopRight,
             };
             button.Font = new Font(button.Font.FontFamily, 12);
             TooltipBuilder.SetTooltip(button, "Randomize the energy colors for this form.");
@@ -306,7 +317,7 @@ namespace MMR.UI.Forms
                 Location = new Point(6, 67),
                 Size = new Size(88, 17),
             };
-            checkBox.CheckedChanged += create_cEnergy_CheckedChanged();
+            checkBox.CheckedChanged += cEnergy_CheckedChanged;
             return checkBox;
         }
 
@@ -432,19 +443,28 @@ namespace MMR.UI.Forms
             TryRandomize(sender as BackgroundWorker, e);
         }
 
-        private EventHandler create_cEnergy_CheckedChanged()
+        private void cEnergy_CheckedChanged(object sender, EventArgs e)
         {
-            void cEnergy_CheckedChanged(object sender, EventArgs e)
+            _isUpdating = true;
+
+            var checkBox = (CheckBox)sender;
+            var form = (TransformationForm)checkBox.Tag;
+            _configuration.CosmeticSettings.UseEnergyColors[form] = checkBox.Checked;
+
+            var current = _configuration.CosmeticSettings.EnergyColors[form];
+            for (int i = 0; i < current.Length; i++)
             {
-                _isUpdating = true;
+                var button = (Button)checkBox.Parent.Controls.Find($"bEnergy{i}", false)[0];
+                button.Visible = checkBox.Checked;
 
-                var checkBox = (CheckBox)sender;
-                var form = (TransformationForm)checkBox.Tag;
-                _configuration.CosmeticSettings.UseEnergyColors[form] = checkBox.Checked;
+                var label = (Label)checkBox.Parent.Controls.Find("lEnergyColorDefault", false)[0];
+                label.Visible = !checkBox.Checked;
 
-                _isUpdating = false;
-            };
-            return cEnergy_CheckedChanged;
+                var randomizeButton = (Button)checkBox.Parent.Controls.Find("cEnergyRandomize", false)[0];
+                randomizeButton.Visible = checkBox.Checked;
+            }
+
+            _isUpdating = false;
         }
 
         private void bEnergy_Click(object sender, EventArgs e)
@@ -706,6 +726,13 @@ namespace MMR.UI.Forms
                     {
                         var bEnergy = (Button)cosmeticFormTab.Controls.Find($"bEnergy{i}", false)[0];
                         bEnergy.BackColor = colors[i];
+                        bEnergy.Visible = use;
+
+                        var cEnergyRandomize = (Button)cosmeticFormTab.Controls.Find("cEnergyRandomize", false)[0];
+                        cEnergyRandomize.Visible = use;
+
+                        var lEnergyColorDefault = (Label)cosmeticFormTab.Controls.Find("lEnergyColorDefault", false)[0];
+                        lEnergyColorDefault.Visible = !use;
                     }
                 }
             }
