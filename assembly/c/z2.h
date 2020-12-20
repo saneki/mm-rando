@@ -1967,11 +1967,18 @@ typedef struct {
     u8               mask;                           /* 0x0153 */
     u8               mask_c;                         /* 0x0154, C button index (starting at 1) of current/recently worn mask */
     u8               previous_mask;                  /* 0x0155 */
-    u8               unk_0x156[0xF4];                /* 0x0156 */
-    u16              current_animation_id;           /* 0x024A */
+    u8               unk_0x156[0xF2];                /* 0x0156 */
+    union {
+        struct {
+            u16      unk_0x248;                      /* 0x0248 */
+            u16      current_animation_id;           /* 0x024A */
+        };
+        u32          animation_value;                /* 0x0248 */
+    };
     u8               unk_0x24C[0x138];               /* 0x024C */
     u16              get_item;                       /* 0x0384 */
-    u8               unk_0x386[0x6E6];               /* 0x0386 */
+    u8               unk_0x386[0x6E2];               /* 0x0386 */
+    f32             *table_A68;                      /* 0x0A68 */
     union {
         struct {
             u32      action_state1;                  /* 0x0A6C */
@@ -2498,8 +2505,14 @@ typedef struct {
 #define z2_LinkInvincibility_vram        0x80833998
 #define z2_UseItem_vram                  0x80831990
 
+#define z2_PerformEnterWaterEffects_vram 0x8083B8D0
+#define z2_PlayerHandleBuoyancy_vram     0x808475B4
+
 /* Relocatable Types (VRAM) */
 #define z2_file_select_ctxt_vram         0x80813DF0
+
+typedef void (*z2_PerformEnterWaterEffects_proc)(z2_game_t *game, z2_link_t *link);
+typedef void (*z2_PlayerHandleBuoyancy_proc)(z2_link_t *link);
 
 /* Function Prototypes */
 typedef int (*z2_CanInteract_proc)(z2_game_t *game);

@@ -66,6 +66,8 @@ namespace MMR.Randomizer.Asm
         public Color MenuBorder1 { get; set; } = Color.FromArgb(0xB4, 0xB4, 0x78);
         public Color MenuBorder2 { get; set; } = Color.FromArgb(0x96, 0x8C, 0x5A);
         public Color MenuSubtitleText { get; set; } = Color.FromArgb(0xFF, 0xC8, 0x00);
+        public Color ShopCursor1 { get; set; } = Color.FromArgb(0x00, 0x00, 0xFF);
+        public Color ShopCursor2 { get; set; } = Color.FromArgb(0x00, 0x50, 0xFF);
 
         /// <summary>
         /// Get all colors in the order of serialization.
@@ -122,6 +124,8 @@ namespace MMR.Randomizer.Asm
             MenuBorder1,
             MenuBorder2,
             MenuSubtitleText,
+            ShopCursor1,
+            ShopCursor2,
         };
 
         public HudColors()
@@ -158,7 +162,7 @@ namespace MMR.Randomizer.Asm
             }
             else
             {
-                return this.All.Take(50).ToArray();
+                return this.All.Take(52).ToArray();
             }
         }
 
@@ -205,6 +209,9 @@ namespace MMR.Randomizer.Asm
             Prompt1 = ButtonA.Darken(0.3f);
             Prompt2 = ButtonA;
             PromptGlow = ButtonA.Brighten(0.2f);
+            // Update shop cursor colors.
+            ShopCursor1 = ButtonA.Darken(0.4f);
+            ShopCursor2 = ButtonA.Brighten(0.2f);
         }
 
         /// <summary>
@@ -264,7 +271,7 @@ namespace MMR.Randomizer.Asm
         /// Optional hue shift for color of miscellaneous UI elements (pause menu border).
         /// </summary>
         [JsonIgnore]
-        public Tuple<float> HueShift { get; set; } = null;
+        public Tuple<float, float, float> HueShift { get; set; } = null;
 
         /// <summary>
         /// Get the finalized <see cref="HudColors"/> after applying color overrides.
@@ -295,6 +302,12 @@ namespace MMR.Randomizer.Asm
                 colors.MenuBorder1 = colors.MenuBorder1.ShiftHue(this.HueShift.Item1);
                 colors.MenuBorder2 = colors.MenuBorder2.ShiftHue(this.HueShift.Item1);
                 colors.MenuSubtitleText = colors.MenuSubtitleText.ShiftHue(this.HueShift.Item1).Brighten(0.3f);
+
+                // Apply hue shift for score lines color.
+                colors.ScoreLines = colors.ScoreLines.ShiftHue(this.HueShift.Item2);
+
+                // Apply hue shift for score note color.
+                colors.ScoreNote = colors.ScoreNote.ShiftHue(this.HueShift.Item3);
             }
 
             return colors;

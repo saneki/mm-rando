@@ -5,7 +5,7 @@
     "tasks": [
         {
             "label": "Build Assembly",
-            "command": "docker-compose up",
+            "command": "dotnet nake RunDockerCompose",
             "type": "shell",
             "group": "build",
             "presentation": {
@@ -17,7 +17,7 @@
             "label": "Build CLI",
             "type": "shell",
             "group": "build",
-            "command": "dotnet build ../MMR.CLI/MMR.CLI.csproj -c ${input:configuration}",
+            "command": "dotnet nake BuildRandoCli ${input:configuration}",
             "presentation": {
                 "reveal": "always"
             },
@@ -27,7 +27,7 @@
             "label": "Run CLI",
             "type": "shell",
             "group": "build",
-            "command": "dotnet \"../MMR.CLI/bin/${input:configuration}/netcoreapp3.1/MMR.CLI.dll\" -input \"input/Rom.z64\" -settings \"../MMR.UI/bin/${input:configuration}/settings.json\"",
+            "command": "dotnet nake RunRandoCli ${input:configuration}",
             "presentation": {
                 "reveal": "always"
             },
@@ -37,8 +37,20 @@
             "label": "Build All",
             "type": "shell",
             "group": "build",
-            "dependsOn": ["Build Assembly", "Build CLI", "Run CLI"],
-            "dependsOrder": "sequence",
+            "command": "dotnet nake BuildAllAndRun ${input:configuration}",
+            "presentation": {
+                "reveal": "always"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Build All (Release)",
+            "type": "shell",
+            "group": "build",
+            "command": "dotnet nake BuildAllAndRun Release",
+            "presentation": {
+                "reveal": "always"
+            },
             "problemMatcher": "$msCompile"
         }
     ],

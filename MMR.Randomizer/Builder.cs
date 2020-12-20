@@ -2584,6 +2584,7 @@ namespace MMR.Randomizer
         private void WriteAsmConfig(AsmContext asm, byte[] hash)
         {
             UpdateHudColorOverrides(hash);
+            _cosmeticSettings.AsmOptions.FinalizeSettings(_cosmeticSettings);
 
             // Apply Asm configuration (after hash has been calculated)
             var options = _cosmeticSettings.AsmOptions;
@@ -2594,6 +2595,7 @@ namespace MMR.Randomizer
         private void WriteAsmConfigPostPatch(AsmContext asm, byte[] hash)
         {
             UpdateHudColorOverrides(hash);
+            _cosmeticSettings.AsmOptions.FinalizeSettings(_cosmeticSettings);
 
             // Apply current configuration on top of existing Asm patch file
             var options = _cosmeticSettings.AsmOptions;
@@ -2625,7 +2627,7 @@ namespace MMR.Randomizer
             // Get random values for hue shift.
             if (_cosmeticSettings.ShiftHueMiscUI)
             {
-                config.HueShift = new Tuple<float>((float)(random.NextDouble() * 360.0));
+                config.HueShift = new Tuple<float, float, float>((float)(random.NextDouble() * 360.0), (float)(random.NextDouble() * 360.0), (float)(random.NextDouble() * 360.0));
             }
         }
 

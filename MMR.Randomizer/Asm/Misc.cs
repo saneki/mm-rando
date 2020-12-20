@@ -109,6 +109,11 @@ namespace MMR.Randomizer.Asm
         public bool DrawHash { get; set; } = true;
 
         /// <summary>
+        /// Whether or not to activate beach cutscene earlier when pushing Mikau to shore.
+        /// </summary>
+        public bool EarlyMikau { get; set; }
+
+        /// <summary>
         /// Whether or not to apply Elegy of Emptiness speedups.
         /// </summary>
         public bool ElegySpeedup { get; set; }
@@ -209,6 +214,7 @@ namespace MMR.Randomizer.Asm
             flags |= (this.ShopModels ? (uint)1 : 0) << 17;
             flags |= (this.ProgressiveUpgrades ? (uint)1 : 0) << 16;
             flags |= (this.IceTrapQuirks ? (uint)1 : 0) << 15;
+            flags |= (this.EarlyMikau ? (uint)1 : 0) << 14;
             return flags;
         }
     }
@@ -328,6 +334,9 @@ namespace MMR.Randomizer.Asm
             this.Speedups.FishermanGame = settings.ShortenCutsceneSettings.General.HasFlag(ShortenCutsceneGeneral.FishermanGame);
             this.Speedups.SoundCheck = settings.ShortenCutsceneSettings.General.HasFlag(ShortenCutsceneGeneral.MilkBarPerformance);
             this.Speedups.DonGero = settings.ShortenCutsceneSettings.General.HasFlag(ShortenCutsceneGeneral.HungryGoron);
+
+            // If using Adult Link model, allow Mikau cutscene to activate early.
+            this.Flags.EarlyMikau = settings.Character == Character.AdultLink;
 
             // Update internal flags.
             this.InternalFlags.VanillaLayout = settings.LogicMode == LogicMode.Vanilla;

@@ -176,6 +176,7 @@ namespace MMR.UI.Forms
             this.label1 = new System.Windows.Forms.Label();
             this.bApplyPatch = new System.Windows.Forms.Button();
             this.saveROM = new System.Windows.Forms.SaveFileDialog();
+            this.cEnergy = new System.Windows.Forms.ColorDialog();
             this.cTunic = new System.Windows.Forms.ColorDialog();
             this.bRandomise = new System.Windows.Forms.Button();
             this.saveWad = new System.Windows.Forms.SaveFileDialog();
@@ -2349,6 +2350,7 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.CheckBox cBottled;
         private System.Windows.Forms.CheckBox cDChests;
         private System.Windows.Forms.CheckBox cMixSongs;
+        private System.Windows.Forms.ColorDialog cEnergy;
         private System.Windows.Forms.ColorDialog cTunic;
         private System.Windows.Forms.Button bRandomise;
         private System.Windows.Forms.CheckBox cSoS;
