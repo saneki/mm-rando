@@ -370,6 +370,7 @@ namespace MMR.Randomizer
                 GameObjects.Actor.Dodongo,
                 GameObjects.Actor.Takkuri,
                 GameObjects.Actor.Eyegore,
+                GameObjects.Actor.IronKnuckle,
                 GameObjects.Actor.Garo
             }.ToList();
 
