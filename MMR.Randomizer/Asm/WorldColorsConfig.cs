@@ -1,7 +1,6 @@
 ﻿using MMR.Randomizer.GameObjects;
 using MMR.Randomizer.Models.Settings;
 using MMR.Randomizer.Utils;
-using SixLabors.ImageSharp.ColorSpaces;
 using System.Drawing;
 
 namespace MMR.Randomizer.Asm
@@ -76,16 +75,6 @@ namespace MMR.Randomizer.Asm
             PatchGoronEnergyColors(ObjUtils.GetObjectData(0x14C));
             PatchZoraEnergyColors(ObjUtils.GetObjectData(0x14D));
             PatchFierceDeityEnergyColors(playerActor.Data);
-        }
-
-        static Color FromRgb(Rgb rgb)
-        {
-            return Color.FromArgb((byte)(rgb.R * 255f), (byte)(rgb.G * 255f), (byte)(rgb.B * 255f));
-        }
-
-        static Rgb ToRgb(Color color)
-        {
-            return new Rgb(color.R / 255f, color.G / 255f, color.B / 255f);
         }
 
         public override IAsmConfigStruct ToStruct(uint version)

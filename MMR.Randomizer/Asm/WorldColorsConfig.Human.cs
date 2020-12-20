@@ -44,19 +44,15 @@ namespace MMR.Randomizer.Asm
         public void SetHumanEnergyColors(Color blueColor, Color redColor)
         {
             var converter = new ColorSpaceConverter();
+            var blueAdjusted = converter.TranslateHsv(blueColor, hsv => new Hsv(hsv.H, Increase(hsv.S), Increase(hsv.V)));
+            var redAdjusted = converter.TranslateHsv(redColor, hsv => new Hsv(hsv.H, Increase(hsv.S), Increase(hsv.V)));
 
             // Update color for normal spin.
-            var blueHsv = converter.ToHsv(ToRgb(blueColor));
-            var blueAdjustedHsv = new Hsv(blueHsv.H, Increase(blueHsv.S), Increase(blueHsv.V));
-            var blueAdjusted = FromRgb(converter.ToRgb(blueAdjustedHsv));
             Colors.SwordEnergyBlueEnv1 = blueColor;
             Colors.SwordEnergyBlueEnv2 = blueAdjusted;
             Colors.SwordEnergyBluePrim = Color.White;
 
             // Update color for greater spin.
-            var redHsv = converter.ToHsv(ToRgb(redColor));
-            var redAdjustedHsv = new Hsv(redHsv.H, Increase(redHsv.S), Increase(redHsv.V));
-            var redAdjusted = FromRgb(converter.ToRgb(redAdjustedHsv));
             Colors.SwordEnergyRedEnv1 = redColor;
             Colors.SwordEnergyRedEnv2 = redAdjusted;
             Colors.SwordEnergyRedPrim = Color.White;

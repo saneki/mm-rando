@@ -101,17 +101,15 @@ namespace MMR.Randomizer.Asm
             Color GetPunchPrim(Color color)
             {
                 var converter = new ColorSpaceConverter();
-                var curHsv = converter.ToHsv(ToRgb(color));
-                var resultHsv = new Hsv(curHsv.H, (curHsv.S / 5f) * 4f, curHsv.V);
-                return FromRgb(converter.ToRgb(resultHsv));
+                return converter.TranslateHsv(color, hsv => new Hsv(hsv.H, (hsv.S / 5f) * 4f, hsv.V));
             }
 
             (Color env, Color prim) Mix(Color color, Color env)
             {
                 // Convert color values to HSV.
                 var converter = new ColorSpaceConverter();
-                var curHsv = converter.ToHsv(ToRgb(color));
-                var envHsv = converter.ToHsv(ToRgb(env));
+                var curHsv = converter.ToHsv(color);
+                var envHsv = converter.ToHsv(env);
                 // Calculate delta of Value.
                 var envHsvValDelta = ((curHsv.V + envHsv.V) / 2f) - curHsv.V;
                 // Multiply by Saturation to limit deviation of Value for greyscale-approaching colors (Saturation approaching 0).
@@ -120,8 +118,8 @@ namespace MMR.Randomizer.Asm
                 var envResultHsv = new Hsv(curHsv.H, curHsv.S, envHsvValue);
                 var primResultHsv = new Hsv(curHsv.H, curHsv.S, curHsv.V);
                 // Convert back into RGB.
-                var envResult = FromRgb(converter.ToRgb(envResultHsv));
-                var primResult = FromRgb(converter.ToRgb(primResultHsv));
+                var envResult = converter.ToColor(envResultHsv);
+                var primResult = converter.ToColor(primResultHsv);
                 return (envResult, primResult);
             }
         }

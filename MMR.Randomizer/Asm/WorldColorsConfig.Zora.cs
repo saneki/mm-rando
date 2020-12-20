@@ -33,10 +33,7 @@ namespace MMR.Randomizer.Asm
         public void SetZoraEnergyColors(Color color)
         {
             var converter = new ColorSpaceConverter();
-            var hsv = converter.ToHsv(ToRgb(color));
-
-            var darkerHsv = new Hsv((hsv.H + 35f) % 360f, hsv.S, hsv.V * 0.392f);
-            var darker = FromRgb(converter.ToRgb(darkerHsv));
+            var darker = converter.TranslateHsv(color, hsv => new Hsv((hsv.H + 35f) % 360f, hsv.S, hsv.V * 0.392f));
 
             Colors.ZoraEnergyEnv1 = darker;
             Colors.ZoraEnergyEnv2 = color;

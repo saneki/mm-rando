@@ -35,9 +35,7 @@ namespace MMR.Randomizer.Asm
         public void SetFierceDeityEnergyColors(Color color)
         {
             var converter = new ColorSpaceConverter();
-            var hsv = converter.ToHsv(ToRgb(color));
-            var adjustedHsv = new Hsv(hsv.H, Increase(hsv.S), Increase(hsv.V));
-            var adjusted = FromRgb(converter.ToRgb(adjustedHsv));
+            var adjusted = converter.TranslateHsv(color, hsv => new Hsv(hsv.H, Increase(hsv.S), Increase(hsv.V)));
 
             // Update sword beam damage colors.
             Colors.SwordBeamDamageEnv = adjusted;
