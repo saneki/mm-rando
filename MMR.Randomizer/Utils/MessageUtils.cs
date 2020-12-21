@@ -423,7 +423,7 @@ namespace MMR.Randomizer.Utils
                     {
                         soundEffectId = 0x690A; // grandma laugh
                         itemNames.Add(item.Item.ItemHints().Random(random));
-                        locationNames.Add(hintableItems.Random(random).Item.LocationHints().Random(random));
+                        locationNames.Add(hintableItems.Random(random).NewLocation.Value.LocationHints().Random(random));
                     }
                 }
             }
