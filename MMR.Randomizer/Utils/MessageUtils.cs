@@ -87,7 +87,7 @@ namespace MMR.Randomizer.Utils
                         continue;
                     }
 
-                    if (competitiveHintInfo.Condition != null && competitiveHintInfo.Condition(randomizedResult.Settings))
+                    if (competitiveHintInfo.Condition != null && !competitiveHintInfo.Condition(randomizedResult.Settings))
                     {
                         randomizedItems.Remove(item);
                         continue;
