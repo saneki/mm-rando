@@ -233,7 +233,7 @@ bool dpad_handle(z2_link_t *link, z2_game_t *game) {
 
     // Make sure certain Link state flags are cleared before processing D-Pad input.
     u32 flags1 = Z2_ACTION_STATE1_HOLD | Z2_ACTION_STATE1_MOVE_SCENE | Z2_ACTION_STATE1_EPONA;
-    if ((link->action_state1 & flags1) != 0) {
+    if ((link->stateFlags.state1 & flags1) != 0) {
         return false;
     }
 
@@ -292,7 +292,7 @@ void dpad_draw(z2_game_t *game) {
 
     // Show faded while flying as a Deku
     z2_link_t *link = Z2_LINK(game);
-    if (((link->action_state3 & Z2_ACTION_STATE3_DEKU_AIR) != 0) && prim_alpha > 0x4A)
+    if (((link->stateFlags.state3 & Z2_ACTION_STATE3_DEKU_AIR) != 0) && prim_alpha > 0x4A)
         prim_alpha = 0x4A;
 
     // Get index of main sprite position (left or right)

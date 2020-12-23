@@ -31,7 +31,7 @@ static struct fairy_inst g_fairy_table[] = {
 // Whether or not Link can interact with a fairy currently.
 bool can_interact_with_fairy(z2_game_t *game, z2_link_t *link) {
     // Cannot collect fairy if in Deku flower
-    if ((link->action_state3 & Z2_ACTION_STATE3_DEKU_DIVE) != 0)
+    if ((link->stateFlags.state3 & Z2_ACTION_STATE3_DEKU_DIVE) != 0)
         return false;
 
     return z2_CanInteract(game) == 0;
