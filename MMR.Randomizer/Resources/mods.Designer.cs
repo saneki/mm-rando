@@ -293,16 +293,6 @@ namespace MMR.Randomizer.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] fix_dungeons {
-            get {
-                object obj = ResourceManager.GetObject("fix_dungeons", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
         internal static byte[] fix_epona {
             get {
                 object obj = ResourceManager.GetObject("fix_epona", resourceCulture);
@@ -636,6 +626,86 @@ namespace MMR.Randomizer.Resources {
         internal static byte[] short_cutscenes {
             get {
                 object obj = ResourceManager.GetObject("short_cutscenes", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] shorten_cutscene_don_gero {
+            get {
+                object obj = ResourceManager.GetObject("shorten_cutscene_don_gero", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] shorten_cutscene_goht_intro {
+            get {
+                object obj = ResourceManager.GetObject("shorten_cutscene_goht_intro", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] shorten_cutscene_gyorg_intro {
+            get {
+                object obj = ResourceManager.GetObject("shorten_cutscene_gyorg_intro", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] shorten_cutscene_igos_intro {
+            get {
+                object obj = ResourceManager.GetObject("shorten_cutscene_igos_intro", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] shorten_cutscene_majora_intro {
+            get {
+                object obj = ResourceManager.GetObject("shorten_cutscene_majora_intro", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] shorten_cutscene_odolwa_intro {
+            get {
+                object obj = ResourceManager.GetObject("shorten_cutscene_odolwa_intro", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] shorten_cutscene_twinmold_intro {
+            get {
+                object obj = ResourceManager.GetObject("shorten_cutscene_twinmold_intro", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] shorten_cutscene_wart_intro {
+            get {
+                object obj = ResourceManager.GetObject("shorten_cutscene_wart_intro", resourceCulture);
                 return ((byte[])(obj));
             }
         }

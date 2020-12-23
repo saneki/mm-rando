@@ -1,4 +1,4 @@
-﻿using MMR.Common.Extensions;
+using MMR.Common.Extensions;
 using MMR.Randomizer.Asm;
 using MMR.Randomizer.Attributes;
 using MMR.Randomizer.Constants;
@@ -739,6 +739,68 @@ namespace MMR.Randomizer
             }
         }
 
+        private void WriteNutsAndSticks()
+        {
+            /// adds deku sticks and deku nuts as additional drops to the drop tables, very useful in enemizer
+            /// when an actor drops an item, they roll a 16 side die, sometimes hardcode overrides in special cases (fairy)
+            ///   all of the slots replaced here with sticks and nuts were empty in vanilla
+            /// image guide from mzxrules of the drop tables in vanilla
+            /// https://pbs.twimg.com/media/Dct7fa6X4AEeYpv?format=jpg&name=large 
+
+            if (_randomized.Settings.NutandStickDrops == NutAndStickDrops.Default)
+            {
+                return;
+            }
+
+            const byte DEKUNUT   = 0x0C;
+            const byte DEKUSTICK = 0x0D;
+            int  bushCount = (int)_randomized.Settings.NutandStickDrops;
+            byte nutCount = _randomized.Settings.NutandStickDrops == NutAndStickDrops.Light ? (byte) 0x1 : (byte)bushCount;
+            byte stickCount = (byte)Math.Max((int)_randomized.Settings.NutandStickDrops - 2, 1);
+            int  droptableFileID = RomUtils.GetFileIndexForWriting(0xC444B8);
+            RomUtils.CheckCompressed(droptableFileID);
+
+            void AddDropToDropTable(byte dropType, int replacementSlot = 0xC444B8, byte amount = 0)
+            {                
+                // each replacementSlot is a single 1/16 slot for random item drop
+                int offset = replacementSlot - RomData.MMFileList[droptableFileID].Addr;
+                RomData.MMFileList[droptableFileID].Data[offset] = dropType;
+                // how many items are dropped is the table that follows, aligns exactly with 0x110
+                RomData.MMFileList[droptableFileID].Data[offset + 0x110] = amount;
+            }
+
+            // termina field bushes 1/16 drop table entry
+            AddDropToDropTable(DEKUNUT, 0xC444B7, nutCount);
+            AddDropToDropTable(DEKUSTICK, 0xC444BF, stickCount);
+            if (bushCount >= 2) // medium and higher
+            {
+                // another slot in the TF grass drop table
+                AddDropToDropTable(DEKUNUT, 0xC444B8, nutCount);
+                AddDropToDropTable(DEKUSTICK, 0xC444C0, stickCount);
+            }
+            if (bushCount >= 3) // extra and higher
+            {
+                // another slot in the TF grass drop table
+                AddDropToDropTable(DEKUNUT, 0xC444BC, nutCount);
+                AddDropToDropTable(DEKUSTICK, 0xC444C1, stickCount);
+                // if extra and higher, add some to non termina field droplists
+                AddDropToDropTable(DEKUNUT, 0xC444CB, nutCount);   // stalchild and south swamp
+                AddDropToDropTable(DEKUSTICK, 0xC444CC, stickCount);
+                AddDropToDropTable(DEKUNUT, 0xC44574, nutCount);   // lens of truth grass
+                AddDropToDropTable(DEKUSTICK, 0xC44575, stickCount);
+            }
+            if (bushCount >= 4) // mayhem
+            {
+                // nuts and sticks in weird drop tables too for mayhem
+                AddDropToDropTable(DEKUNUT, 0xC444F8, nutCount);   // graveyard rocks
+                AddDropToDropTable(DEKUSTICK, 0xC444F9, stickCount);
+                AddDropToDropTable(DEKUNUT, 0xC444D6, nutCount);   // snow trees and snow rocks
+                AddDropToDropTable(DEKUSTICK, 0xC444D7, stickCount);
+                AddDropToDropTable(DEKUNUT, 0xC445BA, nutCount);   // field mice
+                AddDropToDropTable(DEKUSTICK, 0xC445BB, stickCount);
+            }
+        }
+
         private void WriteQuickText()
         {
             if (_randomized.Settings.QuickTextEnabled)
@@ -749,65 +811,110 @@ namespace MMR.Randomizer
 
         private void WriteCutscenes()
         {
-            if (_randomized.Settings.ShortenCutscenes)
+            foreach (var shortenCutsceneGroup in _randomized.Settings.ShortenCutsceneSettings
+                .GetType()
+                .GetProperties()
+                .Select(p => p.GetValue(_randomized.Settings.ShortenCutsceneSettings)).Cast<Enum>())
             {
-                ResourceUtils.ApplyHack(Resources.mods.short_cutscenes);
-            //}
-            // if (_randomized.Settings.RemoveTatlInterrupts)
-            //{
-                ResourceUtils.ApplyHack(Resources.mods.remove_tatl_interrupts);
+                foreach (var value in Enum.GetValues(shortenCutsceneGroup.GetType()).Cast<Enum>())
+                {
+                    if (Convert.ToInt32(value) == 0)
+                    {
+                        continue;
+                    }
+                    if (shortenCutsceneGroup.HasFlag(value))
+                    {
+                        Debug.WriteLine($"Applying Shortened Cutscene: {value}");
+                        var hackContentAttributes = value.GetAttributes<HackContentAttribute>();
+                        foreach (var hackContent in hackContentAttributes.Select(h => h.HackContent))
+                        {
+                            ResourceUtils.ApplyHack(hackContent);
+                        }
+                    }
+                }
             }
         }
 
         private void WriteDungeons()
         {
-            if ((_randomized.Settings.LogicMode == LogicMode.Vanilla) || (!_randomized.Settings.RandomizeDungeonEntrances))
+            if (_randomized.Settings.LogicMode == LogicMode.Vanilla || !_randomized.Settings.RandomizeDungeonEntrances)
             {
                 return;
             }
 
-            EntranceUtils.WriteEntrances(Values.OldEntrances.ToArray(), _randomized.NewEntrances);
-            EntranceUtils.WriteEntrances(Values.OldExits.ToArray(), _randomized.NewExits);
+            SceneUtils.ReadSceneTable();
+            SceneUtils.GetMaps();
+
+            var entrances = new List<Item>
+            {
+                Item.AreaWoodFallTempleAccess,
+                Item.AreaWoodFallTempleClear,
+                Item.AreaSnowheadTempleAccess,
+                Item.AreaSnowheadTempleClear,
+                Item.AreaGreatBayTempleAccess,
+                Item.AreaGreatBayTempleClear,
+                Item.AreaInvertedStoneTowerTempleAccess,
+                Item.AreaStoneTowerClear,
+            };
+
+            foreach (var entrance in entrances)
+            {
+                var newSpawns = entrance.DungeonEntrances();
+                var exits = _randomized.ItemList[entrance].NewLocation.Value.DungeonEntrances();
+
+                var mainExit = exits[0];
+                var mainSpawn = newSpawns[0];
+
+                EntranceSwapUtils.WriteNewEntrance(mainExit, mainSpawn);
+
+                if (exits.Count > 1 && newSpawns.Count > 1)
+                {
+                    var pairExit = newSpawns[1];
+                    var pairSpawn = exits[1];
+
+                    EntranceSwapUtils.WriteNewEntrance(pairExit, pairSpawn);
+                }
+            }
+
+            var clears = new List<Item>
+            {
+                Item.AreaWoodFallTempleClear,
+                Item.AreaSnowheadTempleClear,
+                Item.AreaStoneTowerClear,
+                Item.AreaGreatBayTempleClear,
+            };
+
             byte[] li = new byte[] { 0x24, 0x02, 0x00, 0x00 };
-            List<int[]> addr = new List<int[]>();
-            addr = ResourceUtils.GetAddresses(Resources.addresses.d_check);
-            for (int i = 0; i < addr.Count; i++)
+            byte[] addiuAtR0 = new byte[] { 0x24, 0x01, 0x00, 0x00 };
+            var dCheckAddr = ResourceUtils.GetAddresses(Resources.addresses.d_check);
+            var dcFlagloadAddr = ResourceUtils.GetAddresses(Resources.addresses.dc_flagload);
+            var dcFlagmaskAddr = ResourceUtils.GetAddresses(Resources.addresses.dc_flagmask);
+            var dGiantsCsAddr = ResourceUtils.GetAddresses(Resources.addresses.d_giants_cs);
+            for (var i = 0; i < clears.Count; i++)
             {
-                li[3] = (byte)_randomized.NewExitIndices[i];
-                ReadWriteUtils.WriteROMAddr(addr[i], li);
-            }
-
-            ResourceUtils.ApplyHack(Resources.mods.fix_dungeons);
-            addr = ResourceUtils.GetAddresses(Resources.addresses.d_exit);
-
-            for (int i = 0; i < addr.Count; i++)
-            {
-                if (i == 2)
+                var clear = clears[i];
+                var exit = _randomized.ItemList.SingleOrDefault(io => io.NewLocation == clear).Item;
+                var newIndex = clears.IndexOf(exit);
+                if (newIndex < 0)
                 {
-                    ReadWriteUtils.WriteROMAddr(addr[i], new byte[] {
-                        (byte)((Values.OldExits[_randomized.NewDestinationIndices[i + 1]] & 0xFF00) >> 8),
-                        (byte)(Values.OldExits[_randomized.NewDestinationIndices[i + 1]] & 0xFF) });
+                    throw new Exception("Error randomizing dungoens.");
                 }
-                else
-                {
-                    ReadWriteUtils.WriteROMAddr(addr[i], new byte[] {
-                        (byte)((Values.OldExits[_randomized.NewDestinationIndices[i]] & 0xFF00) >> 8),
-                        (byte)(Values.OldExits[_randomized.NewDestinationIndices[i]] & 0xFF) });
-                }
-            }
 
-            addr = ResourceUtils.GetAddresses(Resources.addresses.dc_flagload);
-            for (int i = 0; i < addr.Count; i++)
-            {
-                ReadWriteUtils.WriteROMAddr(addr[i], new byte[] { (byte)((_randomized.NewDCFlags[i] & 0xFF00) >> 8), (byte)(_randomized.NewDCFlags[i] & 0xFF) });
-            }
+                // Alter the Boss Warp to set the correct clear flag and next entrance.
+                li[3] = (byte)newIndex;
+                ReadWriteUtils.WriteROMAddr(dCheckAddr[i], li);
 
-            addr = ResourceUtils.GetAddresses(Resources.addresses.dc_flagmask);
-            for (int i = 0; i < addr.Count; i++)
-            {
-                ReadWriteUtils.WriteROMAddr(addr[i], new byte[] {
-                    (byte)((_randomized.NewDCMasks[i] & 0xFF00) >> 8),
-                    (byte)(_randomized.NewDCMasks[i] & 0xFF) });
+                // Alter the Giants Cutscene to set the correct exit value.
+                addiuAtR0[3] = Values.DCSceneIds[i];
+                ReadWriteUtils.WriteROMAddr(dGiantsCsAddr[newIndex], addiuAtR0);
+
+                // Alter which address is checked when determining if an area is cleared.
+                ReadWriteUtils.WriteROMAddr(dcFlagloadAddr[i], new byte[] { (byte)((Values.DCFlags[newIndex] & 0xFF00) >> 8), (byte)(Values.DCFlags[newIndex] & 0xFF) });
+
+                // Alter the bit mask to use when determining if an area is cleared.
+                ReadWriteUtils.WriteROMAddr(dcFlagmaskAddr[i], new byte[] {
+                    (byte)((Values.DCFlagMasks[newIndex] & 0xFF00) >> 8),
+                    (byte)(Values.DCFlagMasks[newIndex] & 0xFF) });
             }
         }
 
@@ -1129,6 +1236,8 @@ namespace MMR.Randomizer
                 }
             }
 
+            shuffledSoundEffects.Remove(SoundEffect.LowHealthBeep); // handled in the WriteLowHealthSound function
+
             foreach (var sounds in shuffledSoundEffects)
             {
                 var oldSound = sounds.Key;
@@ -1146,8 +1255,31 @@ namespace MMR.Randomizer
             }
         }
 
-        private void SoundEffectShuffle()
+        private void WriteLowHealthSound(Random random)
         {
+            if (_cosmeticSettings.LowHealthSFX == LowHealthSFX.Default)
+            {
+                return;
+            }
+            
+            if (_cosmeticSettings.LowHealthSFX == LowHealthSFX.Disabled)
+            {
+                // we can mute the SFX by nulling the function call to play the low health sfx
+                // turning JAL 0x80XXXXXX into NOP, in RAM this is location 801018E4
+                ReadWriteUtils.WriteToROM(0x0B97E24, (uint) 0x00000000);
+            }
+            else if ((int) _cosmeticSettings.LowHealthSFX > (int) LowHealthSFX.Random)
+            {
+                SoundEffect.LowHealthBeep.ReplaceWith( (SoundEffect) _cosmeticSettings.LowHealthSFX);
+            }
+            else if(_cosmeticSettings.LowHealthSFX == LowHealthSFX.Random)
+            {
+                var soundPool = SoundEffects.FilterByTags(SoundEffect.LowHealthBeep.ReplacableByTags());
+                if (soundPool.Count > 0)
+                {
+                    SoundEffect.LowHealthBeep.ReplaceWith(soundPool.Random(random));
+                }
+            }
         }
 
         private void WriteEnemies()
@@ -1209,8 +1341,24 @@ namespace MMR.Randomizer
                 .SelectMany(g => g.Key == null ? g.ToList() : g.OrderByDescending(item => g.Key.IndexOf(item)).Take(1))
                 .ToList();
 
+            _randomized.Settings.AsmOptions.MMRConfig.ExtraStartingMaps = TingleMap.None;
+            _randomized.Settings.AsmOptions.MMRConfig.ExtraStartingItemIds.Clear();
             foreach (var item in itemList)
             {
+                var startingTingleMap = item.GetAttribute<StartingTingleMapAttribute>();
+                if (startingTingleMap != null)
+                {
+                    _randomized.Settings.AsmOptions.MMRConfig.ExtraStartingMaps |= startingTingleMap.TingleMap;
+                    continue;
+                }
+                if (item.HasAttribute<StartingItemIdAttribute>())
+                {
+                    foreach (var startingItemIdAttribute in item.GetAttributes<StartingItemIdAttribute>())
+                    {
+                        _randomized.Settings.AsmOptions.MMRConfig.ExtraStartingItemIds.Add(startingItemIdAttribute.ItemId);
+                    }
+                    continue;
+                }
                 var startingItemValues = item.GetAttributes<StartingItemAttribute>();
                 if (!startingItemValues.Any() && !_randomized.Settings.NoStartingItems)
                 {
@@ -1252,7 +1400,7 @@ namespace MMR.Randomizer
                 freeItems.Add(Item.StartingHeartContainer1);
                 freeItems.Add(Item.StartingHeartContainer2);
 
-                if (_randomized.Settings.ShortenCutscenes)
+                if (_randomized.Settings.ShortenCutsceneSettings.General.HasFlag(ShortenCutsceneGeneral.EverythingElse))
                 {
                     //giants cs were removed
                     freeItems.Add(Item.SongOath);
@@ -1300,6 +1448,11 @@ namespace MMR.Randomizer
             {
                 // Unused item
                 if (item.NewLocation == null)
+                {
+                    continue;
+                }
+
+                if (item.Item.DungeonEntrances() != null)
                 {
                     continue;
                 }
@@ -2431,6 +2584,7 @@ namespace MMR.Randomizer
         private void WriteAsmConfig(AsmContext asm, byte[] hash)
         {
             UpdateHudColorOverrides(hash);
+            _cosmeticSettings.AsmOptions.FinalizeSettings(_cosmeticSettings);
 
             // Apply Asm configuration (after hash has been calculated)
             var options = _cosmeticSettings.AsmOptions;
@@ -2441,6 +2595,7 @@ namespace MMR.Randomizer
         private void WriteAsmConfigPostPatch(AsmContext asm, byte[] hash)
         {
             UpdateHudColorOverrides(hash);
+            _cosmeticSettings.AsmOptions.FinalizeSettings(_cosmeticSettings);
 
             // Apply current configuration on top of existing Asm patch file
             var options = _cosmeticSettings.AsmOptions;
@@ -2472,7 +2627,7 @@ namespace MMR.Randomizer
             // Get random values for hue shift.
             if (_cosmeticSettings.ShiftHueMiscUI)
             {
-                config.HueShift = new Tuple<float>((float)(random.NextDouble() * 360.0));
+                config.HueShift = new Tuple<float, float, float>((float)(random.NextDouble() * 360.0), (float)(random.NextDouble() * 360.0), (float)(random.NextDouble() * 360.0));
             }
         }
 
@@ -2626,6 +2781,8 @@ namespace MMR.Randomizer
                 asm = AsmContext.LoadInternal();
                 progressReporter.ReportProgress(71, "Writing ASM patch...");
                 WriteAsmPatch(asm);
+
+                WriteNutsAndSticks();
                 
                 progressReporter.ReportProgress(72, outputSettings.GeneratePatch ? "Generating patch..." : "Computing hash...");
                 hash = RomUtils.CreatePatch(outputSettings.GeneratePatch ? outputSettings.OutputROMFilename : null, originalMMFileList);
@@ -2653,6 +2810,7 @@ namespace MMR.Randomizer
 
             progressReporter.ReportProgress(74, "Writing sound effects...");
             WriteSoundEffects(new Random(BitConverter.ToInt32(hash, 0)));
+            WriteLowHealthSound(new Random(BitConverter.ToInt32(hash, 0)));
 
             if (outputSettings.GenerateROM || outputSettings.OutputVC)
             {

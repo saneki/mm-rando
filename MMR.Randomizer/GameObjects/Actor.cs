@@ -73,6 +73,7 @@ namespace MMR.Randomizer.GameObjects
         [ActorInitVarOffset(0x2330)]
         LikeLike = 112,
 
+        [ActorInitVarOffset(0x26EC)]
         IronKnuckle = 127,
 
         [ActorInitVarOffset(0x2240)]

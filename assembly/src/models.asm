@@ -235,6 +235,19 @@ models_draw_shop_inventory_hook:
     jr      ra
     addiu   sp, sp, 0x18
 
+models_bio_baba_heart_piece_rotation_fix_hook:
+    bnez    at, @@return
+    nop
+    addiu   at, r0, 0x0017
+    beq     v0, at, @@return
+    addiu   at, r0, 0x0001
+    slti    at, v0, 0x001D
+    xori    at, at, 0x0001
+
+@@return:
+    jr      ra
+    nop
+
 models_draw_item00_hook:
     addiu   sp, sp, -0x20
     sw      ra, 0x0010 (sp)
