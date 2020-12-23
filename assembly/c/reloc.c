@@ -29,11 +29,11 @@ z2_actor_init_t * reloc_resolve_actor_init(z2_actor_ovl_table_t *ovl) {
     return reloc_resolve_actor_ovl(ovl, ovl->initialization);
 }
 
-void * reloc_resolve_gamestate(z2_gamestate_table_t *gs, u32 vram) {
+void * reloc_resolve_gamestate(GameStateOverlay *gs, u32 vram) {
     struct vram_info info = {
-        .ram = gs->ram,
-        .virt_start = gs->vram_start,
-        .virt_end = gs->vram_end,
+        .ram = gs->loadedRamAddr,
+        .virt_start = gs->vramStart,
+        .virt_end = gs->vramEnd,
     };
 
     return resolve(info, vram);
