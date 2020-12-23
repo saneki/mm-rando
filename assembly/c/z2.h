@@ -2106,6 +2106,15 @@ typedef struct {
 } z2_en_item00_t;
 
 /**
+ * En_Ruppecrow (Guay (Circling Clock Town))
+ **/
+typedef struct {
+    z2_actor_t      common;                         /* 0x0000 */
+    u8              unk_0x144[0x178];               /* 0x0144 */
+    u16             rupee_spawn_count;              /* 0x02BC */
+} z2_en_ruppecrow_t;
+
+/**
  * En_Toto actor (Toto)
  **/
 typedef struct z2_en_toto_s {
