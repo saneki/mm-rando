@@ -21,7 +21,7 @@ static Vtx* get_vtx_buffer(z2_game_t *game, u32 vert_idx, int slot) {
     const Vtx *src_vtx = (game->pause_ctxt.vtx_buf + vert_idx);
 
     // Get dest Vtx (factor in frame counter)
-    int framebufidx = (game->common.gfx->frame_cnt_1 & 1);
+    int framebufidx = (game->common.gfx->displayListCounter & 1);
     Vtx *dst_vtx = g_vertex[slot] + (framebufidx * 4);
 
     // Copy source Vtx over to dest Vtx
@@ -40,10 +40,10 @@ static Vtx* get_vtx_buffer(z2_game_t *game, u32 vert_idx, int slot) {
     return dst_vtx;
 }
 
-static void draw_icon(z2_gfx_t *gfx, const Vtx *vtx, u32 seg_addr, u16 width, u16 height, u16 qidx) {
-    z2_disp_buf_t *db = &(gfx->poly_opa);
+static void draw_icon(GraphicsContext *gfx, const Vtx *vtx, u32 seg_addr, u16 width, u16 height, u16 qidx) {
+    DispBuf *db = &(gfx->polyOpa);
     // Instructions that happen before function
-    gDPSetPrimColor(db->p++, 0, 0, 0xFF, 0xFF, 0xFF, gfx->game->pause_ctxt.item_alpha & 0xFF);
+    gDPSetPrimColor(db->p++, 0, 0, 0xFF, 0xFF, 0xFF, gfx->globalContext->pause_ctxt.item_alpha & 0xFF);
     gSPVertex(db->p++, vtx, 4, 0); // Loads 4 vertices from RDRAM
     // Instructions that happen during function.
     gDPSetTextureImage(db->p++, G_IM_FMT_RGBA, G_IM_SIZ_32b, 1, (void*)seg_addr);
@@ -104,7 +104,7 @@ static bool is_quest_item_with_storage_selected(z2_game_t *game) {
  *
  * Used to draw the next quest item in storage for quest item slots.
  **/
-void pause_menu_select_item_draw_icon(z2_gfx_t *gfx, u8 item, u16 width, u16 height, int slot, u16 quad_idx, u32 vert_idx) {
+void pause_menu_select_item_draw_icon(GraphicsContext *gfx, u8 item, u16 width, u16 height, int slot, u16 quad_idx, u32 vert_idx) {
     // Call original function to draw underlying item texture
     u32 orig_seg_addr = z2_item_segaddr_table[item];
     z2_PauseDrawItemIcon(gfx, orig_seg_addr, width, height, quad_idx);
@@ -117,7 +117,7 @@ void pause_menu_select_item_draw_icon(z2_gfx_t *gfx, u8 item, u16 width, u16 hei
             u8 next = quest_item_storage_next(storage, item);
             if (next != Z2_ITEM_NONE && quest_item_storage_get_slot(&sslot, &unused, next)) {
                 u32 seg_addr = z2_item_segaddr_table[next];
-                Vtx *vtx = get_vtx_buffer(gfx->game, vert_idx, sslot);
+                Vtx *vtx = get_vtx_buffer(gfx->globalContext, vert_idx, sslot);
                 draw_icon(gfx, vtx, seg_addr, width, height, quad_idx);
             }
         }

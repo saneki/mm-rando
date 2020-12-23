@@ -306,7 +306,7 @@ void dpad_draw(z2_game_t *game) {
     // Main sprite color
     z2_color_rgb8_t color = HUD_COLOR_CONFIG.dpad;
 
-    z2_disp_buf_t *db = &(game->common.gfx->overlay);
+    DispBuf *db = &(game->common.gfx->overlay);
     gSPDisplayList(db->p++, &setup_db);
     gDPPipeSync(db->p++);
     gDPSetPrimColor(db->p++, 0, 0, color.r, color.g, color.b, prim_alpha);

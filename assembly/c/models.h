@@ -9,7 +9,7 @@ struct model {
 };
 
 void models_after_actor_dtor(z2_actor_t *actor);
-void models_after_prepare_display_buffers(z2_gfx_t *gfx);
+void models_after_prepare_display_buffers(GraphicsContext *gfx);
 void models_clear_object_heap(void);
 void models_init(void);
 void models_prepare_after_room_unload(z2_game_t *game);

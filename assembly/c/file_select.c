@@ -152,7 +152,7 @@ void file_select_draw_hash(z2_game_t *game) {
 
     struct misc_config *config = misc_get_config();
     if (config->draw_hash) {
-        z2_disp_buf_t *db = &(game->common.gfx->poly_opa);
+        DispBuf *db = &(game->common.gfx->polyOpa);
 
         // Call setup display list
         gSPDisplayList(db->p++, &setup_db);

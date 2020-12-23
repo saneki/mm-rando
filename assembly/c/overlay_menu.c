@@ -91,7 +91,7 @@ void overlay_menu_draw(z2_game_t *game) {
         return;
     }
 
-    z2_disp_buf_t *db = &(game->common.gfx->overlay);
+    DispBuf *db = &(game->common.gfx->overlay);
     db->p = db->buf;
 
     // Call setup display list.
