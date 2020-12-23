@@ -67,7 +67,7 @@ int sprite_bytes(sprite_t *sprite) {
     return sprite->tile_count * sprite_bytes_per_tile(sprite);
 }
 
-void sprite_load(z2_disp_buf_t *db, sprite_t *sprite,
+void sprite_load(DispBuf *db, sprite_t *sprite,
         int start_tile, int tile_count) {
     int width = sprite->tile_w;
     int height = sprite->tile_h * tile_count;
@@ -83,7 +83,7 @@ void sprite_load(z2_disp_buf_t *db, sprite_t *sprite,
             G_TX_NOLOD, G_TX_NOLOD);
 }
 
-void sprite_draw(z2_disp_buf_t *db, sprite_t *sprite, int tile_index,
+void sprite_draw(DispBuf *db, sprite_t *sprite, int tile_index,
         int left, int top, int width, int height) {
     int width_factor = (1<<10) * sprite->tile_w / width;
     int height_factor = (1<<10) * sprite->tile_h / height;

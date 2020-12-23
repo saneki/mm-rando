@@ -25,10 +25,10 @@ static void scale_top_matrix(f32 scale_factor) {
 }
 
 static void set_object_segment(z2_game_t *game, const void *buf) {
-    z2_disp_buf_t *xlu = &(game->common.gfx->poly_xlu);
+    DispBuf *xlu = &(game->common.gfx->polyXlu);
     gSPSegment(xlu->p++, 6, (u32)buf);
 
-    z2_disp_buf_t *opa = &(game->common.gfx->poly_opa);
+    DispBuf *opa = &(game->common.gfx->polyOpa);
     gSPSegment(opa->p++, 6, (u32)buf);
 }
 
@@ -351,7 +351,7 @@ void models_rotate_heart_container(z2_actor_t *actor, z2_game_t *game) {
  * of the caller.
  **/
 void models_write_boss_remains_object_segment(z2_game_t *game, u32 graphic_id_minus_1) {
-    z2_disp_buf_t *opa = &(game->common.gfx->poly_opa);
+    DispBuf *opa = &(game->common.gfx->polyOpa);
 
     // Get index of object, and use it to get the data pointer
     s8 index = z2_GetObjectIndex(&game->obj_ctxt, Z2_OBJECT_BSMASK);
@@ -542,9 +542,9 @@ void models_init(void) {
 
 struct models_state {
     // Pointer to graphics context, cannot be retrieved from normal pointer during room unload.
-    z2_gfx_t *gfx;
-    // Pointer to poly_opa, used to check if objheap should finish advance.
-    const Gfx *prev_opa;
+    GraphicsContext *gfx;
+    // Pointer to polyOpa, used to check if objheap should finish advance.
+    const Gfx *prevOpa;
 };
 
 static struct models_state g_state = { 0 };
@@ -553,17 +553,17 @@ static struct models_state g_state = { 0 };
  * Helper function called after preparing game's display buffers for writing (write pointer set to buffer start).
  * Used to finish advancing objheap when needed.
  **/
-void models_after_prepare_display_buffers(z2_gfx_t *gfx) {
+void models_after_prepare_display_buffers(GraphicsContext *gfx) {
     // Apparently gfx pointer cannot be retrieved during room unload, so store in global.
     if (gfx != NULL) {
         g_state.gfx = gfx;
     }
-    // Note: This assumes that when the poly_opa buffer pointer has been reset to start, it has already been flushed
+    // Note: This assumes that when the polyOpa buffer pointer has been reset to start, it has already been flushed
     // to RDP. While this is very likely, it is not guaranteed.
     // If alternative Opa buffer has been cleared, both DLists should be rid of pointers to object data in previous room.
-    if (g_state.prev_opa != NULL && gfx->poly_opa.buf != g_state.prev_opa) {
+    if (g_state.prevOpa != NULL && gfx->polyOpa.buf != g_state.prevOpa) {
         objheap_flush_operation(&g_objheap);
-        g_state.prev_opa = NULL;
+        g_state.prevOpa = NULL;
     }
 }
 
@@ -573,7 +573,7 @@ void models_after_prepare_display_buffers(z2_gfx_t *gfx) {
 void models_prepare_after_room_unload(z2_game_t *game) {
     // Note: During frame processing loop, unloads room before drawing actors.
     // Not sure how to get alternative Opa buffer, so get current and check if non-NULL and non-equal (there are only 2).
-    g_state.prev_opa = g_state.gfx->poly_opa.buf;
+    g_state.prevOpa = g_state.gfx->polyOpa.buf;
 
     // Determine operation before finish advancing or reverting.
     // Normally, objects from previously loaded rooms would no longer draw so this isn't an issue, but is required for hack
@@ -592,8 +592,8 @@ void models_prepare_before_room_load(z2_room_ctxt_t *room_ctxt, s8 room_index) {
     } else {
         // Safeguard: If previous Opa DList pointer is non-NULL, still waiting to flush advance or revert operation.
         // If attempting to prepare advance before this has happened, prevent flushing advance or revert operations.
-        if (g_state.prev_opa) {
-            g_state.prev_opa = NULL;
+        if (g_state.prevOpa) {
+            g_state.prevOpa = NULL;
         }
         // If not loading first room in scene, prepare objheap for advance.
         objheap_prepare_advance(&g_objheap, room_index);

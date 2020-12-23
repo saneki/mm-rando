@@ -41,7 +41,7 @@ void text_print(const char *s, int left, int top) {
     text_print_with_color(s, left, top, color);
 }
 
-void text_flush(z2_disp_buf_t *db) {
+void text_flush(DispBuf *db) {
     for (int i = 0; i < text_bucket_count; i++) {
         sprite_load(db, &font_sprite,
                 i * text_bucket_size, text_bucket_size);

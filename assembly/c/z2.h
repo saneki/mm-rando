@@ -866,39 +866,47 @@ typedef struct {
 /// =============================================================
 
 typedef struct {
-    u32              size;                           /* 0x0000 */
-    Gfx             *buf;                            /* 0x0004 */
-    Gfx             *p;                              /* 0x0008 */
-    Gfx             *d;                              /* 0x000C */
-} z2_disp_buf_t;                                     /* 0x0010 */
+    /* 0x0 */ u32 size;
+    /* 0x4 */ Gfx* buf;
+    /* 0x8 */ Gfx* p;
+    /* 0xC */ Gfx* d;
+} DispBuf; // size = 0x10
 
 typedef struct {
-    Gfx             *poly_opa_d_start;               /* 0x0000 */
-    Gfx             *poly_xlu_d_start;               /* 0x0004 */
-    u8               unk_0x08[0x08];                 /* 0x0008 */
-    Gfx             *overlay_d_start;                /* 0x0010 */
-    u8               unk_0x14[0x24];                 /* 0x0014 */
-    OSMesg           task_mesg[8];                   /* 0x0038 */
-    u8               unk_0x58[0x04];                 /* 0x0058 */
-    OSMesgQueue      task_queue;                     /* 0x005C */
-    u8               pad_0x74[0x04];                 /* 0x0074 */
-    OSScTask         task;                           /* 0x0078 */
-    u8               unk_0xD0[0xD0];                 /* 0x00D0 */
-    Gfx             *work_d_start;                   /* 0x01A0 */
-    z2_disp_buf_t    work;                           /* 0x01A4 */
-    u8               unk_0x1B4[0x04];                /* 0x01B4 */
-    z2_disp_buf_t    unk_0x1B8_buf;                  /* 0x01B8 */
-    u8               unk_0x1C8[0xD0];                /* 0x01C8 */
-    z2_disp_buf_t    overlay;                        /* 0x0298 */
-    z2_disp_buf_t    poly_opa;                       /* 0x02A8 */
-    z2_disp_buf_t    poly_xlu;                       /* 0x02B8 */
-    u32              frame_cnt_1;                    /* 0x02C8 */
-    void            *frame_buffer;                   /* 0x02CC */
-    u8               unk_0x2D0[0x0B];                /* 0x02D0 */
-    u8               frame_cnt_2;                    /* 0x02DB */
-    void            *func_0x2DC;                     /* 0x02DC */
-    z2_game_t       *game;                           /* 0x02E0 */
-} z2_gfx_t;                                          /* 0x02E4 */
+    /* 0x000 */ Gfx* polyOpaBuffer;
+    /* 0x004 */ Gfx* polyXluBuffer;
+    /* 0x008 */ UNK_TYPE1 pad8[0x08];
+    /* 0x010 */ Gfx* overlayBuffer;
+    /* 0x014 */ UNK_TYPE1 pad14[0x24];
+    /* 0x038 */ OSMesg taskMesg[8];
+    /* 0x058 */ OSMesgQueue* unk58;
+    /* 0x05C */ OSMesgQueue taskQueue;
+    /* 0x074 */ UNK_TYPE1 pad74[0x4];
+    /* 0x078 */ OSScTask task;
+    /* 0x0D0 */ UNK_TYPE1 padD0[0xD0];
+    /* 0x1A0 */ Gfx* unk1A0;
+    /* 0x1A4 */ DispBuf unk1A4;
+    /* 0x1B4 */ Gfx* unk1B4;
+    /* 0x1B8 */ DispBuf unk1B8;
+    /* 0x1C8 */ UNK_TYPE1 pad1C8[0xAC];
+    /* 0x274 */ UNK_TYPE4 unk274; // OSViMode*
+    /* 0x278 */ void* zbuffer;
+    /* 0x27C */ UNK_TYPE1 pad27C[0x1C];
+    /* 0x298 */ DispBuf overlay;
+    /* 0x2A8 */ DispBuf polyOpa;
+    /* 0x2B8 */ DispBuf polyXlu;
+    /* 0x2C8 */ u32 displayListCounter;
+    /* 0x2CC */ void* framebuffer;
+    /* 0x2D0 */ UNK_TYPE4 unk2D0;
+    /* 0x2D4 */ u32 viConfigFeatures;
+    /* 0x2D8 */ UNK_TYPE1 pad2D8[0x3];
+    /* 0x2DB */ u8 framebufferCounter;
+    /* 0x2DC */ void* func2DC;
+    /* 0x2E0 */ z2_game_t* globalContext;
+    /* 0x2E4 */ f32 viConfigXScale;
+    /* 0x2E8 */ f32 viConfigYScale;
+    /* 0x2EC */ UNK_TYPE1 pad2EC[0x4];
+} GraphicsContext; // size = 0x02F0
 
 /// =============================================================
 /// Context Structure
@@ -908,7 +916,7 @@ typedef struct z2_ctxt_s z2_ctxt_t;
 typedef void (*z2_GameUpdate)(z2_ctxt_t *ctxt);
 
 struct z2_ctxt_s {
-    z2_gfx_t        *gfx;                            /* 0x0000 */
+    GraphicsContext *gfx;                            /* 0x0000 */
     z2_GameUpdate    gamestate_update;               /* 0x0004 */
     void            *gamestate_dtor;                 /* 0x0008 */
     void            *gamestate_ctor;                 /* 0x000C */
@@ -931,7 +939,7 @@ struct z2_ctxt_s {
 
 typedef struct {
     char             view_magic[4];                  /* 0x0000 */
-    z2_gfx_t        *gfx;                            /* 0x0004 */
+    GraphicsContext *gfx;                            /* 0x0004 */
     struct {
         u32          top;                            /* 0x0008 */
         u32          bottom;                         /* 0x000C */
@@ -2585,7 +2593,7 @@ typedef void (*z2_ActorCutscene_SetReturnCamera_proc)(s16 index);
 /* Function Prototypes (Drawing) */
 typedef void (*z2_ActorDraw_proc)(z2_actor_t *actor, z2_game_t *game);
 typedef void (*z2_BaseDrawGiModel_proc)(z2_game_t *game, u32 graphic_id_minus_1);
-typedef void (*z2_CallDList_proc)(z2_gfx_t *gfx);
+typedef void (*z2_CallDList_proc)(GraphicsContext *gfx);
 typedef void (*z2_PreDraw_proc)(z2_actor_t *actor, z2_game_t *game, u32 unknown);
 
 /* Function Prototypes (File Loading) */
@@ -2622,7 +2630,7 @@ typedef s8 (*z2_GetObjectIndex_proc)(const z2_obj_ctxt_t *ctxt, u16 object_id);
 typedef void (*z2_memcpy_proc)(void *dest, const void *src, size_t size);
 
 /* Function Prototypes (Pause Menu) */
-typedef void (*z2_PauseDrawItemIcon_proc)(z2_gfx_t *gfx, u32 seg_addr, u16 width, u16 height, u16 quad_vtx_idx);
+typedef void (*z2_PauseDrawItemIcon_proc)(GraphicsContext *gfx, u32 seg_addr, u16 width, u16 height, u16 quad_vtx_idx);
 
 /* Function Prototypes (RNG) */
 typedef u32 (*z2_RngInt_proc)();
