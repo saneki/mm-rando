@@ -58,26 +58,13 @@ static bool g_usable[4];
 // Whether the previous frame was a "minigame" frame.
 static bool g_was_minigame = false;
 
-static bool get_slot(u8 item, u8 *slot, const u8 *array, u8 length) {
-    for (u8 i = 0; i < length; i++) {
-        if (item == array[i]) {
-            *slot = i;
+static bool has_inventory_item(u8 item) {
+    for (int i = 0; i < 0x18; i++) {
+        if (z2_file.inv.items[i] == item || z2_file.inv.masks[i] == item) {
             return true;
         }
     }
-
     return false;
-}
-
-static bool get_inventory_slot(u8 item, u8 *slot) {
-    if (item == Z2_ITEM_NONE)
-        return false;
-    return get_slot(item, slot, z2_file.inventory, sizeof(z2_file.inventory));
-}
-
-static bool has_inventory_item(u8 item) {
-    u8 slot;
-    return get_inventory_slot(item, &slot);
 }
 
 static bool have_any(u8 *dpad) {
@@ -89,23 +76,14 @@ static bool have_any(u8 *dpad) {
     return false;
 }
 
-static bool try_use_inventory_item(z2_game_t *game, z2_link_t *link, u8 item, u8 slot) {
-    if (z2_file.inventory[slot] == item) {
+static bool try_use_item(z2_game_t *game, z2_link_t *link, u8 item) {
+    // Try to find slot in item or mask inventories.
+    if (has_inventory_item(item)) {
         z2_UseItem(game, link, item);
         return true;
-    }
-
-    return false;
-}
-
-static bool try_use_item(z2_game_t *game, z2_link_t *link, u8 item) {
-    u8 slot;
-
-    // Try to find slot in item or mask inventories
-    if (!get_inventory_slot(item, &slot))
+    } else {
         return false;
-
-    return try_use_inventory_item(game, link, item, slot);
+    }
 }
 
 /**
@@ -116,7 +94,7 @@ static bool dpad_are_c_items_disabled_by_entrance(z2_game_t *game) {
     // Id 0x8E10: Beaver Race
     // Id 0xD010: Goron Race
     // Checks execute state to prevent fading D-Pad when loading scene with entrance.
-    return (z2_file.exit == 0x8E10 || z2_file.exit == 0xD010) && game->common.execute_state != 0;
+    return (z2_file.entrance.value == 0x8E10 || z2_file.entrance.value == 0xD010) && game->common.execute_state != 0;
 }
 
 static void get_dpad_item_usability(z2_game_t *game, bool *dest) {

@@ -77,7 +77,7 @@ static const struct arrow_info * arrow_cycle_get_next_info(u16 variable) {
         // Calculate difference in magic cost and ensure that the player has enough magic to switch.
         bool enough_magic = arrow_cycle_has_enough_magic(magic_cost, info->magic);
 
-        if (info != NULL && info->item == z2_file.items[info->slot] && enough_magic) {
+        if (info != NULL && info->item == z2_file.inv.items[info->slot] && enough_magic) {
             return info;
         }
     }
@@ -128,7 +128,7 @@ static bool arrow_cycle_is_arrow_item(u8 item) {
  **/
 static void arrow_cycle_update_c_button(z2_link_t *link, z2_game_t *game, const struct arrow_info *info) {
     // Update the C button value & texture.
-    z2_file.form_button_item[0].button_item[link->item_button] = info->icon;
+    z2_file.formButtonItems[0].buttons[link->item_button] = info->icon;
     z2_ReloadButtonTexture(game, link->item_button);
 
     // Update player fields for new action type.
@@ -164,7 +164,7 @@ static void arrow_cycle_handle_frame_delay(z2_link_t *link, z2_game_t *game, z2_
             }
 
             // Refund magic cost of previous arrow type.
-            if (prev_effect_state >= 2 && !z2_file.week_event_inf.infinite_magic) {
+            if (prev_effect_state >= 2 && !HasInfiniteMagic(z2_file)) {
                 z2_file.current_magic += g_arrow_cycle_state.magic_cost;
             }
         }
@@ -216,7 +216,7 @@ void arrow_cycle_handle(z2_link_t *link, z2_game_t *game) {
     }
 
     // Check if current button pressed corresponds to an arrow item.
-    u8 selected_item = z2_file.form_button_item[0].button_item[link->item_button];
+    u8 selected_item = z2_file.formButtonItems[0].buttons[link->item_button];
     if (!arrow_cycle_is_arrow_item(selected_item)) {
         return;
     }
@@ -235,8 +235,8 @@ void arrow_cycle_handle(z2_link_t *link, z2_game_t *game) {
     // Check if there is nothing to cycle to and return early.
     if (cur_info == NULL || next_info == NULL || cur_info->var == next_info->var) {
         // When not enough magic to cycle to anything else, switch C button back to normal bow.
-        u8 item = z2_file.form_button_item[0].button_item[link->item_button];
-        if (cur_info->var == 2 && item != Z2_ITEM_BOW && z2_file.items[Z2_SLOT_BOW] == Z2_ITEM_BOW) {
+        u8 item = z2_file.formButtonItems[0].buttons[link->item_button];
+        if (cur_info->var == 2 && item != Z2_ITEM_BOW && z2_file.inv.items[Z2_SLOT_BOW] == Z2_ITEM_BOW) {
             arrow_cycle_update_c_button(link, game, &g_arrows[0]);
         }
         z2_PlaySfx(0x4806);

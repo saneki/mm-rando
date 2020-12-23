@@ -64,10 +64,10 @@ bool mmr_CheckBottleAndGetGiFlag(u16 gi_index, u16 *new_gi_index) {
 
 u16 mmr_CheckProgressiveUpgrades(u16 gi_index) {
     if (gi_index == MMR_CONFIG.location_sword_kokiri || gi_index == MMR_CONFIG.location_sword_razor || gi_index == MMR_CONFIG.location_sword_gilded) {
-        if (z2_file.sword == 0) {
+        if (z2_file.equipment.sword == 0) {
             return MMR_CONFIG.location_sword_kokiri;
         }
-        if (z2_file.sword == 1) {
+        if (z2_file.equipment.sword == 1) {
             return MMR_CONFIG.location_sword_razor;
         }
         return MMR_CONFIG.location_sword_gilded;
@@ -79,25 +79,25 @@ u16 mmr_CheckProgressiveUpgrades(u16 gi_index) {
         return MMR_CONFIG.location_magic_large;
     }
     if (gi_index == MMR_CONFIG.location_wallet_adult || gi_index == MMR_CONFIG.location_wallet_giant) {
-        if (z2_file.wallet_upgrade == 0) {
+        if (z2_file.inv.upgrades.wallet == 0) {
             return MMR_CONFIG.location_wallet_adult;
         }
         return MMR_CONFIG.location_wallet_giant;
     }
     if (gi_index == MMR_CONFIG.location_bomb_bag_small || gi_index == MMR_CONFIG.location_bomb_bag_big || gi_index == MMR_CONFIG.location_bomb_bag_biggest) {
-        if (z2_file.bomb_bag == 0) {
+        if (z2_file.inv.upgrades.bombBag == 0) {
             return MMR_CONFIG.location_bomb_bag_small;
         }
-        if (z2_file.bomb_bag == 1) {
+        if (z2_file.inv.upgrades.bombBag == 1) {
             return MMR_CONFIG.location_bomb_bag_big;
         }
         return MMR_CONFIG.location_bomb_bag_biggest;
     }
     if (gi_index == MMR_CONFIG.location_quiver_small || gi_index == MMR_CONFIG.location_quiver_large || gi_index == MMR_CONFIG.location_quiver_largest) {
-        if (z2_file.quiver == 0) {
+        if (z2_file.inv.upgrades.quiver == 0) {
             return MMR_CONFIG.location_quiver_small;
         }
-        if (z2_file.quiver == 1) {
+        if (z2_file.inv.upgrades.quiver == 1) {
             return MMR_CONFIG.location_quiver_large;
         }
         return MMR_CONFIG.location_quiver_largest;
