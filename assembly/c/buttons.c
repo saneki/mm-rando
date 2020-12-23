@@ -9,16 +9,16 @@ void buttons_check_item_usability(bool *dest, z2_game_t *game, u8 b, u8 c1, u8 c
 
     // Backup button items
     for (int i = 0; i < 4; i++)
-        previous[i] = z2_file.form_button_item[0].button_item[i];
+        previous[i] = z2_file.formButtonItems[0].buttons[i];
 
     // Backup button states
     for (int i = 0; i < 5; i++)
         prevstates[i] = z2_file.buttons_usable[i];
 
-    z2_file.form_button_item[0].b      = b;
-    z2_file.form_button_item[0].cleft  = c1;
-    z2_file.form_button_item[0].cdown  = c2;
-    z2_file.form_button_item[0].cright = c3;
+    z2_file.formButtonItems[0].b      = b;
+    z2_file.formButtonItems[0].cLeft  = c1;
+    z2_file.formButtonItems[0].cDown  = c2;
+    z2_file.formButtonItems[0].cRight = c3;
 
     z2_UpdateButtonUsability(game);
 
@@ -28,7 +28,7 @@ void buttons_check_item_usability(bool *dest, z2_game_t *game, u8 b, u8 c1, u8 c
 
     // Restore button items
     for (int i = 0; i < 4; i++)
-        z2_file.form_button_item[0].button_item[i] = previous[i];
+        z2_file.formButtonItems[0].buttons[i] = previous[i];
 
     // Restore button states
     for (int i = 0; i < 5; i++)

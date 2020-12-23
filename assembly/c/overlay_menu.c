@@ -70,7 +70,7 @@ static void get_count_text(int amount, char *c, int digits) {
  * Whether or not the player has boss remains for a specific dungeon index.
  **/
 static bool has_remains(u8 index) {
-    return (z2_file.quest_status & (1 << index)) != 0;
+    return (z2_file.inv.questStatus.value & (1 << index)) != 0;
 }
 
 /**
@@ -183,7 +183,7 @@ void overlay_menu_draw(z2_game_t *game) {
         struct dungeon_entry *d = &(dungeons[i]);
         if (d->is_dungeon) {
             // Get key count for dungeon.
-            u8 keys = z2_file.dungeon_keys[d->index];
+            u8 keys = z2_file.inv.dungeonKeys[d->index];
             // Get key count as text.
             char count[2] = "0";
             get_count_text(keys, count, 1);
@@ -199,7 +199,7 @@ void overlay_menu_draw(z2_game_t *game) {
     for (int i = 0; i < g_dungeon_count; i++) {
         struct dungeon_entry *d = &(dungeons[i]);
         if (d->is_dungeon) {
-            if (z2_file.dungeon_items[d->index].boss_key) {
+            if (z2_file.inv.dungeonItems[d->index].bossKey) {
                 int top = start_top + ((icon_size + padding) * i);
                 sprite_draw(db, &icon_24_sprite, 0, left, top, icon_size, icon_size);
             }
@@ -212,7 +212,7 @@ void overlay_menu_draw(z2_game_t *game) {
     for (int i = 0; i < g_dungeon_count; i++) {
         struct dungeon_entry *d = &(dungeons[i]);
         if (d->is_dungeon) {
-            if (z2_file.dungeon_items[d->index].map) {
+            if (z2_file.inv.dungeonItems[d->index].map) {
                 int top = start_top + ((icon_size + padding) * i);
                 sprite_draw(db, &icon_24_sprite, 0, left, top, icon_size, icon_size);
             }
@@ -225,7 +225,7 @@ void overlay_menu_draw(z2_game_t *game) {
     for (int i = 0; i < g_dungeon_count; i++) {
         struct dungeon_entry *d = &(dungeons[i]);
         if (d->is_dungeon) {
-            if (z2_file.dungeon_items[d->index].compass) {
+            if (z2_file.inv.dungeonItems[d->index].compass) {
                 int top = start_top + ((icon_size + padding) * i);
                 sprite_draw(db, &icon_24_sprite, 0, left, top, icon_size, icon_size);
             }
@@ -266,11 +266,11 @@ void overlay_menu_draw(z2_game_t *game) {
             // Get stray fairy count for dungeon or town.
             if (d->is_dungeon) {
                 // Get fairy count for dungeon.
-                total = z2_file.stray_fairies[d->index];
+                total = z2_file.inv.strayFairies[d->index];
                 maximum = 15;
             } else {
                 // Check for Clock Town fairy, flag: 0x801F0570 & 0x80
-                bool has_town_fairy = (z2_file.week_event_inf.week_event_inf_bytes[8] & 0x80) != 0;
+                bool has_town_fairy = (z2_file.week_event_inf[8] & 0x80) != 0;
                 total = has_town_fairy ? 1 : 0;
                 maximum = 1;
             }

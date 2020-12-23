@@ -5,6 +5,8 @@
 #include <stdbool.h>
 #include "types.h"
 
+typedef u8 UNK_TYPE1;
+
 #define Z2_SCREEN_WIDTH      320
 #define Z2_SCREEN_HEIGHT     240
 
@@ -1559,6 +1561,121 @@ struct z2_game_s {
 /// Savefile Structure
 /// =============================================================
 
+typedef union {
+    struct {
+        s8 b;
+        s8 cLeft;
+        s8 cDown;
+        s8 cRight;
+    };
+    s8 buttons[0x04];
+} SaveContextButtonSet;
+
+typedef union {
+    struct {
+        u8         : 5;
+        u8 map     : 1;
+        u8 compass : 1;
+        u8 bossKey : 1;
+    };
+    u8 value;
+} SaveContextDungeonItems;
+
+typedef union {
+    struct {
+        u32          : 16;
+        u32 scene    : 7;
+        u32 entrance : 5;
+        u32 offset   : 4;
+    };
+    u32 value;
+} SaveContextEntrance;
+
+typedef union {
+    struct {
+        u16        : 10;
+        u16 shield : 2;
+        u16        : 2;
+        u16 sword  : 2;
+    };
+    u16 value;
+} SaveContextEquipment;
+
+typedef union {
+    struct {
+        u16 hiddenOwl       : 1;
+        u16                 : 4;
+        u16 dungeonEntrance : 1;
+        u16 stoneTower      : 1;
+        u16 ikanaCanyon     : 1;
+        u16 southernSwamp   : 1;
+        u16 woodfall        : 1;
+        u16 milkRoad        : 1;
+        u16 clockTown       : 1;
+        u16 mountainVillage : 1;
+        u16 snowhead        : 1;
+        u16 zoraCape        : 1;
+        u16 greatBay        : 1;
+    };
+    u16 value;
+} SaveContextOwlsActive;
+
+typedef union {
+    struct {
+        u32 heartPiece        : 4;
+        u32                   : 3;
+        u32 lullabyIntro      : 1;
+        u32                   : 5;
+        u32 bombersNotebook   : 1;
+        u32 sunsSong          : 1;
+        u32 songOfStorms      : 1;
+        u32 songOfSoaring     : 1;
+        u32 eponasSong        : 1;
+        u32 songOfHealing     : 1;
+        u32 songOfTime        : 1;
+        u32 sariasSong        : 1;
+        u32 oathToOrder       : 1;
+        u32 elegyOfEmptiness  : 1;
+        u32 newWaveBossaNova  : 1;
+        u32 goronLullaby      : 1;
+        u32 sonataOfAwakening : 1;
+        u32                   : 2;
+        u32 twinmoldsRemains  : 1;
+        u32 gyorgsRemains     : 1;
+        u32 gohtsRemains      : 1;
+        u32 odolwasRemains    : 1;
+    };
+    u32 value;
+} SaveContextQuestStatus;
+
+typedef union {
+    struct {
+        u32           : 9;
+        u32 dekuNut   : 3;
+        u32 dekuStick : 3;
+        u32           : 3;
+        u32 wallet    : 2;
+        u32           : 6;
+        u32 bombBag   : 3;
+        u32 quiver    : 3;
+    };
+    u32 value;
+} SaveContextUpgrades;
+
+typedef struct {
+    /* 0x00 */ u8 items[0x18];
+    /* 0x18 */ u8 masks[0x18];
+    /* 0x30 */ u8 quantities[0x18];
+    /* 0x48 */ SaveContextUpgrades upgrades;
+    /* 0x4C */ SaveContextQuestStatus questStatus;
+    /* 0x50 */ SaveContextDungeonItems dungeonItems[0xA];
+    /* 0x5A */ u8 dungeonKeys[0x9];
+    /* 0x63 */ u8 defenseHearts;
+    /* 0x64 */ u8 strayFairies[0xA];
+    /* 0x6E */ char formName[0x8][0x3];
+    /* 0x86 */ UNK_TYPE1 pad86[0x2];
+} SaveContextInventory; // size = 0x88
+
 typedef struct {
     u16              transition_state;               /* 0x0000 */
     u16              state;                          /* 0x0002 */
@@ -1590,19 +1707,15 @@ typedef struct {
     u32              unk_0x18;                       /* 0x0018 */
 } z2_save_scene_flags_t;                             /* 0x001C */
 
+#define HasInfiniteMagic(Save) (((Save).week_event_inf[0xE] & 8) != 0)
+#define SetInfiniteMagic(Save) ((Save).week_event_inf[0xE] |= 8)
+#define HasGreatSpin(Save) ((Save).week_event_inf[0x17])
+
 /**
  * Savefile structure.
  **/
 typedef struct {
-    union {
-        struct {
-            u32                 : 16;
-            u32      scene      : 7;
-            u32      entrance   : 5;
-            u32      offset     : 4;
-        };
-        u32          exit;                           /* 0x0000 */
-    };
+    SaveContextEntrance entrance;                    /* 0x0000 */
     u8               mask;                           /* 0x0004 */
     u8               intro_flag;                     /* 0x0005 */
     u8               mash_timer;                     /* 0x0006 */
@@ -1631,115 +1744,13 @@ typedef struct {
     u8               has_double_magic;               /* 0x0041 */
     u8               has_double_defense;             /* 0x0042 */
     u8               unk_0x43[0x03];                 /* 0x0043 */
-    union {
-        struct {
-            u16      hidden_owl         : 1;
-            u16                         : 4;
-            u16      dungeon_entrance   : 1;
-            u16      stone_tower        : 1;
-            u16      ikana_canyon       : 1;
-            u16      southern_swap      : 1;
-            u16      woodfall           : 1;
-            u16      milk_road          : 1;
-            u16      clock_town         : 1;
-            u16      mountain_village   : 1;
-            u16      snowhead           : 1;
-            u16      zora_cape          : 1;
-            u16      great_bay          : 1;
-        };
-        u16          owls_hit;                       /* 0x0046 */
-    };
+    SaveContextOwlsActive owlsHit;                   /* 0x0046 */
     char             unk_0x48[0x04];                 /* 0x0048 */
-    union {
-        struct {
-            s8       b;
-            s8       cleft;
-            s8       cdown;
-            s8       cright;
-        };
-        s8           button_item[0x04];
-    }                form_button_item[0x04];         /* 0x004C */
-    union {
-        struct {
-            s8       b;
-            s8       cleft;
-            s8       cdown;
-            s8       cright;
-        };
-        s8           button_slot[0x04];
-    }                form_button_slot[0x04];         /* 0x005C */
-    union {
-        struct {
-            u16             : 10;
-            u16      shield : 2;
-            u16             : 2;
-            u16      sword  : 2;
-        };
-        u16          equipment;                      /* 0x006C */
-    };
+    SaveContextButtonSet formButtonItems[0x04];      /* 0x004C */
+    SaveContextButtonSet formButtonSlots[0x04];      /* 0x005C */
+    SaveContextEquipment equipment;                  /* 0x006C */
     char             unk_0x6E[0x02];                 /* 0x006E */
-    union {
-        u8           inventory[0x30];                /* 0x0070 */
-        struct {
-            u8       items[0x18];                    /* 0x0070 */
-            u8       masks[0x18];                    /* 0x0088 */
-        };
-    };
-    u8               ammo[0x18];                     /* 0x00A0 */
-    union {
-        struct {
-            u32                             : 9;     /* & 0xFF800000 >> 0x17 */
-            u32      nut_upgrade            : 3;     /* & 0x00700000 >> 0x14 */
-            u32      stick_upgade           : 3;     /* & 0x000E0000 >> 0x11 */
-            u32                             : 3;     /* & 0x00018000 >> 0x0F */
-            u32      wallet_upgrade         : 2;     /* & 0x00007000 >> 0x0C */
-            u32                             : 6;     /* & 0x00000FC0 >> 0x06 */
-            u32      bomb_bag               : 3;     /* & 0x00000038 >> 0x03 */
-            u32      quiver                 : 3;     /* & 0x00000007 >> 0x00 */
-        };
-        u32          equipment_upgrades;             /* 0x00B8 */
-    };
-    union {
-        struct {
-            u32      heart_piece            : 4;
-            u32                             : 3;
-            u32      lullaby_intro          : 1;
-            u32                             : 5;
-            u32      bombers_notebook       : 1;
-            u32      suns_song              : 1;
-            u32      song_of_storms         : 1;
-            u32      song_of_soaring        : 1;
-            u32      eponas_song            : 1;
-            u32      song_of_healing        : 1;
-            u32      song_of_time           : 1;
-            u32      sarias_song            : 1;
-            u32      oath_to_order          : 1;
-            u32      elegy_of_emptiness     : 1;
-            u32      new_wave_bossa_nova    : 1;
-            u32      goron_lullaby          : 1;
-            u32      sonata_of_awakening    : 1;
-            u32                             : 2;
-            u32      twinmolds_remains      : 1;
-            u32      gyorgs_remains         : 1;
-            u32      gohts_remains          : 1;
-            u32      odolwas_remains        : 1;
-        };
-        u32          quest_status;                   /* 0x00BC */
-    };
-    union {
-        struct {
-            u8                               : 5;
-            u8       map                     : 1;
-            u8       compass                 : 1;
-            u8       boss_key                : 1;
-        };
-        u8           dungeon_item;
-    }                dungeon_items[0xA];             /* 0x00C0 */
-    u8               dungeon_keys[0x9];              /* 0x00CA */
-    u8               defense_hearts;                 /* 0x00D3 */
-    u8               stray_fairies[0xA];             /* 0x00D4 */
-    char             form_name[0x8][0x3];            /* 0x00DE */
-    u8               unk_0xF6[0x2];                  /* 0x00F6 */
+    SaveContextInventory inv;                        /* 0x0070 */
     z2_save_scene_flags_t save_scene_flags[0x78];    /* 0x00F8 */
     u8               unk_0xE18[0xA8];                /* 0x0E18 */
     // 0EA4 = 0x1C byte length bit field. bit per scene indicating whether minimap is enabled
@@ -1750,28 +1761,12 @@ typedef struct {
     u8               unk_0xEE0[0x10];                /* 0x0EE0 */
     u32              lottery_guess;                  /* 0x0EF0 */
     u8               unk_0xEF4[0x04];                /* 0x0EF4 */
-    union {
-        struct {
-            u8       unk_0x00[0x0E];                 /* 0x0EF8 */
-            union {
-                struct {
-                    u8                : 4;
-                    u8 infinite_magic : 1;
-                    u8                : 3;
-                };
-                u8   flag_0x0E;                      /* 0x0F06 */
-            };
-            u8       unk_0x0F[0x08];                 /* 0x0F07 */
-            // 0F0C & 0x01 = Woodfall Temple Raised
-            // 0F0C & 0x02 = Swamp Clear
-            u8       great_spin;                     /* 0x0F0F */
-            u8       unk_0x18[0x4C];                 /* 0x0F10 */
-            // 0F19 & 0x80 = Mountain Clear
-            // 0F2C & 0x20 = Canyon Clear
-            // 0F2F & 0x80 = Ocean Clear
-        };
-        u8           week_event_inf_bytes[0x64];     /* 0x0EF8 */
-    }                week_event_inf;
+    // 0F0C & 0x01 = Woodfall Temple Raised
+    // 0F0C & 0x02 = Swamp Clear
+    // 0F19 & 0x80 = Mountain Clear
+    // 0F2C & 0x20 = Canyon Clear
+    // 0F2F & 0x80 = Ocean Clear
+    u8               week_event_inf[0x64];           /* 0x0EF8 */
     u32              locations_visited;              /* 0x0F5C */
     u32              world_map_visible;              /* 0x0F60 */ // 0x00007FFF is full map
     u8               unk_0xF60[0x88];                /* 0x0F64 */

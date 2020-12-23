@@ -156,7 +156,7 @@ static void handle_camera_overlook_effect(z2_game_t *game, z2_link_t *link) {
 static void handle_chateau_effect(z2_game_t *game, z2_link_t *link) {
     // Handle "Chateau" effect
     if (g_external_effects.chateau) {
-        z2_file.week_event_inf.infinite_magic = 1;
+        SetInfiniteMagic(z2_file);
         g_refill_magic = true;
         g_external_effects.chateau = 0;
     }
