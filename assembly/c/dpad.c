@@ -218,7 +218,7 @@ bool dpad_is_enabled(void) {
  * function early.
  **/
 bool dpad_handle(z2_link_t *link, z2_game_t *game) {
-    z2_pad_t pad_pressed = game->common.input[0].pad_pressed;
+    InputPad pad_pressed = game->common.input[0].pressEdge.buttons;
 
     // If disabled, do nothing
     if (DPAD_CONFIG.state == DPAD_STATE_TYPE_DISABLED)
@@ -350,8 +350,8 @@ void dpad_draw(z2_game_t *game) {
  * Allows D-Pad input to also skip the cutscene if the D-Pad is enabled.
  **/
 u16 dpad_skip_transformation_check(z2_link_t *link, z2_game_t *game, u16 cur) {
-    z2_pad_t pad;
-    pad.pad = 0;
+    InputPad pad;
+    pad.value = 0;
 
     // Set flags for original buttons: A, B, C buttons (0xC00F)
     pad.a = pad.b = pad.cd = pad.cl = pad.cr = pad.cu = 1;
@@ -361,5 +361,5 @@ u16 dpad_skip_transformation_check(z2_link_t *link, z2_game_t *game, u16 cur) {
         pad.dd = pad.dl = pad.dr = pad.du = 1;
     }
 
-    return cur & pad.pad;
+    return cur & pad.value;
 }

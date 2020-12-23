@@ -222,10 +222,10 @@ void arrow_cycle_handle(z2_link_t *link, z2_game_t *game) {
     }
 
     // Check if R is pressed.
-    if (!game->common.input[0].pad_pressed.r) {
+    if (!game->common.input[0].pressEdge.buttons.r) {
         return;
     }
-    game->common.input[0].pad_pressed.r = 0;
+    game->common.input[0].pressEdge.buttons.r = 0;
 
     // Get info for arrow types.
     const struct arrow_info *cur_info, *next_info;

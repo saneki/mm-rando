@@ -157,10 +157,10 @@ bool pause_menu_select_item_process_a_button(z2_game_t *game, u32 cur_val, u32 n
         if (cur_val != none_val) {
             u8 item = (u8)cur_val;
             // Check input for A button, and swap to next quest item.
-            z2_pad_t pad = game->common.input->pad_pressed;
+            InputPad pad = game->common.input->pressEdge.buttons;
             u8 next = quest_item_storage_next(&SAVE_FILE_CONFIG.quest_storage, item);
             if (pad.a && next != Z2_ITEM_NONE) {
-                game->common.input->pad_pressed.a = 0;
+                game->common.input->pressEdge.buttons.a = 0;
                 cycle_quest_item(game, next, (u8)cell);
             }
         }

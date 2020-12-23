@@ -821,45 +821,39 @@ typedef struct {
 
 typedef union {
     struct {
-        u16          a  : 1;
-        u16          b  : 1;
-        u16          z  : 1;
-        u16          s  : 1;
-        u16          du : 1;
-        u16          dd : 1;
-        u16          dl : 1;
-        u16          dr : 1;
-        u16             : 2;
-        u16          l  : 1;
-        u16          r  : 1;
-        u16          cu : 1;
-        u16          cd : 1;
-        u16          cl : 1;
-        u16          cr : 1;
+        u16 a  : 1;
+        u16 b  : 1;
+        u16 z  : 1;
+        u16 s  : 1;
+        u16 du : 1;
+        u16 dd : 1;
+        u16 dl : 1;
+        u16 dr : 1;
+        u16    : 2;
+        u16 l  : 1;
+        u16 r  : 1;
+        u16 cu : 1;
+        u16 cd : 1;
+        u16 cl : 1;
+        u16 cr : 1;
     };
-    u16              pad;                            /* 0x0000 */
-} z2_pad_t;                                          /* 0x0002 */
+    u16 value;
+} InputPad; // size = 0x2
 
 typedef struct {
-    z2_pad_t         pad;                            /* 0x0000 */
-    s8               x;                              /* 0x0002 */
-    s8               y;                              /* 0x0003 */
-} z2_controller_t;                                   /* 0x0004 */
+    /* 0x0 */ InputPad buttons;
+    /* 0x2 */ s8 xAxis;
+    /* 0x3 */ s8 yAxis;
+    /* 0x4 */ s8 status;
+    /* 0x5 */ UNK_TYPE1 pad5[0x1];
+} InputInfo; // size = 0x6
 
 typedef struct {
-    z2_controller_t  raw;                            /* 0x0000 */
-    u16              status;                         /* 0x0004 */
-    z2_controller_t  raw_prev;                       /* 0x0006 */
-    u16              status_prev;                    /* 0x000A */
-    z2_pad_t         pad_pressed;                    /* 0x000C */
-    s8               x_diff;                         /* 0x000E */
-    s8               y_diff;                         /* 0x000F */
-    u8               unk_0x10[0x02];                 /* 0x0010 */
-    z2_pad_t         pad_released;                   /* 0x0012 */
-    s8               adjusted_x;                     /* 0x0014 */
-    s8               adjusted_y;                     /* 0x0015 */
-    u8               unk_0x16[0x02];                 /* 0x0016 */
-} z2_input_t;                                        /* 0x0018 */
+    /* 0x00 */ InputInfo current;
+    /* 0x06 */ InputInfo last;
+    /* 0x0C */ InputInfo pressEdge;
+    /* 0x12 */ InputInfo releaseEdge;
+} Input; // size = 0x18
 
 /// =============================================================
 /// Gfx Context
@@ -921,7 +915,7 @@ struct z2_ctxt_s {
     void            *gamestate_dtor;                 /* 0x0008 */
     void            *gamestate_ctor;                 /* 0x000C */
     u32              ctxt_size;                      /* 0x0010 */
-    z2_input_t       input[4];                       /* 0x0014 */
+    Input            input[4];                       /* 0x0014 */
     u32              gamestate_heap_size;            /* 0x0074 */
     void            *gamestate_heap_ptr;             /* 0x0078 */
     void            *heap_append_start;              /* 0x007C */
