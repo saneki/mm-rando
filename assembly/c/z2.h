@@ -1945,6 +1945,23 @@ typedef struct {
  **/
 #define Z2_LINK(GAME) ((z2_link_t*)((GAME->actor_ctxt.actor_list[2].first)))
 
+typedef union {
+    struct {
+        u16 unknown;
+        u16 id;
+    };
+    u32 value;
+} PlayerAnimation; // size = 0x4
+
+typedef union {
+    struct {
+        u32 state1;
+        u32 state2;
+        u32 state3;
+    };
+    u32 flags[3];
+} PlayerStateFlags; // size = 0xC
+
 /**
  * Link actor.
  **/
@@ -1963,25 +1980,12 @@ typedef struct {
     u8               mask_c;                         /* 0x0154, C button index (starting at 1) of current/recently worn mask */
     u8               previous_mask;                  /* 0x0155 */
     u8               unk_0x156[0xF2];                /* 0x0156 */
-    union {
-        struct {
-            u16      unk_0x248;                      /* 0x0248 */
-            u16      current_animation_id;           /* 0x024A */
-        };
-        u32          animation_value;                /* 0x0248 */
-    };
+    PlayerAnimation  currentAnimation;               /* 0x0248 */
     u8               unk_0x24C[0x138];               /* 0x024C */
     u16              get_item;                       /* 0x0384 */
     u8               unk_0x386[0x6E2];               /* 0x0386 */
     f32             *table_A68;                      /* 0x0A68 */
-    union {
-        struct {
-            u32      action_state1;                  /* 0x0A6C */
-            u32      action_state2;                  /* 0x0A70 */
-            u32      action_state3;                  /* 0x0A74 */
-        };
-        u32          state_flags[3];                 /* 0x0A6C */
-    };
+    PlayerStateFlags stateFlags;                     /* 0x0A6C */
     u8               unk_0xA78[0x58];                /* 0x0A78 */
     f32              linear_velocity;                /* 0x0AD0 */
     u16              movement_angle;                 /* 0x0AD4 */

@@ -23,7 +23,7 @@ bool icetrap_give(z2_link_t *link, z2_game_t *game) {
                 Z2_ACTION_STATE1_TIME_STOP_2;
 
     // Return early if Link is in certain state.
-    if ((link->action_state1 & mask1) != 0) {
+    if ((link->stateFlags.state1 & mask1) != 0) {
         return false;
     }
 

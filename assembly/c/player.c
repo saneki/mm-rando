@@ -4,10 +4,10 @@
 
 bool player_can_receive_item(z2_game_t *game) {
     z2_link_t *link = Z2_LINK(game);
-    if ((link->action_state1 & Z2_ACTION_STATE1_AIM ) != 0) {
+    if ((link->stateFlags.state1 & Z2_ACTION_STATE1_AIM) != 0) {
         return false;
     }
-    u16 current_animation_id = link->current_animation_id;
+    u16 current_animation_id = link->currentAnimation.id;
     bool result = false;
     switch (current_animation_id) {
         case 0xE208: // rolling - Goron
@@ -39,11 +39,11 @@ static void HandleEnterWater(z2_link_t *link, z2_game_t *game) {
     // Check water distance to determine if in water.
     if (link->table_A68[11] < link->common.water_surface_dist) {
         // If swim flag not set, perform effects (sound + visual) for entering water.
-        if ((link->action_state1 & Z2_ACTION_STATE1_SWIM) == 0) {
+        if ((link->stateFlags.state1 & Z2_ACTION_STATE1_SWIM) == 0) {
             z2_PerformEnterWaterEffects(game, link);
         }
         // Set swim flag.
-        link->action_state1 |= Z2_ACTION_STATE1_SWIM;
+        link->stateFlags.state1 |= Z2_ACTION_STATE1_SWIM;
     }
 }
 
@@ -51,7 +51,7 @@ static void HandleEnterWater(z2_link_t *link, z2_game_t *game) {
  * Helper function called to check if the player is in water.
  **/
 static bool InWater(z2_link_t *link) {
-    return ((link->action_state1 & Z2_ACTION_STATE1_SWIM) != 0 ||
+    return ((link->stateFlags.state1 & Z2_ACTION_STATE1_SWIM) != 0 ||
             (link->table_A68[11] < link->common.water_surface_dist));
 }
 
@@ -73,7 +73,7 @@ void player_before_handle_void_state(z2_link_t *link, z2_game_t *game) {
     HandleEnterWater(link, game);
     // Note: Later in the function of this hook, is where the "frozen" player state flag is set.
     // Since we can't check the player state flags, do the same check this function does instead.
-    bool frozen = link->animation_value == 0;
+    bool frozen = link->currentAnimation.value == 0;
     bool zora = link->form == 2;
     // If Zora is voiding (frozen) and swimming, should float in water.
     if (zora && frozen && InWater(link)) {
