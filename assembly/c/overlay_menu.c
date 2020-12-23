@@ -80,7 +80,7 @@ static bool overlay_menu_should_draw(z2_game_t *game) {
     return game->pause_ctxt.state == 6 &&
         game->pause_ctxt.switching_screen == 0 &&
         (game->pause_ctxt.screen_idx == 0 || game->pause_ctxt.screen_idx == 3) &&
-        (game->common.input[0].raw.pad.l || game->common.input[0].raw.pad.du);
+        (game->common.input[0].current.buttons.l || game->common.input[0].current.buttons.du);
 }
 
 /**

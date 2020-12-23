@@ -270,20 +270,20 @@ static void handle_jinx_effect(z2_game_t *game, z2_link_t *link) {
 static void handle_no_z_effect(z2_game_t *game, z2_link_t *link) {
     // Handle "No Z" effect.
     if (g_external_effects.no_z) {
-        game->common.input[0].raw.pad.z = 0;
-        game->common.input[0].pad_pressed.z = 0;
+        game->common.input[0].current.buttons.z = 0;
+        game->common.input[0].pressEdge.buttons.z = 0;
     }
 }
 
 static void handle_reverse_controls_effect(z2_game_t *game, z2_link_t *link) {
     // Handle "Reverse Controls" effect.
     if (g_external_effects.reverse_controls) {
-        game->common.input[0].raw.x = -game->common.input[0].raw.x;
-        game->common.input[0].raw.y = -game->common.input[0].raw.y;
-        game->common.input[0].x_diff = -game->common.input[0].x_diff;
-        game->common.input[0].y_diff = -game->common.input[0].y_diff;
-        game->common.input[0].adjusted_x = -game->common.input[0].adjusted_x;
-        game->common.input[0].adjusted_y = -game->common.input[0].adjusted_y;
+        game->common.input[0].current.xAxis = -game->common.input[0].current.xAxis;
+        game->common.input[0].current.yAxis = -game->common.input[0].current.yAxis;
+        game->common.input[0].pressEdge.xAxis = -game->common.input[0].pressEdge.xAxis;
+        game->common.input[0].pressEdge.yAxis = -game->common.input[0].pressEdge.yAxis;
+        game->common.input[0].releaseEdge.xAxis = -game->common.input[0].releaseEdge.xAxis;
+        game->common.input[0].releaseEdge.yAxis = -game->common.input[0].releaseEdge.yAxis;
     }
 }
 
