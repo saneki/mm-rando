@@ -22,11 +22,11 @@
 #define z2_PauseDrawItemIcon GET_RELOC_PAUSE_FUNC(z2_PauseDrawItemIcon)
 
 /* Relocatable file select data */
-#define z2_file_select_ctxt  GET_GS_RELOC_TYPE(z2_file_select_ctxt, z2_gamestate.file_select)
+#define z2_file_select_ctxt  GET_GS_RELOC_TYPE(z2_file_select_ctxt, z2_gamestate.fileSelect)
 
 void * reloc_resolve_actor_ovl(z2_actor_ovl_table_t *ovl, u32 vram);
 z2_actor_init_t * reloc_resolve_actor_init(z2_actor_ovl_table_t *ovl);
-void * reloc_resolve_gamestate(z2_gamestate_table_t *gs, u32 vram);
+void * reloc_resolve_gamestate(GameStateOverlay *gs, u32 vram);
 void * reloc_resolve_player_ovl(z2_player_ovl_table_t *ovl, u32 vram);
 
 #endif // RELOC_H

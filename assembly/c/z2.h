@@ -6,6 +6,9 @@
 #include "types.h"
 
 typedef u8 UNK_TYPE1;
+typedef u32 UNK_TYPE4;
+
+typedef void (*FuncPtr)(void);
 
 #define Z2_SCREEN_WIDTH      320
 #define Z2_SCREEN_HEIGHT     240
@@ -2216,32 +2219,32 @@ typedef struct {
 } z2_file_table_t;                                   /* 0x0010 */
 
 typedef struct {
-    void            *ram;                            /* 0x0000 */
-    u32              vrom_start;                     /* 0x0004 */
-    u32              vrom_end;                       /* 0x0008 */
-    u32              vram_start;                     /* 0x000C */
-    u32              vram_end;                       /* 0x0010 */
-    u8               unk_0x14[0x04];                 /* 0x0014 */
-    void            *vram_ctor;                      /* 0x0018 */
-    void            *vram_dtor;                      /* 0x001C */
-    u8               unk_0x20[0xC];                  /* 0x0020 */
-    u32              alloc_size;                     /* 0x002C */
-} z2_gamestate_table_t;                              /* 0x0030 */
+    /* 0x0000 */ void *loadedRamAddr;
+    /* 0x0004 */ u32 vromStart;
+    /* 0x0008 */ u32 vromEnd;
+    /* 0x000C */ u32 vramStart;
+    /* 0x0010 */ u32 vramEnd;
+    /* 0x0014 */ UNK_TYPE4 unk14;
+    /* 0x0018 */ FuncPtr init;
+    /* 0x001C */ FuncPtr destroy;
+    /* 0x0020 */ UNK_TYPE4 unk20;
+    /* 0x0024 */ UNK_TYPE4 unk24;
+    /* 0x0028 */ UNK_TYPE4 unk28;
+    /* 0x002C */ u32 instanceSize;
+} GameStateOverlay; // size = 0x30
 
-typedef struct {
-    union {
-        z2_gamestate_table_t     states[7];          /* 0x0000 */
-        struct {
-            z2_gamestate_table_t reset;              /* 0x0000 */
-            z2_gamestate_table_t map_select;         /* 0x0030 */
-            z2_gamestate_table_t n64_logo;           /* 0x0060 */
-            z2_gamestate_table_t gameplay;           /* 0x0090 */
-            z2_gamestate_table_t title_screen;       /* 0x00C0 */
-            z2_gamestate_table_t file_select;        /* 0x00F0 */
-            z2_gamestate_table_t new_day;            /* 0x0120 */
-        };
+typedef union {
+    struct {
+        /* 0x000 */ GameStateOverlay reset;
+        /* 0x030 */ GameStateOverlay mapSelect;
+        /* 0x060 */ GameStateOverlay n64Logo;
+        /* 0x090 */ GameStateOverlay gameplay;
+        /* 0x0C0 */ GameStateOverlay titleScreen;
+        /* 0x0F0 */ GameStateOverlay fileSelect;
+        /* 0x120 */ GameStateOverlay newDay;
     };
-} z2_gamestate_t;                                    /* 0x0150 */
+    GameStateOverlay states[7];
+} GameStateTable; // size = 0x150
 
 typedef struct {
     u32              vrom_start;                     /* 0x0000 */
@@ -2365,7 +2368,7 @@ typedef struct {
 #define z2_file                          (*(z2_file_t*)              z2_file_addr)
 #define z2_file_table                    ((z2_file_table_t*)         z2_file_table_addr)
 #define z2_game                          (*(z2_game_t*)              z2_game_addr)
-#define z2_gamestate                     (*(z2_gamestate_t*)         z2_gamestate_addr)
+#define z2_gamestate                     (*(GameStateTable*)         z2_gamestate_addr)
 #define z2_gi_graphic_table              ((z2_gi_graphic_table_t*)   z2_gi_graphic_table_addr)
 #define z2_link                          (*(z2_link_t*)              z2_link_addr)
 #define z2_obj_table                     ((z2_obj_file_t*)           z2_object_table_addr)
