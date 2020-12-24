@@ -744,23 +744,21 @@ typedef union {
 /// =============================================================
 
 typedef struct {
-    s16              x;                              /* 0x0000 */
-    s16              y;                              /* 0x0002 */
-    s16              z;                              /* 0x0004 */
-} z2_xyz_t;                                          /* 0x0006 */
+    /* 0x0 */ f32 x;
+    /* 0x4 */ f32 y;
+    /* 0x8 */ f32 z;
+} Vec3f; // size = 0xC
 
 typedef struct {
-    f32              x;                              /* 0x0000 */
-    f32              y;                              /* 0x0004 */
-    f32              z;                              /* 0x0008 */
-} z2_xyzf_t;                                         /* 0x000C */
+    /* 0x0 */ s16 x;
+    /* 0x2 */ s16 y;
+    /* 0x4 */ s16 z;
+} Vec3s; // size = 0x6
 
-typedef u16 z2_angle_t;
 typedef struct {
-    z2_angle_t       x;                              /* 0x0000 */
-    z2_angle_t       y;                              /* 0x0002 */
-    z2_angle_t       z;                              /* 0x0004 */
-} z2_rot_t;                                          /* 0x0006 */
+    /* 0x00 */ Vec3f pos;
+    /* 0x0C */ Vec3s rot;
+} PosRot; // size = 0x14
 
 /// =============================================================
 /// Colors
@@ -944,9 +942,9 @@ typedef struct {
     f32              fog_distance;                   /* 0x001C */
     f32              z_distance;                     /* 0x0020 */
     u8               unk_0x24[0x04];                 /* 0x0024 */
-    z2_xyzf_t        unk_0x28;                       /* 0x0028 */
-    z2_xyzf_t        unk_0x34;                       /* 0x0034 */
-    z2_xyzf_t        unk_0x40;                       /* 0x0040 */
+    Vec3f            unk_0x28;                       /* 0x0028 */
+    Vec3f            unk_0x34;                       /* 0x0034 */
+    Vec3f            unk_0x40;                       /* 0x0040 */
     u8               unk_0x4C[0x04];                 /* 0x004C */
     Vp               viewport_movemem;               /* 0x0050 */
     Mtx              unk_mtx_0x60;                   /* 0x0060 */
@@ -964,7 +962,7 @@ typedef struct {
 typedef struct {
     union {
         struct {
-            z2_xyzf_t  unk_0x00;                     /* 0x0000 */
+            Vec3f    unk_0x00;                     /* 0x0000 */
             struct {
                 f32  unk_1_0x00;
                 f32  unk_1_0x04;
@@ -979,14 +977,14 @@ typedef struct {
         }            t2;
         u8           unk_0x00[0x50];
     };
-    z2_xyzf_t        unk_0x50;                       /* 0x0050 */
-    z2_xyzf_t        unk_0x5C;                       /* 0x005C */
-    z2_xyzf_t        unk_0x68;                       /* 0x0068 */
+    Vec3f            unk_0x50;                       /* 0x0050 */
+    Vec3f            unk_0x5C;                       /* 0x005C */
+    Vec3f            unk_0x68;                       /* 0x0068 */
     u8               unk_0x74[0x0C];                 /* 0x0074 */
-    z2_xyzf_t        unk_0x80;                       /* 0x0080 */
+    Vec3f            unk_0x80;                       /* 0x0080 */
     z2_ctxt_t       *game;                           /* 0x008C */
     z2_actor_t      *focus;                          /* 0x0090 */
-    z2_xyzf_t        focus_pos;                      /* 0x0094 */
+    Vec3f            focus_pos;                      /* 0x0094 */
     u32              unk_0xA0;                       /* 0x00A0 */
     u32              unk_0xA4;                       /* 0x00A4 */
     z2_actor_t      *actor;                          /* 0x00A8 */
@@ -1115,7 +1113,7 @@ typedef struct {
 } z2_col_type_t;                                     /* 0x0008 */
 
 typedef struct {
-    z2_xyz_t         pos;                            /* 0x0000 */
+    Vec3s            pos;                            /* 0x0000 */
     s16              width;                          /* 0x0006 */
     s16              depth;                          /* 0x0008 */
     struct {
@@ -1139,15 +1137,15 @@ typedef struct {
         u16          vb    : 13;
     }                mask_2;                         /* 0x0004 */
     u16              vc;                             /* 0x0006 */
-    z2_xyz_t         norm;                           /* 0x0008, normal vector. */
+    Vec3s            norm;                           /* 0x0008, normal vector. */
     s16              dist;                           /* 0x000E, plane distance from origin. */
 } z2_col_poly_t;                                     /* 0x0010 */
 
 typedef struct {
-    z2_xyz_t         min;                            /* 0x0000 */
-    z2_xyz_t         max;                            /* 0x0006 */
+    Vec3s            min;                            /* 0x0000 */
+    Vec3s            max;                            /* 0x0006 */
     u16              n_vtx;                          /* 0x000C */
-    z2_xyz_t        *vtx;                            /* 0x000E */
+    Vec3s           *vtx;                            /* 0x000E */
     u16              n_poly;                         /* 0x0012 */
     z2_col_poly_t   *poly;                           /* 0x0014 */
     z2_col_type_t   *type;                           /* 0x0018 */
@@ -1164,12 +1162,12 @@ typedef struct {
     u16              unk_0x0C;                       /* 0x000C */
     s16              unk_0x0E;                       /* 0x000E, number of polys? */
     s16              unk_0x10;                       /* 0x0010 */
-    z2_xyzf_t        scale_1;                        /* 0x0014 */
-    z2_rot_t         rot_1;                          /* 0x0020 */
-    z2_xyzf_t        pos_1;                          /* 0x0028 */
-    z2_xyzf_t        scale_2;                        /* 0x0034 */
-    z2_rot_t         rot_2;                          /* 0x0040 */
-    z2_xyzf_t        pos_2;                          /* 0x0048 */
+    Vec3f            scale_1;                        /* 0x0014 */
+    Vec3s            rot_1;                          /* 0x0020 */
+    Vec3f            pos_1;                          /* 0x0028 */
+    Vec3f            scale_2;                        /* 0x0034 */
+    Vec3s            rot_2;                          /* 0x0040 */
+    Vec3f            pos_2;                          /* 0x0048 */
     s16              unk_0x54;                       /* 0x0054 */
     s16              unk_0x56;                       /* 0x0056 */
     s16              unk_0x58;                       /* 0x0058 */
@@ -1186,13 +1184,13 @@ typedef struct {
 typedef struct {
     /* static collision stuff */
     z2_col_hdr_t    *col_hdr;                        /* 0x0000 */
-    z2_xyzf_t        bbox_min;                       /* 0x0004 */
-    z2_xyzf_t        bbox_max;                       /* 0x0010 */
+    Vec3f            bbox_min;                       /* 0x0004 */
+    Vec3f            bbox_max;                       /* 0x0010 */
     s32              n_sect_x;                       /* 0x001C */
     s32              n_sect_y;                       /* 0x0020 */
     s32              n_sect_z;                       /* 0x0024 */
-    z2_xyzf_t        sect_size;                      /* 0x0028 */
-    z2_xyzf_t        sect_inv;                       /* 0x0034 */
+    Vec3f            sect_size;                      /* 0x0028 */
+    Vec3f            sect_inv;                       /* 0x0034 */
     z2_col_lut_t    *stc_lut;                        /* 0x0040 */
     u16              stc_list_max;                   /* 0x0044 */
     u16              stc_list_pos;                   /* 0x0046 */
@@ -1205,7 +1203,7 @@ typedef struct {
     u16              actor_loaded[50];               /* 0x13DC */
                                                      /* dynamic collision stuff */
     z2_col_poly_t   *dyn_poly;                       /* 0x1440 */
-    z2_xyz_t        *dyn_vtx;                        /* 0x1444 */
+    Vec3s           *dyn_vtx;                        /* 0x1444 */
     s32              unk_0x1448;                     /* 0x1448 */
     void            *unk_0x144C;                     /* 0x144C */
                                                      /* struct */
@@ -1436,7 +1434,7 @@ typedef struct z2_song_frame_s {
 typedef struct {
     z2_song_frame_t  frames[2];                      /* 0x0000 */
     u16              frame_count;                    /* 0x0010 */
-    z2_angle_t       analog_angle;                   /* 0x0012, angle of analog stick, modifies sound. */
+    s16              analog_angle;                   /* 0x0012, angle of analog stick, modifies sound. */
     u16              unk_0x14;                       /* 0x0014 */
     u32              controller_0x16;                /* 0x0016 */
     u32              unk_0x1A;                       /* 0x001A */
@@ -1844,27 +1842,21 @@ struct z2_actor_s {
     u8               type;                           /* 0x0002 */
     s8               room;                           /* 0x0003 */
     u32              flags;                          /* 0x0004 */
-    z2_xyzf_t        pos_1;                          /* 0x0008 */
-    z2_rot_t         rot_init;                       /* 0x0014 */
-    u8               unk_0x1A[0x02];                 /* 0x001A */
+    PosRot           initPosRot;                     /* 0x0008 */
     u16              variable;                       /* 0x001C */
     u8               alloc_index;                    /* 0x001E */
     u8               unk_0x1F;                       /* 0x001F */
     u16              sound_effect;                   /* 0x0020 */
     u8               unk_0x22[0x02];                 /* 0x0022 */
-    z2_xyzf_t        pos_2;                          /* 0x0024 */
-    z2_rot_t         rot_dir;                        /* 0x0030 */
-    u8               unk_0x36[0x02];                 /* 0x0036 */
+    PosRot           currPosRot;                     /* 0x0024 */
     s8               unk_0x38;                       /* 0x0038 */
     u8               unk_0x39;                       /* 0x0039 */
     u8               unk_0x3A[0x02];                 /* 0x003A, padding? */
-    z2_xyzf_t        pos_3;                          /* 0x003C */
-    z2_rot_t         rot_1;                          /* 0x0048 */
-    u8               unk_0x4E[0x02];                 /* 0x004E */
+    PosRot           topPosRot;                      /* 0x003C */
     u32              unk_0x50;                       /* 0x0050 */
     f32              unk_0x54;                       /* 0x0054 */
-    z2_xyzf_t        scale;                          /* 0x0058 */
-    z2_xyzf_t        vel_1;                          /* 0x0064 */
+    Vec3f            scale;                          /* 0x0058 */
+    Vec3f            vel_1;                          /* 0x0064 */
     f32              xz_speed;                       /* 0x0070 */
     f32              gravity;                        /* 0x0074 */
     f32              min_vel_y;                      /* 0x0078 */
@@ -1885,7 +1877,7 @@ struct z2_actor_s {
 
                                                      /* struct collision_check common */
     z2_actor_damage_table_t *damage_table;           /* 0x00A0 */
-    z2_xyzf_t        vel_2;                          /* 0x00A4 */
+    Vec3f            vel_2;                          /* 0x00A4 */
     u8               unk_0xB0[0x06];                 /* 0x00B0 */
     u8               mass;                           /* 0x00B6 */
     u8               health;                         /* 0x00B7 */
@@ -1895,7 +1887,7 @@ struct z2_actor_s {
     u8               unk_0xBB;                       /* 0x00BB */
 
                                                      /* struct start */
-    z2_rot_t         rot_2;                          /* 0x00BC */
+    Vec3s            rot_2;                          /* 0x00BC */
     char             unk_0xC2[0x2];                  /* 0x00C2 */
     f32              unk_0xC4;                       /* 0x00C4 */
     void            *draw_drop_shadow;               /* 0x00C8 */
@@ -1904,14 +1896,14 @@ struct z2_actor_s {
     u8               pad_0xD1[0x3];                  /* 0x00D1 */
                                                      /* struct end */
 
-    z2_xyzf_t        unk_0xD4;                       /* 0x00D4 */
-    z2_xyzf_t        unk_0xE0;                       /* 0x00E0 */
-    z2_xyzf_t        unk_0xEC;                       /* 0x00EC */
+    Vec3f            unk_0xD4;                       /* 0x00D4 */
+    Vec3f            unk_0xE0;                       /* 0x00E0 */
+    Vec3f            unk_0xEC;                       /* 0x00EC */
     f32              unk_0xF8;                       /* 0x00F8 */
     f32              unk_0xFC;                       /* 0x00FC */
     f32              unk_0x100;                      /* 0x0100 */
     f32              unk_0x104;                      /* 0x0104 */
-    z2_xyzf_t        pos_4;                          /* 0x0108 */
+    Vec3f            pos_4;                          /* 0x0108 */
     u16              unk_0x114;                      /* 0x0114 */
     u16              text_id;                        /* 0x0116 */
     s16              frozen;                         /* 0x0118 */
@@ -2615,7 +2607,7 @@ typedef void (*z2_UpdateButtonsState_proc)(u32 state);
 
 /* Function Prototypes (Math) */
 typedef f32 (*z2_Math_Sins_proc)(s16 angle);
-typedef f32 (*z2_Math_Vec3f_DistXZ_proc)(z2_xyzf_t *p1, z2_xyzf_t *p2);
+typedef f32 (*z2_Math_Vec3f_DistXZ_proc)(Vec3f *p1, Vec3f *p2);
 
 /* Function Prototypes (Objects) */
 typedef s8 (*z2_GetObjectIndex_proc)(const z2_obj_ctxt_t *ctxt, u16 object_id);

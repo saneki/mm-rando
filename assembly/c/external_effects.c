@@ -199,7 +199,7 @@ static void handle_fairy_effect(z2_game_t *game, z2_link_t *link) {
     // Check state type to see if we can receive a fairy during this frame
     if (g_external_effects.fairy && g_fairy_cooldown == 0 && can_interact_with_fairy(game, link)) {
         // Spawn fairy on top of Link, and call the function to interact
-        z2_actor_t *fairy = spawn_next_fairy_actor(game, link->common.pos_1);
+        z2_actor_t *fairy = spawn_next_fairy_actor(game, link->common.initPosRot.pos);
         if (fairy) {
             if (fairy->main_proc != NULL) {
                 fairy->main_proc(fairy, game);

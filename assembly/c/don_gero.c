@@ -11,7 +11,7 @@ s16 don_gero_start_cutscene(s16 index, z2_actor_t *actor) {
     }
 }
 
-z2_xyzf_t roll_targets[6] = {
+Vec3f roll_targets[6] = {
     {
         .x = -550,
         .y = 8,
@@ -44,7 +44,7 @@ z2_xyzf_t roll_targets[6] = {
     }
 };
 
-z2_xyzf_t *don_gero_get_roll_target(s16 index) {
+Vec3f *don_gero_get_roll_target(s16 index) {
     if (index < 6) {
         return &roll_targets[index];
     }

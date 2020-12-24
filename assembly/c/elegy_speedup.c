@@ -102,7 +102,7 @@ void elegy_speedup_update_effect_position(z2_actor_t *actor, z2_game_t *game) {
         z2_actor_t *statue = game->actor_ctxt.elegy_statues[form_index];
         if (statue != NULL) {
             // Sync position of Eff_Change effect with the statue.
-            actor->pos_2 = statue->pos_2;
+            actor->currPosRot.pos = statue->currPosRot.pos;
         }
     }
 }

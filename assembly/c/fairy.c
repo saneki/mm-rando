@@ -61,13 +61,13 @@ bool get_next_fairy_instance(u16 *inst, z2_game_t *game) {
 }
 
 // Spawn a fairy actor.
-static z2_actor_t* spawn_fairy_actor(z2_game_t *game, z2_xyzf_t pos, u16 inst) {
-    z2_rot_t rot = { 0, 0, 0 };
+static z2_actor_t* spawn_fairy_actor(z2_game_t *game, Vec3f pos, u16 inst) {
+    Vec3s rot = { 0, 0, 0 };
     return actor_spawn(game, Z2_ACTOR_EN_ELF, pos, rot, inst);
 }
 
 // Spawn the next avaiable fairy actor.
-z2_actor_t* spawn_next_fairy_actor(z2_game_t *game, z2_xyzf_t pos) {
+z2_actor_t* spawn_next_fairy_actor(z2_game_t *game, Vec3f pos) {
     u16 inst;
 
     if (get_next_fairy_instance(&inst, game)) {

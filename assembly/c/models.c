@@ -404,9 +404,9 @@ void models_before_moons_tear_main(z2_actor_t *actor, z2_game_t *game) {
         if (models_should_override_moons_tear_draw(actor, game)) {
             // If the Moon's Tear on display, reposition and rotate.
             if (actor->variable == 0) {
-                actor->pos_2.x = 157.0;
-                actor->pos_2.y = -32.0;
-                actor->pos_2.z = -103.0;
+                actor->currPosRot.pos.x = 157.0;
+                actor->currPosRot.pos.y = -32.0;
+                actor->currPosRot.pos.z = -103.0;
                 models_rotate(actor, game, 0x96, 0x3C0);
                 models_apply_hover_float(actor, 30.0, 18.0);
             }

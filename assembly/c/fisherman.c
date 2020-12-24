@@ -31,8 +31,8 @@ bool fisherman_should_pass_timer_check(z2_actor_t *actor, z2_game_t *game, u32 t
  **/
 static bool fisherman_boat_is_near_platform(z2_obj_boat_t *boat, f32 distance) {
     // Check distance from specific point near platform.
-    z2_xyzf_t near_platform = { -455.0, 0.0, -680.0 };
-    return z2_Math_Vec3f_DistXZ(&boat->common.pos_2, &near_platform) < distance;
+    Vec3f near_platform = { -455.0, 0.0, -680.0 };
+    return z2_Math_Vec3f_DistXZ(&boat->common.currPosRot.pos, &near_platform) < distance;
 }
 
 /**
