@@ -63,6 +63,7 @@
 .include "hooks/song_state.asm"
 .include "hooks/speedups.asm"
 .include "hooks/stray_fairy_group.asm"
+.include "hooks/sword_school_gong.asm"
 .include "hooks/world_colors.asm"
 .include "hooks/mmr_gi.asm"
 

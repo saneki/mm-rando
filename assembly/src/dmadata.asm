@@ -193,3 +193,7 @@ DefineDmaFile G_EN_INVISIBLE_RUPEE_DMA, G_EN_INVISIBLE_RUPEE_FILE, 646
 ; ovl_En_Ruppecrow (Guay (Circling Clock Town))
 DefineDmaFile G_EN_RUPPECROW_DMA, G_EN_RUPPECROW_FILE, 573
 .definelabel  G_EN_RUPPECROW_VRAM, 0x80BE2260
+
+; ovl_Obj_Dora (Swordsman's School Gong)
+DefineDmaFile G_OBJ_DORA_DMA, G_OBJ_DORA_FILE, 478
+.definelabel  G_OBJ_DORA_VRAM, 0x80B60AD0
