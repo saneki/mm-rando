@@ -122,8 +122,8 @@ static bool models_set_loaded_actor_model(struct model *model, z2_actor_t *actor
  * Cause model to "float" using rotation value.
  **/
 static void models_apply_hover_float(z2_actor_t *actor, f32 base, f32 multiplier) {
-    f32 rot = z2_Math_Sins(actor->rot_2.y);
-    actor->unk_0xC4 = (rot * multiplier) + base;
+    f32 rot = z2_Math_Sins(actor->shape.rot.y);
+    actor->shape.yDisplacement = (rot * multiplier) + base;
 }
 
 /**
@@ -145,9 +145,9 @@ static bool models_should_rotate_backwards(z2_game_t *game, u16 gi_index) {
  **/
 static void models_rotate(z2_actor_t *actor, z2_game_t *game, u16 gi_index, u16 amount) {
     if (!models_should_rotate_backwards(game, gi_index)) {
-        actor->rot_2.y += amount;
+        actor->shape.rot.y += amount;
     } else {
-        actor->rot_2.y -= amount;
+        actor->shape.rot.y -= amount;
     }
 }
 
@@ -173,7 +173,7 @@ void models_rotate_en_item00(z2_actor_t *actor, z2_game_t *game) {
         u16 index = actor->variable + 0x80;
         models_rotate(actor, game, index, 0x3C0);
     } else {
-        actor->rot_2.y += 0x3C0;
+        actor->shape.rot.y += 0x3C0;
     }
 }
 
@@ -208,7 +208,7 @@ void models_rotate_skulltula_token(z2_actor_t *actor, z2_game_t *game) {
         u16 gi_index = models_get_skulltula_token_gi_index(actor, game);
         models_rotate(actor, game, gi_index, 0x38E);
     } else {
-        actor->rot_2.y += 0x38E;
+        actor->shape.rot.y += 0x38E;
     }
 }
 
@@ -341,7 +341,7 @@ void models_rotate_heart_container(z2_actor_t *actor, z2_game_t *game) {
         u16 gi_index = models_get_heart_container_gi_index(game);
         models_rotate(actor, game, gi_index, 0x400);
     } else {
-        actor->rot_2.y += 0x400;
+        actor->shape.rot.y += 0x400;
     }
 }
 
@@ -460,7 +460,7 @@ void models_rotate_lab_fish_heart_piece(z2_actor_t *actor, z2_game_t *game) {
     if (MISC_CONFIG.freestanding) {
         models_rotate(actor, game, 0x112, 0x3E8);
     } else {
-        actor->rot_2.y += 0x3E8;
+        actor->shape.rot.y += 0x3E8;
     }
 }
 
