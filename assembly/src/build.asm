@@ -60,6 +60,7 @@
 .include "hooks/rupeecrow.asm"
 .include "hooks/savedata.asm"
 .include "hooks/scene.asm"
+.include "hooks/soft_soil_prize.asm"
 .include "hooks/song_state.asm"
 .include "hooks/speedups.asm"
 .include "hooks/stray_fairy_group.asm"

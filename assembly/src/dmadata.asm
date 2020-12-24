@@ -197,3 +197,7 @@ DefineDmaFile G_EN_RUPPECROW_DMA, G_EN_RUPPECROW_FILE, 573
 ; ovl_Obj_Dora (Swordsman's School Gong)
 DefineDmaFile G_OBJ_DORA_DMA, G_OBJ_DORA_FILE, 478
 .definelabel  G_OBJ_DORA_VRAM, 0x80B60AD0
+
+; ovl_Obj_Swprize (Soft Soil Bug Drop)
+DefineDmaFile G_OBJ_SWPRIZE_DMA, G_OBJ_SWPRIZE_FILE, 645
+.definelabel  G_OBJ_SWPRIZE_VRAM, 0x80C25360

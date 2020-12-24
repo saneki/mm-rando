@@ -198,6 +198,7 @@ u16 fanfares[5] = { 0x0922, 0x0924, 0x0037, 0x0039, 0x0052 };
 void mmr_GiveItem(z2_game_t *game, z2_actor_t *actor, u16 gi_index) {
     gi_index = mmr_GetNewGiIndex(game, actor, gi_index, true);
     mmr_gi_t *entry = mmr_get_gi_entry(gi_index);
+    z2_memcpy((void*)0x800B35F0, entry, 8); // copy entry to 0x800B35F0 otherwise hacky stuff i wrote ages ago won't work.
     z2_ShowMessage(game, entry->message, 0);
     u8 sound_type = entry->type & 0x0F;
     if (sound_type == 0) {
