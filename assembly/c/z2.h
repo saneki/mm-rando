@@ -1823,16 +1823,75 @@ typedef struct {
 /// Actor Structures
 /// =============================================================
 
-typedef struct {
-    struct {
-        u8           damage : 4;
-        u8           effect : 4;
-    }                attack[0x20];
-} z2_actor_damage_table_t;
+typedef void(*ActorFunc)(z2_actor_t *this, z2_game_t *ctxt);
 
-/* Actor callback prototypes */
-typedef void (*z2_ActorMain_proc)(z2_actor_t *actor, z2_game_t *game);
-typedef void (*z2_ActorDraw_proc)(z2_actor_t *actor, z2_game_t *game);
+typedef union {
+    struct {
+        u8 damage : 4;
+        u8 effect : 4;
+    };
+    u8 value;
+} ActorDamageByte; // size = 0x1
+
+typedef struct {
+    /* 0x00 */ ActorDamageByte attack[32];
+} ActorDamageChart; // size = 0x20
+
+// Related to collision?
+typedef struct {
+    /* 0x00 */ ActorDamageChart* damageChart;
+    /* 0x04 */ Vec3f displacement;
+    /* 0x10 */ s16 unk10;
+    /* 0x12 */ s16 unk12;
+    /* 0x14 */ s16 unk14;
+    /* 0x16 */ u8 mass;
+    /* 0x17 */ u8 health;
+    /* 0x18 */ u8 damage;
+    /* 0x19 */ u8 damageEffect;
+    /* 0x1A */ u8 impactEffect;
+    /* 0x1B */ UNK_TYPE1 pad1B[0x1];
+} ActorA0; // size = 0x1C
+
+// typedef void(*ActorShadowDrawFunc)(struct Actor* actor, struct LightMapper* mapper, struct GlobalContext* ctxt);
+
+typedef struct {
+    /* 0x00 */ Vec3s rot;
+    /* 0x08 */ f32 yDisplacement;
+    /* 0x0C */ void* shadowDrawFunc;
+    /* 0x10 */ f32 scale;
+    /* 0x14 */ u8 alphaScale; // 255 means always draw full opacity if visible
+} ActorShape; // size = 0x18
+
+typedef struct {
+    /* 0x00 */ s16 id;
+    /* 0x02 */ u8 type;
+    /* 0x04 */ u32 flags;
+    /* 0x08 */ s16 objectId;
+    /* 0x0C */ u32 instanceSize;
+    /* 0x10 */ ActorFunc init;
+    /* 0x14 */ ActorFunc destroy;
+    /* 0x18 */ ActorFunc update;
+    /* 0x1C */ ActorFunc draw;
+} ActorInit; // size = 0x20
+
+typedef enum {
+    ALLOCTYPE_NORMAL,
+    ALLOCTYPE_ABSOLUTE,
+    ALLOCTYPE_PERMANENT,
+} AllocType;
+
+typedef struct {
+    /* 0x00 */ u32 vromStart;
+    /* 0x04 */ u32 vromEnd;
+    /* 0x08 */ void* vramStart;
+    /* 0x0C */ void* vramEnd;
+    /* 0x10 */ void* loadedRamAddr; // original name: "allocp"
+    /* 0x14 */ ActorInit* initInfo;
+    /* 0x18 */ char* name;
+    /* 0x1C */ u16 allocType; // bit 0: don't allocate memory, use actorContext->0x250? bit 1: Always keep loaded?
+    /* 0x1E */ s8 nbLoaded; // original name: "clients"
+    /* 0x1F */ UNK_TYPE1 pad1F[0x1];
+} ActorOverlay; // size = 0x20
 
 /**
  * Actor.
@@ -1874,28 +1933,8 @@ struct z2_actor_s {
     f32              unk_0x94;                       /* 0x0094 */
     f32              dist_from_link_xz;              /* 0x0098 */
     f32              dist_from_link_y;               /* 0x009C */
-
-                                                     /* struct collision_check common */
-    z2_actor_damage_table_t *damage_table;           /* 0x00A0 */
-    Vec3f            vel_2;                          /* 0x00A4 */
-    u8               unk_0xB0[0x06];                 /* 0x00B0 */
-    u8               mass;                           /* 0x00B6 */
-    u8               health;                         /* 0x00B7 */
-    u8               damage;                         /* 0x00B8 */
-    u8               damage_effect;                  /* 0x00B9 */
-    u8               impact_effect;                  /* 0x00BA */
-    u8               unk_0xBB;                       /* 0x00BB */
-
-                                                     /* struct start */
-    Vec3s            rot_2;                          /* 0x00BC */
-    char             unk_0xC2[0x2];                  /* 0x00C2 */
-    f32              unk_0xC4;                       /* 0x00C4 */
-    void            *draw_drop_shadow;               /* 0x00C8 */
-    f32              unk_0xCC;                       /* 0x00CC */
-    u8               unk_0xD0;                       /* 0x00D0 */
-    u8               pad_0xD1[0x3];                  /* 0x00D1 */
-                                                     /* struct end */
-
+    ActorA0          unkA0;                          /* 0x00A0 */
+    ActorShape       shape;                          /* 0x00BC */
     Vec3f            unk_0xD4;                       /* 0x00D4 */
     Vec3f            unk_0xE0;                       /* 0x00E0 */
     Vec3f            unk_0xEC;                       /* 0x00EC */
@@ -1915,11 +1954,11 @@ struct z2_actor_s {
     z2_actor_t      *attached_b;                     /* 0x0124 */
     z2_actor_t      *prev;                           /* 0x0128 */
     z2_actor_t      *next;                           /* 0x012C */
-    void            *ctor;                           /* 0x0130 */
-    void            *dtor;                           /* 0x0134 */
-    z2_ActorMain_proc main_proc;                     /* 0x0138 */
-    z2_ActorDraw_proc draw_proc;                     /* 0x013C */
-    void            *code_entry;                     /* 0x0140 */
+    ActorFunc        ctor;                           /* 0x0130 */
+    ActorFunc        dtor;                           /* 0x0134 */
+    ActorFunc        main_proc;                      /* 0x0138 */
+    ActorFunc        draw_proc;                      /* 0x013C */
+    ActorOverlay    *code_entry;                     /* 0x0140 */
 };                                                   /* 0x0144 */
 
 typedef void (*z2_ActorProc)(z2_actor_t *actor, z2_game_t *game);
