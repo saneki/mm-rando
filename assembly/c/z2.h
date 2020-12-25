@@ -2258,19 +2258,6 @@ struct z2_arena {
 typedef struct {
     u32              vrom_start;                     /* 0x0000 */
     u32              vrom_end;                       /* 0x0004 */
-    u32              vram_start;                     /* 0x0008 */
-    u32              vram_end;                       /* 0x000C */
-    void            *ram;                            /* 0x0010 */
-    u32              initialization;                 /* 0x0014 */
-    void            *filename;                       /* 0x0018 */
-    u16              alloc_type;                     /* 0x001C */
-    u8               loaded_cnt;                     /* 0x001E */
-    u8               pad_0x1F;                       /* 0x001F */
-} z2_actor_ovl_table_t;                              /* 0x0020 */
-
-typedef struct {
-    u32              vrom_start;                     /* 0x0000 */
-    u32              vrom_end;                       /* 0x0004 */
     u32              prom_start;                     /* 0x0008 */
     u32              prom_end;                       /* 0x000C */
 } z2_file_table_t;                                   /* 0x0010 */
