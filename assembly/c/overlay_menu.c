@@ -77,9 +77,9 @@ static bool has_remains(u8 index) {
  * Whether or not the overlay menu should display.
  **/
 static bool overlay_menu_should_draw(z2_game_t *game) {
-    return game->pause_ctxt.state == 6 &&
-        game->pause_ctxt.switching_screen == 0 &&
-        (game->pause_ctxt.screen_idx == 0 || game->pause_ctxt.screen_idx == 3) &&
+    return game->pauseCtx.state == 6 &&
+        game->pauseCtx.switchingScreen == 0 &&
+        (game->pauseCtx.screenIndex == 0 || game->pauseCtx.screenIndex == 3) &&
         (game->common.input[0].current.buttons.l || game->common.input[0].current.buttons.du);
 }
 
@@ -116,9 +116,9 @@ void overlay_menu_draw(z2_game_t *game) {
     int start_top = bg_top + padding;
 
     // Update sprite pointers.
-    icon_sprite.buf = game->pause_ctxt.icon_item_static;
-    icon_24_sprite.buf = game->pause_ctxt.icon_item_24;
-    // icon_map_sprite.buf = game->pause_ctxt.icon_item_map;
+    icon_sprite.buf = game->pauseCtx.iconItemStatic;
+    icon_24_sprite.buf = game->pauseCtx.iconItem24;
+    // icon_map_sprite.buf = game->pauseCtx.iconItemMap;
     skulltula_icon.buf = (u8*)game->interfaceCtx.parameterStatic +0x31E0;
 
     // Draw background.

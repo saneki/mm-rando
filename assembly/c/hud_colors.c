@@ -360,7 +360,7 @@ void hud_colors_update_pause_menu_colors(z2_game_t *game) {
             rgb8_to_rgb16(&colors->yellow_outer_2, HUD_COLOR_CONFIG.menu_c_outer_2);
         }
 
-        u8 *bg_dlist = (u8*)game->pause_ctxt.bg_dlist;
+        u8 *bg_dlist = (u8*)game->pauseCtx.bgDList;
         if (bg_dlist != NULL) {
             // Update pause menu subtitle icon colors.
             ColorRGBA8 *subtitle_c = (ColorRGBA8*)(bg_dlist + 0x13C);

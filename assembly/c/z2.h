@@ -1271,54 +1271,64 @@ typedef struct {
 
 typedef union {
     struct {
-        u16          item;
-        u16          map;
-        u16          quest;
-        u16          mask;
+        /* 0x0 */ u16 item;
+        /* 0x2 */ u16 map;
+        /* 0x4 */ u16 quest;
+        /* 0x6 */ u16 mask;
     };
-    u16              cells[0x04];                    /* 0x0000 */
-} z2_pause_cells_t;                                  /* 0x0008 */
+    u16 values[0x4];
+} PauseCells; // size = 0x8
 
 typedef struct {
-    View             view;                           /* 0x0000 */
-    void            *icon_item_static;               /* 0x0168 */
-    void            *icon_item_24;                   /* 0x016C */
-    void            *icon_item_map;                  /* 0x0170 */
-    void            *icon_text;                      /* 0x0174 */
-    void            *unk_text_0x178;                 /* 0x0178 */
-    Gfx             *bg_dlist;                       /* 0x017C */
-    u8               unk_0x180[0x10];                /* 0x0180 */
-    Vtx             *vtx_buf;                        /* 0x0190 */
-    u8               unk_0x194[0x58];                /* 0x0194 */
-    u16              state;                          /* 0x01EC */
-    u16              debug_menu;                     /* 0x01EE */
-    u8               unk_0x1F0[0x10];                /* 0x01F0 */
-    u16              switching_screen;               /* 0x0200 */
-    u16              unk_0x202;                      /* 0x0202 */
-    u16              screen_idx;                     /* 0x0204 */
-    u8               unk_0x206[0x1E];                /* 0x0206 */
-    u16              item_alpha;                     /* 0x0224 */
-    u8               unk_0x226[0x12];                /* 0x0226 */
-    z2_pause_cells_t cells_1;                        /* 0x0238 */
-    u8               unk_0x240[0x02];                /* 0x0240 */
-    u16              item_x;                         /* 0x0242 */
-    u8               unk_0x244[0x04];                /* 0x0244 */
-    u16              mask_x;                         /* 0x0248 */
-    u8               unk_0x24A[0x02];                /* 0x024A */
-    u16              item_y;                         /* 0x024C */
-    u8               unk_0x24E[0x04];                /* 0x024E */
-    u16              mask_y;                         /* 0x0252 */
-    u8               unk_0x254[0x04];                /* 0x0254 */
-    s16              side_button;                    /* 0x0258 */
-    u8               unk_0x25A[0x02];                /* 0x025A */
-    u16              selected_item;                  /* 0x025C */
-    u16              item_item;                      /* 0x025E */
-    u16              map_item;                       /* 0x0260 */
-    u16              quest_item;                     /* 0x0262 */
-    u16              mask_item;                      /* 0x0264 */
-    u16              unk_0x266;                      /* 0x0266 */
-    z2_pause_cells_t cells_2;                        /* 0x0268 */
-} z2_pause_ctxt_t;                                   /* 0x0270 */
+    /* 0x000 */ View view;
+    /* 0x168 */ void* iconItemStatic;
+    /* 0x16C */ void* iconItem24;
+    /* 0x170 */ void* iconItemMap;
+    /* 0x174 */ void* iconText;
+    /* 0x178 */ void* unk178;
+    /* 0x17C */ Gfx* bgDList;
+    /* 0x180 */ UNK_TYPE1 pad180[0x10];
+    /* 0x190 */ Vtx* vtxBuf;
+    /* 0x194 */ UNK_TYPE1 pad194[0x58];
+    /* 0x1EC */ u16 state;
+    /* 0x1EE */ u16 debugMenu;
+    /* 0x1F0 */ u8 unk1F0;
+    /* 0x1F1 */ UNK_TYPE1 pad1F1[0x3];
+    /* 0x1F4 */ f32 unk1F4;
+    /* 0x1F8 */ UNK_TYPE1 pad1F8[0x8];
+    /* 0x200 */ u16 switchingScreen;
+    /* 0x202 */ u16 unk202;
+    /* 0x204 */ u16 screenIndex;
+    /* 0x206 */ UNK_TYPE1 pad206[0x6];
+    /* 0x20C */ f32 unk20C;
+    /* 0x210 */ f32 unk210;
+    /* 0x214 */ f32 unk214;
+    /* 0x218 */ f32 unk218;
+    /* 0x21C */ f32 unk21C;
+    /* 0x220 */ f32 unk220;
+    /* 0x224 */ u16 itemAlpha;
+    /* 0x226 */ UNK_TYPE1 pad226[0x12];
+    /* 0x238 */ PauseCells cells1;
+    /* 0x240 */ UNK_TYPE1 pad240[0x2];
+    /* 0x242 */ u16 itemX;
+    /* 0x244 */ UNK_TYPE1 pad244[0x4];
+    /* 0x248 */ u16 maskX;
+    /* 0x24A */ UNK_TYPE1 pad24A[0x2];
+    /* 0x24C */ u16 itemY;
+    /* 0x24E */ UNK_TYPE1 pad24E[0x4];
+    /* 0x252 */ u16 maskY;
+    /* 0x254 */ UNK_TYPE1 pad254[0x4];
+    /* 0x258 */ s16 sideButton;
+    /* 0x25A */ UNK_TYPE1 pad25A[0x2];
+    /* 0x25C */ u16 selectedItem;
+    /* 0x25E */ u16 itemItem;
+    /* 0x260 */ u16 mapItem;
+    /* 0x262 */ u16 questItem;
+    /* 0x264 */ u16 maskItem;
+    /* 0x266 */ u16 unk266;
+    /* 0x268 */ PauseCells cells2;
+    /* 0x270 */ UNK_TYPE1 pad270[0x60];
+} PauseContext; // size = 0x2D0
 
 /// =============================================================
 /// Object Context
@@ -1550,8 +1560,8 @@ struct z2_game_s {
     MessageContext   msgCtx;                         /* 0x04908 */
     u8               unk_0x169E0[0x8];               /* 0x169E0 */
     InterfaceContext interfaceCtx;                   /* 0x169E8 */
-    z2_pause_ctxt_t  pause_ctxt;                     /* 0x16D30 */
-    u8               unk_0x16F30[0xDE8];             /* 0x16FA0 */
+    PauseContext     pauseCtx;                       /* 0x16D30 */
+    u8               unk_0x17000[0xD88];             /* 0x17000 */
     z2_obj_ctxt_t    obj_ctxt;                       /* 0x17D88 */
     z2_room_ctxt_t   room_ctxt;                      /* 0x186E0 */
     u8               room_cnt;                       /* 0x18760 */
