@@ -765,53 +765,40 @@ typedef struct {
 /// =============================================================
 
 typedef struct {
-    union {
-        u8           bytes[3];                       /* 0x0000 */
-        struct {
-            u8       r;                              /* 0x0000 */
-            u8       g;                              /* 0x0001 */
-            u8       b;                              /* 0x0002 */
-        };
+    /* 0x0 */ u8 r;
+    /* 0x1 */ u8 g;
+    /* 0x2 */ u8 b;
+} ColorRGB8; // size = 0x3
+
+typedef union {
+    struct {
+        /* 0x0 */ u8 r;
+        /* 0x1 */ u8 g;
+        /* 0x2 */ u8 b;
+        /* 0x3 */ u8 a;
     };
-    u8               padding;                        /* 0x0003 */
-} z2_color_rgb8_t;                                   /* 0x0004 */
+    u8 bytes[4];
+} ColorRGBA8; // size = 0x4
 
 typedef struct {
-    union {
-        u8           bytes[4];                       /* 0x0000 */
-        struct {
-            u8       r;                              /* 0x0000 */
-            u8       g;                              /* 0x0001 */
-            u8       b;                              /* 0x0002 */
-            u8       a;                              /* 0x0003 */
-        };
-    };
-} z2_color_rgba8_t;                                  /* 0x0004 */
+    /* 0x0 */ u16 r;
+    /* 0x2 */ u16 g;
+    /* 0x4 */ u16 b;
+} ColorRGB16; // size = 0x6
 
 typedef struct {
-    union {
-        u16          words[3];                       /* 0x0000 */
-        struct {
-            u16      r;                              /* 0x0000 */
-            u16      g;                              /* 0x0002 */
-            u16      b;                              /* 0x0004 */
-        };
-    };
-} z2_color_rgb16_t;                                  /* 0x0006 */
+    /* 0x0 */ u16 r1;
+    /* 0x2 */ u16 r2;
+    /* 0x4 */ u16 g1;
+    /* 0x6 */ u16 g2;
+    /* 0x8 */ u16 b1;
+    /* 0xA */ u16 b2;
+} ColorRRGGBB16; // size = 0xC
 
-typedef struct {
-    union {
-        u16          words[6];                       /* 0x0000 */
-        struct {
-            u16      r1;                             /* 0x0000 */
-            u16      r2;                             /* 0x0002 */
-            u16      g1;                             /* 0x0004 */
-            u16      g2;                             /* 0x0006 */
-            u16      b1;                             /* 0x0008 */
-            u16      b2;                             /* 0x000A */
-        };
-    };
-} z2_color_rgb16_2_t;                                /* 0x000C */
+typedef ColorRGB8 RGB8;
+typedef ColorRGBA8 RGBA8;
+typedef ColorRGB16 RGB16;
+typedef ColorRRGGBB16 RRGGBB16;
 
 /// =============================================================
 /// Controller & Inputs
@@ -1241,10 +1228,10 @@ typedef struct {
     u8               unk_0x216[0x10];                /* 0x0216 */
     u16              heartbeat_timer;                /* 0x0226 */
     u16              heartbeat_mode;                 /* 0x0228 */
-    z2_color_rgb16_t heartbeat_inner_rgb;            /* 0x022A */
-    z2_color_rgb16_t heartbeat_outer_rgb;            /* 0x0230 */
-    z2_color_rgb16_2_t heart_inner_rgb;              /* 0x0236 */
-    z2_color_rgb16_2_t heart_outer_rgb;              /* 0x0242 */
+    ColorRGB16       heartbeat_inner_rgb;            /* 0x022A */
+    ColorRGB16       heartbeat_outer_rgb;            /* 0x0230 */
+    ColorRRGGBB16    heart_inner_rgb;                /* 0x0236 */
+    ColorRRGGBB16    heart_outer_rgb;                /* 0x0242 */
     u8               unk_0x24E[0x16];                /* 0x024E */
     union {
         struct {
@@ -1495,7 +1482,7 @@ typedef struct z2_msgbox_ctxt_s {
     u8               unk_0x1FF0[0x0A];               /* 0x1FF0 */
     u16              msg_text_screen_y;              /* 0x1FFA */
     u8               unk_0x1FFC[0x1C];               /* 0x1FFC */
-    z2_color_rgb16_t cur_char_color;                 /* 0x2018 */
+    ColorRGB16       cur_char_color;                 /* 0x2018 */
     s16              cur_char_alpha;                 /* 0x201E */
     u8               message_state_2;                /* 0x2020 */
     u8               selection;                      /* 0x2021 */
@@ -1506,7 +1493,7 @@ typedef struct z2_msgbox_ctxt_s {
     u16              unk_0x202A;                     /* 0x202A */
     u16              unk_0x202C;                     /* 0x202C */
     u8               unk_0x202E[0x06];               /* 0x202E */
-    z2_color_rgb16_t score_line_color;               /* 0x2034 */
+    ColorRGB16       score_line_color;               /* 0x2034 */
     u8               unk_0x203A[0x02];               /* 0x203A */
     s16              score_line_alpha;               /* 0x203C */
     u8               unk_0x203E[0x2C];               /* 0x203E */
@@ -1516,7 +1503,7 @@ typedef struct z2_msgbox_ctxt_s {
     u8               unk_0x2088[0x08];               /* 0x2088 */
     s16              message_data_file;              /* 0x2090, 0 = main file, 1 = credits file. */
     u8               unk_0x2092[0x36];               /* 0x2092 */
-    z2_color_rgb16_t normal_char_color;              /* 0x20C8 */
+    ColorRGB16       normal_char_color;              /* 0x20C8 */
     u8               unk_0x20CE[0x12];               /* 0x20CE */
 } z2_msgbox_ctxt_t;                                  /* 0x20E0 */
 
@@ -1850,9 +1837,9 @@ typedef struct {
     /* 0x3CA0 */ SaveContextExtra extra;
     // Todo: Move these fields later?
     /* 0x48C8 */ UNK_TYPE1 pad48C8[0x1010];
-    /* 0x58D8 */ z2_color_rgb16_t heartDdBeatingRgb;
+    /* 0x58D8 */ ColorRGB16 heartDdBeatingRgb;
     /* 0x58DE */ UNK_TYPE1 pad58DE[0x12];
-    /* 0x58F0 */ z2_color_rgb16_t heartDdRgb;
+    /* 0x58F0 */ ColorRGB16 heartDdRgb;
 } SaveContext; // size = 0x58F6
 
 /// =============================================================
@@ -2356,8 +2343,8 @@ typedef struct {
     u8               unk_0x00[0x8D4];                /* 0x0000 */
     u16              rupee_colors[0x09];             /* 0x08D4 */
     u8               unk_0x8E6[0x16];                /* 0x08E6 */
-    z2_color_rgb16_t heart_rgb[0x02];                /* 0x08FC */
-    z2_color_rgb16_t heart_under_rgb[0x02];          /* 0x0908 */
+    ColorRGB16       heart_rgb[0x02];                /* 0x08FC */
+    ColorRGB16       heart_under_rgb[0x02];          /* 0x0908 */
     u8               unk_0x914[0x7AC];               /* 0x0914 */
 } z2_file_select_ctxt_t;                             /* 0x10C0 */
 
