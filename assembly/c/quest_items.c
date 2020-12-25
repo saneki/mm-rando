@@ -109,7 +109,7 @@ bool quest_items_door_check(z2_game_t *game, u8 item, u8 slot) {
  *
  * Used to avoid being kicked out if the quest item is not on current inventory slot, but is in storage.
  **/
-bool quest_items_time_tag_check(z2_actor_t *actor, z2_game_t *game, u8 item, u8 slot) {
+bool quest_items_time_tag_check(Actor *actor, z2_game_t *game, u8 item, u8 slot) {
     return check_inventory_slot(item, slot);
 }
 
@@ -119,7 +119,7 @@ bool quest_items_time_tag_check(z2_actor_t *actor, z2_game_t *game, u8 item, u8 
  * Used to still present prompts for Anju (for Pendant) and the Postman (for Letter to Mama) if
  * their respective items are not on the current inventory slot, but are in storage.
  **/
-bool quest_items_fix_trade_prompt(z2_actor_t *actor, z2_game_t *game, u8 item, u8 slot) {
+bool quest_items_fix_trade_prompt(Actor *actor, z2_game_t *game, u8 item, u8 slot) {
     return check_inventory_slot(item, slot);
 }
 

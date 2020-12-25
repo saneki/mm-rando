@@ -12,7 +12,7 @@ typedef void (*UpdateCanoeMovement_proc)(z2_bg_ingate_t *actor);
  * Helper function used to resolve and call function for processing boat movement along its path.
  **/
 static void boat_cruise_process_movement(z2_bg_ingate_t *canoe) {
-    z2_actor_ovl_table_t *entry = &z2_actor_ovl_table[0xA7];
+    ActorOverlay *entry = &z2_actor_ovl_table[0xA7];
     UpdateCanoeMovement_proc function = reloc_resolve_actor_ovl(entry, UpdateCanoeMovement_addr);
     if (function != NULL) {
         function(canoe);

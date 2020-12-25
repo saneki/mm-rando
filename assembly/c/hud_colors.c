@@ -432,7 +432,7 @@ void hud_colors_update_score_lines_color(z2_game_t *game) {
 /**
  * Hook function called to write shop cursor color values to an output array.
  **/
-void HudColors_WriteShopCursorColor(z2_actor_t *actor, u32 *output, u32 amountBits, u32 shopType) {
+void HudColors_WriteShopCursorColor(Actor *actor, u32 *output, u32 amountBits, u32 shopType) {
     // Hack to have f32 argument without being weird?
     f32 amount = *(f32*)&amountBits;
     // Build array of RGB values.

@@ -1,7 +1,7 @@
 #include "z2.h"
 #include "misc.h"
 
-s16 don_gero_start_cutscene(s16 index, z2_actor_t *actor) {
+s16 don_gero_start_cutscene(s16 index, Actor *actor) {
     if (MISC_CONFIG.speedups.don_gero && index == 0x17) {
         u8 *address = (u8*)actor;
         u16 *rollingAddress = (u16*)(address + 0x4AA);

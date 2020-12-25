@@ -8,7 +8,7 @@ struct model {
     u8 graphic_id;
 };
 
-void models_after_actor_dtor(z2_actor_t *actor);
+void models_after_actor_dtor(Actor *actor);
 void models_after_prepare_display_buffers(GraphicsContext *gfx);
 void models_clear_object_heap(void);
 void models_init(void);

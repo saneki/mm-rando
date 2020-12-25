@@ -15,18 +15,18 @@ static void * resolve(struct vram_info info, u32 vram) {
     }
 }
 
-void * reloc_resolve_actor_ovl(z2_actor_ovl_table_t *ovl, u32 vram) {
+void * reloc_resolve_actor_ovl(ActorOverlay *ovl, u32 vram) {
     struct vram_info info = {
-        .ram = ovl->ram,
-        .virt_start = ovl->vram_start,
-        .virt_end = ovl->vram_end,
+        .ram = ovl->loadedRamAddr,
+        .virt_start = (u32)ovl->vramStart,
+        .virt_end = (u32)ovl->vramEnd,
     };
 
     return resolve(info, vram);
 }
 
-z2_actor_init_t * reloc_resolve_actor_init(z2_actor_ovl_table_t *ovl) {
-    return reloc_resolve_actor_ovl(ovl, ovl->initialization);
+ActorInit * reloc_resolve_actor_init(ActorOverlay *ovl) {
+    return reloc_resolve_actor_ovl(ovl, (u32)ovl->initInfo);
 }
 
 void * reloc_resolve_gamestate(GameStateOverlay *gs, u32 vram) {

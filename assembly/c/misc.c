@@ -62,7 +62,7 @@ bool misc_can_use_ocarina_underwater(void) {
 /**
  * Hook function to get speed of pushblock.
  **/
-f32 misc_get_push_block_speed(z2_actor_t *actor, z2_game_t *game) {
+f32 misc_get_push_block_speed(Actor *actor, z2_game_t *game) {
     if (!MISC_CONFIG.fast_push) {
         return 2.0;
     } else {
@@ -73,7 +73,7 @@ f32 misc_get_push_block_speed(z2_actor_t *actor, z2_game_t *game) {
 /**
  * Hook function to get speed of iceblock.
  **/
-void misc_get_iceblock_push_speed(z2_actor_t *actor, z2_game_t *game, struct iceblock_speed *dest) {
+void misc_get_iceblock_push_speed(Actor *actor, z2_game_t *game, struct iceblock_speed *dest) {
     if (!MISC_CONFIG.fast_push) {
         dest->initial = 1.2;
         dest->additive = 2.8;
@@ -88,7 +88,7 @@ void misc_get_iceblock_push_speed(z2_actor_t *actor, z2_game_t *game, struct ice
 /**
  * Hook function to get speed of Great Bay Temple faucets.
  **/
-u32 misc_get_great_bay_temple_faucet_speed(z2_actor_t *actor, z2_game_t *game) {
+u32 misc_get_great_bay_temple_faucet_speed(Actor *actor, z2_game_t *game) {
     union faucet_speed result;
     if (!MISC_CONFIG.fast_push) {
         result.acceleration = 1;
@@ -103,7 +103,7 @@ u32 misc_get_great_bay_temple_faucet_speed(z2_actor_t *actor, z2_game_t *game) {
 /**
  * Hook function to get speed of Oceanside Spider House shelves.
  **/
-void misc_get_spider_house_shelves_speed(z2_actor_t *actor, z2_game_t *game, struct shelf_speed *dest, int shelf_type) {
+void misc_get_spider_house_shelves_speed(Actor *actor, z2_game_t *game, struct shelf_speed *dest, int shelf_type) {
     if (shelf_type == 0) {
         // Small shelves
         if (!MISC_CONFIG.fast_push) {
@@ -128,7 +128,7 @@ void misc_get_spider_house_shelves_speed(z2_actor_t *actor, z2_game_t *game, str
 /**
  * Hook function to get speed of Oceanside Spider House shelves (when pulled outward, pushed inward).
  **/
-f32 misc_get_spider_house_shelves_outward_speed(z2_actor_t *actor, z2_game_t *game) {
+f32 misc_get_spider_house_shelves_outward_speed(Actor *actor, z2_game_t *game) {
     if (!MISC_CONFIG.fast_push) {
         return 0.022;
     } else {
@@ -139,7 +139,7 @@ f32 misc_get_spider_house_shelves_outward_speed(z2_actor_t *actor, z2_game_t *ga
 /**
  * Hook function to get speed of Ikana pushblock.
  **/
-void misc_get_ikana_pushblock_speed(z2_actor_t *actor, z2_game_t *game, struct ikana_speed *dest) {
+void misc_get_ikana_pushblock_speed(Actor *actor, z2_game_t *game, struct ikana_speed *dest) {
     if (!MISC_CONFIG.fast_push) {
         dest->max_velocity = 2.0;
         dest->initial = 0.4;
@@ -152,7 +152,7 @@ void misc_get_ikana_pushblock_speed(z2_actor_t *actor, z2_game_t *game, struct i
 /**
  * Hook function to get speed of Pzlblock actor (Woodfall Temple pushblock, Sakon's Hideout pushblocks).
  **/
-f32 misc_get_pzlblock_speed(z2_actor_t *actor, z2_game_t *game) {
+f32 misc_get_pzlblock_speed(Actor *actor, z2_game_t *game) {
     if (!MISC_CONFIG.fast_push) {
         return 2.3;
     } else {
@@ -163,7 +163,7 @@ f32 misc_get_pzlblock_speed(z2_actor_t *actor, z2_game_t *game) {
 /**
  * Hook function to get speed of Darmani's Gravestone.
  **/
-u32 misc_get_gravestone_speed(z2_actor_t *actor, z2_game_t *game) {
+u32 misc_get_gravestone_speed(Actor *actor, z2_game_t *game) {
     if (!MISC_CONFIG.fast_push) {
         return 1;
     } else {
@@ -174,7 +174,7 @@ u32 misc_get_gravestone_speed(z2_actor_t *actor, z2_game_t *game) {
 /**
  * Hook function to get speed multiplier used for pushing an actor in water (pushing Mikau to shore).
  **/
-f32 misc_get_in_water_push_speed(z2_link_t *link, z2_actor_t *actor) {
+f32 misc_get_in_water_push_speed(ActorPlayer *link, Actor *actor) {
     if (!MISC_CONFIG.fast_push) {
         return 0.5;
     } else {
