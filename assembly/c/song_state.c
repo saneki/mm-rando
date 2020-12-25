@@ -15,7 +15,7 @@ union song_state_results {
  * Hook function to handle advancing the song state machine to song playback.
  **/
 u32 song_state_handle_playback(z2_game_t *game, MessageContext *ctxt) {
-    s8 song = ctxt->songInfo->frames[0].stored_song;
+    s8 song = ctxt->songInfo->frameInfo[0].storedSong;
     if (song == 3 && MISC_CONFIG.elegy_speedup) {
         // Process state for Elegy of Emptiness
         // Disable sfx being "dampened" (normally action 0x17 would do this before advancing to 0x18)
