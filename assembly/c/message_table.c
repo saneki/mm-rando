@@ -34,8 +34,8 @@ bool message_table_lookup_extended(z2_game_t *game, u16 text_id) {
         } else if (cur_id == text_id) {
             u32 offset = EXT_MSG_TABLE[i].segaddr - EXT_MSG_TABLE[0].segaddr;
             u32 length = EXT_MSG_TABLE[i+1].segaddr - EXT_MSG_TABLE[i].segaddr;
-            game->msgbox_ctxt.msg_data_offset = offset;
-            game->msgbox_ctxt.msg_data_length = length;
+            game->msgCtx.messageDataOffset = offset;
+            game->msgCtx.messageDataLength = length;
             // Mark current message as extended.
             g_current_extended = true;
             return true;

@@ -20,10 +20,10 @@
 ;   sb      t6, 0x2023 (at)
 .org 0x80154CC8
 .area 0x30
-    lui     at, 0x0001
+    nop
     or      a0, s2, r0
     jal     song_state_handle_playback
-    addu    a1, at, s0
+    or      a1, s0, r0
     lui     at, 0x0001
     addu    at, at, s0
     srl     t2, v0, 24
@@ -66,10 +66,10 @@
 ;   sb      t5, 0x2023 (at)
 .org 0x80154EF0
 .area 0x34
-    lui     at, 0x0001
+    nop
     or      a0, s2, r0
     jal     song_state_handle_preset_playback
-    addu    a1, at, s0
+    or      a1, s0, r0
     lui     at, 0x0001
     addu    at, at, s0
     srl     t4, v0, 24

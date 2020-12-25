@@ -401,7 +401,7 @@ void check_text_wrapping(z2_game_t *game, message_character_process_variables_t 
             // if cursor_position > 200 // just a guess at line length
             if (args->cursor_position > 200 && g_message_extension_state.last_space_index >= 0) {
                 // replace character at last_space_index with 0x11
-                game->msgbox_ctxt.cur_msg_displayed[g_message_extension_state.last_space_index] = 0x11;
+                game->msgCtx.currentMessageDisplayed[g_message_extension_state.last_space_index] = 0x11;
                 // add one to number_of_new_lines
                 args->number_of_new_lines_2++;
                 // subtract last_space_cursor_position from cursor_position
@@ -418,17 +418,17 @@ void check_text_wrapping(z2_game_t *game, message_character_process_variables_t 
  * TODO
  **/
 u8 before_message_character_process(z2_game_t *game, message_character_process_variables_t *args) {
-    u16 index = game->msgbox_ctxt.cur_msg_char_index;
-    u8 current_character = game->msgbox_ctxt.cur_msg_raw[index];
+    u16 index = game->msgCtx.currentMessageCharIndex;
+    u8 current_character = game->msgCtx.currentMessageRaw[index];
     if (current_character == 0x09) {
         index++;
-        current_character = game->msgbox_ctxt.cur_msg_raw[index];
+        current_character = game->msgCtx.currentMessageRaw[index];
         if (current_character == 0x03 || current_character == 0x04 || current_character == 0x05 || current_character == 0x06 || current_character == 0x07 || current_character == 0x08) {
             if (g_message_extension_state.current_char == -1) {
                 index++;
-                u32 gi_index = game->msgbox_ctxt.cur_msg_raw[index] << 8;
+                u32 gi_index = game->msgCtx.currentMessageRaw[index] << 8;
                 index++;
-                gi_index |= game->msgbox_ctxt.cur_msg_raw[index];
+                gi_index |= game->msgCtx.currentMessageRaw[index];
                 u32 new_gi_index = mmr_GetNewGiIndex(game, 0, gi_index, false);
                 if (new_gi_index != gi_index) {
                     item_info_t item;
@@ -500,17 +500,17 @@ u8 before_message_character_process(z2_game_t *game, message_character_process_v
                 }
                 if (g_message_extension_state.current_char == -1) {
                     args->output_index--;
-                    game->msgbox_ctxt.cur_msg_char_index = index;
+                    game->msgCtx.currentMessageCharIndex = index;
                     return -1;
                 }
             }
             if (g_message_extension_state.current_char < g_message_extension_state.current_replacement_length) {
-                game->msgbox_ctxt.cur_msg_char_index--;
+                game->msgCtx.currentMessageCharIndex--;
                 current_character = g_message_extension_state.current_replacement[g_message_extension_state.current_char++];
 
                 check_text_wrapping(game, args, current_character);
 
-                game->msgbox_ctxt.cur_msg_displayed[args->output_index] = current_character;
+                game->msgCtx.currentMessageDisplayed[args->output_index] = current_character;
                 return current_character;
             }
             g_message_extension_state.current_char = -1;
@@ -520,15 +520,15 @@ u8 before_message_character_process(z2_game_t *game, message_character_process_v
         if (current_character == 0x01) {
             // check gi-index and skip until end command if item has been received before
             index++;
-            u32 gi_index = game->msgbox_ctxt.cur_msg_raw[index] << 8;
+            u32 gi_index = game->msgCtx.currentMessageRaw[index] << 8;
             index++;
-            gi_index |= game->msgbox_ctxt.cur_msg_raw[index];
+            gi_index |= game->msgCtx.currentMessageRaw[index];
             u32 new_gi_index = mmr_GetNewGiIndex(game, 0, gi_index, false);
             if (gi_index != new_gi_index) {
                 do {
                     index++;
-                    current_character = game->msgbox_ctxt.cur_msg_raw[index];
-                } while (current_character != 0x09 || game->msgbox_ctxt.cur_msg_raw[index+1] != 0x02);
+                    current_character = game->msgCtx.currentMessageRaw[index];
+                } while (current_character != 0x09 || game->msgCtx.currentMessageRaw[index+1] != 0x02);
                 index++;
             }
         } else if (current_character == 0x02) {
@@ -544,12 +544,12 @@ u8 before_message_character_process(z2_game_t *game, message_character_process_v
             index--;
         }
         args->output_index--;
-        game->msgbox_ctxt.cur_msg_char_index = index;
+        game->msgCtx.currentMessageCharIndex = index;
         return -1;
     }
     
     check_text_wrapping(game, args, current_character);
 
-    game->msgbox_ctxt.cur_msg_displayed[args->output_index] = current_character;
+    game->msgCtx.currentMessageDisplayed[args->output_index] = current_character;
     return current_character;
 }

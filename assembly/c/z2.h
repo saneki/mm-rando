@@ -917,34 +917,40 @@ struct z2_ctxt_s {
 /// =============================================================
 
 typedef struct {
-    char             view_magic[4];                  /* 0x0000 */
-    GraphicsContext *gfx;                            /* 0x0004 */
-    struct {
-        u32          top;                            /* 0x0008 */
-        u32          bottom;                         /* 0x000C */
-        u32          left;                           /* 0x0010 */
-        u32          right;                          /* 0x0014 */
-    } screen;
-    f32              camera_distance;                /* 0x0018 */
-    f32              fog_distance;                   /* 0x001C */
-    f32              z_distance;                     /* 0x0020 */
-    u8               unk_0x24[0x04];                 /* 0x0024 */
-    Vec3f            unk_0x28;                       /* 0x0028 */
-    Vec3f            unk_0x34;                       /* 0x0034 */
-    Vec3f            unk_0x40;                       /* 0x0040 */
-    u8               unk_0x4C[0x04];                 /* 0x004C */
-    Vp               viewport_movemem;               /* 0x0050 */
-    Mtx              unk_mtx_0x60;                   /* 0x0060 */
-    Mtx              unk_mtx_0xA0;                   /* 0x00A0 */
-    char             unk_0x00E0[0x40];               /* 0x00E0 */
-    Mtx             *unk_mtx_0x60_task;              /* 0x0120 */
-    Mtx             *unk_mtx_0xA0_task;              /* 0x0124 */
-    f32              unk_0x128[0x09];                /* 0x0128 */
-    char             unk_0x14C[0x10];                /* 0x014C */
-    u16              perspnorm_scale;                /* 0x015C */
-    u32              unk_0x160;                      /* 0x0160 */
-    u32              unk_0x164;                      /* 0x0164 */
-} z2_view_t;                                         /* 0x0168 */
+    /* 0x0 */ s32 topY;
+    /* 0x4 */ s32 bottomY;
+    /* 0x8 */ s32 leftX;
+    /* 0xC */ s32 rightX;
+} Viewport; // size = 0x10
+
+typedef struct {
+    /* 0x000 */ u32 magic;
+    /* 0x004 */ GraphicsContext* gfxCtx;
+    /* 0x008 */ Viewport viewport;
+    /* 0x018 */ f32 fovy;
+    /* 0x01C */ f32 zNear;
+    /* 0x020 */ f32 zFar;
+    /* 0x024 */ f32 scale;
+    /* 0x028 */ Vec3f eye;
+    /* 0x034 */ Vec3f focalPoint;
+    /* 0x040 */ Vec3f upDir;
+    /* 0x04C */ UNK_TYPE1 pad4C[0x4];
+    /* 0x050 */ Vp vp;
+    /* 0x060 */ Mtx projection;
+    /* 0x0A0 */ Mtx viewing;
+    /* 0x0E0 */ Mtx unkE0;
+    /* 0x120 */ Mtx* projectionPtr;
+    /* 0x124 */ Mtx* viewingPtr;
+    /* 0x128 */ Vec3f quakeRot;
+    /* 0x134 */ Vec3f quakeScale;
+    /* 0x140 */ f32 quakeSpeed;
+    /* 0x144 */ Vec3f currQuakeRot;
+    /* 0x150 */ Vec3f currQuakeScale;
+    /* 0x15C */ u16 normal;
+    /* 0x15E */ UNK_TYPE1 pad15E[0x2];
+    /* 0x160 */ u32 flags; // bit 3: Render to an orthographic perspective
+    /* 0x164 */ UNK_TYPE4 unk164;
+} View; // size = 0x168
 
 typedef struct {
     union {
@@ -1267,7 +1273,7 @@ typedef union {
 } z2_pause_cells_t;                                  /* 0x0008 */
 
 typedef struct {
-    z2_view_t        view;                           /* 0x0000 */
+    View             view;                           /* 0x0000 */
     void            *icon_item_static;               /* 0x0168 */
     void            *icon_item_24;                   /* 0x016C */
     void            *icon_item_map;                  /* 0x0170 */
@@ -1456,56 +1462,66 @@ typedef struct {
 /// Messagebox Context
 /// =============================================================
 
-typedef struct z2_msgbox_ctxt_s {
-    u8               unk_0x00[0x19E8];               /* 0x0000 */
-    // Struct at 0x168?
-    u8               cur_msg_raw[0x500];             /* 0x19E8 */ // length might be wrong
-    u32              msg_data_offset;                /* 0x1EE8 */
-    u32              msg_data_length;                /* 0x1EEC */
-    u8               unk_0x1EF0[0x10];               /* 0x1EF0 */
-    z2_song_ctxt_t  *song_ctxt;                      /* 0x1F00 */
-    u16              cur_msg_id;                     /* 0x1F04 */
-    u16              unk_0x1F06;                     /* 0x1F06 */
-    u8               unk_0x1F08[0x02];               /* 0x1F08 */
-    u8               unk_0x1F0A;                     /* 0x1F0A */
-    u8               unk_0x1F0B[0x05];               /* 0x1F0B */
-    u32              unk_0x1F10;                     /* 0x1F10 */
-    u8               unk_0x1F14[0x04];               /* 0x1F14 */
-    u8               unk_0x1F18;                     /* 0x1F18 */ // related to horizontal alignment
-    u8               unk_0x1F19[0x09];               /* 0x1F19 */
-    u8               message_state_1;                /* 0x1F22 */
-    u8               unk_0x1F23;                     /* 0x1F23 */
-    u8               cur_msg_displayed[0xC0];        /* 0x1F24 */ // length might be wrong
-    u8               unk_0x1FE4[0x08];               /* 0x1FE4 */
-    u16              cur_msg_char_index;             /* 0x1FEC */
-    u16              unk_0x1FEE;                     /* 0x1FEE */
-    u8               unk_0x1FF0[0x0A];               /* 0x1FF0 */
-    u16              msg_text_screen_y;              /* 0x1FFA */
-    u8               unk_0x1FFC[0x1C];               /* 0x1FFC */
-    ColorRGB16       cur_char_color;                 /* 0x2018 */
-    s16              cur_char_alpha;                 /* 0x201E */
-    u8               message_state_2;                /* 0x2020 */
-    u8               selection;                      /* 0x2021 */
-    u8               unk_0x2022;                     /* 0x2022 */
-    u8               message_state_3;                /* 0x2023 */
-    u8               unk_0x2024[0x04];               /* 0x2024 */
-    u16              playback_song;                  /* 0x2028 */
-    u16              unk_0x202A;                     /* 0x202A */
-    u16              unk_0x202C;                     /* 0x202C */
-    u8               unk_0x202E[0x06];               /* 0x202E */
-    ColorRGB16       score_line_color;               /* 0x2034 */
-    u8               unk_0x203A[0x02];               /* 0x203A */
-    s16              score_line_alpha;               /* 0x203C */
-    u8               unk_0x203E[0x2C];               /* 0x203E */
-    u16              msg_box_screen_y;               /* 0x206A */
-    u8               unk_0x206C[0x18];               /* 0x206C */
-    void            *message_table;                  /* 0x2084 */
-    u8               unk_0x2088[0x08];               /* 0x2088 */
-    s16              message_data_file;              /* 0x2090, 0 = main file, 1 = credits file. */
-    u8               unk_0x2092[0x36];               /* 0x2092 */
-    ColorRGB16       normal_char_color;              /* 0x20C8 */
-    u8               unk_0x20CE[0x12];               /* 0x20CE */
-} z2_msgbox_ctxt_t;                                  /* 0x20E0 */
+// Font textures are loaded into here
+typedef struct {
+    /* 0x0000 */ u8 unk0[2][120][128];
+    /* 0x7800 */ u8 unk7800[93][128];
+} Font; // size = 0xA680
+
+typedef struct {
+    /* 0x00000 */ View view;
+    /* 0x00168 */ Font font;
+    /* 0x0A7E8 */ UNK_TYPE1 padA7E8[0x7200];
+    /* 0x119E8 */ u8 currentMessageRaw[0x500]; // Length may be wrong.
+    /* 0x11EE8 */ u32 messageDataOffset;
+    /* 0x11EEC */ u32 messageDataLength;
+    /* 0x11EF0 */ u8 unk11EF0;
+    /* 0x11EF1 */ UNK_TYPE1 pad11EF1[0xF];
+    /* 0x11F00 */ z2_song_ctxt_t* songInfo;
+    /* 0x11F04 */ u16 currentMessageId;
+    /* 0x11F06 */ u16 unk11F06;
+    /* 0x11F08 */ UNK_TYPE1 pad11F08[0x2];
+    /* 0x11F0A */ u8 unk11F0A;
+    /* 0x11F0B */ UNK_TYPE1 pad11F0B[0x5];
+    /* 0x11F10 */ u32 unk11F10;
+    /* 0x11F14 */ UNK_TYPE1 pad11F14[0x4];
+    /* 0x11F18 */ u8 unk11F18; // Related to horizontal alignment.
+    /* 0x11F19 */ UNK_TYPE1 pad11F19[0x9];
+    /* 0x11F22 */ u8 messageState1;
+    /* 0x11F23 */ UNK_TYPE1 unk11F23;
+    /* 0x11F24 */ u8 currentMessageDisplayed[0xC0]; // Length may be wrong.
+    /* 0x11FE4 */ UNK_TYPE1 pad1FE4[0x8];
+    /* 0x11FEC */ u16 currentMessageCharIndex;
+    /* 0x11FEE */ u16 unk11FEE;
+    /* 0x11FF0 */ UNK_TYPE1 pad11FF0[0xA];
+    /* 0x11FFA */ u16 messageTextScreenY;
+    /* 0x11FFC */ UNK_TYPE1 pad11FFC[0x1C];
+    /* 0x12018 */ ColorRGB16 currentCharColor;
+    /* 0x1201E */ s16 currentCharAlpha;
+    /* 0x12020 */ u8 messageState2;
+    /* 0x12021 */ u8 selection;
+    /* 0x12022 */ UNK_TYPE1 pad12022;
+    /* 0x12023 */ u8 messageState3;
+    /* 0x12024 */ UNK_TYPE1 pad12024[0x4];
+    /* 0x12028 */ u16 playbackSong;
+    /* 0x1202A */ u16 unk1202A;
+    /* 0x1202C */ u16 unk1202C;
+    /* 0x1202E */ UNK_TYPE1 pad1202E[0x6];
+    /* 0x12034 */ ColorRGB16 scoreLineColor;
+    /* 0x1203A */ UNK_TYPE1 pad1203A[0x2];
+    /* 0x1203C */ s16 scoreLineAlpha;
+    /* 0x1203E */ UNK_TYPE1 pad1203E[0x6];
+    /* 0x12044 */ s16 unk12044;
+    /* 0x12046 */ UNK_TYPE1 pad12046[0x24];
+    /* 0x1206A */ s16 messageBoxScreenY;
+    /* 0x1206C */ UNK_TYPE1 pad1206C[0x18];
+    /* 0x12084 */ void* messageTable;
+    /* 0x12088 */ UNK_TYPE1 pad12088[0x8];
+    /* 0x12090 */ s16 messageDataFile; // 0 = main file, 1 = credits file.
+    /* 0x12092 */ UNK_TYPE1 pad12092[0x36];
+    /* 0x120C8 */ ColorRGB16 normalCharColor;
+    /* 0x120CE */ UNK_TYPE1 pad120CE[0xA];
+} MessageContext; // size = 0x120D8
 
 /// =============================================================
 /// Game Structure
@@ -1518,7 +1534,7 @@ struct z2_game_s {
     u8               unk_0x000A7[0x09];              /* 0x000A7 */
     void            *scene_addr;                     /* 0x000B0 */
     u8               unk_0x00B4[0x04];               /* 0x000B4 */
-    z2_view_t        view_scene;                     /* 0x000B8 */
+    View             view_scene;                     /* 0x000B8 */
     z2_camera_t      cameras[4];                     /* 0x00220 */
     z2_camera_t     *active_cameras[4];              /* 0x00800 */
     s16              camera_cur;                     /* 0x00810 */
@@ -1529,8 +1545,9 @@ struct z2_game_s {
     u8               unk_0x1F24[0x04];               /* 0x01F24 */
     void            *cutscene_ptr;                   /* 0x01F28 */
     s8               cutscene_state;                 /* 0x01F2C */
-    u8               unk_0x1F2D[0x129DB];            /* 0x01F2D */
-    z2_msgbox_ctxt_t msgbox_ctxt;                    /* 0x14908 */
+    u8               unk_0x1F2D[0x29DB];             /* 0x01F2D */
+    MessageContext   msgCtx;                         /* 0x04908 */
+    u8               unk_0x169E0[0x8];               /* 0x169E0 */
     z2_hud_ctxt_t    hud_ctxt;                       /* 0x169E8 */
     z2_pause_ctxt_t  pause_ctxt;                     /* 0x16D30 */
     u8               unk_0x16F30[0xDE8];             /* 0x16FA0 */
