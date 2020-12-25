@@ -290,7 +290,7 @@ void overlay_menu_draw(z2_game_t *game) {
             // Draw fairy/token count as text.
             if (total >= maximum) {
                 // Use green text if at maximum.
-                z2_color_rgba8_t color = { 0x78, 0xFF, 0x00, 0xFF };
+                ColorRGBA8 color = { 0x78, 0xFF, 0x00, 0xFF };
                 text_print_with_color(count, left, top, color);
             } else {
                 text_print(count, left, top);

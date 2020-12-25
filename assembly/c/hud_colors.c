@@ -71,25 +71,25 @@ struct hud_color_config HUD_COLOR_CONFIG = {
 };
 
 struct pause_cursor_colors {
-    z2_color_rgb16_t default_inner_1;  /* 0x0000 */
-    z2_color_rgb16_t default_inner_2;  /* 0x0006 */
-    z2_color_rgb16_t yellow_inner_1;   /* 0x000C */
-    z2_color_rgb16_t yellow_inner_2;   /* 0x0012 */
-    z2_color_rgb16_t blue_inner_1;     /* 0x0018 */
-    z2_color_rgb16_t blue_inner_2;     /* 0x001E */
-    z2_color_rgb16_t default_outer_1;  /* 0x0024 */
-    z2_color_rgb16_t default_outer_2;  /* 0x002A */
-    z2_color_rgb16_t yellow_outer_1;   /* 0x0030 */
-    z2_color_rgb16_t yellow_outer_2;   /* 0x0036 */
-    z2_color_rgb16_t blue_outer_1;     /* 0x003C */
-    z2_color_rgb16_t blue_outer_2;     /* 0x0042 */
+    ColorRGB16 default_inner_1;  /* 0x0000 */
+    ColorRGB16 default_inner_2;  /* 0x0006 */
+    ColorRGB16 yellow_inner_1;   /* 0x000C */
+    ColorRGB16 yellow_inner_2;   /* 0x0012 */
+    ColorRGB16 blue_inner_1;     /* 0x0018 */
+    ColorRGB16 blue_inner_2;     /* 0x001E */
+    ColorRGB16 default_outer_1;  /* 0x0024 */
+    ColorRGB16 default_outer_2;  /* 0x002A */
+    ColorRGB16 yellow_outer_1;   /* 0x0030 */
+    ColorRGB16 yellow_outer_2;   /* 0x0036 */
+    ColorRGB16 blue_outer_1;     /* 0x003C */
+    ColorRGB16 blue_outer_2;     /* 0x0042 */
 };
 
-static u32 color_rgb8_to_int(z2_color_rgb8_t color, u8 alpha) {
+static u32 color_rgb8_to_int(ColorRGBA8 color, u8 alpha) {
     return (color.r << 24) | (color.g << 16) | (color.b << 8) | alpha;
 }
 
-static void rgb8_to_rgb16(z2_color_rgb16_t *dest, z2_color_rgb8_t src) {
+static void rgb8_to_rgb16(ColorRGB16 *dest, ColorRGBA8 src) {
     dest->r = src.r;
     dest->g = src.g;
     dest->b = src.b;
@@ -124,7 +124,7 @@ u32 hud_colors_get_clock_emblem_color() {
 }
 
 u16 hud_colors_get_clock_emblem_inverted_color(u8 idx) {
-    z2_color_rgb8_t colors;
+    ColorRGBA8 colors;
     s16 mode = *(s16 *)0x801BFBE8;
 
     if (idx > 2) {
@@ -207,12 +207,12 @@ u32 hud_colors_get_menu_subtitle_text_color(void) {
 
 void hud_colors_update_heart_colors(z2_game_t *game) {
     // Normal heart colors
-    z2_color_rgb16_2_t *heart = &(z2_game.hud_ctxt.heart_inner_rgb);
-    z2_color_rgb16_t *heart_beating = &(z2_game.hud_ctxt.heartbeat_inner_rgb);
+    ColorRRGGBB16 *heart = &(z2_game.hud_ctxt.heart_inner_rgb);
+    ColorRGB16 *heart_beating = &(z2_game.hud_ctxt.heartbeat_inner_rgb);
 
     // Double defense heart colors
-    z2_color_rgb16_t *heart_dd = &(z2_file.heartDdRgb);
-    z2_color_rgb16_t *heart_dd_beating = &(z2_file.heartDdBeatingRgb);
+    ColorRGB16 *heart_dd = &(z2_file.heartDdRgb);
+    ColorRGB16 *heart_dd_beating = &(z2_file.heartDdBeatingRgb);
 
     // This function writes constant values to where the heart colors are stored.
     // It might also do other things.
@@ -299,25 +299,25 @@ void hud_colors_update_button_note_colors(z2_game_t *game) {
  **/
 static void hud_colors_update_msgbox_prompt_colors(bool initial) {
     // Update first color used by color cycler.
-    z2_color_rgb16_t *prompt_1 = (z2_color_rgb16_t*)0x801CFCD8;
+    ColorRGB16 *prompt_1 = (ColorRGB16*)0x801CFCD8;
     prompt_1->r = HUD_COLOR_CONFIG.prompt_1.r;
     prompt_1->g = HUD_COLOR_CONFIG.prompt_1.g;
     prompt_1->b = HUD_COLOR_CONFIG.prompt_1.b;
 
     // Update second color used by color cycler.
-    z2_color_rgb16_t *prompt_2 = (z2_color_rgb16_t*)0x801CFCDE;
+    ColorRGB16 *prompt_2 = (ColorRGB16*)0x801CFCDE;
     prompt_2->r = HUD_COLOR_CONFIG.prompt_2.r;
     prompt_2->g = HUD_COLOR_CONFIG.prompt_2.g;
     prompt_2->b = HUD_COLOR_CONFIG.prompt_2.b;
 
     // Update glow color.
-    z2_color_rgb16_t *prompt_glow = (z2_color_rgb16_t*)0x801CFCEA;
+    ColorRGB16 *prompt_glow = (ColorRGB16*)0x801CFCEA;
     prompt_glow->r = HUD_COLOR_CONFIG.prompt_glow.r;
     prompt_glow->g = HUD_COLOR_CONFIG.prompt_glow.g;
     prompt_glow->b = HUD_COLOR_CONFIG.prompt_glow.b;
 
     // Update number cursor colors.
-    z2_color_rgb16_t *number_cursor = (z2_color_rgb16_t*)0x801CFD10;
+    ColorRGB16 *number_cursor = (ColorRGB16*)0x801CFD10;
     rgb8_to_rgb16(&number_cursor[0], HUD_COLOR_CONFIG.prompt_1);
     rgb8_to_rgb16(&number_cursor[1], HUD_COLOR_CONFIG.prompt_2);
     rgb8_to_rgb16(&number_cursor[3], HUD_COLOR_CONFIG.prompt_glow);
@@ -363,8 +363,8 @@ void hud_colors_update_pause_menu_colors(z2_game_t *game) {
         u8 *bg_dlist = (u8*)game->pause_ctxt.bg_dlist;
         if (bg_dlist != NULL) {
             // Update pause menu subtitle icon colors.
-            z2_color_rgb8_t *subtitle_c = (z2_color_rgb8_t*)(bg_dlist + 0x13C);
-            z2_color_rgb8_t *subtitle_a = (z2_color_rgb8_t*)(bg_dlist + 0x194);
+            ColorRGBA8 *subtitle_c = (ColorRGBA8*)(bg_dlist + 0x13C);
+            ColorRGBA8 *subtitle_a = (ColorRGBA8*)(bg_dlist + 0x194);
             subtitle_a->r = HUD_COLOR_CONFIG.pause_title_a.r;
             subtitle_a->g = HUD_COLOR_CONFIG.pause_title_a.g;
             subtitle_a->b = HUD_COLOR_CONFIG.pause_title_a.b;
@@ -379,9 +379,9 @@ void hud_colors_update_pause_menu_colors(z2_game_t *game) {
  * Helper function for updating the colors of button icons in text.
  **/
 static void hud_colors_update_text_button_icon_colors(void) {
-    z2_color_rgb16_t *icon_a = (z2_color_rgb16_t *)0x801D0848;
-    z2_color_rgb16_t *icon_b = (z2_color_rgb16_t *)0x801D0842;
-    z2_color_rgb16_t *icon_c = (z2_color_rgb16_t *)0x801D084E;
+    ColorRGB16 *icon_a = (ColorRGB16 *)0x801D0848;
+    ColorRGB16 *icon_b = (ColorRGB16 *)0x801D0842;
+    ColorRGB16 *icon_c = (ColorRGB16 *)0x801D084E;
     rgb8_to_rgb16(icon_a, HUD_COLOR_CONFIG.button_icon_a);
     rgb8_to_rgb16(icon_b, HUD_COLOR_CONFIG.button_icon_b);
     rgb8_to_rgb16(icon_c, HUD_COLOR_CONFIG.button_icon_c);
