@@ -15,13 +15,13 @@ struct actor_ext {
     u8 padding;
 };
 
-void actor_ext_after_actor_dtor(z2_actor_t *actor);
+void actor_ext_after_actor_dtor(Actor *actor);
 void actor_ext_clear(void);
 struct actor_ext * actor_ext_find_free(void);
-struct actor_ext * actor_ext_generic_decode(const z2_actor_t *actor);
-void actor_ext_generic_encode(z2_actor_t *actor, const void *ext);
+struct actor_ext * actor_ext_generic_decode(const Actor *actor);
+void actor_ext_generic_encode(Actor *actor, const void *ext);
 void actor_ext_init(void);
 void actor_ext_set_free(struct actor_ext *ext);
-struct actor_ext * actor_ext_setup(z2_actor_t *actor, bool *created);
+struct actor_ext * actor_ext_setup(Actor *actor, bool *created);
 
 #endif // ACTOR_EXT_H

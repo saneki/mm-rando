@@ -29,7 +29,7 @@ static struct fairy_inst g_fairy_table[] = {
 };
 
 // Whether or not Link can interact with a fairy currently.
-bool can_interact_with_fairy(z2_game_t *game, z2_link_t *link) {
+bool can_interact_with_fairy(z2_game_t *game, ActorPlayer *link) {
     // Cannot collect fairy if in Deku flower
     if ((link->stateFlags.state3 & Z2_ACTION_STATE3_DEKU_DIVE) != 0)
         return false;
@@ -61,13 +61,13 @@ bool get_next_fairy_instance(u16 *inst, z2_game_t *game) {
 }
 
 // Spawn a fairy actor.
-static z2_actor_t* spawn_fairy_actor(z2_game_t *game, Vec3f pos, u16 inst) {
+static Actor* spawn_fairy_actor(z2_game_t *game, Vec3f pos, u16 inst) {
     Vec3s rot = { 0, 0, 0 };
     return actor_spawn(game, Z2_ACTOR_EN_ELF, pos, rot, inst);
 }
 
 // Spawn the next avaiable fairy actor.
-z2_actor_t* spawn_next_fairy_actor(z2_game_t *game, Vec3f pos) {
+Actor* spawn_next_fairy_actor(z2_game_t *game, Vec3f pos) {
     u16 inst;
 
     if (get_next_fairy_instance(&inst, game)) {

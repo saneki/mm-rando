@@ -140,7 +140,7 @@ static u32 g_fairy_cooldown = 0;
 // Most recent scene, tracked for fairy usage.
 static u16 g_fairy_scene = 0;
 
-static void handle_camera_overlook_effect(z2_game_t *game, z2_link_t *link) {
+static void handle_camera_overlook_effect(z2_game_t *game, ActorPlayer *link) {
     // Handle "Camera Overlook" effect.
     if (g_external_effects.camera_overlook) {
         s16 curstate = game->cameras[0].state;
@@ -153,7 +153,7 @@ static void handle_camera_overlook_effect(z2_game_t *game, z2_link_t *link) {
     }
 }
 
-static void handle_chateau_effect(z2_game_t *game, z2_link_t *link) {
+static void handle_chateau_effect(z2_game_t *game, ActorPlayer *link) {
     // Handle "Chateau" effect
     if (g_external_effects.chateau) {
         SetInfiniteMagic(z2_file);
@@ -183,7 +183,7 @@ static void handle_chateau_effect(z2_game_t *game, z2_link_t *link) {
     }
 }
 
-static void handle_fairy_effect(z2_game_t *game, z2_link_t *link) {
+static void handle_fairy_effect(z2_game_t *game, ActorPlayer *link) {
     // Reset fairy instance usages when scene changes
     if (game->scene_index != g_fairy_scene) {
         reset_fairy_instance_usage();
@@ -199,10 +199,10 @@ static void handle_fairy_effect(z2_game_t *game, z2_link_t *link) {
     // Check state type to see if we can receive a fairy during this frame
     if (g_external_effects.fairy && g_fairy_cooldown == 0 && can_interact_with_fairy(game, link)) {
         // Spawn fairy on top of Link, and call the function to interact
-        z2_actor_t *fairy = spawn_next_fairy_actor(game, link->common.initPosRot.pos);
+        Actor *fairy = spawn_next_fairy_actor(game, link->base.initPosRot.pos);
         if (fairy) {
-            if (fairy->main_proc != NULL) {
-                fairy->main_proc(fairy, game);
+            if (fairy->update != NULL) {
+                fairy->update(fairy, game);
             }
             g_fairy_cooldown = FAIRY_COOLDOWN;
             g_external_effects.fairy -= 1;
@@ -215,7 +215,7 @@ static void handle_fairy_effect(z2_game_t *game, z2_link_t *link) {
     }
 }
 
-static void handle_freeze_effect(z2_game_t *game, z2_link_t *link) {
+static void handle_freeze_effect(z2_game_t *game, ActorPlayer *link) {
     // Handle "Freeze" effect.
     if (g_external_effects.freeze) {
         icetrap_push_pending();
@@ -223,7 +223,7 @@ static void handle_freeze_effect(z2_game_t *game, z2_link_t *link) {
     }
 }
 
-static void handle_ice_physics_effect(z2_game_t *game, z2_link_t *link) {
+static void handle_ice_physics_effect(z2_game_t *game, ActorPlayer *link) {
     // Handle "Ice Physics" effect.
     if (g_external_effects.ice_physics) {
         floor_physics_override_type(true, Z2_FLOOR_PHYSICS_ICE);
@@ -232,7 +232,7 @@ static void handle_ice_physics_effect(z2_game_t *game, z2_link_t *link) {
     }
 }
 
-static void handle_jinx_effect(z2_game_t *game, z2_link_t *link) {
+static void handle_jinx_effect(z2_game_t *game, ActorPlayer *link) {
     // Handle "Jinx" effect.
     if (g_external_effects.jinx) {
         // Add multiple of JINX_AMOUNT to jinx timer
@@ -267,7 +267,7 @@ static void handle_jinx_effect(z2_game_t *game, z2_link_t *link) {
     }
 }
 
-static void handle_no_z_effect(z2_game_t *game, z2_link_t *link) {
+static void handle_no_z_effect(z2_game_t *game, ActorPlayer *link) {
     // Handle "No Z" effect.
     if (g_external_effects.no_z) {
         game->common.input[0].current.buttons.z = 0;
@@ -275,7 +275,7 @@ static void handle_no_z_effect(z2_game_t *game, z2_link_t *link) {
     }
 }
 
-static void handle_reverse_controls_effect(z2_game_t *game, z2_link_t *link) {
+static void handle_reverse_controls_effect(z2_game_t *game, ActorPlayer *link) {
     // Handle "Reverse Controls" effect.
     if (g_external_effects.reverse_controls) {
         game->common.input[0].current.xAxis = -game->common.input[0].current.xAxis;
@@ -287,7 +287,7 @@ static void handle_reverse_controls_effect(z2_game_t *game, z2_link_t *link) {
     }
 }
 
-void external_effects_handle(z2_link_t *link, z2_game_t *game) {
+void external_effects_handle(ActorPlayer *link, z2_game_t *game) {
     handle_camera_overlook_effect(game, link);
     handle_chateau_effect(game, link);
     handle_fairy_effect(game, link);

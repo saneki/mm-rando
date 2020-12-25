@@ -4,21 +4,21 @@
 #include "z2.h"
 
 struct arrow_magic_state {
-    z2_actor_t *arrow;
+    Actor *arrow;
 };
 
 static struct arrow_magic_state g_arrow_magic_state = {
     .arrow = NULL,
 };
 
-static void arrow_magic_update_state(struct arrow_magic_state *state, z2_link_t *link, z2_game_t *game) {
-    z2_actor_t *arrow = state->arrow;
+static void arrow_magic_update_state(struct arrow_magic_state *state, ActorPlayer *link, z2_game_t *game) {
+    Actor *arrow = state->arrow;
     // Check if arrow has been shot, speed is checked to ensure arrow isn't just put away.
-    if (link->common.attached_b == NULL && arrow != NULL && arrow->xz_speed != 0.0) {
+    if (link->base.child == NULL && arrow != NULL && arrow->speedXZ != 0.0) {
         // Update state to consume magic once arrow is shot.
         if (z2_file.magic_consume_state == 4) {
             z2_file.magic_consume_state = 2;
-        } else if (arrow->variable == 7) {
+        } else if (arrow->params == 7) {
             // Update magic consume cost, prevents Deku Bubble from taking more magic than expected
             // if used while an elemental arrow effect is still active.
             z2_file.magic_consume_cost = 2;
@@ -64,7 +64,7 @@ bool arrow_magic_should_set_magic_cost(z2_game_t *game, bool inf_magic) {
 /**
  * Handle arrow magic consumption state.
  **/
-void arrow_magic_handle(z2_link_t *link, z2_game_t *game) {
+void arrow_magic_handle(ActorPlayer *link, z2_game_t *game) {
     if (MISC_CONFIG.arrow_magic_show) {
         arrow_magic_update_state(&g_arrow_magic_state, link, game);
     }

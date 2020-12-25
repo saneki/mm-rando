@@ -722,7 +722,7 @@ enum z2_object_id {
 };
 
 /* Structure type aliases. */
-typedef struct z2_actor_s z2_actor_t;
+struct Actor;
 typedef struct z2_game_s  z2_game_t;
 
 /**
@@ -983,11 +983,11 @@ typedef struct {
     u8               unk_0x74[0x0C];                 /* 0x0074 */
     Vec3f            unk_0x80;                       /* 0x0080 */
     z2_ctxt_t       *game;                           /* 0x008C */
-    z2_actor_t      *focus;                          /* 0x0090 */
+    struct Actor    *focus;                          /* 0x0090 */
     Vec3f            focus_pos;                      /* 0x0094 */
     u32              unk_0xA0;                       /* 0x00A0 */
     u32              unk_0xA4;                       /* 0x00A4 */
-    z2_actor_t      *actor;                          /* 0x00A8 */
+    struct Actor    *actor;                          /* 0x00A8 */
     u8               unk_0xAC[0x94];                 /* 0x00AC */
     s16              unk_0x140;                      /* 0x0140 */
     s16              state;                          /* 0x0142 */
@@ -1023,7 +1023,7 @@ typedef struct {
     u8               unk_0x0F;                       /* 0x000F */
     struct {
         s32          count;                          /* 0x0000 */
-        z2_actor_t  *first;                          /* 0x0004 */
+        struct Actor *first;                         /* 0x0004 */
         s32          unk;                            /* 0x0008 */
                                                      /* 0x000C */
     }                actor_list[0x10];               /* 0x0010 */
@@ -1072,7 +1072,7 @@ typedef struct {
     f32              unk_0x1F8;                      /* 0x01F8 */
     u8               unk_0x1FC[0x54];                /* 0x01FC */
     s32              unk_0x250;                      /* 0x0250 */
-    z2_actor_t      *elegy_statues[0x04];            /* 0x0254 */
+    struct Actor    *elegy_statues[0x04];            /* 0x0254 */
     u8               unk_0x264[0x04];                /* 0x0264 */
     u8               unk_0x268;                      /* 0x0268 */
     u8               unk_0x269[0x03];                /* 0x0269 */
@@ -1155,7 +1155,7 @@ typedef struct {
 } z2_col_hdr_t;                                      /* 0x0026 */
 
 typedef struct {
-    z2_actor_t      *actor;                          /* 0x0000 */
+    struct Actor    *actor;                          /* 0x0000 */
     z2_col_hdr_t    *col_hdr;                        /* 0x0004 */
     u16              unk_0x08;                       /* 0x0008 */
     u16              unk_0x0A;                       /* 0x000A */
@@ -1823,7 +1823,7 @@ typedef struct {
 /// Actor Structures
 /// =============================================================
 
-typedef void(*ActorFunc)(z2_actor_t *this, z2_game_t *ctxt);
+typedef void(*ActorFunc)(struct Actor *this, z2_game_t *ctxt);
 
 typedef union {
     struct {
@@ -1896,90 +1896,80 @@ typedef struct {
 /**
  * Actor.
  **/
-struct z2_actor_s {
-    s16              id;                             /* 0x0000 */
-    u8               type;                           /* 0x0002 */
-    s8               room;                           /* 0x0003 */
-    u32              flags;                          /* 0x0004 */
-    PosRot           initPosRot;                     /* 0x0008 */
-    u16              variable;                       /* 0x001C */
-    u8               alloc_index;                    /* 0x001E */
-    u8               unk_0x1F;                       /* 0x001F */
-    u16              sound_effect;                   /* 0x0020 */
-    u8               unk_0x22[0x02];                 /* 0x0022 */
-    PosRot           currPosRot;                     /* 0x0024 */
-    s8               unk_0x38;                       /* 0x0038 */
-    u8               unk_0x39;                       /* 0x0039 */
-    u8               unk_0x3A[0x02];                 /* 0x003A, padding? */
-    PosRot           topPosRot;                      /* 0x003C */
-    u32              unk_0x50;                       /* 0x0050 */
-    f32              unk_0x54;                       /* 0x0054 */
-    Vec3f            scale;                          /* 0x0058 */
-    Vec3f            vel_1;                          /* 0x0064 */
-    f32              xz_speed;                       /* 0x0070 */
-    f32              gravity;                        /* 0x0074 */
-    f32              min_vel_y;                      /* 0x0078 */
-
-                                                     /* struct bgcheck common */
-    z2_col_poly_t   *wall_poly;                      /* 0x007C */
-    z2_col_poly_t   *floor_poly;                     /* 0x0080 */
-    u8               wall_poly_source;               /* 0x0084 */
-    u8               floor_poly_source;              /* 0x0085 */
-    s16              wall_rot;                       /* 0x0086 */
-    f32              floor_height;                   /* 0x0088, maybe? */
-    f32              water_surface_dist;             /* 0x008C */
-    u16              bgcheck_flags;                  /* 0x0090 */
-    s16              unk_0x92_rot;                   /* 0x0092 */
-    f32              unk_0x94;                       /* 0x0094 */
-    f32              dist_from_link_xz;              /* 0x0098 */
-    f32              dist_from_link_y;               /* 0x009C */
-    ActorA0          unkA0;                          /* 0x00A0 */
-    ActorShape       shape;                          /* 0x00BC */
-    Vec3f            unk_0xD4;                       /* 0x00D4 */
-    Vec3f            unk_0xE0;                       /* 0x00E0 */
-    Vec3f            unk_0xEC;                       /* 0x00EC */
-    f32              unk_0xF8;                       /* 0x00F8 */
-    f32              unk_0xFC;                       /* 0x00FC */
-    f32              unk_0x100;                      /* 0x0100 */
-    f32              unk_0x104;                      /* 0x0104 */
-    Vec3f            pos_4;                          /* 0x0108 */
-    u16              unk_0x114;                      /* 0x0114 */
-    u16              text_id;                        /* 0x0116 */
-    s16              frozen;                         /* 0x0118 */
-    u8               unk_0x11A[0x03];                /* 0x011A */
-    u8               active;                         /* 0x011D */
-    u8               unk_0x11E;                      /* 0x011E */
-    u8               tatl_enemy_text_id;             /* 0x011F */
-    z2_actor_t      *attached_a;                     /* 0x0120 */
-    z2_actor_t      *attached_b;                     /* 0x0124 */
-    z2_actor_t      *prev;                           /* 0x0128 */
-    z2_actor_t      *next;                           /* 0x012C */
-    ActorFunc        ctor;                           /* 0x0130 */
-    ActorFunc        dtor;                           /* 0x0134 */
-    ActorFunc        main_proc;                      /* 0x0138 */
-    ActorFunc        draw_proc;                      /* 0x013C */
-    ActorOverlay    *code_entry;                     /* 0x0140 */
-};                                                   /* 0x0144 */
-
-typedef void (*z2_ActorProc)(z2_actor_t *actor, z2_game_t *game);
-
-typedef struct {
-    u16              id;
-    u8               unk_0x02[0x0E];
-    z2_ActorProc     ctor;
-    z2_ActorProc     dtor;
-    z2_ActorProc     main;
-    z2_ActorProc     draw;
-} z2_actor_init_t;
+typedef struct Actor {
+    /* 0x000 */ s16 id;
+    /* 0x002 */ u8 type;
+    /* 0x003 */ s8 room;
+    /* 0x004 */ u32 flags;
+    /* 0x008 */ PosRot initPosRot;
+    /* 0x01C */ s16 params;
+    /* 0x01E */ s8 objBankIndex;
+    /* 0x01F */ UNK_TYPE1 unk1F;
+    /* 0x020 */ u16 soundEffect;
+    /* 0x022 */ UNK_TYPE1 pad22[0x2];
+    /* 0x024 */ PosRot currPosRot;
+    /* 0x038 */ s8 cutscene;
+    /* 0x039 */ u8 unk39;
+    /* 0x03A */ UNK_TYPE1 pad3A[0x2];
+    /* 0x03C */ PosRot topPosRot;
+    /* 0x050 */ u16 unk50;
+    /* 0x052 */ UNK_TYPE1 pad52[0x2];
+    /* 0x054 */ f32 unk54;
+    /* 0x058 */ Vec3f scale;
+    /* 0x064 */ Vec3f velocity;
+    /* 0x070 */ f32 speedXZ;
+    /* 0x074 */ f32 gravity;
+    /* 0x078 */ f32 minVelocityY;
+    /* 0x07C */ z2_col_poly_t *wallPoly;
+    /* 0x080 */ z2_col_poly_t *floorPoly;
+    /* 0x084 */ u8 wallPolySource;
+    /* 0x085 */ u8 floorPolySource;
+    /* 0x086 */ s16 wallRot;
+    /* 0x088 */ f32 floorHeight;
+    /* 0x08C */ f32 waterSurfaceDist;
+    /* 0x090 */ u16 bgcheckFlags;
+    /* 0x092 */ s16 rotTowardsLinkY;
+    /* 0x094 */ f32 sqrdDistanceFromLink;
+    /* 0x098 */ f32 xzDistanceFromLink;
+    /* 0x09C */ f32 yDistanceFromLink;
+    /* 0x0A0 */ ActorA0 unkA0;
+    /* 0x0BC */ ActorShape shape;
+    /* 0x0D4 */ Vec3f unkD4;
+    /* 0x0E0 */ Vec3f unkE0;
+    /* 0x0EC */ Vec3f projectedPos;
+    /* 0x0F8 */ f32 unkF8;
+    /* 0x0FC */ f32 unkFC;
+    /* 0x100 */ f32 unk100;
+    /* 0x104 */ f32 unk104;
+    /* 0x108 */ Vec3f lastPos;
+    /* 0x114 */ u8 unk114;
+    /* 0x115 */ u8 unk115;
+    /* 0x116 */ u16 textId;
+    /* 0x118 */ s16 freeze;
+    /* 0x11A */ u16 hitEffectParams;
+    /* 0x11C */ u8 hitEffectIntensity;
+    /* 0x11D */ u8 hasBeenDrawn;
+    /* 0x11E */ UNK_TYPE1 pad11E[0x1];
+    /* 0x11F */ u8 naviEnemyId;
+    /* 0x120 */ struct Actor* parent;
+    /* 0x124 */ struct Actor* child;
+    /* 0x128 */ struct Actor* prev;
+    /* 0x12C */ struct Actor* next;
+    /* 0x130 */ ActorFunc init;
+    /* 0x134 */ ActorFunc destroy;
+    /* 0x138 */ ActorFunc update;
+    /* 0x13C */ ActorFunc draw;
+    /* 0x140 */ ActorOverlay *overlayEntry;
+} Actor; // size = 0x144
 
 /// =============================================================
 /// Link Actor
 /// =============================================================
 
 /**
- * Macro for getting the z2_link_t pointer from the z2_game_t pointer.
+ * Macro for getting the ActorPlayer pointer from the z2_game_t pointer.
  **/
-#define Z2_LINK(GAME) ((z2_link_t*)((GAME->actor_ctxt.actor_list[2].first)))
+#define Z2_LINK(GAME) ((ActorPlayer*)((GAME->actor_ctxt.actor_list[2].first)))
 
 typedef union {
     struct {
@@ -1998,45 +1988,79 @@ typedef union {
     u32 flags[3];
 } PlayerStateFlags; // size = 0xC
 
+// See: ActorPlayer::heldItemActionParam
+typedef enum {
+    HELD_ITEM_BOW = 0x9,
+    HELD_ITEM_HOOKSHOT = 0xD,
+    HELD_ITEM_OCARINA = 0x14,
+    HELD_ITEM_BOTTLE = 0x15,
+} PlayerHeldItem;
+
 /**
  * Link actor.
  **/
 typedef struct {
-    z2_actor_t       common;                         /* 0x0000 */
-    u8               unk_0x144[0x02];                /* 0x0144 */
-    u8               item_button;                    /* 0x0146 */
-    u8               unk_0x147;                      /* 0x0147 */
-    u8               unk_0x148;                      /* 0x0148 */
-    u8               unk_0x149;                      /* 0x0149 */
-    u8               unk_0x14A;                      /* 0x014A, which item Link currently has out? */
-                                                     /* 0x14 = Ocarina, 0x15 = Bottle, 0x9 = Bow, 0xD = Hookshot */
-    u8               form;                           /* 0x014B */
-    u8               unk_0x14C[0x07];                /* 0x014C */
-    u8               mask;                           /* 0x0153 */
-    u8               mask_c;                         /* 0x0154, C button index (starting at 1) of current/recently worn mask */
-    u8               previous_mask;                  /* 0x0155 */
-    u8               unk_0x156[0xF2];                /* 0x0156 */
-    PlayerAnimation  currentAnimation;               /* 0x0248 */
-    u8               unk_0x24C[0x138];               /* 0x024C */
-    u16              get_item;                       /* 0x0384 */
-    u8               unk_0x386[0x6E2];               /* 0x0386 */
-    f32             *table_A68;                      /* 0x0A68 */
-    PlayerStateFlags stateFlags;                     /* 0x0A6C */
-    u8               unk_0xA78[0x58];                /* 0x0A78 */
-    f32              linear_velocity;                /* 0x0AD0 */
-    u16              movement_angle;                 /* 0x0AD4 */
-    u8               unk_0xAD6[0x05];                /* 0x0AD6 */
-    u8               sword_active;                   /* 0x0ADB */
-    u8               unk_0xADC[0x0B];                /* 0x0ADC */
-    u8               anim_timer;                     /* 0x0AE7, some animation timer? Relevant to: transformation masks, freezing, etc */
-    u16              frozen_timer;                   /* 0x0AE8 */
-    u8               unk_0xAEA[0x76];                /* 0x0AEA */
-    u16              blast_mask_timer;               /* 0x0B60 */
-    u8               unk_0xB62[0x05];                /* 0x0B62 */
-    u8               deku_hop_counter;               /* 0x0B67 */
-    u8               unk_0xB68[0x0A];                /* 0x0B68 */
-    u16              floor_type;                     /* 0x0B72, determines sound effect used while walking */
-} z2_link_t;
+    /* 0x000 */ Actor base;
+    /* 0x144 */ u8 pad144[0x2];
+    /* 0x146 */ u8 itemButton;
+    /* 0x147 */ s8 itemActionParam;
+    /* 0x148 */ u8 unk148;
+    /* 0x149 */ u8 unk149;
+    /* 0x14A */ s8 heldItemActionParam; // Which item Link currently has out?
+    /* 0x14B */ u8 form;
+    /* 0x14C */ UNK_TYPE1 pad14C[0x5];
+    /* 0x151 */ u8 unk151;
+    /* 0x152 */ UNK_TYPE1 unk152;
+    /* 0x153 */ u8 mask;
+    /* 0x154 */ u8 maskC; // C button index (starting at 1) of current/recently worn mask.
+    /* 0x155 */ u8 previousMask;
+    /* 0x156 */ UNK_TYPE1 pad156[0xF2];
+    /* 0x248 */ PlayerAnimation currentAnimation;
+    /* 0x24C */ UNK_TYPE1 pad24C[0x100];
+    /* 0x34C */ Actor* heldActor;
+    /* 0x350 */ UNK_TYPE1 pad350[0x18];
+    /* 0x368 */ Vec3f unk368;
+    /* 0x374 */ UNK_TYPE1 pad374[0x10];
+    /* 0x384 */ u16 getItem;
+    /* 0x386 */ UNK_TYPE1 pad386[0xC];
+    /* 0x394 */ u8 unk394;
+    /* 0x395 */ UNK_TYPE1 pad395[0x37];
+    /* 0x3CC */ s16 unk3CC;
+    /* 0x3CE */ s8 unk3CE;
+    /* 0x3CF */ UNK_TYPE1 pad3CF[0x361];
+    /* 0x730 */ Actor* unk730;
+    /* 0x734 */ UNK_TYPE1 pad734[0x334];
+    /* 0xA68 */ f32 *tableA68; // Transformation-dependant f32 array, [11] used for distance to begin swimming.
+    /* 0xA6C */ PlayerStateFlags stateFlags;
+    /* 0xA78 */ UNK_TYPE1 padA78[0x8];
+    /* 0xA80 */ Actor* unkA80;
+    /* 0xA84 */ UNK_TYPE1 padA84[0x4];
+    /* 0xA88 */ Actor* unkA88;
+    /* 0xA8C */ f32 unkA8C;
+    /* 0xA90 */ UNK_TYPE1 padA90[0x40];
+    /* 0xAD0 */ f32 linearVelocity;
+    /* 0xAD4 */ u16 movementAngle;
+    /* 0xAD6 */ UNK_TYPE1 padAD6[0x5];
+    /* 0xADB */ u8 swordActive;
+    /* 0xADC */ UNK_TYPE1 padADC[0x2];
+    /* 0xADE */ u8 unkADE;
+    /* 0xADF */ UNK_TYPE1 padADF[0x4];
+    /* 0xAE3 */ s8 unkAE3;
+    /* 0xAE4 */ UNK_TYPE1 padAE4[0x3];
+    /* 0xAE7 */ u8 animTimer; // Some animation timer? Relevant to: transformation masks.
+    /* 0xAE8 */ u16 frozenTimer;
+    /* 0xAEA */ UNK_TYPE1 padAEA[0x3E];
+    /* 0xB28 */ s16 unkB28;
+    /* 0xB2A */ UNK_TYPE1 padB2A[0x36];
+    /* 0xB60 */ u16 blastMaskTimer;
+    /* 0xB62 */ UNK_TYPE1 padB62[0x5];
+    /* 0xB67 */ u8 dekuHopCounter;
+    /* 0xB68 */ UNK_TYPE1 padB68[0xA];
+    /* 0xB72 */ u16 floorType; // Determines sound effect used while walking.
+    /* 0xB74 */ UNK_TYPE1 padB74[0x28];
+    /* 0xB9C */ Vec3f unkB9C;
+    /* 0xBA8 */ UNK_TYPE1 padBA8[0x1D0];
+} ActorPlayer; // size = 0xD78
 
 /// =============================================================
 /// Other Actors
@@ -2046,7 +2070,7 @@ typedef struct {
  * En_Box actor (Treasure Chest).
  **/
 typedef struct {
-    z2_actor_t       common;                         /* 0x0000 */
+    Actor            common;                         /* 0x0000 */
     u8               unk_0x144[0xA8];                /* 0x0144 */
     s16              anim_counter;                   /* 0x01EC, used for fancy light animation? */
     u8               unk_0x1EE;                      /* 0x01EE */
@@ -2063,7 +2087,7 @@ typedef struct {
  * En_Elf actor.
  **/
 typedef struct {
-    z2_actor_t       common;                         /* 0x0000 */
+    Actor            common;                         /* 0x0000 */
     u8               unk_0x144[0x116];               /* 0x0144 */
     u16              anim_timer;                     /* 0x025A, counts from 0 to 0x5F as "fairy heal" animation progresses. */
 } z2_fairy_actor_t;                                  /* 0x025C */
@@ -2072,7 +2096,7 @@ typedef struct {
  * En_Test4 actor.
  **/
 typedef struct {
-    z2_actor_t       common;                         /* 0x0000 */
+    Actor            common;                         /* 0x0000 */
     u8               daynight;                       /* 0x0144 */
     u8               unk_0x145;                      /* 0x0145 */
     u16              timer_boundaries[0x03];         /* 0x0146 */
@@ -2082,7 +2106,7 @@ typedef struct {
  * En_Elforg actor (stray fairy).
  **/
 typedef struct {
-    z2_actor_t       common;                         /* 0x0000 */
+    Actor            common;                         /* 0x0000 */
     u8               unk_0x144;                      /* 0x0144 */
     u8               unk_0x145;                      /* 0x0145 */
     u8               unk_0x146;                      /* 0x0146 */
@@ -2110,7 +2134,7 @@ typedef struct {
  * En_Akindonuts actor (Business Scrub)
  **/
 typedef struct {
-    z2_actor_t       common;                         /* 0x0000 */
+    Actor            common;                         /* 0x0000 */
     u8               unk_0x144[0x1E8];               /* 0x0144 */
     u16              state;                          /* 0x032C, Not sure what else to call this, or what else it does. */
     u8               unk_0x32E[0x0E];                /* 0x032E */
@@ -2121,7 +2145,7 @@ typedef struct {
  * En_GirlA actor (Shop Inventory Data)
  **/
 typedef struct {
-    z2_actor_t       common;                         /* 0x0000 */
+    Actor            common;                         /* 0x0000 */
     u8               unk_0x144[0x5A];                /* 0x0144 */
     u16              gi_index;                       /* 0x019E */
 } z2_en_girla_t;
@@ -2130,7 +2154,7 @@ typedef struct {
  * En_Toto actor (Toto)
  **/
 typedef struct z2_en_toto_s {
-    z2_actor_t       common;                         /* 0x0000 */
+    Actor            common;                         /* 0x0000 */
     u8               unk_0x144[0x16C];               /* 0x0144 */
     u8               func_index;                     /* 0x02B0 */
     u8               frame_count;                    /* 0x02B1 */
@@ -2140,7 +2164,7 @@ typedef struct z2_en_toto_s {
     void            *cur_state;                      /* 0x02B8 */
     u8               unk_0x2BC[0x04];                /* 0x02BC */
     void            *unk_0x2C0;                      /* 0x02C0 */
-    z2_actor_t      *stagelights;                    /* 0x02C4 */
+    Actor           *stagelights;                    /* 0x02C4 */
     u8               unk_0x2C8[0x08];                /* 0x02C8 */
 } z2_en_toto_t;                                      /* 0x02D0 */
 
@@ -2148,7 +2172,7 @@ typedef struct z2_en_toto_s {
  * En_Suttari (Sakon)
  **/
 typedef struct z2_en_suttari_s {
-    z2_actor_t       common;                         /* 0x0000 */
+    Actor            common;                         /* 0x0000 */
     u8               unk_0x144[0x04];                /* 0x0144 */
     void            *function;                       /* 0x0148 */
     u8               unk_0x14C[0x98];                /* 0x014C */
@@ -2165,7 +2189,7 @@ typedef struct z2_en_suttari_s {
 } z2_en_suttari_t;                                   /* 0x045C */
 
 typedef struct z2_obj_boat_s {
-    z2_actor_t       common;                         /* 0x0000 */
+    Actor            common;                         /* 0x0000 */
     u8               unk_0x144[0x18];                /* 0x0144 */
     u8               path_progress;                  /* 0x015C */
     s8               speed_multiplier;               /* 0x015D */
@@ -2178,7 +2202,7 @@ typedef struct z2_obj_boat_s {
  * Bg_Ingate (Boat Cruise Canoe)
  **/
 typedef struct z2_bg_ingate_s {
-    z2_actor_t       common;                         /* 0x0000 */
+    Actor            common;                         /* 0x0000 */
     u8               unk_0x144[0x18];                /* 0x0144 */
     void            *function;                       /* 0x015C */
     u16              flags;                          /* 0x0160 */
@@ -2396,14 +2420,14 @@ typedef struct {
 #define z2_link_addr                     0x803FFDB0
 
 /* Data */
-#define z2_actor_ovl_table               ((z2_actor_ovl_table_t*)    z2_actor_ovl_table_addr)
+#define z2_actor_ovl_table               ((ActorOverlay*)            z2_actor_ovl_table_addr)
 #define z2_ctxt                          (*(z2_ctxt_t*)              z2_ctxt_addr)
 #define z2_file                          (*(z2_file_t*)              z2_file_addr)
 #define z2_file_table                    ((z2_file_table_t*)         z2_file_table_addr)
 #define z2_game                          (*(z2_game_t*)              z2_game_addr)
 #define z2_gamestate                     (*(GameStateTable*)         z2_gamestate_addr)
 #define z2_gi_graphic_table              ((z2_gi_graphic_table_t*)   z2_gi_graphic_table_addr)
-#define z2_link                          (*(z2_link_t*)              z2_link_addr)
+#define z2_link                          (*(ActorPlayer*)            z2_link_addr)
 #define z2_obj_table                     ((z2_obj_file_t*)           z2_object_table_addr)
 #define z2_segment                       (*(z2_segment_t*)           z2_segment_addr)
 #define z2_song_notes                    (*(z2_song_notes_t*)        z2_song_notes_addr)
@@ -2546,29 +2570,29 @@ typedef struct {
 /* Relocatable Types (VRAM) */
 #define z2_file_select_ctxt_vram         0x80813DF0
 
-typedef void (*z2_PerformEnterWaterEffects_proc)(z2_game_t *game, z2_link_t *link);
-typedef void (*z2_PlayerHandleBuoyancy_proc)(z2_link_t *link);
+typedef void (*z2_PerformEnterWaterEffects_proc)(z2_game_t *game, ActorPlayer *link);
+typedef void (*z2_PlayerHandleBuoyancy_proc)(ActorPlayer *link);
 
 /* Function Prototypes */
 typedef int (*z2_CanInteract_proc)(z2_game_t *game);
-typedef int (*z2_CanInteract2_proc)(z2_game_t *game, z2_link_t *link);
+typedef int (*z2_CanInteract2_proc)(z2_game_t *game, ActorPlayer *link);
 typedef void (*z2_DrawButtonAmounts_proc)(z2_game_t *game, u32 arg1, u16 alpha);
 typedef void (*z2_DrawBButtonIcon_proc)(z2_game_t *game);
 typedef void (*z2_DrawCButtonIcons_proc)(z2_game_t *game);
 typedef u32 (*z2_GetFloorPhysicsType_proc)(void *arg0, void *arg1, u8 arg2);
 typedef f32* (*z2_GetMatrixStackTop_proc)();
-typedef void (*z2_LinkDamage_proc)(z2_game_t *game, z2_link_t *link, u32 type, u32 arg3);
-typedef void (*z2_LinkInvincibility_proc)(z2_link_t *link, u8 frames);
+typedef void (*z2_LinkDamage_proc)(z2_game_t *game, ActorPlayer *link, u32 type, u32 arg3);
+typedef void (*z2_LinkInvincibility_proc)(ActorPlayer *link, u8 frames);
 typedef void (*z2_PlaySfx_proc)(u32 id);
-typedef z2_actor_t* (*z2_SpawnActor_proc)(z2_actor_ctxt_t *actor_ctx, z2_game_t *game, u16 id,
+typedef Actor* (*z2_SpawnActor_proc)(z2_actor_ctxt_t *actor_ctx, z2_game_t *game, u16 id,
                                           f32 x, f32 y, f32 z, u16 rx, u16 ry, u16 rz, u16 variable);
 typedef void (*z2_UpdateButtonUsability_proc)(z2_game_t *game);
-typedef void (*z2_UseItem_proc)(z2_game_t *game, z2_link_t *link, u8 item);
+typedef void (*z2_UseItem_proc)(z2_game_t *game, ActorPlayer *link, u8 item);
 typedef void (*z2_WriteHeartColors_proc)(z2_game_t *game);
 typedef void (*z2_RemoveItem_proc)(u32 item, u8 slot);
 typedef void (*z2_ToggleSfxDampen_proc)(int enable);
 typedef void (*z2_HandleInputVelocity_proc)(f32 *linear_velocity, f32 input_velocity, f32 increaseBy, f32 decreaseBy);
-typedef bool (*z2_SetGetItemLongrange_proc)(z2_actor_t *actor, z2_game_t *game, u16 gi_index);
+typedef bool (*z2_SetGetItemLongrange_proc)(Actor *actor, z2_game_t *game, u16 gi_index);
 
 /* Function Prototypes (Scene Flags) */
 // TODO parameters
@@ -2592,9 +2616,9 @@ typedef void (*z2_check_scene_pairs_proc)();
 typedef void (*z2_store_scene_flags_proc)();
 
 /* Function Prototypes (Actors) */
-typedef void (*z2_ActorProc_proc)(z2_actor_t *actor, z2_game_t *game);
-typedef void (*z2_ActorRemove_proc)(z2_actor_ctxt_t *ctxt, z2_actor_t *actor, z2_game_t *game);
-typedef void (*z2_ActorUnload_proc)(z2_actor_t *actor);
+typedef void (*z2_ActorProc_proc)(Actor *actor, z2_game_t *game);
+typedef void (*z2_ActorRemove_proc)(z2_actor_ctxt_t *ctxt, Actor *actor, z2_game_t *game);
+typedef void (*z2_ActorUnload_proc)(Actor *actor);
 
 /* Function Prototypes (Actor Cutscene) */
 typedef void (*z2_ActorCutscene_ClearWaiting_proc)(void);
@@ -2604,9 +2628,9 @@ typedef void (*z2_ActorCutscene_End_proc)(void);
 typedef void (*z2_ActorCutscene_Update_proc)(void);
 typedef void (*z2_ActorCutscene_SetIntentToPlay_proc)(s16 index);
 typedef s16 (*z2_ActorCutscene_GetCanPlayNext_proc)(s16 index);
-typedef s16 (*z2_ActorCutscene_StartAndSetUnkLinkFields_proc)(s16 index, z2_actor_t *actor);
-typedef s16 (*z2_ActorCutscene_StartAndSetFlag_proc)(s16 index, z2_actor_t *actor);
-typedef s16 (*z2_ActorCutscene_Start_proc)(s16 index, z2_actor_t *actor);
+typedef s16 (*z2_ActorCutscene_StartAndSetUnkLinkFields_proc)(s16 index, Actor *actor);
+typedef s16 (*z2_ActorCutscene_StartAndSetFlag_proc)(s16 index, Actor *actor);
+typedef s16 (*z2_ActorCutscene_Start_proc)(s16 index, Actor *actor);
 typedef s16 (*z2_ActorCutscene_Stop_proc)(s16 index);
 typedef s16 (*z2_ActorCutscene_GetCurrentIndex_proc)(void);
 typedef z2_actor_cutscene_t * (*z2_ActorCutscene_GetCutscene_proc)(s16 index);
@@ -2616,10 +2640,10 @@ typedef s16 (*z2_ActorCutscene_GetCurrentCamera_proc)(void);
 typedef void (*z2_ActorCutscene_SetReturnCamera_proc)(s16 index);
 
 /* Function Prototypes (Drawing) */
-typedef void (*z2_ActorDraw_proc)(z2_actor_t *actor, z2_game_t *game);
+typedef void (*z2_ActorDraw_proc)(Actor *actor, z2_game_t *game);
 typedef void (*z2_BaseDrawGiModel_proc)(z2_game_t *game, u32 graphic_id_minus_1);
 typedef void (*z2_CallDList_proc)(GraphicsContext *gfx);
-typedef void (*z2_PreDraw_proc)(z2_actor_t *actor, z2_game_t *game, u32 unknown);
+typedef void (*z2_PreDraw_proc)(Actor *actor, z2_game_t *game, u32 unknown);
 
 /* Function Prototypes (File Loading) */
 typedef s32 (*z2_RomToRam_proc)(u32 src, void *dst, u32 length);
@@ -2634,7 +2658,7 @@ typedef void (*z2_ReadFile_proc)(void *mem_addr, u32 vrom_addr, u32 size);
 typedef void (*z2_Yaz0_LoadAndDecompressFile_proc)(u32 prom_addr, void *dest, u32 length);
 
 /* Function Prototypes (Get Item) */
-typedef void (*z2_SetGetItem_proc)(z2_actor_t *actor, z2_game_t *game, s32 unk2, u32 unk3);
+typedef void (*z2_SetGetItem_proc)(Actor *actor, z2_game_t *game, s32 unk2, u32 unk3);
 typedef void (*z2_GiveItem_proc)(z2_game_t *game, u8 item_id);
 typedef void (*z2_GiveMap_proc)(u32 map_index);
 

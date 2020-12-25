@@ -15,10 +15,10 @@ struct loaded_actor_model {
 
 static struct loaded_actor_model g_loaded_actor_models[LOADED_ACTOR_MODEL_SLOTS];
 
-bool loaded_models_get_actor_model(struct model *model, void **extra, z2_actor_t *actor) {
+bool loaded_models_get_actor_model(struct model *model, void **extra, Actor *actor) {
     for (int i = 0; i < LOADED_ACTOR_MODEL_SLOTS; i++) {
         struct loaded_actor_model loaded = g_loaded_actor_models[i];
-        if (loaded.used && loaded.id == actor->id && loaded.variable == actor->variable) {
+        if (loaded.used && loaded.id == actor->id && loaded.variable == actor->params) {
             if (model != NULL) {
                 *model = loaded.model;
             }
@@ -32,13 +32,13 @@ bool loaded_models_get_actor_model(struct model *model, void **extra, z2_actor_t
     return false;
 }
 
-bool loaded_models_add_actor_model(struct model model, void *extra, z2_actor_t *actor) {
+bool loaded_models_add_actor_model(struct model model, void *extra, Actor *actor) {
     for (int i = 0; i < LOADED_ACTOR_MODEL_SLOTS; i++) {
         struct loaded_actor_model *loaded = &g_loaded_actor_models[i];
         if (!loaded->used) {
             loaded->used = true;
             loaded->id = actor->id;
-            loaded->variable = actor->variable;
+            loaded->variable = actor->params;
             loaded->model = model;
             loaded->extra = extra;
             return true;
@@ -62,10 +62,10 @@ bool loaded_models_clear_actor_models(void) {
     }
 }
 
-void loaded_models_remove_actor_model(z2_actor_t *actor) {
+void loaded_models_remove_actor_model(Actor *actor) {
     for (int i = 0; i < LOADED_ACTOR_MODEL_SLOTS; i++) {
         struct loaded_actor_model *loaded = &g_loaded_actor_models[i];
-        if (loaded->used && loaded->id == actor->id && loaded->variable == actor->variable) {
+        if (loaded->used && loaded->id == actor->id && loaded->variable == actor->params) {
             loaded_models_clear_actor_model(loaded);
         }
     }

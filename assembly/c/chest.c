@@ -11,7 +11,7 @@ void chest_write_gi_index(z2_en_box_t *actor, z2_game_t *game) {
         u16 result;
 
         // Read from chest-table file to determine gi-table index, and write to actor field.
-        u16 index = (actor->common.variable >> 5) & 0x7F;
+        u16 index = (actor->common.params >> 5) & 0x7F;
         u32 prom = z2_file_table[mmr_ChestTableFileIndex].prom_start + (index * 2);
         z2_RomToRam(prom, &result, sizeof(result));
         actor->gi_index = result;
@@ -23,7 +23,7 @@ void chest_write_gi_index(z2_en_box_t *actor, z2_game_t *game) {
         }
     } else {
         // Vanilla Layout behavior
-        actor->gi_index = (actor->common.variable >> 5) & 0x7F;
+        actor->gi_index = (actor->common.params >> 5) & 0x7F;
     }
 }
 

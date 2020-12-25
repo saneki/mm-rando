@@ -40,7 +40,7 @@ static size_t get_heap_size(size_t count) {
 /**
  * Decode the actor_ext pointer in an actor instance and mark it as unused.
  **/
-void actor_ext_after_actor_dtor(z2_actor_t *actor) {
+void actor_ext_after_actor_dtor(Actor *actor) {
     struct actor_ext *ext = actor_ext_generic_decode(actor);
     if (ext != NULL) {
         // Mark table entry as free, encode pointer as NULL
@@ -80,23 +80,23 @@ struct actor_ext * actor_ext_find_free(void) {
 /**
  * Encode a pointer into unused fields in the actor header.
  **/
-void actor_ext_generic_encode(z2_actor_t *actor, const void *ext) {
+void actor_ext_generic_encode(Actor *actor, const void *ext) {
     u32 pval = (u32)ext;
-    actor->unk_0x22[0] = (u8)(pval >> 24);
-    actor->unk_0x22[1] = (u8)(pval >> 16);
-    actor->unk_0x3A[0] = (u8)(pval >> 8);
-    actor->unk_0x3A[1] = (u8)(pval);
+    actor->pad22[0] = (u8)(pval >> 24);
+    actor->pad22[1] = (u8)(pval >> 16);
+    actor->pad3A[0] = (u8)(pval >> 8);
+    actor->pad3A[1] = (u8)(pval);
 }
 
 /**
  * Decode a pointer from the unused fields in the actor header.
  **/
-struct actor_ext * actor_ext_generic_decode(const z2_actor_t *actor) {
+struct actor_ext * actor_ext_generic_decode(const Actor *actor) {
     u32 pval = 0;
-    pval |= (actor->unk_0x22[0] << 24);
-    pval |= (actor->unk_0x22[1] << 16);
-    pval |= (actor->unk_0x3A[0] << 8);
-    pval |= (actor->unk_0x3A[1]);
+    pval |= (actor->pad22[0] << 24);
+    pval |= (actor->pad22[1] << 16);
+    pval |= (actor->pad3A[0] << 8);
+    pval |= (actor->pad3A[1]);
     return (struct actor_ext *)pval;
 }
 
@@ -117,7 +117,7 @@ void actor_ext_set_free(struct actor_ext *ext) {
 /**
  * Setup an actor_ext entry for a specific actor instance and return it.
  **/
-struct actor_ext * actor_ext_setup(z2_actor_t *actor, bool *created) {
+struct actor_ext * actor_ext_setup(Actor *actor, bool *created) {
     struct actor_ext *ext = actor_ext_generic_decode(actor);
     if (ext != NULL) {
         if (created != NULL)

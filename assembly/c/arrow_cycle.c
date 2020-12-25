@@ -6,7 +6,7 @@
 struct arrow_cycle_state {
     u16 frame_delay;
     s8 magic_cost;
-    z2_actor_t *arrow;
+    Actor *arrow;
 };
 
 static struct arrow_cycle_state g_arrow_cycle_state = {
@@ -85,9 +85,9 @@ static const struct arrow_info * arrow_cycle_get_next_info(u16 variable) {
     return NULL;
 }
 
-z2_actor_t * arrow_cycle_find_arrow(z2_link_t *link, z2_game_t *game) {
-    z2_actor_t *attached = link->common.attached_b;
-    if (attached != NULL && attached->id == Z2_ACTOR_EN_ARROW && attached->attached_a == &link->common) {
+Actor * arrow_cycle_find_arrow(ActorPlayer *link, z2_game_t *game) {
+    Actor *attached = link->base.child;
+    if (attached != NULL && attached->id == Z2_ACTOR_EN_ARROW && attached->parent == &link->base) {
         return attached;
     } else {
         return NULL;
@@ -99,12 +99,12 @@ z2_actor_t * arrow_cycle_find_arrow(z2_link_t *link, z2_game_t *game) {
  *
  * This will re-copy the data used to draw the arrow trail color, and thus it will appear as it should.
  **/
-static bool arrow_cycle_call_arrow_actor_ctor(z2_actor_t *arrow, z2_game_t *game) {
-    z2_actor_ovl_table_t *ovl = &z2_actor_ovl_table[Z2_ACTOR_EN_ARROW];
-    z2_actor_init_t *init = reloc_resolve_actor_init(ovl);
-    if (init != NULL && init->ctor != NULL) {
-        init->dtor(arrow, game);
-        init->ctor(arrow, game);
+static bool arrow_cycle_call_arrow_actor_ctor(Actor *arrow, z2_game_t *game) {
+    ActorOverlay *ovl = &z2_actor_ovl_table[Z2_ACTOR_EN_ARROW];
+    ActorInit *init = reloc_resolve_actor_init(ovl);
+    if (init != NULL && init->init != NULL) {
+        init->destroy(arrow, game);
+        init->init(arrow, game);
         return true;
     } else {
         return false;
@@ -126,29 +126,29 @@ static bool arrow_cycle_is_arrow_item(u8 item) {
 /**
  * Helper function used to update the arrow type on the current C button.
  **/
-static void arrow_cycle_update_c_button(z2_link_t *link, z2_game_t *game, const struct arrow_info *info) {
+static void arrow_cycle_update_c_button(ActorPlayer *link, z2_game_t *game, const struct arrow_info *info) {
     // Update the C button value & texture.
-    z2_file.formButtonItems[0].buttons[link->item_button] = info->icon;
-    z2_ReloadButtonTexture(game, link->item_button);
+    z2_file.formButtonItems[0].buttons[link->itemButton] = info->icon;
+    z2_ReloadButtonTexture(game, link->itemButton);
 
     // Update player fields for new action type.
-    link->unk_0x147 = info->action;
-    link->unk_0x14A = info->action;
+    link->itemActionParam = info->action;
+    link->heldItemActionParam = info->action;
 }
 
 /**
  * Function called on delayed frame to finish processing the arrow cycle.
  **/
-static void arrow_cycle_handle_frame_delay(z2_link_t *link, z2_game_t *game, z2_actor_t *arrow) {
+static void arrow_cycle_handle_frame_delay(ActorPlayer *link, z2_game_t *game, Actor *arrow) {
     s16 prev_effect_state = z2_file.magic_consume_state;
 
-    const struct arrow_info *cur_info = arrow_cycle_get_info(arrow->variable);
+    const struct arrow_info *cur_info = arrow_cycle_get_info(arrow->params);
     if (arrow != NULL && cur_info != NULL) {
-        z2_actor_t *special = arrow->attached_b;
+        Actor *special = arrow->child;
         if (special != NULL) {
             // Deconstruct and remove special arrow actor.
             z2_ActorRemove(&game->actor_ctxt, special, game);
-            arrow->attached_b = NULL;
+            arrow->child = NULL;
         }
 
         if (MISC_CONFIG.arrow_magic_show) {
@@ -184,7 +184,7 @@ static void arrow_cycle_handle_frame_delay(z2_link_t *link, z2_game_t *game, z2_
  *
  * Thus, we must set the draw pointer to NULL and let one frame process before freeing the actor.
  **/
-void arrow_cycle_handle(z2_link_t *link, z2_game_t *game) {
+void arrow_cycle_handle(ActorPlayer *link, z2_game_t *game) {
     // Check if processing arrow cycling on delay frame.
     if (g_arrow_cycle_state.frame_delay >= 1) {
         arrow_cycle_handle_frame_delay(link, game, g_arrow_cycle_state.arrow);
@@ -205,18 +205,18 @@ void arrow_cycle_handle(z2_link_t *link, z2_game_t *game) {
     }
 
     // Find the arrow currently attached to the player.
-    z2_actor_t *arrow = arrow_cycle_find_arrow(link, game);
+    Actor *arrow = arrow_cycle_find_arrow(link, game);
     if (arrow == NULL) {
         return;
     }
 
     // Ensure arrow has an appropriate variable (cannot be a deku bubble).
-    if (!(2 <= arrow->variable && arrow->variable < 6)) {
+    if (!(2 <= arrow->params && arrow->params < 6)) {
         return;
     }
 
     // Check if current button pressed corresponds to an arrow item.
-    u8 selected_item = z2_file.formButtonItems[0].buttons[link->item_button];
+    u8 selected_item = z2_file.formButtonItems[0].buttons[link->itemButton];
     if (!arrow_cycle_is_arrow_item(selected_item)) {
         return;
     }
@@ -229,13 +229,13 @@ void arrow_cycle_handle(z2_link_t *link, z2_game_t *game) {
 
     // Get info for arrow types.
     const struct arrow_info *cur_info, *next_info;
-    cur_info = arrow_cycle_get_info(arrow->variable);
-    next_info = arrow_cycle_get_next_info(arrow->variable);
+    cur_info = arrow_cycle_get_info(arrow->params);
+    next_info = arrow_cycle_get_next_info(arrow->params);
 
     // Check if there is nothing to cycle to and return early.
     if (cur_info == NULL || next_info == NULL || cur_info->var == next_info->var) {
         // When not enough magic to cycle to anything else, switch C button back to normal bow.
-        u8 item = z2_file.formButtonItems[0].buttons[link->item_button];
+        u8 item = z2_file.formButtonItems[0].buttons[link->itemButton];
         if (cur_info->var == 2 && item != Z2_ITEM_BOW && z2_file.inv.items[Z2_SLOT_BOW] == Z2_ITEM_BOW) {
             arrow_cycle_update_c_button(link, game, &g_arrows[0]);
         }
@@ -253,15 +253,15 @@ void arrow_cycle_handle(z2_link_t *link, z2_game_t *game) {
     }
 
     // Update the existing actor variable.
-    arrow->variable = next_info->var;
+    arrow->params = next_info->var;
 
     // Call arrow actor constructor so that the arrow trail color data is re-copied.
     arrow_cycle_call_arrow_actor_ctor(arrow, game);
 
     // If found, NULL out special arrow actor's draw function to prevent it from writing to DList.
-    z2_actor_t *special = arrow->attached_b;
+    Actor *special = arrow->child;
     if (special != NULL) {
-        special->draw_proc = NULL;
+        special->draw = NULL;
     }
 
     // Update C button.

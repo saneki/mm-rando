@@ -7,7 +7,7 @@
  *
  * If speedup is enabled, checks if player has enough points to end early.
  **/
-bool fisherman_should_end_game(z2_actor_t *actor, z2_game_t *game, u32 timer_hi, u32 timer_lo) {
+bool fisherman_should_end_game(Actor *actor, z2_game_t *game, u32 timer_hi, u32 timer_lo) {
     bool timeout = (timer_hi == 0 && timer_lo == 0);
     return ((MISC_CONFIG.speedups.fisherman_game && z2_file.minigame_counter >= 20) || timeout);
 }
@@ -17,7 +17,7 @@ bool fisherman_should_end_game(z2_actor_t *actor, z2_game_t *game, u32 timer_hi,
  *
  * If speedup is enabled the minigame ends early, so ignores the timer check.
  **/
-bool fisherman_should_pass_timer_check(z2_actor_t *actor, z2_game_t *game, u32 timer_hi, u32 timer_lo) {
+bool fisherman_should_pass_timer_check(Actor *actor, z2_game_t *game, u32 timer_hi, u32 timer_lo) {
     if (MISC_CONFIG.speedups.fisherman_game) {
         return true;
     } else {
@@ -49,7 +49,7 @@ static bool fisherman_boat_is_near_end(z2_obj_boat_t *boat) {
  * Hook function used to get the top speed of the boat.
  **/
 f32 fisherman_boat_get_top_speed(z2_obj_boat_t *boat, z2_game_t *game) {
-    if (MISC_CONFIG.speedups.fisherman_game && boat->common.variable == 0x47F) {
+    if (MISC_CONFIG.speedups.fisherman_game && boat->common.params == 0x47F) {
         // Use higher speed unless boat is near the platform or the end of its path.
         bool near_platform = fisherman_boat_is_near_platform(boat, 750.0);
         bool near_end = fisherman_boat_is_near_end(boat);
@@ -65,7 +65,7 @@ f32 fisherman_boat_get_top_speed(z2_obj_boat_t *boat, z2_game_t *game) {
  * Hook function used to get the acceleration speed of the boat.
  **/
 f32 fisherman_boat_get_accel_speed(z2_obj_boat_t *boat, z2_game_t *game) {
-    if (MISC_CONFIG.speedups.fisherman_game && boat->common.variable == 0x47F) {
+    if (MISC_CONFIG.speedups.fisherman_game && boat->common.params == 0x47F) {
         // If moving forwards, use higher acceleration until near end of path.
         // If moving backwards, always use higher acceleration.
         if (boat->speed_multiplier < 0 || boat->path_progress < 0xC) {

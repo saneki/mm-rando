@@ -5,7 +5,7 @@
 /**
  * Hook function called while giving the Moon's Tear to the Clock Town Business Scrub.
  **/
-void business_scrub_before_give_item_clock_town(z2_actor_t *actor, z2_game_t *game) {
+void business_scrub_before_give_item_clock_town(Actor *actor, z2_game_t *game) {
     if (MISC_CONFIG.quest_consume == QUEST_CONSUME_ALWAYS) {
         quest_items_remove(Z2_ITEM_MOON_TEAR);
     }
@@ -14,9 +14,9 @@ void business_scrub_before_give_item_clock_town(z2_actor_t *actor, z2_game_t *ga
 /**
  * Hook function called when consuming an item by giving it to a traveling Business Scrub.
  **/
-void business_scrub_consume_item(z2_actor_t *actor) {
+void business_scrub_consume_item(Actor *actor) {
     u8 consume = MISC_CONFIG.quest_consume;
-    u16 flag = actor->variable & 3;
+    u16 flag = actor->params & 3;
 
     if (flag == 0) {
         // Southern Swamp Business Scrub
@@ -42,7 +42,7 @@ void business_scrub_consume_item(z2_actor_t *actor) {
 }
 
 u16 business_scrub_set_initial_message(z2_en_akindonuts_t *actor, z2_game_t *game) {
-    u16 type = actor->common.variable & 3;
+    u16 type = actor->common.params & 3;
     bool flyAway = false;
     u16 result;
     if (type == 0) {

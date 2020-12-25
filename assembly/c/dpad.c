@@ -76,7 +76,7 @@ static bool have_any(u8 *dpad) {
     return false;
 }
 
-static bool try_use_item(z2_game_t *game, z2_link_t *link, u8 item) {
+static bool try_use_item(z2_game_t *game, ActorPlayer *link, u8 item) {
     // Try to find slot in item or mask inventories.
     if (has_inventory_item(item)) {
         z2_UseItem(game, link, item);
@@ -182,7 +182,7 @@ static bool is_minigame_frame(void) {
     return result || g_was_minigame;
 }
 
-void dpad_before_player_actor_update(z2_link_t *link, z2_game_t *game) {
+void dpad_before_player_actor_update(ActorPlayer *link, z2_game_t *game) {
     // If disabled, do nothing
     if (DPAD_CONFIG.state == DPAD_STATE_TYPE_DISABLED)
         return;
@@ -217,7 +217,7 @@ bool dpad_is_enabled(void) {
  * Checks D-Pad input for whether or not to use an item, and if so returns true to exit the caller
  * function early.
  **/
-bool dpad_handle(z2_link_t *link, z2_game_t *game) {
+bool dpad_handle(ActorPlayer *link, z2_game_t *game) {
     InputPad pad_pressed = game->common.input[0].pressEdge.buttons;
 
     // If disabled, do nothing
@@ -291,7 +291,7 @@ void dpad_draw(z2_game_t *game) {
         prim_alpha = 0x4A;
 
     // Show faded while flying as a Deku
-    z2_link_t *link = Z2_LINK(game);
+    ActorPlayer *link = Z2_LINK(game);
     if (((link->stateFlags.state3 & Z2_ACTION_STATE3_DEKU_AIR) != 0) && prim_alpha > 0x4A)
         prim_alpha = 0x4A;
 
@@ -349,7 +349,7 @@ void dpad_draw(z2_game_t *game) {
  *
  * Allows D-Pad input to also skip the cutscene if the D-Pad is enabled.
  **/
-u16 dpad_skip_transformation_check(z2_link_t *link, z2_game_t *game, u16 cur) {
+u16 dpad_skip_transformation_check(ActorPlayer *link, z2_game_t *game, u16 cur) {
     InputPad pad;
     pad.value = 0;
 
