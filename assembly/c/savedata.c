@@ -8,9 +8,9 @@ static bool is_owl_save_size(size_t size) {
 }
 
 /**
- * Hook function called after some savedata has been loaded into z2_file.
+ * Hook function called after some savedata has been loaded into SaveContext.
  **/
-void savedata_after_load(z2_game_t *game, z2_camera_t *camera, z2_file_t *file, const u8 *buffer, size_t size) {
+void savedata_after_load(z2_game_t *game, z2_camera_t *camera, SaveContext *file, const u8 *buffer, size_t size) {
     // Read our struct from buffer with flash data
     bool owl_save = is_owl_save_size(size);
     u32 offset = save_file_get_flash_section_offset(owl_save);
@@ -26,9 +26,9 @@ void savedata_after_prepare(z2_game_t *game) {
 }
 
 /**
- * Hook function called after writing z2_file to buffer, which is to be written to flash.
+ * Hook function called after writing SaveContext to buffer, which is to be written to flash.
  **/
-void savedata_after_write(u8 *buffer, z2_file_t *file, size_t size, bool owl_save) {
+void savedata_after_write(u8 *buffer, SaveContext *file, size_t size, bool owl_save) {
     u32 offset = save_file_get_flash_section_offset(owl_save);
     u8 *dest = buffer + offset;
     save_file_write(dest);

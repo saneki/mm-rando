@@ -16,17 +16,17 @@ static void arrow_magic_update_state(struct arrow_magic_state *state, ActorPlaye
     // Check if arrow has been shot, speed is checked to ensure arrow isn't just put away.
     if (link->base.child == NULL && arrow != NULL && arrow->speedXZ != 0.0) {
         // Update state to consume magic once arrow is shot.
-        if (z2_file.magic_consume_state == 4) {
-            z2_file.magic_consume_state = 2;
+        if (z2_file.extra.magicConsumeState == 4) {
+            z2_file.extra.magicConsumeState = 2;
         } else if (arrow->params == 7) {
             // Update magic consume cost, prevents Deku Bubble from taking more magic than expected
             // if used while an elemental arrow effect is still active.
-            z2_file.magic_consume_cost = 2;
+            z2_file.extra.magicConsumeCost = 2;
             // Deku Bubble won't set magic consumption state to 0 later, so apply magic cost manually.
             if (!HasInfiniteMagic(z2_file)) {
-                z2_file.current_magic -= z2_file.magic_consume_cost;
-                if (z2_file.current_magic < 0) {
-                    z2_file.current_magic = 0;
+                z2_file.perm.unk24.currentMagic -= z2_file.extra.magicConsumeCost;
+                if (z2_file.perm.unk24.currentMagic < 0) {
+                    z2_file.perm.unk24.currentMagic = 0;
                 }
             }
         }

@@ -57,15 +57,15 @@ static void draw_icon(GraphicsContext *gfx, const Vtx *vtx, u32 seg_addr, u16 wi
 }
 
 static void cycle_quest_item(z2_game_t *game, u8 item, u8 slot) {
-    u8 orig = z2_file.inv.items[slot];
+    u8 orig = z2_file.perm.inv.items[slot];
 
     // Replace item in inventory
-    z2_file.inv.items[slot] = item;
+    z2_file.perm.inv.items[slot] = item;
 
     // Replace item in C buttons
     for (int i = 1; i < 4; i++) {
-        if (orig != Z2_ITEM_NONE && z2_file.formButtonItems[0].buttons[i] == orig) {
-            z2_file.formButtonItems[0].buttons[i] = item;
+        if (orig != Z2_ITEM_NONE && z2_file.perm.unk4C.formButtonItems[0].buttons[i] == orig) {
+            z2_file.perm.unk4C.formButtonItems[0].buttons[i] = item;
             z2_ReloadButtonTexture(game, i);
         }
     }
@@ -82,7 +82,7 @@ static bool is_quest_item_in_correct_slot(u8 item, int slot) {
 static bool is_quest_item_with_storage_selected(z2_game_t *game) {
     // Get cell and selected item.
     s16 cell = game->pause_ctxt.cells_1.item;
-    u8 item = z2_file.inv.items[cell];
+    u8 item = z2_file.perm.inv.items[cell];
 
     // Check if on a quest item slot.
     bool quest = IS_QUEST_SLOT(cell);

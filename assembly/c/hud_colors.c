@@ -211,8 +211,8 @@ void hud_colors_update_heart_colors(z2_game_t *game) {
     z2_color_rgb16_t *heart_beating = &(z2_game.hud_ctxt.heartbeat_inner_rgb);
 
     // Double defense heart colors
-    z2_color_rgb16_t *heart_dd = &(z2_file.heart_dd_rgb);
-    z2_color_rgb16_t *heart_dd_beating = &(z2_file.heart_dd_beating_rgb);
+    z2_color_rgb16_t *heart_dd = &(z2_file.heartDdRgb);
+    z2_color_rgb16_t *heart_dd_beating = &(z2_file.heartDdBeatingRgb);
 
     // This function writes constant values to where the heart colors are stored.
     // It might also do other things.
