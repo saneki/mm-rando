@@ -119,7 +119,7 @@ void overlay_menu_draw(z2_game_t *game) {
     icon_sprite.buf = game->pause_ctxt.icon_item_static;
     icon_24_sprite.buf = game->pause_ctxt.icon_item_24;
     // icon_map_sprite.buf = game->pause_ctxt.icon_item_map;
-    skulltula_icon.buf = (u8*)game->hud_ctxt.parameter_static +0x31E0;
+    skulltula_icon.buf = (u8*)game->interfaceCtx.parameterStatic +0x31E0;
 
     // Draw background.
     gDPSetCombineMode(db->p++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
