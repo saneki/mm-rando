@@ -2332,14 +2332,14 @@ typedef struct {
 } z2_obj_file_t;                                     /* 0x0008 */
 
 typedef struct {
-    void            *ram;                            /* 0x0000 */
-    u32              vrom_start;                     /* 0x0004 */
-    u32              vrom_end;                       /* 0x0008 */
-    u32              vram_start;                     /* 0x000C */
-    u32              vram_end;                       /* 0x0010 */
-    u8               unk_0x14[0x04];                 /* 0x0014 */
-    char            *filename;                       /* 0x0018 */
-} z2_player_ovl_table_t;                             /* 0x001C */
+    /* 0x00 */ void* loadedRamAddr;
+    /* 0x04 */ u32 vromStart;
+    /* 0x08 */ u32 vromEnd;
+    /* 0x0C */ u32 vramStart;
+    /* 0x10 */ u32 vramEnd;
+    /* 0x14 */ UNK_TYPE1 pad14[0x4];
+    /* 0x18 */ char* filename;
+} PlayerOverlay; // size = 0x1C
 
 typedef void (*z2_DrawGi_proc)(z2_game_t *game, u32 graphic_id_minus_1);
 
@@ -2400,23 +2400,23 @@ typedef struct {
 } z2_timer_digits_t;                                 /* 0x0012 */
 
 typedef struct {
-    s16              unk_0x00;                       /* 0x0000 */
-    s16              unk_0x02;                       /* 0x0002 */
-    s16              unk_0x04;                       /* 0x0004 */
-    s16              unk_0x06;                       /* 0x0006 */
-    u32              unk_0x08;                       /* 0x0008 */
-    u32              unk_0x0C;                       /* 0x000C */
-    z2_game_t       *game;                           /* 0x0010 */
-    s16              unk_0x14;                       /* 0x0014 */
-    s16              unk_0x16;                       /* 0x0016 */
-} z2_0x801BD8B0_t;                                   /* 0x0018 */
+    /* 0x00 */ s16 unk0;
+    /* 0x02 */ s16 unk2;
+    /* 0x04 */ s16 unk4;
+    /* 0x06 */ s16 unk6;
+    /* 0x08 */ u32 unk8;
+    /* 0x0C */ u32 unkC;
+    /* 0x10 */ z2_game_t *globalContext;
+    /* 0x14 */ s16 unk14;
+    /* 0x16 */ s16 unk16;
+} struct_801BD8B0; // size = 0x18
 
 typedef struct {
-    z2_player_ovl_table_t    pause_ovl;              /* 0x0000, VRAM: [0x808160A0, 0x8082DA90) */
-    z2_player_ovl_table_t    player_ovl;             /* 0x001C, VRAM: [0x8082DA90, 0x80862B70) */
-    void                    *start;                  /* 0x0038, RAM start address to use. */
-    z2_player_ovl_table_t   *selected;               /* 0x003C, points to selected overlay. */
-} z2_0x801D0B70_t;                                   /* 0x0040 */
+    /* 0x00 */ PlayerOverlay kaleidoScope; // VRAM: [0x808160A0, 0x8082DA90)
+    /* 0x1C */ PlayerOverlay playerActor; // VRAM: [0x8082DA90, 0x80862B70)
+    /* 0x38 */ void* start; // RAM start address to use.
+    /* 0x3C */ PlayerOverlay* selected; // Points to selected overlay.
+} struct_801D0B70; // size = 0x40
 
 /// =============================================================
 /// Defines & Prototypes
@@ -2460,8 +2460,8 @@ typedef struct {
 #define z2_item_segaddr_table            ((u32*)                     z2_item_segaddr_table_addr)
 
 /* Data (Unknown) */
-#define z2_0x801BD8B0                    (*(z2_0x801BD8B0_t*)        0x801BD8B0)
-#define z2_0x801D0B70                    (*(z2_0x801D0B70_t*)        0x801D0B70)
+#define s801BD8B0                        (*(struct_801BD8B0*)        0x801BD8B0)
+#define s801D0B70                        (*(struct_801D0B70*)        0x801D0B70)
 
 /* Function Addresses */
 #define z2_CanInteract_addr              0x801233E4

@@ -39,11 +39,11 @@ void * reloc_resolve_gamestate(GameStateOverlay *gs, u32 vram) {
     return resolve(info, vram);
 }
 
-void * reloc_resolve_player_ovl(z2_player_ovl_table_t *ovl, u32 vram) {
+void * reloc_resolve_player_ovl(PlayerOverlay *ovl, u32 vram) {
     struct vram_info info = {
-        .ram = ovl->ram,
-        .virt_start = ovl->vram_start,
-        .virt_end = ovl->vram_end,
+        .ram = ovl->loadedRamAddr,
+        .virt_start = ovl->vramStart,
+        .virt_end = ovl->vramEnd,
     };
 
     return resolve(info, vram);
