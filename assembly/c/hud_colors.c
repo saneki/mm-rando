@@ -343,10 +343,10 @@ static void hud_colors_update_msgbox_prompt_colors(bool initial) {
  **/
 void hud_colors_update_pause_menu_colors(z2_game_t *game) {
     // Only try to update colors if kaleido_scope is loaded.
-    if (z2_0x801D0B70.pause_ovl.ram != NULL) {
+    if (s801D0B70.kaleidoScope.loadedRamAddr != NULL) {
         // Resolve address of colors in kaleido_scope (pause) data.
         u32 vram = 0x808160A0 + 0x158A8;
-        void *addr = reloc_resolve_player_ovl(&z2_0x801D0B70.pause_ovl, vram);
+        void *addr = reloc_resolve_player_ovl(&s801D0B70.kaleidoScope, vram);
         if (addr != NULL) {
             // Update pause menu cursor icon colors.
             struct pause_cursor_colors *colors = (struct pause_cursor_colors *)addr;
