@@ -273,17 +273,17 @@ void dpad_draw(z2_game_t *game) {
 
     // Check if C button items are disabled for a specific entrance.
     // Used to prevent drawing D-Pad during 1 frame before Goron Race.
-    if (dpad_are_c_items_disabled_by_entrance(game) && game->hud_ctxt.c_left_alpha == 0)
+    if (dpad_are_c_items_disabled_by_entrance(game) && game->interfaceCtx.alphas.buttonCLeft == 0)
         return;
 
     // Use minimap alpha by default for fading textures out
-    u8 prim_alpha = game->hud_ctxt.minimap_alpha & 0xFF;
+    u8 prim_alpha = game->interfaceCtx.alphas.minimap & 0xFF;
     // If in minigame, the C buttons fade out and so should the D-Pad
     if (z2_file.extra.buttonsState.state == Z2_BUTTONS_STATE_MINIGAME ||
         z2_file.extra.buttonsState.state == Z2_BUTTONS_STATE_BOAT_ARCHERY ||
         z2_file.extra.buttonsState.state == Z2_BUTTONS_STATE_SWORDSMAN_GAME ||
         is_minigame)
-        prim_alpha = game->hud_ctxt.c_left_alpha & 0xFF;
+        prim_alpha = game->interfaceCtx.alphas.buttonCLeft & 0xFF;
 
     // Check if any items shown on the D-Pad are usable
     // If none are, draw main D-Pad sprite faded

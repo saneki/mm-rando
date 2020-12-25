@@ -1217,46 +1217,53 @@ typedef struct {
 /// HUD Context
 /// =============================================================
 
-typedef struct {
-    u8               unk_0x00[0x170];                /* 0x0000 */
-    void            *parameter_static;               /* 0x0170 */
-    void            *do_action_static;               /* 0x0174 */
-    void            *icon_item_static;               /* 0x0178 */
-    void            *minimap_texture;                /* 0x017C */
-    u8               unk_0x180[0x04];                /* 0x0180 */
-    u32              action_rom_addr;                /* 0x0184 */
-    void            *action_ram;                     /* 0x0188 */
-    u32              action_size;                    /* 0x018C */
-    u8               unk_0x190[0x80];                /* 0x0190 */
-    s16              a_text_transition_timer;        /* 0x0210 */
-    u16              a_text_current;                 /* 0x0212 */
-    u16              a_text_transition;              /* 0x0214 */
-    u8               unk_0x216[0x10];                /* 0x0216 */
-    u16              heartbeat_timer;                /* 0x0226 */
-    u16              heartbeat_mode;                 /* 0x0228 */
-    ColorRGB16       heartbeat_inner_rgb;            /* 0x022A */
-    ColorRGB16       heartbeat_outer_rgb;            /* 0x0230 */
-    ColorRRGGBB16    heart_inner_rgb;                /* 0x0236 */
-    ColorRRGGBB16    heart_outer_rgb;                /* 0x0242 */
-    u8               unk_0x24E[0x16];                /* 0x024E */
-    union {
-        struct {
-            u16      fadeout_alpha;                  /* 0x0264 */
-            u16      a_alpha;                        /* 0x0266 */
-            u16      b_alpha;                        /* 0x0268 */
-            u16      c_left_alpha;                   /* 0x026A */
-            u16      c_down_alpha;                   /* 0x026C */
-            u16      c_right_alpha;                  /* 0x026E */
-            u16      hearts_alpha;                   /* 0x0270 */
-            u16      rupees_alpha;                   /* 0x0272, also magic meter alpha */
-            u16      minimap_alpha;                  /* 0x0274 */
-        };
-        u16          alphas[0x09];                   /* 0x0264 */
+typedef union {
+    struct {
+        /* 0x00 */ s16 fadeout;
+        /* 0x02 */ s16 buttonA;
+        /* 0x04 */ s16 buttonB;
+        /* 0x06 */ s16 buttonCLeft;
+        /* 0x08 */ s16 buttonCDown;
+        /* 0x0A */ s16 buttonCRight;
+        /* 0x0C */ s16 life;
+        /* 0x0E */ s16 magicRupees;
+        /* 0x10 */ s16 minimap;
     };
-    u8               unk_0x276[0x98];                /* 0x0276 */
-    u8               restriction_flags[0x0C];        /* 0x030E */
-    u8               unk_0x31A[0x2E];                /* 0x031A */
-} z2_hud_ctxt_t;                                     /* 0x0348 */
+    s16 values[9];
+} InterfaceAlphas; // size = 0x12
+
+typedef struct {
+    /* 0x000 */ View view;
+    /* 0x168 */ UNK_TYPE1 pad168[0x8];
+    /* 0x170 */ void* parameterStatic;
+    /* 0x174 */ void* doActionStatic;
+    /* 0x178 */ void* iconItemStatic;
+    /* 0x17C */ void* minimapTexture;
+    /* 0x180 */ UNK_TYPE1 pad180[0x4];
+    /* 0x184 */ u32 actionRomAddr;
+    /* 0x188 */ void* actionRam;
+    /* 0x18C */ u32 actionSize;
+    /* 0x190 */ UNK_TYPE1 pad190[0x80];
+    /* 0x210 */ s16 buttonATextTransitionTimer;
+    /* 0x212 */ u16 buttonATextCurrent;
+    /* 0x214 */ u16 buttonATextTransition;
+    /* 0x216 */ UNK_TYPE1 pad216[0x10];
+    /* 0x226 */ s16 lifeColorChange;
+    /* 0x228 */ s16 lifeColorChangeDirection;
+    /* 0x22A */ ColorRGB16 heartbeatInnerColor;
+    /* 0x230 */ ColorRGB16 heartbeatOuterColor;
+    /* 0x236 */ ColorRRGGBB16 heartInnerColor;
+    /* 0x242 */ ColorRRGGBB16 heartOuterColor;
+    /* 0x24E */ s16 unk24E;
+    /* 0x250 */ s16 unk250;
+    /* 0x252 */ s16 lifeSizeChange;
+    /* 0x254 */ s16 lifeSizeChangeDirection; // 1 means shrinking, 0 growing
+    /* 0x256 */ UNK_TYPE1 pad256[0xE];
+    /* 0x264 */ InterfaceAlphas alphas;
+    /* 0x276 */ UNK_TYPE1 pad272[0x98];
+    /* 0x30E */ u8 restrictionFlags[0xC];
+    /* 0x31A */ UNK_TYPE1 pad31A[0x2E];
+} InterfaceContext; // size = 0x348
 
 /// =============================================================
 /// Pause Context
@@ -1542,7 +1549,7 @@ struct z2_game_s {
     u8               unk_0x1F2D[0x29DB];             /* 0x01F2D */
     MessageContext   msgCtx;                         /* 0x04908 */
     u8               unk_0x169E0[0x8];               /* 0x169E0 */
-    z2_hud_ctxt_t    hud_ctxt;                       /* 0x169E8 */
+    InterfaceContext interfaceCtx;                   /* 0x169E8 */
     z2_pause_ctxt_t  pause_ctxt;                     /* 0x16D30 */
     u8               unk_0x16F30[0xDE8];             /* 0x16FA0 */
     z2_obj_ctxt_t    obj_ctxt;                       /* 0x17D88 */
