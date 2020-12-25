@@ -1399,25 +1399,24 @@ enum z2_stored_song {
 
 typedef struct {
     /* Might be part of a larger messagebox context. */
-    s8               notes[0x09];                    /* 0x0000, 8 notes + extra terminator (0xFF). */
-    u8               pad[0x03];                      /* 0x0009 */
-    s16              alphas[0x08];                   /* 0x000C, note alphas. */
-} z2_song_notes_t;                                   /* 0x001C */
+    /* 0x00 */ s8 notes[0x9]; // 8 notes + extra terminator (0xFF).
+    /* 0x09 */ UNK_TYPE1 pad9[0x3];
+    /* 0x0C */ s16 alphas[0x8]; // Note alphas.
+} SongNotes; // size = 0x1C
 
 /**
  * Song state substructure which alternates between 2 via frame counter.
  **/
-typedef struct z2_song_frame_s {
-    s8               recent_note;                    /* 0x0000 */
-    s8               stored_song;                    /* 0x0001 */
-    s8               note_index;                     /* 0x0002 */
-    u8               unk_0x03;                       /* 0x0003 */
-    s8               playback_recent_note;           /* 0x0004 */
-    u8               playback_state;                 /* 0x0005 */
-                                                     /* 1 while doing playback, is reset to 0 to show the "You Played X song" text. */
-    u8               playback_note_index;            /* 0x0006 */
-    u8               unk_0x07;                       /* 0x0007 */
-} z2_song_frame_t;                                   /* 0x0008 */
+typedef struct {
+    /* 0x0 */ s8 recentNote;
+    /* 0x1 */ s8 storedSong;
+    /* 0x2 */ s8 noteIndex;
+    /* 0x3 */ UNK_TYPE1 pad3;
+    /* 0x4 */ s8 playbackRecentNote;
+    /* 0x5 */ u8 playbackState; // 1 while doing playback, is reset to 0 to show the "You Played X song" text.
+    /* 0x6 */ u8 playbackNoteIndex;
+    /* 0x7 */ UNK_TYPE1 pad7;
+} SongFrameInfo; // size = 0x8
 
 /**
  * Structure with some song state.
@@ -1425,21 +1424,16 @@ typedef struct z2_song_frame_s {
  * Usually located at: 0x801FD43A
  **/
 typedef struct {
-    z2_song_frame_t  frames[2];                      /* 0x0000 */
-    u16              frame_count;                    /* 0x0010 */
-    s16              analog_angle;                   /* 0x0012, angle of analog stick, modifies sound. */
-    u16              unk_0x14;                       /* 0x0014 */
-    u32              controller_0x16;                /* 0x0016 */
-    u32              unk_0x1A;                       /* 0x001A */
-    u32              controller_0x1E;                /* 0x001E */
-    u32              controller_0x22;                /* 0x0022 */
-    u16              unk_0x26;                       /* 0x0026 */
-    u8               has_played_note;                /* 0x0028, 1 if has played note since using ocarina. */
-    u8               unk_0x29[0x07];                 /* 0x0029 */
-    u16              flags;                          /* 0x0030, is 0x37DF if all songs. */
-    u8               note_index_3;                   /* 0x0032 */
-    u8               pad_0x33;                       /* 0x0033 */
-} z2_song_ctxt_t;                                    /* 0x0034 */
+    /* 0x00 */ SongFrameInfo frameInfo[2];
+    /* 0x10 */ u16 frameCount;
+    /* 0x12 */ s16 analogAngle; // Angle of analog stick, modifies sound.
+    /* 0x14 */ UNK_TYPE1 pad14[0x14];
+    /* 0x28 */ u8 hasPlayedNote; // 1 if has played note since using ocarina.
+    /* 0x29 */ UNK_TYPE1 pad29[0x07];
+    /* 0x30 */ u16 flags; // 0x37DF if all songs.
+    /* 0x32 */ u8 noteIndex3;
+    /* 0x33 */ UNK_TYPE1 pad33;
+} SongInfo; // size = 0x34
 
 /// =============================================================
 /// Static Context
@@ -1477,7 +1471,7 @@ typedef struct {
     /* 0x11EEC */ u32 messageDataLength;
     /* 0x11EF0 */ u8 unk11EF0;
     /* 0x11EF1 */ UNK_TYPE1 pad11EF1[0xF];
-    /* 0x11F00 */ z2_song_ctxt_t* songInfo;
+    /* 0x11F00 */ SongInfo* songInfo;
     /* 0x11F04 */ u16 currentMessageId;
     /* 0x11F06 */ u16 unk11F06;
     /* 0x11F08 */ UNK_TYPE1 pad11F08[0x2];
@@ -2457,7 +2451,7 @@ typedef struct {
 #define z2_link                          (*(ActorPlayer*)            z2_link_addr)
 #define z2_obj_table                     ((z2_obj_file_t*)           z2_object_table_addr)
 #define z2_segment                       (*(z2_segment_t*)           z2_segment_addr)
-#define z2_song_notes                    (*(z2_song_notes_t*)        z2_song_notes_addr)
+#define z2_song_notes                    (*(SongNotes*)              z2_song_notes_addr)
 #define z2_static_ctxt                   (*(z2_static_ctxt_t*)       z2_static_ctxt_addr)
 
 /* Data (non-struct) */
