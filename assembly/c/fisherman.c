@@ -29,27 +29,27 @@ bool fisherman_should_pass_timer_check(Actor *actor, z2_game_t *game, u32 timer_
  * Helper function for checking if the boat is within a specific radius of a point near the
  * platform.
  **/
-static bool fisherman_boat_is_near_platform(z2_obj_boat_t *boat, f32 distance) {
+static bool fisherman_boat_is_near_platform(ActorObjBoat *boat, f32 distance) {
     // Check distance from specific point near platform.
     Vec3f near_platform = { -455.0, 0.0, -680.0 };
-    return z2_Math_Vec3f_DistXZ(&boat->common.currPosRot.pos, &near_platform) < distance;
+    return z2_Math_Vec3f_DistXZ(&boat->base.currPosRot.pos, &near_platform) < distance;
 }
 
 /**
  * Helper function for checking if the boat is nearing the end of its path.
  **/
-static bool fisherman_boat_is_near_end(z2_obj_boat_t *boat) {
+static bool fisherman_boat_is_near_end(ActorObjBoat *boat) {
     // Check that boat is moving forwards and near end of path progress.
     // Don't check for moving backwards, boat always seems to dock fine when going backwards
     // regardless of speed.
-    return boat->speed_multiplier > 0 && boat->path_progress >= 0xC;
+    return boat->speedMultiplier > 0 && boat->pathProgress >= 0xC;
 }
 
 /**
  * Hook function used to get the top speed of the boat.
  **/
-f32 fisherman_boat_get_top_speed(z2_obj_boat_t *boat, z2_game_t *game) {
-    if (MISC_CONFIG.speedups.fisherman_game && boat->common.params == 0x47F) {
+f32 fisherman_boat_get_top_speed(ActorObjBoat *boat, z2_game_t *game) {
+    if (MISC_CONFIG.speedups.fisherman_game && boat->base.params == 0x47F) {
         // Use higher speed unless boat is near the platform or the end of its path.
         bool near_platform = fisherman_boat_is_near_platform(boat, 750.0);
         bool near_end = fisherman_boat_is_near_end(boat);
@@ -64,11 +64,11 @@ f32 fisherman_boat_get_top_speed(z2_obj_boat_t *boat, z2_game_t *game) {
 /**
  * Hook function used to get the acceleration speed of the boat.
  **/
-f32 fisherman_boat_get_accel_speed(z2_obj_boat_t *boat, z2_game_t *game) {
-    if (MISC_CONFIG.speedups.fisherman_game && boat->common.params == 0x47F) {
+f32 fisherman_boat_get_accel_speed(ActorObjBoat *boat, z2_game_t *game) {
+    if (MISC_CONFIG.speedups.fisherman_game && boat->base.params == 0x47F) {
         // If moving forwards, use higher acceleration until near end of path.
         // If moving backwards, always use higher acceleration.
-        if (boat->speed_multiplier < 0 || boat->path_progress < 0xC) {
+        if (boat->speedMultiplier < 0 || boat->pathProgress < 0xC) {
             return 0.2;
         }
     }

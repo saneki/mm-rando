@@ -2070,147 +2070,147 @@ typedef struct {
  * En_Box actor (Treasure Chest).
  **/
 typedef struct {
-    Actor            common;                         /* 0x0000 */
-    u8               unk_0x144[0xA8];                /* 0x0144 */
-    s16              anim_counter;                   /* 0x01EC, used for fancy light animation? */
-    u8               unk_0x1EE;                      /* 0x01EE */
-    u8               unk_0x1EF;                      /* 0x01EF */
-    u8               unk_0x1F0;                      /* 0x01F0 */
-    u8               chest_type;                     /* 0x01F1 */
-    u8               unk_0x1F2[0x28];                /* 0x01F2 */
-    s16              unk_0x21A;                      /* 0x021A */
-    u32              gi_index;                       /* 0x021C */
-    u32              unk_0x220;                      /* 0x0220 */
-} z2_en_box_t;                                       /* 0x0224 */
+    /* 0x000 */ Actor base;
+    /* 0x144 */ UNK_TYPE1 pad144[0xA8];
+    /* 0x1EC */ s16 animCounter; // Used for fancy light animation?
+    /* 0x1EE */ u8 unk1EE;
+    /* 0x1EF */ u8 unk1EF;
+    /* 0x1F0 */ u8 unk1F0;
+    /* 0x1F1 */ u8 chestType;
+    /* 0x1F2 */ UNK_TYPE1 pad1F2[0x28];
+    /* 0x21A */ s16 unk21A;
+    /* 0x21C */ u32 giIndex;
+    /* 0x220 */ u32 unk220;
+} ActorEnBox; // size = 0x224?
 
 /**
  * En_Elf actor.
  **/
 typedef struct {
-    Actor            common;                         /* 0x0000 */
-    u8               unk_0x144[0x116];               /* 0x0144 */
-    u16              anim_timer;                     /* 0x025A, counts from 0 to 0x5F as "fairy heal" animation progresses. */
-} z2_fairy_actor_t;                                  /* 0x025C */
+    /* 0x000 */ Actor base;
+    /* 0x144 */ UNK_TYPE1 pad144[0x116];
+    /* 0x25A */ u16 animTimer; // Counts from 0 to 0x5F as "fairy heal" animation progresses.
+} ActorEnElf; // size = 0x25C?
 
 /**
  * En_Test4 actor.
  **/
 typedef struct {
-    Actor            common;                         /* 0x0000 */
-    u8               daynight;                       /* 0x0144 */
-    u8               unk_0x145;                      /* 0x0145 */
-    u16              timer_boundaries[0x03];         /* 0x0146 */
-} z2_timer_actor_t;                                  /* 0x014C */
+    /* 0x000 */ Actor base;
+    /* 0x144 */ u8 daynight;
+    /* 0x145 */ u8 unk145;
+    /* 0x146 */ u16 timerBoundaries[0x3];
+} ActorEnTest4; // size = 0x14C?
 
 /**
  * En_Elforg actor (stray fairy).
  **/
 typedef struct {
-    Actor            common;                         /* 0x0000 */
-    u8               unk_0x144;                      /* 0x0144 */
-    u8               unk_0x145;                      /* 0x0145 */
-    u8               unk_0x146;                      /* 0x0146 */
-    u8               unk_0x147;                      /* 0x0147 */
-    void            *unk_0x148;                      /* 0x0148 */
-    u32              unk_0x14C;                      /* 0x014C, Looks like segmented address into Object data. */
-    u32              unk_0x150;                      /* 0x0150 */
-    f32              unk_0x154[0x04];                /* 0x0154 */
-    void            *unk_0x164;                      /* 0x0164, Points into struct (field 0x0188). */
-    void            *unk_0x168;                      /* 0x0168 */
-    u8               unk_0x16C[0x08];                /* 0x016C */
-    void            *func_0x174;                     /* 0x0174 */
-    u8               unk_0x178[0x9E];                /* 0x0178 */
-    s16              unk_0x216;                      /* 0x0216 */
-    s16              color;                          /* 0x0218 */
-    u16              unk_0x21A;                      /* 0x021A */
-    u32              frame_count;                    /* 0x021C */
-    u32              unk_0x220;                      /* 0x0220 */
-    f32              unk_0x224;                      /* 0x0224 */
-    u8               unk_0x228[0x04];                /* 0x0228 */
-    void            *unk_0x22C;                      /* 0x022C */
-} z2_en_elforg_t;                                    /* 0x0230 */
+    /* 0x000 */ Actor base;
+    /* 0x144 */ u8 unk144;
+    /* 0x145 */ u8 unk145;
+    /* 0x146 */ u8 unk146;
+    /* 0x147 */ u8 unk147;
+    /* 0x148 */ void* unk148;
+    /* 0x14C */ u32 unk14C; // Looks like segmented address into Object data.
+    /* 0x150 */ u32 unk150;
+    /* 0x154 */ f32 unk154[0x4];
+    /* 0x164 */ void* unk164; // Points into struct (field 0x188).
+    /* 0x168 */ void* unk168;
+    /* 0x16C */ UNK_TYPE1 pad16C[0x8];
+    /* 0x174 */ void* func174;
+    /* 0x178 */ UNK_TYPE1 pad178[0x9E];
+    /* 0x216 */ s16 unk216;
+    /* 0x218 */ s16 color;
+    /* 0x21A */ u16 unk21A;
+    /* 0x21C */ u32 frameCount;
+    /* 0x220 */ u32 unk220;
+    /* 0x224 */ f32 unk224;
+    /* 0x228 */ UNK_TYPE1 pad228[0x4];
+    /* 0x22C */ void* unk22C;
+} ActorEnElforg; // size = 0x230?
 
 /**
  * En_Akindonuts actor (Business Scrub)
  **/
 typedef struct {
-    Actor            common;                         /* 0x0000 */
-    u8               unk_0x144[0x1E8];               /* 0x0144 */
-    u16              state;                          /* 0x032C, Not sure what else to call this, or what else it does. */
-    u8               unk_0x32E[0x0E];                /* 0x032E */
-    u16              last_message_id;                /* 0x033C */
-} z2_en_akindonuts_t;
+    /* 0x000 */ Actor base;
+    /* 0x144 */ UNK_TYPE1 pad144[0x1E8];
+    /* 0x32C */ u16 state; // Not sure what else to call this, or what else it does.
+    /* 0x32E */ UNK_TYPE1 pad32E[0xE];
+    /* 0x33C */ u16 lastMessageId;
+} ActorEnAkindonuts; // size = ?
 
 /**
  * En_GirlA actor (Shop Inventory Data)
  **/
 typedef struct {
-    Actor            common;                         /* 0x0000 */
-    u8               unk_0x144[0x5A];                /* 0x0144 */
-    u16              gi_index;                       /* 0x019E */
-} z2_en_girla_t;
+    /* 0x000 */ Actor base;
+    /* 0x144 */ UNK_TYPE1 pad144[0x5A];
+    /* 0x19E */ u16 giIndex;
+} ActorEnGirlA; // size = ?
 
 /**
  * En_Toto actor (Toto)
  **/
-typedef struct z2_en_toto_s {
-    Actor            common;                         /* 0x0000 */
-    u8               unk_0x144[0x16C];               /* 0x0144 */
-    u8               func_index;                     /* 0x02B0 */
-    u8               frame_count;                    /* 0x02B1 */
-    u8               actor_cutscene;                 /* 0x02B2 */
-    u8               song_flags;                     /* 0x02B3 */
-    u8               unk_0x2B4[0x04];                /* 0x02B4 */
-    void            *cur_state;                      /* 0x02B8 */
-    u8               unk_0x2BC[0x04];                /* 0x02BC */
-    void            *unk_0x2C0;                      /* 0x02C0 */
-    Actor           *stagelights;                    /* 0x02C4 */
-    u8               unk_0x2C8[0x08];                /* 0x02C8 */
-} z2_en_toto_t;                                      /* 0x02D0 */
+typedef struct {
+    /* 0x000 */ Actor base;
+    /* 0x144 */ UNK_TYPE1 pad144[0x16C];
+    /* 0x2B0 */ u8 funcIndex;
+    /* 0x2B1 */ u8 frameCount;
+    /* 0x2B2 */ u8 actorCutscene;
+    /* 0x2B3 */ u8 songFlags;
+    /* 0x2B4 */ UNK_TYPE1 pad2B4[0x4];
+    /* 0x2B8 */ void* curState;
+    /* 0x2BC */ UNK_TYPE1 pad2BC[0x4];
+    /* 0x2C0 */ void* unk2C0;
+    /* 0x2C4 */ Actor* stagelights;
+    /* 0x2C8 */ UNK_TYPE1 pad2C8[0x8];
+} ActorEnToto; // size = 0x2D0
 
 /**
  * En_Suttari (Sakon)
  **/
-typedef struct z2_en_suttari_s {
-    Actor            common;                         /* 0x0000 */
-    u8               unk_0x144[0x04];                /* 0x0144 */
-    void            *function;                       /* 0x0148 */
-    u8               unk_0x14C[0x98];                /* 0x014C */
-    u16              unk_0x1E4;                      /* 0x01E4 */
-    u16              flags;                          /* 0x01E6 */
-    u8               unk_0x1E8[0x10];                /* 0x01E8 */
-    s32              escape_status;                  /* 0x01F8 */
-    u8               unk_0x1FC[0x254];               /* 0x01FC */
-    u32              running_state;                  /* 0x0450 */
-    u8               unk_0x454[0x02];                /* 0x0454 */
-    s16              actor_cutscene_1;               /* 0x0456 */
-    s16              actor_cutscene_2;               /* 0x0458 */
-    u8               unk_0x45A[0x02];                /* 0x045A */
-} z2_en_suttari_t;                                   /* 0x045C */
+typedef struct {
+    /* 0x000 */ Actor base;
+    /* 0x144 */ UNK_TYPE1 pad144[0x4];
+    /* 0x148 */ void* function;
+    /* 0x14C */ UNK_TYPE1 pad14C[0x98];
+    /* 0x1E4 */ u16 unk1E4;
+    /* 0x1E6 */ u16 flags;
+    /* 0x1E8 */ UNK_TYPE1 pad1E8[0x10];
+    /* 0x1F8 */ s32 escapeStatus;
+    /* 0x1FC */ UNK_TYPE1 pad1FC[0x254];
+    /* 0x450 */ u32 runningState;
+    /* 0x454 */ UNK_TYPE1 pad454[0x2];
+    /* 0x456 */ s16 actorCutscene1;
+    /* 0x458 */ s16 actorCutscene2;
+    /* 0x45A */ UNK_TYPE1 pad45A[0x2];
+} ActorEnSuttari; // size = 0x45C
 
-typedef struct z2_obj_boat_s {
-    Actor            common;                         /* 0x0000 */
-    u8               unk_0x144[0x18];                /* 0x0144 */
-    u8               path_progress;                  /* 0x015C */
-    s8               speed_multiplier;               /* 0x015D */
-    u8               unk_0x15E;                      /* 0x015E */
-    u8               unk_0x15F;                      /* 0x015F */
-    u8               unk_0x160[0x08];                /* 0x0160 */
-} z2_obj_boat_t;                                     /* 0x0168 */
+typedef struct {
+    /* 0x000 */ Actor base;
+    /* 0x144 */ UNK_TYPE1 pad144[0x18];
+    /* 0x15C */ u8 pathProgress;
+    /* 0x15D */ s8 speedMultiplier;
+    /* 0x15E */ u8 unk15E;
+    /* 0x15F */ u8 unk15F;
+    /* 0x160 */ UNK_TYPE1 pad160[0x8];
+} ActorObjBoat; // size = 0x168
 
 /**
  * Bg_Ingate (Boat Cruise Canoe)
  **/
-typedef struct z2_bg_ingate_s {
-    Actor            common;                         /* 0x0000 */
-    u8               unk_0x144[0x18];                /* 0x0144 */
-    void            *function;                       /* 0x015C */
-    u16              flags;                          /* 0x0160 */
-    u8               unk_0x162[0x02];                /* 0x0162 */
-    void            *path_list;                      /* 0x0164 */
-    s16              speed;                          /* 0x0168 */
-    u8               unk_0x16A[0x26];                /* 0x016A */
-} z2_bg_ingate_t;                                    /* 0x0190 */
+typedef struct {
+    /* 0x000 */ Actor base;
+    /* 0x144 */ UNK_TYPE1 pad144[0x18];
+    /* 0x15C */ void* function;
+    /* 0x160 */ u16 flags;
+    /* 0x162 */ UNK_TYPE1 pad162[0x2];
+    /* 0x164 */ void* pathList;
+    /* 0x168 */ s16 speed;
+    /* 0x16A */ UNK_TYPE1 pad16A[0x26];
+} ActorBgIngate; // size = 0x190
 
 /// =============================================================
 /// Actor Cutscene
