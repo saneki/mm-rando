@@ -1564,6 +1564,13 @@ struct z2_game_s {
 /// Savefile Structure
 /// =============================================================
 
+typedef struct {
+    /* 0x0 */ u16 transitionState;
+    /* 0x2 */ u16 state;
+    /* 0x4 */ u16 alphaTransition;
+    /* 0x6 */ u16 previousState;
+} ButtonsState; // size = 0x8
+
 typedef union {
     struct {
         s8 b;
@@ -1679,145 +1686,174 @@ typedef struct {
     /* 0x86 */ UNK_TYPE1 pad86[0x2];
 } SaveContextInventory; // size = 0x88
 
-typedef struct {
-    u16              transition_state;               /* 0x0000 */
-    u16              state;                          /* 0x0002 */
-    u16              alpha_transition;               /* 0x0004 */
-    u16              previous_state;                 /* 0x0006 */
-} z2_buttons_state_t;                                /* 0x0008 */
+typedef union {
+    struct {
+        /* 0x00 */ u32 chestFlags;
+        /* 0x04 */ u32 switchFlags[2];
+        /* 0x0C */ u32 clearedRooms;
+        /* 0x10 */ u32 collectibleFlags;
+    };
+    u32 flags[5];
+    u8 bytes[0x14];
+} CycleSceneFlags; // size = 0x14
 
-/**
- * Scene flags, stored in z2_file_t.
- */
-typedef struct {
-    u32              chest;                          /* 0x0000 */
-    u32              switch1;                        /* 0x0004 */
-    u32              switch2;                        /* 0x0008 */
-    u32              clear;                          /* 0x000C */
-    u32              collectible;                    /* 0x0010 */
-} z2_scene_flags_t;                                  /* 0x0014 */
+typedef union {
+    struct {
+        /* 0x00 */ u32 chestFlags;
+        /* 0x04 */ u32 switchFlags[2];
+        /* 0x0C */ u32 clearedRooms;
+        /* 0x10 */ u32 collectibleFlags;
+        /* 0x14 */ u32 unk14;
+        /* 0x18 */ u32 unk18;
+    };
+    u32 flags[7];
+    u8 bytes[0x1C];
+} PermanentSceneFlags; // size = 0x1C
 
-/**
- * Save scene flags, stored in z2_file_t.
- **/
-typedef struct {
-    u32              chest;                          /* 0x0000 */
-    u32              switch1;                        /* 0x0004 */
-    u32              switch2;                        /* 0x0008 */
-    u32              clear;                          /* 0x000C */
-    u32              collectible;                    /* 0x0010 */
-    u32              unk_0x14;                       /* 0x0014 */
-    u32              unk_0x18;                       /* 0x0018 */
-} z2_save_scene_flags_t;                             /* 0x001C */
+#define HasInfiniteMagic(Save) (((Save).perm.weekEventReg[0xE] & 8) != 0)
+#define SetInfiniteMagic(Save) ((Save).perm.weekEventReg[0xE] |= 8)
+#define HasGreatSpin(Save) ((Save).perm.weekEventReg[0x17])
 
-#define HasInfiniteMagic(Save) (((Save).week_event_inf[0xE] & 8) != 0)
-#define SetInfiniteMagic(Save) ((Save).week_event_inf[0xE] |= 8)
-#define HasGreatSpin(Save) ((Save).week_event_inf[0x17])
+typedef struct {
+    /* 0x00 */ u8 zelda[6]; // Will always be "ZELDA3" for a valid save
+    /* 0x06 */ UNK_TYPE1 pad6[0xA];
+    /* 0x10 */ s16 maxLife;
+    /* 0x12 */ s16 currentLife;
+    /* 0x14 */ u8 magicLevel;
+    /* 0x15 */ s8 currentMagic;
+    /* 0x16 */ u16 rupees;
+    /* 0x18 */ u32 tatlTimer;
+    /* 0x1C */ u8 hasMagic;
+    /* 0x1D */ u8 hasDoubleMagic;
+    /* 0x1E */ u8 hasDoubleDefense;
+    /* 0x1F */ UNK_TYPE1 pad1F[0x3];
+    /* 0x22 */ SaveContextOwlsActive owlsHit;
+    /* 0x24 */ UNK_TYPE1 pad48[0x4];
+} SaveContext_struct1; // size = 0x28
+
+typedef struct {
+    /* 0x00 */ SaveContextButtonSet formButtonItems[4];
+    /* 0x10 */ SaveContextButtonSet formButtonSlots[4];
+    /* 0x20 */ SaveContextEquipment equipment;
+} SaveContext_struct2; // size = 0x22
+
+typedef struct {
+    /* 0x0000 */ SaveContextEntrance entrance;
+    /* 0x0004 */ u8 mask;
+    /* 0x0005 */ u8 introFlag;
+    /* 0x0006 */ u8 mashTimer;
+    /* 0x0007 */ UNK_TYPE1 unk7;
+    /* 0x0008 */ u32 cutscene;
+    /* 0x000C */ u16 time;
+    /* 0x000E */ u16 owlLoad;
+    /* 0x0010 */ u32 isNight;
+    /* 0x0014 */ s32 timeSpeed;
+    /* 0x0018 */ u32 day;
+    /* 0x001C */ u32 daysElapsed;
+    /* 0x0020 */ u8 currentForm;
+    /* 0x0021 */ UNK_TYPE1 pad21;
+    /* 0x0022 */ u8 tatlFlag;
+    /* 0x0023 */ u8 owlSave;
+    /* 0x0024 */ SaveContext_struct1 unk24;
+    /* 0x004C */ SaveContext_struct2 unk4C;
+    /* 0x006E */ UNK_TYPE1 pad6E[0x2];
+    /* 0x0070 */ SaveContextInventory inv;
+    /* 0x00F8 */ PermanentSceneFlags sceneFlags[120];
+    /* 0x0E18 */ UNK_TYPE1 padE18[0x60];
+    /* 0x0E78 */ u32 pictoFlags0;
+    /* 0x0E7C */ u32 pictoFlags1;
+    /* 0x0E80 */ UNK_TYPE1 padE80[0x24];
+    /* 0x0EA4 */ u8 minimapBitfield[0x1C]; // Bit per scene indicating whether minimap is enabled.
+    /* 0x0EC0 */ u16 skullTokens[2];
+    /* 0x0EC4 */ UNK_TYPE1 padEC4[0x1A];
+    /* 0x0EDE */ u16 bankRupees;
+    /* 0x0EE0 */ UNK_TYPE1 padEE0[0x10];
+    /* 0x0EF0 */ u32 lotteryGuess;
+    /* 0x0EF4 */ UNK_TYPE1 padEF4[0x04];
+    // [0xF0C] & 0x01 = Woodfall Temple Raised
+    // [0xF0C] & 0x02 = Swamp Clear
+    // [0xF19] & 0x80 = Mountain Clear
+    // [0xF2C] & 0x20 = Canyon Clear
+    // [0xF2F] & 0x80 = Ocean Clear
+    /* 0x0EF8 */ u8 weekEventReg[100];
+    /* 0x0F5C */ u32 mapsVisited;
+    /* 0x0F60 */ u32 worldMapVisible; // 0x00007FFF is full map.
+    /* 0x0F64 */ UNK_TYPE1 padF64[0x88];
+    /* 0x0FEC */ u8 lotteryCodes[9];
+    /* 0x0FF5 */ u8 spiderHouseMaskOrder[6];
+    /* 0x0FFB */ u8 bomberCode[5];
+    /* 0x1000 */ UNK_TYPE1 pad1000[0xA];
+    /* 0x100A */ u16 checksum;
+} SaveContextPerm; // size = 0x100C
+
+// Save Context that is only stored in an owl save
+typedef struct {
+    /* 0x0000 */ u8 eventInf[8];
+    // (cleared if you leave temple)
+    // [5] & 0x40 = Gyorg Intro cutscene seen
+    // [5] & 0x20 = Twinmold Intro cutscene seen
+    // [5] & 0x10 = Odolwa Intro cutscene seen
+    // [5] & 0x08 = Goht Unfrozen cutscene seen
+    // [6] & 0x04 = Goht Intro cutscene seen
+    // [6] & 0x02 = Majora Intro cutscene seen
+    /* 0x0008 */ UNK_TYPE1 pad8[0x2];
+    /* 0x000A */ u16 jinxCounter;
+    /* 0x000C */ s16 rupeeCounter;
+    /* 0x000E */ UNK_TYPE1 padE[0xC6];
+    /* 0x00D4 */ u8 pictoboxPhoto[0x2BC0];
+} SaveContextOwl; // size = 0x2C94
+
+// Extra information in the save context that is not saved
+typedef struct {
+    /* 0x000 */ s32 fileIndex;
+    /* 0x004 */ UNK_TYPE1 pad4[0x4];
+    /* 0x008 */ u32 titleSetupIndex;
+    /* 0x00C */ s32 sceneSetupIndex;
+    /* 0x010 */ s32 voidFlag;
+    /* 0x014 */ UNK_TYPE1 pad14[0x2E];
+    /* 0x042 */ s16 unk42;
+    /* 0x044 */ UNK_TYPE1 pad44[0x43];
+    // u16 64 = after death entrance
+    /* 0x087 */ s8 unk87;
+    /* 0x088 */ UNK_TYPE1 pad88[0xA8];
+    /* 0x130 */ u8 timers[0x40];
+    /* 0x170 */ UNK_TYPE1 pad170[0x106];
+    /* 0x276 */ u8 unk276;
+    /* 0x277 */ UNK_TYPE1 unk277;
+    /* 0x278 */ u8 buttonsUsable[5];
+    /* 0x27D */ UNK_TYPE1 pad27D[0x3];
+    /* 0x280 */ ButtonsState buttonsState;
+    /* 0x288 */ s16 magicConsumeState;
+    /* 0x28A */ UNK_TYPE1 pad28A[0x4];
+    /* 0x28E */ u16 magicMeterSize;
+    /* 0x290 */ UNK_TYPE1 pad290[0x2];
+    /* 0x292 */ s16 magicConsumeCost;
+    /* 0x294 */ UNK_TYPE1 pad294[0x6];
+    /* 0x29A */ u16 minigameCounter[2];
+    /* 0x29E */ UNK_TYPE1 pad29E[0xE];
+    /* 0x2AC */ u8 cutsceneTrigger;
+    /* 0x2AD */ UNK_TYPE1 pad2AD[0x5];
+    /* 0x2B2 */ u16 environmentTime;
+    /* 0x2B4 */ UNK_TYPE1 pad2B4[0x4];
+    /* 0x2B8 */ s16 unk2b8;
+    /* 0x2BA */ UNK_TYPE1 pad2BA[0xA];
+    /* 0x2C4 */ f32 unk2C4;
+    /* 0x2C8 */ CycleSceneFlags cycleSceneFlags[120];
+} SaveContextExtra; // size = 0xC28
 
 /**
  * Savefile structure.
  **/
 typedef struct {
-    SaveContextEntrance entrance;                    /* 0x0000 */
-    u8               mask;                           /* 0x0004 */
-    u8               intro_flag;                     /* 0x0005 */
-    u8               mash_timer;                     /* 0x0006 */
-    u8               unk_0x07;                       /* 0x0007 */
-    u32              cutscene_id;                    /* 0x0008 */
-    u16              time_of_day;                    /* 0x000C */
-    u16              owl_load;                       /* 0x000E */
-    u32              daynight;                       /* 0x0010 */
-    s32              timespeed;                      /* 0x0014 */
-    u32              day;                            /* 0x0018 */
-    u32              elapsed_days;                   /* 0x001C */
-    u8               current_form;                   /* 0x0020 */
-    u8               unk_0x21;                       /* 0x0021 */
-    u8               tatl_flag;                      /* 0x0022 */
-    u8               owl_save;                       /* 0x0023 */
-    char             zelda3[0x06];                   /* 0x0024 */
-    u16              sot_count;                      /* 0x002A */
-    u8               name[0x08];                     /* 0x002C */
-    u16              max_health;                     /* 0x0034 */
-    u16              current_health;                 /* 0x0036 */
-    u8               magic_level;                    /* 0x0038 */
-    s8               current_magic;                  /* 0x0039 */
-    u16              rupees;                         /* 0x003A */
-    u32              tatl_timer;                     /* 0x003C */
-    u8               has_magic;                      /* 0x0040 */
-    u8               has_double_magic;               /* 0x0041 */
-    u8               has_double_defense;             /* 0x0042 */
-    u8               unk_0x43[0x03];                 /* 0x0043 */
-    SaveContextOwlsActive owlsHit;                   /* 0x0046 */
-    char             unk_0x48[0x04];                 /* 0x0048 */
-    SaveContextButtonSet formButtonItems[0x04];      /* 0x004C */
-    SaveContextButtonSet formButtonSlots[0x04];      /* 0x005C */
-    SaveContextEquipment equipment;                  /* 0x006C */
-    char             unk_0x6E[0x02];                 /* 0x006E */
-    SaveContextInventory inv;                        /* 0x0070 */
-    z2_save_scene_flags_t save_scene_flags[0x78];    /* 0x00F8 */
-    u8               unk_0xE18[0xA8];                /* 0x0E18 */
-    // 0EA4 = 0x1C byte length bit field. bit per scene indicating whether minimap is enabled
-    u16              skull_tokens_1;                 /* 0x0EC0 */
-    u16              skull_tokens_2;                 /* 0x0EC2 */
-    u8               unk_0xEC4[0x1A];                /* 0x0EC4 */
-    u16              bank_rupees;                    /* 0x0EDE */
-    u8               unk_0xEE0[0x10];                /* 0x0EE0 */
-    u32              lottery_guess;                  /* 0x0EF0 */
-    u8               unk_0xEF4[0x04];                /* 0x0EF4 */
-    // 0F0C & 0x01 = Woodfall Temple Raised
-    // 0F0C & 0x02 = Swamp Clear
-    // 0F19 & 0x80 = Mountain Clear
-    // 0F2C & 0x20 = Canyon Clear
-    // 0F2F & 0x80 = Ocean Clear
-    u8               week_event_inf[0x64];           /* 0x0EF8 */
-    u32              locations_visited;              /* 0x0F5C */
-    u32              world_map_visible;              /* 0x0F60 */ // 0x00007FFF is full map
-    u8               unk_0xF60[0x88];                /* 0x0F64 */
-    u8               lotteries[0x09];                /* 0x0FEC */
-    u8               spider_masks[0x06];             /* 0x0FF5 */
-    u8               bomber_code[0x05];              /* 0x0FFB */
-    u8               unk_0x1000[0x0A];               /* 0x1000 */
-    u16              checksum;                       /* 0x100A */
-    u8               event_inf[0x08];                /* 0x100C */
-    // (cleared if you leave temple)
-    // 1011 & 0x40 = Gyorg Intro cutscene seen
-    // 1011 & 0x20 = Twinmold Intro cutscene seen
-    // 1011 & 0x10 = Odolwa Intro cutscene seen
-    // 1011 & 0x08 = Goht Unfrozen cutscene seen
-    // 1012 & 0x04 = Goht Intro cutscene seen
-    // 1012 & 0x02 = Majora Intro cutscene seen
-    u8               unk_0x1014[0x02];               /* 0x1014 */
-    u16              jinx_timer;                     /* 0x1016 */
-    s16              rupee_timer;                    /* 0x1018 */
-    u8               unk_0x101A[0xC6];               /* 0x101A */
-    u8               pictobox_photo[0x2BC0];         /* 0x10E0 */
-    s32              file_index;                     /* 0x3CA0 */
-    u8               unk_0x3CA4[0x04];               /* 0x3CA4 */
-    u32              title_screen_mod;               /* 0x3CA8 */
-    u32              entrance_mod;                   /* 0x3CAC */
-    s32              void_flag;                      /* 0x3CB0 */
-    u8               unk_0x3CB4[0x11C];              /* 0x3CB4 */
-    // u16 3D04 = after death entrance
-    u8               timers[0x40];                   /* 0x3DD0 */
-    u8               unk_0x3E10[0x108];              /* 0x3E10‬ */
-    u8               buttons_usable[0x05];           /* 0x3F18, B, C-left, C-down, C-right, A buttons. */
-    u8               unk_0x3F1D[0x03];               /* 0x3F1D */
-    z2_buttons_state_t buttons_state;                /* 0x3F20 */
-    s16              magic_consume_state;            /* 0x3F28 */
-    u8               unk_0x3F2A[0x04];               /* 0x3F2A */
-    u16              magic_meter_size;               /* 0x3F2E */
-    u8               unk_0x3F30[0x02];               /* 0x3F30 */
-    s16              magic_consume_cost;             /* 0x3F32 */
-    u8               unk_0x3F34[0x06];               /* 0x3F34 */
-    u16              minigame_counter;               /* 0x3F3A */
-    u16              minigame_counter_2;             /* 0x3F3C */
-    u8               unk_0x3F3E[0x2A];               /* 0x3F3E */
-    z2_scene_flags_t scene_flags[0x78];              /* 0x3F68 */
-    u8               unk_0x48C8[0x1010];             /* 0x48C8 */
-    z2_color_rgb16_t heart_dd_beating_rgb;           /* 0x58D8 */
-    u8               unk_0x58DE[0x12];               /* 0x58DE */
-    z2_color_rgb16_t heart_dd_rgb;                   /* 0x58F0 */
-} z2_file_t;                                         /* 0x58F6 */
+    /* 0x0000 */ SaveContextPerm perm;
+    /* 0x100C */ SaveContextOwl owl;
+    /* 0x3CA0 */ SaveContextExtra extra;
+    // Todo: Move these fields later?
+    /* 0x48C8 */ UNK_TYPE1 pad48C8[0x1010];
+    /* 0x58D8 */ z2_color_rgb16_t heartDdBeatingRgb;
+    /* 0x58DE */ UNK_TYPE1 pad58DE[0x12];
+    /* 0x58F0 */ z2_color_rgb16_t heartDdRgb;
+} SaveContext; // size = 0x58F6
 
 /// =============================================================
 /// Actor Structures
@@ -2409,7 +2445,7 @@ typedef struct {
 /* Data */
 #define z2_actor_ovl_table               ((ActorOverlay*)            z2_actor_ovl_table_addr)
 #define z2_ctxt                          (*(z2_ctxt_t*)              z2_ctxt_addr)
-#define z2_file                          (*(z2_file_t*)              z2_file_addr)
+#define z2_file                          (*(SaveContext*)            z2_file_addr)
 #define z2_file_table                    ((z2_file_table_t*)         z2_file_table_addr)
 #define z2_game                          (*(z2_game_t*)              z2_game_addr)
 #define z2_gamestate                     (*(GameStateTable*)         z2_gamestate_addr)

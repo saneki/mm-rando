@@ -163,21 +163,21 @@ static void handle_chateau_effect(z2_game_t *game, ActorPlayer *link) {
 
     // Refill magic
     if (g_refill_magic) {
-        u8 total = (u8)z2_file.magic_meter_size;
-        u8 remaining = total - z2_file.current_magic;
+        u8 total = (u8)z2_file.extra.magicMeterSize;
+        u8 remaining = total - z2_file.perm.unk24.currentMagic;
 
         // Increment by 2 magic points per frame
         if (remaining >= 2) {
-            z2_file.current_magic += 2;
+            z2_file.perm.unk24.currentMagic += 2;
             z2_PlaySfx(0x401F);
         } else if (remaining == 1) {
-            z2_file.current_magic += 1;
+            z2_file.perm.unk24.currentMagic += 1;
             z2_PlaySfx(0x401F);
         }
 
         // If full, stop refilling magic
-        if (z2_file.current_magic >= total) {
-            z2_file.current_magic = total; // Just in case
+        if (z2_file.perm.unk24.currentMagic >= total) {
+            z2_file.perm.unk24.currentMagic = total; // Just in case
             g_refill_magic = false;
         }
     }
@@ -237,14 +237,14 @@ static void handle_jinx_effect(z2_game_t *game, ActorPlayer *link) {
     if (g_external_effects.jinx) {
         // Add multiple of JINX_AMOUNT to jinx timer
         u32 amount = g_external_effects.jinx * JINX_AMOUNT;
-        u32 timer = z2_file.jinx_timer + amount;
+        u32 timer = z2_file.owl.jinxCounter + amount;
         timer = (timer < JINX_MAX ? timer : JINX_MAX);
-        z2_file.jinx_timer = (u16)timer;
+        z2_file.owl.jinxCounter = (u16)timer;
 
         g_external_effects.jinx = 0;
         g_jinxed = true;
 
-        g_previous_jinx_value = z2_file.jinx_timer;
+        g_previous_jinx_value = z2_file.owl.jinxCounter;
     }
 
     // This is a special jinx, players cannot Song of Storms out of it.
@@ -256,14 +256,14 @@ static void handle_jinx_effect(z2_game_t *game, ActorPlayer *link) {
         }
 
         // If actual value is less than expected, this means Song of Storms was played or went back in time.
-        if (z2_file.jinx_timer < expected) {
-            z2_file.jinx_timer = expected;
-        } else if (z2_file.jinx_timer == 0) {
+        if (z2_file.owl.jinxCounter < expected) {
+            z2_file.owl.jinxCounter = expected;
+        } else if (z2_file.owl.jinxCounter == 0) {
             // Once the timer hits 0, disable our special jinx state.
             g_jinxed = false;
         }
 
-        g_previous_jinx_value = z2_file.jinx_timer;
+        g_previous_jinx_value = z2_file.owl.jinxCounter;
     }
 }
 
