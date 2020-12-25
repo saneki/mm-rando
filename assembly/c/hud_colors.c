@@ -424,9 +424,9 @@ void hud_colors_main_menu_init(void) {
  **/
 void hud_colors_update_score_lines_color(z2_game_t *game) {
     // Update song score lines color.
-    game->msgbox_ctxt.score_line_color.r = HUD_COLOR_CONFIG.score_lines.r;
-    game->msgbox_ctxt.score_line_color.g = HUD_COLOR_CONFIG.score_lines.g;
-    game->msgbox_ctxt.score_line_color.b = HUD_COLOR_CONFIG.score_lines.b;
+    game->msgCtx.scoreLineColor.r = HUD_COLOR_CONFIG.score_lines.r;
+    game->msgCtx.scoreLineColor.g = HUD_COLOR_CONFIG.score_lines.g;
+    game->msgCtx.scoreLineColor.b = HUD_COLOR_CONFIG.score_lines.b;
 }
 
 /**

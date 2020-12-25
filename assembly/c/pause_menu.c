@@ -181,7 +181,7 @@ bool pause_menu_select_item_show_a_button_enabled(z2_game_t *game) {
         return true;
     } else {
         // Perform original check.
-        return game->msgbox_ctxt.unk_0x1F10 == 0;
+        return game->msgCtx.unk11F10 == 0;
     }
 }
 
