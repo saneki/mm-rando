@@ -287,7 +287,7 @@ bool models_draw_stray_fairy(Actor *actor, z2_game_t *game) {
         // Check if we are drawing a stray fairy.
         if (models_is_stray_fairy_model(model)) {
             // Update stray fairy actor according to type, and perform original draw.
-            z2_en_elforg_t *elforg = (z2_en_elforg_t *)actor;
+            ActorEnElforg *elforg = (ActorEnElforg *)actor;
             u8 fairy_type = entry->type >> 4;
             elforg->color = fairy_type;
             return false;
@@ -509,11 +509,11 @@ bool models_draw_seahorse(Actor *actor, z2_game_t *game) {
     return false;
 }
 
-void models_draw_shop_inventory(z2_en_girla_t *actor, z2_game_t *game, u32 graphic_id_minus_1) {
+void models_draw_shop_inventory(ActorEnGirlA *actor, z2_game_t *game, u32 graphic_id_minus_1) {
     if (MISC_CONFIG.shop_models) {
-        models_draw_from_gi_table(&(actor->common), game, 1.0, actor->gi_index);
+        models_draw_from_gi_table(&(actor->base), game, 1.0, actor->giIndex);
     } else {
-        draw_model_low_level(&(actor->common), game, graphic_id_minus_1);
+        draw_model_low_level(&(actor->base), game, graphic_id_minus_1);
     }
 }
 

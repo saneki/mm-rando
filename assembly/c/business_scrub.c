@@ -41,8 +41,8 @@ void business_scrub_consume_item(Actor *actor) {
     }
 }
 
-u16 business_scrub_set_initial_message(z2_en_akindonuts_t *actor, z2_game_t *game) {
-    u16 type = actor->common.params & 3;
+u16 business_scrub_set_initial_message(ActorEnAkindonuts *actor, z2_game_t *game) {
+    u16 type = actor->base.params & 3;
     bool flyAway = false;
     u16 result;
     if (type == 0) {
@@ -74,6 +74,6 @@ u16 business_scrub_set_initial_message(z2_en_akindonuts_t *actor, z2_game_t *gam
         result = 0x1638;
         actor->state |= 0x20;
     }
-    actor->last_message_id = result;
+    actor->lastMessageId = result;
     return result;
 }
