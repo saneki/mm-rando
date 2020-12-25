@@ -2216,18 +2216,18 @@ typedef struct {
 /// Actor Cutscene
 /// =============================================================
 
-typedef struct z2_actor_cutscene_s {
-    s16              priority;                       /* 0x0000 */
-    s16              length;                         /* 0x0002 */
-    s16              unk_0x04;                       /* 0x0004 */
-    s16              unk_0x06;                       /* 0x0006 */
-    s16              additionalCutscene;             /* 0x0008 */
-    u8               sound;                          /* 0x000A */
-    u8               unk_0x0B;                       /* 0x000B */
-    s16              unk_0x0C;                       /* 0x000C */
-    u8               unk_0x0E;                       /* 0x000E */
-    u8               letterboxSize;                  /* 0x000F */
-} z2_actor_cutscene_t;                               /* 0x0010 */
+typedef struct {
+    /* 0x0 */ s16 priority; // Lower means higher priority. -1 means it ignores priority
+    /* 0x2 */ s16 length;
+    /* 0x4 */ s16 unk4;
+    /* 0x6 */ s16 unk6;
+    /* 0x8 */ s16 additionalCutscene;
+    /* 0xA */ u8 sound;
+    /* 0xB */ u8 unkB;
+    /* 0xC */ s16 unkC;
+    /* 0xE */ u8 unkE;
+    /* 0xF */ u8 letterboxSize;
+} ActorCutscene; // size = 0x10
 
 /// =============================================================
 /// Arenas
@@ -2633,7 +2633,7 @@ typedef s16 (*z2_ActorCutscene_StartAndSetFlag_proc)(s16 index, Actor *actor);
 typedef s16 (*z2_ActorCutscene_Start_proc)(s16 index, Actor *actor);
 typedef s16 (*z2_ActorCutscene_Stop_proc)(s16 index);
 typedef s16 (*z2_ActorCutscene_GetCurrentIndex_proc)(void);
-typedef z2_actor_cutscene_t * (*z2_ActorCutscene_GetCutscene_proc)(s16 index);
+typedef ActorCutscene* (*z2_ActorCutscene_GetCutscene_proc)(s16 index);
 typedef s16 (*z2_ActorCutscene_GetAdditionalCutscene_proc)(s16 index);
 typedef s16 (*z2_ActorCutscene_GetLength_proc)(s16 index);
 typedef s16 (*z2_ActorCutscene_GetCurrentCamera_proc)(void);
