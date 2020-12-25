@@ -18,7 +18,7 @@ static Vtx* g_vertex[3] = {
 
 static Vtx* get_vtx_buffer(z2_game_t *game, u32 vert_idx, int slot) {
     // Get vertex of current icon drawing to Item Select screen
-    const Vtx *src_vtx = (game->pause_ctxt.vtx_buf + vert_idx);
+    const Vtx *src_vtx = (game->pauseCtx.vtxBuf + vert_idx);
 
     // Get dest Vtx (factor in frame counter)
     int framebufidx = (game->common.gfx->displayListCounter & 1);
@@ -43,7 +43,7 @@ static Vtx* get_vtx_buffer(z2_game_t *game, u32 vert_idx, int slot) {
 static void draw_icon(GraphicsContext *gfx, const Vtx *vtx, u32 seg_addr, u16 width, u16 height, u16 qidx) {
     DispBuf *db = &(gfx->polyOpa);
     // Instructions that happen before function
-    gDPSetPrimColor(db->p++, 0, 0, 0xFF, 0xFF, 0xFF, gfx->globalContext->pause_ctxt.item_alpha & 0xFF);
+    gDPSetPrimColor(db->p++, 0, 0, 0xFF, 0xFF, 0xFF, gfx->globalContext->pauseCtx.itemAlpha & 0xFF);
     gSPVertex(db->p++, vtx, 4, 0); // Loads 4 vertices from RDRAM
     // Instructions that happen during function.
     gDPSetTextureImage(db->p++, G_IM_FMT_RGBA, G_IM_SIZ_32b, 1, (void*)seg_addr);
@@ -81,7 +81,7 @@ static bool is_quest_item_in_correct_slot(u8 item, int slot) {
 
 static bool is_quest_item_with_storage_selected(z2_game_t *game) {
     // Get cell and selected item.
-    s16 cell = game->pause_ctxt.cells_1.item;
+    s16 cell = game->pauseCtx.cells1.item;
     u8 item = z2_file.perm.inv.items[cell];
 
     // Check if on a quest item slot.
@@ -94,7 +94,7 @@ static bool is_quest_item_with_storage_selected(z2_game_t *game) {
     u8 next = quest_item_storage_next(&SAVE_FILE_CONFIG.quest_storage, item);
 
     // Check if on "Z" or "R" side buttons.
-    bool side = game->pause_ctxt.side_button != 0;
+    bool side = game->pauseCtx.sideButton != 0;
 
     return (quest && correct_slot && !side && item != Z2_ITEM_NONE && next != Z2_ITEM_NONE);
 }
@@ -153,7 +153,7 @@ void pause_menu_select_item_subscreen_after_process(z2_game_t *game) {
  **/
 bool pause_menu_select_item_process_a_button(z2_game_t *game, u32 cur_val, u32 none_val) {
     if (MISC_CONFIG.quest_item_storage && is_quest_item_with_storage_selected(game)) {
-        s16 cell = game->pause_ctxt.cells_1.item;
+        s16 cell = game->pauseCtx.cells1.item;
         if (cur_val != none_val) {
             u8 item = (u8)cur_val;
             // Check input for A button, and swap to next quest item.
