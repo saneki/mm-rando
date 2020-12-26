@@ -1,9 +1,9 @@
-boat_cruise_before_cruise_end_hook:
+BoatCruise_BeforeCruiseEnd_Hook:
     addiu   sp, sp, -0x20
     sw      ra, 0x0018 (sp)
     sw      a0, 0x0010 (sp)
 
-    jal     boat_cruise_before_cruise_end
+    jal     BoatCruise_BeforeCruiseEnd
     sw      a1, 0x0014 (sp)
 
     ; Displaced code
@@ -16,15 +16,15 @@ boat_cruise_before_cruise_end_hook:
     jr      ra
     addiu   sp, sp, 0x20
 
-boat_cruise_get_boat_speed_archery_hook:
-    j       boat_cruise_get_boat_speed_hook
+BoatCruise_GetBoatSpeedArchery_Hook:
+    j       BoatCruise_GetBoatSpeed_Hook
     ori     a1, r0, 0x0001
 
-boat_cruise_get_boat_speed_cruise_hook:
-    j       boat_cruise_get_boat_speed_hook
+BoatCruise_GetBoatSpeedCruise_Hook:
+    j       BoatCruise_GetBoatSpeed_Hook
     or      a1, r0, r0
 
-boat_cruise_get_boat_speed_hook:
+BoatCruise_GetBoatSpeed_Hook:
     ; Displaced code
     sw      t0, 0x0180 (a0)
 
@@ -32,7 +32,7 @@ boat_cruise_get_boat_speed_hook:
     sw      ra, 0x0018 (sp)
     sw      a0, 0x0010 (sp)
 
-    jal     boat_cruise_get_boat_speed
+    jal     BoatCruise_GetBoatSpeed
     sw      t5, 0x0014 (sp)
 
     lw      a0, 0x0010 (sp)
@@ -41,12 +41,12 @@ boat_cruise_get_boat_speed_hook:
     jr      ra
     addiu   sp, sp, 0x20
 
-boat_cruise_should_end_archery_hook:
+BoatCruise_ShouldEndArchery_Hook:
     addiu   sp, sp, -0x18
     sw      ra, 0x0014 (sp)
     sw      v1, 0x0010 (sp)
 
-    jal     boat_cruise_should_end_archery
+    jal     BoatCruise_ShouldEndArchery
     or      a0, s0, r0
 
     lw      v1, 0x0010 (sp)

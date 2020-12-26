@@ -184,7 +184,7 @@
 ;   nop
 ;   lw      t9, 0x0164 (s0)
 .org 0x8095403C ; Offset: 0x5AC
-    jal     boat_cruise_should_end_archery_hook
+    jal     BoatCruise_ShouldEndArchery_Hook
     lw      a1, 0x002C (sp)
     beqz    v0, 0x809540F0
     lw      t9, 0x0164 (s0)
@@ -196,7 +196,7 @@
 ;   jr      ra
 ;   nop
 .org 0x80953F8C ; Offset: 0x4FC
-    j       boat_cruise_handle_idle
+    j       BoatCruise_HandleIdle
     nop
     nop
     nop
@@ -208,7 +208,7 @@
 ;   sw      ra, 0x0014 (sp)
 .org 0x809542A4 ; Offset: 0x814
     sw      ra, 0x0014 (sp)
-    jal     boat_cruise_before_cruise_end_hook
+    jal     BoatCruise_BeforeCruiseEnd_Hook
     nop
 
 ;==================================================================================================
@@ -231,7 +231,7 @@
     bnezl   t7, 0x80953B6C
     addiu   t0, r0, 0x07D0
     sw      ra, 0x0000 (sp)
-    jal     boat_cruise_get_boat_speed_cruise_hook
+    jal     BoatCruise_GetBoatSpeedCruise_Hook
     addiu   t0, r0, 0x0FA0
     b       0x80953B7C
     sh      v0, 0x0168 (a0)
@@ -245,7 +245,7 @@
 ;   sh      t1, 0x0168 (a0)
 .org 0x80953B6C ; Offset: 0xDC
     sw      ra, 0x0000 (sp)
-    jal     boat_cruise_get_boat_speed_archery_hook
+    jal     BoatCruise_GetBoatSpeedArchery_Hook
     sw      t0, 0x0180 (a0)
     sh      v0, 0x0168 (a0)
 
