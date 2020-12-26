@@ -54,11 +54,11 @@ BoatCruise_ShouldEndArchery_Hook:
     jr      ra
     addiu   sp, sp, 0x18
 
-fisherman_boat_get_accel_speed_hook:
+Fisherman_BoatGetAccelSpeed_Hook:
     addiu   sp, sp, -0x18
     sw      ra, 0x0014 (sp)
 
-    jal     fisherman_boat_get_accel_speed
+    jal     Fisherman_BoatGetAccelSpeed
     or      a0, s0, r0
 
     ; Move result into A2.
@@ -68,11 +68,11 @@ fisherman_boat_get_accel_speed_hook:
     jr      ra
     addiu   sp, sp, 0x18
 
-fisherman_boat_get_top_speed_hook:
+Fisherman_BoatGetTopSpeed_Hook:
     addiu   sp, sp, -0x18
     sw      ra, 0x0014 (sp)
 
-    jal     fisherman_boat_get_top_speed
+    jal     Fisherman_BoatGetTopSpeed
     or      a0, s0, r0
 
     ; Move result into AT.
@@ -85,16 +85,16 @@ fisherman_boat_get_top_speed_hook:
     jr      ra
     addiu   sp, sp, 0x18
 
-fisherman_should_end_game_hook:
-    j       fisherman_should_end_game
+Fisherman_ShouldEndGame_Hook:
+    j       Fisherman_ShouldEndGame
     or      a0, s0, r0
 
-fisherman_should_pass_timer_check_hook:
+Fisherman_ShouldPassTimerCheck_Hook:
     addiu   sp, sp, -0x18
     sw      ra, 0x0014 (sp)
     sw      v1, 0x0010 (sp)
 
-    jal     fisherman_should_pass_timer_check
+    jal     Fisherman_ShouldPassTimerCheck
     or      a0, s0, r0
 
     ; Displaced code

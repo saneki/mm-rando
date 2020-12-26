@@ -7,8 +7,8 @@
  *
  * If speedup is enabled, checks if player has enough points to end early.
  **/
-bool fisherman_should_end_game(Actor *actor, GlobalContext *game, u32 timer_hi, u32 timer_lo) {
-    bool timeout = (timer_hi == 0 && timer_lo == 0);
+bool Fisherman_ShouldEndGame(Actor* actor, GlobalContext* ctxt, u32 timerHi, u32 timerLo) {
+    bool timeout = (timerHi == 0 && timerLo == 0);
     return ((MISC_CONFIG.speedups.fisherman_game && gSaveContext.extra.minigameCounter[0] >= 20) || timeout);
 }
 
@@ -17,11 +17,11 @@ bool fisherman_should_end_game(Actor *actor, GlobalContext *game, u32 timer_hi, 
  *
  * If speedup is enabled the minigame ends early, so ignores the timer check.
  **/
-bool fisherman_should_pass_timer_check(Actor *actor, GlobalContext *game, u32 timer_hi, u32 timer_lo) {
+bool Fisherman_ShouldPassTimerCheck(Actor* actor, GlobalContext* ctxt, u32 timerHi, u32 timerLo) {
     if (MISC_CONFIG.speedups.fisherman_game) {
         return true;
     } else {
-        return timer_hi == 0 && timer_lo == 0;
+        return timerHi == 0 && timerLo == 0;
     }
 }
 
@@ -29,16 +29,16 @@ bool fisherman_should_pass_timer_check(Actor *actor, GlobalContext *game, u32 ti
  * Helper function for checking if the boat is within a specific radius of a point near the
  * platform.
  **/
-static bool fisherman_boat_is_near_platform(ActorObjBoat *boat, f32 distance) {
+static bool BoatIsNearPlatform(ActorObjBoat* boat, f32 distance) {
     // Check distance from specific point near platform.
-    Vec3f near_platform = { -455.0, 0.0, -680.0 };
-    return z2_Math_Vec3f_DistXZ(&boat->base.currPosRot.pos, &near_platform) < distance;
+    Vec3f nearPlatform = { -455.0, 0.0, -680.0 };
+    return z2_Math_Vec3f_DistXZ(&boat->base.currPosRot.pos, &nearPlatform) < distance;
 }
 
 /**
  * Helper function for checking if the boat is nearing the end of its path.
  **/
-static bool fisherman_boat_is_near_end(ActorObjBoat *boat) {
+static bool BoatIsNearEnd(ActorObjBoat* boat) {
     // Check that boat is moving forwards and near end of path progress.
     // Don't check for moving backwards, boat always seems to dock fine when going backwards
     // regardless of speed.
@@ -48,23 +48,22 @@ static bool fisherman_boat_is_near_end(ActorObjBoat *boat) {
 /**
  * Hook function used to get the top speed of the boat.
  **/
-f32 fisherman_boat_get_top_speed(ActorObjBoat *boat, GlobalContext *game) {
+f32 Fisherman_BoatGetTopSpeed(ActorObjBoat* boat, GlobalContext* ctxt) {
     if (MISC_CONFIG.speedups.fisherman_game && boat->base.params == 0x47F) {
         // Use higher speed unless boat is near the platform or the end of its path.
-        bool near_platform = fisherman_boat_is_near_platform(boat, 750.0);
-        bool near_end = fisherman_boat_is_near_end(boat);
-        if (!near_platform && !near_end) {
+        bool nearPlatform = BoatIsNearPlatform(boat, 750.0);
+        bool nearEnd = BoatIsNearEnd(boat);
+        if (!nearPlatform && !nearEnd) {
             return 7.5;
         }
     }
-
     return 3.0;
 }
 
 /**
  * Hook function used to get the acceleration speed of the boat.
  **/
-f32 fisherman_boat_get_accel_speed(ActorObjBoat *boat, GlobalContext *game) {
+f32 Fisherman_BoatGetAccelSpeed(ActorObjBoat* boat, GlobalContext* ctxt) {
     if (MISC_CONFIG.speedups.fisherman_game && boat->base.params == 0x47F) {
         // If moving forwards, use higher acceleration until near end of path.
         // If moving backwards, always use higher acceleration.
@@ -72,6 +71,5 @@ f32 fisherman_boat_get_accel_speed(ActorObjBoat *boat, GlobalContext *game) {
             return 0.2;
         }
     }
-
     return 0.05;
 }

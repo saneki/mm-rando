@@ -95,7 +95,7 @@
 .area 0x18
     lw      a3, 0x3E04 (v1)
     lw      a2, 0x3E00 (v1)
-    jal     fisherman_should_pass_timer_check_hook
+    jal     Fisherman_ShouldPassTimerCheck_Hook
     lw      a1, 0x0034 (sp)
     bnez    v0, 0x80C13C48
     lui     a1, 0x80C1 ; Preparing to load: 0x80C15030
@@ -117,7 +117,7 @@
     lw      a2, 0x3470 (a2)
     lui     a3, 0x801F
     lw      a3, 0x3474 (a3)
-    jal     fisherman_should_end_game_hook
+    jal     Fisherman_ShouldEndGame_Hook
     lw      a1, 0x002C (sp)
     beqz    v0, 0x80C144D0
     lw      a0, 0x002C (sp)
@@ -158,7 +158,7 @@
 ;   lh      t9, 0x001C (s0)
 ;   lui     at, 0x4040
 .org 0x80B9B338 ; Offset: 0x3E8
-    jal     fisherman_boat_get_top_speed_hook
+    jal     Fisherman_BoatGetTopSpeed_Hook
     lw      a1, 0x0010 (sp)
 
 ; Get acceleration speed of boat.
@@ -167,7 +167,7 @@
 ;   lui     a2, 0x3D4C
 ;   ori     a2, a2, 0xCCCD
 .org 0x80B9B3C4 ; Offset: 0x474
-    jal     fisherman_boat_get_accel_speed_hook
+    jal     Fisherman_BoatGetAccelSpeed_Hook
     lw      a1, 0x0010 (sp)
     lh      t5, 0x00BE (s0)
 
