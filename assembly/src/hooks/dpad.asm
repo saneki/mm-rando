@@ -8,7 +8,7 @@
 ;   sw      a0, 0x0068 (sp)
 ;   lw      t6, 0x0068 (sp)
 .org 0x80118898 ; In rom: 0xAFE8F8
-    jal     dpad_draw_hook
+    jal     Dpad_Draw_Hook
     sw      a0, 0x0068 (sp)
 
 ;==================================================================================================
@@ -23,7 +23,7 @@
 ;   sw      ra, 0x0034 (sp)
 .org 0x8082FE10 ; In RDRAM: 0x8074D2A0
     sw      ra, 0x0034 (sp)
-    jal     dpad_handle_hook
+    jal     Dpad_Handle_Hook
     sw      s0, 0x0030 (sp)
 
 ;==================================================================================================
@@ -34,5 +34,5 @@
 ;   lhu     v0, 0x000C (t8)
 ;   andi    v0, v0, 0xC00F ; Input pad flags
 .org 0x808555F0 ; In RDRAM: 0x80772A80
-    jal     dpad_skip_transformation_check_hook
+    jal     Dpad_SkipTransformationCheck_Hook
     lhu     v0, 0x000C (t8)
