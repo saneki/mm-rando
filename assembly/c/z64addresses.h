@@ -12,7 +12,7 @@
 #define ActorOverlayTableAddr            0x801AEFD0
 #define GetItemGraphicTableAddr          0x801BB170
 #define GameStateTableAddr               0x801BD910
-#define ItemSegaddrTableAddr             0x801C1E6C // Segment address table used for item textures.
+#define ItemTextureSegAddrTableAddr      0x801C1E6C // Segment address table used for item textures.
 #define ObjectTableAddr                  0x801C2740
 #define SongNotesAddr                    0x801CFC98
 #define SaveContextAddr                  0x801EF670
@@ -34,7 +34,7 @@
 #define s803824D0                        (*(StaticContext*)          StaticContextAddr)
 
 /* Data (non-struct) */
-#define z2_item_segaddr_table            ((u32*)                     ItemSegaddrTableAddr)
+#define gItemTextureSegAddrTable         ((u32*)                     ItemTextureSegAddrTableAddr)
 
 /* Data (Unknown) */
 #define s801BD8B0                        (*(struct_801BD8B0*)        0x801BD8B0)

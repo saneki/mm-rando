@@ -106,7 +106,7 @@ static bool is_quest_item_with_storage_selected(GlobalContext *game) {
  **/
 void pause_menu_select_item_draw_icon(GraphicsContext *gfx, u8 item, u16 width, u16 height, int slot, u16 quad_idx, u32 vert_idx) {
     // Call original function to draw underlying item texture
-    u32 orig_seg_addr = z2_item_segaddr_table[item];
+    u32 orig_seg_addr = gItemTextureSegAddrTable[item];
     z2_PauseDrawItemIcon(gfx, orig_seg_addr, width, height, quad_idx);
 
     // If quest item storage, draw next quest item texture on bottom-right of current texture
@@ -116,7 +116,7 @@ void pause_menu_select_item_draw_icon(GraphicsContext *gfx, u8 item, u16 width, 
             int sslot, unused;
             u8 next = quest_item_storage_next(storage, item);
             if (next != Z2_ITEM_NONE && quest_item_storage_get_slot(&sslot, &unused, next)) {
-                u32 seg_addr = z2_item_segaddr_table[next];
+                u32 seg_addr = gItemTextureSegAddrTable[next];
                 Vtx *vtx = get_vtx_buffer(gfx->globalContext, vert_idx, sslot);
                 draw_icon(gfx, vtx, seg_addr, width, height, quad_idx);
             }
