@@ -12,7 +12,7 @@
 ;   jal     0x800FEF2C
 ;   addiu   a2, r0, 0x0008
 .org 0x808A3400 ; Offset: 0x250
-    jal     elegy_speedup_get_statue_fade_speed_hook
+    jal     ElegySpeedup_GetStatueFadeSpeed_Hook
     or      a1, v0, r0
     addiu   a0, s0, 0x0192
     jal     0x800FEF2C
@@ -29,20 +29,20 @@
 .org 0x80A4C5D0 ; Offset: 0x140
     sw      ra, 0x0024 (sp)
     sw      s0, 0x0020 (sp)
-    jal     elegy_speedup_update_effect_position_hook
+    jal     ElegySpeedup_UpdateEffectPosition_Hook
     sw      a1, 0x002C (sp)
 
 ; Handle whether or not to darken the scene during Elegy animation.
 ; Replaces:
 ;   jal     0x800FD2B4
 .org 0x80A4C734
-    jal     elegy_speedup_handle_darken_hook
+    jal     ElegySpeedup_HandleDarken_Hook
 
 ; Handle whether or not to update the camera during Elegy animation.
 ; Replaces:
 ;   jal     0x800F1D84
 .org 0x80A4C760
-    jal     elegy_speedup_handle_camera_hook
+    jal     ElegySpeedup_HandleCamera_Hook
 
 .headersize(G_PLAYER_ACTOR_VRAM - G_PLAYER_ACTOR_FILE)
 
@@ -52,7 +52,7 @@
 ;   lh      t8, 0x00BE (s0)
 ;   addiu   t9, r0, 0x0014
 .org 0x80848684 ; Offset: 0x1ABF4
-    jal     elegy_speedup_get_statue_despawn_counter_hook
+    jal     ElegySpeedup_GetStatueDespawnCounter_Hook
     lw      v1, 0x004C (sp)
     lh      t8, 0x00BE (s0)
 
@@ -61,7 +61,7 @@
 ;   or      a2, a0, r0
 ;   or      a3, a1, r0
 .org 0x80855A84 ; Offset: 0x27FF4
-    jal     elegy_speedup_get_lock_params_hook
+    jal     ElegySpeedup_GetLockParams_Hook
     or      a2, a0, r0
 
 ; Set how many frames until Link is "unlocked".
@@ -91,7 +91,7 @@
 ;   swc1    f4, 0x0070 (s0)
 .org 0x80BC4248 ; Offset: 0x8C8
     lw      a1, 0x0024 (sp)
-    jal     elegy_speedup_get_block_speed_hook
+    jal     ElegySpeedup_GetBlockSpeed_Hook
     ori     a2, r0, 0
     lw      t6, 0x015C (s0)
     lw      v0, 0x0160 (s0)
@@ -107,7 +107,7 @@
 .org 0x80BC4468 ; Offset: 0xAE8
 .area 0x18
     lw      a1, 0x0024 (sp)
-    jal     elegy_speedup_get_block_speed_hook
+    jal     ElegySpeedup_GetBlockSpeed_Hook
     ori     a2, r0, 1
     lw      v0, 0x0160 (s0)
     blez    v0, 0x80BC448C
