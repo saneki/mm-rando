@@ -94,7 +94,7 @@ static bool dpad_are_c_items_disabled_by_entrance(z2_game_t *game) {
     // Id 0x8E10: Beaver Race
     // Id 0xD010: Goron Race
     // Checks execute state to prevent fading D-Pad when loading scene with entrance.
-    return (z2_file.perm.entrance.value == 0x8E10 || z2_file.perm.entrance.value == 0xD010) && game->common.execute_state != 0;
+    return (z2_file.perm.entrance.value == 0x8E10 || z2_file.perm.entrance.value == 0xD010) && game->state.running != 0;
 }
 
 static void get_dpad_item_usability(z2_game_t *game, bool *dest) {
@@ -218,7 +218,7 @@ bool dpad_is_enabled(void) {
  * function early.
  **/
 bool dpad_handle(ActorPlayer *link, z2_game_t *game) {
-    InputPad pad_pressed = game->common.input[0].pressEdge.buttons;
+    InputPad pad_pressed = game->state.input[0].pressEdge.buttons;
 
     // If disabled, do nothing
     if (DPAD_CONFIG.state == DPAD_STATE_TYPE_DISABLED)
@@ -306,7 +306,7 @@ void dpad_draw(z2_game_t *game) {
     // Main sprite color
     ColorRGBA8 color = HUD_COLOR_CONFIG.dpad;
 
-    DispBuf *db = &(game->common.gfx->overlay);
+    DispBuf *db = &(game->state.gfxCtx->overlay);
     gSPDisplayList(db->p++, &setup_db);
     gDPPipeSync(db->p++);
     gDPSetPrimColor(db->p++, 0, 0, color.r, color.g, color.b, prim_alpha);

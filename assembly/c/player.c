@@ -11,7 +11,7 @@ bool player_can_receive_item(z2_game_t *game) {
     bool result = false;
     switch (current_animation_id) {
         case 0xE208: // rolling - Goron
-            result = game->common.input[0].current.buttons.a != 0;
+            result = game->state.input[0].current.buttons.a != 0;
             break;
         case 0xDD28: // rolling - Human, Goron, Zora
         case 0xDF20: // idle - Human with sword

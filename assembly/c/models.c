@@ -25,10 +25,10 @@ static void scale_top_matrix(f32 scale_factor) {
 }
 
 static void set_object_segment(z2_game_t *game, const void *buf) {
-    DispBuf *xlu = &(game->common.gfx->polyXlu);
+    DispBuf *xlu = &(game->state.gfxCtx->polyXlu);
     gSPSegment(xlu->p++, 6, (u32)buf);
 
-    DispBuf *opa = &(game->common.gfx->polyOpa);
+    DispBuf *opa = &(game->state.gfxCtx->polyOpa);
     gSPSegment(opa->p++, 6, (u32)buf);
 }
 
@@ -100,7 +100,7 @@ static void models_draw_from_gi_table(Actor *actor, z2_game_t *game, f32 scale, 
     struct model model;
     mmr_gi_t *entry = models_prepare_gi_entry(&model, game, gi_index, true);
 
-    z2_CallSetupDList(z2_game.common.gfx);
+    z2_CallSetupDList(z2_game.state.gfxCtx);
     draw_model(model, actor, game, scale);
 }
 
@@ -292,7 +292,7 @@ bool models_draw_stray_fairy(Actor *actor, z2_game_t *game) {
             elforg->color = fairy_type;
             return false;
         } else {
-            z2_CallSetupDList(z2_game.common.gfx);
+            z2_CallSetupDList(z2_game.state.gfxCtx);
             draw_model(model, actor, game, 25.0);
             return true;
         }
@@ -351,7 +351,7 @@ void models_rotate_heart_container(Actor *actor, z2_game_t *game) {
  * of the caller.
  **/
 void models_write_boss_remains_object_segment(z2_game_t *game, u32 graphic_id_minus_1) {
-    DispBuf *opa = &(game->common.gfx->polyOpa);
+    DispBuf *opa = &(game->state.gfxCtx->polyOpa);
 
     // Get index of object, and use it to get the data pointer
     s8 index = z2_GetObjectIndex(&game->sceneContext, Z2_OBJECT_BSMASK);
@@ -432,7 +432,7 @@ bool models_draw_moons_tear(Actor *actor, z2_game_t *game) {
             }
 
             mmr_gi_t *entry = models_prepare_gi_entry(&model, game, 0x96, resolve);
-            z2_CallSetupDList(z2_game.common.gfx);
+            z2_CallSetupDList(z2_game.state.gfxCtx);
             draw_model(model, actor, game, 1.0);
             return true;
         }
