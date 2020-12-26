@@ -6,7 +6,7 @@
 /**
  * Helper function used to process receiving a custom item.
  **/
-static void items_handle_custom_item(z2_game_t *game, u8 item) {
+static void items_handle_custom_item(GlobalContext *game, u8 item) {
     if (item == Z2_ICE_TRAP) {
         icetrap_push_pending();
     }
@@ -17,7 +17,7 @@ static void items_handle_custom_item(z2_game_t *game, u8 item) {
  *
  * Used to add items into quest storage.
  **/
-void items_after_receive(z2_game_t *game, u8 item) {
+void items_after_receive(GlobalContext *game, u8 item) {
     // Handle receival quest item.
     quest_items_after_receive(item);
     // Handle custom items.

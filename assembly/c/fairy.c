@@ -29,7 +29,7 @@ static struct fairy_inst g_fairy_table[] = {
 };
 
 // Whether or not Link can interact with a fairy currently.
-bool can_interact_with_fairy(z2_game_t *game, ActorPlayer *link) {
+bool can_interact_with_fairy(GlobalContext *game, ActorPlayer *link) {
     // Cannot collect fairy if in Deku flower
     if ((link->stateFlags.state3 & Z2_ACTION_STATE3_DEKU_DIVE) != 0)
         return false;
@@ -38,13 +38,13 @@ bool can_interact_with_fairy(z2_game_t *game, ActorPlayer *link) {
 }
 
 // Get the next available fairy instance Id, and mark as "used" for this scene.
-bool get_next_fairy_instance(u16 *inst, z2_game_t *game) {
+bool get_next_fairy_instance(u16 *inst, GlobalContext *game) {
     for (int i = 0; i < FAIRY_INST_COUNT; i++) {
         struct fairy_inst *fairy = &g_fairy_table[i];
 
         // Do not use a fairy that is already present in this scene.
-        if ((game->scene_index == fairy->scene1) ||
-            (game->scene_index == fairy->scene2))
+        if ((game->sceneNum == fairy->scene1) ||
+            (game->sceneNum == fairy->scene2))
             continue;
 
         // Do not use a fairy that has already been used in this scene.
@@ -61,13 +61,13 @@ bool get_next_fairy_instance(u16 *inst, z2_game_t *game) {
 }
 
 // Spawn a fairy actor.
-static Actor* spawn_fairy_actor(z2_game_t *game, Vec3f pos, u16 inst) {
+static Actor* spawn_fairy_actor(GlobalContext *game, Vec3f pos, u16 inst) {
     Vec3s rot = { 0, 0, 0 };
     return actor_spawn(game, Z2_ACTOR_EN_ELF, pos, rot, inst);
 }
 
 // Spawn the next avaiable fairy actor.
-Actor* spawn_next_fairy_actor(z2_game_t *game, Vec3f pos) {
+Actor* spawn_next_fairy_actor(GlobalContext *game, Vec3f pos) {
     u16 inst;
 
     if (get_next_fairy_instance(&inst, game)) {

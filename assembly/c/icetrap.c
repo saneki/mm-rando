@@ -13,7 +13,7 @@ void icetrap_push_pending() {
         g_pending_freezes += 1;
 }
 
-bool icetrap_give(ActorPlayer *link, z2_game_t *game) {
+bool icetrap_give(ActorPlayer *link, GlobalContext *game) {
     // Ensure this is the Player actor, and not Kafei.
     if (link->base.id != 0) {
         return false;

@@ -140,20 +140,20 @@ static u32 g_fairy_cooldown = 0;
 // Most recent scene, tracked for fairy usage.
 static u16 g_fairy_scene = 0;
 
-static void handle_camera_overlook_effect(z2_game_t *game, ActorPlayer *link) {
+static void handle_camera_overlook_effect(GlobalContext *game, ActorPlayer *link) {
     // Handle "Camera Overlook" effect.
     if (g_external_effects.camera_overlook) {
-        s16 curstate = game->cameras[0].state;
+        s16 curstate = game->activeCameras[0].state;
         if (g_freecam_modes[curstate] && curstate != Z2_CAMERA_STATE_FUKAN1) {
-            game->cameras[0].state = Z2_CAMERA_STATE_FUKAN1;
+            game->activeCameras[0].state = Z2_CAMERA_STATE_FUKAN1;
 
             // Camera mode used while Z-targetting, it should trigger the camera to begin drifting over Link
-            game->cameras[0].mode = Z2_CAMERA_MODE_PARALLEL;
+            game->activeCameras[0].mode = Z2_CAMERA_MODE_PARALLEL;
         }
     }
 }
 
-static void handle_chateau_effect(z2_game_t *game, ActorPlayer *link) {
+static void handle_chateau_effect(GlobalContext *game, ActorPlayer *link) {
     // Handle "Chateau" effect
     if (g_external_effects.chateau) {
         SetInfiniteMagic(z2_file);
@@ -183,11 +183,11 @@ static void handle_chateau_effect(z2_game_t *game, ActorPlayer *link) {
     }
 }
 
-static void handle_fairy_effect(z2_game_t *game, ActorPlayer *link) {
+static void handle_fairy_effect(GlobalContext *game, ActorPlayer *link) {
     // Reset fairy instance usages when scene changes
-    if (game->scene_index != g_fairy_scene) {
+    if (game->sceneNum != g_fairy_scene) {
         reset_fairy_instance_usage();
-        g_fairy_scene = game->scene_index;
+        g_fairy_scene = game->sceneNum;
         g_fairy_cooldown = 0;
     }
 
@@ -215,7 +215,7 @@ static void handle_fairy_effect(z2_game_t *game, ActorPlayer *link) {
     }
 }
 
-static void handle_freeze_effect(z2_game_t *game, ActorPlayer *link) {
+static void handle_freeze_effect(GlobalContext *game, ActorPlayer *link) {
     // Handle "Freeze" effect.
     if (g_external_effects.freeze) {
         icetrap_push_pending();
@@ -223,7 +223,7 @@ static void handle_freeze_effect(z2_game_t *game, ActorPlayer *link) {
     }
 }
 
-static void handle_ice_physics_effect(z2_game_t *game, ActorPlayer *link) {
+static void handle_ice_physics_effect(GlobalContext *game, ActorPlayer *link) {
     // Handle "Ice Physics" effect.
     if (g_external_effects.ice_physics) {
         floor_physics_override_type(true, Z2_FLOOR_PHYSICS_ICE);
@@ -232,7 +232,7 @@ static void handle_ice_physics_effect(z2_game_t *game, ActorPlayer *link) {
     }
 }
 
-static void handle_jinx_effect(z2_game_t *game, ActorPlayer *link) {
+static void handle_jinx_effect(GlobalContext *game, ActorPlayer *link) {
     // Handle "Jinx" effect.
     if (g_external_effects.jinx) {
         // Add multiple of JINX_AMOUNT to jinx timer
@@ -267,7 +267,7 @@ static void handle_jinx_effect(z2_game_t *game, ActorPlayer *link) {
     }
 }
 
-static void handle_no_z_effect(z2_game_t *game, ActorPlayer *link) {
+static void handle_no_z_effect(GlobalContext *game, ActorPlayer *link) {
     // Handle "No Z" effect.
     if (g_external_effects.no_z) {
         game->state.input[0].current.buttons.z = 0;
@@ -275,7 +275,7 @@ static void handle_no_z_effect(z2_game_t *game, ActorPlayer *link) {
     }
 }
 
-static void handle_reverse_controls_effect(z2_game_t *game, ActorPlayer *link) {
+static void handle_reverse_controls_effect(GlobalContext *game, ActorPlayer *link) {
     // Handle "Reverse Controls" effect.
     if (g_external_effects.reverse_controls) {
         game->state.input[0].current.xAxis = -game->state.input[0].current.xAxis;
@@ -287,7 +287,7 @@ static void handle_reverse_controls_effect(z2_game_t *game, ActorPlayer *link) {
     }
 }
 
-void external_effects_handle(ActorPlayer *link, z2_game_t *game) {
+void external_effects_handle(ActorPlayer *link, GlobalContext *game) {
     handle_camera_overlook_effect(game, link);
     handle_chateau_effect(game, link);
     handle_fairy_effect(game, link);

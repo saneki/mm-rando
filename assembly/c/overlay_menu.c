@@ -76,7 +76,7 @@ static bool has_remains(u8 index) {
 /**
  * Whether or not the overlay menu should display.
  **/
-static bool overlay_menu_should_draw(z2_game_t *game) {
+static bool overlay_menu_should_draw(GlobalContext *game) {
     return game->pauseCtx.state == 6 &&
         game->pauseCtx.switchingScreen == 0 &&
         (game->pauseCtx.screenIndex == 0 || game->pauseCtx.screenIndex == 3) &&
@@ -86,7 +86,7 @@ static bool overlay_menu_should_draw(z2_game_t *game) {
 /**
  * Try to draw overlay menu.
  **/
-void overlay_menu_draw(z2_game_t *game) {
+void overlay_menu_draw(GlobalContext *game) {
     if (!g_enable || !overlay_menu_should_draw(game)) {
         return;
     }

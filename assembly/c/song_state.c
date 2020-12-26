@@ -14,7 +14,7 @@ union song_state_results {
 /**
  * Hook function to handle advancing the song state machine to song playback.
  **/
-u32 song_state_handle_playback(z2_game_t *game, MessageContext *ctxt) {
+u32 song_state_handle_playback(GlobalContext *game, MessageContext *ctxt) {
     s8 song = ctxt->songInfo->frameInfo[0].storedSong;
     if (song == 3 && MISC_CONFIG.elegy_speedup) {
         // Process state for Elegy of Emptiness
@@ -43,7 +43,7 @@ u32 song_state_handle_playback(z2_game_t *game, MessageContext *ctxt) {
 /**
  * Hook function used to handle advancing the song state to song playback (for preset songs).
  **/
-u32 song_state_handle_preset_playback(z2_game_t *game, MessageContext *ctxt) {
+u32 song_state_handle_preset_playback(GlobalContext *game, MessageContext *ctxt) {
     s8 song = ctxt->playbackSong;
     // Song Ids for Sound Check: Link = 0xF, Goron = 0x10, Zora = 0x11, Deku = 0x12
     if (MISC_CONFIG.speedups.sound_check && (0xF <= song && song <= 0x12)) {

@@ -7,15 +7,15 @@
 #include "z64math.h"
 
 struct Actor;
-struct z2_col_poly_s;
-struct z2_game_s;
+struct BgPolygon;
+struct GlobalContext;
 
 typedef struct {
     /* 0x00 */ Vec3f pos;
     /* 0x0C */ Vec3s rot;
 } PosRot; // size = 0x14
 
-typedef void(*ActorFunc)(struct Actor *this, struct z2_game_s *ctxt);
+typedef void(*ActorFunc)(struct Actor *this, struct GlobalContext *ctxt);
 
 typedef union {
     struct {
@@ -109,8 +109,8 @@ typedef struct Actor {
     /* 0x070 */ f32 speedXZ;
     /* 0x074 */ f32 gravity;
     /* 0x078 */ f32 minVelocityY;
-    /* 0x07C */ struct z2_col_poly_s *wallPoly;
-    /* 0x080 */ struct z2_col_poly_s *floorPoly;
+    /* 0x07C */ struct BgPolygon *wallPoly;
+    /* 0x080 */ struct BgPolygon *floorPoly;
     /* 0x084 */ u8 wallPolySource;
     /* 0x085 */ u8 floorPolySource;
     /* 0x086 */ s16 wallRot;

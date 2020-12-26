@@ -73,6 +73,6 @@ extern struct hud_color_config HUD_COLOR_CONFIG;
 
 void hud_colors_init(void);
 void hud_colors_main_menu_init(void);
-void hud_colors_update_pause_menu_colors(z2_game_t *game);
+void hud_colors_update_pause_menu_colors(GlobalContext *game);
 
 #endif // HUD_COLORS_H

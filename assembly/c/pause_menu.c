@@ -16,7 +16,7 @@ static Vtx* g_vertex[3] = {
     &g_vertex_bufs[(4 * 2) * 2],
 };
 
-static Vtx* get_vtx_buffer(z2_game_t *game, u32 vert_idx, int slot) {
+static Vtx* get_vtx_buffer(GlobalContext *game, u32 vert_idx, int slot) {
     // Get vertex of current icon drawing to Item Select screen
     const Vtx *src_vtx = (game->pauseCtx.vtxBuf + vert_idx);
 
@@ -56,7 +56,7 @@ static void draw_icon(GraphicsContext *gfx, const Vtx *vtx, u32 seg_addr, u16 wi
     gSP1Quadrangle(db->p++, qidx + 0, qidx + 2, qidx + 3, qidx + 1, 0);
 }
 
-static void cycle_quest_item(z2_game_t *game, u8 item, u8 slot) {
+static void cycle_quest_item(GlobalContext *game, u8 item, u8 slot) {
     u8 orig = z2_file.perm.inv.items[slot];
 
     // Replace item in inventory
@@ -79,7 +79,7 @@ static bool is_quest_item_in_correct_slot(u8 item, int slot) {
     return quest_items_get_slot(&cell, item) && cell == slot;
 }
 
-static bool is_quest_item_with_storage_selected(z2_game_t *game) {
+static bool is_quest_item_with_storage_selected(GlobalContext *game) {
     // Get cell and selected item.
     s16 cell = game->pauseCtx.cells1.item;
     u8 item = z2_file.perm.inv.items[cell];
@@ -129,7 +129,7 @@ void pause_menu_select_item_draw_icon(GraphicsContext *gfx, u8 item, u16 width, 
  *
  * Used to set the text on the A button to "Decide" for selecting quest items.
  **/
-void pause_menu_select_item_subscreen_after_process(z2_game_t *game) {
+void pause_menu_select_item_subscreen_after_process(GlobalContext *game) {
     if (MISC_CONFIG.quest_item_storage) {
         u16 text = game->interfaceCtx.buttonATextCurrent;
         if (is_quest_item_with_storage_selected(game)) {
@@ -151,7 +151,7 @@ void pause_menu_select_item_subscreen_after_process(z2_game_t *game) {
  *
  * Checks if A button would be used to cycle quest items.
  **/
-bool pause_menu_select_item_process_a_button(z2_game_t *game, u32 cur_val, u32 none_val) {
+bool pause_menu_select_item_process_a_button(GlobalContext *game, u32 cur_val, u32 none_val) {
     if (MISC_CONFIG.quest_item_storage && is_quest_item_with_storage_selected(game)) {
         s16 cell = game->pauseCtx.cells1.item;
         if (cur_val != none_val) {
@@ -175,7 +175,7 @@ bool pause_menu_select_item_process_a_button(z2_game_t *game, u32 cur_val, u32 n
  *
  * Checks if a quest item with storage is selected. If so, always show the A button as enabled.
  **/
-bool pause_menu_select_item_show_a_button_enabled(z2_game_t *game) {
+bool pause_menu_select_item_show_a_button_enabled(GlobalContext *game) {
     if (MISC_CONFIG.quest_item_storage && is_quest_item_with_storage_selected(game)) {
         // If on a quest item with storage, show A button as enabled even during "Item Prompt."
         return true;
@@ -188,7 +188,7 @@ bool pause_menu_select_item_show_a_button_enabled(z2_game_t *game) {
 /**
  * Hook function called while on pause menu before processing each frame.
  **/
-void pause_menu_before_update(z2_game_t *game) {
+void pause_menu_before_update(GlobalContext *game) {
     // Update pause menu colors.
     hud_colors_update_pause_menu_colors(game);
 }

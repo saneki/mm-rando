@@ -6,7 +6,7 @@
 /**
  * Hook function used to write the chest get-item index on init.
  **/
-void chest_write_gi_index(ActorEnBox *actor, z2_game_t *game) {
+void chest_write_gi_index(ActorEnBox *actor, GlobalContext *game) {
     if (!MISC_CONFIG.vanilla_layout) {
         u16 result;
 
@@ -30,7 +30,7 @@ void chest_write_gi_index(ActorEnBox *actor, z2_game_t *game) {
 /**
  * Hook function used to update the chest get-item index before opening.
  **/
-u32 chest_get_new_gi_index(ActorEnBox *actor, z2_game_t *game, bool grant) {
+u32 chest_get_new_gi_index(ActorEnBox *actor, GlobalContext *game, bool grant) {
     if (!MISC_CONFIG.vanilla_layout) {
         // Resolve new gi-table index if not ice trap.
         if (actor->giIndex != 0x76) {

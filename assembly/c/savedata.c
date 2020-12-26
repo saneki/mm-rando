@@ -10,7 +10,7 @@ static bool is_owl_save_size(size_t size) {
 /**
  * Hook function called after some savedata has been loaded into SaveContext.
  **/
-void savedata_after_load(z2_game_t *game, Camera *camera, SaveContext *file, const u8 *buffer, size_t size) {
+void savedata_after_load(GlobalContext *game, Camera *camera, SaveContext *file, const u8 *buffer, size_t size) {
     // Read our struct from buffer with flash data
     bool owl_save = is_owl_save_size(size);
     u32 offset = save_file_get_flash_section_offset(owl_save);
@@ -21,7 +21,7 @@ void savedata_after_load(z2_game_t *game, Camera *camera, SaveContext *file, con
 /**
  * Hook function called after savedata prepared (inventory & flags cleared via Song of Time).
  **/
-void savedata_after_prepare(z2_game_t *game) {
+void savedata_after_prepare(GlobalContext *game) {
     quest_items_after_song_of_time_clear();
 }
 

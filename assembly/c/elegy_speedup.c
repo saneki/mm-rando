@@ -13,7 +13,7 @@ union elegy_lock_params {
 /**
  * Hook function called to get the movement speed of the Stone Tower blocks.
  **/
-f32 elegy_speedup_get_block_speed(Actor *actor, z2_game_t *game, int type) {
+f32 elegy_speedup_get_block_speed(Actor *actor, GlobalContext *game, int type) {
     if (type == 0) {
         // Get speed when moving into new spot.
         if (!MISC_CONFIG.elegy_speedup) {
@@ -31,7 +31,7 @@ f32 elegy_speedup_get_block_speed(Actor *actor, z2_game_t *game, int type) {
  * Hook function called to get number of frames to lock input during Elegy cutscene, and which
  * frame the statue should begin spawning on.
  **/
-u32 elegy_speedup_get_lock_params(ActorPlayer *link, z2_game_t *game) {
+u32 elegy_speedup_get_lock_params(ActorPlayer *link, GlobalContext *game) {
     if (!MISC_CONFIG.elegy_speedup) {
         union elegy_lock_params result = {
             .frame_count = 0x5B,
@@ -51,7 +51,7 @@ u32 elegy_speedup_get_lock_params(ActorPlayer *link, z2_game_t *game) {
  * Hook function called to get the number of frames before beginning to fade out the current Elegy
  * statue when moving it to a different position.
  **/
-u16 elegy_speedup_get_statue_despawn_counter(z2_game_t *game, ActorPlayer *link) {
+u16 elegy_speedup_get_statue_despawn_counter(GlobalContext *game, ActorPlayer *link) {
     if (!MISC_CONFIG.elegy_speedup) {
         return 0x14;
     } else {
@@ -62,7 +62,7 @@ u16 elegy_speedup_get_statue_despawn_counter(z2_game_t *game, ActorPlayer *link)
 /**
  * Hook function called to get the speed at which the Elegy statue fades in or out.
  **/
-u16 elegy_speedup_get_statue_fade_speed(Actor *actor, z2_game_t *game) {
+u16 elegy_speedup_get_statue_fade_speed(Actor *actor, GlobalContext *game) {
     if (!MISC_CONFIG.elegy_speedup) {
         return 0x8;
     } else {
@@ -73,7 +73,7 @@ u16 elegy_speedup_get_statue_fade_speed(Actor *actor, z2_game_t *game) {
 /**
  * Hook function called to check whether or not the camera should update for the Elegy cutscene.
  **/
-bool elegy_speedup_should_update_camera(Actor *actor, z2_game_t *game) {
+bool elegy_speedup_should_update_camera(Actor *actor, GlobalContext *game) {
     if (!MISC_CONFIG.elegy_speedup) {
         return true;
     } else {
@@ -84,7 +84,7 @@ bool elegy_speedup_should_update_camera(Actor *actor, z2_game_t *game) {
 /**
  * Hook function called to check whether or not the scene should darken for the Elegy cutscene.
  **/
-bool elegy_speedup_should_darken(Actor *actor, z2_game_t *game) {
+bool elegy_speedup_should_darken(Actor *actor, GlobalContext *game) {
     if (!MISC_CONFIG.elegy_speedup) {
         return true;
     } else {
@@ -95,7 +95,7 @@ bool elegy_speedup_should_darken(Actor *actor, z2_game_t *game) {
 /**
  * Hook function called to sync the Elegy effect's position with that of its respective statue.
  **/
-void elegy_speedup_update_effect_position(Actor *actor, z2_game_t *game) {
+void elegy_speedup_update_effect_position(Actor *actor, GlobalContext *game) {
     if (MISC_CONFIG.elegy_speedup) {
         // Get Elegy statue actor from main actor context struct.
         u8 form_index = actor->params & 7;

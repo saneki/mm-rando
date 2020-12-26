@@ -21,7 +21,7 @@ typedef struct mmr_gi_s {
 
 mmr_gi_t * mmr_get_gi_entry(u16 index);
 void mmr_init(void);
-u16 mmr_GetNewGiIndex(z2_game_t *game, Actor *actor, u16 gi_index, bool grant);
+u16 mmr_GetNewGiIndex(GlobalContext *game, Actor *actor, u16 gi_index, bool grant);
 
 /* Function Addresses */
 #define mmr_LoadGiEntry_addr             0x801449A4
