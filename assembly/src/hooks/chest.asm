@@ -14,7 +14,7 @@
 .org 0x808681C0 ; Offset: 0x5F0
     sh      t6, 0x00BC (s1)       ;;
     or      a0, s1, r0            ;; A0 = Actor
-    jal     chest_write_gi_index  ;; Call function to find & write gi-table index to actor field.
+    jal     Chest_WriteGiIndex    ;; Call function to find & write gi-table index to actor field.
     lw      a1, 0x005C (sp)       ;; A1 = GlobalContext
     lh      a1, 0x001C (s1)       ;; A1 = Actor Variable
 
@@ -37,7 +37,7 @@
 ;   jal     0x800B5DB0      ;; Call: Actor_SetCollectibleFlag
 ;   lw      a1, 0x0220(s0)  ;; Collectible flag index
 .org 0x80868E88
-    jal     chest_update_gi_index_while_opening_hook
+    jal     Chest_UpdateGiIndexWhileOpening_Hook
     or      a0, s0, r0      ;; A0 = Actor
 
 ; Always branch to before-opening code (see below).
@@ -57,23 +57,10 @@
 .org 0x80868F5C
     or      a0, s0, r0             ;; A0 = Actor
     lw      a1, 0x0084 (sp)        ;; A1 = GlobalContext
-    jal     chest_get_new_gi_index ;; Call function to update gi-table index actor field.
+    jal     Chest_GetNewGiIndex    ;; Call function to update gi-table index actor field.
     or      a2, r0, r0             ;; A2 = false (do not update flags)
     nop                            ;;
     nop                            ;;
-
-;==================================================================================================
-; Update Chest Item Index (for Ice Trap Chests)
-;==================================================================================================
-
-.headersize(G_EN_BOX_VRAM - G_EN_BOX_FILE)
-
-; Replaces:
-;   sh      t6, 0x00BC (s1)
-;   lw      a0, 0x005C (sp)
-; .org 0x808681D0 ; Offset: 0x600
-;     jal     chest_update_after_assigning_gi_index_hook
-;     sh      t6, 0x00BC (s1)
 
 ;==================================================================================================
 ; Fix Ice Trap Sound Effect
