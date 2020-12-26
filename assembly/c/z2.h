@@ -2109,39 +2109,43 @@ typedef struct {
 /// Misc & Unknown
 /// =============================================================
 
-typedef struct {
-    u32              direct_reference;               /* 0x0000 */
-    u32              nintendo_logo;                  /* 0x0004 */
-    u32              current_scene;                  /* 0x0008 */
-    u32              current_room;                   /* 0x000C */
-    u32              gameplay_keep;                  /* 0x0010 */
-    u32              gameplay_dungeon_field_keep;    /* 0x0014 */
-    u32              current_object;                 /* 0x0018 */
-    u32              link_animation;                 /* 0x001C */
-    u32              unk_0x20;                       /* 0x0020 */
-    u32              unk_0x24;                       /* 0x0024 */
-    u32              current_mask;                   /* 0x0028 */
-    u32              unk_0x2C;                       /* 0x002C */
-    u32              unk_0x30;                       /* 0x0030 */
-    u32              unk_0x34;                       /* 0x0034 */
-    u32              z_buffer;                       /* 0x0038 */
-    u32              frame_buffer;                   /* 0x003C */
-} z2_segment_t;                                      /* 0x0040 */
+typedef union {
+    struct {
+        /* 0x00 */ u32 directReference;
+        /* 0x04 */ u32 nintendoLogo;
+        /* 0x08 */ u32 currentScene;
+        /* 0x0C */ u32 currentRoom;
+        /* 0x10 */ u32 gameplayKeep;
+        /* 0x14 */ u32 gameplayDungeonFieldKeep;
+        /* 0x18 */ u32 currentObject;
+        /* 0x1C */ u32 linkAnimation;
+        /* 0x20 */ u32 unk20;
+        /* 0x24 */ u32 unk24;
+        /* 0x28 */ u32 currentMask;
+        /* 0x2C */ u32 unk2C;
+        /* 0x30 */ u32 unk30;
+        /* 0x34 */ u32 unk34;
+        /* 0x38 */ u32 zBuffer;
+        /* 0x3C */ u32 frameBuffer;
+    };
+    u32 values[16];
+} SegmentTable; // size = 0x40
+
+typedef union {
+    struct {
+        /* 0x00 */ u16 minutes[2];
+        /* 0x04 */ u16 sep1;
+        /* 0x06 */ u16 seconds[2];
+        /* 0x0A */ u16 sep2;
+        /* 0x0C */ u16 milliseconds[2];
+    };
+    u16 values[8];
+} TimerDigits; // size = 0x10
 
 typedef struct {
-    union {
-        u16          digits[8];                      /* 0x0000 */
-        struct {
-            u16      minutes[2];                     /* 0x0000 */
-            u16      sep1;                           /* 0x0004 */
-            u16      seconds[2];                     /* 0x0006 */
-            u16      sep2;                           /* 0x000A */
-            u16      milliseconds[2];                /* 0x000C */
-        };
-    };
-    u16              beep_seconds;                   /* 0x0010, previous seconds[1] value that had a beep. */
-                                                     /* Likely used to determine when to do the next beep. */
-} z2_timer_digits_t;                                 /* 0x0012 */
+    /* 0x00 */ TimerDigits digits;
+    /* 0x10 */ u16 beepSeconds; // Previous seconds[1] value that had a beep. Likely used to determine when to do the next beep.
+} TimerDisplay; // size = 0x12?
 
 typedef struct {
     /* 0x00 */ s16 unk0;
@@ -2196,7 +2200,7 @@ typedef struct {
 #define z2_gi_graphic_table              ((z2_gi_graphic_table_t*)   z2_gi_graphic_table_addr)
 #define z2_link                          (*(ActorPlayer*)            z2_link_addr)
 #define z2_obj_table                     ((ObjectFileTableEntry*)    z2_object_table_addr)
-#define z2_segment                       (*(z2_segment_t*)           z2_segment_addr)
+#define z2_segment                       (*(SegmentTable*)           z2_segment_addr)
 #define z2_song_notes                    (*(SongNotes*)              z2_song_notes_addr)
 #define z2_static_ctxt                   (*(z2_static_ctxt_t*)       z2_static_ctxt_addr)
 
