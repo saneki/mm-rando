@@ -63,7 +63,7 @@ bool get_next_fairy_instance(u16 *inst, GlobalContext *game) {
 // Spawn a fairy actor.
 static Actor* spawn_fairy_actor(GlobalContext *game, Vec3f pos, u16 inst) {
     Vec3s rot = { 0, 0, 0 };
-    return actor_spawn(game, Z2_ACTOR_EN_ELF, pos, rot, inst);
+    return Actor_Spawn(game, Z2_ACTOR_EN_ELF, pos, rot, inst);
 }
 
 // Spawn the next avaiable fairy actor.
