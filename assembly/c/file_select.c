@@ -106,7 +106,7 @@ static void update_textures_from_sprite(sprite_t *sprite, int count, u32 hash) {
 
 void file_select_hook_after_ctor(GlobalContext *game) {
     // Consider D-Pad item textures cleared so they are reloaded next time
-    dpad_clear_item_textures();
+    Dpad_ClearItemTextures();
 
     // Clear data relevant to save file (including quest item storage).
     save_file_clear();

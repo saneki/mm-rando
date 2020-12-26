@@ -19,7 +19,7 @@
 void c_init() {
     heap_init();
     gfx_init();
-    dpad_init();
+    Dpad_Init();
     hud_colors_init();
     ActorExt_Init();
     models_init();
@@ -30,7 +30,7 @@ void c_init() {
 }
 
 void before_player_actor_update(ActorPlayer *link, GlobalContext *game) {
-    dpad_before_player_actor_update(link, game);
+    Dpad_BeforePlayerActorUpdate(link, game);
     external_effects_handle(link, game);
     ArrowCycle_Handle(link, game);
     ArrowMagic_Handle(link, game);

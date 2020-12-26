@@ -1,8 +1,8 @@
-dpad_draw_hook:
+Dpad_Draw_Hook:
     addiu   sp, sp, -0x18
     sw      ra, 0x0010 (sp)
 
-    jal     dpad_draw
+    jal     Dpad_Draw
     nop
 
     lw      ra, 0x0010 (sp)
@@ -12,7 +12,7 @@ dpad_draw_hook:
     ; Displaced code
     lw      t6, 0x0068 (sp)
 
-dpad_handle_hook:
+Dpad_Handle_Hook:
     ; Displaced code
     or      s0, a0, r0
 
@@ -20,7 +20,7 @@ dpad_handle_hook:
     sw      ra, 0x0010 (sp)
     sw      a0, 0x0014 (sp)
 
-    jal     dpad_handle
+    jal     Dpad_Handle
     sw      a1, 0x0018 (sp)
 
     bnez    v0, @@caller_return
@@ -55,7 +55,7 @@ dpad_handle_hook:
     jr      ra
     addiu   sp, sp, 0x50
 
-dpad_skip_transformation_check_hook:
+Dpad_SkipTransformationCheck_Hook:
     addiu   sp, sp, -0x20
     sw      ra, 0x0010 (sp)
     sw      a0, 0x0014 (sp)
@@ -63,7 +63,7 @@ dpad_skip_transformation_check_hook:
 
     or      a0, s0, r0
     lw      a1, 0x0074 (sp)
-    jal     dpad_skip_transformation_check
+    jal     Dpad_SkipTransformationCheck
     or      a2, v0, r0
 
     lw      ra, 0x0010 (sp)
