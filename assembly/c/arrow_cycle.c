@@ -100,7 +100,7 @@ Actor * arrow_cycle_find_arrow(ActorPlayer *link, GlobalContext *game) {
  * This will re-copy the data used to draw the arrow trail color, and thus it will appear as it should.
  **/
 static bool arrow_cycle_call_arrow_actor_ctor(Actor *arrow, GlobalContext *game) {
-    ActorOverlay *ovl = &z2_actor_ovl_table[Z2_ACTOR_EN_ARROW];
+    ActorOverlay *ovl = &gActorOverlayTable[Z2_ACTOR_EN_ARROW];
     ActorInit *init = reloc_resolve_actor_init(ovl);
     if (init != NULL && init->init != NULL) {
         init->destroy(arrow, game);

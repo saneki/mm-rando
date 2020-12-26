@@ -22,7 +22,7 @@
 #define GlobalContextAddr                0x803E6B20 // Todo: Remove.
 
 /* Data */
-#define z2_actor_ovl_table               ((ActorOverlay*)            ActorOverlayTableAddr)
+#define gActorOverlayTable               ((ActorOverlay*)            ActorOverlayTableAddr)
 #define gSaveContext                     (*(SaveContext*)            SaveContextAddr)
 #define dmadata                          ((DmaEntry*)                DmaEntryTableAddr)
 #define z2_game                          (*(GlobalContext*)          GlobalContextAddr)
