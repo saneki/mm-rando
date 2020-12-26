@@ -11,9 +11,9 @@
 // #define FILE_HASH_DEBUG
 
 // Number of icons to display using hash value.
-const static int g_icon_count = 5;
+const static int gIconCount = 5;
 
-struct hash_icons HASH_ICONS = {
+struct HashIcons HASH_ICONS = {
     .version = 0,
     .count = HASH_SYMBOL_COUNT,
     // Texture indexes to use for hash icons.
@@ -85,45 +85,43 @@ struct hash_icons HASH_ICONS = {
     },
 };
 
-static void load_texture(u8 *buf, int idx, int length, u8 item) {
+static void LoadTexture(u8* buf, int idx, int length, u8 item) {
     u32 phys = z2_GetFilePhysAddr(ItemTextureFileVROM);
     u8 *dest = buf + (idx * length);
     z2_LoadFileFromArchive(phys, item, dest, length);
 }
 
-static void update_textures(void *buf, int count, int length, u32 hash) {
+static void UpdateTextures(void* buf, int count, int length, u32 hash) {
     for (int i = 0; i < count; i++, hash <<= 6) {
         u32 sym = (hash >> 26);
         u8 item = HASH_ICONS.symbols[sym];
-        load_texture(buf, i, length, item);
+        LoadTexture(buf, i, length, item);
     }
 }
 
-static void update_textures_from_sprite(sprite_t *sprite, int count, u32 hash) {
+static void UpdateTexturesFromSprite(sprite_t* sprite, int count, u32 hash) {
     int tilelen = sprite_bytes_per_tile(sprite);
-    update_textures(sprite->buf, count, tilelen, hash);
+    UpdateTextures(sprite->buf, count, tilelen, hash);
 }
 
-void file_select_hook_after_ctor(GlobalContext *game) {
+void FileSelect_HookAfterCtor(GlobalContext* ctxt) {
     // Consider D-Pad item textures cleared so they are reloaded next time
     Dpad_ClearItemTextures();
-
     // Clear data relevant to save file (including quest item storage).
     save_file_clear();
-
     // Write icon textures
-    sprite_t *sprite = gfx_get_item_textures_sprite();
+    sprite_t* sprite = gfx_get_item_textures_sprite();
     if (sprite->buf != NULL) {
-        struct misc_config *config = misc_get_config();
-        u32 hash = config->hash.value;
-        update_textures_from_sprite(sprite, g_icon_count, hash);
+        u32 hash = MISC_CONFIG.hash.value;
+        UpdateTexturesFromSprite(sprite, gIconCount, hash);
     }
 }
 
-void file_select_hook_after_dtor(GlobalContext *game) {
+void FileSelect_HookAfterDtor(GlobalContext* ctxt) {
+    // Unused.
 }
 
-void file_select_before_draw(GlobalContext *game) {
+void FileSelect_BeforeDraw(GlobalContext* ctxt) {
     // Update colors for HUD elements on file select
     hud_colors_main_menu_init();
 
@@ -134,25 +132,24 @@ void file_select_before_draw(GlobalContext *game) {
     // When pressing Z, update file hash to random new value
     sprite_t *sprite = gfx_get_item_textures_sprite();
     struct misc_config *config = misc_get_config();
-    z2_pad_t pad_pressed = game->state.input[0].pad_pressed;
+    z2_pad_t pad_pressed = ctxt->state.input[0].pad_pressed;
     if (pad_pressed.z && config->draw_hash && sprite->buf != NULL) {
         config->hash.value = z2_RngInt();
-        update_textures_from_sprite(sprite, g_icon_count, config->hash.value);
+        update_textures_from_sprite(sprite, gIconCount, config->hash.value);
         z2_PlaySfx(0x483B);
     }
 #endif
 }
 
-void file_select_draw_hash(GlobalContext *game) {
-    int icon_size = 24;
+void FileSelect_DrawHash(GlobalContext* ctxt) {
+    int iconSize = 24;
     int padding = 8;
-    int width = (g_icon_count * icon_size) + ((g_icon_count - 1) * padding);
+    int width = (gIconCount * iconSize) + ((gIconCount - 1) * padding);
     int left = (Z2_SCREEN_WIDTH - width) / 2;
     int top = 12;
 
-    struct misc_config *config = misc_get_config();
-    if (config->draw_hash) {
-        DispBuf *db = &(game->state.gfxCtx->polyOpa);
+    if (MISC_CONFIG.draw_hash) {
+        DispBuf* db = &ctxt->state.gfxCtx->polyOpa;
 
         // Call setup display list
         gSPDisplayList(db->p++, &setup_db);
@@ -161,11 +158,11 @@ void file_select_draw_hash(GlobalContext *game) {
         gDPSetCombineMode(db->p++, G_CC_MODULATEIA_PRIM, G_CC_MODULATEIA_PRIM);
         gDPSetPrimColor(db->p++, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
 
-        sprite_t *sprite = gfx_get_item_textures_sprite();
-        for (int i = 0; i < g_icon_count; i++) {
+        sprite_t* sprite = gfx_get_item_textures_sprite();
+        for (int i = 0; i < gIconCount; i++) {
             sprite_load(db, sprite, i, 1);
-            sprite_draw(db, sprite, 0, left, top, icon_size, icon_size);
-            left += icon_size + padding;
+            sprite_draw(db, sprite, 0, left, top, iconSize, iconSize);
+            left += iconSize + padding;
         }
     }
 }
