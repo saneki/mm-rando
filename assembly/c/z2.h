@@ -1450,17 +1450,17 @@ typedef struct {
 /// =============================================================
 
 typedef struct {
-    u8               unk_0x00[0x32];                 /* 0x0000 */
-    s16              time_speed;                     /* 0x0032 */
-    u8               unk_0x34[0x06];                 /* 0x0034 */
-    s16              acceleration;                   /* 0x003A */
-    u8               unk_0x3C[0x0E];                 /* 0x003C */
-    s16              turn_speed;                     /* 0x004A */
-    u8               unk_0x4E[0x50];                 /* 0x004C */
-    s16              gravity;                        /* 0x009C */
-    u8               unk_0x9E[0x72];                 /* 0x009E */
-    u16              update_rate;                    /* 0x0110 */
-} z2_static_ctxt_t;                                  /* 0x0112 */
+    /* 0x000 */ UNK_TYPE1 pad0[0x32];
+    /* 0x032 */ s16 timeSpeed;
+    /* 0x034 */ UNK_TYPE1 pad34[0x6];
+    /* 0x03A */ s16 acceleration;
+    /* 0x03C */ UNK_TYPE1 pad3C[0xE];
+    /* 0x04A */ s16 turnSpeed;
+    /* 0x04C */ UNK_TYPE1 pad4E[0x50];
+    /* 0x09C */ s16 gravity;
+    /* 0x09E */ UNK_TYPE1 pad9E[0x72];
+    /* 0x110 */ u16 updateRate;
+} StaticContext; // size = 0x112
 
 /// =============================================================
 /// Messagebox Context
@@ -2486,7 +2486,7 @@ typedef struct {
 #define z2_obj_table                     ((ObjectFileTableEntry*)    z2_object_table_addr)
 #define z2_segment                       (*(SegmentTable*)           z2_segment_addr)
 #define z2_song_notes                    (*(SongNotes*)              z2_song_notes_addr)
-#define z2_static_ctxt                   (*(z2_static_ctxt_t*)       z2_static_ctxt_addr)
+#define z2_static_ctxt                   (*(StaticContext*)          z2_static_ctxt_addr)
 
 /* Data (non-struct) */
 #define z2_item_segaddr_table            ((u32*)                     z2_item_segaddr_table_addr)
