@@ -10,7 +10,7 @@ enum ActorExtFlag {
 
 struct ActorExt {
     u32 flags;
-    ColorRGBA8 color;
+    Color color;
     u8 padding;
 };
 

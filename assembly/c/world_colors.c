@@ -23,14 +23,13 @@ struct world_color_config WORLD_COLOR_CONFIG = {
 };
 
 u32 WorldColors_GetBlueBubbleColor(Actor *actor, GlobalContext *game) {
-    rgbs_t color = WORLD_COLOR_CONFIG.blueBubble;
-    if ((color.s & COLOR_SPECIAL_INSTANCE) != 0) {
+    Color color = WORLD_COLOR_CONFIG.blueBubble;
+    if ((color.a & COLOR_SPECIAL_INSTANCE) != 0) {
         bool created = false;
         struct ActorExt *ext = ActorExt_Setup(actor, &created);
         if (ext != NULL) {
             if (created) {
-                rgb_t result = color_randomize_hue(color.rgb);
-                ext->color = *(ColorRGBA8*)(&result);
+                ext->color.rgb = Color_RandomizeHue(color.rgb);
             }
             return Color_ConvertToIntWithAlpha(ext->color, 0);
         }
@@ -41,7 +40,7 @@ u32 WorldColors_GetBlueBubbleColor(Actor *actor, GlobalContext *game) {
 
 void WorldColors_Init(void) {
     // Set alpha values for specific colors.
-    WORLD_COLOR_CONFIG.swordChargeEnergyBluEnv.s = 0x80;
-    WORLD_COLOR_CONFIG.swordChargeEnergyRedEnv.s = 0x80;
-    WORLD_COLOR_CONFIG.swordBeamEnergyEnv.s = 0x80;
+    WORLD_COLOR_CONFIG.swordChargeEnergyBluEnv.a = 0x80;
+    WORLD_COLOR_CONFIG.swordChargeEnergyRedEnv.a = 0x80;
+    WORLD_COLOR_CONFIG.swordBeamEnergyEnv.a = 0x80;
 }
