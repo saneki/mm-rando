@@ -1117,141 +1117,154 @@ typedef struct {
 /// =============================================================
 
 typedef struct {
-    s16              poly_idx;                       /* 0x0000 */
-    u16              list_next;                      /* 0x0002 */
-} z2_col_list_t;                                     /* 0x0004 */
+    /* 0x00 */ Vec3f scale;
+    /* 0x0C */ Vec3s rotation;
+    /* 0x14 */ Vec3f pos;
+} ActorMeshParams; // size = 0x20
 
 typedef struct {
-    struct {
-        u32                      : 1;
-        u32          drop        : 1;                /* Link drops one unit into the floor. */
-        u32          special     : 4;
-        u32          interaction : 5;
-        u32                      : 3;
-        u32          behavior    : 5;
-        u32          exit        : 5;
-        u32          camera      : 8;
-    }                flags_1;                        /* 0x0000 */
-    struct {
-        u32          pad         : 4;
-        u32          wall_damage : 1;
-        u32                      : 6;
-        u32                      : 3;
-        u32          hookshot    : 1;
-        u32          echo        : 6;
-        u32                      : 5;
-        u32          terrain     : 2;
-        u32          material    : 4;
-    }                flags_2;                        /* 0x0004 */
-} z2_col_type_t;                                     /* 0x0008 */
+    /* 0x0 */ s16 polyStartIndex;
+    /* 0x2 */ s16 ceilingNodeHead;
+    /* 0x4 */ s16 wallNodeHead;
+    /* 0x6 */ s16 floorNodeHead;
+} ActorMeshPolyLists; // size = 0x8
 
 typedef struct {
-    Vec3s            pos;                            /* 0x0000 */
-    s16              width;                          /* 0x0006 */
-    s16              depth;                          /* 0x0008 */
-    struct {
-        u32                 : 12;
-        u32          active : 1;
-        u32          group  : 6;
-        u32                 : 5;
-        u32          camera : 8;
-    } flags;                                         /* 0x000A */
-} z2_col_water_t;                                    /* 0x000E */
-
-typedef struct z2_col_poly_s {
-    u16              type;                           /* 0x0000, index of z2_col_type in scene file */
-    /* Vertex indices, a and b are bitmasked for some reason. */
-    struct {
-        u16          unk_0 : 3;
-        u16          va    : 13;
-    }                mask_1;                         /* 0x0002 */
-    struct {
-        u16          unk_1 : 3;
-        u16          vb    : 13;
-    }                mask_2;                         /* 0x0004 */
-    u16              vc;                             /* 0x0006 */
-    Vec3s            norm;                           /* 0x0008, normal vector. */
-    s16              dist;                           /* 0x000E, plane distance from origin. */
-} z2_col_poly_t;                                     /* 0x0010 */
+    /* 0x0 */ u16 floorHead;
+    /* 0x2 */ u16 wallHead;
+    /* 0x4 */ u16 ceilingHead;
+} BgMeshSubdivision; // size = 0x6
 
 typedef struct {
-    Vec3s            min;                            /* 0x0000 */
-    Vec3s            max;                            /* 0x0006 */
-    u16              n_vtx;                          /* 0x000C */
-    Vec3s           *vtx;                            /* 0x000E */
-    u16              n_poly;                         /* 0x0012 */
-    z2_col_poly_t   *poly;                           /* 0x0014 */
-    z2_col_type_t   *type;                           /* 0x0018 */
-    Camera          *camera;                         /* 0x001C */
-    u16              n_water;                        /* 0x0020 */
-    z2_col_water_t  *water;                          /* 0x0022 */
-} z2_col_hdr_t;                                      /* 0x0026 */
+    /* 0x0 */ u32 attributes[2];
+} BgPolygonAttributes; // size = 0x8
 
 typedef struct {
-    struct Actor    *actor;                          /* 0x0000 */
-    z2_col_hdr_t    *col_hdr;                        /* 0x0004 */
-    u16              unk_0x08;                       /* 0x0008 */
-    u16              unk_0x0A;                       /* 0x000A */
-    u16              unk_0x0C;                       /* 0x000C */
-    s16              unk_0x0E;                       /* 0x000E, number of polys? */
-    s16              unk_0x10;                       /* 0x0010 */
-    Vec3f            scale_1;                        /* 0x0014 */
-    Vec3s            rot_1;                          /* 0x0020 */
-    Vec3f            pos_1;                          /* 0x0028 */
-    Vec3f            scale_2;                        /* 0x0034 */
-    Vec3s            rot_2;                          /* 0x0040 */
-    Vec3f            pos_2;                          /* 0x0048 */
-    s16              unk_0x54;                       /* 0x0054 */
-    s16              unk_0x56;                       /* 0x0056 */
-    s16              unk_0x58;                       /* 0x0058 */
-    s16              unk_0x5A;                       /* 0x005A */
-    u8               unk_0x5C[0x08];                 /* 0x005C */
-} z2_col_chk_actor_t;                                /* 0x0064 */
+    /* 0x0 */ s16 polyIndex;
+    /* 0x2 */ u16 next;
+} BgPolygonLinkedListNode; // size = 0x4
 
 typedef struct {
-    u16              floor_list_idx;                 /* 0x0000 */
-    u16              wall_list_idx;                  /* 0x0002 */
-    u16              ceil_list_idx;                  /* 0x0004 */
-} z2_col_lut_t;                                      /* 0x0006 */
+    /* 0x0 */ u16 maxNodes;
+    /* 0x2 */ u16 reservedNodes;
+    /* 0x4 */ BgPolygonLinkedListNode* nodes;
+    /* 0x8 */ u8* unk8;
+} BgScenePolygonLists; // size = 0xC
 
 typedef struct {
-    /* static collision stuff */
-    z2_col_hdr_t    *col_hdr;                        /* 0x0000 */
-    Vec3f            bbox_min;                       /* 0x0004 */
-    Vec3f            bbox_max;                       /* 0x0010 */
-    s32              n_sect_x;                       /* 0x001C */
-    s32              n_sect_y;                       /* 0x0020 */
-    s32              n_sect_z;                       /* 0x0024 */
-    Vec3f            sect_size;                      /* 0x0028 */
-    Vec3f            sect_inv;                       /* 0x0034 */
-    z2_col_lut_t    *stc_lut;                        /* 0x0040 */
-    u16              stc_list_max;                   /* 0x0044 */
-    u16              stc_list_pos;                   /* 0x0046 */
-    z2_col_list_t   *stc_list;                       /* 0x0048 */
-    u8              *stc_check;                      /* 0x004C */
+    /* 0x0 */ s16 sceneNumber;
+    /* 0x2 */ UNK_TYPE1 pad2[0x2];
+    /* 0x4 */ u32 maxMemory;
+} BgSpecialSceneMaxMemory; // size = 0x8
 
-                                                     /* bg actor collision struct start */
-    s8               unk_0x50[0x04];                 /* 0x0050, MIGHT BE [0x04]???? */
-    z2_col_chk_actor_t actors[50];                   /* 0x0054 */
-    u16              actor_loaded[50];               /* 0x13DC */
-                                                     /* dynamic collision stuff */
-    z2_col_poly_t   *dyn_poly;                       /* 0x1440 */
-    Vec3s           *dyn_vtx;                        /* 0x1444 */
-    s32              unk_0x1448;                     /* 0x1448 */
-    void            *unk_0x144C;                     /* 0x144C */
-                                                     /* struct */
-    struct {
-        z2_col_list_t *list;                         /* 0x1450 */
-        s32          count;                          /* 0x1454 */
-        s32          max;                            /* 0x1458 */
-    } dyn;
-                                                     /* bg actor collision struct end */
-    u32              dyn_list_max;                   /* 0x145C */
-    u32              dyn_poly_max;                   /* 0x1460 */
-    u32              dyn_vtx_max;                    /* 0x1464 */
-    u32              mem_size;                       /* 0x1468 */
-    u32              unk_0x146C;                     /* 0x146C */
-} z2_col_ctxt_t;                                     /* 0x1470 */
+typedef struct {
+    /* 0x0 */ s16 sceneId;
+    /* 0x2 */ s16 maxNodes;
+    /* 0x4 */ s16 maxPolygons;
+    /* 0x6 */ s16 maxVertices;
+} BgSpecialSceneMaxObjects; // size = 0x8
+
+typedef struct {
+    /* 0x0 */ s16 sceneNumber;
+    /* 0x2 */ s16 xSubdivisions;
+    /* 0x4 */ s16 ySubdivisions;
+    /* 0x6 */ s16 zSubdivisions;
+    /* 0x8 */ s32 unk8;
+} BgSpecialSceneMeshSubdivision; // size = 0xC
+
+typedef struct {
+    /* 0x0 */ u16 attributeIndex;
+    /* 0x2 */ u16 vertA; // upper 3 bits contain flags
+    /* 0x4 */ u16 vertB; // upper 3 bits contain flags
+    /* 0x6 */ u16 vertC;
+    /* 0x8 */ Vec3s normal;
+    /* 0xE */ s16 unkE;
+} BgPolygon; // size = 0x10
+
+typedef struct {
+    /* 0x0 */ BgPolygonLinkedListNode* nodes;
+    /* 0x4 */ u32 nextFreeNode;
+    /* 0x8 */ s32 maxNodes;
+} BgPolygonLinkedList; // size = 0xC
+
+typedef struct {
+    /* 0x0 */ Vec3s pos;
+} BgVertex; // size = 0x6
+
+typedef struct {
+    /* 0x0 */ Vec3s minPos;
+    /* 0x6 */ UNK_TYPE1 xLength; // Created by retype action
+    /* 0x7 */ UNK_TYPE1 pad7[0x1];
+    /* 0x8 */ UNK_TYPE1 zLength; // Created by retype action
+    /* 0x9 */ UNK_TYPE1 pad9[0x3];
+    /* 0xC */ u32 properties;
+} BgWaterBox; // size = 0x10
+
+typedef struct {
+    /* 0x0 */ UNK_TYPE1 pad0[0x4];
+    /* 0x4 */ BgWaterBox* boxes;
+} BgWaterboxList; // size = 0x8
+
+typedef struct {
+    /* 0x00 */ Vec3s min;
+    /* 0x06 */ Vec3s max;
+    /* 0x0C */ u16 numVertices;
+    /* 0x10 */ BgVertex* vertices;
+    /* 0x14 */ u16 numPolygons;
+    /* 0x18 */ BgPolygon* polygons;
+    /* 0x1C */ BgPolygonAttributes* attributes;
+    /* 0x20 */ UNK_PTR cameraData;
+    /* 0x24 */ u16 numWaterBoxes;
+    /* 0x28 */ BgWaterBox* waterboxes;
+} BgMeshHeader; // size = 0x2C
+
+typedef struct {
+    /* 0x00 */ BgMeshHeader* sceneMesh;
+    /* 0x04 */ Vec3f sceneMin;
+    /* 0x10 */ Vec3f sceneMax;
+    /* 0x1C */ s32 xSubdivisions;
+    /* 0x20 */ s32 ySubdivisions;
+    /* 0x24 */ s32 zSubdivisions;
+    /* 0x28 */ Vec3f subdivisionSize;
+    /* 0x34 */ Vec3f inverseSubdivisionSize;
+    /* 0x40 */ BgMeshSubdivision* subdivisions;
+    /* 0x44 */ BgScenePolygonLists scenePolyLists;
+} StaticCollisionContext; // size = 0x50
+
+typedef struct {
+    /* 0x00 */ DynaPolyActor* actor;
+    /* 0x04 */ BgMeshHeader* header;
+    /* 0x08 */ ActorMeshPolyLists polyLists;
+    /* 0x10 */ s16 verticesStartIndex;
+    /* 0x12 */ s16 waterboxesStartIndex;
+    /* 0x14 */ ActorMeshParams prevParams;
+    /* 0x34 */ ActorMeshParams currParams;
+    /* 0x54 */ Vec3s averagePos;
+    /* 0x5A */ s16 radiusFromAveragePos;
+    /* 0x5C */ f32 minY;
+    /* 0x60 */ f32 maxY;
+} ActorMesh; // size = 0x64
+
+typedef struct {
+    /* 0x0000 */ u8 unk0;
+    /* 0x0001 */ UNK_TYPE1 pad1[0x3];
+    /* 0x0004 */ ActorMesh actorMeshArr[50];
+    /* 0x138C */ u16 flags[50]; // bit 0 - Is mesh active
+    /* 0x13F0 */ BgPolygon* polygons;
+    /* 0x13F4 */ BgVertex* vertices;
+    /* 0x13F8 */ BgWaterboxList waterboxes;
+    /* 0x1400 */ BgPolygonLinkedList polygonList;
+    /* 0x140C */ u32 maxNodes;
+    /* 0x1410 */ u32 maxPolygons;
+    /* 0x1414 */ u32 maxVertices;
+    /* 0x1418 */ u32 maxMemory;
+    /* 0x141C */ u32 unk141C;
+} DynaCollisionContext; // size = 0x1420
+
+typedef struct {
+    /* 0x0000 */ StaticCollisionContext stat;
+    /* 0x0050 */ DynaCollisionContext dyna;
+} CollisionContext; // size = 0x1470
 
 /// =============================================================
 /// HUD Context
@@ -1518,7 +1531,7 @@ struct z2_game_s {
     s16              camera_cur;                     /* 0x00810 */
     s16              camera_next;                    /* 0x00812 */
     u8               unk_0x814[0x1C];                /* 0x00814 */
-    z2_col_ctxt_t    col_ctxt;                       /* 0x00830 */
+    CollisionContext colCtx;                         /* 0x00830 */
     ActorContext     actorCtx;                       /* 0x01CA0 */
     u8               unk_0x1F24[0x04];               /* 0x01F24 */
     void            *cutscene_ptr;                   /* 0x01F28 */
