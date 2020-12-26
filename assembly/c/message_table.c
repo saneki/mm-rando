@@ -60,7 +60,7 @@ bool message_table_pop_current_extended(void) {
 u32 message_table_get_data_file_vrom(void) {
     if (message_table_pop_current_extended()) {
         // Return extended data file VROM address.
-        return z2_file_table[EXT_MSG_DATA_FILE].vrom_start;
+        return z2_file_table[EXT_MSG_DATA_FILE].vromStart;
     } else {
         // Return original VROM address.
         return 0xAD1000;

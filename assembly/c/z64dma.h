@@ -21,4 +21,11 @@ typedef struct {
     /* 0x1C */ OSMesg notifyMsg; // Completion notification message
 } DmaRequest; // size = 0x20
 
+typedef struct {
+    /* 0x00 */ u32 vromStart;
+    /* 0x04 */ u32 vromEnd;
+    /* 0x08 */ u32 romStart;
+    /* 0x0C */ u32 romEnd;
+} DmaEntry; // size = 0x10
+
 #endif // _Z64DMA_H_
