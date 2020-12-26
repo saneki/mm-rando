@@ -34,7 +34,7 @@ void before_player_actor_update(ActorPlayer *link, GlobalContext *game) {
     external_effects_handle(link, game);
     ArrowCycle_Handle(link, game);
     ArrowMagic_Handle(link, game);
-    deku_hop_handle(link, game);
+    DekuHop_Handle(link, game);
 }
 
 bool before_damage_process(ActorPlayer *link, GlobalContext *game) {

@@ -3,6 +3,6 @@
 
 #include "z2.h"
 
-void deku_hop_handle(ActorPlayer *link, GlobalContext *game);
+void DekuHop_Handle(ActorPlayer* player, GlobalContext* ctxt);
 
 #endif // DEKU_HOP
