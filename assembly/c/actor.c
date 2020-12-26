@@ -13,5 +13,5 @@ void actor_after_dtor(Actor *actor, z2_game_t *game) {
 }
 
 Actor* actor_spawn(z2_game_t *game, u8 id, Vec3f pos, Vec3s rot, u16 var) {
-    return z2_SpawnActor(&(game->actor_ctxt), game, id, pos.x, pos.y, pos.z, rot.x, rot.y, rot.z, var);
+    return z2_SpawnActor(&(game->actorCtx), game, id, pos.x, pos.y, pos.z, rot.x, rot.y, rot.z, var);
 }

@@ -1019,80 +1019,96 @@ typedef struct {
 /// =============================================================
 
 /**
- * Number of array elements in actor_list field of z2_actor_ctxt_t.
+ * Number of array elements in actorList field of ActorContext.
  **/
-#define Z2_ACTOR_LIST_ENTRIES 0x10
+#define Z2_ACTOR_LIST_ENTRIES 12
 
-/**
- * z2_actor_ctxt_t
- **/
+typedef struct Actor Actor;
+
 typedef struct {
-    /* game_t 0x1CA0 */
-    u8               unk_0x00[0x04];                 /* 0x0000 */
-    s8               unk_0x04;                       /* 0x0004 */
-    u8               unk_0x05;                       /* 0x0005 */
-    u8               unk_0x06[0x05];                 /* 0x0006 */
-    s8               unk_0x0B;                       /* 0x000B */
-    u8               unk_0x0C[0x02];                 /* 0x000C */
-    u8               n_actors_loaded;                /* 0x000E */
-    u8               unk_0x0F;                       /* 0x000F */
-    struct {
-        s32          count;                          /* 0x0000 */
-        struct Actor *first;                         /* 0x0004 */
-        s32          unk;                            /* 0x0008 */
-                                                     /* 0x000C */
-    }                actor_list[0x10];               /* 0x0010 */
-    u8               unk_0xD0[0x50];                 /* 0x00D0 */
-    struct {
-        MtxF         unk_0x120;                      /* 0x0120 */
-        f32          unk_0x160;                      /* 0x0160 */
-        f32          unk_0x164;                      /* 0x0164 */
-        s16          unk_0x168;                      /* 0x0168 */
-        u8           unk_0x16A;                      /* 0x016A */
-        u8           unk_0x16B;                      /* 0x016B */
-        s8           unk_0x16C;                      /* 0x016C */
-        struct {
-            f32      unk_0x00;                       /* 0x0000 */
-            f32      unk_0x04;                       /* 0x0004 */
-            f32      unk_0x08;                       /* 0x0008 */
-            f32      unk_0x0C;                       /* 0x000C */
-            s32      unk_0x10;                       /* 0x0010 */
-                                                     /* 0x0014 */
-        }            unk_0x170[0x03];                /* 0x0170 */
-        s32          unk_0x1AC;                      /* 0x01AC */
-        s32          unk_0x1B0;                      /* 0x01B0 */
-        s32          unk_0x1B4;                      /* 0x01B4 */
-    };
-    s32              switch_1;                       /* 0x01B8, perm */
-    s32              switch_2;                       /* 0x01BC, perm */
-    s32              switch_3;                       /* 0x01C0 */
-    s32              switch_4;                       /* 0x01C4 */
-    s32              chest;                          /* 0x01C8 */
-    s32              clear;                          /* 0x01CC */
-    s32              unk_0x01D0;                     /* 0x01D0 */
-    s32              collectible_1;                  /* 0x01D4, perm */
-    s32              collectible_2;                  /* 0x01D8 */
-    s32              collectible_3;                  /* 0x01DC */
-    s32              collectible_4;                  /* 0x01E0 */
-    struct {
-        u8           unk_0x00[0x0A];                 /* 0x0000 */
-        s8           unk_0x0A;                       /* 0x000A */
-        s8           unk_0x0B;                       /* 0x000B */
-        s16          unk_0x0C;                       /* 0x000C */
-        s16          unk_0x0E;                       /* 0x000E */
-                                                     /* 0x0010 */
-    }                unk_0x1E4;                      /* 0x01E4 */
-    s8               unk_0x1F4;                      /* 0x01F4 */
-    u8               unk_0x1F5;                      /* 0x01F5 */
-    f32              unk_0x1F8;                      /* 0x01F8 */
-    u8               unk_0x1FC[0x54];                /* 0x01FC */
-    s32              unk_0x250;                      /* 0x0250 */
-    struct Actor    *elegy_statues[0x04];            /* 0x0254 */
-    u8               unk_0x264[0x04];                /* 0x0264 */
-    u8               unk_0x268;                      /* 0x0268 */
-    u8               unk_0x269[0x03];                /* 0x0269 */
-    u8               unk_0x26C[0x18];                /* 0x026C */
-} z2_actor_ctxt_t;                                   /* 0x0284 */
+    /* 0x0 */ s32 length; // number of actors loaded of this type
+    /* 0x4 */ Actor* first; // pointer to first actor of this type
+    /* 0x8 */ UNK_TYPE1 pad8[0x4];
+} ActorListEntry; // size = 0xC
+
+typedef struct {
+    /* 0x00 */ UNK_TYPE4 unk0;
+    /* 0x04 */ UNK_TYPE4 unk4;
+    /* 0x08 */ UNK_TYPE4 unk8;
+    /* 0x0C */ f32 unkC;
+    /* 0x10 */ ColorRGBA8 unk10;
+} TargetContextEntry; // size = 0x14
+
+typedef struct {
+    /* 0x00 */ Vec3f unk0;
+    /* 0x0C */ Vec3f unkC;
+    /* 0x18 */ f32 unk18;
+    /* 0x1C */ f32 unk1C;
+    /* 0x20 */ f32 unk20;
+    /* 0x24 */ f32 unk24;
+    /* 0x28 */ f32 unk28;
+    /* 0x2C */ f32 unk2C;
+    /* 0x30 */ f32 unk30;
+    /* 0x34 */ f32 unk34;
+    /* 0x38 */ Actor* unk38;
+    /* 0x3C */ Actor* unk3C;
+    /* 0x40 */ f32 unk40;
+    /* 0x44 */ f32 unk44;
+    /* 0x48 */ s16 unk48;
+    /* 0x4A */ u8 unk4A;
+    /* 0x4B */ u8 unk4B;
+    /* 0x4C */ s8 unk4C;
+    /* 0x4D */ UNK_TYPE1 pad4D[0x3];
+    /* 0x50 */ TargetContextEntry unk50[3];
+    /* 0x8C */ Actor* unk8C;
+    /* 0x90 */ Actor* unk90;
+    /* 0x94 */ UNK_TYPE1 pad94[0x4];
+} TargetContext; // size = 0x98
+
+typedef struct {
+    /* 0x0 */ u32 texture;
+    /* 0x4 */ s16 unk4;
+    /* 0x6 */ s16 unk6;
+    /* 0x8 */ u8 unk8;
+    /* 0x9 */ u8 unk9;
+    /* 0xA */ u8 fadeOutDelay;
+    /* 0xB */ u8 fadeInDelay;
+    /* 0xC */ s16 alpha;
+    /* 0xE */ s16 color;
+} TitleCardContext; // size = 0x10
+
+typedef struct {
+    /* 0x000 */ UNK_TYPE1 pad0[0x2];
+    /* 0x002 */ u8 unk2;
+    /* 0x003 */ u8 unk3;
+    /* 0x004 */ s8 unk4;
+    /* 0x005 */ u8 unk5;
+    /* 0x006 */ UNK_TYPE1 pad6[0x5];
+    /* 0x00B */ s8 unkB;
+    /* 0x00C */ s16 unkC;
+    /* 0x00E */ u8 totalLoadedActors;
+    /* 0x00F */ u8 undrawnActorCount;
+    /* 0x010 */ ActorListEntry actorList[12];
+    /* 0x0A0 */ Actor* undrawnActors[32]; // Records the first 32 actors drawn each frame
+    /* 0x120 */ TargetContext targetContext;
+    /* 0x1B8 */ u32 switchFlags[4]; // First 0x40 are permanent, second 0x40 are temporary
+    /* 0x1C8 */ u32 chestFlags;
+    /* 0x1CC */ u32 clearedRooms;
+    /* 0x1D0 */ u32 clearedRoomsTemp;
+    /* 0x1D4 */ u32 collectibleFlags[4]; // bitfield of 128 bits
+    /* 0x1E4 */ TitleCardContext titleCtxt;
+    /* 0x1F4 */ u8 unk1F4;
+    /* 0x1F5 */ u8 unk1F5;
+    /* 0x1F6 */ UNK_TYPE1 pad1F6[0x2];
+    /* 0x1F8 */ f32 unk1F8;
+    /* 0x1FC */ Vec3f unk1FC;
+    /* 0x208 */ UNK_TYPE1 pad208[0x48];
+    /* 0x250 */ void* unk250; // allocation of 0x20f0 bytes?
+    /* 0x254 */ Actor* elegyStatues[4];
+    /* 0x264 */ UNK_TYPE1 pad264[0x4];
+    /* 0x268 */ u8 unk268;
+    /* 0x269 */ UNK_TYPE1 pad269[0x1B];
+} ActorContext; // size = 0x284
 
 /// =============================================================
 /// Collision Context
@@ -1619,7 +1635,7 @@ struct z2_game_s {
     s16              camera_next;                    /* 0x00812 */
     u8               unk_0x814[0x1C];                /* 0x00814 */
     z2_col_ctxt_t    col_ctxt;                       /* 0x00830 */
-    z2_actor_ctxt_t  actor_ctxt;                     /* 0x01CA0 */
+    ActorContext     actorCtx;                       /* 0x01CA0 */
     u8               unk_0x1F24[0x04];               /* 0x01F24 */
     void            *cutscene_ptr;                   /* 0x01F28 */
     s8               cutscene_state;                 /* 0x01F2C */
@@ -2087,7 +2103,7 @@ typedef struct Actor {
 /**
  * Macro for getting the ActorPlayer pointer from the z2_game_t pointer.
  **/
-#define Z2_LINK(GAME) ((ActorPlayer*)((GAME->actor_ctxt.actor_list[2].first)))
+#define Z2_LINK(GAME) ((ActorPlayer*)((GAME->actorCtx.actorList[2].first)))
 
 typedef union {
     struct {
@@ -2689,7 +2705,7 @@ typedef f32* (*z2_GetMatrixStackTop_proc)();
 typedef void (*z2_LinkDamage_proc)(z2_game_t *game, ActorPlayer *link, u32 type, u32 arg3);
 typedef void (*z2_LinkInvincibility_proc)(ActorPlayer *link, u8 frames);
 typedef void (*z2_PlaySfx_proc)(u32 id);
-typedef Actor* (*z2_SpawnActor_proc)(z2_actor_ctxt_t *actor_ctx, z2_game_t *game, u16 id,
+typedef Actor* (*z2_SpawnActor_proc)(ActorContext *actor_ctx, z2_game_t *game, u16 id,
                                           f32 x, f32 y, f32 z, u16 rx, u16 ry, u16 rz, u16 variable);
 typedef void (*z2_UpdateButtonUsability_proc)(z2_game_t *game);
 typedef void (*z2_UseItem_proc)(z2_game_t *game, ActorPlayer *link, u8 item);
@@ -2722,7 +2738,7 @@ typedef void (*z2_store_scene_flags_proc)();
 
 /* Function Prototypes (Actors) */
 typedef void (*z2_ActorProc_proc)(Actor *actor, z2_game_t *game);
-typedef void (*z2_ActorRemove_proc)(z2_actor_ctxt_t *ctxt, Actor *actor, z2_game_t *game);
+typedef void (*z2_ActorRemove_proc)(ActorContext *ctxt, Actor *actor, z2_game_t *game);
 typedef void (*z2_ActorUnload_proc)(Actor *actor);
 
 /* Function Prototypes (Actor Cutscene) */

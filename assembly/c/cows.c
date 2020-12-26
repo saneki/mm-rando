@@ -9,8 +9,8 @@ static Actor * cows_get_closest_to_link(z2_game_t *game) {
 
     // Iterate actor_list entries.
     for (int i = 0; i < Z2_ACTOR_LIST_ENTRIES; i++) {
-        s32 count = game->actor_ctxt.actor_list[i].count;
-        Actor *cur = game->actor_ctxt.actor_list[i].first;
+        s32 count = game->actorCtx.actorList[i].length;
+        Actor *cur = game->actorCtx.actorList[i].first;
         // Iterate actor linked list for each entry.
         for (s32 j = 0; j < count; j++, cur = cur->next) {
             // In vanilla game: cow only gives milk if variable 0 or 2.

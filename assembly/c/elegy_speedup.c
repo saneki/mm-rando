@@ -99,7 +99,7 @@ void elegy_speedup_update_effect_position(Actor *actor, z2_game_t *game) {
     if (MISC_CONFIG.elegy_speedup) {
         // Get Elegy statue actor from main actor context struct.
         u8 form_index = actor->params & 7;
-        Actor *statue = game->actor_ctxt.elegy_statues[form_index];
+        Actor *statue = game->actorCtx.elegyStatues[form_index];
         if (statue != NULL) {
             // Sync position of Eff_Change effect with the statue.
             actor->currPosRot.pos = statue->currPosRot.pos;
