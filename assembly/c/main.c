@@ -31,7 +31,7 @@ void c_init() {
 
 void before_player_actor_update(ActorPlayer *link, GlobalContext *game) {
     Dpad_BeforePlayerActorUpdate(link, game);
-    external_effects_handle(link, game);
+    ExternalEffects_Handle(link, game);
     ArrowCycle_Handle(link, game);
     ArrowMagic_Handle(link, game);
     DekuHop_Handle(link, game);

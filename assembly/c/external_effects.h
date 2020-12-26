@@ -11,16 +11,16 @@ typedef struct {
     u32 version;
 
     // Effects added in version 0
-    u8 camera_overlook;
+    u8 cameraOverlook;
     u8 chateau;
     u8 fairy;
     u8 freeze;
-    u8 ice_physics;
+    u8 icePhysics;
     u8 jinx;
-    u8 no_z;
-    u8 reverse_controls;
-} external_effects_t;
+    u8 noZ;
+    u8 reverseControls;
+} ExternalEffectsConfig;
 
-void external_effects_handle(ActorPlayer *link, GlobalContext *game);
+void ExternalEffects_Handle(ActorPlayer* player, GlobalContext* ctxt);
 
 #endif // EXTERNAL_EFFECTS_H
