@@ -1,8 +1,8 @@
-elegy_speedup_get_block_speed_hook:
+ElegySpeedup_GetBlockSpeed_Hook:
     addiu   sp, sp, -0x18
     sw      ra, 0x0010 (sp)
 
-    jal     elegy_speedup_get_block_speed
+    jal     ElegySpeedup_GetBlockSpeed
     or      a0, s0, r0
 
     ; Store result in actor field offset 0x70.
@@ -12,7 +12,7 @@ elegy_speedup_get_block_speed_hook:
     jr      ra
     addiu   sp, sp, 0x18
 
-elegy_speedup_get_lock_params_hook:
+ElegySpeedup_GetLockParams_Hook:
     ; Displaced code
     or      a3, a1, r0
 
@@ -20,7 +20,7 @@ elegy_speedup_get_lock_params_hook:
     sw      ra, 0x0018 (sp)
     sw      a2, 0x0010 (sp)
 
-    jal     elegy_speedup_get_lock_params
+    jal     ElegySpeedup_GetLockParams
     sw      a3, 0x0014 (sp)
 
     ; Move hiword of result to T0.
@@ -34,13 +34,13 @@ elegy_speedup_get_lock_params_hook:
     jr      ra
     addiu   sp, sp, 0x20
 
-elegy_speedup_get_statue_despawn_counter_hook:
+ElegySpeedup_GetStatueDespawnCounter_Hook:
     addiu   sp, sp, -0x18
     sw      ra, 0x0014 (sp)
     sw      v1, 0x0010 (sp)
 
     or      a0, s1, r0
-    jal     elegy_speedup_get_statue_despawn_counter
+    jal     ElegySpeedup_GetStatueDespawnCounter
     or      a1, s0, r0
 
     ; Move result to T9.
@@ -51,7 +51,7 @@ elegy_speedup_get_statue_despawn_counter_hook:
     jr      ra
     addiu   sp, sp, 0x18
 
-elegy_speedup_get_statue_fade_speed_hook:
+ElegySpeedup_GetStatueFadeSpeed_Hook:
     lw      at, 0x0044 (sp)
 
     addiu   sp, sp, -0x18
@@ -59,7 +59,7 @@ elegy_speedup_get_statue_fade_speed_hook:
     sw      a1, 0x0010 (sp)
 
     or      a0, s0, r0
-    jal     elegy_speedup_get_statue_fade_speed
+    jal     ElegySpeedup_GetStatueFadeSpeed
     or      a1, at, r0
 
     lw      a1, 0x0010 (sp)
@@ -67,7 +67,7 @@ elegy_speedup_get_statue_fade_speed_hook:
     jr      ra
     addiu   sp, sp, 0x18
 
-elegy_speedup_handle_camera_hook:
+ElegySpeedup_HandleCamera_Hook:
     lw      at, 0x002C (sp)
 
     addiu   sp, sp, -0x20
@@ -76,7 +76,7 @@ elegy_speedup_handle_camera_hook:
     sw      a1, 0x0014 (sp)
 
     or      a0, a1, r0
-    jal     elegy_speedup_should_update_camera
+    jal     ElegySpeedup_ShouldUpdateCamera
     or      a1, at, r0
 
     beqz    v0, @@no_update
@@ -92,7 +92,7 @@ elegy_speedup_handle_camera_hook:
     jr      ra
     addiu   sp, sp, 0x20
 
-elegy_speedup_handle_darken_hook:
+ElegySpeedup_HandleDarken_Hook:
     lw      at, 0x002C (sp)
 
     addiu   sp, sp, -0x28
@@ -104,7 +104,7 @@ elegy_speedup_handle_darken_hook:
     sw      a3, 0x0020 (sp)
 
     or      a0, s0, r0
-    jal     elegy_speedup_should_darken
+    jal     ElegySpeedup_ShouldDarken
     or      a1, at, r0
 
     beqz    v0, @@no_darken
@@ -122,14 +122,14 @@ elegy_speedup_handle_darken_hook:
     jr      ra
     addiu   sp, sp, 0x28
 
-elegy_speedup_update_effect_position_hook:
+ElegySpeedup_UpdateEffectPosition_Hook:
     ; Displaced code
     or      s0, a0, r0
 
     addiu   sp, sp, -0x18
     sw      ra, 0x0010 (sp)
 
-    jal     elegy_speedup_update_effect_position
+    jal     ElegySpeedup_UpdateEffectPosition
     nop
 
     lw      ra, 0x0010 (sp)
