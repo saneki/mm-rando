@@ -185,7 +185,7 @@ static void HandleChateauEffect(GlobalContext* ctxt, ActorPlayer* player) {
 static void HandleFairyEffect(GlobalContext* ctxt, ActorPlayer* player) {
     // Reset fairy instance usages when scene changes
     if (ctxt->sceneNum != gFairyScene) {
-        reset_fairy_instance_usage();
+        Fairy_ResetInstanceUsage();
         gFairyScene = ctxt->sceneNum;
         gFairyCooldown = 0;
     }
@@ -196,9 +196,9 @@ static void HandleFairyEffect(GlobalContext* ctxt, ActorPlayer* player) {
     }
 
     // Check state type to see if we can receive a fairy during this frame
-    if (gExternalEffects.fairy && gFairyCooldown == 0 && can_interact_with_fairy(ctxt, player)) {
+    if (gExternalEffects.fairy && gFairyCooldown == 0 && Fairy_CanInteractWith(ctxt, player)) {
         // Spawn fairy on top of Link, and call the function to interact
-        Actor* fairy = spawn_next_fairy_actor(ctxt, player->base.initPosRot.pos);
+        Actor* fairy = Fairy_SpawnNextActor(ctxt, player->base.initPosRot.pos);
         if (fairy) {
             if (fairy->update != NULL) {
                 fairy->update(fairy, ctxt);
