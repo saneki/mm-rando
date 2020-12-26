@@ -4,10 +4,12 @@
 #include <n64.h>
 #include <stdbool.h>
 #include "types.h"
+#include "unk.h"
 
-typedef u8 UNK_TYPE1;
-typedef u16 UNK_TYPE2;
-typedef u32 UNK_TYPE4;
+#include "z64actor.h"
+#include "z64dma.h"
+#include "z64math.h"
+#include "z64scene.h"
 
 typedef void (*FuncPtr)(void);
 
@@ -723,11 +725,7 @@ enum z2_object_id {
 };
 
 /* Structure type aliases. */
-struct Actor;
 typedef struct z2_game_s  z2_game_t;
-
-typedef struct Actor Actor;
-typedef struct ActorPlayer ActorPlayer;
 
 /**
  * Floating point matrix (copied from krimtonz' gu.h)
@@ -742,27 +740,6 @@ typedef union {
             wx, wy, wz, ww;
     };
 } MtxF;
-
-/// =============================================================
-/// Position & Rotation
-/// =============================================================
-
-typedef struct {
-    /* 0x0 */ f32 x;
-    /* 0x4 */ f32 y;
-    /* 0x8 */ f32 z;
-} Vec3f; // size = 0xC
-
-typedef struct {
-    /* 0x0 */ s16 x;
-    /* 0x2 */ s16 y;
-    /* 0x4 */ s16 z;
-} Vec3s; // size = 0x6
-
-typedef struct {
-    /* 0x00 */ Vec3f pos;
-    /* 0x0C */ Vec3s rot;
-} PosRot; // size = 0x14
 
 /// =============================================================
 /// Colors
@@ -1181,7 +1158,7 @@ typedef struct {
     } flags;                                         /* 0x000A */
 } z2_col_water_t;                                    /* 0x000E */
 
-typedef struct {
+typedef struct z2_col_poly_s {
     u16              type;                           /* 0x0000, index of z2_col_type in scene file */
     /* Vertex indices, a and b are bitmasked for some reason. */
     struct {
@@ -1392,124 +1369,6 @@ typedef struct {
     /* 0x268 */ PauseCells cells2;
     /* 0x270 */ UNK_TYPE1 pad270[0x60];
 } PauseContext; // size = 0x2D0
-
-/// =============================================================
-/// Object Context
-/// =============================================================
-
-typedef struct {
-    /* 0x00 */ u32 vromAddr;
-    /* 0x04 */ void* dramAddr;
-    /* 0x08 */ u32 size;
-} DmaParams;
-
-typedef struct {
-    /* 0x00 */ u32 vromAddr; // VROM address (source)
-    /* 0x04 */ void* dramAddr; // DRAM address (destination)
-    /* 0x08 */ u32 size; // File Transfer size
-    /* 0x0C */ char* filename; // Filename for debugging
-    /* 0x10 */ s32 line; // Line for debugging
-    /* 0x14 */ s32 unk14;
-    /* 0x18 */ OSMesgQueue* notifyQueue; // Message queue for the notification message
-    /* 0x1C */ OSMesg notifyMsg; // Completion notification message
-} DmaRequest; // size = 0x20
-
-typedef struct {
-    /* 0x00 */ s16 id; // Negative ids mean that the object is unloaded
-    /* 0x02 */ UNK_TYPE1 pad2[0x2];
-    /* 0x04 */ void* vramAddr;
-    /* 0x08 */ DmaRequest dmaReq;
-    /* 0x28 */ OSMesgQueue loadQueue;
-    /* 0x40 */ OSMesg loadMsg;
-} SceneObject; // size = 0x44
-
-typedef struct {
-    /* 0x000 */ void* objectVramStart;
-    /* 0x004 */ void* objectVramEnd;
-    /* 0x008 */ u8 objectCount;
-    /* 0x009 */ u8 spawnedObjectCount;
-    /* 0x00A */ u8 mainKeepIndex;
-    /* 0x00B */ u8 keepObjectId;
-    /* 0x00C */ SceneObject objects[35]; // TODO: OBJECT_EXCHANGE_BANK_MAX array size
-} SceneContext; // size = 0x958
-
-/// =============================================================
-/// Room Context
-/// =============================================================
-
-typedef struct {
-    /* 0x0 */ u32 opaqueDl;
-    /* 0x4 */ u32 translucentDl;
-} RoomMeshType0Params; // size = 0x8
-
-// Fields TODO
-typedef struct {
-    /* 0x0 */ u8 type;
-    /* 0x1 */ u8 format; // 1 = single, 2 = multi
-} RoomMeshType1; // size = 0x2
-
-// Size TODO
-typedef struct {
-    /* 0x0 */ UNK_TYPE1 pad0[0x10];
-} RoomMeshType1Params; // size = 0x10
-
-typedef struct {
-    /* 0x0 */ UNK_TYPE1 pad0[0x10];
-} RoomMeshType2Params; // size = 0x10
-
-typedef struct {
-    /* 0x0 */ u8 type;
-    /* 0x1 */ u8 count;
-    /* 0x2 */ UNK_TYPE1 pad2[0x2];
-    /* 0x4 */ RoomMeshType0Params* paramsStart;
-    /* 0x8 */ RoomMeshType0Params* paramsEnd;
-} RoomMeshType0; // size = 0xC
-
-typedef struct {
-    /* 0x0 */ u8 type;
-    /* 0x1 */ u8 count;
-    /* 0x2 */ UNK_TYPE1 pad2[0x2];
-    /* 0x4 */ RoomMeshType2Params* paramsStart;
-    /* 0x8 */ RoomMeshType2Params* paramsEnd;
-} RoomMeshType2; // size = 0xC
-
-typedef union {
-    RoomMeshType0 type0;
-    RoomMeshType1 type1;
-    RoomMeshType2 type2;
-} RoomMesh; // size = 0xC
-
-typedef struct {
-    /* 0x00 */ s8 num;
-    /* 0x01 */ u8 unk1;
-    /* 0x02 */ u8 unk2;
-    /* 0x03 */ u8 unk3;
-    /* 0x04 */ s8 echo;
-    /* 0x05 */ u8 unk5;
-    /* 0x06 */ u8 enablePosLights;
-    /* 0x07 */ UNK_TYPE1 pad7[0x1];
-    /* 0x08 */ RoomMesh* mesh;
-    /* 0x0C */ void* segment;
-    /* 0x10 */ UNK_TYPE1 pad10[0x4];
-} Room; // size = 0x14
-
-typedef struct {
-    /* 0x00 */ Room currRoom;
-    /* 0x14 */ Room prevRoom;
-    /* 0x28 */ void* roomMemPages[2]; // In a scene with transitions, roomMemory is split between two pages that toggle each transition. This is one continuous range, as the second page allocates from the end
-    /* 0x30 */ u8 activeMemPage; // 0 - First page in memory, 1 - Second page
-    /* 0x31 */ s8 unk31;
-    /* 0x32 */ UNK_TYPE1 pad32[0x2];
-    /* 0x34 */ void* activeRoomVram;
-    /* 0x38 */ DmaRequest dmaRequest;
-    /* 0x58 */ OSMesgQueue loadQueue;
-    /* 0x70 */ OSMesg loadMsg[1];
-    /* 0x74 */ void* unk74;
-    /* 0x78 */ s8 transitionCount;
-    /* 0x79 */ s8 unk79;
-    /* 0x7A */ UNK_TYPE2 unk7A[1];
-    /* 0x7C */ void* transitionList;
-} RoomContext; // size = 0x80
 
 /// =============================================================
 /// Ocarina & Song
@@ -1977,249 +1836,6 @@ typedef struct {
     /* 0x58DE */ UNK_TYPE1 pad58DE[0x12];
     /* 0x58F0 */ ColorRGB16 heartDdRgb;
 } SaveContext; // size = 0x58F6
-
-/// =============================================================
-/// Actor Structures
-/// =============================================================
-
-typedef void(*ActorFunc)(struct Actor *this, z2_game_t *ctxt);
-
-typedef union {
-    struct {
-        u8 damage : 4;
-        u8 effect : 4;
-    };
-    u8 value;
-} ActorDamageByte; // size = 0x1
-
-typedef struct {
-    /* 0x00 */ ActorDamageByte attack[32];
-} ActorDamageChart; // size = 0x20
-
-// Related to collision?
-typedef struct {
-    /* 0x00 */ ActorDamageChart* damageChart;
-    /* 0x04 */ Vec3f displacement;
-    /* 0x10 */ s16 unk10;
-    /* 0x12 */ s16 unk12;
-    /* 0x14 */ s16 unk14;
-    /* 0x16 */ u8 mass;
-    /* 0x17 */ u8 health;
-    /* 0x18 */ u8 damage;
-    /* 0x19 */ u8 damageEffect;
-    /* 0x1A */ u8 impactEffect;
-    /* 0x1B */ UNK_TYPE1 pad1B[0x1];
-} ActorA0; // size = 0x1C
-
-// typedef void(*ActorShadowDrawFunc)(struct Actor* actor, struct LightMapper* mapper, struct GlobalContext* ctxt);
-
-typedef struct {
-    /* 0x00 */ Vec3s rot;
-    /* 0x08 */ f32 yDisplacement;
-    /* 0x0C */ void* shadowDrawFunc;
-    /* 0x10 */ f32 scale;
-    /* 0x14 */ u8 alphaScale; // 255 means always draw full opacity if visible
-} ActorShape; // size = 0x18
-
-typedef struct {
-    /* 0x00 */ s16 id;
-    /* 0x02 */ u8 type;
-    /* 0x04 */ u32 flags;
-    /* 0x08 */ s16 objectId;
-    /* 0x0C */ u32 instanceSize;
-    /* 0x10 */ ActorFunc init;
-    /* 0x14 */ ActorFunc destroy;
-    /* 0x18 */ ActorFunc update;
-    /* 0x1C */ ActorFunc draw;
-} ActorInit; // size = 0x20
-
-typedef enum {
-    ALLOCTYPE_NORMAL,
-    ALLOCTYPE_ABSOLUTE,
-    ALLOCTYPE_PERMANENT,
-} AllocType;
-
-typedef struct {
-    /* 0x00 */ u32 vromStart;
-    /* 0x04 */ u32 vromEnd;
-    /* 0x08 */ void* vramStart;
-    /* 0x0C */ void* vramEnd;
-    /* 0x10 */ void* loadedRamAddr; // original name: "allocp"
-    /* 0x14 */ ActorInit* initInfo;
-    /* 0x18 */ char* name;
-    /* 0x1C */ u16 allocType; // bit 0: don't allocate memory, use actorContext->0x250? bit 1: Always keep loaded?
-    /* 0x1E */ s8 nbLoaded; // original name: "clients"
-    /* 0x1F */ UNK_TYPE1 pad1F[0x1];
-} ActorOverlay; // size = 0x20
-
-/**
- * Actor.
- **/
-typedef struct Actor {
-    /* 0x000 */ s16 id;
-    /* 0x002 */ u8 type;
-    /* 0x003 */ s8 room;
-    /* 0x004 */ u32 flags;
-    /* 0x008 */ PosRot initPosRot;
-    /* 0x01C */ s16 params;
-    /* 0x01E */ s8 objBankIndex;
-    /* 0x01F */ UNK_TYPE1 unk1F;
-    /* 0x020 */ u16 soundEffect;
-    /* 0x022 */ UNK_TYPE1 pad22[0x2];
-    /* 0x024 */ PosRot currPosRot;
-    /* 0x038 */ s8 cutscene;
-    /* 0x039 */ u8 unk39;
-    /* 0x03A */ UNK_TYPE1 pad3A[0x2];
-    /* 0x03C */ PosRot topPosRot;
-    /* 0x050 */ u16 unk50;
-    /* 0x052 */ UNK_TYPE1 pad52[0x2];
-    /* 0x054 */ f32 unk54;
-    /* 0x058 */ Vec3f scale;
-    /* 0x064 */ Vec3f velocity;
-    /* 0x070 */ f32 speedXZ;
-    /* 0x074 */ f32 gravity;
-    /* 0x078 */ f32 minVelocityY;
-    /* 0x07C */ z2_col_poly_t *wallPoly;
-    /* 0x080 */ z2_col_poly_t *floorPoly;
-    /* 0x084 */ u8 wallPolySource;
-    /* 0x085 */ u8 floorPolySource;
-    /* 0x086 */ s16 wallRot;
-    /* 0x088 */ f32 floorHeight;
-    /* 0x08C */ f32 waterSurfaceDist;
-    /* 0x090 */ u16 bgcheckFlags;
-    /* 0x092 */ s16 rotTowardsLinkY;
-    /* 0x094 */ f32 sqrdDistanceFromLink;
-    /* 0x098 */ f32 xzDistanceFromLink;
-    /* 0x09C */ f32 yDistanceFromLink;
-    /* 0x0A0 */ ActorA0 unkA0;
-    /* 0x0BC */ ActorShape shape;
-    /* 0x0D4 */ Vec3f unkD4;
-    /* 0x0E0 */ Vec3f unkE0;
-    /* 0x0EC */ Vec3f projectedPos;
-    /* 0x0F8 */ f32 unkF8;
-    /* 0x0FC */ f32 unkFC;
-    /* 0x100 */ f32 unk100;
-    /* 0x104 */ f32 unk104;
-    /* 0x108 */ Vec3f lastPos;
-    /* 0x114 */ u8 unk114;
-    /* 0x115 */ u8 unk115;
-    /* 0x116 */ u16 textId;
-    /* 0x118 */ s16 freeze;
-    /* 0x11A */ u16 hitEffectParams;
-    /* 0x11C */ u8 hitEffectIntensity;
-    /* 0x11D */ u8 hasBeenDrawn;
-    /* 0x11E */ UNK_TYPE1 pad11E[0x1];
-    /* 0x11F */ u8 naviEnemyId;
-    /* 0x120 */ struct Actor* parent;
-    /* 0x124 */ struct Actor* child;
-    /* 0x128 */ struct Actor* prev;
-    /* 0x12C */ struct Actor* next;
-    /* 0x130 */ ActorFunc init;
-    /* 0x134 */ ActorFunc destroy;
-    /* 0x138 */ ActorFunc update;
-    /* 0x13C */ ActorFunc draw;
-    /* 0x140 */ ActorOverlay *overlayEntry;
-} Actor; // size = 0x144
-
-/// =============================================================
-/// Link Actor
-/// =============================================================
-
-/**
- * Macro for getting the ActorPlayer pointer from the z2_game_t pointer.
- **/
-#define Z2_LINK(GAME) ((ActorPlayer*)((GAME->actorCtx.actorList[2].first)))
-
-typedef union {
-    struct {
-        u16 unknown;
-        u16 id;
-    };
-    u32 value;
-} PlayerAnimation; // size = 0x4
-
-typedef union {
-    struct {
-        u32 state1;
-        u32 state2;
-        u32 state3;
-    };
-    u32 flags[3];
-} PlayerStateFlags; // size = 0xC
-
-// See: ActorPlayer::heldItemActionParam
-typedef enum {
-    HELD_ITEM_BOW = 0x9,
-    HELD_ITEM_HOOKSHOT = 0xD,
-    HELD_ITEM_OCARINA = 0x14,
-    HELD_ITEM_BOTTLE = 0x15,
-} PlayerHeldItem;
-
-/**
- * Link actor.
- **/
-struct ActorPlayer {
-    /* 0x000 */ Actor base;
-    /* 0x144 */ u8 pad144[0x2];
-    /* 0x146 */ u8 itemButton;
-    /* 0x147 */ s8 itemActionParam;
-    /* 0x148 */ u8 unk148;
-    /* 0x149 */ u8 unk149;
-    /* 0x14A */ s8 heldItemActionParam; // Which item Link currently has out?
-    /* 0x14B */ u8 form;
-    /* 0x14C */ UNK_TYPE1 pad14C[0x5];
-    /* 0x151 */ u8 unk151;
-    /* 0x152 */ UNK_TYPE1 unk152;
-    /* 0x153 */ u8 mask;
-    /* 0x154 */ u8 maskC; // C button index (starting at 1) of current/recently worn mask.
-    /* 0x155 */ u8 previousMask;
-    /* 0x156 */ UNK_TYPE1 pad156[0xF2];
-    /* 0x248 */ PlayerAnimation currentAnimation;
-    /* 0x24C */ UNK_TYPE1 pad24C[0x100];
-    /* 0x34C */ Actor* heldActor;
-    /* 0x350 */ UNK_TYPE1 pad350[0x18];
-    /* 0x368 */ Vec3f unk368;
-    /* 0x374 */ UNK_TYPE1 pad374[0x10];
-    /* 0x384 */ u16 getItem;
-    /* 0x386 */ UNK_TYPE1 pad386[0xC];
-    /* 0x394 */ u8 unk394;
-    /* 0x395 */ UNK_TYPE1 pad395[0x37];
-    /* 0x3CC */ s16 unk3CC;
-    /* 0x3CE */ s8 unk3CE;
-    /* 0x3CF */ UNK_TYPE1 pad3CF[0x361];
-    /* 0x730 */ Actor* unk730;
-    /* 0x734 */ UNK_TYPE1 pad734[0x334];
-    /* 0xA68 */ f32 *tableA68; // Transformation-dependant f32 array, [11] used for distance to begin swimming.
-    /* 0xA6C */ PlayerStateFlags stateFlags;
-    /* 0xA78 */ UNK_TYPE1 padA78[0x8];
-    /* 0xA80 */ Actor* unkA80;
-    /* 0xA84 */ UNK_TYPE1 padA84[0x4];
-    /* 0xA88 */ Actor* unkA88;
-    /* 0xA8C */ f32 unkA8C;
-    /* 0xA90 */ UNK_TYPE1 padA90[0x40];
-    /* 0xAD0 */ f32 linearVelocity;
-    /* 0xAD4 */ u16 movementAngle;
-    /* 0xAD6 */ UNK_TYPE1 padAD6[0x5];
-    /* 0xADB */ u8 swordActive;
-    /* 0xADC */ UNK_TYPE1 padADC[0x2];
-    /* 0xADE */ u8 unkADE;
-    /* 0xADF */ UNK_TYPE1 padADF[0x4];
-    /* 0xAE3 */ s8 unkAE3;
-    /* 0xAE4 */ UNK_TYPE1 padAE4[0x3];
-    /* 0xAE7 */ u8 animTimer; // Some animation timer? Relevant to: transformation masks.
-    /* 0xAE8 */ u16 frozenTimer;
-    /* 0xAEA */ UNK_TYPE1 padAEA[0x3E];
-    /* 0xB28 */ s16 unkB28;
-    /* 0xB2A */ UNK_TYPE1 padB2A[0x36];
-    /* 0xB60 */ u16 blastMaskTimer;
-    /* 0xB62 */ UNK_TYPE1 padB62[0x5];
-    /* 0xB67 */ u8 dekuHopCounter;
-    /* 0xB68 */ UNK_TYPE1 padB68[0xA];
-    /* 0xB72 */ u16 floorType; // Determines sound effect used while walking.
-    /* 0xB74 */ UNK_TYPE1 padB74[0x28];
-    /* 0xB9C */ Vec3f unkB9C;
-    /* 0xBA8 */ UNK_TYPE1 padBA8[0x1D0];
-}; // size = 0xD78
 
 /// =============================================================
 /// Other Actors
