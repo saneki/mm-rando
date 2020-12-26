@@ -13,6 +13,6 @@ void models_after_prepare_display_buffers(GraphicsContext *gfx);
 void models_clear_object_heap(void);
 void models_init(void);
 void models_prepare_after_room_unload(z2_game_t *game);
-void models_prepare_before_room_load(z2_room_ctxt_t *room_ctxt, s8 room_index);
+void models_prepare_before_room_load(RoomContext *room_ctxt, s8 room_index);
 
 #endif // MODELS_H
