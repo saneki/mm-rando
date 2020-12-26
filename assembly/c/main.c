@@ -21,7 +21,7 @@ void c_init() {
     gfx_init();
     dpad_init();
     hud_colors_init();
-    actor_ext_init();
+    ActorExt_Init();
     models_init();
     mmr_init();
     misc_init();

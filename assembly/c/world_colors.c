@@ -26,16 +26,17 @@ u32 WorldColors_GetBlueBubbleColor(Actor *actor, GlobalContext *game) {
     rgbs_t color = WORLD_COLOR_CONFIG.blueBubble;
     if ((color.s & COLOR_SPECIAL_INSTANCE) != 0) {
         bool created = false;
-        struct actor_ext *ext = actor_ext_setup(actor, &created);
+        struct ActorExt *ext = ActorExt_Setup(actor, &created);
         if (ext != NULL) {
             if (created) {
-                ext->color = color_randomize_hue(color.rgb);
+                rgb_t result = color_randomize_hue(color.rgb);
+                ext->color = *(ColorRGBA8*)(&result);
             }
-            return color_rgb2int(ext->color, 0);
+            return Color_ConvertToIntWithAlpha(ext->color, 0);
         }
     }
 
-    return color_rgb2int(color.rgb, 0);
+    return Color_ConvertToIntWithAlpha(color.rgb, 0);
 }
 
 void WorldColors_Init(void) {

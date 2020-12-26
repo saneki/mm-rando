@@ -7,7 +7,7 @@
  **/
 void actor_after_dtor(Actor *actor, GlobalContext *game) {
     // Free any Actor Extended data this actor may point to.
-    actor_ext_after_actor_dtor(actor);
+    ActorExt_AfterActorDtor(actor);
     // Unload actor model information after dtor.
     models_after_actor_dtor(actor);
 }
