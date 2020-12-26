@@ -185,7 +185,7 @@ f32 misc_get_in_water_push_speed(ActorPlayer *link, Actor *actor) {
 /**
  * Hook function to check whether or not to perform crit wiggle.
  **/
-bool misc_crit_wiggle_check(z2_camera_t *camera, s16 health) {
+bool misc_crit_wiggle_check(Camera *camera, s16 health) {
     switch (MISC_CONFIG.crit_wiggle) {
         case CRIT_WIGGLE_ALWAYS_ON:
             return true;

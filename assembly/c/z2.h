@@ -726,6 +726,9 @@ enum z2_object_id {
 struct Actor;
 typedef struct z2_game_s  z2_game_t;
 
+typedef struct Actor Actor;
+typedef struct ActorPlayer ActorPlayer;
+
 /**
  * Floating point matrix (copied from krimtonz' gu.h)
  **/
@@ -975,44 +978,68 @@ typedef struct {
 } View; // size = 0x168
 
 typedef struct {
-    union {
-        struct {
-            Vec3f    unk_0x00;                     /* 0x0000 */
-            struct {
-                f32  unk_1_0x00;
-                f32  unk_1_0x04;
-                s16  unk_1_0x08;
-                s16  unk_1_0x0A;
-                s16  unk_1_0x0C;
-                f32  unk_1_0x10;
-            };
-        }            t1;
-        struct {
-            u16      unk_0x00;
-        }            t2;
-        u8           unk_0x00[0x50];
-    };
-    Vec3f            unk_0x50;                       /* 0x0050 */
-    Vec3f            unk_0x5C;                       /* 0x005C */
-    Vec3f            unk_0x68;                       /* 0x0068 */
-    u8               unk_0x74[0x0C];                 /* 0x0074 */
-    Vec3f            unk_0x80;                       /* 0x0080 */
-    GameState       *game;                           /* 0x008C */
-    struct Actor    *focus;                          /* 0x0090 */
-    Vec3f            focus_pos;                      /* 0x0094 */
-    u32              unk_0xA0;                       /* 0x00A0 */
-    u32              unk_0xA4;                       /* 0x00A4 */
-    struct Actor    *actor;                          /* 0x00A8 */
-    u8               unk_0xAC[0x94];                 /* 0x00AC */
-    s16              unk_0x140;                      /* 0x0140 */
-    s16              state;                          /* 0x0142 */
-    s16              mode;                           /* 0x0144 */
-    s16              unk_0x146;                      /* 0x0146 */
-    s16              unk_0x148;                      /* 0x0148 */
-    s16              unk_0x14A;                      /* 0x014A */
-    s16              unk_flag_0x14C;                 /* 0x014C */
-    u8               unk_0x14E[0x2A];                /* 0x014E */
-} z2_camera_t;                                       /* 0x0178 */
+    /* 0x000 */ UNK_TYPE1 pad0[0x4];
+    /* 0x004 */ Vec3f unk4;
+    /* 0x010 */ UNK_TYPE1 pad10[0x8];
+    /* 0x018 */ f32 unk18;
+    /* 0x01C */ s16 unk1C;
+    /* 0x01E */ s16 unk1E;
+    /* 0x020 */ Vec3f unk20;
+    /* 0x02C */ UNK_TYPE1 pad2C[0x2];
+    /* 0x02E */ s16 unk2E;
+    /* 0x030 */ UNK_TYPE1 pad30[0x10];
+    /* 0x040 */ s16 unk40;
+    /* 0x042 */ s16 unk42;
+    /* 0x044 */ UNK_TYPE1 pad44[0x8];
+    /* 0x04C */ s16 unk4C;
+    /* 0x04E */ UNK_TYPE1 pad4E[0x2];
+    /* 0x050 */ Vec3f focalPoint;
+    /* 0x05C */ Vec3f eye;
+    /* 0x068 */ Vec3f upDir;
+    /* 0x074 */ Vec3f unk74;
+    /* 0x080 */ f32 unk80;
+    /* 0x084 */ f32 unk84;
+    /* 0x088 */ f32 unk88;
+    /* 0x08C */ z2_game_t* ctxt;
+    /* 0x090 */ ActorPlayer* player;
+    /* 0x094 */ PosRot unk94;
+    /* 0x0A8 */ Actor* unkA8;
+    /* 0x0AC */ Vec3f unkAC;
+    /* 0x0B8 */ UNK_TYPE1 padB8[0x8];
+    /* 0x0C0 */ f32 unkC0;
+    /* 0x0C4 */ f32 unkC4;
+    /* 0x0C8 */ f32 unkC8;
+    /* 0x0CC */ f32 unkCC;
+    /* 0x0D0 */ f32 unkD0;
+    /* 0x0D4 */ f32 unkD4;
+    /* 0x0D8 */ UNK_TYPE1 padD8[0x4];
+    /* 0x0DC */ f32 unkDC;
+    /* 0x0E0 */ f32 unkE0;
+    /* 0x0E4 */ UNK_TYPE1 padE4[0x18];
+    /* 0x0FC */ f32 fov;
+    /* 0x100 */ f32 unk100;
+    /* 0x104 */ UNK_TYPE1 pad104[0x30];
+    /* 0x134 */ Vec3s unk134;
+    /* 0x13A */ UNK_TYPE1 pad13A[0x4];
+    /* 0x13E */ u16 unk13E;
+    /* 0x140 */ s16 unk140;
+    /* 0x142 */ s16 state;
+    /* 0x144 */ s16 mode;
+    /* 0x146 */ UNK_TYPE1 pad146[0x2];
+    /* 0x148 */ s16 unk148;
+    /* 0x14A */ s16 unk14A;
+    /* 0x14C */ s16 unk14C;
+    /* 0x14E */ UNK_TYPE1 pad14E[0x6];
+    /* 0x154 */ s16 unk154;
+    /* 0x156 */ UNK_TYPE1 pad156[0x4];
+    /* 0x15A */ s16 unk15A;
+    /* 0x15C */ s16 unk15C;
+    /* 0x15E */ s16 unk15E;
+    /* 0x160 */ UNK_TYPE1 pad160[0x4];
+    /* 0x164 */ s16 unk164;
+    /* 0x166 */ s16 unk166;
+    /* 0x168 */ UNK_TYPE1 pad168[0x10];
+} Camera; // size = 0x178
 
 /// =============================================================
 /// Actor Context
@@ -1022,8 +1049,6 @@ typedef struct {
  * Number of array elements in actorList field of ActorContext.
  **/
 #define Z2_ACTOR_LIST_ENTRIES 12
-
-typedef struct Actor Actor;
 
 typedef struct {
     /* 0x0 */ s32 length; // number of actors loaded of this type
@@ -1180,7 +1205,7 @@ typedef struct {
     u16              n_poly;                         /* 0x0012 */
     z2_col_poly_t   *poly;                           /* 0x0014 */
     z2_col_type_t   *type;                           /* 0x0018 */
-    z2_camera_t     *camera;                         /* 0x001C */
+    Camera          *camera;                         /* 0x001C */
     u16              n_water;                        /* 0x0020 */
     z2_col_water_t  *water;                          /* 0x0022 */
 } z2_col_hdr_t;                                      /* 0x0026 */
@@ -1629,8 +1654,8 @@ struct z2_game_s {
     void            *scene_addr;                     /* 0x000B0 */
     u8               unk_0x00B4[0x04];               /* 0x000B4 */
     View             view_scene;                     /* 0x000B8 */
-    z2_camera_t      cameras[4];                     /* 0x00220 */
-    z2_camera_t     *active_cameras[4];              /* 0x00800 */
+    Camera           cameras[4];                     /* 0x00220 */
+    Camera          *active_cameras[4];              /* 0x00800 */
     s16              camera_cur;                     /* 0x00810 */
     s16              camera_next;                    /* 0x00812 */
     u8               unk_0x814[0x1C];                /* 0x00814 */
@@ -2133,7 +2158,7 @@ typedef enum {
 /**
  * Link actor.
  **/
-typedef struct {
+struct ActorPlayer {
     /* 0x000 */ Actor base;
     /* 0x144 */ u8 pad144[0x2];
     /* 0x146 */ u8 itemButton;
@@ -2194,7 +2219,7 @@ typedef struct {
     /* 0xB74 */ UNK_TYPE1 padB74[0x28];
     /* 0xB9C */ Vec3f unkB9C;
     /* 0xBA8 */ UNK_TYPE1 padBA8[0x1D0];
-} ActorPlayer; // size = 0xD78
+}; // size = 0xD78
 
 /// =============================================================
 /// Other Actors
