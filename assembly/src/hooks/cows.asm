@@ -14,7 +14,7 @@
 ;   nop
 .org 0x8099CE04
 .area 0x1C
-    jal     cows_is_close_enough_to_give_milk_hook
+    jal     Cows_IsCloseEnoughToGiveMilk_Hook
     lw      a1, 0x001C (sp)
     lhu     a1, 0x026E (a0)
     ori     t6, a1, 0x0004
