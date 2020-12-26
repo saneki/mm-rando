@@ -23,7 +23,7 @@
 
 /* Relocatable file select data */
 #define ResolveGamestateRelocType(Type, Vram, Gs) ((Type*)reloc_resolve_gamestate(&(Gs), (Vram)))
-#define ResolveFileChooseData() ResolveGamestateRelocType(FileChooseData, FileChooseDataVRAM, z2_gamestate.fileSelect)
+#define ResolveFileChooseData() ResolveGamestateRelocType(FileChooseData, FileChooseDataVRAM, gGameStateInfo.fileSelect)
 
 void * reloc_resolve_actor_ovl(ActorOverlay *ovl, u32 vram);
 ActorInit * reloc_resolve_actor_init(ActorOverlay *ovl);
