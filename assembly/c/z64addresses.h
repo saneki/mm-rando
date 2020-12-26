@@ -29,7 +29,7 @@
 #define z2_gamestate                     (*(GameStateTable*)         GameStateTableAddr)
 #define z2_gi_graphic_table              ((GetItemGraphicEntry*)     GetItemGraphicTableAddr)
 #define z2_obj_table                     ((ObjectFileTableEntry*)    ObjectTableAddr)
-#define z2_segment                       (*(SegmentTable*)           SegmentTableAddr)
+#define gRspSegmentPhysAddrs             (*(SegmentTable*)           SegmentTableAddr)
 #define z2_song_notes                    (*(SongNotes*)              SongNotesAddr)
 #define z2_static_ctxt                   (*(StaticContext*)          StaticContextAddr)
 
