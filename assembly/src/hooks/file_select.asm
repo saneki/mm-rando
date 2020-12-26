@@ -7,12 +7,12 @@
 ; Replaces:
 ;   jr      ra
 .org 0x80813DE4
-    j       file_select_hook_after_ctor
+    j       FileSelect_HookAfterCtor
 
 ; Replaces:
 ;   jr      ra
 .org 0x80813C90
-    j       file_select_hook_after_dtor
+    j       FileSelect_HookAfterDtor
 
 ;==================================================================================================
 ; File Select Before Draw
@@ -24,7 +24,7 @@
 ;   sw      ra, 0x0024 (sp)
 .org 0x8081326C
     sw      ra, 0x0024 (sp)
-    jal     file_select_before_draw_hook
+    jal     FileSelect_BeforeDraw_Hook
     sw      s0, 0x0020 (sp)
 
 ;==================================================================================================
@@ -37,5 +37,5 @@
 ;   sw      r0, 0x0004 (v0)
 .org 0x80813890
     sw      r0, 0x0004 (v0)
-    jal     file_select_draw_hash_hook
+    jal     FileSelect_DrawHash_Hook
     addiu   t6, v0, 0x0008

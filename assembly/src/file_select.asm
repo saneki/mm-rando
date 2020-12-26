@@ -1,8 +1,8 @@
-file_select_before_draw_hook:
+FileSelect_BeforeDraw_Hook:
     addiu   sp, sp, -0x18
     sw      ra, 0x0010 (sp)
 
-    jal     file_select_before_draw
+    jal     FileSelect_BeforeDraw
     sw      a0, 0x0014 (sp)
 
     lw      ra, 0x0010 (sp)
@@ -14,7 +14,7 @@ file_select_before_draw_hook:
     jr      ra
     addiu   sp, sp, 0x18
 
-file_select_draw_hash_hook:
+FileSelect_DrawHash_Hook:
     ; Displaced code
     sw      t6, 0x02B0 (a1)
 
@@ -27,7 +27,7 @@ file_select_draw_hash_hook:
     sw      v0, 0x0024 (sp)
     sw      t4, 0x0028 (sp)
 
-    jal     file_select_draw_hash
+    jal     FileSelect_DrawHash
     or      a0, s0, r0
 
     lw      ra, 0x0010 (sp)
