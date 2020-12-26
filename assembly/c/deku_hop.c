@@ -1,27 +1,26 @@
-#include <stdbool.h>
 #include "misc.h"
 #include "z2.h"
 
-struct deku_hop_state {
-    u8 last_hop;
+struct DekuHopState {
+    u8 lastHop;
 };
 
-static struct deku_hop_state g_deku_hop_state = {
-    .last_hop = 5,
+static struct DekuHopState gDekuHopState = {
+    .lastHop = 5,
 };
 
-void deku_hop_handle(ActorPlayer *link, GlobalContext *game) {
+void DekuHop_Handle(ActorPlayer* player, GlobalContext* ctxt) {
     if (!MISC_CONFIG.continuous_deku_hop) {
         return;
     }
 
-    if (link->dekuHopCounter < 5 && link->dekuHopCounter > 0 && link->dekuHopCounter != g_deku_hop_state.last_hop) {
-        if (game->state.input[0].pressEdge.buttons.a) {
-            game->state.input[0].pressEdge.buttons.a = 0;
-            link->dekuHopCounter++;
-            g_deku_hop_state.last_hop = link->dekuHopCounter;
+    if (player->dekuHopCounter < 5 && player->dekuHopCounter > 0 && player->dekuHopCounter != gDekuHopState.lastHop) {
+        if (ctxt->state.input[0].pressEdge.buttons.a) {
+            ctxt->state.input[0].pressEdge.buttons.a = 0;
+            player->dekuHopCounter++;
+            gDekuHopState.lastHop = player->dekuHopCounter;
         }
     } else {
-        g_deku_hop_state.last_hop = link->dekuHopCounter;
+        gDekuHopState.lastHop = player->dekuHopCounter;
     }
 }
