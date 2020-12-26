@@ -6,6 +6,7 @@
 #include "types.h"
 
 typedef u8 UNK_TYPE1;
+typedef u16 UNK_TYPE2;
 typedef u32 UNK_TYPE4;
 
 typedef void (*FuncPtr)(void);
@@ -1335,73 +1336,118 @@ typedef struct {
 /// =============================================================
 
 typedef struct {
-    u32              vrom_addr;                      /* 0x0000 */
-    void            *dram;                           /* 0x0004 */
-    u32              size;                           /* 0x0008 */
-} z2_loadfile_t;                                     /* 0x000C */
+    /* 0x00 */ u32 vromAddr;
+    /* 0x04 */ void* dramAddr;
+    /* 0x08 */ u32 size;
+} DmaParams;
 
 typedef struct {
-    /* file loading params */
-    z2_loadfile_t    common;                         /* 0x0000 */
-    /* debug stuff */
-    char            *filename;                       /* 0x000C */
-    s32              line;                           /* 0x0010 */
-    s32              unk_0x14;                       /* 0x0014 */
-    /* completion notification params */
-    OSMesgQueue     *notify_mq;                      /* 0x0018 */
-    OSMesg           notify_msg;                     /* 0x001C */
-} z2_getfile_t;                                      /* 0x0020 */
+    /* 0x00 */ u32 vromAddr; // VROM address (source)
+    /* 0x04 */ void* dramAddr; // DRAM address (destination)
+    /* 0x08 */ u32 size; // File Transfer size
+    /* 0x0C */ char* filename; // Filename for debugging
+    /* 0x10 */ s32 line; // Line for debugging
+    /* 0x14 */ s32 unk14;
+    /* 0x18 */ OSMesgQueue* notifyQueue; // Message queue for the notification message
+    /* 0x1C */ OSMesg notifyMsg; // Completion notification message
+} DmaRequest; // size = 0x20
 
 typedef struct {
-    s16              id;                             /* 0x0000 */
-    u8               pad_0x02[0x02];                 /* 0x0002 */
-    void            *data;                           /* 0x0004 */
-    z2_getfile_t     loadfile;                       /* 0x0008 */
-    OSMesgQueue      load_mq;                        /* 0x0028 */
-    OSMesg           load_msg;                       /* 0x0040 */
-} z2_obj_t;                                          /* 0x0044 */
+    /* 0x00 */ s16 id; // Negative ids mean that the object is unloaded
+    /* 0x02 */ UNK_TYPE1 pad2[0x2];
+    /* 0x04 */ void* vramAddr;
+    /* 0x08 */ DmaRequest dmaReq;
+    /* 0x28 */ OSMesgQueue loadQueue;
+    /* 0x40 */ OSMesg loadMsg;
+} SceneObject; // size = 0x44
 
 typedef struct {
-    void            *obj_space_start;                /* 0x0000 */
-    void            *obj_space_end;                  /* 0x0004 */
-    u8               obj_cnt;                        /* 0x0008 */
-    u8               spec_cnt;                       /* 0x0009 */
-    u8               keep_idx;                       /* 0x000A */
-    u8               skeep_idx;                      /* 0x000B, maybe? keep & skeep both 0 */
-    z2_obj_t         obj[35];                        /* 0x000C */
-} z2_obj_ctxt_t;                                     /* 0x0958 */
+    /* 0x000 */ void* objectVramStart;
+    /* 0x004 */ void* objectVramEnd;
+    /* 0x008 */ u8 objectCount;
+    /* 0x009 */ u8 spawnedObjectCount;
+    /* 0x00A */ u8 mainKeepIndex;
+    /* 0x00B */ u8 keepObjectId;
+    /* 0x00C */ SceneObject objects[35]; // TODO: OBJECT_EXCHANGE_BANK_MAX array size
+} SceneContext; // size = 0x958
 
 /// =============================================================
 /// Room Context
 /// =============================================================
 
 typedef struct {
-    u8               idx;                            /* 0x0000 */
-    u8               unk_0x01[0x03];                 /* 0x0001 */
-    u8               echo;                           /* 0x0004 */
-    u8               show_invisible_actor;           /* 0x0005 */
-    u8               pad_0x06[0x02];                 /* 0x0006 */
-    void            *mesh_hdr;                       /* 0x0008 */
-    void            *file;                           /* 0x000C */
-    u8               unk_0x10[0x04];                 /* 0x0010 */
-} z2_room_t;                                         /* 0x0014 */
+    /* 0x0 */ u32 opaqueDl;
+    /* 0x4 */ u32 translucentDl;
+} RoomMeshType0Params; // size = 0x8
+
+// Fields TODO
+typedef struct {
+    /* 0x0 */ u8 type;
+    /* 0x1 */ u8 format; // 1 = single, 2 = multi
+} RoomMeshType1; // size = 0x2
+
+// Size TODO
+typedef struct {
+    /* 0x0 */ UNK_TYPE1 pad0[0x10];
+} RoomMeshType1Params; // size = 0x10
 
 typedef struct {
-    z2_room_t        rooms[2];                       /* 0x0000 */
-    void            *room_space_start;               /* 0x0028 */
-    void            *room_space_end;                 /* 0x002C */
-    u8               load_slot;                      /* 0x0030 */
-    u8               load_active;                    /* 0x0031 */
-    u8               pad_0x32[0x02];                 /* 0x0032 */
-    void            *load_addr;                      /* 0x0034 */
-    z2_getfile_t     loadfile;                       /* 0x0038 */
-    OSMesgQueue      load_mq;                        /* 0x0058 */
-    OSMesg           load_msg;                       /* 0x0070 */
-    u8               unk_0x0074[0x04];               /* 0x0074 */
-    u8               transition_cnt;                 /* 0x0078 */
-    u8               pad_0x79[0x03];                 /* 0x0079 */
-    void            *transition_list;                /* 0x007C */
-} z2_room_ctxt_t;                                    /* 0x0080 */
+    /* 0x0 */ UNK_TYPE1 pad0[0x10];
+} RoomMeshType2Params; // size = 0x10
+
+typedef struct {
+    /* 0x0 */ u8 type;
+    /* 0x1 */ u8 count;
+    /* 0x2 */ UNK_TYPE1 pad2[0x2];
+    /* 0x4 */ RoomMeshType0Params* paramsStart;
+    /* 0x8 */ RoomMeshType0Params* paramsEnd;
+} RoomMeshType0; // size = 0xC
+
+typedef struct {
+    /* 0x0 */ u8 type;
+    /* 0x1 */ u8 count;
+    /* 0x2 */ UNK_TYPE1 pad2[0x2];
+    /* 0x4 */ RoomMeshType2Params* paramsStart;
+    /* 0x8 */ RoomMeshType2Params* paramsEnd;
+} RoomMeshType2; // size = 0xC
+
+typedef union {
+    RoomMeshType0 type0;
+    RoomMeshType1 type1;
+    RoomMeshType2 type2;
+} RoomMesh; // size = 0xC
+
+typedef struct {
+    /* 0x00 */ s8 num;
+    /* 0x01 */ u8 unk1;
+    /* 0x02 */ u8 unk2;
+    /* 0x03 */ u8 unk3;
+    /* 0x04 */ s8 echo;
+    /* 0x05 */ u8 unk5;
+    /* 0x06 */ u8 enablePosLights;
+    /* 0x07 */ UNK_TYPE1 pad7[0x1];
+    /* 0x08 */ RoomMesh* mesh;
+    /* 0x0C */ void* segment;
+    /* 0x10 */ UNK_TYPE1 pad10[0x4];
+} Room; // size = 0x14
+
+typedef struct {
+    /* 0x00 */ Room currRoom;
+    /* 0x14 */ Room prevRoom;
+    /* 0x28 */ void* roomMemPages[2]; // In a scene with transitions, roomMemory is split between two pages that toggle each transition. This is one continuous range, as the second page allocates from the end
+    /* 0x30 */ u8 activeMemPage; // 0 - First page in memory, 1 - Second page
+    /* 0x31 */ s8 unk31;
+    /* 0x32 */ UNK_TYPE1 pad32[0x2];
+    /* 0x34 */ void* activeRoomVram;
+    /* 0x38 */ DmaRequest dmaRequest;
+    /* 0x58 */ OSMesgQueue loadQueue;
+    /* 0x70 */ OSMesg loadMsg[1];
+    /* 0x74 */ void* unk74;
+    /* 0x78 */ s8 transitionCount;
+    /* 0x79 */ s8 unk79;
+    /* 0x7A */ UNK_TYPE2 unk7A[1];
+    /* 0x7C */ void* transitionList;
+} RoomContext; // size = 0x80
 
 /// =============================================================
 /// Ocarina & Song
@@ -1562,8 +1608,8 @@ struct z2_game_s {
     InterfaceContext interfaceCtx;                   /* 0x169E8 */
     PauseContext     pauseCtx;                       /* 0x16D30 */
     u8               unk_0x17000[0xD88];             /* 0x17000 */
-    z2_obj_ctxt_t    obj_ctxt;                       /* 0x17D88 */
-    z2_room_ctxt_t   room_ctxt;                      /* 0x186E0 */
+    SceneContext     sceneContext;                   /* 0x17D88 */
+    RoomContext      roomContext;                    /* 0x186E0 */
     u8               room_cnt;                       /* 0x18760 */
     u8               unk_0x18761[0xDF];              /* 0x18761 */
     u32              scene_frame_counter;            /* 0x18840 */
@@ -2342,9 +2388,9 @@ typedef union {
 } GameStateTable; // size = 0x150
 
 typedef struct {
-    u32              vrom_start;                     /* 0x0000 */
-    u32              vrom_end;                       /* 0x0004 */
-} z2_obj_file_t;                                     /* 0x0008 */
+    /* 0x0 */ u32 vromStart;
+    /* 0x4 */ u32 vromEnd;
+} ObjectFileTableEntry; // size = 0x8
 
 typedef struct {
     /* 0x00 */ void* loadedRamAddr;
@@ -2466,7 +2512,7 @@ typedef struct {
 #define z2_gamestate                     (*(GameStateTable*)         z2_gamestate_addr)
 #define z2_gi_graphic_table              ((z2_gi_graphic_table_t*)   z2_gi_graphic_table_addr)
 #define z2_link                          (*(ActorPlayer*)            z2_link_addr)
-#define z2_obj_table                     ((z2_obj_file_t*)           z2_object_table_addr)
+#define z2_obj_table                     ((ObjectFileTableEntry*)    z2_object_table_addr)
 #define z2_segment                       (*(z2_segment_t*)           z2_segment_addr)
 #define z2_song_notes                    (*(SongNotes*)              z2_song_notes_addr)
 #define z2_static_ctxt                   (*(z2_static_ctxt_t*)       z2_static_ctxt_addr)
@@ -2688,7 +2734,7 @@ typedef s32 (*z2_RomToRam_proc)(u32 src, void *dst, u32 length);
 typedef s16 (*z2_GetFileNumber_proc)(u32 vrom_addr);
 typedef u32 (*z2_GetFilePhysAddr_proc)(u32 vrom_addr);
 typedef z2_file_table_t* (*z2_GetFileTable_proc)(u32 vrom_addr);
-typedef void (*z2_LoadFile_proc)(z2_loadfile_t *loadfile);
+typedef void (*z2_LoadFile_proc)(DmaParams *loadfile);
 typedef void (*z2_LoadFileFromArchive_proc)(u32 phys_file, u8 index, u8 *dest, u32 length);
 typedef void (*z2_LoadVFileFromArchive_proc)(u32 virt_file, u8 index, u8 *dest, u32 length);
 typedef void (*z2_ReadFile_proc)(void *mem_addr, u32 vrom_addr, u32 size);
@@ -2711,7 +2757,7 @@ typedef f32 (*z2_Math_Sins_proc)(s16 angle);
 typedef f32 (*z2_Math_Vec3f_DistXZ_proc)(Vec3f *p1, Vec3f *p2);
 
 /* Function Prototypes (Objects) */
-typedef s8 (*z2_GetObjectIndex_proc)(const z2_obj_ctxt_t *ctxt, u16 object_id);
+typedef s8 (*z2_GetObjectIndex_proc)(const SceneContext *ctxt, u16 object_id);
 
 /* Function Prototypes (OS) */
 typedef void (*z2_memcpy_proc)(void *dest, const void *src, size_t size);
@@ -2724,8 +2770,8 @@ typedef u32 (*z2_RngInt_proc)();
 typedef void (*z2_RngSetSeed_proc)(u32 seed);
 
 /* Function Prototypes (Rooms) */
-typedef void (*z2_LoadRoom_proc)(z2_game_t *game, z2_room_ctxt_t *room_ctxt, uint8_t room_id);
-typedef void (*z2_UnloadRoom_proc)(z2_game_t *game, z2_room_ctxt_t *room_ctxt);
+typedef void (*z2_LoadRoom_proc)(z2_game_t *game, RoomContext *room_ctxt, uint8_t room_id);
+typedef void (*z2_UnloadRoom_proc)(z2_game_t *game, RoomContext *room_ctxt);
 
 /* Function Prototypes (Sound) */
 typedef void (*z2_SetBGM2_proc)(u16 bgm_id);

@@ -354,12 +354,12 @@ void models_write_boss_remains_object_segment(z2_game_t *game, u32 graphic_id_mi
     DispBuf *opa = &(game->common.gfx->polyOpa);
 
     // Get index of object, and use it to get the data pointer
-    s8 index = z2_GetObjectIndex(&game->obj_ctxt, Z2_OBJECT_BSMASK);
+    s8 index = z2_GetObjectIndex(&game->sceneContext, Z2_OBJECT_BSMASK);
 
     // Only write segment instruction if object found in game's object list.
     // Otherwise, assume it was set by the caller.
     if (index >= 0) {
-        void *data = game->obj_ctxt.obj[index].data;
+        void *data = game->sceneContext.objects[index].vramAddr;
 
         // Write segmented address instruction
         gSPSegment(opa->p++, 6, (u32)data);
@@ -578,15 +578,15 @@ void models_prepare_after_room_unload(z2_game_t *game) {
     // Determine operation before finish advancing or reverting.
     // Normally, objects from previously loaded rooms would no longer draw so this isn't an issue, but is required for hack
     // used to draw actors with 0xFF room, so that the pointer can be safely swapped to data of the relevant room.
-    s8 cur_room = (s8)game->room_ctxt.rooms[0].idx;
+    s8 cur_room = (s8)game->roomContext.currRoom.num;
     objheap_handle_room_unload(&g_objheap, cur_room);
 }
 
 /**
  * Helper function called when loading next room, to prepare objheap for advancing.
  **/
-void models_prepare_before_room_load(z2_room_ctxt_t *room_ctxt, s8 room_index) {
-    if ((s8)room_ctxt->rooms[0].idx == -1) {
+void models_prepare_before_room_load(RoomContext *room_ctxt, s8 room_index) {
+    if ((s8)room_ctxt->currRoom.num == -1) {
         // If loading first room in scene, remember room index.
         objheap_init_room(&g_objheap, room_index);
     } else {
