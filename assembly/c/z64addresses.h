@@ -27,11 +27,11 @@
 #define dmadata                          ((DmaEntry*)                DmaEntryTableAddr)
 #define z2_game                          (*(GlobalContext*)          GlobalContextAddr)
 #define gGameStateInfo                   (*(GameStateTable*)         GameStateTableAddr)
-#define z2_gi_graphic_table              ((GetItemGraphicEntry*)     GetItemGraphicTableAddr)
+#define gGetItemGraphicTable             ((GetItemGraphicEntry*)     GetItemGraphicTableAddr)
 #define gObjectFileTable                 ((ObjectFileTableEntry*)    ObjectTableAddr)
 #define gRspSegmentPhysAddrs             (*(SegmentTable*)           SegmentTableAddr)
-#define z2_song_notes                    (*(SongNotes*)              SongNotesAddr)
-#define z2_static_ctxt                   (*(StaticContext*)          StaticContextAddr)
+#define gSongNotes                       (*(SongNotes*)              SongNotesAddr)
+#define s803824D0                        (*(StaticContext*)          StaticContextAddr)
 
 /* Data (non-struct) */
 #define z2_item_segaddr_table            ((u32*)                     ItemSegaddrTableAddr)
