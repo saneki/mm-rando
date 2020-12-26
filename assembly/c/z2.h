@@ -2043,18 +2043,18 @@ typedef struct {
 /// =============================================================
 
 typedef struct {
-    /* 0x0000 */ void *loadedRamAddr;
-    /* 0x0004 */ u32 vromStart;
-    /* 0x0008 */ u32 vromEnd;
-    /* 0x000C */ u32 vramStart;
-    /* 0x0010 */ u32 vramEnd;
-    /* 0x0014 */ UNK_TYPE4 unk14;
-    /* 0x0018 */ FuncPtr init;
-    /* 0x001C */ FuncPtr destroy;
-    /* 0x0020 */ UNK_TYPE4 unk20;
-    /* 0x0024 */ UNK_TYPE4 unk24;
-    /* 0x0028 */ UNK_TYPE4 unk28;
-    /* 0x002C */ u32 instanceSize;
+    /* 0x00 */ void *loadedRamAddr;
+    /* 0x04 */ u32 vromStart;
+    /* 0x08 */ u32 vromEnd;
+    /* 0x0C */ u32 vramStart;
+    /* 0x10 */ u32 vramEnd;
+    /* 0x14 */ UNK_TYPE4 unk14;
+    /* 0x18 */ FuncPtr init;
+    /* 0x1C */ FuncPtr destroy;
+    /* 0x20 */ UNK_TYPE4 unk20;
+    /* 0x24 */ UNK_TYPE4 unk24;
+    /* 0x28 */ UNK_TYPE4 unk28;
+    /* 0x2C */ u32 instanceSize;
 } GameStateOverlay; // size = 0x30
 
 typedef union {
