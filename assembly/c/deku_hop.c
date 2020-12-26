@@ -16,8 +16,8 @@ void deku_hop_handle(ActorPlayer *link, z2_game_t *game) {
     }
 
     if (link->dekuHopCounter < 5 && link->dekuHopCounter > 0 && link->dekuHopCounter != g_deku_hop_state.last_hop) {
-        if (game->common.input[0].pressEdge.buttons.a) {
-            game->common.input[0].pressEdge.buttons.a = 0;
+        if (game->state.input[0].pressEdge.buttons.a) {
+            game->state.input[0].pressEdge.buttons.a = 0;
             link->dekuHopCounter++;
             g_deku_hop_state.last_hop = link->dekuHopCounter;
         }

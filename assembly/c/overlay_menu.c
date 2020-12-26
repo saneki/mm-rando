@@ -80,7 +80,7 @@ static bool overlay_menu_should_draw(z2_game_t *game) {
     return game->pauseCtx.state == 6 &&
         game->pauseCtx.switchingScreen == 0 &&
         (game->pauseCtx.screenIndex == 0 || game->pauseCtx.screenIndex == 3) &&
-        (game->common.input[0].current.buttons.l || game->common.input[0].current.buttons.du);
+        (game->state.input[0].current.buttons.l || game->state.input[0].current.buttons.du);
 }
 
 /**
@@ -91,7 +91,7 @@ void overlay_menu_draw(z2_game_t *game) {
         return;
     }
 
-    DispBuf *db = &(game->common.gfx->overlay);
+    DispBuf *db = &(game->state.gfxCtx->overlay);
     db->p = db->buf;
 
     // Call setup display list.

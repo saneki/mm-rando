@@ -892,26 +892,47 @@ typedef struct {
 /// Context Structure
 /// =============================================================
 
-typedef struct z2_ctxt_s z2_ctxt_t;
-typedef void (*z2_GameUpdate)(z2_ctxt_t *ctxt);
+typedef struct GameAlloc GameAlloc;
+typedef struct GameAllocNode GameAllocNode;
+typedef struct GameState GameState;
 
-struct z2_ctxt_s {
-    GraphicsContext *gfx;                            /* 0x0000 */
-    z2_GameUpdate    gamestate_update;               /* 0x0004 */
-    void            *gamestate_dtor;                 /* 0x0008 */
-    void            *gamestate_ctor;                 /* 0x000C */
-    u32              ctxt_size;                      /* 0x0010 */
-    Input            input[4];                       /* 0x0014 */
-    u32              gamestate_heap_size;            /* 0x0074 */
-    void            *gamestate_heap_ptr;             /* 0x0078 */
-    void            *heap_append_start;              /* 0x007C */
-    void            *heap_append_end;                /* 0x0080 */
-    void            *gamestate_heap_node;            /* 0x0084 */
-    u8               unk_0x88[0x10];                 /* 0x0088 */
-    s32              execute_state;                  /* 0x0098 */
-    s32              gamestate_frames;               /* 0x009C */
-    s32              unk_0xA0;                       /* 0x00A0 */
-};                                                   /* 0x00A4 */
+struct GameAllocNode {
+    /* 0x0 */ GameAllocNode* next;
+    /* 0x4 */ GameAllocNode* prev;
+    /* 0x8 */ u32 size;
+    /* 0xC */ UNK_TYPE1 padC[0x4];
+}; // size = 0x10
+
+struct GameAlloc {
+    /* 0x00 */ GameAllocNode base;
+    /* 0x10 */ GameAllocNode* head;
+}; // size = 0x14
+
+typedef struct {
+    /* 0x0 */ UNK_TYPE4 size;
+    /* 0x4 */ void* heapStart;
+    /* 0x8 */ void* heapAppendStart;
+    /* 0xC */ void* heapAppendEnd;
+} GameStateHeap; // size = 0x10
+
+typedef void (*GameStateFunc)(struct GameState* gameState);
+
+struct GameState {
+    /* 0x00 */ GraphicsContext* gfxCtx;
+    /* 0x04 */ GameStateFunc main;
+    /* 0x08 */ GameStateFunc destroy;
+    /* 0x0C */ GameStateFunc nextGameStateInit;
+    /* 0x10 */ u32 nextGameStateSize;
+    /* 0x14 */ Input input[4];
+    /* 0x74 */ GameStateHeap heap;
+    /* 0x84 */ GameAlloc alloc;
+    /* 0x98 */ UNK_TYPE1 pad98[0x3];
+    /* 0x9B */ u8 running; // If 0, switch to next game state
+    /* 0x9C */ u32 frames;
+    /* 0xA0 */ UNK_TYPE1 padA0[0x2];
+    /* 0xA2 */ u8 framerateDivisor; // game speed?
+    /* 0xA3 */ UNK_TYPE1 unkA3;
+}; // size = 0xA4
 
 /// =============================================================
 /// View & Camera
@@ -976,7 +997,7 @@ typedef struct {
     Vec3f            unk_0x68;                       /* 0x0068 */
     u8               unk_0x74[0x0C];                 /* 0x0074 */
     Vec3f            unk_0x80;                       /* 0x0080 */
-    z2_ctxt_t       *game;                           /* 0x008C */
+    GameState       *game;                           /* 0x008C */
     struct Actor    *focus;                          /* 0x0090 */
     Vec3f            focus_pos;                      /* 0x0094 */
     u32              unk_0xA0;                       /* 0x00A0 */
@@ -1585,7 +1606,7 @@ typedef struct {
 /// =============================================================
 
 struct z2_game_s {
-    z2_ctxt_t        common;                         /* 0x00000 */
+    GameState        state;                          /* 0x00000 */
     u16              scene_index;                    /* 0x000A4 */
     u8               scene_draw_id;                  /* 0x000A6 */
     u8               unk_0x000A7[0x09];              /* 0x000A7 */

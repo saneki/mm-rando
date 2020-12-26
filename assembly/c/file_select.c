@@ -134,7 +134,7 @@ void file_select_before_draw(z2_game_t *game) {
     // When pressing Z, update file hash to random new value
     sprite_t *sprite = gfx_get_item_textures_sprite();
     struct misc_config *config = misc_get_config();
-    z2_pad_t pad_pressed = game->common.input[0].pad_pressed;
+    z2_pad_t pad_pressed = game->state.input[0].pad_pressed;
     if (pad_pressed.z && config->draw_hash && sprite->buf != NULL) {
         config->hash.value = z2_RngInt();
         update_textures_from_sprite(sprite, g_icon_count, config->hash.value);
@@ -152,7 +152,7 @@ void file_select_draw_hash(z2_game_t *game) {
 
     struct misc_config *config = misc_get_config();
     if (config->draw_hash) {
-        DispBuf *db = &(game->common.gfx->polyOpa);
+        DispBuf *db = &(game->state.gfxCtx->polyOpa);
 
         // Call setup display list
         gSPDisplayList(db->p++, &setup_db);

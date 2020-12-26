@@ -21,7 +21,7 @@ static Vtx* get_vtx_buffer(z2_game_t *game, u32 vert_idx, int slot) {
     const Vtx *src_vtx = (game->pauseCtx.vtxBuf + vert_idx);
 
     // Get dest Vtx (factor in frame counter)
-    int framebufidx = (game->common.gfx->displayListCounter & 1);
+    int framebufidx = (game->state.gfxCtx->displayListCounter & 1);
     Vtx *dst_vtx = g_vertex[slot] + (framebufidx * 4);
 
     // Copy source Vtx over to dest Vtx
@@ -157,10 +157,10 @@ bool pause_menu_select_item_process_a_button(z2_game_t *game, u32 cur_val, u32 n
         if (cur_val != none_val) {
             u8 item = (u8)cur_val;
             // Check input for A button, and swap to next quest item.
-            InputPad pad = game->common.input->pressEdge.buttons;
+            InputPad pad = game->state.input->pressEdge.buttons;
             u8 next = quest_item_storage_next(&SAVE_FILE_CONFIG.quest_storage, item);
             if (pad.a && next != Z2_ITEM_NONE) {
-                game->common.input->pressEdge.buttons.a = 0;
+                game->state.input->pressEdge.buttons.a = 0;
                 cycle_quest_item(game, next, (u8)cell);
             }
         }
