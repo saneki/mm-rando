@@ -117,77 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Speed Ups
-Skip Younger Beaver
-Modify Beavers to not have to race the younger beaver.
-
-Good Dampe RNG
-Change Dampe ghost flames to always have two on the ground floor and one up the ladder.
-
-Good Dog Race RNG
-Make Gold Dog always win if you have the Mask of Truth.
-
-Faster Lab Fish
-Change Lab Fish to only need to be fed one fish.
-
-Faster Bank
-Change the Bank reward thresholds to 200/500/1000 instead of 200/1000/5000. Also reduces maximum bank capacity from 5000 to 1000.
-
-
-Comfort Options
-Disable crit wiggle
-You will no longer get weird movement when your health is low.
-
-Quick text
-Instantly print every text box.
-
-Increase push speed
-Increase the speed of pushing and pulling blocks and faucets.
-
-Close Cows
-When playing Epona's Song for a group of cows, the closest cow will respond, instead of the default behavior.
-
-Update shops
-In-game shops will display the model of the item for sale, as well as update the text of the items for sale. Other NPCs that sell items will also have their text updated to reflect what you're buying from them, including Tingle, Termina Field Business Scrub, other Business Scrubs, Gorman Bros Milk purchase, the Lottery, and the Milk Bar.
-
-Update chests
-Chest appearance will be updated to match the type of item they contain. Major items (including Bombchu and Hero's Shield if they are references in the logic) will be in Large Gold chests; Moderate items (such as small keys, skulltula tokens, stray fairies, quest items, and trade items) will be in Small Gold chests; Boss Keys will be in Boss Key chests; minor items (such as rupees, pieces of heart, and others) will be in Small Wooden chests.
-
-Update world models
-Show world models as their actual item instead of the original item. This includes Pieces of Heart, Heart Containers, Skulltula Tokens, Stray Fairies, Moon's Tear and the Seahorse.
-
-No downgrades
-Finding a worse version of an item (such as finding the Adult Wallet while already having the Giant Wallet) will instead give you nothing, or a refill (e.g. having the Largest Quiver, but 0 arrows, then finding the Large Quiver will fill you back up to 40 arrows, but your max will remain at 50).
-
-Fix Epona Sword
-Ordinarily, riding Epona without having a Bow will change your sword button to a blank B button. This option prevents that, but may affect weird B glitches.
-
-Quest item extra storage
-Enable Quest Item Storage, which allows for storing multiple quest items in their dedicated inventory slot. Quest items will also always be consumed when used.
-
-Arrow cycling
-Cycle through arrow types when pressing R while an arrow is out when using the bow.
-
-Elegy speedups
-Applies various Elegy of Emptiness speedups.
-
-
-Gossip Stone Hints
-Free hints
-Gossip stones will not require you to be wearing the Mask of Truth to read their hints.
-
-Clear hints
-When using non-Vanilla Gossip Stone hints, the text will give exact location and item names, instead of cryptic hints.
-
-Hint distribution
-Select a style of gossip stone hints. Default will not change gossip stone text at all. Random will give random item location hints, sometimes fake hints, and sometimes junk hints. Relevant will attempt to provide a vanilla-like gossip stone hint experience. Competitive is a carefully crafted hint system intended to be used when multiple players are playing the same seed; it provides hints for some specific locations, and provides various hints as to the usefulness of regions.
-
-
-Cosmetic Customization
-Player model
-Choose a character model. Selecting Adult Link alters Link's movement speeds and hitbox size to be the same as zora and changes the voice set. Note that this change can affect some gameplay elements - you cannot fit through some deku palace doorways in human form.</value>
-  </data>
   <data name="lUsage.Text" xml:space="preserve">
     <value>The process should be simple:
 1. Choose your desired settings
@@ -407,6 +336,77 @@ When you die, the moon crashes.
 BYO Ammo
 When you get Bow / Bombs / Bombchu on your B button, you'll never get unlimited ammo. Instead you'll use your own. Logic Modes other than No Logic will account for this.</value>
   </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Speed Ups
+Skip Younger Beaver
+Modify Beavers to not have to race the younger beaver.
+
+Good Dampe RNG
+Change Dampe ghost flames to always have two on the ground floor and one up the ladder.
+
+Good Dog Race RNG
+Make Gold Dog always win if you have the Mask of Truth.
+
+Faster Lab Fish
+Change Lab Fish to only need to be fed one fish.
+
+Faster Bank
+Change the Bank reward thresholds to 200/500/1000 instead of 200/1000/5000. Also reduces maximum bank capacity from 5000 to 1000.
+
+
+Comfort Options
+Disable crit wiggle
+You will no longer get weird movement when your health is low.
+
+Quick text
+Instantly print every text box.
+
+Increase push speed
+Increase the speed of pushing and pulling blocks and faucets.
+
+Close Cows
+When playing Epona's Song for a group of cows, the closest cow will respond, instead of the default behavior.
+
+Update shops
+In-game shops will display the model of the item for sale, as well as update the text of the items for sale. Other NPCs that sell items will also have their text updated to reflect what you're buying from them, including Tingle, Termina Field Business Scrub, other Business Scrubs, Gorman Bros Milk purchase, the Lottery, and the Milk Bar.
+
+Update chests
+Chest appearance will be updated to match the type of item they contain. Major items (including Bombchu and Hero's Shield if they are references in the logic) will be in Large Gold chests; Moderate items (such as small keys, skulltula tokens, stray fairies, quest items, and trade items) will be in Small Gold chests; Boss Keys will be in Boss Key chests; minor items (such as rupees, pieces of heart, and others) will be in Small Wooden chests.
+
+Update world models
+Show world models as their actual item instead of the original item. This includes Pieces of Heart, Heart Containers, Skulltula Tokens, Stray Fairies, Moon's Tear and the Seahorse.
+
+No downgrades
+Finding a worse version of an item (such as finding the Adult Wallet while already having the Giant Wallet) will instead give you nothing, or a refill (e.g. having the Largest Quiver, but 0 arrows, then finding the Large Quiver will fill you back up to 40 arrows, but your max will remain at 50).
+
+Fix Epona Sword
+Ordinarily, riding Epona without having a Bow will change your sword button to a blank B button. This option prevents that, but may affect weird B glitches.
+
+Quest item extra storage
+Enable Quest Item Storage, which allows for storing multiple quest items in their dedicated inventory slot. Quest items will also always be consumed when used.
+
+Arrow cycling
+Cycle through arrow types when pressing R while an arrow is out when using the bow.
+
+Elegy speedups
+Applies various Elegy of Emptiness speedups.
+
+
+Gossip Stone Hints
+Free hints
+Gossip stones will not require you to be wearing the Mask of Truth to read their hints.
+
+Clear hints
+When using non-Vanilla Gossip Stone hints, the text will give exact location and item names, instead of cryptic hints.
+
+Hint distribution
+Select a style of gossip stone hints. Default will not change gossip stone text at all. Random will give random item location hints, sometimes fake hints, and sometimes junk hints. Relevant will attempt to provide a vanilla-like gossip stone hint experience. Competitive is a carefully crafted hint system intended to be used when multiple players are playing the same seed; it provides hints for some specific locations, and provides various hints as to the usefulness of regions.
+
+
+Cosmetic Customization
+Player model
+Choose a character model. Selecting Adult Link alters Link's movement speeds and hitbox size to be the same as zora and changes the voice set. Note that this change can affect some gameplay elements - you cannot fit through some deku palace doorways in human form.</value>
+  </data>
   <data name="lCosmetic.Text" xml:space="preserve">
     <value>All options in this tab can be used when applying a patch file.
 
@@ -415,32 +415,14 @@ Tunic colour
 Sets the colour of form's tunic.
 
 Instrument
-Sets the instrument used when playing songs using A and the C-buttons.
+Sets the instrument used when playing songs.
 
-Song Playback
-Sets the instrument used when the player plays a song and the game plays it back.
-
-Sync Button
-When enabled, the form's Song Playback instrument will be synced with the form's Instrument.
-
-
-HUD
-Hearts and Magic
-Customized will use the colors selected using the Customize button. Random Choice will pick random colors from a predefined list. Completely Random will pick a completely random color.
-
-Customize
-Completely customize the HUD colors. Click an element to choose a color, or right-click for more options.
-
-Hue Shift Music UI
-Shifts the hue of various UI elements.
-
-
-Other
-Default Hold Z-Target
-The game will set the initial Z-Target style to Hold instead of Switch.
-
-Tatl theme
-Select a colour scheme for Tatl.
+Energy color
+ - Human: Sets the color of the Spin Attack and Great Spin Attack
+ - Deku: Sets the color of the sparkle effects when spinning, the puff of dust when entering and leaving a deku flower, and the sparkles when flying using a deku flower.
+ - Goron: Sets the color of the spike roll power up.
+ - Zora: Sets the color of the energy shield.
+ - Fierce Deity: Sets the color of the sword beam and sparkles.
 
 
 Music / Sound
@@ -454,7 +436,33 @@ Disable Combat Music
 Disables combat music around all regular (non boss or miniboss) enemies in the game.
 
 Music
-Default will leave music as it is normally. Random will shuffle music around, insert music from other games, while attempting to keep music categorized. None will remove music from the game.</value>
+Default will leave music as it is normally. Random will shuffle music around, insert music from other games, while attempting to keep music categorized. None will remove music from the game.
+
+Low Health SFX
+Set the low health sound effect.
+ - Default: plays the default sound.
+ - Disabled: plays no sound.
+ - Random: a random sound is chosen during randomization and that sound will be played.
+ - &lt;Choices&gt;: Play that sound.
+
+
+Other
+Tatl theme
+Select a colour scheme for Tatl.
+
+Default Hold Z-Target
+The game will set the initial Z-Target style to Hold instead of Switch.
+
+
+HUD
+Hearts and Magic
+Customized will use the colors selected using the Customize button. Random Choice will pick random colors from a predefined list. Completely Random will pick a completely random color.
+
+Customize
+Completely customize the HUD colors. Click an element to choose a color, or right-click for more options.
+
+Randomize Hue of Miscellaneous UI
+Shifts the hue of various UI elements.</value>
   </data>
   <data name="lHow.Text" xml:space="preserve">
     <value>The get item table is expanded to allow all randomised items to have a unique entry and during randomisation this table will be shuffled according to logic for the selected ruleset. The table format is slightly modified to allow for updates to certain items to work easily (mainly for dungeons and Tingle maps).

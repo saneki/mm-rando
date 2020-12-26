@@ -252,7 +252,7 @@
             // 
             this.lCosmetic.Location = new System.Drawing.Point(6, 3);
             this.lCosmetic.Name = "lCosmetic";
-            this.lCosmetic.Size = new System.Drawing.Size(372, 724);
+            this.lCosmetic.Size = new System.Drawing.Size(372, 844);
             this.lCosmetic.TabIndex = 2;
             this.lCosmetic.Text = resources.GetString("lCosmetic.Text");
             // 
