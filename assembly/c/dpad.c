@@ -304,7 +304,7 @@ void dpad_draw(GlobalContext *game) {
     y = update_y_position(x, y, 10);
 
     // Main sprite color
-    ColorRGBA8 color = HUD_COLOR_CONFIG.dpad;
+    Color color = HUD_COLOR_CONFIG.dpad;
 
     DispBuf *db = &(game->state.gfxCtx->overlay);
     gSPDisplayList(db->p++, &setup_db);

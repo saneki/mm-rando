@@ -85,11 +85,11 @@ struct pause_cursor_colors {
     ColorRGB16 blue_outer_2;     /* 0x0042 */
 };
 
-static u32 color_rgb8_to_int(ColorRGBA8 color, u8 alpha) {
+static u32 color_rgb8_to_int(Color color, u8 alpha) {
     return (color.r << 24) | (color.g << 16) | (color.b << 8) | alpha;
 }
 
-static void rgb8_to_rgb16(ColorRGB16 *dest, ColorRGBA8 src) {
+static void rgb8_to_rgb16(ColorRGB16 *dest, Color src) {
     dest->r = src.r;
     dest->g = src.g;
     dest->b = src.b;
@@ -124,7 +124,7 @@ u32 hud_colors_get_clock_emblem_color() {
 }
 
 u16 hud_colors_get_clock_emblem_inverted_color(u8 idx) {
-    ColorRGBA8 colors;
+    Color colors;
     s16 mode = *(s16 *)0x801BFBE8;
 
     if (idx > 2) {

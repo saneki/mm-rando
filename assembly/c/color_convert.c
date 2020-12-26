@@ -1,12 +1,9 @@
 #include <math.h>
 #include "color_convert.h"
 
-//
 // From: https://stackoverflow.com/a/6930407
-//
-
-hsvf_t color_convert_rgb2hsv(rgbf_t in) {
-    hsvf_t out;
+ColorHsvF ColorConvert_RgbToHsv(ColorRgbF in) {
+    ColorHsvF out;
     double min, max, delta;
 
     min = in.r < in.g ? in.r : in.g;
@@ -17,14 +14,14 @@ hsvf_t color_convert_rgb2hsv(rgbf_t in) {
 
     out.v = max;
     delta = max - min;
-    if (delta < 0.00001)
-    {
+    if (delta < 0.00001) {
         out.s = 0;
         out.h = 0; // undefined, maybe nan?
         return out;
     }
 
-    if (max > 0.0) { // NOTE: if Max is == 0, this divide would cause a crash
+    if (max > 0.0) {
+        // NOTE: if Max is == 0, this divide would cause a crash
         out.s = (delta / max);
     } else {
         // if max is 0, then r = g = b = 0
@@ -34,27 +31,30 @@ hsvf_t color_convert_rgb2hsv(rgbf_t in) {
         return out;
     }
 
-    if (in.r >= max)
-        out.h = (in.g - in.b) / delta;            // between yellow & magenta
-    else {
-        if (in.g >= max)
-            out.h = 2.0 + (in.b - in.r) / delta;  // between cyan & yellow
-        else
-            out.h = 4.0 + (in.r - in.g) / delta;  // between magenta & cyan
+    if (in.r >= max) {
+        out.h = (in.g - in.b) / delta; // between yellow & magenta
+    } else {
+        if (in.g >= max) {
+            out.h = 2.0 + (in.b - in.r) / delta; // between cyan & yellow
+        } else {
+            out.h = 4.0 + (in.r - in.g) / delta; // between magenta & cyan
+        }
     }
 
     out.h *= 60.0;
 
-    if (out.h < 0.0)
+    if (out.h < 0.0) {
         out.h += 360.0;
+    }
 
     return out;
 }
 
-rgbf_t color_convert_hsv2rgb(hsvf_t in) {
+// From: https://stackoverflow.com/a/6930407
+ColorRgbF ColorConvert_HsvToRgb(ColorHsvF in) {
+    ColorRgbF out;
     double hh, p, q, t, ff;
     long i;
-    rgbf_t out;
 
     if (in.s <= 0.0) {
         out.r = in.v;
@@ -64,8 +64,9 @@ rgbf_t color_convert_hsv2rgb(hsvf_t in) {
     }
 
     hh = in.h;
-    if (hh >= 360.0)
+    if (hh >= 360.0) {
         hh = 0.0;
+    }
     hh /= 60.0;
     i = (long)hh;
     ff = hh - i;
