@@ -2043,13 +2043,6 @@ typedef struct {
 /// =============================================================
 
 typedef struct {
-    u32              vrom_start;                     /* 0x0000 */
-    u32              vrom_end;                       /* 0x0004 */
-    u32              prom_start;                     /* 0x0008 */
-    u32              prom_end;                       /* 0x000C */
-} z2_file_table_t;                                   /* 0x0010 */
-
-typedef struct {
     /* 0x0000 */ void *loadedRamAddr;
     /* 0x0004 */ u32 vromStart;
     /* 0x0008 */ u32 vromEnd;
@@ -2197,7 +2190,7 @@ typedef struct {
 #define z2_actor_ovl_table               ((ActorOverlay*)            z2_actor_ovl_table_addr)
 #define z2_ctxt                          (*(z2_ctxt_t*)              z2_ctxt_addr)
 #define z2_file                          (*(SaveContext*)            z2_file_addr)
-#define z2_file_table                    ((z2_file_table_t*)         z2_file_table_addr)
+#define z2_file_table                    ((DmaEntry*)                z2_file_table_addr)
 #define z2_game                          (*(z2_game_t*)              z2_game_addr)
 #define z2_gamestate                     (*(GameStateTable*)         z2_gamestate_addr)
 #define z2_gi_graphic_table              ((z2_gi_graphic_table_t*)   z2_gi_graphic_table_addr)
@@ -2423,7 +2416,7 @@ typedef void (*z2_PreDraw_proc)(Actor *actor, z2_game_t *game, u32 unknown);
 typedef s32 (*z2_RomToRam_proc)(u32 src, void *dst, u32 length);
 typedef s16 (*z2_GetFileNumber_proc)(u32 vrom_addr);
 typedef u32 (*z2_GetFilePhysAddr_proc)(u32 vrom_addr);
-typedef z2_file_table_t* (*z2_GetFileTable_proc)(u32 vrom_addr);
+typedef DmaEntry* (*z2_GetFileTable_proc)(u32 vrom_addr);
 typedef void (*z2_LoadFile_proc)(DmaParams *loadfile);
 typedef void (*z2_LoadFileFromArchive_proc)(u32 phys_file, u8 index, u8 *dest, u32 length);
 typedef void (*z2_LoadVFileFromArchive_proc)(u32 virt_file, u8 index, u8 *dest, u32 length);

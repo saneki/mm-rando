@@ -36,12 +36,12 @@ static mmr_gi_t *g_gi_table = NULL;
 static void mmr_load_gi_table(void) {
     // Use gi-table file index to get dmadata entry.
     u32 index = mmr_GiTableFileIndex;
-    z2_file_table_t entry = z2_file_table[index];
-    u32 size = entry.vrom_end - entry.vrom_start;
+    DmaEntry entry = z2_file_table[index];
+    u32 size = entry.vromEnd - entry.vromStart;
 
     // Load the gi-table table from file into buffer.
     g_gi_table = (mmr_gi_t *)heap_alloc(size);
-    z2_ReadFile(g_gi_table, entry.vrom_start, size);
+    z2_ReadFile(g_gi_table, entry.vromStart, size);
 }
 
 mmr_gi_t * mmr_get_gi_entry(u16 index) {
