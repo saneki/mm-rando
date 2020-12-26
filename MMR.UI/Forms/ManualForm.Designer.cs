@@ -214,7 +214,7 @@
             // 
             this.lGimmick.Location = new System.Drawing.Point(6, 3);
             this.lGimmick.Name = "lGimmick";
-            this.lGimmick.Size = new System.Drawing.Size(372, 749);
+            this.lGimmick.Size = new System.Drawing.Size(372, 892);
             this.lGimmick.TabIndex = 2;
             this.lGimmick.Text = resources.GetString("lGimmick.Text");
             // 
