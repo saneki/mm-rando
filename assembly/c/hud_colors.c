@@ -407,16 +407,17 @@ void hud_colors_init(void) {
 }
 
 void hud_colors_main_menu_init(void) {
+    FileChooseData* data = ResolveFileChooseData();
     // Update rupee colors
-    update_rupee_colors(z2_file_select_ctxt.rupee_colors);
+    update_rupee_colors(data->rupeeColors);
 
     // Update hearts colors
-    z2_file_select_ctxt.heart_rgb[0].r = HUD_COLOR_CONFIG.heart.r;
-    z2_file_select_ctxt.heart_rgb[0].g = HUD_COLOR_CONFIG.heart.g;
-    z2_file_select_ctxt.heart_rgb[0].b = HUD_COLOR_CONFIG.heart.b;
-    z2_file_select_ctxt.heart_rgb[1].r = HUD_COLOR_CONFIG.heart_dd.r;
-    z2_file_select_ctxt.heart_rgb[1].g = HUD_COLOR_CONFIG.heart_dd.g;
-    z2_file_select_ctxt.heart_rgb[1].b = HUD_COLOR_CONFIG.heart_dd.b;
+    data->lifeColor[0].r = HUD_COLOR_CONFIG.heart.r;
+    data->lifeColor[0].g = HUD_COLOR_CONFIG.heart.g;
+    data->lifeColor[0].b = HUD_COLOR_CONFIG.heart.b;
+    data->lifeColor[1].r = HUD_COLOR_CONFIG.heart_dd.r;
+    data->lifeColor[1].g = HUD_COLOR_CONFIG.heart_dd.g;
+    data->lifeColor[1].b = HUD_COLOR_CONFIG.heart_dd.b;
 }
 
 /**

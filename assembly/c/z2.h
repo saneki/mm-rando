@@ -2380,14 +2380,15 @@ typedef struct {
 /// File Select Context
 /// =============================================================
 
+// Data in file_choose, VRAM: 0x80813DF0
 typedef struct {
-    u8               unk_0x00[0x8D4];                /* 0x0000 */
-    u16              rupee_colors[0x09];             /* 0x08D4 */
-    u8               unk_0x8E6[0x16];                /* 0x08E6 */
-    ColorRGB16       heart_rgb[0x02];                /* 0x08FC */
-    ColorRGB16       heart_under_rgb[0x02];          /* 0x0908 */
-    u8               unk_0x914[0x7AC];               /* 0x0914 */
-} z2_file_select_ctxt_t;                             /* 0x10C0 */
+    /* 0x0000 */ UNK_TYPE1 pad0[0x8D4];
+    /* 0x08D4 */ u16 rupeeColors[9];
+    /* 0x08E6 */ UNK_TYPE1 pad8E6[0x16];
+    /* 0x08FC */ ColorRGB16 lifeColor[2];
+    /* 0x0908 */ ColorRGB16 lifeUnderColor[2];
+    /* 0x0914 */ UNK_TYPE1 pad914[0x7AC];
+} FileChooseData; // size = 0x10C0
 
 /// =============================================================
 /// Misc & Unknown
@@ -2623,7 +2624,7 @@ typedef struct {
 #define z2_PlayerHandleBuoyancy_vram     0x808475B4
 
 /* Relocatable Types (VRAM) */
-#define z2_file_select_ctxt_vram         0x80813DF0
+#define FileChooseDataVRAM               0x80813DF0
 
 typedef void (*z2_PerformEnterWaterEffects_proc)(GlobalContext *game, ActorPlayer *link);
 typedef void (*z2_PlayerHandleBuoyancy_proc)(ActorPlayer *link);
