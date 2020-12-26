@@ -24,7 +24,7 @@ static void scale_top_matrix(f32 scale_factor) {
     }
 }
 
-static void set_object_segment(z2_game_t *game, const void *buf) {
+static void set_object_segment(GlobalContext *game, const void *buf) {
     DispBuf *xlu = &(game->state.gfxCtx->polyXlu);
     gSPSegment(xlu->p++, 6, (u32)buf);
 
@@ -32,13 +32,13 @@ static void set_object_segment(z2_game_t *game, const void *buf) {
     gSPSegment(opa->p++, 6, (u32)buf);
 }
 
-static void draw_model_low_level(Actor *actor, z2_game_t *game, s8 graphic_id_minus_1) {
+static void draw_model_low_level(Actor *actor, GlobalContext *game, s8 graphic_id_minus_1) {
     z2_PreDraw1(actor, game, 0);
     z2_PreDraw2(actor, game, 0);
     z2_BaseDrawGiModel(game, graphic_id_minus_1);
 }
 
-static void draw_model(struct model model, Actor *actor, z2_game_t *game, f32 base_scale) {
+static void draw_model(struct model model, Actor *actor, GlobalContext *game, f32 base_scale) {
     // If both graphic & object are 0, draw nothing.
     if (model.graphic_id == 0 && model.object_id == 0) {
         return;
@@ -72,7 +72,7 @@ static u8 models_fix_graphic_id(u8 graphic) {
  * Get the Get-Item table entry for a specific index, and optionally load relevant entry values
  * into a model structure for drawing.
  **/
-static mmr_gi_t * models_prepare_gi_entry(struct model *model, z2_game_t *game, u16 gi_index, bool resolve) {
+static mmr_gi_t * models_prepare_gi_entry(struct model *model, GlobalContext *game, u16 gi_index, bool resolve) {
     if (resolve) {
         gi_index = mmr_GetNewGiIndex(game, 0, gi_index, false);
     }
@@ -96,7 +96,7 @@ static mmr_gi_t * models_prepare_gi_entry(struct model *model, z2_game_t *game, 
 /**
  * Load information from the Get-Item table using an index and draw the corresponding model.
  **/
-static void models_draw_from_gi_table(Actor *actor, z2_game_t *game, f32 scale, u16 gi_index) {
+static void models_draw_from_gi_table(Actor *actor, GlobalContext *game, f32 scale, u16 gi_index) {
     struct model model;
     mmr_gi_t *entry = models_prepare_gi_entry(&model, game, gi_index, true);
 
@@ -108,7 +108,7 @@ static void models_draw_from_gi_table(Actor *actor, z2_game_t *game, f32 scale, 
  * Load the actor model information for later reference if not already stored, and return in model
  * parameter.
  **/
-static bool models_set_loaded_actor_model(struct model *model, Actor *actor, z2_game_t *game, u16 gi_index) {
+static bool models_set_loaded_actor_model(struct model *model, Actor *actor, GlobalContext *game, u16 gi_index) {
     if (!loaded_models_get_actor_model(model, NULL, actor)) {
         mmr_gi_t *entry = models_prepare_gi_entry(model, game, gi_index, true);
         loaded_models_add_actor_model(*model, entry, actor);
@@ -129,7 +129,7 @@ static void models_apply_hover_float(Actor *actor, f32 base, f32 multiplier) {
 /**
  * Check if a model should rotate backwards (trap item).
  **/
-static bool models_should_rotate_backwards(z2_game_t *game, u16 gi_index) {
+static bool models_should_rotate_backwards(GlobalContext *game, u16 gi_index) {
     // Only rotate ice traps backwards if Ice Trap Quirks enabled.
     if (MISC_CONFIG.ice_trap_quirks) {
         struct model model;
@@ -143,7 +143,7 @@ static bool models_should_rotate_backwards(z2_game_t *game, u16 gi_index) {
 /**
  * Rotate an actor model by a specific amount.
  **/
-static void models_rotate(Actor *actor, z2_game_t *game, u16 gi_index, u16 amount) {
+static void models_rotate(Actor *actor, GlobalContext *game, u16 gi_index, u16 amount) {
     if (!models_should_rotate_backwards(game, gi_index)) {
         actor->shape.rot.y += amount;
     } else {
@@ -154,7 +154,7 @@ static void models_rotate(Actor *actor, z2_game_t *game, u16 gi_index, u16 amoun
 /**
  * Hook function for drawing Heart Piece actors as their new item.
  **/
-void models_draw_heart_piece(Actor *actor, z2_game_t *game) {
+void models_draw_heart_piece(Actor *actor, GlobalContext *game) {
     if (MISC_CONFIG.freestanding) {
         u16 index = actor->params + 0x80;
         models_draw_from_gi_table(actor, game, 22.0, index);
@@ -166,7 +166,7 @@ void models_draw_heart_piece(Actor *actor, z2_game_t *game) {
 /**
  * Hook function for rotating En_Item00 actors (Heart Piece).
  **/
-void models_rotate_en_item00(Actor *actor, z2_game_t *game) {
+void models_rotate_en_item00(Actor *actor, GlobalContext *game) {
     // MMR Heart Pieces use masked variable 0x1D or greater.
     if (MISC_CONFIG.freestanding && (actor->params & 0xFF) >= 0x1D) {
         // Rotate Heart Piece.
@@ -180,10 +180,10 @@ void models_rotate_en_item00(Actor *actor, z2_game_t *game) {
 /**
  * Get the Get-Item index for a Skulltula Token actor.
  **/
-u16 models_get_skulltula_token_gi_index(Actor *actor, z2_game_t *game) {
+u16 models_get_skulltula_token_gi_index(Actor *actor, GlobalContext *game) {
     u16 chest_flag = (actor->params & 0xFC) >> 2;
     // Checks if Swamp Spider House scene
-    u16 base_index = game->scene_index == 0x27 ? 0x13A : 0x158;
+    u16 base_index = game->sceneNum == 0x27 ? 0x13A : 0x158;
     u16 gi_index = base_index + chest_flag;
     return gi_index;
 }
@@ -191,7 +191,7 @@ u16 models_get_skulltula_token_gi_index(Actor *actor, z2_game_t *game) {
 /**
  * Hook function for drawing Skulltula Token actors as their new item.
  **/
-void models_draw_skulltula_token(Actor *actor, z2_game_t *game) {
+void models_draw_skulltula_token(Actor *actor, GlobalContext *game) {
     if (MISC_CONFIG.freestanding) {
         u16 gi_index = models_get_skulltula_token_gi_index(actor, game);
         models_draw_from_gi_table(actor, game, 1.0, gi_index);
@@ -203,7 +203,7 @@ void models_draw_skulltula_token(Actor *actor, z2_game_t *game) {
 /**
  * Hook function for rotating Skulltula Token actors.
  **/
-void models_rotate_skulltula_token(Actor *actor, z2_game_t *game) {
+void models_rotate_skulltula_token(Actor *actor, GlobalContext *game) {
     if (MISC_CONFIG.freestanding) {
         u16 gi_index = models_get_skulltula_token_gi_index(actor, game);
         models_rotate(actor, game, gi_index, 0x38E);
@@ -222,7 +222,7 @@ static bool models_is_stray_fairy_model(struct model model) {
 /**
  * Get the Get-Item index for a Stray Fairy.
  **/
-static u16 models_get_stray_fairy_gi_index(Actor *actor, z2_game_t *game) {
+static u16 models_get_stray_fairy_gi_index(Actor *actor, GlobalContext *game) {
     if ((actor->params & 0xF) == 3) {
         // Clock Town stray fairy
         return 0x3B;
@@ -237,7 +237,7 @@ static u16 models_get_stray_fairy_gi_index(Actor *actor, z2_game_t *game) {
 /**
  * Check if a Stray Fairy actor should be drawn as its Get-Item.
  **/
-static bool models_should_override_stray_fairy_draw(Actor *actor, z2_game_t *game) {
+static bool models_should_override_stray_fairy_draw(Actor *actor, GlobalContext *game) {
     u16 flag = actor->params & 0xF;
 
     // Check if a Stray Fairy is in a Great Fairy fountain:
@@ -250,7 +250,7 @@ static bool models_should_override_stray_fairy_draw(Actor *actor, z2_game_t *gam
 /**
  * Hook function called before Stray Fairy actor's main function.
  **/
-void models_before_stray_fairy_main(Actor *actor, z2_game_t *game) {
+void models_before_stray_fairy_main(Actor *actor, GlobalContext *game) {
     // If not a Stray Fairy, rotate like En_Item00 does.
     bool draw = models_should_override_stray_fairy_draw(actor, game);
     if (MISC_CONFIG.freestanding && draw) {
@@ -273,7 +273,7 @@ void models_before_stray_fairy_main(Actor *actor, z2_game_t *game) {
  *
  * Return true if overriding functionality, false if using original functionality.
  **/
-bool models_draw_stray_fairy(Actor *actor, z2_game_t *game) {
+bool models_draw_stray_fairy(Actor *actor, GlobalContext *game) {
     bool draw = models_should_override_stray_fairy_draw(actor, game);
     if (MISC_CONFIG.freestanding && draw) {
         mmr_gi_t *entry;
@@ -304,14 +304,14 @@ bool models_draw_stray_fairy(Actor *actor, z2_game_t *game) {
 /**
  * Get the Get-Item index for a Heart Container actor.
  **/
-static u16 models_get_heart_container_gi_index(z2_game_t *game) {
+static u16 models_get_heart_container_gi_index(GlobalContext *game) {
     // This is a (somewhat) reimplementation of MMR function at: 0x801DC138
     // The original function returns in A2 and A3 to setup calling a different function.
-    if (game->scene_index == 0x1F) {
+    if (game->sceneNum == 0x1F) {
         return 0x11A;
-    } else if (game->scene_index == 0x44) {
+    } else if (game->sceneNum == 0x44) {
         return 0x11B;
-    } else if (game->scene_index == 0x5F) {
+    } else if (game->sceneNum == 0x5F) {
         return 0x11C;
     } else {
         return 0x11D;
@@ -323,7 +323,7 @@ static u16 models_get_heart_container_gi_index(z2_game_t *game) {
  *
  * Return true if overriding functionality, false if using original functionality.
  **/
-bool models_draw_heart_container(Actor *actor, z2_game_t *game) {
+bool models_draw_heart_container(Actor *actor, GlobalContext *game) {
     if (MISC_CONFIG.freestanding) {
         u16 index = models_get_heart_container_gi_index(game);
         models_draw_from_gi_table(actor, game, 1.0, index);
@@ -336,7 +336,7 @@ bool models_draw_heart_container(Actor *actor, z2_game_t *game) {
 /**
  * Hook function for rotating Heart Container actors.
  **/
-void models_rotate_heart_container(Actor *actor, z2_game_t *game) {
+void models_rotate_heart_container(Actor *actor, GlobalContext *game) {
     if (MISC_CONFIG.freestanding) {
         u16 gi_index = models_get_heart_container_gi_index(game);
         models_rotate(actor, game, gi_index, 0x400);
@@ -350,7 +350,7 @@ void models_rotate_heart_container(Actor *actor, z2_game_t *game) {
  * which wrote the segmented address instruction (for the object) in the function itself, instead
  * of the caller.
  **/
-void models_write_boss_remains_object_segment(z2_game_t *game, u32 graphic_id_minus_1) {
+void models_write_boss_remains_object_segment(GlobalContext *game, u32 graphic_id_minus_1) {
     DispBuf *opa = &(game->state.gfxCtx->polyOpa);
 
     // Get index of object, and use it to get the data pointer
@@ -371,7 +371,7 @@ void models_write_boss_remains_object_segment(z2_game_t *game, u32 graphic_id_mi
  * Currently draws the item on the Oath to Order check. Will need
  * to be updated if Boss Remains are randomized.
  **/
-void models_draw_boss_remains(Actor *actor, z2_game_t *game, u32 graphic_id_minus_1) {
+void models_draw_boss_remains(Actor *actor, GlobalContext *game, u32 graphic_id_minus_1) {
     if (MISC_CONFIG.freestanding && (actor->parent->parent == NULL || actor->parent->parent->id != 0)) {
         models_draw_from_gi_table(actor, game, 1.0, 0x77);
     } else {
@@ -389,7 +389,7 @@ static bool models_is_moons_tear_model(struct model model) {
 /**
  * Check if a Moon's Tear actor should be drawn as its Get-Item.
  **/
-static bool models_should_override_moons_tear_draw(Actor *actor, z2_game_t *game) {
+static bool models_should_override_moons_tear_draw(Actor *actor, GlobalContext *game) {
     // Check if a vanilla Moon's Tear is being drawn.
     struct model model;
     mmr_gi_t *entry = models_prepare_gi_entry(&model, game, 0x96, true);
@@ -399,7 +399,7 @@ static bool models_should_override_moons_tear_draw(Actor *actor, z2_game_t *game
 /**
  * Hook function called before a Moon's Tear actor's main function.
  **/
-void models_before_moons_tear_main(Actor *actor, z2_game_t *game) {
+void models_before_moons_tear_main(Actor *actor, GlobalContext *game) {
     if (MISC_CONFIG.freestanding) {
         if (models_should_override_moons_tear_draw(actor, game)) {
             // If the Moon's Tear on display, reposition and rotate.
@@ -417,7 +417,7 @@ void models_before_moons_tear_main(Actor *actor, z2_game_t *game) {
 /**
  * Hook function for drawing Moon's Tear actor as its new item.
  **/
-bool models_draw_moons_tear(Actor *actor, z2_game_t *game) {
+bool models_draw_moons_tear(Actor *actor, GlobalContext *game) {
     if (MISC_CONFIG.freestanding) {
         if (models_should_override_moons_tear_draw(actor, game)) {
             struct model model;
@@ -444,7 +444,7 @@ bool models_draw_moons_tear(Actor *actor, z2_game_t *game) {
 /**
  * Hook function for drawing Lab Fish Heart Piece actor as its new item.
  **/
-bool models_draw_lab_fish_heart_piece(Actor *actor, z2_game_t *game) {
+bool models_draw_lab_fish_heart_piece(Actor *actor, GlobalContext *game) {
     if (MISC_CONFIG.freestanding) {
         models_draw_from_gi_table(actor, game, 25.0, 0x112);
         return true;
@@ -456,7 +456,7 @@ bool models_draw_lab_fish_heart_piece(Actor *actor, z2_game_t *game) {
 /**
  * Hook function for rotating Lab Fish Heart Piece actor.
  **/
-void models_rotate_lab_fish_heart_piece(Actor *actor, z2_game_t *game) {
+void models_rotate_lab_fish_heart_piece(Actor *actor, GlobalContext *game) {
     if (MISC_CONFIG.freestanding) {
         models_rotate(actor, game, 0x112, 0x3E8);
     } else {
@@ -474,7 +474,7 @@ static bool models_is_seahorse_model(struct model model) {
 /**
  * Check if a Seahorse actor should be drawn as its Get-Item.
  **/
-static bool models_should_override_seahorse_draw(Actor *actor, z2_game_t *game) {
+static bool models_should_override_seahorse_draw(Actor *actor, GlobalContext *game) {
     // Check if a vanilla Seahorse is being drawn.
     struct model model;
     mmr_gi_t *entry = models_prepare_gi_entry(&model, game, 0x95, true);
@@ -486,7 +486,7 @@ static bool models_should_override_seahorse_draw(Actor *actor, z2_game_t *game) 
 /**
  * Hook function called before a Seahorse actor's main function.
  **/
-void models_before_seahorse_main(Actor *actor, z2_game_t *game) {
+void models_before_seahorse_main(Actor *actor, GlobalContext *game) {
     if (MISC_CONFIG.freestanding) {
         if (models_should_override_seahorse_draw(actor, game)) {
             models_rotate(actor, game, 0x95, 0x3C0);
@@ -498,7 +498,7 @@ void models_before_seahorse_main(Actor *actor, z2_game_t *game) {
 /**
  * Hook function for drawing Seahorse actor as its new item.
  **/
-bool models_draw_seahorse(Actor *actor, z2_game_t *game) {
+bool models_draw_seahorse(Actor *actor, GlobalContext *game) {
     if (MISC_CONFIG.freestanding) {
         if (models_should_override_seahorse_draw(actor, game)) {
             models_draw_from_gi_table(actor, game, 50.0, 0x95);
@@ -509,7 +509,7 @@ bool models_draw_seahorse(Actor *actor, z2_game_t *game) {
     return false;
 }
 
-void models_draw_shop_inventory(ActorEnGirlA *actor, z2_game_t *game, u32 graphic_id_minus_1) {
+void models_draw_shop_inventory(ActorEnGirlA *actor, GlobalContext *game, u32 graphic_id_minus_1) {
     if (MISC_CONFIG.shop_models) {
         models_draw_from_gi_table(&(actor->base), game, 1.0, actor->giIndex);
     } else {
@@ -570,7 +570,7 @@ void models_after_prepare_display_buffers(GraphicsContext *gfx) {
 /**
  * Helper function called when unloading previous room, to prepare for finishing advance of objheap in a subsequent frame.
  **/
-void models_prepare_after_room_unload(z2_game_t *game) {
+void models_prepare_after_room_unload(GlobalContext *game) {
     // Note: During frame processing loop, unloads room before drawing actors.
     // Not sure how to get alternative Opa buffer, so get current and check if non-NULL and non-equal (there are only 2).
     g_state.prevOpa = g_state.gfx->polyOpa.buf;

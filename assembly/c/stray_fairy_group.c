@@ -3,7 +3,7 @@
 #include "player.h"
 
 // returns false if using vanilla layout and cutscene should start
-bool stray_fairy_group_give_reward(Actor *actor, z2_game_t *game, void* nextState) {
+bool stray_fairy_group_give_reward(Actor *actor, GlobalContext *game, void* nextState) {
     if (MISC_CONFIG.vanilla_layout) {
         return false;
     }

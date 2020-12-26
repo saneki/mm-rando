@@ -11,7 +11,7 @@ static struct arrow_magic_state g_arrow_magic_state = {
     .arrow = NULL,
 };
 
-static void arrow_magic_update_state(struct arrow_magic_state *state, ActorPlayer *link, z2_game_t *game) {
+static void arrow_magic_update_state(struct arrow_magic_state *state, ActorPlayer *link, GlobalContext *game) {
     Actor *arrow = state->arrow;
     // Check if arrow has been shot, speed is checked to ensure arrow isn't just put away.
     if (link->base.child == NULL && arrow != NULL && arrow->speedXZ != 0.0) {
@@ -39,7 +39,7 @@ static void arrow_magic_update_state(struct arrow_magic_state *state, ActorPlaye
 /**
  * Hook function used to get the initial magic consumption state for an elemental arrow.
  **/
-s16 arrow_magic_get_initial_consume_state(z2_game_t *game) {
+s16 arrow_magic_get_initial_consume_state(GlobalContext *game) {
     if (MISC_CONFIG.arrow_magic_show) {
         return 4;
     } else {
@@ -51,7 +51,7 @@ s16 arrow_magic_get_initial_consume_state(z2_game_t *game) {
  * Hook function used to check whether or not the magic cost of the current elemental arrow should
  * be written to RDRAM.
  **/
-bool arrow_magic_should_set_magic_cost(z2_game_t *game, bool inf_magic) {
+bool arrow_magic_should_set_magic_cost(GlobalContext *game, bool inf_magic) {
     if (MISC_CONFIG.arrow_magic_show) {
         // If showing magic cost, always set magic cost field for consistency.
         return true;
@@ -64,7 +64,7 @@ bool arrow_magic_should_set_magic_cost(z2_game_t *game, bool inf_magic) {
 /**
  * Handle arrow magic consumption state.
  **/
-void arrow_magic_handle(ActorPlayer *link, z2_game_t *game) {
+void arrow_magic_handle(ActorPlayer *link, GlobalContext *game) {
     if (MISC_CONFIG.arrow_magic_show) {
         arrow_magic_update_state(&g_arrow_magic_state, link, game);
     }

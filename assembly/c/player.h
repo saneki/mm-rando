@@ -4,6 +4,6 @@
 #include <stdbool.h>
 #include "z2.h"
 
-bool player_can_receive_item(z2_game_t *game);
+bool player_can_receive_item(GlobalContext *game);
 
 #endif // PLAYER_H

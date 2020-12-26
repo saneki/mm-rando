@@ -8,7 +8,7 @@
  *
  * Used to reduce cutscene BGM by half for Sound Check, unless the song is complete.
  **/
-void toto_before_advance_formal_replay(ActorEnToto *toto, z2_game_t *game) {
+void toto_before_advance_formal_replay(ActorEnToto *toto, GlobalContext *game) {
     bool finished = (toto->songFlags & 0xF) == 0xF;
     if (MISC_CONFIG.speedups.sound_check && !finished) {
         // Cut Sound Check song BGM in half, so it doesn't loop (default frame count is 0x300).
@@ -27,7 +27,7 @@ void toto_before_advance_formal_replay(ActorEnToto *toto, z2_game_t *game) {
  *
  * Used to end actor cutscene early if song is incomplete.
  **/
-int toto_handle_advance_formal_replay(ActorEnToto *toto, z2_game_t *game) {
+int toto_handle_advance_formal_replay(ActorEnToto *toto, GlobalContext *game) {
     bool finished = (toto->songFlags & 0xF) == 0xF;
     if (MISC_CONFIG.speedups.sound_check && !finished) {
         toto->funcIndex = 0;

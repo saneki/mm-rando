@@ -10,7 +10,7 @@ static struct deku_hop_state g_deku_hop_state = {
     .last_hop = 5,
 };
 
-void deku_hop_handle(ActorPlayer *link, z2_game_t *game) {
+void deku_hop_handle(ActorPlayer *link, GlobalContext *game) {
     if (!MISC_CONFIG.continuous_deku_hop) {
         return;
     }

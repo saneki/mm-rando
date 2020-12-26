@@ -104,7 +104,7 @@ static void update_textures_from_sprite(sprite_t *sprite, int count, u32 hash) {
     update_textures(sprite->buf, count, tilelen, hash);
 }
 
-void file_select_hook_after_ctor(z2_game_t *game) {
+void file_select_hook_after_ctor(GlobalContext *game) {
     // Consider D-Pad item textures cleared so they are reloaded next time
     dpad_clear_item_textures();
 
@@ -120,10 +120,10 @@ void file_select_hook_after_ctor(z2_game_t *game) {
     }
 }
 
-void file_select_hook_after_dtor(z2_game_t *game) {
+void file_select_hook_after_dtor(GlobalContext *game) {
 }
 
-void file_select_before_draw(z2_game_t *game) {
+void file_select_before_draw(GlobalContext *game) {
     // Update colors for HUD elements on file select
     hud_colors_main_menu_init();
 
@@ -143,7 +143,7 @@ void file_select_before_draw(z2_game_t *game) {
 #endif
 }
 
-void file_select_draw_hash(z2_game_t *game) {
+void file_select_draw_hash(GlobalContext *game) {
     int icon_size = 24;
     int padding = 8;
     int width = (g_icon_count * icon_size) + ((g_icon_count - 1) * padding);

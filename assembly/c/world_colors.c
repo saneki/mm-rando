@@ -22,7 +22,7 @@ struct world_color_config WORLD_COLOR_CONFIG = {
     .blueBubble              = { 0x00, 0x00, 0xFF, },
 };
 
-u32 WorldColors_GetBlueBubbleColor(Actor *actor, z2_game_t *game) {
+u32 WorldColors_GetBlueBubbleColor(Actor *actor, GlobalContext *game) {
     rgbs_t color = WORLD_COLOR_CONFIG.blueBubble;
     if ((color.s & COLOR_SPECIAL_INSTANCE) != 0) {
         bool created = false;

@@ -205,7 +205,7 @@ u32 hud_colors_get_menu_subtitle_text_color(void) {
     return color_rgb8_to_int(HUD_COLOR_CONFIG.menu_subtitle_text, 0xFF);
 }
 
-void hud_colors_update_heart_colors(z2_game_t *game) {
+void hud_colors_update_heart_colors(GlobalContext *game) {
     // Normal heart colors
     ColorRRGGBB16 *heart = &(z2_game.interfaceCtx.heartInnerColor);
     ColorRGB16 *heart_beating = &(z2_game.interfaceCtx.heartbeatInnerColor);
@@ -241,7 +241,7 @@ void hud_colors_update_heart_colors(z2_game_t *game) {
  * Calls original function which writes the colors, then overwrites certain colors with our own
  * (A & C button note colors when used in a song).
  **/
-void hud_colors_update_button_note_colors(z2_game_t *game) {
+void hud_colors_update_button_note_colors(GlobalContext *game) {
     // Call original function.
     z2_InitButtonNoteColors(game);
 
@@ -341,7 +341,7 @@ static void hud_colors_update_msgbox_prompt_colors(bool initial) {
 /**
  * Helper function for updating the pause menu colors.
  **/
-void hud_colors_update_pause_menu_colors(z2_game_t *game) {
+void hud_colors_update_pause_menu_colors(GlobalContext *game) {
     // Only try to update colors if kaleido_scope is loaded.
     if (s801D0B70.kaleidoScope.loadedRamAddr != NULL) {
         // Resolve address of colors in kaleido_scope (pause) data.
@@ -422,7 +422,7 @@ void hud_colors_main_menu_init(void) {
 /**
  * Hook function called to write song score lines color to RDRAM.
  **/
-void hud_colors_update_score_lines_color(z2_game_t *game) {
+void hud_colors_update_score_lines_color(GlobalContext *game) {
     // Update song score lines color.
     game->msgCtx.scoreLineColor.r = HUD_COLOR_CONFIG.score_lines.r;
     game->msgCtx.scoreLineColor.g = HUD_COLOR_CONFIG.score_lines.g;

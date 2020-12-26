@@ -1,7 +1,7 @@
 #include <stdbool.h>
 #include "z2.h"
 
-void buttons_check_item_usability(bool *dest, z2_game_t *game, u8 b, u8 c1, u8 c2, u8 c3) {
+void buttons_check_item_usability(bool *dest, GlobalContext *game, u8 b, u8 c1, u8 c2, u8 c3) {
     u8 previous[4], prevstates[5];
 
     // Backup modified fields
@@ -38,7 +38,7 @@ void buttons_check_item_usability(bool *dest, z2_game_t *game, u8 b, u8 c1, u8 c
     z2_file.extra.buttonsState = buttonsState;
 }
 
-bool buttons_check_c_item_usable(z2_game_t *game, u8 c) {
+bool buttons_check_c_item_usable(GlobalContext *game, u8 c) {
     bool dest[4];
 
     buttons_check_item_usability(dest, game, 0xFF, c, 0xFF, 0xFF);

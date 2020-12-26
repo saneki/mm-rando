@@ -6,7 +6,7 @@
 /**
  * Hook function used after the scene initialize function has been called.
  **/
-void scene_after_init(z2_game_t *game) {
+void scene_after_init(GlobalContext *game) {
     // Set all actor ext heap entries to clear
     actor_ext_clear();
     // Clear the models object heap

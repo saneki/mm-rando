@@ -3,6 +3,6 @@
 
 #include "z2.h"
 
-void overlay_menu_draw(z2_game_t *game);
+void overlay_menu_draw(GlobalContext *game);
 
 #endif // OVERLAY_MENU_H

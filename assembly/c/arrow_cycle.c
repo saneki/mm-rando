@@ -85,7 +85,7 @@ static const struct arrow_info * arrow_cycle_get_next_info(u16 variable) {
     return NULL;
 }
 
-Actor * arrow_cycle_find_arrow(ActorPlayer *link, z2_game_t *game) {
+Actor * arrow_cycle_find_arrow(ActorPlayer *link, GlobalContext *game) {
     Actor *attached = link->base.child;
     if (attached != NULL && attached->id == Z2_ACTOR_EN_ARROW && attached->parent == &link->base) {
         return attached;
@@ -99,7 +99,7 @@ Actor * arrow_cycle_find_arrow(ActorPlayer *link, z2_game_t *game) {
  *
  * This will re-copy the data used to draw the arrow trail color, and thus it will appear as it should.
  **/
-static bool arrow_cycle_call_arrow_actor_ctor(Actor *arrow, z2_game_t *game) {
+static bool arrow_cycle_call_arrow_actor_ctor(Actor *arrow, GlobalContext *game) {
     ActorOverlay *ovl = &z2_actor_ovl_table[Z2_ACTOR_EN_ARROW];
     ActorInit *init = reloc_resolve_actor_init(ovl);
     if (init != NULL && init->init != NULL) {
@@ -126,7 +126,7 @@ static bool arrow_cycle_is_arrow_item(u8 item) {
 /**
  * Helper function used to update the arrow type on the current C button.
  **/
-static void arrow_cycle_update_c_button(ActorPlayer *link, z2_game_t *game, const struct arrow_info *info) {
+static void arrow_cycle_update_c_button(ActorPlayer *link, GlobalContext *game, const struct arrow_info *info) {
     // Update the C button value & texture.
     z2_file.perm.unk4C.formButtonItems[0].buttons[link->itemButton] = info->icon;
     z2_ReloadButtonTexture(game, link->itemButton);
@@ -139,7 +139,7 @@ static void arrow_cycle_update_c_button(ActorPlayer *link, z2_game_t *game, cons
 /**
  * Function called on delayed frame to finish processing the arrow cycle.
  **/
-static void arrow_cycle_handle_frame_delay(ActorPlayer *link, z2_game_t *game, Actor *arrow) {
+static void arrow_cycle_handle_frame_delay(ActorPlayer *link, GlobalContext *game, Actor *arrow) {
     s16 prev_effect_state = z2_file.extra.magicConsumeState;
 
     const struct arrow_info *cur_info = arrow_cycle_get_info(arrow->params);
@@ -184,7 +184,7 @@ static void arrow_cycle_handle_frame_delay(ActorPlayer *link, z2_game_t *game, A
  *
  * Thus, we must set the draw pointer to NULL and let one frame process before freeing the actor.
  **/
-void arrow_cycle_handle(ActorPlayer *link, z2_game_t *game) {
+void arrow_cycle_handle(ActorPlayer *link, GlobalContext *game) {
     // Check if processing arrow cycling on delay frame.
     if (g_arrow_cycle_state.frame_delay >= 1) {
         arrow_cycle_handle_frame_delay(link, game, g_arrow_cycle_state.arrow);

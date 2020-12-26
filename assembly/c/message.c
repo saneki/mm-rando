@@ -390,7 +390,7 @@ typedef struct message_character_process_variables_s {
     u32              s3_2;                           /* 0x00E0 */
 } message_character_process_variables_t;
 
-void check_text_wrapping(z2_game_t *game, message_character_process_variables_t *args, u8 current_character) {
+void check_text_wrapping(GlobalContext *game, message_character_process_variables_t *args, u8 current_character) {
     if (g_message_extension_state.is_wrapping) {
         if (current_character == 0x20) {
             // set last_space_index
@@ -417,7 +417,7 @@ void check_text_wrapping(z2_game_t *game, message_character_process_variables_t 
 /**
  * TODO
  **/
-u8 before_message_character_process(z2_game_t *game, message_character_process_variables_t *args) {
+u8 before_message_character_process(GlobalContext *game, message_character_process_variables_t *args) {
     u16 index = game->msgCtx.currentMessageCharIndex;
     u8 current_character = game->msgCtx.currentMessageRaw[index];
     if (current_character == 0x09) {

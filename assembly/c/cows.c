@@ -4,7 +4,7 @@
 /**
  * Get the En_Cow actor which is closest to Link and which can give milk.
  **/
-static Actor * cows_get_closest_to_link(z2_game_t *game) {
+static Actor * cows_get_closest_to_link(GlobalContext *game) {
     Actor *closest = NULL;
 
     // Iterate actor_list entries.
@@ -33,7 +33,7 @@ static Actor * cows_get_closest_to_link(z2_game_t *game) {
 /**
  * Hook function which checks if a cow is close enough to Link to give milk.
  **/
-bool cows_is_close_enough_to_give_milk(Actor *actor, z2_game_t *game) {
+bool cows_is_close_enough_to_give_milk(Actor *actor, GlobalContext *game) {
     if (actor->xzDistanceFromLink < 150.0) {
         if (!MISC_CONFIG.close_cows) {
             return true;

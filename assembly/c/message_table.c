@@ -25,7 +25,7 @@ static bool g_current_extended = false;
  * Hook function used to perform a message table extended lookup if text Id not found in the
  * primary message table.
  **/
-bool message_table_lookup_extended(z2_game_t *game, u16 text_id) {
+bool message_table_lookup_extended(GlobalContext *game, u16 text_id) {
     for (int i = 0; i < MESSAGE_TABLE_EXT_COUNT; i++) {
         u16 cur_id = EXT_MSG_TABLE[i].text_id;
         // For this table, use 0 as terminator in addition to 0xFFFF.
@@ -71,7 +71,7 @@ u32 message_table_get_data_file_vrom(void) {
  * Hook function used to check if a message is a "primary message" by Id. This determines which
  * message data file should be used (0xAD1000 or 0xB3B000), among other things.
  **/
-bool message_table_is_primary_message(z2_game_t *game, u32 text_id) {
+bool message_table_is_primary_message(GlobalContext *game, u32 text_id) {
     // Credits message table seems to use Ids: [0x4E20, 0x4E4C]
     return (text_id < 0x4E20) || (0x4E4C < text_id);
 }

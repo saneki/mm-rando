@@ -76,7 +76,7 @@ static bool have_any(u8 *dpad) {
     return false;
 }
 
-static bool try_use_item(z2_game_t *game, ActorPlayer *link, u8 item) {
+static bool try_use_item(GlobalContext *game, ActorPlayer *link, u8 item) {
     // Try to find slot in item or mask inventories.
     if (has_inventory_item(item)) {
         z2_UseItem(game, link, item);
@@ -89,7 +89,7 @@ static bool try_use_item(z2_game_t *game, ActorPlayer *link, u8 item) {
 /**
  * Helper function used to check if C buttons are disabled due to the current entrance.
  **/
-static bool dpad_are_c_items_disabled_by_entrance(z2_game_t *game) {
+static bool dpad_are_c_items_disabled_by_entrance(GlobalContext *game) {
     // Hardcoded entrance checks to disable C buttons, normally performed by function 0x80111CB4:
     // Id 0x8E10: Beaver Race
     // Id 0xD010: Goron Race
@@ -97,7 +97,7 @@ static bool dpad_are_c_items_disabled_by_entrance(z2_game_t *game) {
     return (z2_file.perm.entrance.value == 0x8E10 || z2_file.perm.entrance.value == 0xD010) && game->state.running != 0;
 }
 
-static void get_dpad_item_usability(z2_game_t *game, bool *dest) {
+static void get_dpad_item_usability(GlobalContext *game, bool *dest) {
     for (int i = 0; i < 4; i++) {
         if (dpad_are_c_items_disabled_by_entrance(game)) {
             dest[i] = false;
@@ -182,7 +182,7 @@ static bool is_minigame_frame(void) {
     return result || g_was_minigame;
 }
 
-void dpad_before_player_actor_update(ActorPlayer *link, z2_game_t *game) {
+void dpad_before_player_actor_update(ActorPlayer *link, GlobalContext *game) {
     // If disabled, do nothing
     if (DPAD_CONFIG.state == DPAD_STATE_TYPE_DISABLED)
         return;
@@ -217,7 +217,7 @@ bool dpad_is_enabled(void) {
  * Checks D-Pad input for whether or not to use an item, and if so returns true to exit the caller
  * function early.
  **/
-bool dpad_handle(ActorPlayer *link, z2_game_t *game) {
+bool dpad_handle(ActorPlayer *link, GlobalContext *game) {
     InputPad pad_pressed = game->state.input[0].pressEdge.buttons;
 
     // If disabled, do nothing
@@ -255,7 +255,7 @@ bool dpad_handle(ActorPlayer *link, z2_game_t *game) {
  *
  * Draws D-Pad textures to the overlay display list.
  **/
-void dpad_draw(z2_game_t *game) {
+void dpad_draw(GlobalContext *game) {
     bool is_minigame = is_minigame_frame();
 
     // If disabled or hiding, don't draw
@@ -349,7 +349,7 @@ void dpad_draw(z2_game_t *game) {
  *
  * Allows D-Pad input to also skip the cutscene if the D-Pad is enabled.
  **/
-u16 dpad_skip_transformation_check(ActorPlayer *link, z2_game_t *game, u16 cur) {
+u16 dpad_skip_transformation_check(ActorPlayer *link, GlobalContext *game, u16 cur) {
     InputPad pad;
     pad.value = 0;
 

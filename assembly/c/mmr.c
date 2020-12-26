@@ -105,7 +105,7 @@ u16 mmr_CheckProgressiveUpgrades(u16 gi_index) {
     return gi_index;
 }
 
-u16 mmr_GetNewGiIndex(z2_game_t *game, Actor *actor, u16 gi_index, bool grant) {
+u16 mmr_GetNewGiIndex(GlobalContext *game, Actor *actor, u16 gi_index, bool grant) {
     if (z2_file.perm.cutscene != 0) {
         grant = false;
     }

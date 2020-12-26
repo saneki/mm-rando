@@ -23,7 +23,7 @@ static void boat_cruise_process_movement(ActorBgIngate *canoe) {
  * Hook function used to continue moving boat if needed during frame when processing boat archery
  * end.
  **/
-void boat_cruise_before_cruise_end(ActorBgIngate *canoe, z2_game_t *game) {
+void boat_cruise_before_cruise_end(ActorBgIngate *canoe, GlobalContext *game) {
     if (MISC_CONFIG.speedups.boat_archery && canoe->flags == 0x19) {
         boat_cruise_process_movement(canoe);
     }
@@ -49,7 +49,7 @@ s16 boat_cruise_get_boat_speed(ActorBgIngate *canoe, int mode) {
 /**
  * Hook function used to continue moving boat if needed when "idling" after ending boat archery.
  **/
-void boat_cruise_handle_idle(ActorBgIngate *canoe, z2_game_t *game) {
+void boat_cruise_handle_idle(ActorBgIngate *canoe, GlobalContext *game) {
     if (MISC_CONFIG.speedups.boat_archery && canoe->flags == 0x19) {
         boat_cruise_process_movement(canoe);
     }
@@ -60,7 +60,7 @@ void boat_cruise_handle_idle(ActorBgIngate *canoe, z2_game_t *game) {
  *
  * If the speedup is enabled, checks if the player has enough points to end the game early.
  **/
-bool boat_cruise_should_end_archery(ActorBgIngate *canoe, z2_game_t *game) {
+bool boat_cruise_should_end_archery(ActorBgIngate *canoe, GlobalContext *game) {
     bool finished = (canoe->flags & 2) == 2;
     if (MISC_CONFIG.speedups.boat_archery) {
         return finished || (((z2_file.owl.eventInf[3] & 0x20) != 0) && (z2_file.extra.minigameCounter[0] >= 20));

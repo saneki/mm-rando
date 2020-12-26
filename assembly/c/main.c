@@ -29,7 +29,7 @@ void c_init() {
     WorldColors_Init();
 }
 
-void before_player_actor_update(ActorPlayer *link, z2_game_t *game) {
+void before_player_actor_update(ActorPlayer *link, GlobalContext *game) {
     dpad_before_player_actor_update(link, game);
     external_effects_handle(link, game);
     arrow_cycle_handle(link, game);
@@ -37,7 +37,7 @@ void before_player_actor_update(ActorPlayer *link, z2_game_t *game) {
     deku_hop_handle(link, game);
 }
 
-bool before_damage_process(ActorPlayer *link, z2_game_t *game) {
+bool before_damage_process(ActorPlayer *link, GlobalContext *game) {
     return icetrap_give(link, game);
 }
 

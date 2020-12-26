@@ -3,11 +3,16 @@
 
 #include <n64.h>
 #include <stdbool.h>
+#include "os.h"
 #include "types.h"
 #include "unk.h"
 
 #include "z64actor.h"
+#include "z64animation.h"
+#include "z64collision_check.h"
+#include "z64cutscene.h"
 #include "z64dma.h"
+#include "z64light.h"
 #include "z64math.h"
 #include "z64scene.h"
 
@@ -725,7 +730,7 @@ enum z2_object_id {
 };
 
 /* Structure type aliases. */
-typedef struct z2_game_s  z2_game_t;
+typedef struct GlobalContext GlobalContext;
 
 /**
  * Floating point matrix (copied from krimtonz' gu.h)
@@ -740,6 +745,13 @@ typedef union {
             wx, wy, wz, ww;
     };
 } MtxF;
+
+typedef struct {
+    /* 0x00 */ f32 x[4];
+    /* 0x10 */ f32 y[4];
+    /* 0x20 */ f32 z[4];
+    /* 0x30 */ f32 w[4];
+} z_Matrix; // size = 0x40
 
 /// =============================================================
 /// Colors
@@ -777,6 +789,7 @@ typedef struct {
 } ColorRRGGBB16; // size = 0xC
 
 typedef ColorRGB8 RGB8;
+typedef ColorRGB8 RGB;
 typedef ColorRGBA8 RGBA8;
 typedef ColorRGB16 RGB16;
 typedef ColorRRGGBB16 RRGGBB16;
@@ -862,7 +875,7 @@ typedef struct {
     /* 0x2D8 */ UNK_TYPE1 pad2D8[0x3];
     /* 0x2DB */ u8 framebufferCounter;
     /* 0x2DC */ void* func2DC;
-    /* 0x2E0 */ z2_game_t* globalContext;
+    /* 0x2E0 */ GlobalContext* globalContext;
     /* 0x2E4 */ f32 viConfigXScale;
     /* 0x2E8 */ f32 viConfigYScale;
     /* 0x2EC */ UNK_TYPE1 pad2EC[0x4];
@@ -977,7 +990,7 @@ typedef struct {
     /* 0x080 */ f32 unk80;
     /* 0x084 */ f32 unk84;
     /* 0x088 */ f32 unk88;
-    /* 0x08C */ z2_game_t* ctxt;
+    /* 0x08C */ GlobalContext* ctxt;
     /* 0x090 */ ActorPlayer* player;
     /* 0x094 */ PosRot unk94;
     /* 0x0A8 */ Actor* unkA8;
@@ -1518,42 +1531,313 @@ typedef struct {
 /// Game Structure
 /// =============================================================
 
-struct z2_game_s {
-    GameState        state;                          /* 0x00000 */
-    u16              scene_index;                    /* 0x000A4 */
-    u8               scene_draw_id;                  /* 0x000A6 */
-    u8               unk_0x000A7[0x09];              /* 0x000A7 */
-    void            *scene_addr;                     /* 0x000B0 */
-    u8               unk_0x00B4[0x04];               /* 0x000B4 */
-    View             view_scene;                     /* 0x000B8 */
-    Camera           cameras[4];                     /* 0x00220 */
-    Camera          *active_cameras[4];              /* 0x00800 */
-    s16              camera_cur;                     /* 0x00810 */
-    s16              camera_next;                    /* 0x00812 */
-    u8               unk_0x814[0x1C];                /* 0x00814 */
-    CollisionContext colCtx;                         /* 0x00830 */
-    ActorContext     actorCtx;                       /* 0x01CA0 */
-    u8               unk_0x1F24[0x04];               /* 0x01F24 */
-    void            *cutscene_ptr;                   /* 0x01F28 */
-    s8               cutscene_state;                 /* 0x01F2C */
-    u8               unk_0x1F2D[0x29DB];             /* 0x01F2D */
-    MessageContext   msgCtx;                         /* 0x04908 */
-    u8               unk_0x169E0[0x8];               /* 0x169E0 */
-    InterfaceContext interfaceCtx;                   /* 0x169E8 */
-    PauseContext     pauseCtx;                       /* 0x16D30 */
-    u8               unk_0x17000[0xD88];             /* 0x17000 */
-    SceneContext     sceneContext;                   /* 0x17D88 */
-    RoomContext      roomContext;                    /* 0x186E0 */
-    u8               room_cnt;                       /* 0x18760 */
-    u8               unk_0x18761[0xDF];              /* 0x18761 */
-    u32              scene_frame_counter;            /* 0x18840 */
-    u8               unk_0x18844[0x31];              /* 0x18844 */
-    u8               scene_load_flag;                /* 0x18875 */
-    u8               unk_0x18876[0x04];              /* 0x18876 */
-    u16              entrance_index;                 /* 0x1887A, double check this offset. */
-    u8               unk_0x1887C[0x2CE];             /* 0x1887C */
-    u8               flag_0x18B4A;                   /* 0x18B4A */
-};                                                   /* 0x18B4B */
+typedef struct {
+    /* 0x0 */ s8 segment;
+    /* 0x2 */ s16 type;
+    /* 0x4 */ void* params;
+} AnimatedTexture; // size = 0x8
+
+typedef struct {
+    /* 0x00 */ z_Matrix displayMatrix;
+    /* 0x40 */ Actor* actor;
+    /* 0x44 */ Vec3f location;
+    /* 0x50 */ u8 flags; // bit 0 - footmark fades out
+    /* 0x51 */ u8 id;
+    /* 0x52 */ u8 red;
+    /* 0x53 */ u8 blue;
+    /* 0x54 */ u8 green;
+    /* 0x55 */ UNK_TYPE1 pad55[0x1];
+    /* 0x56 */ u16 alpha;
+    /* 0x58 */ u16 alphaChange;
+    /* 0x5A */ u16 size;
+    /* 0x5C */ u16 fadeoutDelay;
+    /* 0x5E */ u16 age;
+} EffFootmark; // size = 0x60
+
+typedef struct {
+    /* 0x00 */ UNK_TYPE1 pad0[0x4];
+    /* 0x04 */ void* savefile;
+    /* 0x08 */ UNK_TYPE1 pad8[0x4];
+    /* 0x0C */ s16 unkC;
+    /* 0x0E */ UNK_TYPE1 padE[0xA];
+    /* 0x18 */ OSTime unk18;
+} SramContext; // size = 0x20
+
+typedef struct {
+    /* 0x0 */ s8 unk0;
+    /* 0x1 */ UNK_TYPE1 pad1[0x1];
+    /* 0x2 */ s8 unk2;
+    /* 0x3 */ UNK_TYPE1 pad3[0x1];
+    /* 0x4 */ s16 actorIndex; // negative means already loaded?
+    /* 0x6 */ s16 x;
+    /* 0x8 */ s16 y;
+    /* 0xA */ s16 z;
+    /* 0xC */ s16 yRot; // lower 7 bits contain cutscene number
+    /* 0xE */ u16 variable;
+} TransitionActorInit; // size = 0x10
+
+typedef struct {
+    /* 0x00 */ u8 cutsceneCount;
+    /* 0x01 */ UNK_TYPE1 pad1[0x3];
+    /* 0x04 */ u8* segment;
+    /* 0x08 */ u8 state;
+    /* 0x09 */ UNK_TYPE1 pad9[0x3];
+    /* 0x0C */ f32 unkC;
+    /* 0x10 */ u16 frames;
+    /* 0x12 */ u16 unk12;
+    /* 0x14 */ UNK_TYPE1 pad14[0x14];
+    /* 0x28 */ CsCmdActorAction* actorActions[10];
+} CutsceneContext; // size = 0x50
+
+typedef struct {
+    /* 0x00 */ UNK_TYPE1 unk0;
+    /* 0x01 */ UNK_TYPE1 unk1;
+    /* 0x02 */ u16 unk2;
+    /* 0x04 */ f32 unk4;
+    /* 0x08 */ f32 unk8;
+    /* 0x0C */ f32 unkC;
+    /* 0x10 */ UNK_TYPE1 unk10;
+    /* 0x11 */ UNK_TYPE1 unk11;
+    /* 0x12 */ UNK_TYPE1 unk12;
+    /* 0x13 */ UNK_TYPE1 unk13;
+    /* 0x14 */ UNK_TYPE1 unk14;
+    /* 0x15 */ u8 unk15;
+    /* 0x16 */ u8 unk16;
+    /* 0x17 */ u8 unk17;
+    /* 0x18 */ u8 unk18;
+    /* 0x19 */ UNK_TYPE1 unk19;
+    /* 0x1A */ UNK_TYPE1 unk1A;
+    /* 0x1B */ UNK_TYPE1 unk1B;
+    /* 0x1C */ UNK_TYPE1 unk1C;
+    /* 0x1D */ UNK_TYPE1 unk1D;
+    /* 0x1E */ u8 unk1E;
+    /* 0x1F */ u8 unk1F;
+    /* 0x20 */ u8 unk20;
+    /* 0x21 */ u8 unk21;
+    /* 0x22 */ u16 unk22;
+    /* 0x24 */ u16 unk24;
+    /* 0x26 */ UNK_TYPE1 unk26;
+    /* 0x27 */ UNK_TYPE1 unk27;
+    /* 0x28 */ LightInfoDirectional unk28;
+    /* 0x36 */ LightInfoDirectional unk36;
+    /* 0x44 */ UNK_TYPE1 unk44;
+    /* 0x45 */ UNK_TYPE1 unk45;
+    /* 0x46 */ UNK_TYPE1 unk46;
+    /* 0x47 */ UNK_TYPE1 unk47;
+    /* 0x48 */ UNK_TYPE1 unk48;
+    /* 0x49 */ UNK_TYPE1 unk49;
+    /* 0x4A */ UNK_TYPE1 unk4A;
+    /* 0x4B */ UNK_TYPE1 unk4B;
+    /* 0x4C */ UNK_TYPE1 unk4C;
+    /* 0x4D */ UNK_TYPE1 unk4D;
+    /* 0x4E */ UNK_TYPE1 unk4E;
+    /* 0x4F */ UNK_TYPE1 unk4F;
+    /* 0x50 */ UNK_TYPE1 unk50;
+    /* 0x51 */ UNK_TYPE1 unk51;
+    /* 0x52 */ UNK_TYPE1 unk52;
+    /* 0x53 */ UNK_TYPE1 unk53;
+    /* 0x54 */ UNK_TYPE1 unk54;
+    /* 0x55 */ UNK_TYPE1 unk55;
+    /* 0x56 */ UNK_TYPE1 unk56;
+    /* 0x57 */ UNK_TYPE1 unk57;
+    /* 0x58 */ UNK_TYPE1 unk58;
+    /* 0x59 */ UNK_TYPE1 unk59;
+    /* 0x5A */ UNK_TYPE1 unk5A;
+    /* 0x5B */ UNK_TYPE1 unk5B;
+    /* 0x5C */ UNK_TYPE1 unk5C;
+    /* 0x5D */ UNK_TYPE1 unk5D;
+    /* 0x5E */ UNK_TYPE1 unk5E;
+    /* 0x5F */ UNK_TYPE1 unk5F;
+    /* 0x60 */ UNK_TYPE1 unk60;
+    /* 0x61 */ UNK_TYPE1 unk61;
+    /* 0x62 */ UNK_TYPE1 unk62;
+    /* 0x63 */ UNK_TYPE1 unk63;
+    /* 0x64 */ UNK_TYPE1 unk64;
+    /* 0x65 */ UNK_TYPE1 unk65;
+    /* 0x66 */ UNK_TYPE1 unk66;
+    /* 0x67 */ UNK_TYPE1 unk67;
+    /* 0x68 */ UNK_TYPE1 unk68;
+    /* 0x69 */ UNK_TYPE1 unk69;
+    /* 0x6A */ UNK_TYPE1 unk6A;
+    /* 0x6B */ UNK_TYPE1 unk6B;
+    /* 0x6C */ UNK_TYPE1 unk6C;
+    /* 0x6D */ UNK_TYPE1 unk6D;
+    /* 0x6E */ UNK_TYPE1 unk6E;
+    /* 0x6F */ UNK_TYPE1 unk6F;
+    /* 0x70 */ UNK_TYPE1 unk70;
+    /* 0x71 */ UNK_TYPE1 unk71;
+    /* 0x72 */ UNK_TYPE1 unk72;
+    /* 0x73 */ UNK_TYPE1 unk73;
+    /* 0x74 */ UNK_TYPE1 unk74;
+    /* 0x75 */ UNK_TYPE1 unk75;
+    /* 0x76 */ UNK_TYPE1 unk76;
+    /* 0x77 */ UNK_TYPE1 unk77;
+    /* 0x78 */ UNK_TYPE1 unk78;
+    /* 0x79 */ UNK_TYPE1 unk79;
+    /* 0x7A */ UNK_TYPE1 unk7A;
+    /* 0x7B */ UNK_TYPE1 unk7B;
+    /* 0x7C */ UNK_TYPE1 unk7C;
+    /* 0x7D */ UNK_TYPE1 unk7D;
+    /* 0x7E */ UNK_TYPE1 unk7E;
+    /* 0x7F */ UNK_TYPE1 unk7F;
+    /* 0x80 */ UNK_TYPE1 unk80;
+    /* 0x81 */ UNK_TYPE1 unk81;
+    /* 0x82 */ UNK_TYPE1 unk82;
+    /* 0x83 */ UNK_TYPE1 unk83;
+    /* 0x84 */ UNK_TYPE1 unk84;
+    /* 0x85 */ UNK_TYPE1 unk85;
+    /* 0x86 */ UNK_TYPE1 unk86;
+    /* 0x87 */ UNK_TYPE1 unk87;
+    /* 0x88 */ UNK_TYPE1 unk88;
+    /* 0x89 */ UNK_TYPE1 unk89;
+    /* 0x8A */ UNK_TYPE1 unk8A;
+    /* 0x8B */ UNK_TYPE1 unk8B;
+    /* 0x8C */ Vec3s unk8C;
+    /* 0x92 */ Vec3s unk92;
+    /* 0x98 */ Vec3s unk98;
+    /* 0x9E */ Vec3s unk9E;
+    /* 0xA4 */ s16 unkA4;
+    /* 0xA6 */ s16 unkA6;
+    /* 0xA8 */ UNK_TYPE1 unkA8;
+    /* 0xA9 */ UNK_TYPE1 unkA9;
+    /* 0xAA */ UNK_TYPE1 unkAA;
+    /* 0xAB */ UNK_TYPE1 unkAB;
+    /* 0xAC */ s16 windWest;
+    /* 0xAE */ s16 windVertical;
+    /* 0xB0 */ s16 windSouth;
+    /* 0xB2 */ UNK_TYPE1 unkB2;
+    /* 0xB3 */ UNK_TYPE1 unkB3;
+    /* 0xB4 */ f32 windClothIntensity;
+    /* 0xB8 */ u8 environmentSettingsCount;
+    /* 0xB9 */ UNK_TYPE1 unkB9;
+    /* 0xBA */ UNK_TYPE1 unkBA;
+    /* 0xBB */ UNK_TYPE1 unkBB;
+    /* 0xBC */ void* environmentSettingsList;
+    /* 0xC0 */ UNK_TYPE1 unkC0;
+    /* 0xC1 */ u8 unkC1;
+    /* 0xC2 */ u8 unkC2;
+    /* 0xC3 */ u8 unkC3;
+    /* 0xC4 */ RGB unkC4;
+    /* 0xC7 */ s8 unkC7;
+    /* 0xC8 */ s8 unkC8;
+    /* 0xC9 */ s8 unkC9;
+    /* 0xCA */ RGB unkCA;
+    /* 0xCD */ s8 unkCD;
+    /* 0xCE */ s8 unkCE;
+    /* 0xCF */ s8 unkCF;
+    /* 0xD0 */ RGB unkD0;
+    /* 0xD3 */ RGB unkD3;
+    /* 0xD6 */ s16 unkD6;
+    /* 0xD8 */ s16 unkD8;
+    /* 0xDA */ UNK_TYPE1 unkDA;
+    /* 0xDB */ UNK_TYPE1 unkDB;
+    /* 0xDC */ f32 unkDC;
+    /* 0xE0 */ u8 unkE0;
+    /* 0xE1 */ UNK_TYPE1 unkE1;
+    /* 0xE2 */ s8 unkE2;
+    /* 0xE3 */ UNK_TYPE1 unkE3;
+    /* 0xE4 */ UNK_TYPE1 unkE4;
+    /* 0xE5 */ UNK_TYPE1 unkE5;
+    /* 0xE6 */ UNK_TYPE1 unkE6;
+    /* 0xE7 */ UNK_TYPE1 unkE7;
+    /* 0xE8 */ UNK_TYPE1 unkE8;
+    /* 0xE9 */ UNK_TYPE1 unkE9;
+    /* 0xEA */ UNK_TYPE1 unkEA;
+    /* 0xEB */ UNK_TYPE1 unkEB;
+    /* 0xEC */ UNK_TYPE1 unkEC;
+    /* 0xED */ UNK_TYPE1 unkED;
+    /* 0xEE */ UNK_TYPE1 unkEE;
+    /* 0xEF */ UNK_TYPE1 unkEF;
+    /* 0xF0 */ UNK_TYPE1 unkF0;
+    /* 0xF1 */ UNK_TYPE1 unkF1;
+} KankyoContext; // size = 0xF4
+
+typedef struct {
+    /* 0x00 */ u8 unk0;
+    /* 0x01 */ u8 unk1;
+    /* 0x02 */ u16 unk2;
+    /* 0x04 */ Vec3f unk4;
+    /* 0x10 */ Vec3f unk10;
+} GlobalContext1F78; // size = 0x1C
+
+struct GlobalContext {
+    /* 0x00000 */ GameState state;
+    /* 0x000A4 */ s16 sceneNum;
+    /* 0x000A6 */ u8 sceneConfig; // TODO: This at least controls the behavior of animated textures. Does it do more?
+    /* 0x000A7 */ UNK_TYPE1 padA7[0x9];
+    /* 0x000B0 */ SceneCmd* currentSceneVram;
+    /* 0x000B4 */ UNK_TYPE1 padB4[0x4];
+    /* 0x000B8 */ View view;
+    /* 0x00220 */ Camera activeCameras[4];
+    /* 0x00800 */ Camera* cameraPtrs[4];
+    /* 0x00810 */ s16 activeCamera;
+    /* 0x00812 */ s16 unk812;
+    /* 0x00814 */ u8 unk814;
+    /* 0x00815 */ u8 unk815;
+    /* 0x00816 */ UNK_TYPE1 pad816[0x2];
+    /* 0x00818 */ LightingContext lightCtx;
+    /* 0x00828 */ u32 unk828;
+    /* 0x0082C */ UNK_TYPE1 pad82C[0x4];
+    /* 0x00830 */ CollisionContext colCtx;
+    /* 0x01CA0 */ ActorContext actorCtx;
+    /* 0x01F24 */ CutsceneContext csCtx;
+    /* 0x01F74 */ CutsceneEntry* cutsceneList;
+    /* 0x01F78 */ GlobalContext1F78 unk1F78[16];
+    /* 0x02138 */ EffFootmark footmarks[100];
+    /* 0x046B8 */ SramContext sram;
+    /* 0x046D8 */ UNK_TYPE1 pad46D8[0x230];
+    /* 0x04908 */ MessageContext msgCtx;
+    /* 0x169E0 */ UNK_TYPE1 pad169E0[0x8];
+    /* 0x169E8 */ InterfaceContext interfaceCtx;
+    /* 0x16D30 */ PauseContext pauseCtx;
+    /* 0x17000 */ u16 unk17000;
+    /* 0x17002 */ UNK_TYPE1 pad17002[0x2];
+    /* 0x17004 */ KankyoContext kankyoContext;
+    /* 0x170F8 */ UNK_TYPE1 pad170F8[0xC];
+    /* 0x17104 */ AnimationContext animationCtx;
+    /* 0x17D88 */ SceneContext sceneContext;
+    /* 0x186E0 */ RoomContext roomContext;
+    /* 0x18760 */ u8 transitionActorCount;
+    /* 0x18761 */ UNK_TYPE1 pad18761[0x3];
+    /* 0x18764 */ TransitionActorInit* transitionActorList;
+    /* 0x18768 */ UNK_TYPE1 pad18768[0x48];
+    /* 0x187B0 */ z_Matrix unk187B0;
+    /* 0x187F0 */ UNK_TYPE1 pad187F0[0xC];
+    /* 0x187FC */ z_Matrix unk187FC;
+    /* 0x1883C */ UNK_TYPE1 pad1883C[0x4];
+    /* 0x18840 */ u32 sceneFrameCount;
+    /* 0x18844 */ u8 unk18844;
+    /* 0x18845 */ u8 unk18845;
+    /* 0x18846 */ u16 sceneNumActorsToLoad;
+    /* 0x18848 */ u8 numRooms;
+    /* 0x18849 */ UNK_TYPE1 pad18849[0x3];
+    /* 0x1884C */ RoomFileLocation* roomList;
+    /* 0x18850 */ ActorEntry* linkActorEntry;
+    /* 0x18854 */ ActorEntry* setupActorList;
+    /* 0x18858 */ UNK_PTR unk18858;
+    /* 0x1885C */ EntranceEntry* setupEntranceList;
+    /* 0x18860 */ void* setupExitList;
+    /* 0x18864 */ void* setupPathList;
+    /* 0x18868 */ UNK_PTR unk18868;
+    /* 0x1886C */ AnimatedTexture* sceneTextureAnimations;
+    /* 0x18870 */ UNK_TYPE1 pad18870[0x4];
+    /* 0x18874 */ u8 unk18874;
+    /* 0x18875 */ s8 unk18875;
+    /* 0x18876 */ UNK_TYPE1 pad18876[0x4];
+    /* 0x1887A */ u16 unk1887A;
+    /* 0x1887C */ s8 unk1887C;
+    /* 0x1887D */ UNK_TYPE1 pad1887D[0x2];
+    /* 0x1887F */ u8 unk1887F;
+    /* 0x18880 */ UNK_TYPE1 pad18880[0x4];
+    /* 0x18884 */ CollisionCheckContext colCheckCtx;
+    /* 0x18B20 */ UNK_TYPE1 pad18B20[0x28];
+    /* 0x18B48 */ u8 curSpawn;
+    /* 0x18B49 */ UNK_TYPE1 pad18B49[0x1];
+    /* 0x18B4A */ u8 unk18B4A;
+    /* 0x18B4B */ UNK_TYPE1 pad18B4B[0x309];
+    /* 0x18E54 */ SceneTableEntry* currentSceneTableEntry;
+    /* 0x18E58 */ UNK_TYPE1 pad18E58[0x400];
+}; // size = 0x19258
 
 /// =============================================================
 /// Savefile Structure
@@ -2085,7 +2369,7 @@ typedef struct {
     /* 0x18 */ char* filename;
 } PlayerOverlay; // size = 0x1C
 
-typedef void(*GetItemGraphicDrawFunc)(z2_game_t *game, u32 graphic_id_minus_1);
+typedef void(*GetItemGraphicDrawFunc)(GlobalContext *game, u32 graphic_id_minus_1);
 
 typedef struct {
     /* 0x00 */ GetItemGraphicDrawFunc drawFunc;
@@ -2154,7 +2438,7 @@ typedef struct {
     /* 0x06 */ s16 unk6;
     /* 0x08 */ u32 unk8;
     /* 0x0C */ u32 unkC;
-    /* 0x10 */ z2_game_t *globalContext;
+    /* 0x10 */ GlobalContext *globalContext;
     /* 0x14 */ s16 unk14;
     /* 0x16 */ s16 unk16;
 } struct_801BD8B0; // size = 0x18
@@ -2195,7 +2479,7 @@ typedef struct {
 #define z2_ctxt                          (*(z2_ctxt_t*)              z2_ctxt_addr)
 #define z2_file                          (*(SaveContext*)            z2_file_addr)
 #define z2_file_table                    ((DmaEntry*)                z2_file_table_addr)
-#define z2_game                          (*(z2_game_t*)              z2_game_addr)
+#define z2_game                          (*(GlobalContext*)          z2_game_addr)
 #define z2_gamestate                     (*(GameStateTable*)         z2_gamestate_addr)
 #define z2_gi_graphic_table              ((GetItemGraphicEntry*)     z2_gi_graphic_table_addr)
 #define z2_link                          (*(ActorPlayer*)            z2_link_addr)
@@ -2341,35 +2625,35 @@ typedef struct {
 /* Relocatable Types (VRAM) */
 #define z2_file_select_ctxt_vram         0x80813DF0
 
-typedef void (*z2_PerformEnterWaterEffects_proc)(z2_game_t *game, ActorPlayer *link);
+typedef void (*z2_PerformEnterWaterEffects_proc)(GlobalContext *game, ActorPlayer *link);
 typedef void (*z2_PlayerHandleBuoyancy_proc)(ActorPlayer *link);
 
 /* Function Prototypes */
-typedef int (*z2_CanInteract_proc)(z2_game_t *game);
-typedef int (*z2_CanInteract2_proc)(z2_game_t *game, ActorPlayer *link);
-typedef void (*z2_DrawButtonAmounts_proc)(z2_game_t *game, u32 arg1, u16 alpha);
-typedef void (*z2_DrawBButtonIcon_proc)(z2_game_t *game);
-typedef void (*z2_DrawCButtonIcons_proc)(z2_game_t *game);
+typedef int (*z2_CanInteract_proc)(GlobalContext *game);
+typedef int (*z2_CanInteract2_proc)(GlobalContext *game, ActorPlayer *link);
+typedef void (*z2_DrawButtonAmounts_proc)(GlobalContext *game, u32 arg1, u16 alpha);
+typedef void (*z2_DrawBButtonIcon_proc)(GlobalContext *game);
+typedef void (*z2_DrawCButtonIcons_proc)(GlobalContext *game);
 typedef u32 (*z2_GetFloorPhysicsType_proc)(void *arg0, void *arg1, u8 arg2);
 typedef f32* (*z2_GetMatrixStackTop_proc)();
-typedef void (*z2_LinkDamage_proc)(z2_game_t *game, ActorPlayer *link, u32 type, u32 arg3);
+typedef void (*z2_LinkDamage_proc)(GlobalContext *game, ActorPlayer *link, u32 type, u32 arg3);
 typedef void (*z2_LinkInvincibility_proc)(ActorPlayer *link, u8 frames);
 typedef void (*z2_PlaySfx_proc)(u32 id);
-typedef Actor* (*z2_SpawnActor_proc)(ActorContext *actor_ctx, z2_game_t *game, u16 id,
+typedef Actor* (*z2_SpawnActor_proc)(ActorContext *actor_ctx, GlobalContext *game, u16 id,
                                           f32 x, f32 y, f32 z, u16 rx, u16 ry, u16 rz, u16 variable);
-typedef void (*z2_UpdateButtonUsability_proc)(z2_game_t *game);
-typedef void (*z2_UseItem_proc)(z2_game_t *game, ActorPlayer *link, u8 item);
-typedef void (*z2_WriteHeartColors_proc)(z2_game_t *game);
+typedef void (*z2_UpdateButtonUsability_proc)(GlobalContext *game);
+typedef void (*z2_UseItem_proc)(GlobalContext *game, ActorPlayer *link, u8 item);
+typedef void (*z2_WriteHeartColors_proc)(GlobalContext *game);
 typedef void (*z2_RemoveItem_proc)(u32 item, u8 slot);
 typedef void (*z2_ToggleSfxDampen_proc)(int enable);
 typedef void (*z2_HandleInputVelocity_proc)(f32 *linear_velocity, f32 input_velocity, f32 increaseBy, f32 decreaseBy);
-typedef bool (*z2_SetGetItemLongrange_proc)(Actor *actor, z2_game_t *game, u16 gi_index);
+typedef bool (*z2_SetGetItemLongrange_proc)(Actor *actor, GlobalContext *game, u16 gi_index);
 
 /* Function Prototypes (Scene Flags) */
 // TODO parameters
 typedef void (*z2_get_generic_flag_proc)();
 typedef void (*z2_set_generic_flag_proc)();
-typedef void (*z2_remove_generic_flag_proc)(z2_game_t *game, s8 flag);
+typedef void (*z2_remove_generic_flag_proc)(GlobalContext *game, s8 flag);
 typedef void (*z2_get_chest_flag_proc)();
 typedef void (*z2_set_chest_flag_proc)();
 typedef void (*z2_set_all_chest_flags_proc)();
@@ -2387,8 +2671,8 @@ typedef void (*z2_check_scene_pairs_proc)();
 typedef void (*z2_store_scene_flags_proc)();
 
 /* Function Prototypes (Actors) */
-typedef void (*z2_ActorProc_proc)(Actor *actor, z2_game_t *game);
-typedef void (*z2_ActorRemove_proc)(ActorContext *ctxt, Actor *actor, z2_game_t *game);
+typedef void (*z2_ActorProc_proc)(Actor *actor, GlobalContext *game);
+typedef void (*z2_ActorRemove_proc)(ActorContext *ctxt, Actor *actor, GlobalContext *game);
 typedef void (*z2_ActorUnload_proc)(Actor *actor);
 
 /* Function Prototypes (Actor Cutscene) */
@@ -2411,10 +2695,10 @@ typedef s16 (*z2_ActorCutscene_GetCurrentCamera_proc)(void);
 typedef void (*z2_ActorCutscene_SetReturnCamera_proc)(s16 index);
 
 /* Function Prototypes (Drawing) */
-typedef void (*z2_ActorDraw_proc)(Actor *actor, z2_game_t *game);
-typedef void (*z2_BaseDrawGiModel_proc)(z2_game_t *game, u32 graphic_id_minus_1);
+typedef void (*z2_ActorDraw_proc)(Actor *actor, GlobalContext *game);
+typedef void (*z2_BaseDrawGiModel_proc)(GlobalContext *game, u32 graphic_id_minus_1);
 typedef void (*z2_CallDList_proc)(GraphicsContext *gfx);
-typedef void (*z2_PreDraw_proc)(Actor *actor, z2_game_t *game, u32 unknown);
+typedef void (*z2_PreDraw_proc)(Actor *actor, GlobalContext *game, u32 unknown);
 
 /* Function Prototypes (File Loading) */
 typedef s32 (*z2_RomToRam_proc)(u32 src, void *dst, u32 length);
@@ -2429,14 +2713,14 @@ typedef void (*z2_ReadFile_proc)(void *mem_addr, u32 vrom_addr, u32 size);
 typedef void (*z2_Yaz0_LoadAndDecompressFile_proc)(u32 prom_addr, void *dest, u32 length);
 
 /* Function Prototypes (Get Item) */
-typedef void (*z2_SetGetItem_proc)(Actor *actor, z2_game_t *game, s32 unk2, u32 unk3);
-typedef void (*z2_GiveItem_proc)(z2_game_t *game, u8 item_id);
+typedef void (*z2_SetGetItem_proc)(Actor *actor, GlobalContext *game, s32 unk2, u32 unk3);
+typedef void (*z2_GiveItem_proc)(GlobalContext *game, u8 item_id);
 typedef void (*z2_GiveMap_proc)(u32 map_index);
 
 /* Function Prototypes (HUD) */
-typedef void (*z2_HudSetAButtonText_proc)(z2_game_t *game, u16 text_id);
-typedef void (*z2_InitButtonNoteColors_proc)(z2_game_t *game);
-typedef void (*z2_ReloadButtonTexture_proc)(z2_game_t *game, u8 idx);
+typedef void (*z2_HudSetAButtonText_proc)(GlobalContext *game, u16 text_id);
+typedef void (*z2_InitButtonNoteColors_proc)(GlobalContext *game);
+typedef void (*z2_ReloadButtonTexture_proc)(GlobalContext *game, u8 idx);
 typedef void (*z2_UpdateButtonsState_proc)(u32 state);
 
 /* Function Prototypes (Math) */
@@ -2457,14 +2741,14 @@ typedef u32 (*z2_RngInt_proc)();
 typedef void (*z2_RngSetSeed_proc)(u32 seed);
 
 /* Function Prototypes (Rooms) */
-typedef void (*z2_LoadRoom_proc)(z2_game_t *game, RoomContext *room_ctxt, uint8_t room_id);
-typedef void (*z2_UnloadRoom_proc)(z2_game_t *game, RoomContext *room_ctxt);
+typedef void (*z2_LoadRoom_proc)(GlobalContext *game, RoomContext *room_ctxt, uint8_t room_id);
+typedef void (*z2_UnloadRoom_proc)(GlobalContext *game, RoomContext *room_ctxt);
 
 /* Function Prototypes (Sound) */
 typedef void (*z2_SetBGM2_proc)(u16 bgm_id);
 
 /* Function Prototypes (Text) */
-typedef void (*z2_ShowMessage_proc)(z2_game_t *game, u16 message_id, u8 something); // TODO figure out something?
+typedef void (*z2_ShowMessage_proc)(GlobalContext *game, u16 message_id, u8 something); // TODO figure out something?
 
 /* Functions */
 #define z2_CanInteract                   ((z2_CanInteract_proc)           z2_CanInteract_addr)
