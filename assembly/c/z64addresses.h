@@ -4,41 +4,37 @@
 #include "z2.h"
 
 /* Virtual File Addresses */
-#define z2_item_texture_file             0xA36C10
+#define ItemTextureFileVROM              0xA36C10
 
 /* Data Addresses */
-#define z2_arena_addr                    0x8009CD20
-#define z2_file_table_addr               0x8009F8B0
-#define z2_actor_ovl_table_addr          0x801AEFD0
-#define z2_gi_graphic_table_addr         0x801BB170 /* Get-Item graphics table. */
-#define z2_gamestate_addr                0x801BD910
-#define z2_item_segaddr_table_addr       0x801C1E6C /* Segment address table used for item textures. */
-#define z2_object_table_addr             0x801C2740
-#define z2_song_notes_addr               0x801CFC98
-#define z2_file_addr                     0x801EF670
-#define z2_game_arena_addr               0x801F5100
-#define z2_segment_addr                  0x801F8180
-#define z2_static_ctxt_addr              0x803824D0
-#define z2_ctxt_addr                     0x803E6B20
-#define z2_game_addr                     z2_ctxt_addr
-#define z2_link_addr                     0x803FFDB0
+#define ArenaAddr                        0x8009CD20
+#define DmaEntryTableAddr                0x8009F8B0
+#define ActorOverlayTableAddr            0x801AEFD0
+#define GetItemGraphicTableAddr          0x801BB170
+#define GameStateTableAddr               0x801BD910
+#define ItemSegaddrTableAddr             0x801C1E6C // Segment address table used for item textures.
+#define ObjectTableAddr                  0x801C2740
+#define SongNotesAddr                    0x801CFC98
+#define SaveContextAddr                  0x801EF670
+#define GameArenaAddr                    0x801F5100
+#define SegmentTableAddr                 0x801F8180
+#define StaticContextAddr                0x803824D0
+#define GlobalContextAddr                0x803E6B20 // Todo: Remove.
 
 /* Data */
-#define z2_actor_ovl_table               ((ActorOverlay*)            z2_actor_ovl_table_addr)
-#define z2_ctxt                          (*(z2_ctxt_t*)              z2_ctxt_addr)
-#define z2_file                          (*(SaveContext*)            z2_file_addr)
-#define z2_file_table                    ((DmaEntry*)                z2_file_table_addr)
-#define z2_game                          (*(GlobalContext*)          z2_game_addr)
-#define z2_gamestate                     (*(GameStateTable*)         z2_gamestate_addr)
-#define z2_gi_graphic_table              ((GetItemGraphicEntry*)     z2_gi_graphic_table_addr)
-#define z2_link                          (*(ActorPlayer*)            z2_link_addr)
-#define z2_obj_table                     ((ObjectFileTableEntry*)    z2_object_table_addr)
-#define z2_segment                       (*(SegmentTable*)           z2_segment_addr)
-#define z2_song_notes                    (*(SongNotes*)              z2_song_notes_addr)
-#define z2_static_ctxt                   (*(StaticContext*)          z2_static_ctxt_addr)
+#define z2_actor_ovl_table               ((ActorOverlay*)            ActorOverlayTableAddr)
+#define z2_file                          (*(SaveContext*)            SaveContextAddr)
+#define z2_file_table                    ((DmaEntry*)                DmaEntryTableAddr)
+#define z2_game                          (*(GlobalContext*)          GlobalContextAddr)
+#define z2_gamestate                     (*(GameStateTable*)         GameStateTableAddr)
+#define z2_gi_graphic_table              ((GetItemGraphicEntry*)     GetItemGraphicTableAddr)
+#define z2_obj_table                     ((ObjectFileTableEntry*)    ObjectTableAddr)
+#define z2_segment                       (*(SegmentTable*)           SegmentTableAddr)
+#define z2_song_notes                    (*(SongNotes*)              SongNotesAddr)
+#define z2_static_ctxt                   (*(StaticContext*)          StaticContextAddr)
 
 /* Data (non-struct) */
-#define z2_item_segaddr_table            ((u32*)                     z2_item_segaddr_table_addr)
+#define z2_item_segaddr_table            ((u32*)                     ItemSegaddrTableAddr)
 
 /* Data (Unknown) */
 #define s801BD8B0                        (*(struct_801BD8B0*)        0x801BD8B0)
