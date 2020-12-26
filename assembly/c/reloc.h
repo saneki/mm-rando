@@ -22,7 +22,8 @@
 #define z2_PauseDrawItemIcon GET_RELOC_PAUSE_FUNC(z2_PauseDrawItemIcon)
 
 /* Relocatable file select data */
-#define z2_file_select_ctxt  GET_GS_RELOC_TYPE(z2_file_select_ctxt, z2_gamestate.fileSelect)
+#define ResolveGamestateRelocType(Type, Vram, Gs) ((Type*)reloc_resolve_gamestate(&(Gs), (Vram)))
+#define ResolveFileChooseData() ResolveGamestateRelocType(FileChooseData, FileChooseDataVRAM, z2_gamestate.fileSelect)
 
 void * reloc_resolve_actor_ovl(ActorOverlay *ovl, u32 vram);
 ActorInit * reloc_resolve_actor_init(ActorOverlay *ovl);
