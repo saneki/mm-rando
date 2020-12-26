@@ -2021,23 +2021,22 @@ typedef struct {
 /// Arenas
 /// =============================================================
 
-typedef struct z2_arena_node    z2_arena_node_t;
-typedef struct z2_arena         z2_arena_t;
+typedef struct ArenaNode {
+    /* 0x0 */ s16 magic; // Should always be 0x7373
+    /* 0x2 */ s16 isFree;
+    /* 0x4 */ u32 size;
+    /* 0x8 */ struct ArenaNode* next;
+    /* 0xC */ struct ArenaNode* prev;
+} ArenaNode; // size = 0x10
 
-struct z2_arena_node {
-    u16              magic;                          /* 0x0000 */
-    u16              free;                           /* 0x0002 */
-    u32              size;                           /* 0x0004 */
-    z2_arena_node_t *next;                           /* 0x0008 */
-    z2_arena_node_t *prev;                           /* 0x000C */
-};                                                   /* 0x0010 */
-
-struct z2_arena {
-    z2_arena_node_t *first;                          /* 0x0000 */
-    void            *start;                          /* 0x0004 */
-    void            *unk_0x08;                       /* 0x0008 */
-    void            *unk_0x0C;                       /* 00000C */
-};                                                   /* 0x0010 */
+typedef struct {
+    /* 0x00 */ ArenaNode* head;
+    /* 0x04 */ void* start;
+    /* 0x08 */ OSMesgQueue lock;
+    /* 0x20 */ u8 unk20;
+    /* 0x21 */ u8 isInit;
+    /* 0x22 */ u8 flag;
+} Arena; // size = 0x24
 
 /// =============================================================
 /// Overlays & Tables
