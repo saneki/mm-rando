@@ -32,7 +32,7 @@ void c_init() {
 void before_player_actor_update(ActorPlayer *link, GlobalContext *game) {
     dpad_before_player_actor_update(link, game);
     external_effects_handle(link, game);
-    arrow_cycle_handle(link, game);
+    ArrowCycle_Handle(link, game);
     arrow_magic_handle(link, game);
     deku_hop_handle(link, game);
 }
