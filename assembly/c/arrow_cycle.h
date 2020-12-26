@@ -3,7 +3,7 @@
 
 #include "z2.h"
 
-Actor * arrow_cycle_find_arrow(ActorPlayer *link, GlobalContext *game);
-void arrow_cycle_handle(ActorPlayer *link, GlobalContext *game);
+Actor* ArrowCycle_FindArrow(ActorPlayer* player, GlobalContext* ctxt);
+void ArrowCycle_Handle(ActorPlayer* player, GlobalContext* ctxt);
 
 #endif // ARROW_CYCLE

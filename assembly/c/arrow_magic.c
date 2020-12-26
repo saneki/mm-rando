@@ -32,7 +32,7 @@ static void arrow_magic_update_state(struct arrow_magic_state *state, ActorPlaye
         }
         state->arrow = NULL;
     } else {
-        state->arrow = arrow_cycle_find_arrow(link, game);
+        state->arrow = ArrowCycle_FindArrow(link, game);
     }
 }
 
