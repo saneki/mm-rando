@@ -11,6 +11,6 @@
 ;   sw      r0, 0x0134 (a0)
 .org 0x800B6968
     sw      a0, 0x0018 (sp)
-    jal     actor_after_dtor_hook
+    jal     Actor_AfterDtor_Hook
     sw      a1, 0x001C (sp)
     nop
