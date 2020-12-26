@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include "z2.h"
 
-bool buttons_check_c_item_usable(GlobalContext *game, u8 c);
-void buttons_check_item_usability(bool *dest, GlobalContext *game, u8 b, u8 c1, u8 c2, u8 c3);
+bool Buttons_CheckCItemUsable(GlobalContext* ctxt, u8 c);
+void Buttons_CheckItemUsability(bool* dest, GlobalContext* ctxt, u8 b, u8 cLeft, u8 cDown, u8 cRight);
 
 #endif // BUTTONS_H

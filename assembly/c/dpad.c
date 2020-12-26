@@ -102,7 +102,7 @@ static void get_dpad_item_usability(GlobalContext *game, bool *dest) {
         if (dpad_are_c_items_disabled_by_entrance(game)) {
             dest[i] = false;
         } else {
-            dest[i] = buttons_check_c_item_usable(game, DPAD_CONFIG.primary.values[i]);
+            dest[i] = Buttons_CheckCItemUsable(game, DPAD_CONFIG.primary.values[i]);
         }
     }
 }
