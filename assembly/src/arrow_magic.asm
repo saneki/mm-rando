@@ -1,10 +1,10 @@
-arrow_magic_get_initial_consume_state_hook:
+ArrowMagic_GetInitialConsumeState_Hook:
     addiu   sp, sp, -0x20
     sw      ra, 0x001C (sp)
     sw      a1, 0x0010 (sp)
     sw      a3, 0x0014 (sp)
 
-    jal     arrow_magic_get_initial_consume_state
+    jal     ArrowMagic_GetInitialConsumeState
     sw      v1, 0x0018 (sp)
 
     ; Place return value in T2.
@@ -20,14 +20,14 @@ arrow_magic_get_initial_consume_state_hook:
     jr      ra
     addiu   sp, sp, 0x20
 
-arrow_magic_should_set_magic_cost_hook:
+ArrowMagic_ShouldSetMagicCost_Hook:
     addiu   sp, sp, -0x20
     sw      ra, 0x001C (sp)
     sw      a1, 0x0010 (sp)
     sw      t2, 0x0014 (sp)
     sw      v1, 0x0018 (sp)
 
-    jal     arrow_magic_should_set_magic_cost
+    jal     ArrowMagic_ShouldSetMagicCost
     andi    a1, t0, 0x0008
 
     ; Place return value in AT.

@@ -3,6 +3,6 @@
 
 #include "z2.h"
 
-void arrow_magic_handle(ActorPlayer *link, GlobalContext *game);
+void ArrowMagic_Handle(ActorPlayer* player, GlobalContext* ctxt);
 
 #endif // ARROW_MAGIC
