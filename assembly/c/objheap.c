@@ -10,14 +10,14 @@ enum objheap_op {
 };
 
 static void load_object_file(u32 object_id, u8 *buf) {
-    ObjectFileTableEntry *entry = extended_objects_get((s16)object_id);
+    ObjectFileTableEntry *entry = ExtendedObjects_Get((s16)object_id);
     u32 vrom_start = entry->vromStart;
     u32 size = entry->vromEnd - vrom_start;
     z2_ReadFile(buf, vrom_start, size);
 }
 
 static size_t get_object_size(u32 object_id) {
-    ObjectFileTableEntry info = *extended_objects_get((s16)object_id);
+    ObjectFileTableEntry info = *ExtendedObjects_Get((s16)object_id);
     return (size_t)(info.vromEnd - info.vromStart);
 }
 

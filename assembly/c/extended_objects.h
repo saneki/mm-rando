@@ -5,6 +5,6 @@
 
 #define EXT_OBJECT_COUNT 16
 
-ObjectFileTableEntry* extended_objects_get(s16 index);
+ObjectFileTableEntry* ExtendedObjects_Get(s16 index);
 
 #endif // EXTENDED_OBJECTS_H
