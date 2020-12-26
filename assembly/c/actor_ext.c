@@ -3,27 +3,27 @@
 #include "util.h"
 #include "z2.h"
 
-// Number of actor_ext entries in the heap.
-static const size_t g_count = 0x80;
+// Number of ActorExt entries in the heap.
+static const size_t gCount = 0x80;
 
 // Actor extended "heap."
-static struct actor_ext * g_heap = NULL;
+static struct ActorExt* gHeap = NULL;
 
 // Size of the allocated size.
-static size_t g_heap_size = 0;
+static size_t gHeapSize = 0;
 
 // Index of the next expected-free entry.
-static size_t g_next_free_idx = 0;
+static size_t gNextFreeIdx = 0;
 
-static bool check_is_heap(void *ptr) {
-    u8 *ext = (u8*)ptr;
-    u8 *heap = (u8*)g_heap;
-    return (heap <= ext && ext < (heap + g_heap_size));
+static bool CheckIsHeap(void* ptr) {
+    u8* ext = (u8*)ptr;
+    u8* heap = (u8*)gHeap;
+    return (heap <= ext && ext < (heap + gHeapSize));
 }
 
-static size_t get_heap_aligned_entry_size(void) {
+static size_t GetHeapAlignedEntrySize(void) {
     const size_t align = 8;
-    size_t ssize = sizeof(struct actor_ext);
+    size_t ssize = sizeof(struct ActorExt);
     size_t extra = ssize % align;
     if (extra > 0) {
         return ssize + (align - ssize);
@@ -32,43 +32,43 @@ static size_t get_heap_aligned_entry_size(void) {
     }
 };
 
-static size_t get_heap_size(size_t count) {
-    size_t entry = get_heap_aligned_entry_size();
+static size_t GetHeapSize(size_t count) {
+    size_t entry = GetHeapAlignedEntrySize();
     return entry * count;
 }
 
 /**
- * Decode the actor_ext pointer in an actor instance and mark it as unused.
+ * Decode the ActorExt pointer in an actor instance and mark it as unused.
  **/
-void actor_ext_after_actor_dtor(Actor *actor) {
-    struct actor_ext *ext = actor_ext_generic_decode(actor);
+void ActorExt_AfterActorDtor(Actor* actor) {
+    struct ActorExt* ext = ActorExt_GenericDecode(actor);
     if (ext != NULL) {
         // Mark table entry as free, encode pointer as NULL
-        actor_ext_set_free(ext);
-        actor_ext_generic_encode(actor, NULL);
+        ActorExt_SetFree(ext);
+        ActorExt_GenericEncode(actor, NULL);
     }
 }
 
-void actor_ext_clear(void) {
-    g_next_free_idx = 0;
+void ActorExt_Clear(void) {
+    gNextFreeIdx = 0;
 }
 
 /**
- * Find the next unused actor_ext entry in the array.
+ * Find the next unused ActorExt entry in the array.
  **/
-struct actor_ext * actor_ext_find_free(void) {
-    if (g_heap == NULL)
+struct ActorExt* ActorExt_FindFree(void) {
+    if (gHeap == NULL)
         return NULL;
 
     // Start from index of next expected-free entry
-    size_t expected = g_next_free_idx;
+    size_t expected = gNextFreeIdx;
 
     // Iterate through heap array to find an entry without USED bit set
-    for (size_t i = 0; i < g_count; i++) {
-        size_t idx = (expected + i) % g_count;
-        struct actor_ext *ext = &g_heap[idx];
+    for (size_t i = 0; i < gCount; i++) {
+        size_t idx = (expected + i) % gCount;
+        struct ActorExt* ext = &gHeap[idx];
         if ((ext->flags & ACTOR_EXT_USED) == 0) {
-            g_next_free_idx = (idx + 1) % g_count;
+            gNextFreeIdx = (idx + 1) % gCount;
             ext->flags |= ACTOR_EXT_USED;
             return ext;
         }
@@ -80,7 +80,7 @@ struct actor_ext * actor_ext_find_free(void) {
 /**
  * Encode a pointer into unused fields in the actor header.
  **/
-void actor_ext_generic_encode(Actor *actor, const void *ext) {
+void ActorExt_GenericEncode(Actor* actor, const void* ext) {
     u32 pval = (u32)ext;
     actor->pad22[0] = (u8)(pval >> 24);
     actor->pad22[1] = (u8)(pval >> 16);
@@ -91,21 +91,21 @@ void actor_ext_generic_encode(Actor *actor, const void *ext) {
 /**
  * Decode a pointer from the unused fields in the actor header.
  **/
-struct actor_ext * actor_ext_generic_decode(const Actor *actor) {
+void* ActorExt_GenericDecode(const Actor* actor) {
     u32 pval = 0;
     pval |= (actor->pad22[0] << 24);
     pval |= (actor->pad22[1] << 16);
     pval |= (actor->pad3A[0] << 8);
     pval |= (actor->pad3A[1]);
-    return (struct actor_ext *)pval;
+    return (void*)pval;
 }
 
 /**
- * Mark an actor_ext entry as unused.
+ * Mark an ActorExt entry as unused.
  **/
-void actor_ext_set_free(struct actor_ext *ext) {
+void ActorExt_SetFree(struct ActorExt* ext) {
     // Sanitization check to ensure ext points into the heap somewhere.
-    if (check_is_heap(ext)) {
+    if (CheckIsHeap(ext)) {
         ext->flags &= ~ACTOR_EXT_USED;
     } else {
         // Mess with health to indicate an issue.
@@ -115,10 +115,10 @@ void actor_ext_set_free(struct actor_ext *ext) {
 }
 
 /**
- * Setup an actor_ext entry for a specific actor instance and return it.
+ * Setup an ActorExt entry for a specific actor instance and return it.
  **/
-struct actor_ext * actor_ext_setup(Actor *actor, bool *created) {
-    struct actor_ext *ext = actor_ext_generic_decode(actor);
+struct ActorExt* ActorExt_Setup(Actor* actor, bool* created) {
+    struct ActorExt* ext = (struct ActorExt*)ActorExt_GenericDecode(actor);
     if (ext != NULL) {
         if (created != NULL)
             *created = false;
@@ -126,18 +126,18 @@ struct actor_ext * actor_ext_setup(Actor *actor, bool *created) {
     } else {
         if (created != NULL)
             *created = true;
-        ext = actor_ext_find_free();
-        actor_ext_generic_encode(actor, ext);
+        ext = ActorExt_FindFree();
+        ActorExt_GenericEncode(actor, ext);
         return ext;
     }
 }
 
 /**
- * Allocate and initialize the actor_ext array.
+ * Allocate and initialize the ActorExt array.
  **/
-void actor_ext_init(void) {
-    // Allocate the actor_ext array
-    g_heap_size = get_heap_size(g_count);
-    void *heap = heap_alloc((int)g_heap_size);
-    g_heap = (struct actor_ext *)heap;
+void ActorExt_Init(void) {
+    // Allocate the ActorExt array
+    gHeapSize = GetHeapSize(gCount);
+    void *heap = heap_alloc((int)gHeapSize);
+    gHeap = (struct ActorExt*)heap;
 }
