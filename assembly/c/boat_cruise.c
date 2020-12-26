@@ -63,7 +63,7 @@ void boat_cruise_handle_idle(ActorBgIngate *canoe, GlobalContext *game) {
 bool boat_cruise_should_end_archery(ActorBgIngate *canoe, GlobalContext *game) {
     bool finished = (canoe->flags & 2) == 2;
     if (MISC_CONFIG.speedups.boat_archery) {
-        return finished || (((z2_file.owl.eventInf[3] & 0x20) != 0) && (z2_file.extra.minigameCounter[0] >= 20));
+        return finished || (((gSaveContext.owl.eventInf[3] & 0x20) != 0) && (gSaveContext.extra.minigameCounter[0] >= 20));
     } else {
         return finished;
     }

@@ -60,7 +60,7 @@ static bool g_was_minigame = false;
 
 static bool has_inventory_item(u8 item) {
     for (int i = 0; i < 0x18; i++) {
-        if (z2_file.perm.inv.items[i] == item || z2_file.perm.inv.masks[i] == item) {
+        if (gSaveContext.perm.inv.items[i] == item || gSaveContext.perm.inv.masks[i] == item) {
             return true;
         }
     }
@@ -94,7 +94,7 @@ static bool dpad_are_c_items_disabled_by_entrance(GlobalContext *game) {
     // Id 0x8E10: Beaver Race
     // Id 0xD010: Goron Race
     // Checks execute state to prevent fading D-Pad when loading scene with entrance.
-    return (z2_file.perm.entrance.value == 0x8E10 || z2_file.perm.entrance.value == 0xD010) && game->state.running != 0;
+    return (gSaveContext.perm.entrance.value == 0x8E10 || gSaveContext.perm.entrance.value == 0xD010) && game->state.running != 0;
 }
 
 static void get_dpad_item_usability(GlobalContext *game, bool *dest) {
@@ -129,16 +129,16 @@ static void load_texture_from_sprite(sprite_t *sprite, int idx, u8 item) {
 }
 
 static u16 update_y_position(u16 x, u16 y, u16 padding) {
-    u16 heart_count = z2_file.perm.unk24.maxLife / 0x10;
+    u16 heart_count = gSaveContext.perm.unk24.maxLife / 0x10;
 
     // Check if we have second row of hearts
     bool hearts = heart_count > 10;
     // Check if we have magic
-    bool magic = z2_file.perm.unk24.hasMagic != 0;
+    bool magic = gSaveContext.perm.unk24.hasMagic != 0;
     // Check if there's a timer
-    bool timer = IS_TIMER_VISIBLE(z2_file.extra.timers[Z2_TIMER_INDEX_POE_SISTERS]) ||
-                 IS_TIMER_VISIBLE(z2_file.extra.timers[Z2_TIMER_INDEX_TREASURE_CHEST_GAME]) ||
-                 IS_TIMER_VISIBLE(z2_file.extra.timers[Z2_TIMER_INDEX_DROWNING]);
+    bool timer = IS_TIMER_VISIBLE(gSaveContext.extra.timers[Z2_TIMER_INDEX_POE_SISTERS]) ||
+                 IS_TIMER_VISIBLE(gSaveContext.extra.timers[Z2_TIMER_INDEX_TREASURE_CHEST_GAME]) ||
+                 IS_TIMER_VISIBLE(gSaveContext.extra.timers[Z2_TIMER_INDEX_DROWNING]);
 
     // If on left-half of screen
     if (x < 160) {
@@ -176,9 +176,9 @@ static bool is_minigame_frame(void) {
     // Note on state 1 (transition):
     // In the Deku playground, can go from 0xC to 0x1 when cutscene-transitioning to the business scrub.
     // Thus, if the minigame state goes directly to the transition state, consider that a minigame frame.
-    g_was_minigame = (z2_file.extra.buttonsState.state == Z2_BUTTONS_STATE_MINIGAME ||
-                      (g_was_minigame && z2_file.extra.buttonsState.state == Z2_BUTTONS_STATE_TRANSITION) ||
-                      z2_file.extra.buttonsState.state == 6);
+    g_was_minigame = (gSaveContext.extra.buttonsState.state == Z2_BUTTONS_STATE_MINIGAME ||
+                      (g_was_minigame && gSaveContext.extra.buttonsState.state == Z2_BUTTONS_STATE_TRANSITION) ||
+                      gSaveContext.extra.buttonsState.state == 6);
     return result || g_was_minigame;
 }
 
@@ -227,8 +227,8 @@ bool dpad_handle(ActorPlayer *link, GlobalContext *game) {
     // Check general buttons state to know if we can use C buttons at all
     // Note: After collecting a stray fairy (and possibly in other cases) the state flags are set
     // to 0 despite the game running normally.
-    if (z2_file.extra.buttonsState.state != Z2_BUTTONS_STATE_NORMAL &&
-        z2_file.extra.buttonsState.state != Z2_BUTTONS_STATE_BLACK_SCREEN)
+    if (gSaveContext.extra.buttonsState.state != Z2_BUTTONS_STATE_NORMAL &&
+        gSaveContext.extra.buttonsState.state != Z2_BUTTONS_STATE_BLACK_SCREEN)
         return false;
 
     // Make sure certain Link state flags are cleared before processing D-Pad input.
@@ -268,7 +268,7 @@ void dpad_draw(GlobalContext *game) {
 
     // Check for minigame frame, and do nothing unless transitioning into minigame
     // In which case the C-buttons alpha will be used instead for fade-in
-    if (is_minigame && z2_file.extra.buttonsState.previousState != Z2_BUTTONS_STATE_MINIGAME)
+    if (is_minigame && gSaveContext.extra.buttonsState.previousState != Z2_BUTTONS_STATE_MINIGAME)
         return;
 
     // Check if C button items are disabled for a specific entrance.
@@ -279,9 +279,9 @@ void dpad_draw(GlobalContext *game) {
     // Use minimap alpha by default for fading textures out
     u8 prim_alpha = game->interfaceCtx.alphas.minimap & 0xFF;
     // If in minigame, the C buttons fade out and so should the D-Pad
-    if (z2_file.extra.buttonsState.state == Z2_BUTTONS_STATE_MINIGAME ||
-        z2_file.extra.buttonsState.state == Z2_BUTTONS_STATE_BOAT_ARCHERY ||
-        z2_file.extra.buttonsState.state == Z2_BUTTONS_STATE_SWORDSMAN_GAME ||
+    if (gSaveContext.extra.buttonsState.state == Z2_BUTTONS_STATE_MINIGAME ||
+        gSaveContext.extra.buttonsState.state == Z2_BUTTONS_STATE_BOAT_ARCHERY ||
+        gSaveContext.extra.buttonsState.state == Z2_BUTTONS_STATE_SWORDSMAN_GAME ||
         is_minigame)
         prim_alpha = game->interfaceCtx.alphas.buttonCLeft & 0xFF;
 

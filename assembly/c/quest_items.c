@@ -6,9 +6,9 @@
 #include "z2.h"
 
 static bool check_inventory_slot(u8 item, u8 slot) {
-    if (z2_file.perm.inv.items[slot] == item) {
+    if (gSaveContext.perm.inv.items[slot] == item) {
         return true;
-    } else if (MISC_CONFIG.quest_item_storage && z2_file.perm.inv.items[slot] != Z2_ITEM_NONE) {
+    } else if (MISC_CONFIG.quest_item_storage && gSaveContext.perm.inv.items[slot] != Z2_ITEM_NONE) {
         return quest_item_storage_has(&SAVE_FILE_CONFIG.quest_storage, item);
     } else {
         return false;
@@ -38,7 +38,7 @@ void quest_items_after_removal(u8 item, u8 slot) {
         if (MISC_CONFIG.quest_item_storage) {
             u8 next = quest_item_storage_next(storage, item);
             if (next != Z2_ITEM_NONE && IS_QUEST_SLOT(slot)) {
-                z2_file.perm.inv.items[slot] = next;
+                gSaveContext.perm.inv.items[slot] = next;
             }
         }
     }
