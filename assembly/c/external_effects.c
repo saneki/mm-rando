@@ -9,29 +9,29 @@
 #define FAIRY_COOLDOWN 0x10
 
 // Maximum amount of fairies in queue.
-#define FAIRY_MAX      12
+#define FAIRY_MAX 12
 
 // Jinx unit amount (multiplied by value in structure, then added to timer).
-#define JINX_AMOUNT    0x100
+#define JINX_AMOUNT 0x100
 
 // Maximum jinx timer value in memory.
-#define JINX_MAX       0xFFFF
+#define JINX_MAX 0xFFFF
 
-external_effects_t g_external_effects = {
+ExternalEffectsConfig gExternalEffects = {
     .magic = EXTERNAL_EFFECTS_MAGIC,
     .version = 0,
-    .camera_overlook = 0,
+    .cameraOverlook = 0,
     .chateau = 0,
     .fairy = 0,
     .freeze = 0,
-    .ice_physics = 0,
+    .icePhysics = 0,
     .jinx = 0,
-    .no_z = 0,
-    .reverse_controls = 0,
+    .noZ = 0,
+    .reverseControls = 0,
 };
 
 // Specifies camera states that can be changed via an effect.
-static const bool g_freecam_modes[0x5B] = {
+static const bool gFreecamModes[0x5B] = {
     1, // 0x00 NONE
     1, // 0x01 NORMAL0
     1, // 0x02 NORMAL3
@@ -126,43 +126,42 @@ static const bool g_freecam_modes[0x5B] = {
 };
 
 // Whether or not to refill some magic on this frame.
-static bool g_refill_magic = false;
+static bool gRefillMagic = false;
 
 // Whether or not we are in our special jinx state.
-static bool g_jinxed = false;
+static bool gJinxed = false;
 
 // Previous jinx value in our special jinx state.
-static u16 g_previous_jinx_value = 0;
+static u16 gPreviousJinxValue = 0;
 
 // Cooldown for spawning fairies, in frames.
-static u32 g_fairy_cooldown = 0;
+static u32 gFairyCooldown = 0;
 
 // Most recent scene, tracked for fairy usage.
-static u16 g_fairy_scene = 0;
+static u16 gFairyScene = 0;
 
-static void handle_camera_overlook_effect(GlobalContext *game, ActorPlayer *link) {
+static void HandleCameraOverlookEffect(GlobalContext* ctxt, ActorPlayer* player) {
     // Handle "Camera Overlook" effect.
-    if (g_external_effects.camera_overlook) {
-        s16 curstate = game->activeCameras[0].state;
-        if (g_freecam_modes[curstate] && curstate != Z2_CAMERA_STATE_FUKAN1) {
-            game->activeCameras[0].state = Z2_CAMERA_STATE_FUKAN1;
-
+    if (gExternalEffects.cameraOverlook) {
+        s16 curstate = ctxt->activeCameras[0].state;
+        if (gFreecamModes[curstate] && curstate != Z2_CAMERA_STATE_FUKAN1) {
+            ctxt->activeCameras[0].state = Z2_CAMERA_STATE_FUKAN1;
             // Camera mode used while Z-targetting, it should trigger the camera to begin drifting over Link
-            game->activeCameras[0].mode = Z2_CAMERA_MODE_PARALLEL;
+            ctxt->activeCameras[0].mode = Z2_CAMERA_MODE_PARALLEL;
         }
     }
 }
 
-static void handle_chateau_effect(GlobalContext *game, ActorPlayer *link) {
+static void HandleChateauEffect(GlobalContext* ctxt, ActorPlayer* player) {
     // Handle "Chateau" effect
-    if (g_external_effects.chateau) {
+    if (gExternalEffects.chateau) {
         SetInfiniteMagic(gSaveContext);
-        g_refill_magic = true;
-        g_external_effects.chateau = 0;
+        gRefillMagic = true;
+        gExternalEffects.chateau = 0;
     }
 
     // Refill magic
-    if (g_refill_magic) {
+    if (gRefillMagic) {
         u8 total = (u8)gSaveContext.extra.magicMeterSize;
         u8 remaining = total - gSaveContext.perm.unk24.currentMagic;
 
@@ -178,122 +177,120 @@ static void handle_chateau_effect(GlobalContext *game, ActorPlayer *link) {
         // If full, stop refilling magic
         if (gSaveContext.perm.unk24.currentMagic >= total) {
             gSaveContext.perm.unk24.currentMagic = total; // Just in case
-            g_refill_magic = false;
+            gRefillMagic = false;
         }
     }
 }
 
-static void handle_fairy_effect(GlobalContext *game, ActorPlayer *link) {
+static void HandleFairyEffect(GlobalContext* ctxt, ActorPlayer* player) {
     // Reset fairy instance usages when scene changes
-    if (game->sceneNum != g_fairy_scene) {
+    if (ctxt->sceneNum != gFairyScene) {
         reset_fairy_instance_usage();
-        g_fairy_scene = game->sceneNum;
-        g_fairy_cooldown = 0;
+        gFairyScene = ctxt->sceneNum;
+        gFairyCooldown = 0;
     }
 
     // Enforce a maximum of fairies in queue
-    if (g_external_effects.fairy > FAIRY_MAX) {
-        g_external_effects.fairy = FAIRY_MAX;
+    if (gExternalEffects.fairy > FAIRY_MAX) {
+        gExternalEffects.fairy = FAIRY_MAX;
     }
 
     // Check state type to see if we can receive a fairy during this frame
-    if (g_external_effects.fairy && g_fairy_cooldown == 0 && can_interact_with_fairy(game, link)) {
+    if (gExternalEffects.fairy && gFairyCooldown == 0 && can_interact_with_fairy(ctxt, player)) {
         // Spawn fairy on top of Link, and call the function to interact
-        Actor *fairy = spawn_next_fairy_actor(game, link->base.initPosRot.pos);
+        Actor* fairy = spawn_next_fairy_actor(ctxt, player->base.initPosRot.pos);
         if (fairy) {
             if (fairy->update != NULL) {
-                fairy->update(fairy, game);
+                fairy->update(fairy, ctxt);
             }
-            g_fairy_cooldown = FAIRY_COOLDOWN;
-            g_external_effects.fairy -= 1;
+            gFairyCooldown = FAIRY_COOLDOWN;
+            gExternalEffects.fairy -= 1;
         }
     }
 
     // Decrement cooldown per frame
-    if (g_fairy_cooldown > 0) {
-        g_fairy_cooldown -= 1;
+    if (gFairyCooldown > 0) {
+        gFairyCooldown -= 1;
     }
 }
 
-static void handle_freeze_effect(GlobalContext *game, ActorPlayer *link) {
+static void HandleFreezeEffect(GlobalContext* ctxt, ActorPlayer* player) {
     // Handle "Freeze" effect.
-    if (g_external_effects.freeze) {
+    if (gExternalEffects.freeze) {
         icetrap_push_pending();
-        g_external_effects.freeze = 0;
+        gExternalEffects.freeze = 0;
     }
 }
 
-static void handle_ice_physics_effect(GlobalContext *game, ActorPlayer *link) {
+static void HandleIcePhysicsEffect(GlobalContext* ctxt, ActorPlayer* player) {
     // Handle "Ice Physics" effect.
-    if (g_external_effects.ice_physics) {
+    if (gExternalEffects.icePhysics) {
         floor_physics_override_type(true, Z2_FLOOR_PHYSICS_ICE);
     } else {
         floor_physics_override_type(false, 0);
     }
 }
 
-static void handle_jinx_effect(GlobalContext *game, ActorPlayer *link) {
+static void HandleJinxEffect(GlobalContext* ctxt, ActorPlayer* player) {
     // Handle "Jinx" effect.
-    if (g_external_effects.jinx) {
+    if (gExternalEffects.jinx) {
         // Add multiple of JINX_AMOUNT to jinx timer
-        u32 amount = g_external_effects.jinx * JINX_AMOUNT;
+        u32 amount = gExternalEffects.jinx * JINX_AMOUNT;
         u32 timer = gSaveContext.owl.jinxCounter + amount;
         timer = (timer < JINX_MAX ? timer : JINX_MAX);
         gSaveContext.owl.jinxCounter = (u16)timer;
 
-        g_external_effects.jinx = 0;
-        g_jinxed = true;
+        gExternalEffects.jinx = 0;
+        gJinxed = true;
 
-        g_previous_jinx_value = gSaveContext.owl.jinxCounter;
+        gPreviousJinxValue = gSaveContext.owl.jinxCounter;
     }
 
     // This is a special jinx, players cannot Song of Storms out of it.
-    if (g_jinxed) {
+    if (gJinxed) {
         // Calculate current expected jinx value
         u16 expected = 0;
-        if (g_previous_jinx_value > 1) {
-            expected = g_previous_jinx_value - 1;
+        if (gPreviousJinxValue > 1) {
+            expected = gPreviousJinxValue - 1;
         }
-
         // If actual value is less than expected, this means Song of Storms was played or went back in time.
         if (gSaveContext.owl.jinxCounter < expected) {
             gSaveContext.owl.jinxCounter = expected;
         } else if (gSaveContext.owl.jinxCounter == 0) {
             // Once the timer hits 0, disable our special jinx state.
-            g_jinxed = false;
+            gJinxed = false;
         }
-
-        g_previous_jinx_value = gSaveContext.owl.jinxCounter;
+        gPreviousJinxValue = gSaveContext.owl.jinxCounter;
     }
 }
 
-static void handle_no_z_effect(GlobalContext *game, ActorPlayer *link) {
+static void HandleNoZEffect(GlobalContext* ctxt, ActorPlayer* player) {
     // Handle "No Z" effect.
-    if (g_external_effects.no_z) {
-        game->state.input[0].current.buttons.z = 0;
-        game->state.input[0].pressEdge.buttons.z = 0;
+    if (gExternalEffects.noZ) {
+        ctxt->state.input[0].current.buttons.z = 0;
+        ctxt->state.input[0].pressEdge.buttons.z = 0;
     }
 }
 
-static void handle_reverse_controls_effect(GlobalContext *game, ActorPlayer *link) {
+static void HandleReverseControlsEffect(GlobalContext* ctxt, ActorPlayer* player) {
     // Handle "Reverse Controls" effect.
-    if (g_external_effects.reverse_controls) {
-        game->state.input[0].current.xAxis = -game->state.input[0].current.xAxis;
-        game->state.input[0].current.yAxis = -game->state.input[0].current.yAxis;
-        game->state.input[0].pressEdge.xAxis = -game->state.input[0].pressEdge.xAxis;
-        game->state.input[0].pressEdge.yAxis = -game->state.input[0].pressEdge.yAxis;
-        game->state.input[0].releaseEdge.xAxis = -game->state.input[0].releaseEdge.xAxis;
-        game->state.input[0].releaseEdge.yAxis = -game->state.input[0].releaseEdge.yAxis;
+    if (gExternalEffects.reverseControls) {
+        ctxt->state.input[0].current.xAxis = -ctxt->state.input[0].current.xAxis;
+        ctxt->state.input[0].current.yAxis = -ctxt->state.input[0].current.yAxis;
+        ctxt->state.input[0].pressEdge.xAxis = -ctxt->state.input[0].pressEdge.xAxis;
+        ctxt->state.input[0].pressEdge.yAxis = -ctxt->state.input[0].pressEdge.yAxis;
+        ctxt->state.input[0].releaseEdge.xAxis = -ctxt->state.input[0].releaseEdge.xAxis;
+        ctxt->state.input[0].releaseEdge.yAxis = -ctxt->state.input[0].releaseEdge.yAxis;
     }
 }
 
-void external_effects_handle(ActorPlayer *link, GlobalContext *game) {
-    handle_camera_overlook_effect(game, link);
-    handle_chateau_effect(game, link);
-    handle_fairy_effect(game, link);
-    handle_freeze_effect(game, link);
-    handle_ice_physics_effect(game, link);
-    handle_jinx_effect(game, link);
-    handle_no_z_effect(game, link);
-    handle_reverse_controls_effect(game, link);
+void ExternalEffects_Handle(ActorPlayer* player, GlobalContext* ctxt) {
+    HandleCameraOverlookEffect(ctxt, player);
+    HandleChateauEffect(ctxt, player);
+    HandleFairyEffect(ctxt, player);
+    HandleFreezeEffect(ctxt, player);
+    HandleIcePhysicsEffect(ctxt, player);
+    HandleJinxEffect(ctxt, player);
+    HandleNoZEffect(ctxt, player);
+    HandleReverseControlsEffect(ctxt, player);
 }
