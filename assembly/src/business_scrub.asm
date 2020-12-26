@@ -1,9 +1,9 @@
-business_scrub_before_give_item_clock_town_hook:
+BusinessScrub_BeforeGiveItemClockTown_Hook:
     addiu   sp, sp, -0x20
     sw      ra, 0x0018 (sp)
     sw      a0, 0x0010 (sp)
 
-    jal     business_scrub_before_give_item_clock_town
+    jal     BusinessScrub_BeforeGiveItemClockTown
     sw      a1, 0x0014 (sp)
 
     lw      a0, 0x0010 (sp)
@@ -12,11 +12,11 @@ business_scrub_before_give_item_clock_town_hook:
     jr      ra
     addiu   sp, sp, 0x20
 
-business_scrub_consume_item_hook:
+BusinessScrub_ConsumeItem_Hook:
     addiu   sp, sp, -0x18
     sw      ra, 0x0014 (sp)
 
-    jal     business_scrub_consume_item
+    jal     BusinessScrub_ConsumeItem
     sw      a0, 0x0010 (sp)
 
     lw      a0, 0x0010 (sp)
@@ -29,10 +29,10 @@ business_scrub_consume_item_hook:
     jr      ra
     addiu   sp, sp, 0x18
 
-business_scrub_initial_dialogue_hook:
+BusinessScrub_InitialDialogue_Hook:
     addiu   sp, sp, -0x20
     sw      ra, 0x0018 (sp)
-    jal     business_scrub_set_initial_message
+    jal     BusinessScrub_SetInitialMessage
     nop
     or      t9, v0, r0
     andi    a3, v0, 0xffff

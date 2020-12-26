@@ -9,7 +9,7 @@
 ;   lh      v0, 0x001C (a0)
 ;   addiu   at, r0, 0x0001
 .org 0x80BECFC4
-    jal     business_scrub_consume_item_hook
+    jal     BusinessScrub_ConsumeItem_Hook
     nop
 
 ;==================================================================================================
@@ -23,7 +23,7 @@
 ;   sw      a1, 0x0024 (sp)
 ;   lw      a1, 0x0024 (sp)
 .org 0x80ADBBF4
-    jal     business_scrub_before_give_item_clock_town_hook
+    jal     BusinessScrub_BeforeGiveItemClockTown_Hook
     sw      a1, 0x0024 (sp)
 
 ;==================================================================================================
@@ -37,7 +37,7 @@
 ;   addiu   t9, r0, 0x15e0
 ;   sh      t9, 0x033c (a2)
 .org 0x80BED420
-    jal     business_scrub_initial_dialogue_hook
+    jal     BusinessScrub_InitialDialogue_Hook
     nop
 
 ;==================================================================================================
@@ -56,7 +56,7 @@
 .org 0x80BED8FC
     bne     v0, at, 0x80BED910
     nop
-    jal     business_scrub_initial_dialogue_hook
+    jal     BusinessScrub_InitialDialogue_Hook
     nop
     b       0x80BEDB6C
 
@@ -76,7 +76,7 @@
 .org 0x80BEDE04
     bne     v0, at, 0x80BEDE18
     nop
-    jal     business_scrub_initial_dialogue_hook
+    jal     BusinessScrub_InitialDialogue_Hook
     nop
     b       0x80BEE054
 
@@ -91,6 +91,5 @@
 ;   addiu   t9, r0, 0x161b
 ;   sh      t9, 0x033c (a2)
 .org 0x80BEE308
-    jal     business_scrub_initial_dialogue_hook
+    jal     BusinessScrub_InitialDialogue_Hook
     nop
-    
