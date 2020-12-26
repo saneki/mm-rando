@@ -9,7 +9,7 @@ ObjectFileTableEntry EXT_OBJECTS[EXT_OBJECT_COUNT] = { 0 };
  **/
 ObjectFileTableEntry* extended_objects_get(s16 index) {
     if (index < 0x283) {
-        return &z2_obj_table[index];
+        return &gObjectFileTable[index];
     } else {
         return &EXT_OBJECTS[index - 0x282];
     }
