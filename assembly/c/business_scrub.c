@@ -5,7 +5,7 @@
 /**
  * Hook function called while giving the Moon's Tear to the Clock Town Business Scrub.
  **/
-void business_scrub_before_give_item_clock_town(Actor *actor, GlobalContext *game) {
+void BusinessScrub_BeforeGiveItemClockTown(Actor* actor, GlobalContext* ctxt) {
     if (MISC_CONFIG.quest_consume == QUEST_CONSUME_ALWAYS) {
         quest_items_remove(Z2_ITEM_MOON_TEAR);
     }
@@ -14,7 +14,7 @@ void business_scrub_before_give_item_clock_town(Actor *actor, GlobalContext *gam
 /**
  * Hook function called when consuming an item by giving it to a traveling Business Scrub.
  **/
-void business_scrub_consume_item(Actor *actor) {
+void BusinessScrub_ConsumeItem(Actor* actor) {
     u8 consume = MISC_CONFIG.quest_consume;
     u16 flag = actor->params & 3;
 
@@ -41,7 +41,7 @@ void business_scrub_consume_item(Actor *actor) {
     }
 }
 
-u16 business_scrub_set_initial_message(ActorEnAkindonuts *actor, GlobalContext *game) {
+u16 BusinessScrub_SetInitialMessage(ActorEnAkindonuts* actor, GlobalContext* ctxt) {
     u16 type = actor->base.params & 3;
     bool flyAway = false;
     u16 result;
