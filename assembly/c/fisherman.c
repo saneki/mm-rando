@@ -9,7 +9,7 @@
  **/
 bool fisherman_should_end_game(Actor *actor, GlobalContext *game, u32 timer_hi, u32 timer_lo) {
     bool timeout = (timer_hi == 0 && timer_lo == 0);
-    return ((MISC_CONFIG.speedups.fisherman_game && z2_file.extra.minigameCounter[0] >= 20) || timeout);
+    return ((MISC_CONFIG.speedups.fisherman_game && gSaveContext.extra.minigameCounter[0] >= 20) || timeout);
 }
 
 /**

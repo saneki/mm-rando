@@ -70,7 +70,7 @@ static void get_count_text(int amount, char *c, int digits) {
  * Whether or not the player has boss remains for a specific dungeon index.
  **/
 static bool has_remains(u8 index) {
-    return (z2_file.perm.inv.questStatus.value & (1 << index)) != 0;
+    return (gSaveContext.perm.inv.questStatus.value & (1 << index)) != 0;
 }
 
 /**
@@ -183,7 +183,7 @@ void overlay_menu_draw(GlobalContext *game) {
         struct dungeon_entry *d = &(dungeons[i]);
         if (d->is_dungeon) {
             // Get key count for dungeon.
-            u8 keys = z2_file.perm.inv.dungeonKeys[d->index];
+            u8 keys = gSaveContext.perm.inv.dungeonKeys[d->index];
             // Get key count as text.
             char count[2] = "0";
             get_count_text(keys, count, 1);
@@ -199,7 +199,7 @@ void overlay_menu_draw(GlobalContext *game) {
     for (int i = 0; i < g_dungeon_count; i++) {
         struct dungeon_entry *d = &(dungeons[i]);
         if (d->is_dungeon) {
-            if (z2_file.perm.inv.dungeonItems[d->index].bossKey) {
+            if (gSaveContext.perm.inv.dungeonItems[d->index].bossKey) {
                 int top = start_top + ((icon_size + padding) * i);
                 sprite_draw(db, &icon_24_sprite, 0, left, top, icon_size, icon_size);
             }
@@ -212,7 +212,7 @@ void overlay_menu_draw(GlobalContext *game) {
     for (int i = 0; i < g_dungeon_count; i++) {
         struct dungeon_entry *d = &(dungeons[i]);
         if (d->is_dungeon) {
-            if (z2_file.perm.inv.dungeonItems[d->index].map) {
+            if (gSaveContext.perm.inv.dungeonItems[d->index].map) {
                 int top = start_top + ((icon_size + padding) * i);
                 sprite_draw(db, &icon_24_sprite, 0, left, top, icon_size, icon_size);
             }
@@ -225,7 +225,7 @@ void overlay_menu_draw(GlobalContext *game) {
     for (int i = 0; i < g_dungeon_count; i++) {
         struct dungeon_entry *d = &(dungeons[i]);
         if (d->is_dungeon) {
-            if (z2_file.perm.inv.dungeonItems[d->index].compass) {
+            if (gSaveContext.perm.inv.dungeonItems[d->index].compass) {
                 int top = start_top + ((icon_size + padding) * i);
                 sprite_draw(db, &icon_24_sprite, 0, left, top, icon_size, icon_size);
             }
@@ -266,19 +266,19 @@ void overlay_menu_draw(GlobalContext *game) {
             // Get stray fairy count for dungeon or town.
             if (d->is_dungeon) {
                 // Get fairy count for dungeon.
-                total = z2_file.perm.inv.strayFairies[d->index];
+                total = gSaveContext.perm.inv.strayFairies[d->index];
                 maximum = 15;
             } else {
                 // Check for Clock Town fairy, flag: 0x801F0570 & 0x80
-                bool has_town_fairy = (z2_file.perm.weekEventReg[8] & 0x80) != 0;
+                bool has_town_fairy = (gSaveContext.perm.weekEventReg[8] & 0x80) != 0;
                 total = has_town_fairy ? 1 : 0;
                 maximum = 1;
             }
         } else if (d->has_tokens) {
             // Get skulltula token count.
-            total = z2_file.perm.skullTokens[0];
+            total = gSaveContext.perm.skullTokens[0];
             if (d->has_tokens == 2) {
-                total = z2_file.perm.skullTokens[1];
+                total = gSaveContext.perm.skullTokens[1];
             }
             maximum = 30;
         }

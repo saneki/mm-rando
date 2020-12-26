@@ -211,8 +211,8 @@ void hud_colors_update_heart_colors(GlobalContext *game) {
     ColorRGB16 *heart_beating = &(z2_game.interfaceCtx.heartbeatInnerColor);
 
     // Double defense heart colors
-    ColorRGB16 *heart_dd = &(z2_file.heartDdRgb);
-    ColorRGB16 *heart_dd_beating = &(z2_file.heartDdBeatingRgb);
+    ColorRGB16 *heart_dd = &(gSaveContext.heartDdRgb);
+    ColorRGB16 *heart_dd_beating = &(gSaveContext.heartDdBeatingRgb);
 
     // This function writes constant values to where the heart colors are stored.
     // It might also do other things.

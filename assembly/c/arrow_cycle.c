@@ -57,10 +57,10 @@ static u16 arrow_cycle_get_next_arrow_variable(u16 variable) {
 static bool arrow_cycle_has_enough_magic(s8 prev_cost, s8 cur_cost) {
     if (MISC_CONFIG.arrow_magic_show) {
         // If showing magic consumption, magic has not been consumed yet so only check current cost.
-        return z2_file.perm.unk24.currentMagic >= cur_cost;
+        return gSaveContext.perm.unk24.currentMagic >= cur_cost;
     } else {
         // If default behavior, magic has been consumed so check against difference.
-        return z2_file.perm.unk24.currentMagic >= (cur_cost - prev_cost);
+        return gSaveContext.perm.unk24.currentMagic >= (cur_cost - prev_cost);
     }
 }
 
@@ -77,7 +77,7 @@ static const struct arrow_info * arrow_cycle_get_next_info(u16 variable) {
         // Calculate difference in magic cost and ensure that the player has enough magic to switch.
         bool enough_magic = arrow_cycle_has_enough_magic(magic_cost, info->magic);
 
-        if (info != NULL && info->item == z2_file.perm.inv.items[info->slot] && enough_magic) {
+        if (info != NULL && info->item == gSaveContext.perm.inv.items[info->slot] && enough_magic) {
             return info;
         }
     }
@@ -128,7 +128,7 @@ static bool arrow_cycle_is_arrow_item(u8 item) {
  **/
 static void arrow_cycle_update_c_button(ActorPlayer *link, GlobalContext *game, const struct arrow_info *info) {
     // Update the C button value & texture.
-    z2_file.perm.unk4C.formButtonItems[0].buttons[link->itemButton] = info->icon;
+    gSaveContext.perm.unk4C.formButtonItems[0].buttons[link->itemButton] = info->icon;
     z2_ReloadButtonTexture(game, link->itemButton);
 
     // Update player fields for new action type.
@@ -140,7 +140,7 @@ static void arrow_cycle_update_c_button(ActorPlayer *link, GlobalContext *game, 
  * Function called on delayed frame to finish processing the arrow cycle.
  **/
 static void arrow_cycle_handle_frame_delay(ActorPlayer *link, GlobalContext *game, Actor *arrow) {
-    s16 prev_effect_state = z2_file.extra.magicConsumeState;
+    s16 prev_effect_state = gSaveContext.extra.magicConsumeState;
 
     const struct arrow_info *cur_info = arrow_cycle_get_info(arrow->params);
     if (arrow != NULL && cur_info != NULL) {
@@ -153,24 +153,24 @@ static void arrow_cycle_handle_frame_delay(ActorPlayer *link, GlobalContext *gam
 
         if (MISC_CONFIG.arrow_magic_show) {
             if (cur_info->item != Z2_ITEM_BOW) {
-                z2_file.extra.magicConsumeState = 4;
+                gSaveContext.extra.magicConsumeState = 4;
             }
         } else {
             // Make sure the game is aware that a special arrow effect is happening when switching
             // from normal arrow -> elemental arrow. Uses value 2 to make sure the magic cost is
             // consumed this frame.
             if (cur_info->item != Z2_ITEM_BOW) {
-                z2_file.extra.magicConsumeState = 2;
+                gSaveContext.extra.magicConsumeState = 2;
             }
 
             // Refund magic cost of previous arrow type.
-            if (prev_effect_state >= 2 && !HasInfiniteMagic(z2_file)) {
-                z2_file.perm.unk24.currentMagic += g_arrow_cycle_state.magic_cost;
+            if (prev_effect_state >= 2 && !HasInfiniteMagic(gSaveContext)) {
+                gSaveContext.perm.unk24.currentMagic += g_arrow_cycle_state.magic_cost;
             }
         }
 
         // Set magic cost value to be subtracted when arrow effect state == 2.
-        z2_file.extra.magicConsumeState = cur_info->magic;
+        gSaveContext.extra.magicConsumeState = cur_info->magic;
     }
 }
 
@@ -200,7 +200,7 @@ void arrow_cycle_handle(ActorPlayer *link, GlobalContext *game) {
     }
 
     // Check if buttons state is normal, otherwise we are possibly in a minigame or on Epona.
-    if (z2_file.extra.buttonsState.state != Z2_BUTTONS_STATE_NORMAL) {
+    if (gSaveContext.extra.buttonsState.state != Z2_BUTTONS_STATE_NORMAL) {
         return;
     }
 
@@ -216,7 +216,7 @@ void arrow_cycle_handle(ActorPlayer *link, GlobalContext *game) {
     }
 
     // Check if current button pressed corresponds to an arrow item.
-    u8 selected_item = z2_file.perm.unk4C.formButtonItems[0].buttons[link->itemButton];
+    u8 selected_item = gSaveContext.perm.unk4C.formButtonItems[0].buttons[link->itemButton];
     if (!arrow_cycle_is_arrow_item(selected_item)) {
         return;
     }
@@ -235,8 +235,8 @@ void arrow_cycle_handle(ActorPlayer *link, GlobalContext *game) {
     // Check if there is nothing to cycle to and return early.
     if (cur_info == NULL || next_info == NULL || cur_info->var == next_info->var) {
         // When not enough magic to cycle to anything else, switch C button back to normal bow.
-        u8 item = z2_file.perm.unk4C.formButtonItems[0].buttons[link->itemButton];
-        if (cur_info->var == 2 && item != Z2_ITEM_BOW && z2_file.perm.inv.items[Z2_SLOT_BOW] == Z2_ITEM_BOW) {
+        u8 item = gSaveContext.perm.unk4C.formButtonItems[0].buttons[link->itemButton];
+        if (cur_info->var == 2 && item != Z2_ITEM_BOW && gSaveContext.perm.inv.items[Z2_SLOT_BOW] == Z2_ITEM_BOW) {
             arrow_cycle_update_c_button(link, game, &g_arrows[0]);
         }
         z2_PlaySfx(0x4806);
@@ -247,7 +247,7 @@ void arrow_cycle_handle(ActorPlayer *link, GlobalContext *game) {
     // existing effect is not active. Otherwise the game may crash by attempting to load the actor
     // code file for one effect while an existing effect is still processing.
     // This also prevents from switching when Lens of Truth is activated.
-    if (cur_info->item == Z2_ITEM_BOW && z2_file.extra.magicConsumeState != 0) {
+    if (cur_info->item == Z2_ITEM_BOW && gSaveContext.extra.magicConsumeState != 0) {
         z2_PlaySfx(0x4806);
         return;
     }

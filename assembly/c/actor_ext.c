@@ -109,8 +109,8 @@ void actor_ext_set_free(struct actor_ext *ext) {
         ext->flags &= ~ACTOR_EXT_USED;
     } else {
         // Mess with health to indicate an issue.
-        // z2_file.max_health = 0x140;
-        // z2_file.current_health = 0x04;
+        // gSaveContext.max_health = 0x140;
+        // gSaveContext.current_health = 0x04;
     }
 }
 
