@@ -147,7 +147,7 @@ static void arrow_cycle_handle_frame_delay(ActorPlayer *link, z2_game_t *game, A
         Actor *special = arrow->child;
         if (special != NULL) {
             // Deconstruct and remove special arrow actor.
-            z2_ActorRemove(&game->actor_ctxt, special, game);
+            z2_ActorRemove(&game->actorCtx, special, game);
             arrow->child = NULL;
         }
 
