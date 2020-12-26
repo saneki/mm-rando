@@ -36,7 +36,7 @@ static mmr_gi_t *g_gi_table = NULL;
 static void mmr_load_gi_table(void) {
     // Use gi-table file index to get dmadata entry.
     u32 index = mmr_GiTableFileIndex;
-    DmaEntry entry = z2_file_table[index];
+    DmaEntry entry = dmadata[index];
     u32 size = entry.vromEnd - entry.vromStart;
 
     // Load the gi-table table from file into buffer.

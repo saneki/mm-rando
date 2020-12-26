@@ -24,7 +24,7 @@
 /* Data */
 #define z2_actor_ovl_table               ((ActorOverlay*)            ActorOverlayTableAddr)
 #define z2_file                          (*(SaveContext*)            SaveContextAddr)
-#define z2_file_table                    ((DmaEntry*)                DmaEntryTableAddr)
+#define dmadata                          ((DmaEntry*)                DmaEntryTableAddr)
 #define z2_game                          (*(GlobalContext*)          GlobalContextAddr)
 #define z2_gamestate                     (*(GameStateTable*)         GameStateTableAddr)
 #define z2_gi_graphic_table              ((GetItemGraphicEntry*)     GetItemGraphicTableAddr)

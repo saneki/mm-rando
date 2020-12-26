@@ -12,7 +12,7 @@ void chest_write_gi_index(ActorEnBox *actor, GlobalContext *game) {
 
         // Read from chest-table file to determine gi-table index, and write to actor field.
         u16 index = (actor->base.params >> 5) & 0x7F;
-        u32 prom = z2_file_table[mmr_ChestTableFileIndex].romStart + (index * 2);
+        u32 prom = dmadata[mmr_ChestTableFileIndex].romStart + (index * 2);
         z2_RomToRam(prom, &result, sizeof(result));
         actor->giIndex = result;
 
