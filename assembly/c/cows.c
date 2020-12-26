@@ -4,13 +4,12 @@
 /**
  * Get the En_Cow actor which is closest to Link and which can give milk.
  **/
-static Actor * cows_get_closest_to_link(GlobalContext *game) {
-    Actor *closest = NULL;
-
+static Actor* GetClosestToPlayer(GlobalContext* ctxt) {
+    Actor* closest = NULL;
     // Iterate actor_list entries.
     for (int i = 0; i < Z2_ACTOR_LIST_ENTRIES; i++) {
-        s32 count = game->actorCtx.actorList[i].length;
-        Actor *cur = game->actorCtx.actorList[i].first;
+        s32 count = ctxt->actorCtx.actorList[i].length;
+        Actor* cur = ctxt->actorCtx.actorList[i].first;
         // Iterate actor linked list for each entry.
         for (s32 j = 0; j < count; j++, cur = cur->next) {
             // In vanilla game: cow only gives milk if variable 0 or 2.
@@ -26,19 +25,18 @@ static Actor * cows_get_closest_to_link(GlobalContext *game) {
             }
         }
     }
-
     return closest;
 }
 
 /**
  * Hook function which checks if a cow is close enough to Link to give milk.
  **/
-bool cows_is_close_enough_to_give_milk(Actor *actor, GlobalContext *game) {
+bool Cows_IsCloseEnoughToGiveMilk(Actor* actor, GlobalContext* ctxt) {
     if (actor->xzDistanceFromLink < 150.0) {
         if (!MISC_CONFIG.close_cows) {
             return true;
         } else {
-            return actor == cows_get_closest_to_link(game);
+            return actor == GetClosestToPlayer(ctxt);
         }
     } else {
         return false;
