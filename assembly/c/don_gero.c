@@ -1,17 +1,7 @@
 #include "z2.h"
 #include "misc.h"
 
-s16 don_gero_start_cutscene(s16 index, Actor *actor) {
-    if (MISC_CONFIG.speedups.don_gero && index == 0x17) {
-        u8 *address = (u8*)actor;
-        u16 *rollingAddress = (u16*)(address + 0x4AA);
-        *rollingAddress = 0x180;
-    } else {
-        z2_ActorCutscene_StartAndSetFlag(index, actor);
-    }
-}
-
-Vec3f roll_targets[6] = {
+static Vec3f rollTargets[6] = {
     {
         .x = -550,
         .y = 8,
@@ -44,9 +34,25 @@ Vec3f roll_targets[6] = {
     }
 };
 
-Vec3f *don_gero_get_roll_target(s16 index) {
+/**
+ * Hook function used to get the roll target position of the goron.
+ **/
+Vec3f* DonGero_GetRollTarget(s16 index) {
     if (index < 6) {
-        return &roll_targets[index];
+        return &rollTargets[index];
     }
     return NULL;
+}
+
+/**
+ * Hook function used to override starting the cutscene.
+ **/
+s16 DonGero_StartCutscene(s16 index, Actor* actor) {
+    if (MISC_CONFIG.speedups.don_gero && index == 0x17) {
+        u8* address = (u8*)actor;
+        u16* rollingAddress = (u16*)(address + 0x4AA);
+        *rollingAddress = 0x180;
+    } else {
+        z2_ActorCutscene_StartAndSetFlag(index, actor);
+    }
 }
