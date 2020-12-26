@@ -96,7 +96,7 @@ static void rgb8_to_rgb16(ColorRGB16 *dest, ColorRGBA8 src) {
 }
 
 u32 hud_colors_get_magic_meter_color(bool inf) {
-    u8 alpha = z2_game.interfaceCtx.alphas.magicRupees & 0xFF;
+    u8 alpha = gGlobalContext.interfaceCtx.alphas.magicRupees & 0xFF;
     if (inf) {
         return color_rgb8_to_int(HUD_COLOR_CONFIG.magic_inf, alpha);
     } else {
@@ -109,12 +109,12 @@ u32 hud_colors_get_map_color() {
 }
 
 u32 hud_colors_get_map_player_cursor_color() {
-    u8 alpha = z2_game.interfaceCtx.alphas.minimap & 0xFF;
+    u8 alpha = gGlobalContext.interfaceCtx.alphas.minimap & 0xFF;
     return color_rgb8_to_int(HUD_COLOR_CONFIG.map_player_cursor, alpha);
 }
 
 u32 hud_colors_get_map_entrance_cursor_color() {
-    u8 alpha = z2_game.interfaceCtx.alphas.minimap & 0xFF;
+    u8 alpha = gGlobalContext.interfaceCtx.alphas.minimap & 0xFF;
     return color_rgb8_to_int(HUD_COLOR_CONFIG.map_entrance_cursor, alpha);
 }
 
@@ -161,7 +161,7 @@ u32 hud_colors_get_a_button_color(u8 alpha) {
 
 u32 hud_colors_get_b_button_color() {
     // Alpha won't be used but set it anyway
-    u8 alpha = z2_game.interfaceCtx.alphas.buttonB & 0xFF;
+    u8 alpha = gGlobalContext.interfaceCtx.alphas.buttonB & 0xFF;
     return color_rgb8_to_int(HUD_COLOR_CONFIG.button_b, alpha);
 }
 
@@ -207,8 +207,8 @@ u32 hud_colors_get_menu_subtitle_text_color(void) {
 
 void hud_colors_update_heart_colors(GlobalContext *game) {
     // Normal heart colors
-    ColorRRGGBB16 *heart = &(z2_game.interfaceCtx.heartInnerColor);
-    ColorRGB16 *heart_beating = &(z2_game.interfaceCtx.heartbeatInnerColor);
+    ColorRRGGBB16 *heart = &(gGlobalContext.interfaceCtx.heartInnerColor);
+    ColorRGB16 *heart_beating = &(gGlobalContext.interfaceCtx.heartbeatInnerColor);
 
     // Double defense heart colors
     ColorRGB16 *heart_dd = &(gSaveContext.heartDdRgb);

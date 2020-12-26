@@ -100,7 +100,7 @@ static void models_draw_from_gi_table(Actor *actor, GlobalContext *game, f32 sca
     struct model model;
     mmr_gi_t *entry = models_prepare_gi_entry(&model, game, gi_index, true);
 
-    z2_CallSetupDList(z2_game.state.gfxCtx);
+    z2_CallSetupDList(gGlobalContext.state.gfxCtx);
     draw_model(model, actor, game, scale);
 }
 
@@ -292,7 +292,7 @@ bool models_draw_stray_fairy(Actor *actor, GlobalContext *game) {
             elforg->color = fairy_type;
             return false;
         } else {
-            z2_CallSetupDList(z2_game.state.gfxCtx);
+            z2_CallSetupDList(gGlobalContext.state.gfxCtx);
             draw_model(model, actor, game, 25.0);
             return true;
         }
@@ -432,7 +432,7 @@ bool models_draw_moons_tear(Actor *actor, GlobalContext *game) {
             }
 
             mmr_gi_t *entry = models_prepare_gi_entry(&model, game, 0x96, resolve);
-            z2_CallSetupDList(z2_game.state.gfxCtx);
+            z2_CallSetupDList(gGlobalContext.state.gfxCtx);
             draw_model(model, actor, game, 1.0);
             return true;
         }
