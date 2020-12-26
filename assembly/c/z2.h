@@ -2085,12 +2085,12 @@ typedef struct {
     /* 0x18 */ char* filename;
 } PlayerOverlay; // size = 0x1C
 
-typedef void (*z2_DrawGi_proc)(z2_game_t *game, u32 graphic_id_minus_1);
+typedef void(*GetItemGraphicDrawFunc)(z2_game_t *game, u32 graphic_id_minus_1);
 
 typedef struct {
-    z2_DrawGi_proc   function;                       /* 0x0000 */
-    u32              dl_seg_addrs[0x08];             /* 0x0004, Segment addresses used with G_DL instruction. */
-} z2_gi_graphic_table_t;                             /* 0x0024 */
+    /* 0x00 */ GetItemGraphicDrawFunc drawFunc;
+    /* 0x04 */ u32 segmentAddrs[0x8]; // Segment addresses used with G_DL instruction.
+} GetItemGraphicEntry; // size = 0x24
 
 /// =============================================================
 /// File Select Context
@@ -2197,7 +2197,7 @@ typedef struct {
 #define z2_file_table                    ((DmaEntry*)                z2_file_table_addr)
 #define z2_game                          (*(z2_game_t*)              z2_game_addr)
 #define z2_gamestate                     (*(GameStateTable*)         z2_gamestate_addr)
-#define z2_gi_graphic_table              ((z2_gi_graphic_table_t*)   z2_gi_graphic_table_addr)
+#define z2_gi_graphic_table              ((GetItemGraphicEntry*)     z2_gi_graphic_table_addr)
 #define z2_link                          (*(ActorPlayer*)            z2_link_addr)
 #define z2_obj_table                     ((ObjectFileTableEntry*)    z2_object_table_addr)
 #define z2_segment                       (*(SegmentTable*)           z2_segment_addr)
