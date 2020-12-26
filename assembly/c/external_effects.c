@@ -225,9 +225,9 @@ static void HandleFreezeEffect(GlobalContext* ctxt, ActorPlayer* player) {
 static void HandleIcePhysicsEffect(GlobalContext* ctxt, ActorPlayer* player) {
     // Handle "Ice Physics" effect.
     if (gExternalEffects.icePhysics) {
-        floor_physics_override_type(true, Z2_FLOOR_PHYSICS_ICE);
+        FloorPhysics_OverrideType(true, Z2_FLOOR_PHYSICS_ICE);
     } else {
-        floor_physics_override_type(false, 0);
+        FloorPhysics_OverrideType(false, 0);
     }
 }
 
