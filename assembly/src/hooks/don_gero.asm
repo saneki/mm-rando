@@ -7,7 +7,7 @@
 ; Replaces:
 ;   jal     0x800F1CE0
 .org 0x80BB2598
-    jal     don_gero_start_cutscene
+    jal     DonGero_StartCutscene
 
 ; Replaces
 ;   lh      v0, 0x04D8 (s0)
@@ -21,7 +21,7 @@
 ;   addiu   t7, t7, 0x4044 ; relocation removed
 ;   addu    a1, t6, t7
 .org 0x80BB332C
-    jal     don_gero_get_roll_target
+    jal     DonGero_GetRollTarget
     lh      a0, 0x04D8 (s0)
     beqz    v0, 0x80BB340C
     nop
@@ -41,7 +41,7 @@
 ;   sll     t9, t9, 2
 ;   addu    a1, t9, t0
 .org 0x80BB3360
-    jal     don_gero_get_roll_target
+    jal     DonGero_GetRollTarget
     lh      a0, 0x04D8 (s0)
     or      a1, v0, r0
     nop
