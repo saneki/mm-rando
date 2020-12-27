@@ -1,18 +1,16 @@
 #include <stdbool.h>
 #include "z2.h"
 
-void draw_b_button_icon_color_fix(GlobalContext *game) {
-    // Clear the Env color before drawing amounts/text
-    DispBuf *db = &(game->state.gfxCtx->overlay);
+void Hacks_DrawBButtonIconColorFix(GlobalContext* ctxt) {
+    // Clear the Env color before drawing amounts/text.
+    DispBuf* db = &ctxt->state.gfxCtx->overlay;
     gDPSetEnvColor(db->p++, 0x00, 0x00, 0x00, 0xFF);
-
-    z2_DrawBButtonIcon(game);
+    z2_DrawBButtonIcon(ctxt);
 }
 
-void draw_c_button_icons_color_fix(GlobalContext *game) {
-    // Clear the Env color before drawing amounts/text
-    DispBuf *db = &(game->state.gfxCtx->overlay);
+void Hacks_DrawCButtonIconsColorFix(GlobalContext* ctxt) {
+    // Clear the Env color before drawing amounts/text.
+    DispBuf* db = &ctxt->state.gfxCtx->overlay;
     gDPSetEnvColor(db->p++, 0x00, 0x00, 0x00, 0xFF);
-
-    z2_DrawCButtonIcons(game);
+    z2_DrawCButtonIcons(ctxt);
 }
