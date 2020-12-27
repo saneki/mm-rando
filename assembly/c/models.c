@@ -80,7 +80,7 @@ static mmr_gi_t * models_prepare_gi_entry(struct model *model, GlobalContext *ga
 
     if (model != NULL) {
         u16 gfx, obj;
-        if (item_override_get_graphic(gi_index, &gfx, &obj)) {
+        if (ItemOverride_GetGraphic(gi_index, &gfx, &obj)) {
             model->graphic_id = models_fix_graphic_id((u8)gfx);
             model->object_id = obj;
         } else {
