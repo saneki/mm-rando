@@ -123,7 +123,7 @@ void FileSelect_HookAfterDtor(GlobalContext* ctxt) {
 
 void FileSelect_BeforeDraw(GlobalContext* ctxt) {
     // Update colors for HUD elements on file select
-    hud_colors_main_menu_init();
+    HudColors_FileChooseInit();
 
 #ifdef FILE_HASH_DEBUG
     // Generate next seed

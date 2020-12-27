@@ -190,5 +190,5 @@ bool pause_menu_select_item_show_a_button_enabled(GlobalContext *game) {
  **/
 void pause_menu_before_update(GlobalContext *game) {
     // Update pause menu colors.
-    hud_colors_update_pause_menu_colors(game);
+    HudColors_UpdatePauseMenuColors(game);
 }

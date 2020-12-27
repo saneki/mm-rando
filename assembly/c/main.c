@@ -20,7 +20,7 @@ void c_init() {
     heap_init();
     Sprite_Init();
     Dpad_Init();
-    hud_colors_init();
+    HudColors_Init();
     ActorExt_Init();
     models_init();
     mmr_init();
