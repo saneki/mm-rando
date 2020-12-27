@@ -26,7 +26,7 @@
     lui     at, 0x0001
     ori     at, at, 0x1880
     lw      a2, 0x1D84 (v0)
-    jal     message_table_get_data_file_vrom_hook
+    jal     MessageTable_GetDataFileVrom_Hook
     sw      a3, 0x0024 (sp)
     lw      a3, 0x0024 (sp)
     addu    a0, a3, at
@@ -46,7 +46,7 @@
 ;   lbu     t3, 0x6F20 (t2)
 ;   slti    at, t1, 0x4E20
 .org 0x80150F5C
-    jal     message_table_is_primary_message_hook
+    jal     MessageTable_IsPrimaryMessage_Hook
     lbu     t3, 0x6F20 (t2)
     lui     t9, 0x3F80
     mtc1    t9, f0
@@ -65,7 +65,7 @@
 ;   addu    at, at, v0
 .org 0x80158950
     sw      ra, 0x0000 (sp)  ;; Store return address
-    jal     message_table_lookup_extended_hook
+    jal     MessageTable_LookupExtended_Hook
     nop
     bnez    t9, 0x80158980   ;; Branch to end if function returned true
     lw      ra, 0x0000 (sp)  ;; Load return address before returning
