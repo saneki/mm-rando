@@ -217,7 +217,7 @@ static void HandleFairyEffect(GlobalContext* ctxt, ActorPlayer* player) {
 static void HandleFreezeEffect(GlobalContext* ctxt, ActorPlayer* player) {
     // Handle "Freeze" effect.
     if (gExternalEffects.freeze) {
-        icetrap_push_pending();
+        Icetrap_PushPending();
         gExternalEffects.freeze = 0;
     }
 }

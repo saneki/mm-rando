@@ -38,7 +38,7 @@ void before_player_actor_update(ActorPlayer *link, GlobalContext *game) {
 }
 
 bool before_damage_process(ActorPlayer *link, GlobalContext *game) {
-    return icetrap_give(link, game);
+    return Icetrap_Give(link, game);
 }
 
 /**
