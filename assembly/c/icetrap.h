@@ -4,8 +4,8 @@
 #include <stdbool.h>
 #include "z2.h"
 
-bool icetrap_give(ActorPlayer *link, GlobalContext *game);
-bool icetrap_is_pending();
-void icetrap_push_pending();
+bool Icetrap_Give(ActorPlayer* player, GlobalContext* ctxt);
+bool Icetrap_IsPending(void);
+void Icetrap_PushPending(void);
 
 #endif // ICETRAP_H

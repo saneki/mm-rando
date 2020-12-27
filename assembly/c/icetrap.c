@@ -2,20 +2,21 @@
 #include "reloc.h"
 #include "z2.h"
 
-static u8 g_pending_freezes = 0;
+static u8 gPendingFreezes = 0;
 
-bool icetrap_is_pending() {
-    return g_pending_freezes > 0;
+bool Icetrap_IsPending(void) {
+    return gPendingFreezes > 0;
 }
 
-void icetrap_push_pending() {
-    if (g_pending_freezes < 0xFF)
-        g_pending_freezes += 1;
+void Icetrap_PushPending(void) {
+    if (gPendingFreezes < 0xFF) {
+        gPendingFreezes += 1;
+    }
 }
 
-bool icetrap_give(ActorPlayer *link, GlobalContext *game) {
+bool Icetrap_Give(ActorPlayer* player, GlobalContext* ctxt) {
     // Ensure this is the Player actor, and not Kafei.
-    if (link->base.id != 0) {
+    if (player->base.id != 0) {
         return false;
     }
 
@@ -23,14 +24,14 @@ bool icetrap_give(ActorPlayer *link, GlobalContext *game) {
                 Z2_ACTION_STATE1_TIME_STOP_2;
 
     // Return early if Link is in certain state.
-    if ((link->stateFlags.state1 & mask1) != 0) {
+    if ((player->stateFlags.state1 & mask1) != 0) {
         return false;
     }
 
-    if (g_pending_freezes) {
-        g_pending_freezes -= 1;
-        z2_LinkInvincibility(link, 0x14);
-        z2_LinkDamage(game, link, Z2_DAMAGE_EFFECT_FREEZE, 0x40800000);
+    if (gPendingFreezes) {
+        gPendingFreezes -= 1;
+        z2_LinkInvincibility(player, 0x14);
+        z2_LinkDamage(ctxt, player, Z2_DAMAGE_EFFECT_FREEZE, 0x40800000);
         return true;
     } else {
         return false;

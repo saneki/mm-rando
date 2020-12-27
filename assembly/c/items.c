@@ -8,7 +8,7 @@
  **/
 static void items_handle_custom_item(GlobalContext *game, u8 item) {
     if (item == Z2_ICE_TRAP) {
-        icetrap_push_pending();
+        Icetrap_PushPending();
     }
 }
 
