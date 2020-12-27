@@ -35,10 +35,10 @@
 ; Replaces:
 ;   jal     0x80118084
 .org 0x80120214
-    jal     draw_b_button_icon_color_fix
+    jal     Hacks_DrawBButtonIconColorFix
 
 ; Fix for C button icons.
 ; Replaces:
 ;   jal     0x80118890
 .org 0x8012021C
-    jal     draw_c_button_icons_color_fix
+    jal     Hacks_DrawCButtonIconsColorFix
