@@ -1,10 +1,10 @@
-mikau_should_activate_beach_cutscene_hook:
+Mikau_ShouldActivateBeachCutscene_Hook:
     addiu   sp, sp, -0x20
     sw      ra, 0x0018 (sp)
     sw      t3, 0x0010 (sp)
     swc1    f0, 0x0014 (sp)
 
-    jal     mikau_should_activate_beach_cutscene
+    jal     Mikau_ShouldActivateBeachCutscene
     or      a0, s0, r0 ;; A0 = Player.
 
     ; Move result into T2.
