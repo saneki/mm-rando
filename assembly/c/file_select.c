@@ -148,7 +148,7 @@ void FileSelect_DrawHash(GlobalContext* ctxt) {
     int left = (Z2_SCREEN_WIDTH - width) / 2;
     int top = 12;
 
-    if (MISC_CONFIG.draw_hash) {
+    if (MISC_CONFIG.flags.drawHash) {
         DispBuf* db = &ctxt->state.gfxCtx->polyOpa;
 
         // Call setup display list

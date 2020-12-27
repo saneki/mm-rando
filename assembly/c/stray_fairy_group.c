@@ -4,7 +4,7 @@
 
 // returns false if using vanilla layout and cutscene should start
 bool stray_fairy_group_give_reward(Actor *actor, GlobalContext *game, void* nextState) {
-    if (MISC_CONFIG.vanilla_layout) {
+    if (MISC_CONFIG.internal.vanillaLayout) {
         return false;
     }
 

@@ -48,7 +48,7 @@ Vec3f* DonGero_GetRollTarget(s16 index) {
  * Hook function used to override starting the cutscene.
  **/
 s16 DonGero_StartCutscene(s16 index, Actor* actor) {
-    if (MISC_CONFIG.speedups.don_gero && index == 0x17) {
+    if (MISC_CONFIG.speedups.donGero && index == 0x17) {
         u8* address = (u8*)actor;
         u16* rollingAddress = (u16*)(address + 0x4AA);
         *rollingAddress = 0x180;

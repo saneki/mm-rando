@@ -7,6 +7,6 @@
  **/
 bool sakon_should_end_thief_escape(ActorEnSuttari *sakon, GlobalContext *game) {
     // Check if Sakon has dropped the luggage (with speedup) or has finished the escape sequence.
-    return ((MISC_CONFIG.speedups.blast_mask_thief && sakon->runningState == 6)
+    return ((MISC_CONFIG.speedups.blastMaskThief && sakon->runningState == 6)
         || sakon->escapeStatus == -0x63);
 }

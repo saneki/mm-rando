@@ -2,7 +2,7 @@ knight_give_item_hook:
     addiu   sp, sp, -0x20
     sw      ra, 0x0010 (sp)
 
-    jal     misc_get_vanilla_layout
+    jal     Misc_GetVanillaLayout
     nop
     bnez    v0, @@vanilla_layout
     nop

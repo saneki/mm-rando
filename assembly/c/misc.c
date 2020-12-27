@@ -1,69 +1,45 @@
+#include <stdbool.h>
 #include "misc.h"
 #include "z2.h"
 
-struct misc_config MISC_CONFIG = {
+struct MiscConfig MISC_CONFIG = {
     .magic = MISC_CONFIG_MAGIC,
     .version = 3,
-
-    // Version 0 flags
-    .crit_wiggle = CRIT_WIGGLE_DEFAULT,
-    .draw_hash = 1,
-    .fast_push = 1,
-    .ocarina_underwater = 1,
-    .quest_item_storage = 1,
-
-    // Version 1 flags
-    .close_cows = 1,
-    .freestanding = 1,
-    .quest_consume = QUEST_CONSUME_DEFAULT,
-    .arrow_cycle = 1,
-    .arrow_magic_show = 1,
-
-    // Version 2 flags
-    .elegy_speedup = 1,
-    .continuous_deku_hop = 0,
-    .shop_models = 1,
-    .progressive_upgrades = 1,
-    .ice_trap_quirks = 0,
 };
 
-union faucet_speed {
+union FaucetSpeed {
     struct {
         u16 acceleration;
-        u16 max_velocity;
+        u16 maxVelocity;
     };
     u32 all;
 };
 
-struct iceblock_speed {
+struct IceblockSpeed {
     f32 initial;
     f32 additive;
     f32 clamp;
 };
 
-struct shelf_speed {
+struct ShelfSpeed {
     f32 multiplier;
     f32 additive;
 };
 
-struct ikana_speed {
-    f32 max_velocity;
+struct IkanaSpeed {
+    f32 maxVelocity;
     f32 initial;
 };
 
-struct misc_config* misc_get_config(void) {
-    return &MISC_CONFIG;
-}
-
-bool misc_can_use_ocarina_underwater(void) {
-    return MISC_CONFIG.ocarina_underwater != 0;
+bool Misc_CanUseOcarinaUnderwater(void) {
+    return MISC_CONFIG.flags.ocarinaUnderwater != 0;
 }
 
 /**
  * Hook function to get speed of pushblock.
  **/
-f32 misc_get_push_block_speed(Actor *actor, GlobalContext *game) {
-    if (!MISC_CONFIG.fast_push) {
+f32 Misc_GetPushBlockSpeed(Actor* actor, GlobalContext* ctxt) {
+    if (!MISC_CONFIG.flags.fastPush) {
         return 2.0;
     } else {
         return 6.0;
@@ -73,8 +49,8 @@ f32 misc_get_push_block_speed(Actor *actor, GlobalContext *game) {
 /**
  * Hook function to get speed of iceblock.
  **/
-void misc_get_iceblock_push_speed(Actor *actor, GlobalContext *game, struct iceblock_speed *dest) {
-    if (!MISC_CONFIG.fast_push) {
+void Misc_GetIceblockPushSpeed(Actor* actor, GlobalContext* ctxt, struct IceblockSpeed* dest) {
+    if (!MISC_CONFIG.flags.fastPush) {
         dest->initial = 1.2;
         dest->additive = 2.8;
         dest->clamp = 3.5;
@@ -88,14 +64,14 @@ void misc_get_iceblock_push_speed(Actor *actor, GlobalContext *game, struct iceb
 /**
  * Hook function to get speed of Great Bay Temple faucets.
  **/
-u32 misc_get_great_bay_temple_faucet_speed(Actor *actor, GlobalContext *game) {
-    union faucet_speed result;
-    if (!MISC_CONFIG.fast_push) {
+u32 Misc_GetGreatBayTempleFaucetSpeed(Actor* actor, GlobalContext* ctxt) {
+    union FaucetSpeed result;
+    if (!MISC_CONFIG.flags.fastPush) {
         result.acceleration = 1;
-        result.max_velocity = 5;
+        result.maxVelocity = 5;
     } else {
         result.acceleration = 2;
-        result.max_velocity = 30;
+        result.maxVelocity = 30;
     }
     return result.all;
 }
@@ -103,10 +79,10 @@ u32 misc_get_great_bay_temple_faucet_speed(Actor *actor, GlobalContext *game) {
 /**
  * Hook function to get speed of Oceanside Spider House shelves.
  **/
-void misc_get_spider_house_shelves_speed(Actor *actor, GlobalContext *game, struct shelf_speed *dest, int shelf_type) {
-    if (shelf_type == 0) {
+void Misc_GetSpiderHouseShelvesSpeed(Actor* actor, GlobalContext* ctxt, struct ShelfSpeed* dest, int shelfType) {
+    if (shelfType == 0) {
         // Small shelves
-        if (!MISC_CONFIG.fast_push) {
+        if (!MISC_CONFIG.flags.fastPush) {
             dest->multiplier = 0.012;
             dest->additive = 0.014;
         } else {
@@ -115,7 +91,7 @@ void misc_get_spider_house_shelves_speed(Actor *actor, GlobalContext *game, stru
         }
     } else {
         // Large shelves
-        if (!MISC_CONFIG.fast_push) {
+        if (!MISC_CONFIG.flags.fastPush) {
             dest->multiplier = 0.003;
             dest->additive = 0.009;
         } else {
@@ -128,8 +104,8 @@ void misc_get_spider_house_shelves_speed(Actor *actor, GlobalContext *game, stru
 /**
  * Hook function to get speed of Oceanside Spider House shelves (when pulled outward, pushed inward).
  **/
-f32 misc_get_spider_house_shelves_outward_speed(Actor *actor, GlobalContext *game) {
-    if (!MISC_CONFIG.fast_push) {
+f32 Misc_GetSpiderHouseShelvesOutwardSpeed(Actor* actor, GlobalContext* ctxt) {
+    if (!MISC_CONFIG.flags.fastPush) {
         return 0.022;
     } else {
         return 0.066;
@@ -139,12 +115,12 @@ f32 misc_get_spider_house_shelves_outward_speed(Actor *actor, GlobalContext *gam
 /**
  * Hook function to get speed of Ikana pushblock.
  **/
-void misc_get_ikana_pushblock_speed(Actor *actor, GlobalContext *game, struct ikana_speed *dest) {
-    if (!MISC_CONFIG.fast_push) {
-        dest->max_velocity = 2.0;
+void Misc_GetIkanaPushblockSpeed(Actor* actor, GlobalContext* ctxt, struct IkanaSpeed* dest) {
+    if (!MISC_CONFIG.flags.fastPush) {
+        dest->maxVelocity = 2.0;
         dest->initial = 0.4;
     } else {
-        dest->max_velocity = 8.0;
+        dest->maxVelocity = 8.0;
         dest->initial = 1.6;
     }
 }
@@ -152,8 +128,8 @@ void misc_get_ikana_pushblock_speed(Actor *actor, GlobalContext *game, struct ik
 /**
  * Hook function to get speed of Pzlblock actor (Woodfall Temple pushblock, Sakon's Hideout pushblocks).
  **/
-f32 misc_get_pzlblock_speed(Actor *actor, GlobalContext *game) {
-    if (!MISC_CONFIG.fast_push) {
+f32 Misc_GetPzlblockSpeed(Actor* actor, GlobalContext* ctxt) {
+    if (!MISC_CONFIG.flags.fastPush) {
         return 2.3;
     } else {
         return 4.6;
@@ -163,8 +139,8 @@ f32 misc_get_pzlblock_speed(Actor *actor, GlobalContext *game) {
 /**
  * Hook function to get speed of Darmani's Gravestone.
  **/
-u32 misc_get_gravestone_speed(Actor *actor, GlobalContext *game) {
-    if (!MISC_CONFIG.fast_push) {
+u32 Misc_GetGravestoneSpeed(Actor* actor, GlobalContext* ctxt) {
+    if (!MISC_CONFIG.flags.fastPush) {
         return 1;
     } else {
         return 3;
@@ -174,8 +150,8 @@ u32 misc_get_gravestone_speed(Actor *actor, GlobalContext *game) {
 /**
  * Hook function to get speed multiplier used for pushing an actor in water (pushing Mikau to shore).
  **/
-f32 misc_get_in_water_push_speed(ActorPlayer *link, Actor *actor) {
-    if (!MISC_CONFIG.fast_push) {
+f32 Misc_GetInWaterPushSpeed(ActorPlayer* player, Actor* actor) {
+    if (!MISC_CONFIG.flags.fastPush) {
         return 0.5;
     } else {
         return 1.5;
@@ -185,8 +161,8 @@ f32 misc_get_in_water_push_speed(ActorPlayer *link, Actor *actor) {
 /**
  * Hook function to check whether or not to perform crit wiggle.
  **/
-bool misc_crit_wiggle_check(Camera *camera, s16 health) {
-    switch (MISC_CONFIG.crit_wiggle) {
+bool Misc_CritWiggleCheck(Camera* camera, s16 health) {
+    switch (MISC_CONFIG.flags.critWiggle) {
         case CRIT_WIGGLE_ALWAYS_ON:
             return true;
         case CRIT_WIGGLE_ALWAYS_OFF:
@@ -197,14 +173,14 @@ bool misc_crit_wiggle_check(Camera *camera, s16 health) {
     }
 }
 
-bool misc_get_vanilla_layout(void) {
-    return MISC_CONFIG.vanilla_layout;
+bool Misc_GetVanillaLayout(void) {
+    return MISC_CONFIG.internal.vanillaLayout;
 }
 
-void misc_init(void) {
-    if (MISC_CONFIG.vanilla_layout) {
+void Misc_Init(void) {
+    if (MISC_CONFIG.internal.vanillaLayout) {
         // Mod files with code required for freestanding models are not included if using vanilla layout.
-        MISC_CONFIG.freestanding = 0;
-        MISC_CONFIG.shop_models = 0;
+        MISC_CONFIG.flags.freestanding = 0;
+        MISC_CONFIG.flags.shopModels = 0;
     }
 }

@@ -1,11 +1,11 @@
-misc_crit_wiggle_check_hook:
+Misc_CritWiggleCheck_Hook:
     addiu   sp, sp, -0x20
     sw      ra, 0x0018 (sp)
     sw      a0, 0x0010 (sp)
     sw      a1, 0x0014 (sp)
 
     or      a0, s0, r0
-    jal     misc_crit_wiggle_check
+    jal     Misc_CritWiggleCheck
     or      a1, v1, r0
 
     ; Move result to AT
@@ -18,7 +18,7 @@ misc_crit_wiggle_check_hook:
     jr      ra
     addiu   sp, sp, 0x20
 
-underwater_ocarina_check:
+Misc_UnderwaterOcarinaCheck_Hook:
     ; Original check to disallow using items before the empty bottle underwater.
     slti    at, t7, 0x0012
     beqz    at, @@return
@@ -33,7 +33,7 @@ underwater_ocarina_check:
     sw      t2, 0x0024 (sp)
     sw      t5, 0x0028 (sp)
 
-    jal     misc_can_use_ocarina_underwater
+    jal     Misc_CanUseOcarinaUnderwater
     sw      t7, 0x002C (sp)
 
     lw      ra, 0x0010 (sp)

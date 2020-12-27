@@ -24,7 +24,7 @@ void c_init() {
     ActorExt_Init();
     models_init();
     mmr_init();
-    misc_init();
+    Misc_Init();
     text_init();
     WorldColors_Init();
 }

@@ -40,7 +40,7 @@ static void UpdateState(struct ArrowMagicState* state, ActorPlayer* player, Glob
  * Hook function used to get the initial magic consumption state for an elemental arrow.
  **/
 s16 ArrowMagic_GetInitialConsumeState(GlobalContext* ctxt) {
-    if (MISC_CONFIG.arrow_magic_show) {
+    if (MISC_CONFIG.flags.arrowMagicShow) {
         return 4;
     } else {
         return 1;
@@ -52,7 +52,7 @@ s16 ArrowMagic_GetInitialConsumeState(GlobalContext* ctxt) {
  * be written to RDRAM.
  **/
 bool ArrowMagic_ShouldSetMagicCost(GlobalContext* ctxt, bool infMagic) {
-    if (MISC_CONFIG.arrow_magic_show) {
+    if (MISC_CONFIG.flags.arrowMagicShow) {
         // If showing magic cost, always set magic cost field for consistency.
         return true;
     } else {
@@ -65,7 +65,7 @@ bool ArrowMagic_ShouldSetMagicCost(GlobalContext* ctxt, bool infMagic) {
  * Handle arrow magic consumption state.
  **/
 void ArrowMagic_Handle(ActorPlayer* player, GlobalContext* ctxt) {
-    if (MISC_CONFIG.arrow_magic_show) {
+    if (MISC_CONFIG.flags.arrowMagicShow) {
         UpdateState(&gArrowMagicState, player, ctxt);
     }
 }
