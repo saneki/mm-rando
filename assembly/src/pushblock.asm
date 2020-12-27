@@ -1,11 +1,11 @@
-misc_get_push_block_speed_hook:
+Misc_GetPushBlockSpeed_Hook:
     addiu   sp, sp, -0x20
 
     sw      ra, 0x0010 (sp)
     sw      at, 0x0014 (sp)
     sw      a0, 0x0018 (sp)
 
-    jal     misc_get_push_block_speed
+    jal     Misc_GetPushBlockSpeed
     sw      a1, 0x001C (sp)
 
     ; Place return value from F0 into F6
@@ -23,12 +23,12 @@ misc_get_push_block_speed_hook:
     jr      ra
     addiu   sp, sp, 0x20
 
-misc_get_iceblock_push_speed_hook:
+Misc_GetIceblockPushSpeed_Hook:
     addiu   sp, sp, -0x28
     sw      ra, 0x0010 (sp)
     swc1    f0, 0x0014 (sp)
 
-    jal     misc_get_iceblock_push_speed
+    jal     Misc_GetIceblockPushSpeed
     addiu   a2, sp, 0x18
 
     ; Move return values to F6, F18 and F12 from stack
@@ -42,13 +42,13 @@ misc_get_iceblock_push_speed_hook:
     jr      ra
     addiu   sp, sp, 0x28
 
-misc_get_great_bay_temple_faucet_speed_hook:
+Misc_GetGreatBayTempleFaucetSpeed_Hook:
     addiu   sp, sp, -0x20
 
     sw      ra, 0x0010 (sp)
     sw      a0, 0x0014 (sp)
 
-    jal     misc_get_great_bay_temple_faucet_speed
+    jal     Misc_GetGreatBayTempleFaucetSpeed
     sw      a1, 0x0018 (sp)
 
     ; Place bitfield results into T8 and T9
@@ -65,7 +65,7 @@ misc_get_great_bay_temple_faucet_speed_hook:
     jr      ra
     addiu   sp, sp, 0x20
 
-misc_get_spider_house_shelves_speed_hook:
+Misc_GetSpiderHouseShelvesSpeed_Hook:
     addiu   sp, sp, -0x28
 
     sw      ra, 0x0020 (sp)
@@ -73,7 +73,7 @@ misc_get_spider_house_shelves_speed_hook:
     sw      a2, 0x0014 (sp)
 
     or      a3, a2, r0
-    jal     misc_get_spider_house_shelves_speed
+    jal     Misc_GetSpiderHouseShelvesSpeed
     addiu   a2, sp, 0x18
 
     lw      at, 0x0014 (sp)
@@ -96,13 +96,13 @@ misc_get_spider_house_shelves_speed_hook:
     jr      ra
     addiu   sp, sp, 0x28
 
-misc_get_spider_house_shelves_outward_speed_hook:
+Misc_GetSpiderHouseShelvesOutwardSpeed_Hook:
     lw      a1, 0x004C (sp)
 
     addiu   sp, sp, -0x18
     sw      ra, 0x0014 (sp)
 
-    jal     misc_get_spider_house_shelves_outward_speed
+    jal     Misc_GetSpiderHouseShelvesOutwardSpeed
     swc1    f0, 0x0010 (sp)
 
     ; Place return value in F12
@@ -114,11 +114,11 @@ misc_get_spider_house_shelves_outward_speed_hook:
     jr      ra
     addiu   sp, sp, 0x18
 
-misc_get_ikana_pushblock_speed_hook:
+Misc_GetIkanaPushblockSpeed_Hook:
     addiu   sp, sp, -0x20
     sw      ra, 0x0018 (sp)
 
-    jal     misc_get_ikana_pushblock_speed
+    jal     Misc_GetIkanaPushblockSpeed
     addiu   a2, sp, 0x10
 
     ; Move results from stack into A1 and A2
@@ -130,11 +130,11 @@ misc_get_ikana_pushblock_speed_hook:
     jr      ra
     addiu   sp, sp, 0x20
 
-misc_get_pzlblock_speed_hook:
+Misc_GetPzlblockSpeed_Hook:
     addiu   sp, sp, -0x18
     sw      ra, 0x0010 (sp)
 
-    jal     misc_get_pzlblock_speed
+    jal     Misc_GetPzlblockSpeed
     nop
 
     ; Place return value from F0 into A2
@@ -145,11 +145,11 @@ misc_get_pzlblock_speed_hook:
     jr      ra
     addiu   sp, sp, 0x18
 
-misc_get_gravestone_speed_hook:
+Misc_GetGravestoneSpeed_Hook:
     addiu   sp, sp, -0x18
     sw      ra, 0x0010 (sp)
 
-    jal     misc_get_gravestone_speed
+    jal     Misc_GetGravestoneSpeed
     nop
 
     ; Place return value in A2
@@ -160,12 +160,12 @@ misc_get_gravestone_speed_hook:
     jr      ra
     addiu   sp, sp, 0x18
 
-misc_get_in_water_push_speed_hook:
+Misc_GetInWaterPushSpeed_Hook:
     addiu   sp, sp, -0x18
     sw      ra, 0x0014 (sp)
     swc1    f0, 0x0010 (sp)
 
-    jal     misc_get_in_water_push_speed
+    jal     Misc_GetInWaterPushSpeed
     or      a1, s0, r0
 
     ; Place return value in F16

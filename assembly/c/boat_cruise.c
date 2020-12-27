@@ -22,7 +22,7 @@ static void ProcessMovement(ActorBgIngate *actor) {
  * Hook function used to continue moving boat if needed during frame when processing boat archery end.
  **/
 void BoatCruise_BeforeCruiseEnd(ActorBgIngate* actor, GlobalContext* ctxt) {
-    if (MISC_CONFIG.speedups.boat_archery && actor->flags == 0x19) {
+    if (MISC_CONFIG.speedups.boatArchery && actor->flags == 0x19) {
         ProcessMovement(actor);
     }
 }
@@ -33,7 +33,7 @@ void BoatCruise_BeforeCruiseEnd(ActorBgIngate* actor, GlobalContext* ctxt) {
 s16 BoatCruise_GetBoatSpeed(ActorBgIngate* actor, int mode) {
     if (mode == 0) {
         // Boat Cruise
-        if (!MISC_CONFIG.speedups.boat_archery) {
+        if (!MISC_CONFIG.speedups.boatArchery) {
             return 4;
         } else {
             return 8;
@@ -48,7 +48,7 @@ s16 BoatCruise_GetBoatSpeed(ActorBgIngate* actor, int mode) {
  * Hook function used to continue moving boat if needed when "idling" after ending boat archery.
  **/
 void BoatCruise_HandleIdle(ActorBgIngate* actor, GlobalContext* ctxt) {
-    if (MISC_CONFIG.speedups.boat_archery && actor->flags == 0x19) {
+    if (MISC_CONFIG.speedups.boatArchery && actor->flags == 0x19) {
         ProcessMovement(actor);
     }
 }
@@ -60,7 +60,7 @@ void BoatCruise_HandleIdle(ActorBgIngate* actor, GlobalContext* ctxt) {
  **/
 bool BoatCruise_ShouldEndArchery(ActorBgIngate* actor, GlobalContext* ctxt) {
     bool finished = (actor->flags & 2) == 2;
-    if (MISC_CONFIG.speedups.boat_archery) {
+    if (MISC_CONFIG.speedups.boatArchery) {
         return finished || (((gSaveContext.owl.eventInf[3] & 0x20) != 0) && (gSaveContext.extra.minigameCounter[0] >= 20));
     } else {
         return finished;

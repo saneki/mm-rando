@@ -110,7 +110,7 @@ void pause_menu_select_item_draw_icon(GraphicsContext *gfx, u8 item, u16 width, 
     z2_PauseDrawItemIcon(gfx, orig_seg_addr, width, height, quad_idx);
 
     // If quest item storage, draw next quest item texture on bottom-right of current texture
-    if (MISC_CONFIG.quest_item_storage && is_quest_item_in_correct_slot(item, slot)) {
+    if (MISC_CONFIG.flags.questItemStorage && is_quest_item_in_correct_slot(item, slot)) {
         struct quest_item_storage *storage = &SAVE_FILE_CONFIG.quest_storage;
         if (quest_item_storage_has(storage, item)) {
             int sslot, unused;
@@ -130,7 +130,7 @@ void pause_menu_select_item_draw_icon(GraphicsContext *gfx, u8 item, u16 width, 
  * Used to set the text on the A button to "Decide" for selecting quest items.
  **/
 void pause_menu_select_item_subscreen_after_process(GlobalContext *game) {
-    if (MISC_CONFIG.quest_item_storage) {
+    if (MISC_CONFIG.flags.questItemStorage) {
         u16 text = game->interfaceCtx.buttonATextCurrent;
         if (is_quest_item_with_storage_selected(game)) {
             // Set A button text to "Decide" (only if on "Info")
@@ -152,7 +152,7 @@ void pause_menu_select_item_subscreen_after_process(GlobalContext *game) {
  * Checks if A button would be used to cycle quest items.
  **/
 bool pause_menu_select_item_process_a_button(GlobalContext *game, u32 cur_val, u32 none_val) {
-    if (MISC_CONFIG.quest_item_storage && is_quest_item_with_storage_selected(game)) {
+    if (MISC_CONFIG.flags.questItemStorage && is_quest_item_with_storage_selected(game)) {
         s16 cell = game->pauseCtx.cells1.item;
         if (cur_val != none_val) {
             u8 item = (u8)cur_val;
@@ -176,7 +176,7 @@ bool pause_menu_select_item_process_a_button(GlobalContext *game, u32 cur_val, u
  * Checks if a quest item with storage is selected. If so, always show the A button as enabled.
  **/
 bool pause_menu_select_item_show_a_button_enabled(GlobalContext *game) {
-    if (MISC_CONFIG.quest_item_storage && is_quest_item_with_storage_selected(game)) {
+    if (MISC_CONFIG.flags.questItemStorage && is_quest_item_with_storage_selected(game)) {
         // If on a quest item with storage, show A button as enabled even during "Item Prompt."
         return true;
     } else {

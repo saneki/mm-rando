@@ -131,7 +131,7 @@ static void models_apply_hover_float(Actor *actor, f32 base, f32 multiplier) {
  **/
 static bool models_should_rotate_backwards(GlobalContext *game, u16 gi_index) {
     // Only rotate ice traps backwards if Ice Trap Quirks enabled.
-    if (MISC_CONFIG.ice_trap_quirks) {
+    if (MISC_CONFIG.flags.iceTrapQuirks) {
         struct model model;
         mmr_gi_t *entry = models_prepare_gi_entry(&model, game, gi_index, true);
         return entry->item == Z2_ICE_TRAP;
@@ -155,7 +155,7 @@ static void models_rotate(Actor *actor, GlobalContext *game, u16 gi_index, u16 a
  * Hook function for drawing Heart Piece actors as their new item.
  **/
 void models_draw_heart_piece(Actor *actor, GlobalContext *game) {
-    if (MISC_CONFIG.freestanding) {
+    if (MISC_CONFIG.flags.freestanding) {
         u16 index = actor->params + 0x80;
         models_draw_from_gi_table(actor, game, 22.0, index);
     } else {
@@ -168,7 +168,7 @@ void models_draw_heart_piece(Actor *actor, GlobalContext *game) {
  **/
 void models_rotate_en_item00(Actor *actor, GlobalContext *game) {
     // MMR Heart Pieces use masked variable 0x1D or greater.
-    if (MISC_CONFIG.freestanding && (actor->params & 0xFF) >= 0x1D) {
+    if (MISC_CONFIG.flags.freestanding && (actor->params & 0xFF) >= 0x1D) {
         // Rotate Heart Piece.
         u16 index = actor->params + 0x80;
         models_rotate(actor, game, index, 0x3C0);
@@ -192,7 +192,7 @@ u16 models_get_skulltula_token_gi_index(Actor *actor, GlobalContext *game) {
  * Hook function for drawing Skulltula Token actors as their new item.
  **/
 void models_draw_skulltula_token(Actor *actor, GlobalContext *game) {
-    if (MISC_CONFIG.freestanding) {
+    if (MISC_CONFIG.flags.freestanding) {
         u16 gi_index = models_get_skulltula_token_gi_index(actor, game);
         models_draw_from_gi_table(actor, game, 1.0, gi_index);
     } else {
@@ -204,7 +204,7 @@ void models_draw_skulltula_token(Actor *actor, GlobalContext *game) {
  * Hook function for rotating Skulltula Token actors.
  **/
 void models_rotate_skulltula_token(Actor *actor, GlobalContext *game) {
-    if (MISC_CONFIG.freestanding) {
+    if (MISC_CONFIG.flags.freestanding) {
         u16 gi_index = models_get_skulltula_token_gi_index(actor, game);
         models_rotate(actor, game, gi_index, 0x38E);
     } else {
@@ -253,7 +253,7 @@ static bool models_should_override_stray_fairy_draw(Actor *actor, GlobalContext 
 void models_before_stray_fairy_main(Actor *actor, GlobalContext *game) {
     // If not a Stray Fairy, rotate like En_Item00 does.
     bool draw = models_should_override_stray_fairy_draw(actor, game);
-    if (MISC_CONFIG.freestanding && draw) {
+    if (MISC_CONFIG.flags.freestanding && draw) {
         mmr_gi_t *entry;
         struct model model;
         u16 gi_index = models_get_stray_fairy_gi_index(actor, game);
@@ -275,7 +275,7 @@ void models_before_stray_fairy_main(Actor *actor, GlobalContext *game) {
  **/
 bool models_draw_stray_fairy(Actor *actor, GlobalContext *game) {
     bool draw = models_should_override_stray_fairy_draw(actor, game);
-    if (MISC_CONFIG.freestanding && draw) {
+    if (MISC_CONFIG.flags.freestanding && draw) {
         mmr_gi_t *entry;
         struct model model;
         u16 gi_index = models_get_stray_fairy_gi_index(actor, game);
@@ -324,7 +324,7 @@ static u16 models_get_heart_container_gi_index(GlobalContext *game) {
  * Return true if overriding functionality, false if using original functionality.
  **/
 bool models_draw_heart_container(Actor *actor, GlobalContext *game) {
-    if (MISC_CONFIG.freestanding) {
+    if (MISC_CONFIG.flags.freestanding) {
         u16 index = models_get_heart_container_gi_index(game);
         models_draw_from_gi_table(actor, game, 1.0, index);
         return true;
@@ -337,7 +337,7 @@ bool models_draw_heart_container(Actor *actor, GlobalContext *game) {
  * Hook function for rotating Heart Container actors.
  **/
 void models_rotate_heart_container(Actor *actor, GlobalContext *game) {
-    if (MISC_CONFIG.freestanding) {
+    if (MISC_CONFIG.flags.freestanding) {
         u16 gi_index = models_get_heart_container_gi_index(game);
         models_rotate(actor, game, gi_index, 0x400);
     } else {
@@ -372,7 +372,7 @@ void models_write_boss_remains_object_segment(GlobalContext *game, u32 graphic_i
  * to be updated if Boss Remains are randomized.
  **/
 void models_draw_boss_remains(Actor *actor, GlobalContext *game, u32 graphic_id_minus_1) {
-    if (MISC_CONFIG.freestanding && (actor->parent->parent == NULL || actor->parent->parent->id != 0)) {
+    if (MISC_CONFIG.flags.freestanding && (actor->parent->parent == NULL || actor->parent->parent->id != 0)) {
         models_draw_from_gi_table(actor, game, 1.0, 0x77);
     } else {
         draw_model_low_level(actor, game, graphic_id_minus_1);
@@ -400,7 +400,7 @@ static bool models_should_override_moons_tear_draw(Actor *actor, GlobalContext *
  * Hook function called before a Moon's Tear actor's main function.
  **/
 void models_before_moons_tear_main(Actor *actor, GlobalContext *game) {
-    if (MISC_CONFIG.freestanding) {
+    if (MISC_CONFIG.flags.freestanding) {
         if (models_should_override_moons_tear_draw(actor, game)) {
             // If the Moon's Tear on display, reposition and rotate.
             if (actor->params == 0) {
@@ -418,7 +418,7 @@ void models_before_moons_tear_main(Actor *actor, GlobalContext *game) {
  * Hook function for drawing Moon's Tear actor as its new item.
  **/
 bool models_draw_moons_tear(Actor *actor, GlobalContext *game) {
-    if (MISC_CONFIG.freestanding) {
+    if (MISC_CONFIG.flags.freestanding) {
         if (models_should_override_moons_tear_draw(actor, game)) {
             struct model model;
             bool resolve;
@@ -445,7 +445,7 @@ bool models_draw_moons_tear(Actor *actor, GlobalContext *game) {
  * Hook function for drawing Lab Fish Heart Piece actor as its new item.
  **/
 bool models_draw_lab_fish_heart_piece(Actor *actor, GlobalContext *game) {
-    if (MISC_CONFIG.freestanding) {
+    if (MISC_CONFIG.flags.freestanding) {
         models_draw_from_gi_table(actor, game, 25.0, 0x112);
         return true;
     } else {
@@ -457,7 +457,7 @@ bool models_draw_lab_fish_heart_piece(Actor *actor, GlobalContext *game) {
  * Hook function for rotating Lab Fish Heart Piece actor.
  **/
 void models_rotate_lab_fish_heart_piece(Actor *actor, GlobalContext *game) {
-    if (MISC_CONFIG.freestanding) {
+    if (MISC_CONFIG.flags.freestanding) {
         models_rotate(actor, game, 0x112, 0x3E8);
     } else {
         actor->shape.rot.y += 0x3E8;
@@ -487,7 +487,7 @@ static bool models_should_override_seahorse_draw(Actor *actor, GlobalContext *ga
  * Hook function called before a Seahorse actor's main function.
  **/
 void models_before_seahorse_main(Actor *actor, GlobalContext *game) {
-    if (MISC_CONFIG.freestanding) {
+    if (MISC_CONFIG.flags.freestanding) {
         if (models_should_override_seahorse_draw(actor, game)) {
             models_rotate(actor, game, 0x95, 0x3C0);
             models_apply_hover_float(actor, -1000.0, 1000.0);
@@ -499,7 +499,7 @@ void models_before_seahorse_main(Actor *actor, GlobalContext *game) {
  * Hook function for drawing Seahorse actor as its new item.
  **/
 bool models_draw_seahorse(Actor *actor, GlobalContext *game) {
-    if (MISC_CONFIG.freestanding) {
+    if (MISC_CONFIG.flags.freestanding) {
         if (models_should_override_seahorse_draw(actor, game)) {
             models_draw_from_gi_table(actor, game, 50.0, 0x95);
             return true;
@@ -510,7 +510,7 @@ bool models_draw_seahorse(Actor *actor, GlobalContext *game) {
 }
 
 void models_draw_shop_inventory(ActorEnGirlA *actor, GlobalContext *game, u32 graphic_id_minus_1) {
-    if (MISC_CONFIG.shop_models) {
+    if (MISC_CONFIG.flags.shopModels) {
         models_draw_from_gi_table(&(actor->base), game, 1.0, actor->giIndex);
     } else {
         draw_model_low_level(&(actor->base), game, graphic_id_minus_1);
@@ -518,7 +518,7 @@ void models_draw_shop_inventory(ActorEnGirlA *actor, GlobalContext *game, u32 gr
 }
 
 void models_after_actor_dtor(Actor *actor) {
-    if (MISC_CONFIG.freestanding) {
+    if (MISC_CONFIG.flags.freestanding) {
         if (actor->id == Z2_ACTOR_EN_ELFORG) {
             LoadedModels_RemoveActorModel(actor);
         }

@@ -8,7 +8,7 @@
 static bool check_inventory_slot(u8 item, u8 slot) {
     if (gSaveContext.perm.inv.items[slot] == item) {
         return true;
-    } else if (MISC_CONFIG.quest_item_storage && gSaveContext.perm.inv.items[slot] != Z2_ITEM_NONE) {
+    } else if (MISC_CONFIG.flags.questItemStorage && gSaveContext.perm.inv.items[slot] != Z2_ITEM_NONE) {
         return quest_item_storage_has(&SAVE_FILE_CONFIG.quest_storage, item);
     } else {
         return false;
@@ -35,7 +35,7 @@ void quest_items_after_removal(u8 item, u8 slot) {
     // Remove quest item from storage.
     if (quest_item_storage_remove(storage, item)) {
         // Set next item into inventory if any.
-        if (MISC_CONFIG.quest_item_storage) {
+        if (MISC_CONFIG.flags.questItemStorage) {
             u8 next = quest_item_storage_next(storage, item);
             if (next != Z2_ITEM_NONE && IS_QUEST_SLOT(slot)) {
                 gSaveContext.perm.inv.items[slot] = next;
@@ -51,7 +51,7 @@ void quest_items_after_removal(u8 item, u8 slot) {
  **/
 void quest_items_after_song_of_time_clear(void) {
     // After Song of Time, clear quest items in storage.
-    if (MISC_CONFIG.quest_consume != QUEST_CONSUME_NEVER) {
+    if (MISC_CONFIG.flags.questConsume != QUEST_CONSUME_NEVER) {
         quest_item_storage_clear(&SAVE_FILE_CONFIG.quest_storage);
     }
 }
@@ -60,7 +60,7 @@ void quest_items_after_song_of_time_clear(void) {
  * Hook function used to check if a quest item's inventory slot should be cleared during Song of Time.
  **/
 void quest_items_clear_inventory_item_sot(u8 item, u8 slot) {
-    if (MISC_CONFIG.quest_consume != QUEST_CONSUME_NEVER) {
+    if (MISC_CONFIG.flags.questConsume != QUEST_CONSUME_NEVER) {
         // Does not remove from quest item storage since a separate hook does that.
         // (The item Id passed to this function is not correct, so we couldn't do that anyways).
         z2_RemoveItem(item, slot);
@@ -73,7 +73,7 @@ void quest_items_clear_inventory_item_sot(u8 item, u8 slot) {
  **/
 void quest_items_try_remove_item(u8 item, u8 slot) {
     if (IS_QUEST_ITEM(item) && IS_QUEST_SLOT(slot)) {
-        if (MISC_CONFIG.quest_consume != QUEST_CONSUME_NEVER) {
+        if (MISC_CONFIG.flags.questConsume != QUEST_CONSUME_NEVER) {
             z2_RemoveItem(item, slot);
             quest_item_storage_remove(&SAVE_FILE_CONFIG.quest_storage, item);
         }

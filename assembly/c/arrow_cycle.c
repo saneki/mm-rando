@@ -54,7 +54,7 @@ static u16 GetNextArrowVariable(u16 variable) {
  * Helper function for checking if the player has enough magic to switch to a different arrow type.
  **/
 static bool HasEnoughMagic(s8 prevCost, s8 curCost) {
-    if (MISC_CONFIG.arrow_magic_show) {
+    if (MISC_CONFIG.flags.arrowMagicShow) {
         // If showing magic consumption, magic has not been consumed yet so only check current cost.
         return gSaveContext.perm.unk24.currentMagic >= curCost;
     } else {
@@ -135,7 +135,7 @@ static void HandleFrameDelay(ActorPlayer* player, GlobalContext* ctxt, Actor* ar
             arrow->child = NULL;
         }
         // Handle magic consume state.
-        if (MISC_CONFIG.arrow_magic_show) {
+        if (MISC_CONFIG.flags.arrowMagicShow) {
             if (curInfo->item != Z2_ITEM_BOW) {
                 gSaveContext.extra.magicConsumeState = 4;
             }
@@ -189,7 +189,7 @@ void ArrowCycle_Handle(ActorPlayer* player, GlobalContext* ctxt) {
     }
 
     // Make sure arrow cycling is enabled.
-    if (!MISC_CONFIG.arrow_cycle) {
+    if (!MISC_CONFIG.flags.arrowCycle) {
         return;
     }
 

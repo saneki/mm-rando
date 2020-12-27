@@ -5,7 +5,7 @@
  * Hook function called to check whether or not to activate the beach cutscene when pushing Mikau to shore.
  **/
 bool Mikau_ShouldActivateBeachCutscene(Actor* mikau, GlobalContext* ctxt) {
-    if (MISC_CONFIG.mikau_early_beach) {
+    if (MISC_CONFIG.flags.mikauEarlyBeach) {
         f32 difference = mikau->currPosRot.pos.y - mikau->floorHeight;
         return difference < 24.0;
     } else {

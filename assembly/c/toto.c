@@ -10,7 +10,7 @@
  **/
 void toto_before_advance_formal_replay(ActorEnToto *toto, GlobalContext *game) {
     bool finished = (toto->songFlags & 0xF) == 0xF;
-    if (MISC_CONFIG.speedups.sound_check && !finished) {
+    if (MISC_CONFIG.speedups.soundCheck && !finished) {
         // Cut Sound Check song BGM in half, so it doesn't loop (default frame count is 0x300).
         // This is very hacky, should probably clean up later. Field is offset 0x10 of a struct, which
         // is size 0x160 located at 0x80205230. Likely audio channel state as there are multiple?
@@ -29,7 +29,7 @@ void toto_before_advance_formal_replay(ActorEnToto *toto, GlobalContext *game) {
  **/
 int toto_handle_advance_formal_replay(ActorEnToto *toto, GlobalContext *game) {
     bool finished = (toto->songFlags & 0xF) == 0xF;
-    if (MISC_CONFIG.speedups.sound_check && !finished) {
+    if (MISC_CONFIG.speedups.soundCheck && !finished) {
         toto->funcIndex = 0;
         z2_ActorCutscene_End();
         return 0;

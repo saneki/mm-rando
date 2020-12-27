@@ -9,7 +9,7 @@
  **/
 bool Fisherman_ShouldEndGame(Actor* actor, GlobalContext* ctxt, u32 timerHi, u32 timerLo) {
     bool timeout = (timerHi == 0 && timerLo == 0);
-    return ((MISC_CONFIG.speedups.fisherman_game && gSaveContext.extra.minigameCounter[0] >= 20) || timeout);
+    return ((MISC_CONFIG.speedups.fishermanGame && gSaveContext.extra.minigameCounter[0] >= 20) || timeout);
 }
 
 /**
@@ -18,7 +18,7 @@ bool Fisherman_ShouldEndGame(Actor* actor, GlobalContext* ctxt, u32 timerHi, u32
  * If speedup is enabled the minigame ends early, so ignores the timer check.
  **/
 bool Fisherman_ShouldPassTimerCheck(Actor* actor, GlobalContext* ctxt, u32 timerHi, u32 timerLo) {
-    if (MISC_CONFIG.speedups.fisherman_game) {
+    if (MISC_CONFIG.speedups.fishermanGame) {
         return true;
     } else {
         return timerHi == 0 && timerLo == 0;
@@ -49,7 +49,7 @@ static bool BoatIsNearEnd(ActorObjBoat* boat) {
  * Hook function used to get the top speed of the boat.
  **/
 f32 Fisherman_BoatGetTopSpeed(ActorObjBoat* boat, GlobalContext* ctxt) {
-    if (MISC_CONFIG.speedups.fisherman_game && boat->base.params == 0x47F) {
+    if (MISC_CONFIG.speedups.fishermanGame && boat->base.params == 0x47F) {
         // Use higher speed unless boat is near the platform or the end of its path.
         bool nearPlatform = BoatIsNearPlatform(boat, 750.0);
         bool nearEnd = BoatIsNearEnd(boat);
@@ -64,7 +64,7 @@ f32 Fisherman_BoatGetTopSpeed(ActorObjBoat* boat, GlobalContext* ctxt) {
  * Hook function used to get the acceleration speed of the boat.
  **/
 f32 Fisherman_BoatGetAccelSpeed(ActorObjBoat* boat, GlobalContext* ctxt) {
-    if (MISC_CONFIG.speedups.fisherman_game && boat->base.params == 0x47F) {
+    if (MISC_CONFIG.speedups.fishermanGame && boat->base.params == 0x47F) {
         // If moving forwards, use higher acceleration until near end of path.
         // If moving backwards, always use higher acceleration.
         if (boat->speedMultiplier < 0 || boat->pathProgress < 0xC) {

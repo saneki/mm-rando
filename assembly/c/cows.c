@@ -33,7 +33,7 @@ static Actor* GetClosestToPlayer(GlobalContext* ctxt) {
  **/
 bool Cows_IsCloseEnoughToGiveMilk(Actor* actor, GlobalContext* ctxt) {
     if (actor->xzDistanceFromLink < 150.0) {
-        if (!MISC_CONFIG.close_cows) {
+        if (!MISC_CONFIG.flags.closeCows) {
             return true;
         } else {
             return actor == GetClosestToPlayer(ctxt);

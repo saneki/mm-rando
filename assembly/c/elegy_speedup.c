@@ -16,7 +16,7 @@ union ElegyLockParams {
 f32 ElegySpeedup_GetBlockSpeed(Actor* actor, GlobalContext* ctxt, int type) {
     if (type == 0) {
         // Get speed when moving into new spot.
-        if (!MISC_CONFIG.elegy_speedup) {
+        if (!MISC_CONFIG.flags.elegySpeedup) {
             return 20.0;
         } else {
             return 40.0;
@@ -32,7 +32,7 @@ f32 ElegySpeedup_GetBlockSpeed(Actor* actor, GlobalContext* ctxt, int type) {
  * frame the statue should begin spawning on.
  **/
 u32 ElegySpeedup_GetLockParams(ActorPlayer* player, GlobalContext* ctxt) {
-    if (!MISC_CONFIG.elegy_speedup) {
+    if (!MISC_CONFIG.flags.elegySpeedup) {
         union ElegyLockParams result = {
             .frameCount = 0x5B,
             .spawnFrame = 0x0A,
@@ -52,7 +52,7 @@ u32 ElegySpeedup_GetLockParams(ActorPlayer* player, GlobalContext* ctxt) {
  * statue when moving it to a different position.
  **/
 u16 ElegySpeedup_GetStatueDespawnCounter(GlobalContext* ctxt, ActorPlayer* player) {
-    if (!MISC_CONFIG.elegy_speedup) {
+    if (!MISC_CONFIG.flags.elegySpeedup) {
         return 0x14;
     } else {
         return 0x01;
@@ -63,7 +63,7 @@ u16 ElegySpeedup_GetStatueDespawnCounter(GlobalContext* ctxt, ActorPlayer* playe
  * Hook function called to get the speed at which the Elegy statue fades in or out.
  **/
 u16 ElegySpeedup_GetStatueFadeSpeed(Actor* actor, GlobalContext* ctxt) {
-    if (!MISC_CONFIG.elegy_speedup) {
+    if (!MISC_CONFIG.flags.elegySpeedup) {
         return 0x8;
     } else {
         return 0x20;
@@ -74,7 +74,7 @@ u16 ElegySpeedup_GetStatueFadeSpeed(Actor* actor, GlobalContext* ctxt) {
  * Hook function called to check whether or not the camera should update for the Elegy cutscene.
  **/
 bool ElegySpeedup_ShouldUpdateCamera(Actor* actor, GlobalContext* ctxt) {
-    if (!MISC_CONFIG.elegy_speedup) {
+    if (!MISC_CONFIG.flags.elegySpeedup) {
         return true;
     } else {
         return false;
@@ -85,7 +85,7 @@ bool ElegySpeedup_ShouldUpdateCamera(Actor* actor, GlobalContext* ctxt) {
  * Hook function called to check whether or not the scene should darken for the Elegy cutscene.
  **/
 bool ElegySpeedup_ShouldDarken(Actor* actor, GlobalContext* ctxt) {
-    if (!MISC_CONFIG.elegy_speedup) {
+    if (!MISC_CONFIG.flags.elegySpeedup) {
         return true;
     } else {
         return false;
@@ -96,7 +96,7 @@ bool ElegySpeedup_ShouldDarken(Actor* actor, GlobalContext* ctxt) {
  * Hook function called to sync the Elegy effect's position with that of its respective statue.
  **/
 void ElegySpeedup_UpdateEffectPosition(Actor* actor, GlobalContext* ctxt) {
-    if (MISC_CONFIG.elegy_speedup) {
+    if (MISC_CONFIG.flags.elegySpeedup) {
         // Get Elegy statue actor from main actor context struct.
         u8 formIndex = actor->params & 7;
         Actor* statue = ctxt->actorCtx.elegyStatues[formIndex];

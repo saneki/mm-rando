@@ -7,7 +7,7 @@
  * Hook function used to write the chest get-item index on init.
  **/
 void Chest_WriteGiIndex(ActorEnBox* actor, GlobalContext* ctxt) {
-    if (!MISC_CONFIG.vanilla_layout) {
+    if (!MISC_CONFIG.internal.vanillaLayout) {
         u16 result;
         // Read from chest-table file to determine gi-table index, and write to actor field.
         u16 index = (actor->base.params >> 5) & 0x7F;
@@ -29,7 +29,7 @@ void Chest_WriteGiIndex(ActorEnBox* actor, GlobalContext* ctxt) {
  * Hook function used to update the chest get-item index before opening.
  **/
 u32 Chest_GetNewGiIndex(ActorEnBox* actor, GlobalContext* ctxt, bool grant) {
-    if (!MISC_CONFIG.vanilla_layout) {
+    if (!MISC_CONFIG.internal.vanillaLayout) {
         // Resolve new gi-table index if not ice trap.
         if (actor->giIndex != 0x76) {
             return mmr_GetNewGiIndex(ctxt, &actor->base, actor->giIndex, grant);

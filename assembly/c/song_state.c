@@ -16,7 +16,7 @@ union song_state_results {
  **/
 u32 song_state_handle_playback(GlobalContext *game, MessageContext *ctxt) {
     s8 song = ctxt->songInfo->frameInfo[0].storedSong;
-    if (song == 3 && MISC_CONFIG.elegy_speedup) {
+    if (song == 3 && MISC_CONFIG.flags.elegySpeedup) {
         // Process state for Elegy of Emptiness
         // Disable sfx being "dampened" (normally action 0x17 would do this before advancing to 0x18)
         z2_ToggleSfxDampen(0);
@@ -46,7 +46,7 @@ u32 song_state_handle_playback(GlobalContext *game, MessageContext *ctxt) {
 u32 song_state_handle_preset_playback(GlobalContext *game, MessageContext *ctxt) {
     s8 song = ctxt->playbackSong;
     // Song Ids for Sound Check: Link = 0xF, Goron = 0x10, Zora = 0x11, Deku = 0x12
-    if (MISC_CONFIG.speedups.sound_check && (0xF <= song && song <= 0x12)) {
+    if (MISC_CONFIG.speedups.soundCheck && (0xF <= song && song <= 0x12)) {
         // Restore sfx volume.
         z2_ToggleSfxDampen(0);
         // Restore player control.

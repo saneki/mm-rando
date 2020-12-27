@@ -122,7 +122,7 @@ u16 mmr_GetNewGiIndex(GlobalContext *game, Actor *actor, u16 gi_index, bool gran
             mmr_SetGiFlag(new_gi_index);
         }
         new_gi_index = gi_index;
-        if (MISC_CONFIG.progressive_upgrades)
+        if (MISC_CONFIG.flags.progressiveUpgrades)
         {
             new_gi_index = mmr_CheckProgressiveUpgrades(new_gi_index);
         }
@@ -149,7 +149,7 @@ u16 mmr_GetNewGiIndex(GlobalContext *game, Actor *actor, u16 gi_index, bool gran
 
 void mmr_init(void) {
     // If using vanilla layout, gi-table mod file is not included.
-    if (!MISC_CONFIG.vanilla_layout) {
+    if (!MISC_CONFIG.internal.vanillaLayout) {
         mmr_load_gi_table();
     }
 }

@@ -12,7 +12,7 @@
 ;   mtc1    at, f6
 .org 0x80918314
     or      at, ra, r0
-    jal     misc_get_push_block_speed_hook
+    jal     Misc_GetPushBlockSpeed_Hook
     sw      a1, 0x0004 (sp)
     or      ra, at, r0
     lhu     t6, 0x0160 (a0)
@@ -35,7 +35,7 @@
 ;   lwc1    f6, 0x7080 (at)  ; Initial velocity
 .org 0x80A25E9C
     or      a0, s0, r0
-    jal     misc_get_iceblock_push_speed_hook
+    jal     Misc_GetIceblockPushSpeed_Hook
     lw      a1, 0x004C (sp)
     nop
     nop
@@ -81,7 +81,7 @@
     sw      s0, 0x0018 (sp)
     sw      ra, 0x001C (sp)
     ; Return values in T8 (acceleration) and T9 (max velocity)
-    jal     misc_get_great_bay_temple_faucet_speed_hook
+    jal     Misc_GetGreatBayTempleFaucetSpeed_Hook
     sw      a1, 0x002C (sp)
     lw      t6, 0x002C (sp)
     lh      t7, 0x0188 (s0)
@@ -118,7 +118,7 @@
     sw      s0, 0x0018 (sp)
     sw      ra, 0x001C (sp)
     ; Return values in T8 (acceleration) and T9 (max velocity)
-    jal     misc_get_great_bay_temple_faucet_speed_hook
+    jal     Misc_GetGreatBayTempleFaucetSpeed_Hook
     sw      a1, 0x0034 (sp)
     lw      t6, 0x0034 (sp)
     lh      t7, 0x0188 (s0)
@@ -147,7 +147,7 @@
 .org 0x80B70290
     or      a0, s0, r0
     lw      a1, 0x004C (sp)
-    jal     misc_get_spider_house_shelves_speed_hook
+    jal     Misc_GetSpiderHouseShelvesSpeed_Hook
     ori     a2, r0, 0
 
 ; Adjust speed of larger shelves.
@@ -159,7 +159,7 @@
 .org 0x80B702D4
     or      a0, s0, r0
     lw      a1, 0x004C (sp)
-    jal     misc_get_spider_house_shelves_speed_hook
+    jal     Misc_GetSpiderHouseShelvesSpeed_Hook
     ori     a2, r0, 1
 
 ; Adjust speed of smaller shelves (when pulled outward, pushed inward).
@@ -167,7 +167,7 @@
 ;   lui     at, 0x80B7
 ;   lwc1    f12, 0x07A4 (at)
 .org 0x80B70508
-    jal     misc_get_spider_house_shelves_outward_speed_hook
+    jal     Misc_GetSpiderHouseShelvesOutwardSpeed_Hook
     or      a0, s0, r0
 
 ; Remove relocations for hooks.
@@ -202,7 +202,7 @@
 ;   jal     0x800FF03C
 ;   lui     a1, 0x4000
 .org 0x80B7F2A4
-    jal     misc_get_ikana_pushblock_speed_hook
+    jal     Misc_GetIkanaPushblockSpeed_Hook
     nop
     nop
     jal     0x800FF03C
@@ -218,7 +218,7 @@
 ;   lui     a2, 0x4013
 ;   ori     a2, a2, 0x3333
 .org 0x809A3BD4
-    jal     misc_get_pzlblock_speed_hook
+    jal     Misc_GetPzlblockSpeed_Hook
     nop
 
 ;==================================================================================================
@@ -237,7 +237,7 @@
 ;   addiu   a2, r0, 0x0001
 .org 0x80B3C630
 .area 0x1C
-    jal     misc_get_gravestone_speed_hook
+    jal     Misc_GetGravestoneSpeed_Hook
     sw      a0, 0x0020 (sp)
     lw      a3, 0x0020 (sp)
     lw      t6, 0x0024 (sp)
@@ -257,6 +257,6 @@
 ;   lui     at, 0x3F00
 ;   mtc1    at, f16
 .org 0x80847FA8
-    jal     misc_get_in_water_push_speed_hook
+    jal     Misc_GetInWaterPushSpeed_Hook
     or      a0, s1, r0
     lwc1    f8, 0x0AD0 (S1)

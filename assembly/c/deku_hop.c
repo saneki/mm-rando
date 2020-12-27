@@ -10,7 +10,7 @@ static struct DekuHopState gDekuHopState = {
 };
 
 void DekuHop_Handle(ActorPlayer* player, GlobalContext* ctxt) {
-    if (!MISC_CONFIG.continuous_deku_hop) {
+    if (!MISC_CONFIG.flags.continuousDekuHop) {
         return;
     }
 
