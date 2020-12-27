@@ -3,12 +3,11 @@
 #include "z2.h"
 
 extern char DPAD_TEXTURE;
-#define dpad_texture_raw ((u8 *)&DPAD_TEXTURE)
+#define DpadTextureRaw ((u8*)&DPAD_TEXTURE)
 
 extern u8 FONT_TEXTURE[];
 
-Gfx setup_db[] =
-{
+Gfx gSetupDb[] = {
     gsDPPipeSync(),
 
     gsSPLoadGeometryMode(0),
@@ -27,53 +26,52 @@ Gfx setup_db[] =
     gsSPEndDisplayList()
 };
 
-sprite_t dpad_sprite = {
+Sprite gSpriteDpad = {
     NULL, 32, 32, 1,
     G_IM_FMT_RGBA, G_IM_SIZ_32b, 4
 };
 
-sprite_t font_sprite = {
+Sprite gSpriteFont = {
     NULL, 8, 14, 95,
     G_IM_FMT_IA, G_IM_SIZ_8b, 1
 };
 
-sprite_t icon_sprite = {
+Sprite gSpriteIcon = {
     NULL, 32, 32, 97,
     G_IM_FMT_RGBA, G_IM_SIZ_32b, 4
 };
 
-sprite_t icon_24_sprite = {
+Sprite gSpriteIcon24 = {
     NULL, 24, 24, 12,
     G_IM_FMT_RGBA, G_IM_SIZ_32b, 4
 };
 
-sprite_t fairy_sprite = {
+Sprite gSpriteFairy = {
     NULL, 32, 24, 4,
     G_IM_FMT_RGBA, G_IM_SIZ_32b, 4
 };
 
 // Sprite containing 5 item textures.
 // Depending on the game state, this is used for either the file select hash icons, or the d-pad icons.
-static sprite_t g_item_textures_sprite = {
+static Sprite gItemTexturesSprite = {
     NULL, 32, 32, 5,
     G_IM_FMT_RGBA, G_IM_SIZ_32b, 4
 };
 
-int sprite_bytes_per_tile(sprite_t *sprite) {
-    return sprite->tile_w * sprite->tile_h * sprite->bytes_per_texel;
+int Sprite_GetBytesPerTile(Sprite* sprite) {
+    return sprite->tileW * sprite->tileH * sprite->bytesPerTexel;
 }
 
-int sprite_bytes(sprite_t *sprite) {
-    return sprite->tile_count * sprite_bytes_per_tile(sprite);
+int Sprite_GetBytesTotal(Sprite* sprite) {
+    return sprite->tileCount * Sprite_GetBytesPerTile(sprite);
 }
 
-void sprite_load(DispBuf *db, sprite_t *sprite,
-        int start_tile, int tile_count) {
-    int width = sprite->tile_w;
-    int height = sprite->tile_h * tile_count;
+void Sprite_Load(DispBuf* db, Sprite* sprite, int startTile, int tileCount) {
+    int width = sprite->tileW;
+    int height = sprite->tileH * tileCount;
     gDPLoadTextureTile(db->p++,
-            sprite->buf + (start_tile * sprite_bytes_per_tile(sprite)),
-            sprite->im_fmt, sprite->im_siz,
+            sprite->buf + (startTile * Sprite_GetBytesPerTile(sprite)),
+            sprite->imFmt, sprite->imSiz,
             width, height,
             0, 0,
             width - 1, height - 1,
@@ -83,44 +81,42 @@ void sprite_load(DispBuf *db, sprite_t *sprite,
             G_TX_NOLOD, G_TX_NOLOD);
 }
 
-void sprite_draw(DispBuf *db, sprite_t *sprite, int tile_index,
-        int left, int top, int width, int height) {
-    int width_factor = (1<<10) * sprite->tile_w / width;
-    int height_factor = (1<<10) * sprite->tile_h / height;
-
+void Sprite_Draw(DispBuf* db, Sprite* sprite, int tileIndex, int left, int top, int width, int height) {
+    int widthFactor = (1<<10) * sprite->tileW / width;
+    int heightFactor = (1<<10) * sprite->tileH / height;
     gSPTextureRectangle(db->p++,
             left<<2, top<<2,
             (left + width)<<2, (top + height)<<2,
             0,
-            0, (tile_index * sprite->tile_h)<<5,
-            width_factor, height_factor);
+            0, (tileIndex * sprite->tileH)<<5,
+            widthFactor, heightFactor);
 }
 
-sprite_t* gfx_get_item_textures_sprite(void) {
-    return &g_item_textures_sprite;
+Sprite* Sprite_GetItemTexturesSprite(void) {
+    return &gItemTexturesSprite;
 }
 
-void gfx_init() {
-    dpad_sprite.buf = dpad_texture_raw;
+void Sprite_Init(void) {
+    gSpriteDpad.buf = DpadTextureRaw;
 
     // Allocate space for item textures
-    int size = sprite_bytes(&g_item_textures_sprite);
-    g_item_textures_sprite.buf = heap_alloc(size);
+    int size = Sprite_GetBytesTotal(&gItemTexturesSprite);
+    gItemTexturesSprite.buf = heap_alloc(size);
 
     // Initialize fairy sprite.
-    int fairy_bytes = sprite_bytes(&fairy_sprite);
-    fairy_sprite.buf = heap_alloc(fairy_bytes);
+    int fairyBytes = Sprite_GetBytesTotal(&gSpriteFairy);
+    gSpriteFairy.buf = heap_alloc(fairyBytes);
     u8 *temp = (u8*)0x80780000;
     u32 prom = z2_GetFilePhysAddr(0xA0A000);
-    u32 data_offset = 0x1B80;
-    z2_Yaz0_LoadAndDecompressFile(prom, temp, data_offset + fairy_bytes);
-    z2_memcpy(fairy_sprite.buf, temp + data_offset, fairy_bytes);
+    const u32 dataOffset = 0x1B80;
+    z2_Yaz0_LoadAndDecompressFile(prom, temp, dataOffset + fairyBytes);
+    z2_memcpy(gSpriteFairy.buf, temp + dataOffset, fairyBytes);
 
     // Initialize font texture buffer.
-    int font_bytes = sprite_bytes(&font_sprite);
-    font_sprite.buf = heap_alloc(font_bytes);
-    for (int i = 0; i < font_bytes / 2; i++) {
-        font_sprite.buf[2*i] = (FONT_TEXTURE[i] >> 4) | 0xF0;
-        font_sprite.buf[2*i + 1] = FONT_TEXTURE[i] | 0xF0;
+    int fontBytes = Sprite_GetBytesTotal(&gSpriteFont);
+    gSpriteFont.buf = heap_alloc(fontBytes);
+    for (int i = 0; i < fontBytes / 2; i++) {
+        gSpriteFont.buf[2*i] = (FONT_TEXTURE[i] >> 4) | 0xF0;
+        gSpriteFont.buf[2*i + 1] = FONT_TEXTURE[i] | 0xF0;
     }
 }

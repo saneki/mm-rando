@@ -7,7 +7,7 @@
 static bool g_enable = true;
 
 // Gold Skulltula HUD icon.
-static sprite_t skulltula_icon = {
+static Sprite skulltula_icon = {
     NULL, 24, 18, 1,
     G_IM_FMT_RGBA, G_IM_SIZ_32b, 4
 };
@@ -16,7 +16,7 @@ static sprite_t skulltula_icon = {
 u8 TOWN_FAIRY_BYTES[0xC00] = { 0 };
 
 // Clock Town stray fairy icon.
-static sprite_t town_fairy_icon = {
+static Sprite town_fairy_icon = {
     TOWN_FAIRY_BYTES, 32, 24, 1,
     G_IM_FMT_RGBA, G_IM_SIZ_32b, 4
 };
@@ -95,7 +95,7 @@ void overlay_menu_draw(GlobalContext *game) {
     db->p = db->buf;
 
     // Call setup display list.
-    gSPDisplayList(db->p++, &setup_db);
+    gSPDisplayList(db->p++, &gSetupDb);
 
     // General variables.
     int icon_size = 16;
@@ -105,7 +105,7 @@ void overlay_menu_draw(GlobalContext *game) {
     // Background rectangle.
     int bg_width =
         (7 * icon_size) + 4 +
-        (9 * font_sprite.tile_w) +
+        (9 * gSpriteFont.tileW) +
         (9 * padding);
     int bg_height = (rows * icon_size) + ((rows + 1) * padding);
     int bg_left = (Z2_SCREEN_WIDTH - bg_width) / 2;
@@ -116,8 +116,8 @@ void overlay_menu_draw(GlobalContext *game) {
     int start_top = bg_top + padding;
 
     // Update sprite pointers.
-    icon_sprite.buf = game->pauseCtx.iconItemStatic;
-    icon_24_sprite.buf = game->pauseCtx.iconItem24;
+    gSpriteIcon.buf = game->pauseCtx.iconItemStatic;
+    gSpriteIcon24.buf = game->pauseCtx.iconItem24;
     // icon_map_sprite.buf = game->pauseCtx.iconItemMap;
     skulltula_icon.buf = (u8*)game->interfaceCtx.parameterStatic +0x31E0;
 
@@ -133,7 +133,7 @@ void overlay_menu_draw(GlobalContext *game) {
     gDPPipeSync(db->p++);
 
     // Draw legend panel background.
-    int legend_left = bg_left + icon_size + (9 * font_sprite.tile_w) + (padding * 3);
+    int legend_left = bg_left + icon_size + (9 * gSpriteFont.tileW) + (padding * 3);
     int legend_top = bg_top - (icon_size + (padding * 3));
     int legend_width = (icon_size * 4) + (padding * 5);
     int legend_height = icon_size + (padding * 2);
@@ -155,8 +155,8 @@ void overlay_menu_draw(GlobalContext *game) {
         int index = legend_icons[i];
         int lleft = legend_left + ((icon_size + padding) * i);
         int top = legend_top + padding;
-        sprite_load(db, &icon_24_sprite, index, 1);
-        sprite_draw(db, &icon_24_sprite, 0, lleft, top, icon_size, icon_size);
+        Sprite_Load(db, &gSpriteIcon24, index, 1);
+        Sprite_Draw(db, &gSpriteIcon24, 0, lleft, top, icon_size, icon_size);
     }
 
     // Draw remains.
@@ -164,8 +164,8 @@ void overlay_menu_draw(GlobalContext *game) {
         struct dungeon_entry *d = &(dungeons[i]);
         if (d->is_dungeon && has_remains(d->index)) {
             int top = start_top + ((icon_size + padding) * i);
-            sprite_load(db, &icon_sprite, d->remains, 1);
-            sprite_draw(db, &icon_sprite, 0, left, top, icon_size, icon_size);
+            Sprite_Load(db, &gSpriteIcon, d->remains, 1);
+            Sprite_Draw(db, &gSpriteIcon, 0, left, top, icon_size, icon_size);
         }
     }
     left += icon_size + padding;
@@ -176,7 +176,7 @@ void overlay_menu_draw(GlobalContext *game) {
         int top = start_top + ((icon_size + padding) * i) + 1;
         text_print(d->name, left, top);
     }
-    left += (9 * font_sprite.tile_w) + padding;
+    left += (9 * gSpriteFont.tileW) + padding;
 
     // Draw small keys.
     for (int i = 0; i < g_dungeon_count; i++) {
@@ -195,39 +195,39 @@ void overlay_menu_draw(GlobalContext *game) {
     left += icon_size + padding;
 
     // Draw boss keys.
-    sprite_load(db, &icon_24_sprite, 6, 1);
+    Sprite_Load(db, &gSpriteIcon24, 6, 1);
     for (int i = 0; i < g_dungeon_count; i++) {
         struct dungeon_entry *d = &(dungeons[i]);
         if (d->is_dungeon) {
             if (gSaveContext.perm.inv.dungeonItems[d->index].bossKey) {
                 int top = start_top + ((icon_size + padding) * i);
-                sprite_draw(db, &icon_24_sprite, 0, left, top, icon_size, icon_size);
+                Sprite_Draw(db, &gSpriteIcon24, 0, left, top, icon_size, icon_size);
             }
         }
     }
     left += icon_size + padding;
 
     // Draw maps.
-    sprite_load(db, &icon_24_sprite, 8, 1);
+    Sprite_Load(db, &gSpriteIcon24, 8, 1);
     for (int i = 0; i < g_dungeon_count; i++) {
         struct dungeon_entry *d = &(dungeons[i]);
         if (d->is_dungeon) {
             if (gSaveContext.perm.inv.dungeonItems[d->index].map) {
                 int top = start_top + ((icon_size + padding) * i);
-                sprite_draw(db, &icon_24_sprite, 0, left, top, icon_size, icon_size);
+                Sprite_Draw(db, &gSpriteIcon24, 0, left, top, icon_size, icon_size);
             }
         }
     }
     left += icon_size + padding;
 
     // Draw compasses.
-    sprite_load(db, &icon_24_sprite, 7, 1);
+    Sprite_Load(db, &gSpriteIcon24, 7, 1);
     for (int i = 0; i < g_dungeon_count; i++) {
         struct dungeon_entry *d = &(dungeons[i]);
         if (d->is_dungeon) {
             if (gSaveContext.perm.inv.dungeonItems[d->index].compass) {
                 int top = start_top + ((icon_size + padding) * i);
-                sprite_draw(db, &icon_24_sprite, 0, left, top, icon_size, icon_size);
+                Sprite_Draw(db, &gSpriteIcon24, 0, left, top, icon_size, icon_size);
             }
         }
     }
@@ -240,17 +240,17 @@ void overlay_menu_draw(GlobalContext *game) {
         if (d->has_fairies) {
             // Draw dungeon fairy icons (32-bit RGBA). Otherwise, draw Clock Town fairy icon.
             if (d->is_dungeon) {
-                sprite_load(db, &fairy_sprite, d->index, 1);
-                sprite_draw(db, &fairy_sprite, 0, left, top, 20, 15);
+                Sprite_Load(db, &gSpriteFairy, d->index, 1);
+                Sprite_Draw(db, &gSpriteFairy, 0, left, top, 20, 15);
             } else {
                 // Draw Clock Town fairy icon.
-                sprite_load(db, &town_fairy_icon, 0, 1);
-                sprite_draw(db, &town_fairy_icon, 0, left, top, 20, 15);
+                Sprite_Load(db, &town_fairy_icon, 0, 1);
+                Sprite_Draw(db, &town_fairy_icon, 0, left, top, 20, 15);
             }
         } else if (d->has_tokens) {
             // Draw skulltula token icon.
-            sprite_load(db, &skulltula_icon, 0, 1);
-            sprite_draw(db, &skulltula_icon, 0, left + 2, top, 16, 12);
+            Sprite_Load(db, &skulltula_icon, 0, 1);
+            Sprite_Draw(db, &skulltula_icon, 0, left + 2, top, 16, 12);
         }
     }
     left += 20 + padding;

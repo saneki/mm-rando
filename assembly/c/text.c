@@ -32,7 +32,7 @@ void text_print_with_color(const char *s, int left, int top, ColorRGBA8 color) {
         text_end->top = top;
         text_end->color = color;
         text_end++;
-        left += font_sprite.tile_w;
+        left += gSpriteFont.tileW;
     }
 }
 
@@ -43,7 +43,7 @@ void text_print(const char *s, int left, int top) {
 
 void text_flush(DispBuf *db) {
     for (int i = 0; i < text_bucket_count; i++) {
-        sprite_load(db, &font_sprite,
+        Sprite_Load(db, &gSpriteFont,
                 i * text_bucket_size, text_bucket_size);
 
         text_char_t *text_p = text_buf;
@@ -61,9 +61,9 @@ void text_flush(DispBuf *db) {
             gDPSetPrimColor(db->p++, 0, 0, color.r, color.g, color.b, color.a);
 
             int tile_index = (c - 32) % text_bucket_size;
-            sprite_draw(db, &font_sprite, tile_index,
+            Sprite_Draw(db, &gSpriteFont, tile_index,
                     left, top,
-                    font_sprite.tile_w, font_sprite.tile_h - 1);
+                    gSpriteFont.tileW, gSpriteFont.tileH - 1);
         }
     }
 

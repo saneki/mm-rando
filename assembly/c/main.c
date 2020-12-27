@@ -18,7 +18,7 @@
 
 void c_init() {
     heap_init();
-    gfx_init();
+    Sprite_Init();
     Dpad_Init();
     hud_colors_init();
     ActorExt_Init();

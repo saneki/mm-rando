@@ -118,8 +118,8 @@ static void LoadTexture(u8* buf, int idx, int length, u8 item) {
     gTextureItems[idx] = item;
 }
 
-static void LoadTextureFromSprite(sprite_t* sprite, int idx, u8 item) {
-    int tileLen = sprite_bytes_per_tile(sprite);
+static void LoadTextureFromSprite(Sprite* sprite, int idx, u8 item) {
+    int tileLen = Sprite_GetBytesPerTile(sprite);
     LoadTexture(sprite->buf, idx, tileLen, item);
 }
 
@@ -313,14 +313,14 @@ void Dpad_Draw(GlobalContext* ctxt) {
     Color color = HUD_COLOR_CONFIG.dpad;
 
     DispBuf* db = &ctxt->state.gfxCtx->overlay;
-    gSPDisplayList(db->p++, &setup_db);
+    gSPDisplayList(db->p++, &gSetupDb);
     gDPPipeSync(db->p++);
     gDPSetPrimColor(db->p++, 0, 0, color.r, color.g, color.b, primAlpha);
     gDPSetCombineMode(db->p++, G_CC_MODULATEIA_PRIM, G_CC_MODULATEIA_PRIM);
-    sprite_load(db, &dpad_sprite, 0, 1);
-    sprite_draw(db, &dpad_sprite, 0, x, y, 16, 16);
+    Sprite_Load(db, &gSpriteDpad, 0, 1);
+    Sprite_Draw(db, &gSpriteDpad, 0, x, y, 16, 16);
 
-    sprite_t *sprite = gfx_get_item_textures_sprite();
+    Sprite* sprite = Sprite_GetItemTexturesSprite();
     for (int i = 0; i < 4; i++) {
         u8 value = DPAD_CONFIG.primary.values[i];
 
@@ -344,8 +344,8 @@ void Dpad_Draw(GlobalContext* ctxt) {
             LoadTextureFromSprite(sprite, i, value);
         }
 
-        sprite_load(db, sprite, i, 1);
-        sprite_draw(db, sprite, 0, ix, iy, 16, 16);
+        Sprite_Load(db, sprite, i, 1);
+        Sprite_Draw(db, sprite, 0, ix, iy, 16, 16);
     }
 
     gDPPipeSync(db->p++);
