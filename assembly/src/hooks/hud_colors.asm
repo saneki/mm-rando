@@ -9,7 +9,7 @@
 ;   andi    t4, t3, 0x00FF
 ;   or      t5, t4, at
 .org 0x80118DFC ; In rom: 0xAFEE5C
-    jal     hud_colors_get_a_button_color_hook
+    jal     HudColors_GetAButtonColor_Hook
     andi    t4, t3, 0x00FF
 
 ; Custom color for B button.
@@ -19,7 +19,7 @@
 ;   addiu   t7, r0, 0x0064
 ;   addiu   t6, r0, 0x00FF
 .org 0x801171A0 ; In rom: 0xAFD200
-    jal     hud_colors_get_b_button_color_hook
+    jal     HudColors_GetBButtonColor_Hook
     ori     at, at, 0x69E8
     andi    t6, t6, 0x00FF
     andi    t8, t8, 0x00FF
@@ -32,7 +32,7 @@
 ;   or      t7, t9, t6
 .org 0x8010D40C ; rom: 0xAF346C
     sw      ra, -0x0004 (sp)
-    jal     hud_colors_get_c_start_button_color_hook
+    jal     HudColors_GetCStartButtonColor_Hook
     lh      t8, 0x002A (sp)
     lw      ra, -0x0004 (sp)
 
@@ -43,7 +43,7 @@
 ;   or      t9, t8, t2
 .org 0x801178F4 ; In rom: 0xAFD954
     nop
-    jal     hud_colors_get_c_button_triangle_color_hook
+    jal     HudColors_GetCButtonTriangleColor_Hook
     lh      t6, 0x026A (t4)
 
 ; Custom color for C button triangle (bottom).
@@ -53,7 +53,7 @@
 ;   or      t9, t8, t2
 .org 0x80117928 ; In rom: 0xAFD988
     nop
-    jal     hud_colors_get_c_button_triangle_color_hook
+    jal     HudColors_GetCButtonTriangleColor_Hook
     lh      t6, 0x026C (t4)
 
 ; Custom color for C button triangle (right).
@@ -63,7 +63,7 @@
 ;   or      t9, t8, t2
 .org 0x80117950 ; In rom: 0xAFD9B0
     nop
-    jal     hud_colors_get_c_button_triangle_color_hook
+    jal     HudColors_GetCButtonTriangleColor_Hook
     lh      t6, 0x026E (t4)
 
 ;==================================================================================================
@@ -80,7 +80,7 @@
 .org 0x8011A110 ; In rom: 0xB00170
     addiu   t9, v0, 0x0008
     sw      ra, -0x0004 (sp)
-    jal     hud_colors_get_clock_emblem_color_hook
+    jal     HudColors_GetClockEmblemColor_Hook
     sw      t9, 0x02A0 (s0)
     lw      ra, -0x0004 (sp)
 
@@ -92,7 +92,7 @@
 ;   lui     t5, 0x801C
 .org 0x80119B38 ; In rom: 0xAFFB98
     sw      ra, -0x0004 (sp)
-    jal     hud_colors_get_inverted_clock_emblem_color_r_hook
+    jal     HudColors_GetInvertedClockEmblemColorR_Hook
     lh      a0, 0xFBCC (a0)
     lw      ra, -0x0004 (sp)
 
@@ -104,7 +104,7 @@
 ;   lui     t3, 0x801C
 .org 0x80119C04 ; In rom: 0xAFFC64
     sw      ra, -0x0004 (sp)
-    jal     hud_colors_get_inverted_clock_emblem_color_g_hook
+    jal     HudColors_GetInvertedClockEmblemColorG_Hook
     lh      t5, 0xFBD0 (t5)
     lw      ra, -0x0004 (sp)
 
@@ -116,7 +116,7 @@
 ;   lh      a0, 0xFBF4 (a0)
 .org 0x80119CC8 ; In rom: 0xAFFD28
     sw      ra, -0x0004 (sp)
-    jal     hud_colors_get_inverted_clock_emblem_color_b_hook
+    jal     HudColors_GetInvertedClockEmblemColorB_Hook
     lh      a3, 0xFBD4 (a3)
     lw      ra, -0x0004 (sp)
 
@@ -128,7 +128,7 @@
 ;   ori     t8, t9, 0xFF00
 .org 0x8011A078
     sw      ra, -0x0004 (sp)
-    jal     hud_colors_fix_inverted_clock_emblem_color_calc_hook
+    jal     HudColors_FixInvertedClockEmblemColorCalc_Hook
     sll     t6, t8, 16
     lw      ra, -0x0004 (sp)
 
@@ -140,7 +140,7 @@
 ;   or      t6, t9, at
 .org 0x8011A39C ; In rom: 0xB003FC
     or      a3, t7, r0
-    jal     hud_colors_get_clock_emblem_sun_color_hook
+    jal     HudColors_GetClockEmblemSunColor_Hook
     swc1    f2, 0x01D0 (sp)
     lwc1    f2, 0x01D0 (sp)
 
@@ -159,7 +159,7 @@
     sw      t8, 0x02A0 (s0)
     sw      t7, 0x0000 (v0)
     lh      a3, 0x0000 (a1)
-    jal     hud_colors_get_clock_emblem_sun_color_hook
+    jal     HudColors_GetClockEmblemSunColor_Hook
     swc1    f2, 0x01D0 (sp)
     lwc1    f2, 0x01D0 (sp)
     ; Move return value from T6 to T8
@@ -171,7 +171,7 @@
 ;   andi    t8, t6, 0x00FF
 ;   or      t7, t8, at
 .org 0x8011A73C ; In rom: 0xB0079C
-    jal     hud_colors_get_clock_sun_color_hook
+    jal     HudColors_GetClockSunColor_Hook
     sh      t0, 0x01C6 (sp)
     lh      t0, 0x01C6 (sp)
 
@@ -181,7 +181,7 @@
 ;   andi    t9, t7, 0x00FF
 ;   or      t6, t9, at
 .org 0x8011A88C ; In rom: 0xB008EC
-    jal     hud_colors_get_clock_moon_color_hook
+    jal     HudColors_GetClockMoonColor_Hook
     sh      t0, 0x01C6 (sp)
     lh      t0, 0x01C6 (sp)
 
@@ -193,7 +193,7 @@
 ; Replaces:
 ;   jal     0x8010069C
 .org 0x80121534 ; In rom: 0xB07594
-    jal     hud_colors_update_heart_colors
+    jal     HudColors_UpdateHeartColors
 
 ;==================================================================================================
 ; Magic meter color hooks
@@ -205,7 +205,7 @@
 ;   andi    t9, t8, 0x00FF
 ;   ori     t6, t9, 0xC800
 .org 0x80116E44 ; In rom: 0xAFCEA4
-    jal     hud_colors_get_magic_meter_color_hook
+    jal     HudColors_GetMagicMeterColor_Hook
     ori     a0, r0, 1
     ; Restore RA from previous stack value
     lw      ra, -0x0004 (sp)
@@ -216,7 +216,7 @@
 ;   andi    t9, t8, 0x00FF
 ;   or      t6, t9, at
 .org 0x80116E74 ; In rom: 0xAFCED4
-    jal     hud_colors_get_magic_meter_color_hook
+    jal     HudColors_GetMagicMeterColor_Hook
     ori     a0, r0, 0
     ; Restore RA from previous stack value
     lw      ra, -0x0004 (sp)
@@ -227,7 +227,7 @@
 ;   andi    t8, t7, 0x00FF
 ;   ori     t9, t8, 0xC800
 .org 0x80116D74
-    jal     hud_colors_get_magic_meter_charging_color_hook
+    jal     HudColors_GetMagicMeterChargingColor_Hook
     ori     a0, r0, 1
     lw      ra, -0x0004 (sp)
 
@@ -245,7 +245,7 @@
     addiu   t6, v0, 0x0008
     sw      t6, 0x02A0 (v1)
     sw      t0, 0x0000 (v0)
-    jal     hud_colors_get_magic_meter_charging_color_hook
+    jal     HudColors_GetMagicMeterChargingColor_Hook
     ori     a0, r0, 0
     lw      ra, -0x0004 (sp)
     nop
@@ -260,7 +260,7 @@
 ;   andi    t6, t9, 0x00FF
 ;   or      t5, t8, t6
 .org 0x801032F4 ; In rom: 0xAE9354
-    jal     hud_colors_get_map_color_hook
+    jal     HudColors_GetMapColor_Hook
     nop
 
 ; Custom color for player cursor (original: #C8FF00)
@@ -268,7 +268,7 @@
 ;   andi    t9, t5, 0x00FF
 ;   or      t7, t9, at
 .org 0x80103E8C ; In rom: 0xAE9EEC
-    jal     hud_colors_get_map_player_cursor_color_hook
+    jal     HudColors_GetMapPlayerCursorColor_Hook
     nop
 
 ; Custom color for entrance cursor (original: #C80000)
@@ -276,7 +276,7 @@
 ;   andi    t4, t3, 0x00FF
 ;   or      t5, t4, at
 .org 0x801063D0 ; In rom: 0xAEC430
-    jal     hud_colors_get_map_entrance_cursor_color_hook
+    jal     HudColors_GetMapEntranceCursorColor_Hook
     nop
 
 ;==================================================================================================
@@ -287,17 +287,17 @@
 ; Replaces:
 ;   jal     0x80147564
 .org 0x80151F90
-    jal     hud_colors_update_button_note_colors
+    jal     HudColors_UpdateButtonNoteColors
 
 ; Replaces:
 ;   jal     0x80147564
 .org 0x80154614
-    jal     hud_colors_update_button_note_colors
+    jal     HudColors_UpdateButtonNoteColors
 
 ; Replaces:
 ;   jal     0x80147564
 .org 0x80155178
-    jal     hud_colors_update_button_note_colors
+    jal     HudColors_UpdateButtonNoteColors
 
 ;==================================================================================================
 ; Song A + C Button Note Colors (Pause Menu)
@@ -311,7 +311,7 @@
 ;   lui     t8, 0x5096
 ;   ori     t8, t8, 0xFFC8
 .org 0x8081742C
-    jal     hud_colors_pause_1_get_note_a_color_hook
+    jal     HudColors_Pause1GetNoteAColor_Hook
     ori     at, r0, 0
 
 ; Get "C" button note color (when not playing).
@@ -320,7 +320,7 @@
 ;   lui     t9, 0xFFFF
 ;   ori     t9, t9, 0x32C8
 .org 0x80817450
-    jal     hud_colors_pause_1_get_note_c_color_hook
+    jal     HudColors_Pause1GetNoteCColor_Hook
     ori     at, r0, 1
 
 ; Get "A" button note color (when playing).
@@ -329,7 +329,7 @@
 ;   lui     at, 0x5096
 ;   ori     at, at, 0xFF00
 .org 0x80817254
-    jal     hud_colors_pause_2_get_note_color_hook
+    jal     HudColors_Pause2GetNoteColor_Hook
     ori     at, r0, 0
 
 ; Get "C" button note color (when playing).
@@ -338,7 +338,7 @@
 ;   lui     at, 0xFFFF
 ;   ori     at, at, 0x3200
 .org 0x80817284
-    jal     hud_colors_pause_2_get_note_color_hook
+    jal     HudColors_Pause2GetNoteColor_Hook
     ori     at, r0, 1
 
 ; Get "A" button note color (when replaying).
@@ -347,7 +347,7 @@
 ;   lui     at, 0x5096
 ;   ori     at, at, 0xFF00
 .org 0x80817654
-    jal     hud_colors_pause_2_get_note_color_hook
+    jal     HudColors_Pause2GetNoteColor_Hook
     ori     at, r0, 0
 
 ; Get "C" button note color (when replaying).
@@ -356,7 +356,7 @@
 ;   lui     at, 0xFFFF
 ;   ori     at, at, 0x3200
 .org 0x80817684
-    jal     hud_colors_pause_2_get_note_color_hook
+    jal     HudColors_Pause2GetNoteColor_Hook
     ori     at, r0, 1
 
 ;==================================================================================================
@@ -370,7 +370,7 @@
 ;   lui     t8, 0xB4B4
 ;   ori     t8, t8, 0x78FF
 .org 0x808227C4
-    jal     hud_colors_get_menu_border_1_color_hook
+    jal     HudColors_GetMenuBorder1Color_Hook
     lw      v0, 0x02B0 (s0)
     or      t8, v1, r0
 
@@ -379,7 +379,7 @@
 ;   lui     t7, 0xB4B4
 ;   ori     t7, t7, 0x78FF
 .org 0x808228EC
-    jal     hud_colors_get_menu_border_1_color_hook
+    jal     HudColors_GetMenuBorder1Color_Hook
     lw      v0, 0x02B0 (s0)
     or      t7, v1, r0
 
@@ -388,7 +388,7 @@
 ;   lui     t9, 0xB4B4
 ;   ori     t9, t9, 0x78FF
 .org 0x80822A94
-    jal     hud_colors_get_menu_border_1_color_hook
+    jal     HudColors_GetMenuBorder1Color_Hook
     lw      v0, 0x02B0 (s0)
     or      t9, v1, r0
 
@@ -397,7 +397,7 @@
 ;   lui     t9, 0xB4B4
 ;   ori     t9, t9, 0x78FF
 .org 0x80822BE0
-    jal     hud_colors_get_menu_border_1_color_hook
+    jal     HudColors_GetMenuBorder1Color_Hook
     lw      v0, 0x02B0 (s0)
     or      t9, v1, r0
 
@@ -406,7 +406,7 @@
 ;   lui     t7, 0xB4B4
 ;   ori     t7, t7, 0x78FF
 .org 0x80822D38
-    jal     hud_colors_get_menu_border_1_color_hook
+    jal     HudColors_GetMenuBorder1Color_Hook
     lw      v0, 0x02B0 (s0)
     or      t7, v1, r0
 
@@ -415,7 +415,7 @@
 ;   lui     t7, 0xB4B4
 ;   ori     t7, t7, 0x78FF
 .org 0x80822E54
-    jal     hud_colors_get_menu_border_1_color_hook
+    jal     HudColors_GetMenuBorder1Color_Hook
     lw      v0, 0x02B0 (s0)
     or      t7, v1, r0
 
@@ -424,7 +424,7 @@
 ;   lui     t8, 0xB4B4
 ;   ori     t8, t8, 0x78FF
 .org 0x8082312C
-    jal     hud_colors_get_menu_border_1_color_hook
+    jal     HudColors_GetMenuBorder1Color_Hook
     lw      v0, 0x02B0 (s0)
     or      t8, v1, r0
 
@@ -433,7 +433,7 @@
 ;   lui     t6, 0xB4B4
 ;   ori     t6, t6, 0x78FF
 .org 0x80823264
-    jal     hud_colors_get_menu_border_1_color_hook
+    jal     HudColors_GetMenuBorder1Color_Hook
     lw      v0, 0x02B0 (s0)
     or      t6, v1, r0
 
@@ -442,7 +442,7 @@
 ;   lui     t4, 0xB4B4
 ;   ori     t4, t4, 0x78FF
 .org 0x80824928
-    jal     hud_colors_get_menu_border_1_color_hook
+    jal     HudColors_GetMenuBorder1Color_Hook
     lw      v0, 0x02B0 (s0)
     or      t4, v1, r0
 
@@ -465,7 +465,7 @@
 .org 0x80823C30
 .area 0x20
     lw      v1, 0x00B4 (sp)
-    jal     hud_colors_get_menu_border_2_color_1_hook
+    jal     HudColors_GetMenuBorder2Color1_Hook
     sw      v0, 0x0004 (v1)
     or      t9, v0, r0 ;; Move color result to T9.
     lw      t0, 0x002C (sp)
@@ -481,7 +481,7 @@
 ;   sw      t8, 0x02B0 (ra)
 ;   sw      a3, 0x0000 (v0)
 .org 0x80823CD0
-    jal     hud_colors_get_menu_border_2_color_2_hook
+    jal     HudColors_GetMenuBorder2Color2_Hook
     sw      a3, 0x0000 (v0)
     lw      ra, 0x00C0 (sp) ;; Restore RA.
     addiu   t8, v0, 0x0008
@@ -498,7 +498,7 @@
 ;   ori     at, at, 0x5A00
 ;   andi    a0, a0, 0x00FF
 .org 0x80823D40
-    jal     hud_colors_get_menu_border_2_color_2_hook
+    jal     HudColors_GetMenuBorder2Color2_Hook
     andi    a0, a0, 0x00FF
     lw      ra, 0x00C0 (sp) ;; Restore RA.
 
@@ -514,7 +514,7 @@
 .org 0x80825454
 .area 0x1C
     lw      v1, 0x006C (sp)
-    jal     hud_colors_get_menu_border_2_color_1_hook
+    jal     HudColors_GetMenuBorder2Color1_Hook
     sw      v0, 0x0004 (v1)
     lw      t0, 0x0030 (sp)
     lui     a0, 0xFA00
@@ -534,7 +534,7 @@
 ;   ori     t6, t6, 0x00FF
 ;   addiu   t7, v0, 0x0008
 .org 0x80824284
-    jal     hud_colors_get_menu_subtitle_text_color_hook
+    jal     HudColors_GetMenuSubtitleTextColor_Hook
     addiu   t7, v0, 0x0008
     lw      ra, 0x00C0 (sp) ;; Restore RA.
 
@@ -558,7 +558,7 @@
 .area 0x24
     sw      v0, 0x0034 (sp) ;; Store V0 in reserved stack space.
     sw      v1, 0x0038 (sp) ;; Store V1 in reserved stack space.
-    jal     hud_colors_update_score_lines_color
+    jal     HudColors_UpdateScoreLinesColor
     lw      a0, 0x0030 (sp) ;; A0 = GlobalContext.
     addiu   a0, r0, 0x00FF  ;; Restore: A0 = 0xFF.
     lw      v0, 0x0034 (sp) ;; Restore V0.

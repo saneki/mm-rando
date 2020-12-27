@@ -3,76 +3,76 @@
 
 #include "z2.h"
 
-// Magic number for hud_color_config: "HUDC"
+// Magic number for HudColorConfig: "HUDC"
 #define HUD_COLOR_CONFIG_MAGIC 0x48554443
 
-struct hud_color_config {
+struct HudColorConfig {
     u32 magic;
     u32 version;
 
     // Version 0
-    Color button_a;
-    Color button_b;
-    Color button_c;
-    Color button_start;
-    Color clock_emblem;
-    Color clock_emblem_inverted_1;
-    Color clock_emblem_inverted_2;
-    Color clock_emblem_sun;
-    Color clock_moon;
-    Color clock_sun;
+    Color buttonA;
+    Color buttonB;
+    Color buttonC;
+    Color buttonStart;
+    Color clockEmblem;
+    Color clockEmblemInverted1;
+    Color clockEmblemInverted2;
+    Color clockEmblemSun;
+    Color clockMoon;
+    Color clockSun;
     Color heart;
-    Color heart_dd;
-    Color magic_normal;
-    Color magic_inf;
+    Color heartDd;
+    Color magicNormal;
+    Color magicInf;
     Color map;
-    Color map_entrance_cursor;
-    Color map_player_cursor;
+    Color mapEntranceCursor;
+    Color mapPlayerCursor;
     Color rupee[3];
 
     // Version 1
-    Color button_icon_a;
-    Color button_icon_b;
-    Color button_icon_c;
-    Color menu_a_inner_1;
-    Color menu_a_inner_2;
-    Color menu_a_outer_1;
-    Color menu_a_outer_2;
-    Color menu_c_inner_1;
-    Color menu_c_inner_2;
-    Color menu_c_outer_1;
-    Color menu_c_outer_2;
-    Color note_a_1;
-    Color note_a_2;
-    Color note_a_shadow_1;
-    Color note_a_shadow_2;
-    Color note_c_1;
-    Color note_c_2;
-    Color note_c_shadow_1;
-    Color note_c_shadow_2;
-    Color pause_title_a;
-    Color pause_title_c;
-    Color prompt_1;
-    Color prompt_2;
-    Color prompt_glow;
-    Color score_lines;
-    Color score_note;
+    Color buttonIconA;
+    Color buttonIconB;
+    Color buttonIconC;
+    Color menuAInner1;
+    Color menuAInner2;
+    Color menuAOuter1;
+    Color menuAOuter2;
+    Color menuCInner1;
+    Color menuCInner2;
+    Color menuCOuter1;
+    Color menuCOuter2;
+    Color noteA1;
+    Color noteA2;
+    Color noteAShadow1;
+    Color noteAShadow2;
+    Color noteC1;
+    Color noteC2;
+    Color noteCShadow1;
+    Color noteCShadow2;
+    Color pauseTitleA;
+    Color pauseTitleC;
+    Color prompt1;
+    Color prompt2;
+    Color promptGlow;
+    Color scoreLines;
+    Color scoreNote;
 
     // Version 2
     Color dpad;
 
     // Version 3
-    Color menu_border_1;
-    Color menu_border_2;
-    Color menu_subtitle_text;
-    Color shop_cursor_1;
-    Color shop_cursor_2;
+    Color menuBorder1;
+    Color menuBorder2;
+    Color menuSubtitleText;
+    Color shopCursor1;
+    Color shopCursor2;
 };
 
-extern struct hud_color_config HUD_COLOR_CONFIG;
+extern struct HudColorConfig HUD_COLOR_CONFIG;
 
-void hud_colors_init(void);
-void hud_colors_main_menu_init(void);
-void hud_colors_update_pause_menu_colors(GlobalContext *game);
+void HudColors_Init(void);
+void HudColors_FileChooseInit(void);
+void HudColors_UpdatePauseMenuColors(GlobalContext* ctxt);
 
 #endif // HUD_COLORS_H

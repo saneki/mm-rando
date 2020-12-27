@@ -1,131 +1,128 @@
 #include <stdbool.h>
+#include "color.h"
 #include "hud_colors.h"
 #include "reloc.h"
 #include "z2.h"
 
-struct hud_color_config HUD_COLOR_CONFIG = {
+struct HudColorConfig HUD_COLOR_CONFIG = {
     .magic = HUD_COLOR_CONFIG_MAGIC,
     .version = 3,
 
     // Version 0
-    .button_a                = { 0x64, 0xC8, 0xFF },
-    .button_b                = { 0x64, 0xFF, 0x78 },
-    .button_c                = { 0xFF, 0xF0, 0x00 },
-    .button_start            = { 0xFF, 0x82, 0x3C },
-    .clock_emblem            = { 0x00, 0xAA, 0x64 },
-    .clock_emblem_inverted_1 = { 0x64, 0xCD, 0xFF },
-    .clock_emblem_inverted_2 = { 0x00, 0x9B, 0xFF },
-    .clock_emblem_sun        = { 0xFF, 0xFF, 0x6E },
-    .clock_moon              = { 0xFF, 0xFF, 0x37 },
-    .clock_sun               = { 0xFF, 0x64, 0x6E },
-    .heart                   = { 0xFF, 0x46, 0x32 },
-    .heart_dd                = { 0xC8, 0x00, 0x00 },
-    .magic_normal            = { 0x00, 0xC8, 0x00 },
-    .magic_inf               = { 0x00, 0x00, 0xC8 },
-    .map                     = { 0x00, 0xFF, 0xFF },
-    .map_entrance_cursor     = { 0xC8, 0x00, 0x00 },
-    .map_player_cursor       = { 0xC8, 0xFF, 0x00 },
-    .rupee                   = {
-                               { 0xC8, 0xFF, 0x64 },
-                               { 0xAA, 0xAA, 0xFF },
-                               { 0xFF, 0x69, 0x69 },
+    .buttonA              = { 0x64, 0xC8, 0xFF },
+    .buttonB              = { 0x64, 0xFF, 0x78 },
+    .buttonC              = { 0xFF, 0xF0, 0x00 },
+    .buttonStart          = { 0xFF, 0x82, 0x3C },
+    .clockEmblem          = { 0x00, 0xAA, 0x64 },
+    .clockEmblemInverted1 = { 0x64, 0xCD, 0xFF },
+    .clockEmblemInverted2 = { 0x00, 0x9B, 0xFF },
+    .clockEmblemSun       = { 0xFF, 0xFF, 0x6E },
+    .clockMoon            = { 0xFF, 0xFF, 0x37 },
+    .clockSun             = { 0xFF, 0x64, 0x6E },
+    .heart                = { 0xFF, 0x46, 0x32 },
+    .heartDd              = { 0xC8, 0x00, 0x00 },
+    .magicNormal          = { 0x00, 0xC8, 0x00 },
+    .magicInf             = { 0x00, 0x00, 0xC8 },
+    .map                  = { 0x00, 0xFF, 0xFF },
+    .mapEntranceCursor    = { 0xC8, 0x00, 0x00 },
+    .mapPlayerCursor      = { 0xC8, 0xFF, 0x00 },
+    .rupee                = {
+                            { 0xC8, 0xFF, 0x64 },
+                            { 0xAA, 0xAA, 0xFF },
+                            { 0xFF, 0x69, 0x69 },
     },
 
     // Version 1
-    .button_icon_a           = { 0x50, 0x5A, 0xFF },
-    .button_icon_b           = { 0x46, 0xFF, 0x50 },
-    .button_icon_c           = { 0xFF, 0xFF, 0x32 },
-    .menu_a_inner_1          = { 0x64, 0x96, 0xFF },
-    .menu_a_inner_2          = { 0x64, 0xFF, 0xFF },
-    .menu_a_outer_1          = { 0x00, 0x00, 0x64 },
-    .menu_a_outer_2          = { 0x00, 0x96, 0xFF },
-    .menu_c_inner_1          = { 0xFF, 0xFF, 0x00 },
-    .menu_c_inner_2          = { 0xFF, 0xFF, 0x00 },
-    .menu_c_outer_1          = { 0x00, 0x00, 0x00 },
-    .menu_c_outer_2          = { 0xFF, 0xA0, 0x00 },
-    .note_a_1                = { 0x50, 0x96, 0xFF },
-    .note_a_2                = { 0x64, 0xC8, 0xFF },
-    .note_a_shadow_1         = { 0x0A, 0x0A, 0x0A },
-    .note_a_shadow_2         = { 0x32, 0x32, 0xFF },
-    .note_c_1                = { 0xFF, 0xFF, 0x32 },
-    .note_c_2                = { 0xFF, 0xFF, 0xB4 },
-    .note_c_shadow_1         = { 0x0A, 0x0A, 0x0A },
-    .note_c_shadow_2         = { 0x6E, 0x6E, 0x32 },
-    .pause_title_a           = { 0x00, 0x64, 0xFF },
-    .pause_title_c           = { 0xFF, 0x96, 0x00 },
-    .prompt_1                = { 0x00, 0x50, 0xC8 },
-    .prompt_2                = { 0x32, 0x82, 0xFF },
-    .prompt_glow             = { 0x00, 0x82, 0xFF },
-    .score_lines             = { 0xFF, 0x00, 0x00 },
-    .score_note              = { 0xFF, 0x64, 0x00 },
+    .buttonIconA          = { 0x50, 0x5A, 0xFF },
+    .buttonIconB          = { 0x46, 0xFF, 0x50 },
+    .buttonIconC          = { 0xFF, 0xFF, 0x32 },
+    .menuAInner1          = { 0x64, 0x96, 0xFF },
+    .menuAInner2          = { 0x64, 0xFF, 0xFF },
+    .menuAOuter1          = { 0x00, 0x00, 0x64 },
+    .menuAOuter2          = { 0x00, 0x96, 0xFF },
+    .menuCInner1          = { 0xFF, 0xFF, 0x00 },
+    .menuCInner2          = { 0xFF, 0xFF, 0x00 },
+    .menuCOuter1          = { 0x00, 0x00, 0x00 },
+    .menuCOuter2          = { 0xFF, 0xA0, 0x00 },
+    .noteA1               = { 0x50, 0x96, 0xFF },
+    .noteA2               = { 0x64, 0xC8, 0xFF },
+    .noteAShadow1         = { 0x0A, 0x0A, 0x0A },
+    .noteAShadow2         = { 0x32, 0x32, 0xFF },
+    .noteC1               = { 0xFF, 0xFF, 0x32 },
+    .noteC2               = { 0xFF, 0xFF, 0xB4 },
+    .noteCShadow1         = { 0x0A, 0x0A, 0x0A },
+    .noteCShadow2         = { 0x6E, 0x6E, 0x32 },
+    .pauseTitleA          = { 0x00, 0x64, 0xFF },
+    .pauseTitleC          = { 0xFF, 0x96, 0x00 },
+    .prompt1              = { 0x00, 0x50, 0xC8 },
+    .prompt2              = { 0x32, 0x82, 0xFF },
+    .promptGlow           = { 0x00, 0x82, 0xFF },
+    .scoreLines           = { 0xFF, 0x00, 0x00 },
+    .scoreNote            = { 0xFF, 0x64, 0x00 },
 
     // Version 2
-    .dpad                    = { 0x80, 0x80, 0x80 },
+    .dpad                 = { 0x80, 0x80, 0x80 },
 
     // Version 3
-    .menu_border_1           = { 0xB4, 0xB4, 0x78 },
-    .menu_border_2           = { 0x96, 0x8C, 0x5A },
-    .menu_subtitle_text      = { 0xFF, 0xC8, 0x00 },
-    .shop_cursor_1           = { 0x00, 0x00, 0xFF },
-    .shop_cursor_2           = { 0x00, 0x50, 0xFF },
+    .menuBorder1          = { 0xB4, 0xB4, 0x78 },
+    .menuBorder2          = { 0x96, 0x8C, 0x5A },
+    .menuSubtitleText     = { 0xFF, 0xC8, 0x00 },
+    .shopCursor1          = { 0x00, 0x00, 0xFF },
+    .shopCursor2          = { 0x00, 0x50, 0xFF },
 };
 
-struct pause_cursor_colors {
-    ColorRGB16 default_inner_1;  /* 0x0000 */
-    ColorRGB16 default_inner_2;  /* 0x0006 */
-    ColorRGB16 yellow_inner_1;   /* 0x000C */
-    ColorRGB16 yellow_inner_2;   /* 0x0012 */
-    ColorRGB16 blue_inner_1;     /* 0x0018 */
-    ColorRGB16 blue_inner_2;     /* 0x001E */
-    ColorRGB16 default_outer_1;  /* 0x0024 */
-    ColorRGB16 default_outer_2;  /* 0x002A */
-    ColorRGB16 yellow_outer_1;   /* 0x0030 */
-    ColorRGB16 yellow_outer_2;   /* 0x0036 */
-    ColorRGB16 blue_outer_1;     /* 0x003C */
-    ColorRGB16 blue_outer_2;     /* 0x0042 */
-};
+struct PauseCursorColors {
+    /* 0x00 */ ColorRGB16 defaultInner1;
+    /* 0x06 */ ColorRGB16 defaultInner2;
+    /* 0x0C */ ColorRGB16 yellowInner1;
+    /* 0x12 */ ColorRGB16 yellowInner2;
+    /* 0x18 */ ColorRGB16 blueInner1;
+    /* 0x1E */ ColorRGB16 blueInner2;
+    /* 0x24 */ ColorRGB16 defaultOuter1;
+    /* 0x2A */ ColorRGB16 defaultOuter2;
+    /* 0x30 */ ColorRGB16 yellowOuter1;
+    /* 0x36 */ ColorRGB16 yellowOuter2;
+    /* 0x3C */ ColorRGB16 blueOuter1;
+    /* 0x42 */ ColorRGB16 blueOuter2;
+}; // size = 0x48
 
-static u32 color_rgb8_to_int(Color color, u8 alpha) {
-    return (color.r << 24) | (color.g << 16) | (color.b << 8) | alpha;
-}
-
-static void rgb8_to_rgb16(ColorRGB16 *dest, Color src) {
+static void ColorTo16(ColorRGB16* dest, Color src) {
     dest->r = src.r;
     dest->g = src.g;
     dest->b = src.b;
 }
 
-u32 hud_colors_get_magic_meter_color(bool inf) {
+u32 HudColors_GetMagicMeterColor(bool inf) {
     u8 alpha = gGlobalContext.interfaceCtx.alphas.magicRupees & 0xFF;
     if (inf) {
-        return color_rgb8_to_int(HUD_COLOR_CONFIG.magic_inf, alpha);
+        return Color_ConvertToIntWithAlpha(HUD_COLOR_CONFIG.magicInf, alpha);
     } else {
-        return color_rgb8_to_int(HUD_COLOR_CONFIG.magic_normal, alpha);
+        return Color_ConvertToIntWithAlpha(HUD_COLOR_CONFIG.magicNormal, alpha);
     }
 }
 
-u32 hud_colors_get_map_color() {
-    return color_rgb8_to_int(HUD_COLOR_CONFIG.map, 0xA0);
+u32 HudColors_GetMapColor(void) {
+    return Color_ConvertToIntWithAlpha(HUD_COLOR_CONFIG.map, 0xA0);
 }
 
-u32 hud_colors_get_map_player_cursor_color() {
+u32 HudColors_GetMapPlayerCursorColor(void) {
     u8 alpha = gGlobalContext.interfaceCtx.alphas.minimap & 0xFF;
-    return color_rgb8_to_int(HUD_COLOR_CONFIG.map_player_cursor, alpha);
+    return Color_ConvertToIntWithAlpha(HUD_COLOR_CONFIG.mapPlayerCursor, alpha);
 }
 
-u32 hud_colors_get_map_entrance_cursor_color() {
+u32 HudColors_GetMapEntranceCursorColor(void) {
     u8 alpha = gGlobalContext.interfaceCtx.alphas.minimap & 0xFF;
-    return color_rgb8_to_int(HUD_COLOR_CONFIG.map_entrance_cursor, alpha);
+    return Color_ConvertToIntWithAlpha(HUD_COLOR_CONFIG.mapEntranceCursor, alpha);
 }
 
-u32 hud_colors_get_clock_emblem_color() {
+u32 HudColors_GetClockEmblemColor(void) {
     u8 alpha = (u8)(*(u16 *)(0x801BFB2C));
-    return color_rgb8_to_int(HUD_COLOR_CONFIG.clock_emblem, alpha);
+    return Color_ConvertToIntWithAlpha(HUD_COLOR_CONFIG.clockEmblem, alpha);
 }
 
-u16 hud_colors_get_clock_emblem_inverted_color(u8 idx) {
+u16 HudColors_GetClockEmblemInvertedColor(u8 idx) {
     Color colors;
-    s16 mode = *(s16 *)0x801BFBE8;
+    s16 mode = *(s16*)0x801BFBE8;
 
     if (idx > 2) {
         return 0;
@@ -133,106 +130,106 @@ u16 hud_colors_get_clock_emblem_inverted_color(u8 idx) {
 
     // Mode should be either 0 (first color) or 1 (second color)
     if (!mode) {
-        colors = HUD_COLOR_CONFIG.clock_emblem_inverted_1;
+        colors = HUD_COLOR_CONFIG.clockEmblemInverted1;
     } else {
-        colors = HUD_COLOR_CONFIG.clock_emblem_inverted_2;
+        colors = HUD_COLOR_CONFIG.clockEmblemInverted2;
     }
 
     return colors.bytes[idx];
 }
 
-u32 hud_colors_get_clock_emblem_sun_color(u16 alpha) {
-    return color_rgb8_to_int(HUD_COLOR_CONFIG.clock_emblem_sun, alpha & 0xFF);
+u32 HudColors_GetClockEmblemSunColor(u16 alpha) {
+    return Color_ConvertToIntWithAlpha(HUD_COLOR_CONFIG.clockEmblemSun, alpha & 0xFF);
 }
 
-u32 hud_colors_get_clock_sun_color() {
-    u8 alpha = (*(u16 *)0x801BFB2C) & 0xFF;
-    return color_rgb8_to_int(HUD_COLOR_CONFIG.clock_sun, alpha);
+u32 HudColors_GetClockSunColor(void) {
+    u8 alpha = (*(u16*)0x801BFB2C) & 0xFF;
+    return Color_ConvertToIntWithAlpha(HUD_COLOR_CONFIG.clockSun, alpha);
 }
 
-u32 hud_colors_get_clock_moon_color() {
-    u8 alpha = (*(u16 *)0x801BFB2C) & 0xFF;
-    return color_rgb8_to_int(HUD_COLOR_CONFIG.clock_moon, alpha);
+u32 HudColors_GetClockMoonColor(void) {
+    u8 alpha = (*(u16*)0x801BFB2C) & 0xFF;
+    return Color_ConvertToIntWithAlpha(HUD_COLOR_CONFIG.clockMoon, alpha);
 }
 
-u32 hud_colors_get_a_button_color(u8 alpha) {
-    return color_rgb8_to_int(HUD_COLOR_CONFIG.button_a, alpha);
+u32 HudColors_GetAButtonColor(u8 alpha) {
+    return Color_ConvertToIntWithAlpha(HUD_COLOR_CONFIG.buttonA, alpha);
 }
 
-u32 hud_colors_get_b_button_color() {
+u32 HudColors_GetBButtonColor(void) {
     // Alpha won't be used but set it anyway
     u8 alpha = gGlobalContext.interfaceCtx.alphas.buttonB & 0xFF;
-    return color_rgb8_to_int(HUD_COLOR_CONFIG.button_b, alpha);
+    return Color_ConvertToIntWithAlpha(HUD_COLOR_CONFIG.buttonB, alpha);
 }
 
-u32 hud_colors_get_c_button_color(u16 alpha) {
-    return color_rgb8_to_int(HUD_COLOR_CONFIG.button_c, alpha & 0xFF);
+u32 HudColors_GetCButtonColor(u16 alpha) {
+    return Color_ConvertToIntWithAlpha(HUD_COLOR_CONFIG.buttonC, alpha & 0xFF);
 }
 
-u32 hud_colors_get_start_button_color(u16 alpha) {
-    return color_rgb8_to_int(HUD_COLOR_CONFIG.button_start, alpha & 0xFF);
+u32 HudColors_GetStartButtonColor(u16 alpha) {
+    return Color_ConvertToIntWithAlpha(HUD_COLOR_CONFIG.buttonStart, alpha & 0xFF);
 }
 
 /**
  * Hook function used to get the "A" or "C" button color when used as a song note icon.
  **/
-u32 hud_colors_get_note_button_color(u8 index, u8 alpha) {
+u32 HudColors_GetNoteButtonColor(u8 index, u8 alpha) {
     if (index == 0) {
-        return color_rgb8_to_int(HUD_COLOR_CONFIG.note_a_1, alpha);
+        return Color_ConvertToIntWithAlpha(HUD_COLOR_CONFIG.noteA1, alpha);
     } else {
-        return color_rgb8_to_int(HUD_COLOR_CONFIG.note_c_1, alpha);
+        return Color_ConvertToIntWithAlpha(HUD_COLOR_CONFIG.noteC1, alpha);
     }
 }
 
 /**
  * Hook function used to get the pause menu primary border color.
  **/
-u32 hud_colors_get_menu_border_1_color(void) {
-    return color_rgb8_to_int(HUD_COLOR_CONFIG.menu_border_1, 0xFF);
+u32 HudColors_GetMenuBorder1Color(void) {
+    return Color_ConvertToIntWithAlpha(HUD_COLOR_CONFIG.menuBorder1, 0xFF);
 }
 
 /**
  * Hook function used to get the pause menu secondary border color.
  **/
-u32 hud_colors_get_menu_border_2_color(void) {
-    return color_rgb8_to_int(HUD_COLOR_CONFIG.menu_border_2, 0xFF);
+u32 HudColors_GetMenuBorder2Color(void) {
+    return Color_ConvertToIntWithAlpha(HUD_COLOR_CONFIG.menuBorder2, 0xFF);
 }
 
 /**
  * Hook function used to get the pause menu subtitle text color.
  **/
-u32 hud_colors_get_menu_subtitle_text_color(void) {
-    return color_rgb8_to_int(HUD_COLOR_CONFIG.menu_subtitle_text, 0xFF);
+u32 HudColors_GetMenuSubtitleTextColor(void) {
+    return Color_ConvertToIntWithAlpha(HUD_COLOR_CONFIG.menuSubtitleText, 0xFF);
 }
 
-void hud_colors_update_heart_colors(GlobalContext *game) {
+void HudColors_UpdateHeartColors(GlobalContext* ctxt) {
     // Normal heart colors
-    ColorRRGGBB16 *heart = &(gGlobalContext.interfaceCtx.heartInnerColor);
-    ColorRGB16 *heart_beating = &(gGlobalContext.interfaceCtx.heartbeatInnerColor);
+    ColorRRGGBB16* heart = &(gGlobalContext.interfaceCtx.heartInnerColor);
+    ColorRGB16* heartBeating = &(gGlobalContext.interfaceCtx.heartbeatInnerColor);
 
     // Double defense heart colors
-    ColorRGB16 *heart_dd = &(gSaveContext.heartDdRgb);
-    ColorRGB16 *heart_dd_beating = &(gSaveContext.heartDdBeatingRgb);
+    ColorRGB16* heartDd = &(gSaveContext.heartDdRgb);
+    ColorRGB16* heartDdBeating = &(gSaveContext.heartDdBeatingRgb);
 
     // This function writes constant values to where the heart colors are stored.
     // It might also do other things.
-    z2_WriteHeartColors(game);
+    z2_WriteHeartColors(ctxt);
 
     // Update heart colors (normal)
     heart->r1 = HUD_COLOR_CONFIG.heart.r;
     heart->g1 = HUD_COLOR_CONFIG.heart.g;
     heart->b1 = HUD_COLOR_CONFIG.heart.b;
-    heart_beating->r = HUD_COLOR_CONFIG.heart.r;
-    heart_beating->g = HUD_COLOR_CONFIG.heart.g;
-    heart_beating->b = HUD_COLOR_CONFIG.heart.b;
+    heartBeating->r = HUD_COLOR_CONFIG.heart.r;
+    heartBeating->g = HUD_COLOR_CONFIG.heart.g;
+    heartBeating->b = HUD_COLOR_CONFIG.heart.b;
 
     // Update heart colors (double defense)
-    heart_dd->r = HUD_COLOR_CONFIG.heart_dd.r;
-    heart_dd->g = HUD_COLOR_CONFIG.heart_dd.g;
-    heart_dd->b = HUD_COLOR_CONFIG.heart_dd.b;
-    heart_dd_beating->r = HUD_COLOR_CONFIG.heart_dd.r;
-    heart_dd_beating->g = HUD_COLOR_CONFIG.heart_dd.g;
-    heart_dd_beating->b = HUD_COLOR_CONFIG.heart_dd.b;
+    heartDd->r = HUD_COLOR_CONFIG.heartDd.r;
+    heartDd->g = HUD_COLOR_CONFIG.heartDd.g;
+    heartDd->b = HUD_COLOR_CONFIG.heartDd.b;
+    heartDdBeating->r = HUD_COLOR_CONFIG.heartDd.r;
+    heartDdBeating->g = HUD_COLOR_CONFIG.heartDd.g;
+    heartDdBeating->b = HUD_COLOR_CONFIG.heartDd.b;
 }
 
 /**
@@ -241,136 +238,136 @@ void hud_colors_update_heart_colors(GlobalContext *game) {
  * Calls original function which writes the colors, then overwrites certain colors with our own
  * (A & C button note colors when used in a song).
  **/
-void hud_colors_update_button_note_colors(GlobalContext *game) {
+void HudColors_UpdateButtonNoteColors(GlobalContext* ctxt) {
     // Call original function.
-    z2_InitButtonNoteColors(game);
+    z2_InitButtonNoteColors(ctxt);
 
     // Write "A" button colors (order in RDRAM is RBG instead of RGB).
-    s16 *a_note_colors = (s16*)0x801F6B0C;
-    a_note_colors[0] = HUD_COLOR_CONFIG.note_a_1.r;
-    a_note_colors[1] = HUD_COLOR_CONFIG.note_a_1.b;
-    a_note_colors[2] = HUD_COLOR_CONFIG.note_a_1.g;
-    a_note_colors[3] = HUD_COLOR_CONFIG.note_a_shadow_1.r;
-    a_note_colors[4] = HUD_COLOR_CONFIG.note_a_shadow_1.g;
-    a_note_colors[5] = HUD_COLOR_CONFIG.note_a_shadow_1.b;
+    s16* aNoteColors = (s16*)0x801F6B0C;
+    aNoteColors[0] = HUD_COLOR_CONFIG.noteA1.r;
+    aNoteColors[1] = HUD_COLOR_CONFIG.noteA1.b;
+    aNoteColors[2] = HUD_COLOR_CONFIG.noteA1.g;
+    aNoteColors[3] = HUD_COLOR_CONFIG.noteAShadow1.r;
+    aNoteColors[4] = HUD_COLOR_CONFIG.noteAShadow1.g;
+    aNoteColors[5] = HUD_COLOR_CONFIG.noteAShadow1.b;
 
     // Write "C" button colors, same ordering as above.
-    s16 *c_note_colors = (s16*)0x801F6B18;
-    c_note_colors[0] = HUD_COLOR_CONFIG.note_c_1.r;
-    c_note_colors[1] = HUD_COLOR_CONFIG.note_c_1.b;
-    c_note_colors[2] = HUD_COLOR_CONFIG.note_c_1.g;
-    c_note_colors[3] = HUD_COLOR_CONFIG.note_c_shadow_1.r;
-    c_note_colors[4] = HUD_COLOR_CONFIG.note_c_shadow_1.g;
-    c_note_colors[5] = HUD_COLOR_CONFIG.note_c_shadow_1.b;
+    s16* cNoteColors = (s16*)0x801F6B18;
+    cNoteColors[0] = HUD_COLOR_CONFIG.noteC1.r;
+    cNoteColors[1] = HUD_COLOR_CONFIG.noteC1.b;
+    cNoteColors[2] = HUD_COLOR_CONFIG.noteC1.g;
+    cNoteColors[3] = HUD_COLOR_CONFIG.noteCShadow1.r;
+    cNoteColors[4] = HUD_COLOR_CONFIG.noteCShadow1.g;
+    cNoteColors[5] = HUD_COLOR_CONFIG.noteCShadow1.b;
 
     // Write "A" button colors used when animating.
-    s16 *a_note_blink = (s16*)0x801D0334;
-    a_note_blink[0] = HUD_COLOR_CONFIG.note_a_1.r;
-    a_note_blink[1] = HUD_COLOR_CONFIG.note_a_1.g;
-    a_note_blink[2] = HUD_COLOR_CONFIG.note_a_1.b;
-    a_note_blink[3] = HUD_COLOR_CONFIG.note_a_2.r;
-    a_note_blink[4] = HUD_COLOR_CONFIG.note_a_2.g;
-    a_note_blink[5] = HUD_COLOR_CONFIG.note_a_2.b;
-    a_note_blink[6] = HUD_COLOR_CONFIG.note_a_shadow_1.r;
-    a_note_blink[7] = HUD_COLOR_CONFIG.note_a_shadow_1.g;
-    a_note_blink[8] = HUD_COLOR_CONFIG.note_a_shadow_1.b;
-    a_note_blink[9] = HUD_COLOR_CONFIG.note_a_shadow_2.r;
-    a_note_blink[10] = HUD_COLOR_CONFIG.note_a_shadow_2.g;
-    a_note_blink[11] = HUD_COLOR_CONFIG.note_a_shadow_2.b;
+    s16* aNoteBlink = (s16*)0x801D0334;
+    aNoteBlink[0] = HUD_COLOR_CONFIG.noteA1.r;
+    aNoteBlink[1] = HUD_COLOR_CONFIG.noteA1.g;
+    aNoteBlink[2] = HUD_COLOR_CONFIG.noteA1.b;
+    aNoteBlink[3] = HUD_COLOR_CONFIG.noteA2.r;
+    aNoteBlink[4] = HUD_COLOR_CONFIG.noteA2.g;
+    aNoteBlink[5] = HUD_COLOR_CONFIG.noteA2.b;
+    aNoteBlink[6] = HUD_COLOR_CONFIG.noteAShadow1.r;
+    aNoteBlink[7] = HUD_COLOR_CONFIG.noteAShadow1.g;
+    aNoteBlink[8] = HUD_COLOR_CONFIG.noteAShadow1.b;
+    aNoteBlink[9] = HUD_COLOR_CONFIG.noteAShadow2.r;
+    aNoteBlink[10] = HUD_COLOR_CONFIG.noteAShadow2.g;
+    aNoteBlink[11] = HUD_COLOR_CONFIG.noteAShadow2.b;
 
     // Write "C" button colors used when animating.
-    s16 *c_note_blink = (s16*)0x801D034C;
-    c_note_blink[0] = HUD_COLOR_CONFIG.note_c_1.r;
-    c_note_blink[1] = HUD_COLOR_CONFIG.note_c_1.g;
-    c_note_blink[2] = HUD_COLOR_CONFIG.note_c_1.b;
-    c_note_blink[3] = HUD_COLOR_CONFIG.note_c_2.r;
-    c_note_blink[4] = HUD_COLOR_CONFIG.note_c_2.g;
-    c_note_blink[5] = HUD_COLOR_CONFIG.note_c_2.b;
-    c_note_blink[6] = HUD_COLOR_CONFIG.note_c_shadow_1.r;
-    c_note_blink[7] = HUD_COLOR_CONFIG.note_c_shadow_1.g;
-    c_note_blink[8] = HUD_COLOR_CONFIG.note_c_shadow_1.b;
-    c_note_blink[9] = HUD_COLOR_CONFIG.note_c_shadow_2.r;
-    c_note_blink[10] = HUD_COLOR_CONFIG.note_c_shadow_2.g;
-    c_note_blink[11] = HUD_COLOR_CONFIG.note_c_shadow_2.b;
+    s16* cNoteBlink = (s16*)0x801D034C;
+    cNoteBlink[0] = HUD_COLOR_CONFIG.noteC1.r;
+    cNoteBlink[1] = HUD_COLOR_CONFIG.noteC1.g;
+    cNoteBlink[2] = HUD_COLOR_CONFIG.noteC1.b;
+    cNoteBlink[3] = HUD_COLOR_CONFIG.noteC2.r;
+    cNoteBlink[4] = HUD_COLOR_CONFIG.noteC2.g;
+    cNoteBlink[5] = HUD_COLOR_CONFIG.noteC2.b;
+    cNoteBlink[6] = HUD_COLOR_CONFIG.noteCShadow1.r;
+    cNoteBlink[7] = HUD_COLOR_CONFIG.noteCShadow1.g;
+    cNoteBlink[8] = HUD_COLOR_CONFIG.noteCShadow1.b;
+    cNoteBlink[9] = HUD_COLOR_CONFIG.noteCShadow2.r;
+    cNoteBlink[10] = HUD_COLOR_CONFIG.noteCShadow2.g;
+    cNoteBlink[11] = HUD_COLOR_CONFIG.noteCShadow2.b;
 }
 
 /**
  * Helper function to update the prompt colors used for messageboxes.
  **/
-static void hud_colors_update_msgbox_prompt_colors(bool initial) {
+static void UpdateMsgboxPromptColors(bool initial) {
     // Update first color used by color cycler.
-    ColorRGB16 *prompt_1 = (ColorRGB16*)0x801CFCD8;
-    prompt_1->r = HUD_COLOR_CONFIG.prompt_1.r;
-    prompt_1->g = HUD_COLOR_CONFIG.prompt_1.g;
-    prompt_1->b = HUD_COLOR_CONFIG.prompt_1.b;
+    ColorRGB16* prompt1 = (ColorRGB16*)0x801CFCD8;
+    prompt1->r = HUD_COLOR_CONFIG.prompt1.r;
+    prompt1->g = HUD_COLOR_CONFIG.prompt1.g;
+    prompt1->b = HUD_COLOR_CONFIG.prompt1.b;
 
     // Update second color used by color cycler.
-    ColorRGB16 *prompt_2 = (ColorRGB16*)0x801CFCDE;
-    prompt_2->r = HUD_COLOR_CONFIG.prompt_2.r;
-    prompt_2->g = HUD_COLOR_CONFIG.prompt_2.g;
-    prompt_2->b = HUD_COLOR_CONFIG.prompt_2.b;
+    ColorRGB16* prompt2 = (ColorRGB16*)0x801CFCDE;
+    prompt2->r = HUD_COLOR_CONFIG.prompt2.r;
+    prompt2->g = HUD_COLOR_CONFIG.prompt2.g;
+    prompt2->b = HUD_COLOR_CONFIG.prompt2.b;
 
     // Update glow color.
-    ColorRGB16 *prompt_glow = (ColorRGB16*)0x801CFCEA;
-    prompt_glow->r = HUD_COLOR_CONFIG.prompt_glow.r;
-    prompt_glow->g = HUD_COLOR_CONFIG.prompt_glow.g;
-    prompt_glow->b = HUD_COLOR_CONFIG.prompt_glow.b;
+    ColorRGB16* promptGlow = (ColorRGB16*)0x801CFCEA;
+    promptGlow->r = HUD_COLOR_CONFIG.promptGlow.r;
+    promptGlow->g = HUD_COLOR_CONFIG.promptGlow.g;
+    promptGlow->b = HUD_COLOR_CONFIG.promptGlow.b;
 
     // Update number cursor colors.
-    ColorRGB16 *number_cursor = (ColorRGB16*)0x801CFD10;
-    rgb8_to_rgb16(&number_cursor[0], HUD_COLOR_CONFIG.prompt_1);
-    rgb8_to_rgb16(&number_cursor[1], HUD_COLOR_CONFIG.prompt_2);
-    rgb8_to_rgb16(&number_cursor[3], HUD_COLOR_CONFIG.prompt_glow);
+    ColorRGB16* numberCursor = (ColorRGB16*)0x801CFD10;
+    ColorTo16(&numberCursor[0], HUD_COLOR_CONFIG.prompt1);
+    ColorTo16(&numberCursor[1], HUD_COLOR_CONFIG.prompt2);
+    ColorTo16(&numberCursor[3], HUD_COLOR_CONFIG.promptGlow);
 
     // Update initial values of color cycler.
     if (initial) {
         // Initial color of message prompt icon when cycled.
-        s16 *prompt_init = (s16*)0x801CFCF0;
-        prompt_init[0] = HUD_COLOR_CONFIG.prompt_1.r;
-        prompt_init[2] = HUD_COLOR_CONFIG.prompt_1.g;
-        prompt_init[4] = HUD_COLOR_CONFIG.prompt_1.b;
+        s16* promptInit = (s16*)0x801CFCF0;
+        promptInit[0] = HUD_COLOR_CONFIG.prompt1.r;
+        promptInit[2] = HUD_COLOR_CONFIG.prompt1.g;
+        promptInit[4] = HUD_COLOR_CONFIG.prompt1.b;
 
         // Initial color of number cursor when cycled.
-        s16 *number_cursor_init = (s16*)0x801CFD28;
-        number_cursor_init[0] = HUD_COLOR_CONFIG.prompt_1.r;
-        number_cursor_init[2] = HUD_COLOR_CONFIG.prompt_1.g;
-        number_cursor_init[4] = HUD_COLOR_CONFIG.prompt_1.b;
+        s16* numberCursorInit = (s16*)0x801CFD28;
+        numberCursorInit[0] = HUD_COLOR_CONFIG.prompt1.r;
+        numberCursorInit[2] = HUD_COLOR_CONFIG.prompt1.g;
+        numberCursorInit[4] = HUD_COLOR_CONFIG.prompt1.b;
     }
 }
 
 /**
  * Helper function for updating the pause menu colors.
  **/
-void hud_colors_update_pause_menu_colors(GlobalContext *game) {
+void HudColors_UpdatePauseMenuColors(GlobalContext* ctxt) {
     // Only try to update colors if kaleido_scope is loaded.
     if (s801D0B70.kaleidoScope.loadedRamAddr != NULL) {
         // Resolve address of colors in kaleido_scope (pause) data.
         u32 vram = 0x808160A0 + 0x158A8;
-        void *addr = reloc_resolve_player_ovl(&s801D0B70.kaleidoScope, vram);
+        void* addr = reloc_resolve_player_ovl(&s801D0B70.kaleidoScope, vram);
         if (addr != NULL) {
             // Update pause menu cursor icon colors.
-            struct pause_cursor_colors *colors = (struct pause_cursor_colors *)addr;
-            rgb8_to_rgb16(&colors->blue_inner_1, HUD_COLOR_CONFIG.menu_a_inner_1);
-            rgb8_to_rgb16(&colors->blue_inner_2, HUD_COLOR_CONFIG.menu_a_inner_2);
-            rgb8_to_rgb16(&colors->blue_outer_1, HUD_COLOR_CONFIG.menu_a_outer_1);
-            rgb8_to_rgb16(&colors->blue_outer_2, HUD_COLOR_CONFIG.menu_a_outer_2);
-            rgb8_to_rgb16(&colors->yellow_inner_1, HUD_COLOR_CONFIG.menu_c_inner_1);
-            rgb8_to_rgb16(&colors->yellow_inner_2, HUD_COLOR_CONFIG.menu_c_inner_2);
-            rgb8_to_rgb16(&colors->yellow_outer_1, HUD_COLOR_CONFIG.menu_c_outer_1);
-            rgb8_to_rgb16(&colors->yellow_outer_2, HUD_COLOR_CONFIG.menu_c_outer_2);
+            struct PauseCursorColors* colors = (struct PauseCursorColors*)addr;
+            ColorTo16(&colors->blueInner1, HUD_COLOR_CONFIG.menuAInner1);
+            ColorTo16(&colors->blueInner2, HUD_COLOR_CONFIG.menuAInner2);
+            ColorTo16(&colors->blueOuter1, HUD_COLOR_CONFIG.menuAOuter1);
+            ColorTo16(&colors->blueOuter2, HUD_COLOR_CONFIG.menuAOuter2);
+            ColorTo16(&colors->yellowInner1, HUD_COLOR_CONFIG.menuCInner1);
+            ColorTo16(&colors->yellowInner2, HUD_COLOR_CONFIG.menuCInner2);
+            ColorTo16(&colors->yellowOuter1, HUD_COLOR_CONFIG.menuCOuter1);
+            ColorTo16(&colors->yellowOuter2, HUD_COLOR_CONFIG.menuCOuter2);
         }
 
-        u8 *bg_dlist = (u8*)game->pauseCtx.bgDList;
-        if (bg_dlist != NULL) {
+        u8* bgDList = (u8*)ctxt->pauseCtx.bgDList;
+        if (bgDList != NULL) {
             // Update pause menu subtitle icon colors.
-            ColorRGBA8 *subtitle_c = (ColorRGBA8*)(bg_dlist + 0x13C);
-            ColorRGBA8 *subtitle_a = (ColorRGBA8*)(bg_dlist + 0x194);
-            subtitle_a->r = HUD_COLOR_CONFIG.pause_title_a.r;
-            subtitle_a->g = HUD_COLOR_CONFIG.pause_title_a.g;
-            subtitle_a->b = HUD_COLOR_CONFIG.pause_title_a.b;
-            subtitle_c->r = HUD_COLOR_CONFIG.pause_title_c.r;
-            subtitle_c->g = HUD_COLOR_CONFIG.pause_title_c.g;
-            subtitle_c->b = HUD_COLOR_CONFIG.pause_title_c.b;
+            ColorRGBA8* subtitleC = (ColorRGBA8*)(bgDList + 0x13C);
+            ColorRGBA8* subtitleA = (ColorRGBA8*)(bgDList + 0x194);
+            subtitleA->r = HUD_COLOR_CONFIG.pauseTitleA.r;
+            subtitleA->g = HUD_COLOR_CONFIG.pauseTitleA.g;
+            subtitleA->b = HUD_COLOR_CONFIG.pauseTitleA.b;
+            subtitleC->r = HUD_COLOR_CONFIG.pauseTitleC.r;
+            subtitleC->g = HUD_COLOR_CONFIG.pauseTitleC.g;
+            subtitleC->b = HUD_COLOR_CONFIG.pauseTitleC.b;
         }
     }
 }
@@ -378,56 +375,55 @@ void hud_colors_update_pause_menu_colors(GlobalContext *game) {
 /**
  * Helper function for updating the colors of button icons in text.
  **/
-static void hud_colors_update_text_button_icon_colors(void) {
-    ColorRGB16 *icon_a = (ColorRGB16 *)0x801D0848;
-    ColorRGB16 *icon_b = (ColorRGB16 *)0x801D0842;
-    ColorRGB16 *icon_c = (ColorRGB16 *)0x801D084E;
-    rgb8_to_rgb16(icon_a, HUD_COLOR_CONFIG.button_icon_a);
-    rgb8_to_rgb16(icon_b, HUD_COLOR_CONFIG.button_icon_b);
-    rgb8_to_rgb16(icon_c, HUD_COLOR_CONFIG.button_icon_c);
+static void UpdateTextButtonIconColors(void) {
+    ColorRGB16* iconA = (ColorRGB16 *)0x801D0848;
+    ColorRGB16* iconB = (ColorRGB16 *)0x801D0842;
+    ColorRGB16* iconC = (ColorRGB16 *)0x801D084E;
+    ColorTo16(iconA, HUD_COLOR_CONFIG.buttonIconA);
+    ColorTo16(iconB, HUD_COLOR_CONFIG.buttonIconB);
+    ColorTo16(iconC, HUD_COLOR_CONFIG.buttonIconC);
 }
 
-static void update_rupee_colors(u16 *rupee_colors) {
+static void UpdateRupeeColors(u16* rupeeColors) {
     for (int i = 0; i < 3; i++) {
         int idx = i * 3;
-        rupee_colors[idx] = HUD_COLOR_CONFIG.rupee[i].r;
-        rupee_colors[idx + 1] = HUD_COLOR_CONFIG.rupee[i].g;
-        rupee_colors[idx + 2] = HUD_COLOR_CONFIG.rupee[i].b;
+        rupeeColors[idx] = HUD_COLOR_CONFIG.rupee[i].r;
+        rupeeColors[idx + 1] = HUD_COLOR_CONFIG.rupee[i].g;
+        rupeeColors[idx + 2] = HUD_COLOR_CONFIG.rupee[i].b;
     }
 }
 
-void hud_colors_init(void) {
-    u16 *rupee_colors = (u16 *)0x801BFD2C;
-    // The rupee colors never seem to get modified, so just update them once
-    update_rupee_colors(rupee_colors);
+void HudColors_Init(void) {
+    u16* rupeeColors = (u16*)0x801BFD2C;
+    // The rupee colors never seem to get modified, so just update them once.
+    UpdateRupeeColors(rupeeColors);
     // Update the message prompt colors.
-    hud_colors_update_msgbox_prompt_colors(true);
+    UpdateMsgboxPromptColors(true);
     // Update the text button icon colors.
-    hud_colors_update_text_button_icon_colors();
+    UpdateTextButtonIconColors();
 }
 
-void hud_colors_main_menu_init(void) {
+void HudColors_FileChooseInit(void) {
     FileChooseData* data = ResolveFileChooseData();
-    // Update rupee colors
-    update_rupee_colors(data->rupeeColors);
-
-    // Update hearts colors
+    // Update rupee colors.
+    UpdateRupeeColors(data->rupeeColors);
+    // Update hearts colors.
     data->lifeColor[0].r = HUD_COLOR_CONFIG.heart.r;
     data->lifeColor[0].g = HUD_COLOR_CONFIG.heart.g;
     data->lifeColor[0].b = HUD_COLOR_CONFIG.heart.b;
-    data->lifeColor[1].r = HUD_COLOR_CONFIG.heart_dd.r;
-    data->lifeColor[1].g = HUD_COLOR_CONFIG.heart_dd.g;
-    data->lifeColor[1].b = HUD_COLOR_CONFIG.heart_dd.b;
+    data->lifeColor[1].r = HUD_COLOR_CONFIG.heartDd.r;
+    data->lifeColor[1].g = HUD_COLOR_CONFIG.heartDd.g;
+    data->lifeColor[1].b = HUD_COLOR_CONFIG.heartDd.b;
 }
 
 /**
  * Hook function called to write song score lines color to RDRAM.
  **/
-void hud_colors_update_score_lines_color(GlobalContext *game) {
+void HudColors_UpdateScoreLinesColor(GlobalContext* ctxt) {
     // Update song score lines color.
-    game->msgCtx.scoreLineColor.r = HUD_COLOR_CONFIG.score_lines.r;
-    game->msgCtx.scoreLineColor.g = HUD_COLOR_CONFIG.score_lines.g;
-    game->msgCtx.scoreLineColor.b = HUD_COLOR_CONFIG.score_lines.b;
+    ctxt->msgCtx.scoreLineColor.r = HUD_COLOR_CONFIG.scoreLines.r;
+    ctxt->msgCtx.scoreLineColor.g = HUD_COLOR_CONFIG.scoreLines.g;
+    ctxt->msgCtx.scoreLineColor.b = HUD_COLOR_CONFIG.scoreLines.b;
 }
 
 /**
@@ -439,8 +435,8 @@ void HudColors_WriteShopCursorColor(Actor *actor, u32 *output, u32 amountBits, u
     // Build array of RGB values.
     u32 colors1[3], colors2[3];
     for (int i = 0; i < 3; i++) {
-        colors1[i] = HUD_COLOR_CONFIG.shop_cursor_1.bytes[i];
-        colors2[i] = HUD_COLOR_CONFIG.shop_cursor_2.bytes[i];
+        colors1[i] = HUD_COLOR_CONFIG.shopCursor1.bytes[i];
+        colors2[i] = HUD_COLOR_CONFIG.shopCursor2.bytes[i];
     }
     // Calculate individual color values for RGB.
     for (int i = 0; i < 3; i++) {
