@@ -1,7 +1,7 @@
 #ifndef ITEMS_H
 #define ITEMS_H
 
-enum custom_item {
+enum CustomItem {
     // Non-progressive upgrades
     Z2_TYCOONS_WALLET     = 0xA4,
     Z2_STICK_UPGRADE_20   = 0xA5,

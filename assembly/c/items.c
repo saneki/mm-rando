@@ -6,7 +6,7 @@
 /**
  * Helper function used to process receiving a custom item.
  **/
-static void items_handle_custom_item(GlobalContext *game, u8 item) {
+static void HandleCustomItem(GlobalContext* ctxt, u8 item) {
     if (item == Z2_ICE_TRAP) {
         Icetrap_PushPending();
     }
@@ -17,11 +17,11 @@ static void items_handle_custom_item(GlobalContext *game, u8 item) {
  *
  * Used to add items into quest storage.
  **/
-void items_after_receive(GlobalContext *game, u8 item) {
+void Items_AfterReceive(GlobalContext* ctxt, u8 item) {
     // Handle receival quest item.
     quest_items_after_receive(item);
     // Handle custom items.
-    items_handle_custom_item(game, item);
+    HandleCustomItem(ctxt, item);
 }
 
 /**
@@ -29,7 +29,7 @@ void items_after_receive(GlobalContext *game, u8 item) {
  *
  * Used to remove items from quest storage and cycle to the next storage item in the inventory.
  **/
-void items_after_removal(s16 item, s16 slot) {
+void Items_AfterRemoval(s16 item, s16 slot) {
     // Handle removal of quest item.
     quest_items_after_removal((u8)item, (u8)slot);
 }

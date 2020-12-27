@@ -1,4 +1,4 @@
-items_after_receive_hook:
+Items_AfterReceive_Hook:
     lw      a0, 0x0000 (sp)
     lw      a1, 0x0004 (sp)
     andi    a1, a1, 0x00FF
@@ -6,7 +6,7 @@ items_after_receive_hook:
     addiu   sp, sp, -0x18
     sw      ra, 0x0010 (sp)
 
-    jal     items_after_receive
+    jal     Items_AfterReceive
     sw      v0, 0x0014 (sp)
 
     lw      ra, 0x0010 (sp)
@@ -15,13 +15,13 @@ items_after_receive_hook:
     jr      ra
     addiu   sp, sp, 0x18
 
-items_after_removal_hook:
+Items_AfterRemoval_Hook:
     lw      a0, 0x0000 (sp)
 
-    j       items_after_removal
+    j       Items_AfterRemoval
     lw      a1, 0x0004 (sp)
 
-items_should_try_write_to_inventory_hook:
+Items_ShouldTryWriteToInventory_Hook:
     ; Displaced code
     lbu     t8, 0x0047 (sp)
     addiu   t0, t0, 0xF670
