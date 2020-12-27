@@ -10,6 +10,6 @@
 ;   andi    t2, t1, 0x0001
 ;   beqz    t2, 0x80B950CC
 .org 0x80B95074
-    jal     mikau_should_activate_beach_cutscene_hook
+    jal     Mikau_ShouldActivateBeachCutscene_Hook
     lw      a1, 0x0054 (sp) ;; A1 = GlobalContext.
     beqz    t2, 0x80B950CC
