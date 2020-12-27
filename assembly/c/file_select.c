@@ -99,8 +99,8 @@ static void UpdateTextures(void* buf, int count, int length, u32 hash) {
     }
 }
 
-static void UpdateTexturesFromSprite(sprite_t* sprite, int count, u32 hash) {
-    int tilelen = sprite_bytes_per_tile(sprite);
+static void UpdateTexturesFromSprite(Sprite* sprite, int count, u32 hash) {
+    int tilelen = Sprite_GetBytesPerTile(sprite);
     UpdateTextures(sprite->buf, count, tilelen, hash);
 }
 
@@ -110,7 +110,7 @@ void FileSelect_HookAfterCtor(GlobalContext* ctxt) {
     // Clear data relevant to save file (including quest item storage).
     save_file_clear();
     // Write icon textures
-    sprite_t* sprite = gfx_get_item_textures_sprite();
+    Sprite* sprite = Sprite_GetItemTexturesSprite();
     if (sprite->buf != NULL) {
         u32 hash = MISC_CONFIG.hash.value;
         UpdateTexturesFromSprite(sprite, gIconCount, hash);
@@ -130,7 +130,7 @@ void FileSelect_BeforeDraw(GlobalContext* ctxt) {
     z2_RngInt();
 
     // When pressing Z, update file hash to random new value
-    sprite_t *sprite = gfx_get_item_textures_sprite();
+    Sprite* sprite = Sprite_GetItemTexturesSprite();
     struct misc_config *config = misc_get_config();
     z2_pad_t pad_pressed = ctxt->state.input[0].pad_pressed;
     if (pad_pressed.z && config->draw_hash && sprite->buf != NULL) {
@@ -152,16 +152,16 @@ void FileSelect_DrawHash(GlobalContext* ctxt) {
         DispBuf* db = &ctxt->state.gfxCtx->polyOpa;
 
         // Call setup display list
-        gSPDisplayList(db->p++, &setup_db);
+        gSPDisplayList(db->p++, &gSetupDb);
 
         gDPPipeSync(db->p++);
         gDPSetCombineMode(db->p++, G_CC_MODULATEIA_PRIM, G_CC_MODULATEIA_PRIM);
         gDPSetPrimColor(db->p++, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
 
-        sprite_t* sprite = gfx_get_item_textures_sprite();
+        Sprite* sprite = Sprite_GetItemTexturesSprite();
         for (int i = 0; i < gIconCount; i++) {
-            sprite_load(db, sprite, i, 1);
-            sprite_draw(db, sprite, 0, left, top, iconSize, iconSize);
+            Sprite_Load(db, sprite, i, 1);
+            Sprite_Draw(db, sprite, 0, left, top, iconSize, iconSize);
             left += iconSize + padding;
         }
     }

@@ -3,32 +3,29 @@
 
 #include "z2.h"
 
-extern Gfx setup_db[];
+extern Gfx gSetupDb[];
 
 typedef struct {
     u8 *buf;
-    u16 tile_w;
-    u16 tile_h;
-    u16 tile_count;
-    u8 im_fmt;
-    u8 im_siz;
-    u8 bytes_per_texel;
-} sprite_t;
+    u16 tileW;
+    u16 tileH;
+    u16 tileCount;
+    u8 imFmt;
+    u8 imSiz;
+    u8 bytesPerTexel;
+} Sprite;
 
-//sprite_t items_sprite;
-extern sprite_t dpad_sprite;
-extern sprite_t font_sprite;
-extern sprite_t icon_sprite;
-extern sprite_t icon_24_sprite;
-extern sprite_t fairy_sprite;
+extern Sprite gSpriteDpad;
+extern Sprite gSpriteFont;
+extern Sprite gSpriteIcon;
+extern Sprite gSpriteIcon24;
+extern Sprite gSpriteFairy;
 
-void gfx_init();
-sprite_t* gfx_get_item_textures_sprite(void);
-
-int sprite_bytes_per_tile(sprite_t *sprite);
-void sprite_load(DispBuf *db, sprite_t *sprite,
-        int start_tile, int tile_count);
-void sprite_draw(DispBuf *db, sprite_t *sprite, int tile_index,
-        int left, int top, int width, int height);
+void Sprite_Draw(DispBuf* db, Sprite* sprite, int tileIndex, int left, int top, int width, int height);
+int Sprite_GetBytesTotal(Sprite* sprite);
+int Sprite_GetBytesPerTile(Sprite *sprite);
+Sprite* Sprite_GetItemTexturesSprite(void);
+void Sprite_Init(void);
+void Sprite_Load(DispBuf* db, Sprite* sprite, int startTile, int tileCount);
 
 #endif // GFX_H
