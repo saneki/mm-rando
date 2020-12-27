@@ -109,9 +109,9 @@ static void models_draw_from_gi_table(Actor *actor, GlobalContext *game, f32 sca
  * parameter.
  **/
 static bool models_set_loaded_actor_model(struct model *model, Actor *actor, GlobalContext *game, u16 gi_index) {
-    if (!loaded_models_get_actor_model(model, NULL, actor)) {
+    if (!LoadedModels_GetActorModel(model, NULL, actor)) {
         mmr_gi_t *entry = models_prepare_gi_entry(model, game, gi_index, true);
-        loaded_models_add_actor_model(*model, entry, actor);
+        LoadedModels_AddActorModel(*model, entry, actor);
         return true;
     } else {
         return false;
@@ -258,7 +258,7 @@ void models_before_stray_fairy_main(Actor *actor, GlobalContext *game) {
         struct model model;
         u16 gi_index = models_get_stray_fairy_gi_index(actor, game);
         models_set_loaded_actor_model(&model, actor, game, gi_index);
-        if (loaded_models_get_actor_model(&model, (void**)&entry, actor)) {
+        if (LoadedModels_GetActorModel(&model, (void**)&entry, actor)) {
             // Check that we are not drawing a stray fairy.
             if (!models_is_stray_fairy_model(model)) {
                 // Rotate at the same speed of a Heart Piece actor.
@@ -280,7 +280,7 @@ bool models_draw_stray_fairy(Actor *actor, GlobalContext *game) {
         struct model model;
         u16 gi_index = models_get_stray_fairy_gi_index(actor, game);
         models_set_loaded_actor_model(&model, actor, game, gi_index);
-        if (!loaded_models_get_actor_model(&model, (void**)&entry, actor)) {
+        if (!LoadedModels_GetActorModel(&model, (void**)&entry, actor)) {
             return false;
         }
 
@@ -520,7 +520,7 @@ void models_draw_shop_inventory(ActorEnGirlA *actor, GlobalContext *game, u32 gr
 void models_after_actor_dtor(Actor *actor) {
     if (MISC_CONFIG.freestanding) {
         if (actor->id == Z2_ACTOR_EN_ELFORG) {
-            loaded_models_remove_actor_model(actor);
+            LoadedModels_RemoveActorModel(actor);
         }
     }
 }

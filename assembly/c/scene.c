@@ -12,5 +12,5 @@ void scene_after_init(GlobalContext *game) {
     // Clear the models object heap
     models_clear_object_heap();
     // Clear loaded actor model info
-    loaded_models_clear_actor_models();
+    LoadedModels_ClearActorModels();
 }
