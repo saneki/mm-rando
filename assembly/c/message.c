@@ -2,100 +2,100 @@
 #include "z2.h"
 #include "mmr.h"
 
-typedef struct string {
-    char *value;
+typedef struct String {
+    char* value;
     u16 length;
-} string;
+} String;
 
 typedef struct {
-    string name;
-    string description;
-    string article; // I sell Bombchu. I sell a Recovery Heart. I sell the Song of Storms. I sell an Empty Bottle.
-    string pronoun; // I'll buy it. I'll buy them.
-    string amount; // 150 Rupees for it. What about for 100 Rupees? 150 Rupees for one. What about one for 100 Rupees?
-    string verb; // Do you know what Bombchu are? Do you know what a Recovery Heart is?
-} item_info_t;
+    String name;
+    String description;
+    String article; // I sell Bombchu. I sell a Recovery Heart. I sell the Song of Storms. I sell an Empty Bottle.
+    String pronoun; // I'll buy it. I'll buy them.
+    String amount; // 150 Rupees for it. What about for 100 Rupees? 150 Rupees for one. What about one for 100 Rupees?
+    String verb; // Do you know what Bombchu are? Do you know what a Recovery Heart is?
+} ItemInfo;
 
-struct message_extension_state {
-    bool is_wrapping;
-    s8 last_space_index;
-    f32 last_space_cursor_position;
+struct MessageExtensionState {
+    bool isWrapping;
+    s8 lastSpaceIndex;
+    f32 lastSpaceCursorPosition;
 
-    item_info_t recovery_heart;
-    item_info_t red_potion;
-    item_info_t chateau_romani;
-    item_info_t milk;
-    item_info_t gold_dust;
+    ItemInfo recoveryHeart;
+    ItemInfo redPotion;
+    ItemInfo chateauRomani;
+    ItemInfo milk;
+    ItemInfo goldDust;
 
-    item_info_t sword_kokiri;
-    item_info_t sword_razor;
-    item_info_t sword_gilded;
+    ItemInfo swordKokiri;
+    ItemInfo swordRazor;
+    ItemInfo swordGilded;
 
-    item_info_t magic_small;
-    item_info_t magic_large;
+    ItemInfo magicSmall;
+    ItemInfo magicLarge;
 
-    item_info_t wallet_adult;
-    item_info_t wallet_giant;
+    ItemInfo walletAdult;
+    ItemInfo walletGiant;
 
-    item_info_t bomb_bag_small;
-    item_info_t bomb_bag_big;
-    item_info_t bomb_bag_biggest;
+    ItemInfo bombBagSmall;
+    ItemInfo bombBagBig;
+    ItemInfo bombBagBiggest;
 
-    item_info_t quiver_small;
-    item_info_t quiver_large;
-    item_info_t quiver_largest;
+    ItemInfo quiverSmall;
+    ItemInfo quiverLarge;
+    ItemInfo quiverLargest;
 
-    s8 current_char;
-    char *current_replacement;
-    u16 current_replacement_length;
+    s8 currentChar;
+    char* currentReplacement;
+    u16 currentReplacementLength;
 };
 
-const string article_indefinite = {
+const String articleIndefinite = {
     .value = "a ", // intentional trailing space.
     .length = 2,
 };
 
-const string article_indefinite_vowel = {
+const String articleIndefiniteVowel = {
     .value = "an ", // intentional trailing space.
     .length = 3,
 };
 
-const string article_definite = {
+const String articleDefinite = {
     .value = "the ", // intentional trailing space.
     .length = 4,
 };
 
-const string article_empty = {
+const String articleEmpty = {
     .value = "",
     .length = 0,
 };
 
-const string pronoun_singular = {
+const String pronounSingular = {
     .value = "it",
     .length = 2,
 };
 
-const string amount_singular = {
+const String amountSingular = {
     .value = " one", // intentional leading space.
     .length = 4,
 };
 
-const string amount_definite = {
+const String amountDefinite = {
     .value = " it", // intentional leading space.
     .length = 3,
 };
 
-const string verb_singular = {
+const String verbSingular = {
     .value = "is",
     .length = 2,
 };
 
-static struct message_extension_state g_message_extension_state = {
-    .is_wrapping = false,
-    .last_space_index = -1,
-    .last_space_cursor_position = 0,
+static struct MessageExtensionState gMessageExtensionState = {
+    .isWrapping = false,
+    .lastSpaceIndex = -1,
+    .lastSpaceCursorPosition = 0,
 
-    .recovery_heart = {
+    .recoveryHeart = {
         .name = {
             .value = "Recovery Heart",
             .length = 14,
@@ -104,38 +104,32 @@ static struct message_extension_state g_message_extension_state = {
             .value = "Replenishes a small amount of your life energy.",
             .length = 47,
         },
-        .article = article_indefinite,
-        .pronoun = pronoun_singular,
-        .amount = amount_singular,
-        .verb = verb_singular,
+        .article = articleIndefinite,
+        .pronoun = pronounSingular,
+        .amount = amountSingular,
+        .verb = verbSingular,
     },
 
-    .red_potion = {
+    .redPotion = {
         .name = {
             .value = "Red Potion",
             .length = 10,
         },
-        // .description = {
-
-        // },
-        .article = article_indefinite,
-        .pronoun = pronoun_singular,
-        .amount = amount_singular,
-        .verb = verb_singular,
+        .article = articleIndefinite,
+        .pronoun = pronounSingular,
+        .amount = amountSingular,
+        .verb = verbSingular,
     },
 
-    .chateau_romani = {
+    .chateauRomani = {
         .name = {
             .value = "Chateau Romani",
             .length = 14,
         },
-        // .description = {
-
-        // },
-        .article = article_empty,
-        .pronoun = pronoun_singular,
-        .amount = amount_definite,
-        .verb = verb_singular,
+        .article = articleEmpty,
+        .pronoun = pronounSingular,
+        .amount = amountDefinite,
+        .verb = verbSingular,
     },
 
     .milk = {
@@ -143,30 +137,24 @@ static struct message_extension_state g_message_extension_state = {
             .value = "Milk",
             .length = 4,
         },
-        // .description = {
-
-        // },
-        .article = article_empty,
-        .pronoun = pronoun_singular,
-        .amount = amount_definite,
-        .verb = verb_singular,
+        .article = articleEmpty,
+        .pronoun = pronounSingular,
+        .amount = amountDefinite,
+        .verb = verbSingular,
     },
 
-    .gold_dust = {
+    .goldDust = {
         .name = {
             .value = "Gold Dust",
             .length = 9,
         },
-        // .description = {
-
-        // },
-        .article = article_empty,
-        .pronoun = pronoun_singular,
-        .amount = amount_definite,
-        .verb = verb_singular,
+        .article = articleEmpty,
+        .pronoun = pronounSingular,
+        .amount = amountDefinite,
+        .verb = verbSingular,
     },
 
-    .sword_kokiri = {
+    .swordKokiri = {
         .name = {
             .value = "Kokiri Sword",
             .length = 12,
@@ -175,12 +163,12 @@ static struct message_extension_state g_message_extension_state = {
             .value = "A sword created by forest folk.",
             .length = 31,
         },
-        .article = article_indefinite,
-        .pronoun = pronoun_singular,
-        .amount = amount_singular,
-        .verb = verb_singular,
+        .article = articleIndefinite,
+        .pronoun = pronounSingular,
+        .amount = amountSingular,
+        .verb = verbSingular,
     },
-    .sword_razor = {
+    .swordRazor = {
         .name = {
             .value = "Razor Sword",
             .length = 11,
@@ -189,12 +177,12 @@ static struct message_extension_state g_message_extension_state = {
             .value = "A sharp sword forged at the smithy.",
             .length = 35,
         },
-        .article = article_indefinite,
-        .pronoun = pronoun_singular,
-        .amount = amount_singular,
-        .verb = verb_singular,
+        .article = articleIndefinite,
+        .pronoun = pronounSingular,
+        .amount = amountSingular,
+        .verb = verbSingular,
     },
-    .sword_gilded = {
+    .swordGilded = {
         .name = {
             .value = "Gilded Sword",
             .length = 14,
@@ -203,13 +191,13 @@ static struct message_extension_state g_message_extension_state = {
             .value = "A very sharp sword forged from gold dust.",
             .length = 41,
         },
-        .article = article_indefinite,
-        .pronoun = pronoun_singular,
-        .amount = amount_singular,
-        .verb = verb_singular,
+        .article = articleIndefinite,
+        .pronoun = pronounSingular,
+        .amount = amountSingular,
+        .verb = verbSingular,
     },
 
-    .magic_small = {
+    .magicSmall = {
         .name = {
             .value = "Magic Power",
             .length = 11,
@@ -218,12 +206,12 @@ static struct message_extension_state g_message_extension_state = {
             .value = "Grants the ability to use magic.",
             .length = 32,
         },
-        .article = article_empty,
-        .pronoun = pronoun_singular,
-        .amount = amount_definite,
-        .verb = verb_singular,
+        .article = articleEmpty,
+        .pronoun = pronounSingular,
+        .amount = amountDefinite,
+        .verb = verbSingular,
     },
-    .magic_large = {
+    .magicLarge = {
         .name = {
             .value = "Extended Magic Power",
             .length = 20,
@@ -232,13 +220,13 @@ static struct message_extension_state g_message_extension_state = {
             .value = "Grants the ability to use lots of magic.",
             .length = 40,
         },
-        .article = article_empty,
-        .pronoun = pronoun_singular,
-        .amount = amount_definite,
-        .verb = verb_singular,
+        .article = articleEmpty,
+        .pronoun = pronounSingular,
+        .amount = amountDefinite,
+        .verb = verbSingular,
     },
 
-    .wallet_adult = {
+    .walletAdult = {
         .name = {
             .value = "Adult Wallet",
             .length = 12,
@@ -247,12 +235,12 @@ static struct message_extension_state g_message_extension_state = {
             .value = "This can hold up to a maximum of 200 rupees.",
             .length = 44,
         },
-        .article = article_indefinite_vowel,
-        .pronoun = pronoun_singular,
-        .amount = amount_singular,
-        .verb = verb_singular,
+        .article = articleIndefiniteVowel,
+        .pronoun = pronounSingular,
+        .amount = amountSingular,
+        .verb = verbSingular,
     },
-    .wallet_giant = {
+    .walletGiant = {
         .name = {
             .value = "Giant Wallet",
             .length = 12,
@@ -261,13 +249,13 @@ static struct message_extension_state g_message_extension_state = {
             .value = "This can hold up to a maximum of 500 rupees.",
             .length = 44,
         },
-        .article = article_indefinite,
-        .pronoun = pronoun_singular,
-        .amount = amount_singular,
-        .verb = verb_singular,
+        .article = articleIndefinite,
+        .pronoun = pronounSingular,
+        .amount = amountSingular,
+        .verb = verbSingular,
     },
 
-    .bomb_bag_small = {
+    .bombBagSmall = {
         .name = {
             .value = "Bomb Bag",
             .length = 8,
@@ -276,12 +264,12 @@ static struct message_extension_state g_message_extension_state = {
             .value = "This can hold up to a maximum of 20 bombs.",
             .length = 42,
         },
-        .article = article_indefinite,
-        .pronoun = pronoun_singular,
-        .amount = amount_singular,
-        .verb = verb_singular,
+        .article = articleIndefinite,
+        .pronoun = pronounSingular,
+        .amount = amountSingular,
+        .verb = verbSingular,
     },
-    .bomb_bag_big = {
+    .bombBagBig = {
         .name = {
             .value = "Big Bomb Bag",
             .length = 12,
@@ -290,12 +278,12 @@ static struct message_extension_state g_message_extension_state = {
             .value = "This can hold up to a maximum of 30 bombs.",
             .length = 42,
         },
-        .article = article_indefinite,
-        .pronoun = pronoun_singular,
-        .amount = amount_singular,
-        .verb = verb_singular,
+        .article = articleIndefinite,
+        .pronoun = pronounSingular,
+        .amount = amountSingular,
+        .verb = verbSingular,
     },
-    .bomb_bag_biggest = {
+    .bombBagBiggest = {
         .name = {
             .value = "Biggest Bomb Bag",
             .length = 16,
@@ -304,13 +292,13 @@ static struct message_extension_state g_message_extension_state = {
             .value = "This can hold up to a maximum of 40 bombs.",
             .length = 42,
         },
-        .article = article_definite,
-        .pronoun = pronoun_singular,
-        .amount = amount_definite,
-        .verb = verb_singular,
+        .article = articleDefinite,
+        .pronoun = pronounSingular,
+        .amount = amountDefinite,
+        .verb = verbSingular,
     },
 
-    .quiver_small = {
+    .quiverSmall = {
         .name = {
             .value = "Hero's Bow",
             .length = 10,
@@ -319,12 +307,12 @@ static struct message_extension_state g_message_extension_state = {
             .value = "Use it to shoot arrows.",
             .length = 23,
         },
-        .article = article_indefinite,
-        .pronoun = pronoun_singular,
-        .amount = amount_singular,
-        .verb = verb_singular,
+        .article = articleIndefinite,
+        .pronoun = pronounSingular,
+        .amount = amountSingular,
+        .verb = verbSingular,
     },
-    .quiver_large = {
+    .quiverLarge = {
         .name = {
             .value = "Large Quiver",
             .length = 12,
@@ -333,12 +321,12 @@ static struct message_extension_state g_message_extension_state = {
             .value = "This can hold up to a maximum of 40 arrows.",
             .length = 43,
         },
-        .article = article_indefinite,
-        .pronoun = pronoun_singular,
-        .amount = amount_singular,
-        .verb = verb_singular,
+        .article = articleIndefinite,
+        .pronoun = pronounSingular,
+        .amount = amountSingular,
+        .verb = verbSingular,
     },
-    .quiver_largest = {
+    .quiverLargest = {
         .name = {
             .value = "Largest Quiver",
             .length = 14,
@@ -347,68 +335,70 @@ static struct message_extension_state g_message_extension_state = {
             .value = "This can hold up to a maximum of 50 arrows.",
             .length = 47,
         },
-        .article = article_definite,
-        .pronoun = pronoun_singular,
-        .amount = amount_definite,
-        .verb = verb_singular,
+        .article = articleDefinite,
+        .pronoun = pronounSingular,
+        .amount = amountDefinite,
+        .verb = verbSingular,
     },
 
-    .current_char = -1,
-    .current_replacement_length = 0,
+    .currentChar = -1,
+    .currentReplacementLength = 0,
 };
 
-typedef struct message_character_process_variables_s {
-    u8               unk_0x00[0x0020];               /* 0x0000 */
-    f64              f20;                            /* 0x0020 */
-    f64              f22;                            /* 0x0028 */
-    f64              f24;                            /* 0x0030 */
-    f64              f26;                            /* 0x0038 */
-    u32              s0;                             /* 0x0040 */
-    u32              s1;                             /* 0x0044 */
-    u32              s2;                             /* 0x0048 */
-    u32              s3;                             /* 0x004C */
-    u32              s4;                             /* 0x0050 */ // global context
-    u32              s5;                             /* 0x0054 */
-    u32              s6;                             /* 0x0058 */
-    u32              s7;                             /* 0x005C */
-    u32              fp;                             /* 0x0060 */
-    u32              return_address;                 /* 0x0064 */
-    u8               unk_0x68[0x0008];               /* 0x0068 */
-    u32              msgbox_ctxt;                    /* 0x0070 */
-    u8               unk_0x74[0x0030];               /* 0x0074 */
-    f32              cursor_position;                /* 0x00A4 */
-    u8               unk_0xA8[0x0014];               /* 0x00A8 */
-    u32              unk_0xBC;                       /* 0x00BC */
-    u8               unk_0xC0[0x0006];               /* 0x00C0 */
-    u8               number_of_new_lines;            /* 0x00C6 */
-    u8               unk_0xC7[0x0007];               /* 0x00C7 */
-    u16              unk_0xCE;                       /* 0x00CE */
-    s16              number_of_new_lines_2;          /* 0x00D0 */
-    u8               unk_0xD2[0x0008];               /* 0x00D2 */
-    s16              output_index;                   /* 0x00DA */
-    u32              link_actor;                     /* 0x00DC */
-    u32              s3_2;                           /* 0x00E0 */
-} message_character_process_variables_t;
+// Slice of hooked function's stack frame, any pointers may not be valid.
+typedef struct {
+    /* 0x00 */ UNK_TYPE1 pad0[0x20];
+    /* 0x20 */ f64 unk20;
+    /* 0x28 */ f64 unk28;
+    /* 0x30 */ f64 unk30;
+    /* 0x38 */ f64 unk38;
+    /* 0x40 */ u32 s0;
+    /* 0x44 */ u32 s1;
+    /* 0x48 */ u32 s2;
+    /* 0x4C */ u32 s3;
+    /* 0x50 */ GlobalContext* s4;
+    /* 0x54 */ u32 s5;
+    /* 0x58 */ u32 s6;
+    /* 0x5C */ u32 s7;
+    /* 0x60 */ u32 fp;
+    /* 0x64 */ void* returnAddress;
+    /* 0x68 */ UNK_TYPE1 pad68[0x8];
+    /* 0x70 */ MessageContext* msgCtx;
+    /* 0x74 */ UNK_TYPE1 pad74[0x30];
+    /* 0xA4 */ f32 cursorPosition;
+    /* 0xA8 */ UNK_TYPE1 padA8[0x14];
+    /* 0xBC */ u32 unkBC;
+    /* 0xC0 */ UNK_TYPE1 padC0[0x6];
+    /* 0xC6 */ u8 numberOfNewLines;
+    /* 0xC7 */ UNK_TYPE1 padC7[0x7];
+    /* 0xCE */ u16 unkCE;
+    /* 0xD0 */ s16 numberOfNewLines2;
+    /* 0xD2 */ UNK_TYPE1 padD2[0x8];
+    /* 0xDA */ s16 outputIndex;
+    /* 0xDC */ ActorPlayer* player;
+    /* 0xE0 */ u32 unkE0;
+    /* 0xE4 */ UNK_TYPE1 unkE4[0x4];
+} MessageCharacterProcessVariables; // size = 0xE8
 
-void check_text_wrapping(GlobalContext *game, message_character_process_variables_t *args, u8 current_character) {
-    if (g_message_extension_state.is_wrapping) {
-        if (current_character == 0x20) {
-            // set last_space_index
-            g_message_extension_state.last_space_index = args->output_index;
-            // set last_space_cursor_position
-            g_message_extension_state.last_space_cursor_position = args->cursor_position;
+static void CheckTextWrapping(GlobalContext* ctxt, MessageCharacterProcessVariables *args, u8 currentCharacter) {
+    if (gMessageExtensionState.isWrapping) {
+        if (currentCharacter == 0x20) {
+            // set lastSpaceIndex
+            gMessageExtensionState.lastSpaceIndex = args->outputIndex;
+            // set lastSpaceCursorPosition
+            gMessageExtensionState.lastSpaceCursorPosition = args->cursorPosition;
         } else {
-            // if cursor_position > 200 // just a guess at line length
-            if (args->cursor_position > 200 && g_message_extension_state.last_space_index >= 0) {
-                // replace character at last_space_index with 0x11
-                game->msgCtx.currentMessageDisplayed[g_message_extension_state.last_space_index] = 0x11;
-                // add one to number_of_new_lines
-                args->number_of_new_lines_2++;
-                // subtract last_space_cursor_position from cursor_position
-                args->cursor_position -= g_message_extension_state.last_space_cursor_position;
-                g_message_extension_state.last_space_index = -1;
-                g_message_extension_state.last_space_cursor_position = 0;
-                // TODO subtract the width of a space from cursor_position
+            // if cursorPosition > 200 // just a guess at line length
+            if (args->cursorPosition > 200 && gMessageExtensionState.lastSpaceIndex >= 0) {
+                // replace character at lastSpaceIndex with 0x11
+                ctxt->msgCtx.currentMessageDisplayed[gMessageExtensionState.lastSpaceIndex] = 0x11;
+                // add one to numberOfNewLines
+                args->numberOfNewLines2++;
+                // subtract lastSpaceCursorPosition from cursorPosition
+                args->cursorPosition -= gMessageExtensionState.lastSpaceCursorPosition;
+                gMessageExtensionState.lastSpaceIndex = -1;
+                gMessageExtensionState.lastSpaceCursorPosition = 0;
+                // TODO subtract the width of a space from cursorPosition
             }
         }
     }
@@ -417,139 +407,139 @@ void check_text_wrapping(GlobalContext *game, message_character_process_variable
 /**
  * TODO
  **/
-u8 before_message_character_process(GlobalContext *game, message_character_process_variables_t *args) {
-    u16 index = game->msgCtx.currentMessageCharIndex;
-    u8 current_character = game->msgCtx.currentMessageRaw[index];
-    if (current_character == 0x09) {
+u8 Message_BeforeCharacterProcess(GlobalContext* ctxt, MessageCharacterProcessVariables* args) {
+    u16 index = ctxt->msgCtx.currentMessageCharIndex;
+    u8 currentCharacter = ctxt->msgCtx.currentMessageRaw[index];
+    if (currentCharacter == 0x09) {
         index++;
-        current_character = game->msgCtx.currentMessageRaw[index];
-        if (current_character == 0x03 || current_character == 0x04 || current_character == 0x05 || current_character == 0x06 || current_character == 0x07 || current_character == 0x08) {
-            if (g_message_extension_state.current_char == -1) {
+        currentCharacter = ctxt->msgCtx.currentMessageRaw[index];
+        if (currentCharacter == 0x03 || currentCharacter == 0x04 || currentCharacter == 0x05 || currentCharacter == 0x06 || currentCharacter == 0x07 || currentCharacter == 0x08) {
+            if (gMessageExtensionState.currentChar == -1) {
                 index++;
-                u32 gi_index = game->msgCtx.currentMessageRaw[index] << 8;
+                u32 giIndex = ctxt->msgCtx.currentMessageRaw[index] << 8;
                 index++;
-                gi_index |= game->msgCtx.currentMessageRaw[index];
-                u32 new_gi_index = mmr_GetNewGiIndex(game, 0, gi_index, false);
-                if (new_gi_index != gi_index) {
-                    item_info_t item;
-                    bool item_set = true;
-                    if (new_gi_index == 0x0A) {
-                        item = g_message_extension_state.recovery_heart;
-                    } else if (new_gi_index == 0x5B) {
-                        item = g_message_extension_state.red_potion;
-                    } else if (new_gi_index == 0x91) {
-                        item = g_message_extension_state.chateau_romani;
-                    } else if (new_gi_index == 0x92) {
-                        item = g_message_extension_state.milk;
-                    } else if (new_gi_index == 0x93) {
-                        item = g_message_extension_state.gold_dust;
-                    } else if (new_gi_index == MMR_CONFIG.location_sword_kokiri) {
-                        item = g_message_extension_state.sword_kokiri;
-                    } else if (new_gi_index == MMR_CONFIG.location_sword_razor) {
-                        item = g_message_extension_state.sword_razor;
-                    } else if (new_gi_index == MMR_CONFIG.location_sword_gilded) {
-                        item = g_message_extension_state.sword_gilded;
-                    } else if (new_gi_index == MMR_CONFIG.location_magic_small) {
-                        item = g_message_extension_state.magic_small;
-                    } else if (new_gi_index == MMR_CONFIG.location_magic_large) {
-                        item = g_message_extension_state.magic_large;
-                    } else if (new_gi_index == MMR_CONFIG.location_wallet_adult) {
-                        item = g_message_extension_state.wallet_adult;
-                    } else if (new_gi_index == MMR_CONFIG.location_wallet_giant) {
-                        item = g_message_extension_state.wallet_giant;
-                    } else if (new_gi_index == MMR_CONFIG.location_bomb_bag_small) {
-                        item = g_message_extension_state.bomb_bag_small;
-                    } else if (new_gi_index == MMR_CONFIG.location_bomb_bag_big) {
-                        item = g_message_extension_state.bomb_bag_big;
-                    } else if (new_gi_index == MMR_CONFIG.location_bomb_bag_biggest) {
-                        item = g_message_extension_state.bomb_bag_biggest;
-                    } else if (new_gi_index == MMR_CONFIG.location_quiver_small) {
-                        item = g_message_extension_state.quiver_small;
-                    } else if (new_gi_index == MMR_CONFIG.location_quiver_large) {
-                        item = g_message_extension_state.quiver_large;
-                    } else if (new_gi_index == MMR_CONFIG.location_quiver_largest) {
-                        item = g_message_extension_state.quiver_largest;
+                giIndex |= ctxt->msgCtx.currentMessageRaw[index];
+                u32 newGiIndex = mmr_GetNewGiIndex(ctxt, 0, giIndex, false);
+                if (newGiIndex != giIndex) {
+                    ItemInfo item;
+                    bool itemSet = true;
+                    if (newGiIndex == 0x0A) {
+                        item = gMessageExtensionState.recoveryHeart;
+                    } else if (newGiIndex == 0x5B) {
+                        item = gMessageExtensionState.redPotion;
+                    } else if (newGiIndex == 0x91) {
+                        item = gMessageExtensionState.chateauRomani;
+                    } else if (newGiIndex == 0x92) {
+                        item = gMessageExtensionState.milk;
+                    } else if (newGiIndex == 0x93) {
+                        item = gMessageExtensionState.goldDust;
+                    } else if (newGiIndex == MMR_CONFIG.location_sword_kokiri) {
+                        item = gMessageExtensionState.swordKokiri;
+                    } else if (newGiIndex == MMR_CONFIG.location_sword_razor) {
+                        item = gMessageExtensionState.swordRazor;
+                    } else if (newGiIndex == MMR_CONFIG.location_sword_gilded) {
+                        item = gMessageExtensionState.swordGilded;
+                    } else if (newGiIndex == MMR_CONFIG.location_magic_small) {
+                        item = gMessageExtensionState.magicSmall;
+                    } else if (newGiIndex == MMR_CONFIG.location_magic_large) {
+                        item = gMessageExtensionState.magicLarge;
+                    } else if (newGiIndex == MMR_CONFIG.location_wallet_adult) {
+                        item = gMessageExtensionState.walletAdult;
+                    } else if (newGiIndex == MMR_CONFIG.location_wallet_giant) {
+                        item = gMessageExtensionState.walletGiant;
+                    } else if (newGiIndex == MMR_CONFIG.location_bomb_bag_small) {
+                        item = gMessageExtensionState.bombBagSmall;
+                    } else if (newGiIndex == MMR_CONFIG.location_bomb_bag_big) {
+                        item = gMessageExtensionState.bombBagBig;
+                    } else if (newGiIndex == MMR_CONFIG.location_bomb_bag_biggest) {
+                        item = gMessageExtensionState.bombBagBiggest;
+                    } else if (newGiIndex == MMR_CONFIG.location_quiver_small) {
+                        item = gMessageExtensionState.quiverSmall;
+                    } else if (newGiIndex == MMR_CONFIG.location_quiver_large) {
+                        item = gMessageExtensionState.quiverLarge;
+                    } else if (newGiIndex == MMR_CONFIG.location_quiver_largest) {
+                        item = gMessageExtensionState.quiverLargest;
                     } else {
-                        item_set = false;
+                        itemSet = false;
                     }
 
-                    if (item_set) {
-                        g_message_extension_state.current_char = 0;
-                        if (current_character == 0x03) {
-                            g_message_extension_state.current_replacement = item.name.value;
-                            g_message_extension_state.current_replacement_length = item.name.length;
-                        } else if (current_character == 0x04) {
-                            g_message_extension_state.current_replacement = item.description.value;
-                            g_message_extension_state.current_replacement_length = item.description.length;
-                        } else if (current_character == 0x05) {
-                            g_message_extension_state.current_replacement = item.article.value;
-                            g_message_extension_state.current_replacement_length = item.article.length;
-                        } else if (current_character == 0x06) {
-                            g_message_extension_state.current_replacement = item.pronoun.value;
-                            g_message_extension_state.current_replacement_length = item.pronoun.length;
-                        } else if (current_character == 0x07) {
-                            g_message_extension_state.current_replacement = item.amount.value;
-                            g_message_extension_state.current_replacement_length = item.amount.length;
-                        } else if (current_character == 0x08) {
-                            g_message_extension_state.current_replacement = item.verb.value;
-                            g_message_extension_state.current_replacement_length = item.verb.length;
+                    if (itemSet) {
+                        gMessageExtensionState.currentChar = 0;
+                        if (currentCharacter == 0x03) {
+                            gMessageExtensionState.currentReplacement = item.name.value;
+                            gMessageExtensionState.currentReplacementLength = item.name.length;
+                        } else if (currentCharacter == 0x04) {
+                            gMessageExtensionState.currentReplacement = item.description.value;
+                            gMessageExtensionState.currentReplacementLength = item.description.length;
+                        } else if (currentCharacter == 0x05) {
+                            gMessageExtensionState.currentReplacement = item.article.value;
+                            gMessageExtensionState.currentReplacementLength = item.article.length;
+                        } else if (currentCharacter == 0x06) {
+                            gMessageExtensionState.currentReplacement = item.pronoun.value;
+                            gMessageExtensionState.currentReplacementLength = item.pronoun.length;
+                        } else if (currentCharacter == 0x07) {
+                            gMessageExtensionState.currentReplacement = item.amount.value;
+                            gMessageExtensionState.currentReplacementLength = item.amount.length;
+                        } else if (currentCharacter == 0x08) {
+                            gMessageExtensionState.currentReplacement = item.verb.value;
+                            gMessageExtensionState.currentReplacementLength = item.verb.length;
                         } else {
                             // error?
                         }
                     }
                 }
-                if (g_message_extension_state.current_char == -1) {
-                    args->output_index--;
-                    game->msgCtx.currentMessageCharIndex = index;
+                if (gMessageExtensionState.currentChar == -1) {
+                    args->outputIndex--;
+                    ctxt->msgCtx.currentMessageCharIndex = index;
                     return -1;
                 }
             }
-            if (g_message_extension_state.current_char < g_message_extension_state.current_replacement_length) {
-                game->msgCtx.currentMessageCharIndex--;
-                current_character = g_message_extension_state.current_replacement[g_message_extension_state.current_char++];
+            if (gMessageExtensionState.currentChar < gMessageExtensionState.currentReplacementLength) {
+                ctxt->msgCtx.currentMessageCharIndex--;
+                currentCharacter = gMessageExtensionState.currentReplacement[gMessageExtensionState.currentChar++];
 
-                check_text_wrapping(game, args, current_character);
+                CheckTextWrapping(ctxt, args, currentCharacter);
 
-                game->msgCtx.currentMessageDisplayed[args->output_index] = current_character;
-                return current_character;
+                ctxt->msgCtx.currentMessageDisplayed[args->outputIndex] = currentCharacter;
+                return currentCharacter;
             }
-            g_message_extension_state.current_char = -1;
-            current_character = 0x01;
+            gMessageExtensionState.currentChar = -1;
+            currentCharacter = 0x01;
         }
 
-        if (current_character == 0x01) {
+        if (currentCharacter == 0x01) {
             // check gi-index and skip until end command if item has been received before
             index++;
-            u32 gi_index = game->msgCtx.currentMessageRaw[index] << 8;
+            u32 giIndex = ctxt->msgCtx.currentMessageRaw[index] << 8;
             index++;
-            gi_index |= game->msgCtx.currentMessageRaw[index];
-            u32 new_gi_index = mmr_GetNewGiIndex(game, 0, gi_index, false);
-            if (gi_index != new_gi_index) {
+            giIndex |= ctxt->msgCtx.currentMessageRaw[index];
+            u32 newGiIndex = mmr_GetNewGiIndex(ctxt, 0, giIndex, false);
+            if (giIndex != newGiIndex) {
                 do {
                     index++;
-                    current_character = game->msgCtx.currentMessageRaw[index];
-                } while (current_character != 0x09 || game->msgCtx.currentMessageRaw[index+1] != 0x02);
+                    currentCharacter = ctxt->msgCtx.currentMessageRaw[index];
+                } while (currentCharacter != 0x09 || ctxt->msgCtx.currentMessageRaw[index+1] != 0x02);
                 index++;
             }
-        } else if (current_character == 0x02) {
+        } else if (currentCharacter == 0x02) {
             // end command
             // does nothing by itself
-        } else if (current_character == 0x11) { // begin auto text wrapping
-            g_message_extension_state.is_wrapping = true;
-        } else if (current_character == 0x12) { // end auto text wrapping
-            g_message_extension_state.is_wrapping = false;
-            g_message_extension_state.last_space_index = -1;
-            g_message_extension_state.last_space_cursor_position = 0;
+        } else if (currentCharacter == 0x11) { // begin auto text wrapping
+            gMessageExtensionState.isWrapping = true;
+        } else if (currentCharacter == 0x12) { // end auto text wrapping
+            gMessageExtensionState.isWrapping = false;
+            gMessageExtensionState.lastSpaceIndex = -1;
+            gMessageExtensionState.lastSpaceCursorPosition = 0;
         } else {
             index--;
         }
-        args->output_index--;
-        game->msgCtx.currentMessageCharIndex = index;
+        args->outputIndex--;
+        ctxt->msgCtx.currentMessageCharIndex = index;
         return -1;
     }
     
-    check_text_wrapping(game, args, current_character);
+    CheckTextWrapping(ctxt, args, currentCharacter);
 
-    game->msgCtx.currentMessageDisplayed[args->output_index] = current_character;
-    return current_character;
+    ctxt->msgCtx.currentMessageDisplayed[args->outputIndex] = currentCharacter;
+    return currentCharacter;
 }

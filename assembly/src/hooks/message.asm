@@ -17,7 +17,7 @@
 ;   SB S2 0x1F24 (T8)
 .org 0x8015B27C
     or      a0, s4, r0
-    jal     before_message_character_process
+    jal     Message_BeforeCharacterProcess
     or      a1, sp, r0
     addiu   at, r0, 0x00FF
     beq     v0, at, 0x8015E6E4
