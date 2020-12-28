@@ -87,7 +87,7 @@ static const struct ArrowInfo* GetNextInfo(u16 variable) {
  **/
 static bool CallArrowActorCtor(Actor* arrow, GlobalContext* ctxt) {
     ActorOverlay* ovl = &gActorOverlayTable[Z2_ACTOR_EN_ARROW];
-    ActorInit* init = reloc_resolve_actor_init(ovl);
+    ActorInit* init = Reloc_ResolveActorInit(ovl);
     if (init != NULL && init->init != NULL) {
         init->destroy(arrow, ctxt);
         init->init(arrow, ctxt);

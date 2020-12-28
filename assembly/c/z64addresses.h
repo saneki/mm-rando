@@ -156,23 +156,6 @@
 /* Function Addresses (Text) */
 #define z2_ShowMessage_addr              0x801518B0
 
-/* Relocatable Functions (Pause Menu) */
-#define z2_PauseDrawItemIcon_vram        0x80821AD4
-
-/* Relocatable Functions (Player Actor) */
-#define z2_LinkDamage_vram               0x80833B18
-#define z2_LinkInvincibility_vram        0x80833998
-#define z2_UseItem_vram                  0x80831990
-
-#define z2_PerformEnterWaterEffects_vram 0x8083B8D0
-#define z2_PlayerHandleBuoyancy_vram     0x808475B4
-
-/* Relocatable Types (VRAM) */
-#define FileChooseDataVRAM               0x80813DF0
-
-typedef void (*z2_PerformEnterWaterEffects_proc)(GlobalContext *game, ActorPlayer *link);
-typedef void (*z2_PlayerHandleBuoyancy_proc)(ActorPlayer *link);
-
 /* Function Prototypes */
 typedef int (*z2_CanInteract_proc)(GlobalContext *game);
 typedef int (*z2_CanInteract2_proc)(GlobalContext *game, ActorPlayer *link);
@@ -181,13 +164,10 @@ typedef void (*z2_DrawBButtonIcon_proc)(GlobalContext *game);
 typedef void (*z2_DrawCButtonIcons_proc)(GlobalContext *game);
 typedef u32 (*z2_GetFloorPhysicsType_proc)(void *arg0, void *arg1, u8 arg2);
 typedef f32* (*z2_GetMatrixStackTop_proc)();
-typedef void (*z2_LinkDamage_proc)(GlobalContext *game, ActorPlayer *link, u32 type, u32 arg3);
-typedef void (*z2_LinkInvincibility_proc)(ActorPlayer *link, u8 frames);
 typedef void (*z2_PlaySfx_proc)(u32 id);
 typedef Actor* (*z2_SpawnActor_proc)(ActorContext *actor_ctx, GlobalContext *game, u16 id,
                                           f32 x, f32 y, f32 z, u16 rx, u16 ry, u16 rz, u16 variable);
 typedef void (*z2_UpdateButtonUsability_proc)(GlobalContext *game);
-typedef void (*z2_UseItem_proc)(GlobalContext *game, ActorPlayer *link, u8 item);
 typedef void (*z2_WriteHeartColors_proc)(GlobalContext *game);
 typedef void (*z2_RemoveItem_proc)(u32 item, u8 slot);
 typedef void (*z2_ToggleSfxDampen_proc)(int enable);
@@ -277,9 +257,6 @@ typedef s8 (*z2_GetObjectIndex_proc)(const SceneContext *ctxt, u16 object_id);
 
 /* Function Prototypes (OS) */
 typedef void (*z2_memcpy_proc)(void *dest, const void *src, size_t size);
-
-/* Function Prototypes (Pause Menu) */
-typedef void (*z2_PauseDrawItemIcon_proc)(GraphicsContext *gfx, u32 seg_addr, u16 width, u16 height, u16 quad_vtx_idx);
 
 /* Function Prototypes (RNG) */
 typedef u32 (*z2_RngInt_proc)();
@@ -410,5 +387,28 @@ typedef void (*z2_ShowMessage_proc)(GlobalContext *game, u16 message_id, u8 some
 
 /* Functions (Text) */
 #define z2_ShowMessage                   ((z2_ShowMessage_proc)           z2_ShowMessage_addr)
+
+// Relocatable Functions (kaleido_scope).
+#define z2_PauseDrawItemIcon_VRAM        0x80821AD4
+
+// Relocatable Functions (player_actor).
+#define z2_LinkDamage_VRAM               0x80833B18
+#define z2_LinkInvincibility_VRAM        0x80833998
+#define z2_PerformEnterWaterEffects_VRAM 0x8083B8D0
+#define z2_PlayerHandleBuoyancy_VRAM     0x808475B4
+#define z2_UseItem_VRAM                  0x80831990
+
+// Relocatable Types (file_choose).
+#define FileChooseDataVRAM               0x80813DF0
+
+// Function Prototypes (Relocatable kaleido_scope functions).
+typedef void (*z2_PauseDrawItemIcon_Func)(GraphicsContext* gfx, u32 segAddr, u16 width, u16 height, u16 quadVtxIdx);
+
+// Function Prototypes (Relocatable player_actor functions).
+typedef void (*z2_LinkDamage_Func)(GlobalContext* ctxt, ActorPlayer* player, u32 type, u32 arg3);
+typedef void (*z2_LinkInvincibility_Func)(ActorPlayer* player, u8 frames);
+typedef void (*z2_PerformEnterWaterEffects_Func)(GlobalContext* ctxt, ActorPlayer* player);
+typedef void (*z2_PlayerHandleBuoyancy_Func)(ActorPlayer* player);
+typedef void (*z2_UseItem_Func)(GlobalContext* ctxt, ActorPlayer* player, u8 item);
 
 #endif // _Z64ADDRESSES_H_
