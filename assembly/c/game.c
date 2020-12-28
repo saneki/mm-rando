@@ -5,5 +5,5 @@
  * Hook function called after game processes next frame.
  **/
 void game_after_update(GlobalContext *game) {
-    overlay_menu_draw(game);
+    OverlayMenu_Draw(game);
 }
