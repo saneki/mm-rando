@@ -14,7 +14,7 @@
 .org 0x80132994
     sw      a1, 0x0024 (sp)
     addiu   a1, r0, 0x002D
-    jal     quest_items_door_check_hook
+    jal     QuestItems_DoorCheck_Hook
     or      a2, t6, r0
     bnez    t0, 0x801329F8
 
@@ -28,7 +28,7 @@
 .org 0x801329B8
     sw      a1, 0x0024 (sp)
     addiu   a1, r0, 0x002F
-    jal     quest_items_door_check_hook
+    jal     QuestItems_DoorCheck_Hook
     or      a2, t8, r0
     bnez    t0, 0x801329F8
 
@@ -49,7 +49,7 @@
 .org 0x80ACA86C
     or      a1, a2, r0
     addiu   a2, r0, 0x002D
-    jal     quest_items_time_tag_check_hook
+    jal     QuestItems_TimeTagCheck_Hook
     or      a3, t7, r0
     or      a2, a1, r0
     bnez    v0, 0x80ACA998
@@ -69,7 +69,7 @@
 ;   bne     a0, t3, 0x8010B8D8
 .org 0x8010B8B8
     sw      ra, 0x0008 (sp)
-    jal     quest_items_fix_trade_prompt_hook
+    jal     QuestItems_FixTradePrompt_Hook
     or      a1, t0, t1
     lw      ra, 0x0008 (sp)
     beqz    v0, 0x8010B8D8
@@ -94,13 +94,13 @@
 .org 0x80144390
 .area 0x24
     addiu   a0, r0, 0x0005
-    jal     quest_items_clear_inventory_item_sot
+    jal     QuestItems_ClearInventoryItemSot
     addiu   a1, r0, 0x0005
     addiu   a0, r0, 0x000B
-    jal     quest_items_clear_inventory_item_sot
+    jal     QuestItems_ClearInventoryItemSot
     addiu   a1, r0, 0x000B
     addiu   a0, r0, 0x0011
-    jal     quest_items_clear_inventory_item_sot
+    jal     QuestItems_ClearInventoryItemSot
     addiu   a1, r0, 0x0011
 .endarea
 
@@ -115,7 +115,7 @@
 ; Replaces:
 ;   jal     0x801149A0
 .org 0x8010BC60
-    jal     quest_items_try_remove_item
+    jal     QuestItems_TryRemoveItem
 
 ;==================================================================================================
 ; Quest Item Removal (Hand in Toilet)
@@ -127,34 +127,34 @@
 ; Replaces:
 ;   jal     0x801149A0
 .org 0x80BFD468
-    jal     quest_items_try_remove_item
+    jal     QuestItems_TryRemoveItem
 
 ; Handle removal of Swamp Title Deed.
 ; Replaces:
 ;   jal     0x801149A0
 .org 0x80BFD480
-    jal     quest_items_try_remove_item
+    jal     QuestItems_TryRemoveItem
 
 ; Handle removal of Mountain Title Deed.
 ; Replaces:
 ;   jal     0x801149A0
 .org 0x80BFD498
-    jal     quest_items_try_remove_item
+    jal     QuestItems_TryRemoveItem
 
 ; Handle removal of Ocean Title Deed.
 ; Replaces:
 ;   jal     0x801149A0
 .org 0x80BFD4B0
-    jal     quest_items_try_remove_item
+    jal     QuestItems_TryRemoveItem
 
 ; Handle removal of Town Title Deed.
 ; Replaces:
 ;   jal     0x801149A0
 .org 0x80BFD4C8
-    jal     quest_items_try_remove_item
+    jal     QuestItems_TryRemoveItem
 
 ; Handle removal of Letter to Mama.
 ; Replaces:
 ;   jal     0x801149A0
 .org 0x80BFD4E0
-    jal     quest_items_try_remove_item
+    jal     QuestItems_TryRemoveItem

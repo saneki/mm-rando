@@ -19,7 +19,7 @@ static void HandleCustomItem(GlobalContext* ctxt, u8 item) {
  **/
 void Items_AfterReceive(GlobalContext* ctxt, u8 item) {
     // Handle receival quest item.
-    quest_items_after_receive(item);
+    QuestItems_AfterReceive(item);
     // Handle custom items.
     HandleCustomItem(ctxt, item);
 }
@@ -31,5 +31,5 @@ void Items_AfterReceive(GlobalContext* ctxt, u8 item) {
  **/
 void Items_AfterRemoval(s16 item, s16 slot) {
     // Handle removal of quest item.
-    quest_items_after_removal((u8)item, (u8)slot);
+    QuestItems_AfterRemoval((u8)item, (u8)slot);
 }

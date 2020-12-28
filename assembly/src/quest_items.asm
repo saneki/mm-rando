@@ -1,8 +1,8 @@
-quest_items_door_check_hook:
+QuestItems_DoorCheck_Hook:
     addiu   sp, sp, -0x18
     sw      ra, 0x0010 (sp)
 
-    jal     quest_items_door_check
+    jal     QuestItems_DoorCheck
     sw      a0, 0x0014 (sp)
 
     lw      ra, 0x0010 (sp)
@@ -20,12 +20,12 @@ quest_items_door_check_hook:
     jr      ra
     addiu   sp, sp, 0x18
 
-quest_items_time_tag_check_hook:
+QuestItems_TimeTagCheck_Hook:
     addiu   sp, sp, -0x20
     sw      ra, 0x0010 (sp)
     sw      a0, 0x0014 (sp)
 
-    jal     quest_items_time_tag_check
+    jal     QuestItems_TimeTagCheck
     sw      a1, 0x0018 (sp)
 
     lw      ra, 0x0010 (sp)
@@ -35,7 +35,7 @@ quest_items_time_tag_check_hook:
     jr      ra
     addiu   sp, sp, 0x20
 
-quest_items_fix_trade_prompt_hook:
+QuestItems_FixTradePrompt_Hook:
     ; Displaced code
     sll     a1, a1, 16
 
@@ -48,7 +48,7 @@ quest_items_fix_trade_prompt_hook:
     or      a2, a0, r0
     lw      a0, 0x0020 (sp)
     lw      a1, 0x0024 (sp)
-    jal     quest_items_fix_trade_prompt
+    jal     QuestItems_FixTradePrompt
     or      a3, t2, r0
 
     lw      a1, 0x0010 (sp)

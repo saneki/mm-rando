@@ -73,7 +73,7 @@ static void CycleQuestItem(GlobalContext* ctxt, u8 item, u8 slot) {
 
 static bool IsQuestItemInCorrectSlot(u8 item, int slot) {
     int cell;
-    return quest_items_get_slot(&cell, item) && cell == slot;
+    return QuestItems_GetSlot(&cell, item) && cell == slot;
 }
 
 static bool IsQuestItemWithStorageSelected(GlobalContext* ctxt) {
@@ -82,7 +82,7 @@ static bool IsQuestItemWithStorageSelected(GlobalContext* ctxt) {
     u8 item = gSaveContext.perm.inv.items[cell];
 
     // Check if on a quest item slot.
-    bool quest = IS_QUEST_SLOT(cell);
+    bool quest = QuestItems_IsQuestSlot(cell);
 
     // Verify we are in the right cell for this item.
     bool correctSlot = IsQuestItemInCorrectSlot(item, cell);

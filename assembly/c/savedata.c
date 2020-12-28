@@ -22,7 +22,7 @@ void savedata_after_load(GlobalContext *game, Camera *camera, SaveContext *file,
  * Hook function called after savedata prepared (inventory & flags cleared via Song of Time).
  **/
 void savedata_after_prepare(GlobalContext *game) {
-    quest_items_after_song_of_time_clear();
+    QuestItems_AfterSongOfTimeClear();
 }
 
 /**
