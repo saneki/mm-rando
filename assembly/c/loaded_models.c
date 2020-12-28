@@ -5,7 +5,7 @@
 #define LOADED_ACTOR_MODEL_SLOTS 8
 
 struct LoadedActorModel {
-    struct model model;
+    struct Model model;
     bool used;
     s16 id;
     u16 variable;
@@ -21,7 +21,7 @@ static void ClearActorModel(struct LoadedActorModel* loaded) {
     loaded->extra = NULL;
 }
 
-bool LoadedModels_GetActorModel(struct model* model, void** extra, Actor* actor) {
+bool LoadedModels_GetActorModel(struct Model* model, void** extra, Actor* actor) {
     for (int i = 0; i < LOADED_ACTOR_MODEL_SLOTS; i++) {
         struct LoadedActorModel loaded = gLoadedActorModels[i];
         if (loaded.used && loaded.id == actor->id && loaded.variable == actor->params) {
@@ -37,7 +37,7 @@ bool LoadedModels_GetActorModel(struct model* model, void** extra, Actor* actor)
     return false;
 }
 
-bool LoadedModels_AddActorModel(struct model model, void* extra, Actor* actor) {
+bool LoadedModels_AddActorModel(struct Model model, void* extra, Actor* actor) {
     for (int i = 0; i < LOADED_ACTOR_MODEL_SLOTS; i++) {
         struct LoadedActorModel* loaded = &gLoadedActorModels[i];
         if (!loaded->used) {

@@ -9,7 +9,7 @@ void Actor_AfterDtor(Actor *actor, GlobalContext *ctxt) {
     // Free any Actor Extended data this actor may point to.
     ActorExt_AfterActorDtor(actor);
     // Unload actor model information after dtor.
-    models_after_actor_dtor(actor);
+    Models_AfterActorDtor(actor);
 }
 
 Actor* Actor_Spawn(GlobalContext *ctxt, u8 id, Vec3f pos, Vec3s rot, u16 params) {
