@@ -4,10 +4,10 @@
 #include "z2.h"
 
 // Whether or not the overlay menu is enabled.
-static bool g_enable = true;
+static bool gEnable = true;
 
 // Gold Skulltula HUD icon.
-static Sprite skulltula_icon = {
+static Sprite gSkulltulaIcon = {
     NULL, 24, 18, 1,
     G_IM_FMT_RGBA, G_IM_SIZ_32b, 4
 };
@@ -16,21 +16,23 @@ static Sprite skulltula_icon = {
 u8 TOWN_FAIRY_BYTES[0xC00] = { 0 };
 
 // Clock Town stray fairy icon.
-static Sprite town_fairy_icon = {
+static Sprite gTownFairyIcon = {
     TOWN_FAIRY_BYTES, 32, 24, 1,
     G_IM_FMT_RGBA, G_IM_SIZ_32b, 4
 };
 
-struct dungeon_entry {
+struct DungeonEntry {
     u8 index;
     u8 remains;
-    u8 is_dungeon;
-    u8 has_fairies;
-    u8 has_tokens;
+    u8 isDungeon;
+    u8 hasFairies;
+    u8 hasTokens;
     char name[9];
 };
 
-static struct dungeon_entry dungeons[7] = {
+static int gDungeonCount = 7;
+
+static struct DungeonEntry gDungeons[7] = {
     { 0, 0x5D, 1, 1, 0, "Woodfall" },
     { 1, 0x5E, 1, 1, 0, "Snowhead" },
     { 2, 0x5F, 1, 1, 0, "GreatBay" },
@@ -40,12 +42,10 @@ static struct dungeon_entry dungeons[7] = {
     { 6, 0,    0, 0, 2, "Ocean" },
 };
 
-static int g_dungeon_count = 7;
-
 /**
  * Get text for a specific amount, with a limited digit count (1 or 2).
  **/
-static void get_count_text(int amount, char *c, int digits) {
+static void GetCountText(int amount, char* c, int digits) {
     if (digits == 1) {
         // Get text for 1 digit, max of 9.
         if (amount > 9) {
@@ -69,78 +69,77 @@ static void get_count_text(int amount, char *c, int digits) {
 /**
  * Whether or not the player has boss remains for a specific dungeon index.
  **/
-static bool has_remains(u8 index) {
+static bool HasRemains(u8 index) {
     return (gSaveContext.perm.inv.questStatus.value & (1 << index)) != 0;
 }
 
 /**
  * Whether or not the overlay menu should display.
  **/
-static bool overlay_menu_should_draw(GlobalContext *game) {
-    return game->pauseCtx.state == 6 &&
-        game->pauseCtx.switchingScreen == 0 &&
-        (game->pauseCtx.screenIndex == 0 || game->pauseCtx.screenIndex == 3) &&
-        (game->state.input[0].current.buttons.l || game->state.input[0].current.buttons.du);
+static bool ShouldDraw(GlobalContext* ctxt) {
+    return ctxt->pauseCtx.state == 6 &&
+        ctxt->pauseCtx.switchingScreen == 0 &&
+        (ctxt->pauseCtx.screenIndex == 0 || ctxt->pauseCtx.screenIndex == 3) &&
+        (ctxt->state.input[0].current.buttons.l || ctxt->state.input[0].current.buttons.du);
 }
 
 /**
  * Try to draw overlay menu.
  **/
-void overlay_menu_draw(GlobalContext *game) {
-    if (!g_enable || !overlay_menu_should_draw(game)) {
+void OverlayMenu_Draw(GlobalContext* ctxt) {
+    if (!gEnable || !ShouldDraw(ctxt)) {
         return;
     }
 
-    DispBuf *db = &(game->state.gfxCtx->overlay);
+    DispBuf *db = &ctxt->state.gfxCtx->overlay;
     db->p = db->buf;
 
     // Call setup display list.
     gSPDisplayList(db->p++, &gSetupDb);
 
     // General variables.
-    int icon_size = 16;
+    int iconSize = 16;
     int padding = 1;
     int rows = 10;
 
     // Background rectangle.
-    int bg_width =
-        (7 * icon_size) + 4 +
+    int bgWidth =
+        (7 * iconSize) + 4 +
         (9 * gSpriteFont.tileW) +
         (9 * padding);
-    int bg_height = (rows * icon_size) + ((rows + 1) * padding);
-    int bg_left = (Z2_SCREEN_WIDTH - bg_width) / 2;
-    int bg_top = (Z2_SCREEN_HEIGHT - bg_height) / 2;
+    int bgHeight = (rows * iconSize) + ((rows + 1) * padding);
+    int bgLeft = (Z2_SCREEN_WIDTH - bgWidth) / 2;
+    int bgTop = (Z2_SCREEN_HEIGHT - bgHeight) / 2;
 
     // Left & top starting positions for drawing columns.
-    int left = bg_left + padding;
-    int start_top = bg_top + padding;
+    int left = bgLeft + padding;
+    int startTop = bgTop + padding;
 
     // Update sprite pointers.
-    gSpriteIcon.buf = game->pauseCtx.iconItemStatic;
-    gSpriteIcon24.buf = game->pauseCtx.iconItem24;
-    // icon_map_sprite.buf = game->pauseCtx.iconItemMap;
-    skulltula_icon.buf = (u8*)game->interfaceCtx.parameterStatic +0x31E0;
+    gSpriteIcon.buf = ctxt->pauseCtx.iconItemStatic;
+    gSpriteIcon24.buf = ctxt->pauseCtx.iconItem24;
+    gSkulltulaIcon.buf = (u8*)ctxt->interfaceCtx.parameterStatic +0x31E0;
 
     // Draw background.
     gDPSetCombineMode(db->p++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
     gDPSetPrimColor(db->p++, 0, 0, 0x00, 0x00, 0x00, 0xD0);
     gSPTextureRectangle(db->p++,
-        bg_left << 2, bg_top << 2,
-        (bg_left + bg_width) << 2, (bg_top + bg_height) << 2,
+        bgLeft << 2, bgTop << 2,
+        (bgLeft + bgWidth) << 2, (bgTop + bgHeight) << 2,
         0,
         0, 0,
         1 << 10, 1 << 10);
     gDPPipeSync(db->p++);
 
     // Draw legend panel background.
-    int legend_left = bg_left + icon_size + (9 * gSpriteFont.tileW) + (padding * 3);
-    int legend_top = bg_top - (icon_size + (padding * 3));
-    int legend_width = (icon_size * 4) + (padding * 5);
-    int legend_height = icon_size + (padding * 2);
+    int legendLeft = bgLeft + iconSize + (9 * gSpriteFont.tileW) + (padding * 3);
+    int legendTop = bgTop - (iconSize + (padding * 3));
+    int legendWidth = (iconSize * 4) + (padding * 5);
+    int legendHeight = iconSize + (padding * 2);
     gDPSetPrimColor(db->p++, 0, 0, 0x00, 0x00, 0x00, 0xA0);
     gSPTextureRectangle(db->p++,
-        legend_left << 2, legend_top << 2,
-        (legend_left + legend_width) << 2, (legend_top + legend_height) << 2,
+        legendLeft << 2, legendTop << 2,
+        (legendLeft + legendWidth) << 2, (legendTop + legendHeight) << 2,
         0,
         0, 0,
         1 << 10, 1 << 10);
@@ -150,143 +149,143 @@ void overlay_menu_draw(GlobalContext *game) {
     gDPSetPrimColor(db->p++, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
 
     // Draw legend panel icons: Small Key, Boss Key, Map, Compass.
-    int legend_icons[4] = { 10, 6, 8, 7, };
+    int legendIcons[4] = { 10, 6, 8, 7, };
     for (int i = 0; i < 4; i++) {
-        int index = legend_icons[i];
-        int lleft = legend_left + ((icon_size + padding) * i);
-        int top = legend_top + padding;
+        int index = legendIcons[i];
+        int lleft = legendLeft + ((iconSize + padding) * i);
+        int top = legendTop + padding;
         Sprite_Load(db, &gSpriteIcon24, index, 1);
-        Sprite_Draw(db, &gSpriteIcon24, 0, lleft, top, icon_size, icon_size);
+        Sprite_Draw(db, &gSpriteIcon24, 0, lleft, top, iconSize, iconSize);
     }
 
     // Draw remains.
-    for (int i = 0; i < g_dungeon_count; i++) {
-        struct dungeon_entry *d = &(dungeons[i]);
-        if (d->is_dungeon && has_remains(d->index)) {
-            int top = start_top + ((icon_size + padding) * i);
+    for (int i = 0; i < gDungeonCount; i++) {
+        struct DungeonEntry *d = &gDungeons[i];
+        if (d->isDungeon && HasRemains(d->index)) {
+            int top = startTop + ((iconSize + padding) * i);
             Sprite_Load(db, &gSpriteIcon, d->remains, 1);
-            Sprite_Draw(db, &gSpriteIcon, 0, left, top, icon_size, icon_size);
+            Sprite_Draw(db, &gSpriteIcon, 0, left, top, iconSize, iconSize);
         }
     }
-    left += icon_size + padding;
+    left += iconSize + padding;
 
     // Draw names.
-    for (int i = 0; i < g_dungeon_count; i++) {
-        struct dungeon_entry *d = &(dungeons[i]);
-        int top = start_top + ((icon_size + padding) * i) + 1;
+    for (int i = 0; i < gDungeonCount; i++) {
+        struct DungeonEntry *d = &gDungeons[i];
+        int top = startTop + ((iconSize + padding) * i) + 1;
         text_print(d->name, left, top);
     }
     left += (9 * gSpriteFont.tileW) + padding;
 
     // Draw small keys.
-    for (int i = 0; i < g_dungeon_count; i++) {
-        struct dungeon_entry *d = &(dungeons[i]);
-        if (d->is_dungeon) {
+    for (int i = 0; i < gDungeonCount; i++) {
+        struct DungeonEntry *d = &gDungeons[i];
+        if (d->isDungeon) {
             // Get key count for dungeon.
             u8 keys = gSaveContext.perm.inv.dungeonKeys[d->index];
             // Get key count as text.
             char count[2] = "0";
-            get_count_text(keys, count, 1);
+            GetCountText(keys, count, 1);
             // Draw key count as text.
-            int top = start_top + ((icon_size + padding) * i) + 1;
+            int top = startTop + ((iconSize + padding) * i) + 1;
             text_print(count, left + 4, top);
         }
     }
-    left += icon_size + padding;
+    left += iconSize + padding;
 
     // Draw boss keys.
     Sprite_Load(db, &gSpriteIcon24, 6, 1);
-    for (int i = 0; i < g_dungeon_count; i++) {
-        struct dungeon_entry *d = &(dungeons[i]);
-        if (d->is_dungeon) {
+    for (int i = 0; i < gDungeonCount; i++) {
+        struct DungeonEntry *d = &gDungeons[i];
+        if (d->isDungeon) {
             if (gSaveContext.perm.inv.dungeonItems[d->index].bossKey) {
-                int top = start_top + ((icon_size + padding) * i);
-                Sprite_Draw(db, &gSpriteIcon24, 0, left, top, icon_size, icon_size);
+                int top = startTop + ((iconSize + padding) * i);
+                Sprite_Draw(db, &gSpriteIcon24, 0, left, top, iconSize, iconSize);
             }
         }
     }
-    left += icon_size + padding;
+    left += iconSize + padding;
 
     // Draw maps.
     Sprite_Load(db, &gSpriteIcon24, 8, 1);
-    for (int i = 0; i < g_dungeon_count; i++) {
-        struct dungeon_entry *d = &(dungeons[i]);
-        if (d->is_dungeon) {
+    for (int i = 0; i < gDungeonCount; i++) {
+        struct DungeonEntry *d = &gDungeons[i];
+        if (d->isDungeon) {
             if (gSaveContext.perm.inv.dungeonItems[d->index].map) {
-                int top = start_top + ((icon_size + padding) * i);
-                Sprite_Draw(db, &gSpriteIcon24, 0, left, top, icon_size, icon_size);
+                int top = startTop + ((iconSize + padding) * i);
+                Sprite_Draw(db, &gSpriteIcon24, 0, left, top, iconSize, iconSize);
             }
         }
     }
-    left += icon_size + padding;
+    left += iconSize + padding;
 
     // Draw compasses.
     Sprite_Load(db, &gSpriteIcon24, 7, 1);
-    for (int i = 0; i < g_dungeon_count; i++) {
-        struct dungeon_entry *d = &(dungeons[i]);
-        if (d->is_dungeon) {
+    for (int i = 0; i < gDungeonCount; i++) {
+        struct DungeonEntry *d = &gDungeons[i];
+        if (d->isDungeon) {
             if (gSaveContext.perm.inv.dungeonItems[d->index].compass) {
-                int top = start_top + ((icon_size + padding) * i);
-                Sprite_Draw(db, &gSpriteIcon24, 0, left, top, icon_size, icon_size);
+                int top = startTop + ((iconSize + padding) * i);
+                Sprite_Draw(db, &gSpriteIcon24, 0, left, top, iconSize, iconSize);
             }
         }
     }
-    left += icon_size + padding;
+    left += iconSize + padding;
 
     // Draw stray fairy, skulltula token icons.
-    for (int i = 0; i < g_dungeon_count; i++) {
-        struct dungeon_entry *d = &(dungeons[i]);
-        int top = start_top + ((icon_size + padding) * i) - 2;
-        if (d->has_fairies) {
+    for (int i = 0; i < gDungeonCount; i++) {
+        struct DungeonEntry *d = &gDungeons[i];
+        int top = startTop + ((iconSize + padding) * i) - 2;
+        if (d->hasFairies) {
             // Draw dungeon fairy icons (32-bit RGBA). Otherwise, draw Clock Town fairy icon.
-            if (d->is_dungeon) {
+            if (d->isDungeon) {
                 Sprite_Load(db, &gSpriteFairy, d->index, 1);
                 Sprite_Draw(db, &gSpriteFairy, 0, left, top, 20, 15);
             } else {
                 // Draw Clock Town fairy icon.
-                Sprite_Load(db, &town_fairy_icon, 0, 1);
-                Sprite_Draw(db, &town_fairy_icon, 0, left, top, 20, 15);
+                Sprite_Load(db, &gTownFairyIcon, 0, 1);
+                Sprite_Draw(db, &gTownFairyIcon, 0, left, top, 20, 15);
             }
-        } else if (d->has_tokens) {
+        } else if (d->hasTokens) {
             // Draw skulltula token icon.
-            Sprite_Load(db, &skulltula_icon, 0, 1);
-            Sprite_Draw(db, &skulltula_icon, 0, left + 2, top, 16, 12);
+            Sprite_Load(db, &gSkulltulaIcon, 0, 1);
+            Sprite_Draw(db, &gSkulltulaIcon, 0, left + 2, top, 16, 12);
         }
     }
     left += 20 + padding;
 
     // Draw stray fairy count, skulltula token count.
-    for (int i = 0; i < g_dungeon_count; i++) {
-        struct dungeon_entry *d = &(dungeons[i]);
-        int top = start_top + ((icon_size + padding) * i);
+    for (int i = 0; i < gDungeonCount; i++) {
+        struct DungeonEntry *d = &gDungeons[i];
+        int top = startTop + ((iconSize + padding) * i);
         // Get total count and maximum count for stray fairies or skulltula tokens.
         int total = 0;
         int maximum = 0;
-        if (d->has_fairies) {
+        if (d->hasFairies) {
             // Get stray fairy count for dungeon or town.
-            if (d->is_dungeon) {
+            if (d->isDungeon) {
                 // Get fairy count for dungeon.
                 total = gSaveContext.perm.inv.strayFairies[d->index];
                 maximum = 15;
             } else {
                 // Check for Clock Town fairy, flag: 0x801F0570 & 0x80
-                bool has_town_fairy = (gSaveContext.perm.weekEventReg[8] & 0x80) != 0;
-                total = has_town_fairy ? 1 : 0;
+                bool hasTownFairy = (gSaveContext.perm.weekEventReg[8] & 0x80) != 0;
+                total = hasTownFairy ? 1 : 0;
                 maximum = 1;
             }
-        } else if (d->has_tokens) {
+        } else if (d->hasTokens) {
             // Get skulltula token count.
             total = gSaveContext.perm.skullTokens[0];
-            if (d->has_tokens == 2) {
+            if (d->hasTokens == 2) {
                 total = gSaveContext.perm.skullTokens[1];
             }
             maximum = 30;
         }
         // Display count as text.
-        if (d->has_fairies || d->has_tokens) {
+        if (d->hasFairies || d->hasTokens) {
             // Get count as text.
             char count[3] = " 0";
-            get_count_text(total, count, 2);
+            GetCountText(total, count, 2);
             // Draw fairy/token count as text.
             if (total >= maximum) {
                 // Use green text if at maximum.
