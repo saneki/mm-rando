@@ -419,7 +419,7 @@ u8 Message_BeforeCharacterProcess(GlobalContext* ctxt, MessageCharacterProcessVa
                 u32 giIndex = ctxt->msgCtx.currentMessageRaw[index] << 8;
                 index++;
                 giIndex |= ctxt->msgCtx.currentMessageRaw[index];
-                u32 newGiIndex = mmr_GetNewGiIndex(ctxt, 0, giIndex, false);
+                u32 newGiIndex = MMR_GetNewGiIndex(ctxt, 0, giIndex, false);
                 if (newGiIndex != giIndex) {
                     ItemInfo item;
                     bool itemSet = true;
@@ -433,31 +433,31 @@ u8 Message_BeforeCharacterProcess(GlobalContext* ctxt, MessageCharacterProcessVa
                         item = gMessageExtensionState.milk;
                     } else if (newGiIndex == 0x93) {
                         item = gMessageExtensionState.goldDust;
-                    } else if (newGiIndex == MMR_CONFIG.location_sword_kokiri) {
+                    } else if (newGiIndex == MMR_CONFIG.locations.swordKokiri) {
                         item = gMessageExtensionState.swordKokiri;
-                    } else if (newGiIndex == MMR_CONFIG.location_sword_razor) {
+                    } else if (newGiIndex == MMR_CONFIG.locations.swordRazor) {
                         item = gMessageExtensionState.swordRazor;
-                    } else if (newGiIndex == MMR_CONFIG.location_sword_gilded) {
+                    } else if (newGiIndex == MMR_CONFIG.locations.swordGilded) {
                         item = gMessageExtensionState.swordGilded;
-                    } else if (newGiIndex == MMR_CONFIG.location_magic_small) {
+                    } else if (newGiIndex == MMR_CONFIG.locations.magicSmall) {
                         item = gMessageExtensionState.magicSmall;
-                    } else if (newGiIndex == MMR_CONFIG.location_magic_large) {
+                    } else if (newGiIndex == MMR_CONFIG.locations.magicLarge) {
                         item = gMessageExtensionState.magicLarge;
-                    } else if (newGiIndex == MMR_CONFIG.location_wallet_adult) {
+                    } else if (newGiIndex == MMR_CONFIG.locations.walletAdult) {
                         item = gMessageExtensionState.walletAdult;
-                    } else if (newGiIndex == MMR_CONFIG.location_wallet_giant) {
+                    } else if (newGiIndex == MMR_CONFIG.locations.walletGiant) {
                         item = gMessageExtensionState.walletGiant;
-                    } else if (newGiIndex == MMR_CONFIG.location_bomb_bag_small) {
+                    } else if (newGiIndex == MMR_CONFIG.locations.bombBagSmall) {
                         item = gMessageExtensionState.bombBagSmall;
-                    } else if (newGiIndex == MMR_CONFIG.location_bomb_bag_big) {
+                    } else if (newGiIndex == MMR_CONFIG.locations.bombBagBig) {
                         item = gMessageExtensionState.bombBagBig;
-                    } else if (newGiIndex == MMR_CONFIG.location_bomb_bag_biggest) {
+                    } else if (newGiIndex == MMR_CONFIG.locations.bombBagBiggest) {
                         item = gMessageExtensionState.bombBagBiggest;
-                    } else if (newGiIndex == MMR_CONFIG.location_quiver_small) {
+                    } else if (newGiIndex == MMR_CONFIG.locations.quiverSmall) {
                         item = gMessageExtensionState.quiverSmall;
-                    } else if (newGiIndex == MMR_CONFIG.location_quiver_large) {
+                    } else if (newGiIndex == MMR_CONFIG.locations.quiverLarge) {
                         item = gMessageExtensionState.quiverLarge;
-                    } else if (newGiIndex == MMR_CONFIG.location_quiver_largest) {
+                    } else if (newGiIndex == MMR_CONFIG.locations.quiverLargest) {
                         item = gMessageExtensionState.quiverLargest;
                     } else {
                         itemSet = false;
@@ -513,7 +513,7 @@ u8 Message_BeforeCharacterProcess(GlobalContext* ctxt, MessageCharacterProcessVa
             u32 giIndex = ctxt->msgCtx.currentMessageRaw[index] << 8;
             index++;
             giIndex |= ctxt->msgCtx.currentMessageRaw[index];
-            u32 newGiIndex = mmr_GetNewGiIndex(ctxt, 0, giIndex, false);
+            u32 newGiIndex = MMR_GetNewGiIndex(ctxt, 0, giIndex, false);
             if (giIndex != newGiIndex) {
                 do {
                     index++;

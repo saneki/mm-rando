@@ -72,11 +72,11 @@ static u8 models_fix_graphic_id(u8 graphic) {
  * Get the Get-Item table entry for a specific index, and optionally load relevant entry values
  * into a model structure for drawing.
  **/
-static mmr_gi_t * models_prepare_gi_entry(struct model *model, GlobalContext *game, u16 gi_index, bool resolve) {
+static GetItemEntry * models_prepare_gi_entry(struct model *model, GlobalContext *game, u16 gi_index, bool resolve) {
     if (resolve) {
-        gi_index = mmr_GetNewGiIndex(game, 0, gi_index, false);
+        gi_index = MMR_GetNewGiIndex(game, 0, gi_index, false);
     }
-    mmr_gi_t *entry = mmr_get_gi_entry(gi_index);
+    GetItemEntry *entry = MMR_GetGiEntry(gi_index);
 
     if (model != NULL) {
         u16 gfx, obj;
@@ -98,7 +98,7 @@ static mmr_gi_t * models_prepare_gi_entry(struct model *model, GlobalContext *ga
  **/
 static void models_draw_from_gi_table(Actor *actor, GlobalContext *game, f32 scale, u16 gi_index) {
     struct model model;
-    mmr_gi_t *entry = models_prepare_gi_entry(&model, game, gi_index, true);
+    GetItemEntry *entry = models_prepare_gi_entry(&model, game, gi_index, true);
 
     z2_CallSetupDList(gGlobalContext.state.gfxCtx);
     draw_model(model, actor, game, scale);
@@ -110,7 +110,7 @@ static void models_draw_from_gi_table(Actor *actor, GlobalContext *game, f32 sca
  **/
 static bool models_set_loaded_actor_model(struct model *model, Actor *actor, GlobalContext *game, u16 gi_index) {
     if (!LoadedModels_GetActorModel(model, NULL, actor)) {
-        mmr_gi_t *entry = models_prepare_gi_entry(model, game, gi_index, true);
+        GetItemEntry *entry = models_prepare_gi_entry(model, game, gi_index, true);
         LoadedModels_AddActorModel(*model, entry, actor);
         return true;
     } else {
@@ -133,7 +133,7 @@ static bool models_should_rotate_backwards(GlobalContext *game, u16 gi_index) {
     // Only rotate ice traps backwards if Ice Trap Quirks enabled.
     if (MISC_CONFIG.flags.iceTrapQuirks) {
         struct model model;
-        mmr_gi_t *entry = models_prepare_gi_entry(&model, game, gi_index, true);
+        GetItemEntry *entry = models_prepare_gi_entry(&model, game, gi_index, true);
         return entry->item == Z2_ICE_TRAP;
     } else {
         return false;
@@ -254,7 +254,7 @@ void models_before_stray_fairy_main(Actor *actor, GlobalContext *game) {
     // If not a Stray Fairy, rotate like En_Item00 does.
     bool draw = models_should_override_stray_fairy_draw(actor, game);
     if (MISC_CONFIG.flags.freestanding && draw) {
-        mmr_gi_t *entry;
+        GetItemEntry *entry;
         struct model model;
         u16 gi_index = models_get_stray_fairy_gi_index(actor, game);
         models_set_loaded_actor_model(&model, actor, game, gi_index);
@@ -276,7 +276,7 @@ void models_before_stray_fairy_main(Actor *actor, GlobalContext *game) {
 bool models_draw_stray_fairy(Actor *actor, GlobalContext *game) {
     bool draw = models_should_override_stray_fairy_draw(actor, game);
     if (MISC_CONFIG.flags.freestanding && draw) {
-        mmr_gi_t *entry;
+        GetItemEntry *entry;
         struct model model;
         u16 gi_index = models_get_stray_fairy_gi_index(actor, game);
         models_set_loaded_actor_model(&model, actor, game, gi_index);
@@ -392,7 +392,7 @@ static bool models_is_moons_tear_model(struct model model) {
 static bool models_should_override_moons_tear_draw(Actor *actor, GlobalContext *game) {
     // Check if a vanilla Moon's Tear is being drawn.
     struct model model;
-    mmr_gi_t *entry = models_prepare_gi_entry(&model, game, 0x96, true);
+    GetItemEntry *entry = models_prepare_gi_entry(&model, game, 0x96, true);
     return !models_is_moons_tear_model(model);
 }
 
@@ -431,7 +431,7 @@ bool models_draw_moons_tear(Actor *actor, GlobalContext *game) {
                 resolve = true;
             }
 
-            mmr_gi_t *entry = models_prepare_gi_entry(&model, game, 0x96, resolve);
+            GetItemEntry *entry = models_prepare_gi_entry(&model, game, 0x96, resolve);
             z2_CallSetupDList(gGlobalContext.state.gfxCtx);
             draw_model(model, actor, game, 1.0);
             return true;
@@ -477,7 +477,7 @@ static bool models_is_seahorse_model(struct model model) {
 static bool models_should_override_seahorse_draw(Actor *actor, GlobalContext *game) {
     // Check if a vanilla Seahorse is being drawn.
     struct model model;
-    mmr_gi_t *entry = models_prepare_gi_entry(&model, game, 0x95, true);
+    GetItemEntry *entry = models_prepare_gi_entry(&model, game, 0x95, true);
     // Ensure that only the fishtank Seahorse is being drawn over.
     bool is_fishtank = actor->params == 0xFFFF;
     return is_fishtank && !models_is_seahorse_model(model);

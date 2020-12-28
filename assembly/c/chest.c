@@ -11,11 +11,11 @@ void Chest_WriteGiIndex(ActorEnBox* actor, GlobalContext* ctxt) {
         u16 result;
         // Read from chest-table file to determine gi-table index, and write to actor field.
         u16 index = (actor->base.params >> 5) & 0x7F;
-        u32 prom = dmadata[mmr_ChestTableFileIndex].romStart + (index * 2);
+        u32 prom = dmadata[MMR_ChestTableFileIndex].romStart + (index * 2);
         z2_RomToRam(prom, &result, sizeof(result));
         actor->giIndex = result;
         // If ice trap chest, use special value instead of index.
-        mmr_gi_t *entry = mmr_LoadGiEntry(actor->giIndex);
+        GetItemEntry *entry = MMR_LoadGiEntry(actor->giIndex);
         if (entry->item == Z2_ICE_TRAP) {
             actor->giIndex = 0x76;
         }
@@ -32,7 +32,7 @@ u32 Chest_GetNewGiIndex(ActorEnBox* actor, GlobalContext* ctxt, bool grant) {
     if (!MISC_CONFIG.internal.vanillaLayout) {
         // Resolve new gi-table index if not ice trap.
         if (actor->giIndex != 0x76) {
-            return mmr_GetNewGiIndex(ctxt, &actor->base, actor->giIndex, grant);
+            return MMR_GetNewGiIndex(ctxt, &actor->base, actor->giIndex, grant);
         }
     }
     return actor->giIndex;

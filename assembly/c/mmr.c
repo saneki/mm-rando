@@ -2,154 +2,148 @@
 #include "mmr.h"
 #include "util.h"
 
-struct mmr_config MMR_CONFIG = {
+struct MMRConfig MMR_CONFIG = {
     .magic = MMR_CONFIG_MAGIC,
     .version = 1,
-    .cycle_repeatable_locations_length = 0x80,
-
-    .location_bottle_red_potion = 0x59,
-    .location_bottle_chateau = 0x6F,
-    .location_bottle_milk = 0x60,
-    .location_bottle_gold_dust = 0x6A,
-
-    .location_sword_kokiri = 0x37,
-    .location_sword_razor = 0x38,
-    .location_sword_gilded = 0x39,
-
-    .location_magic_small = 0x12C,
-    .location_magic_large = 0x12E,
-
-    .location_wallet_adult = 0x08,
-    .location_wallet_giant = 0x09,
-
-    .location_bomb_bag_small = 0x1B,
-    .location_bomb_bag_big = 0x1C,
-    .location_bomb_bag_biggest = 0x1D,
-
-    .location_quiver_small = 0x22,
-    .location_quiver_large = 0x23,
-    .location_quiver_largest = 0x24,
+    .locations = {
+        .cycleRepeatableLength = 0x80,
+        .bottleRedPotion = 0x59,
+        .bottleChateau = 0x6F,
+        .bottleMilk = 0x60,
+        .bottleGoldDust = 0x6A,
+        .swordKokiri = 0x37,
+        .swordRazor = 0x38,
+        .swordGilded = 0x39,
+        .magicSmall = 0x12C,
+        .magicLarge = 0x12E,
+        .walletAdult = 0x08,
+        .walletGiant = 0x09,
+        .bombBagSmall = 0x1B,
+        .bombBagBig = 0x1C,
+        .bombBagBiggest = 0x1D,
+        .quiverSmall = 0x22,
+        .quiverLarge = 0x23,
+        .quiverLargest = 0x24,
+    },
 };
 
-static mmr_gi_t *g_gi_table = NULL;
+static GetItemEntry* gGiTable = NULL;
 
-static void mmr_load_gi_table(void) {
+static void LoadGiTable(void) {
     // Use gi-table file index to get dmadata entry.
-    u32 index = mmr_GiTableFileIndex;
+    u32 index = MMR_GiTableFileIndex;
     DmaEntry entry = dmadata[index];
     u32 size = entry.vromEnd - entry.vromStart;
-
     // Load the gi-table table from file into buffer.
-    g_gi_table = (mmr_gi_t *)heap_alloc(size);
-    z2_ReadFile(g_gi_table, entry.vromStart, size);
+    gGiTable = (GetItemEntry*)heap_alloc(size);
+    z2_ReadFile(gGiTable, entry.vromStart, size);
 }
 
-mmr_gi_t * mmr_get_gi_entry(u16 index) {
-    return &g_gi_table[index - 1];
+GetItemEntry* MMR_GetGiEntry(u16 index) {
+    return &gGiTable[index - 1];
 }
 
-bool mmr_CheckBottleAndGetGiFlag(u16 gi_index, u16 *new_gi_index) {
-    if (gi_index == MMR_CONFIG.location_bottle_red_potion) {
-        gi_index = 0x5B;
-    } else if (gi_index == MMR_CONFIG.location_bottle_chateau) {
-        gi_index = 0x91;
-    } else if (gi_index == MMR_CONFIG.location_bottle_milk) {
-        gi_index = 0x92;
-    } else if (gi_index == MMR_CONFIG.location_bottle_gold_dust) {
-        gi_index = 0x93;
+bool MMR_CheckBottleAndGetGiFlag(u16 giIndex, u16* newGiIndex) {
+    if (giIndex == MMR_CONFIG.locations.bottleRedPotion) {
+        giIndex = 0x5B;
+    } else if (giIndex == MMR_CONFIG.locations.bottleChateau) {
+        giIndex = 0x91;
+    } else if (giIndex == MMR_CONFIG.locations.bottleMilk) {
+        giIndex = 0x92;
+    } else if (giIndex == MMR_CONFIG.locations.bottleGoldDust) {
+        giIndex = 0x93;
     }
-    *new_gi_index = gi_index;
-    return mmr_GetGiFlag(gi_index);
+    *newGiIndex = giIndex;
+    return MMR_GetGiFlag(giIndex);
 }
 
-u16 mmr_CheckProgressiveUpgrades(u16 gi_index) {
-    if (gi_index == MMR_CONFIG.location_sword_kokiri || gi_index == MMR_CONFIG.location_sword_razor || gi_index == MMR_CONFIG.location_sword_gilded) {
+u16 MMR_CheckProgressiveUpgrades(u16 giIndex) {
+    if (giIndex == MMR_CONFIG.locations.swordKokiri || giIndex == MMR_CONFIG.locations.swordRazor || giIndex == MMR_CONFIG.locations.swordGilded) {
         if (gSaveContext.perm.unk4C.equipment.sword == 0) {
-            return MMR_CONFIG.location_sword_kokiri;
+            return MMR_CONFIG.locations.swordKokiri;
         }
         if (gSaveContext.perm.unk4C.equipment.sword == 1) {
-            return MMR_CONFIG.location_sword_razor;
+            return MMR_CONFIG.locations.swordRazor;
         }
-        return MMR_CONFIG.location_sword_gilded;
+        return MMR_CONFIG.locations.swordGilded;
     }
-    if (gi_index == MMR_CONFIG.location_magic_small || gi_index == MMR_CONFIG.location_magic_large) {
+    if (giIndex == MMR_CONFIG.locations.magicSmall || giIndex == MMR_CONFIG.locations.magicLarge) {
         if (gSaveContext.perm.unk24.hasMagic == 0) {
-            return MMR_CONFIG.location_magic_small;
+            return MMR_CONFIG.locations.magicSmall;
         }
-        return MMR_CONFIG.location_magic_large;
+        return MMR_CONFIG.locations.magicLarge;
     }
-    if (gi_index == MMR_CONFIG.location_wallet_adult || gi_index == MMR_CONFIG.location_wallet_giant) {
+    if (giIndex == MMR_CONFIG.locations.walletAdult || giIndex == MMR_CONFIG.locations.walletGiant) {
         if (gSaveContext.perm.inv.upgrades.wallet == 0) {
-            return MMR_CONFIG.location_wallet_adult;
+            return MMR_CONFIG.locations.walletAdult;
         }
-        return MMR_CONFIG.location_wallet_giant;
+        return MMR_CONFIG.locations.walletGiant;
     }
-    if (gi_index == MMR_CONFIG.location_bomb_bag_small || gi_index == MMR_CONFIG.location_bomb_bag_big || gi_index == MMR_CONFIG.location_bomb_bag_biggest) {
+    if (giIndex == MMR_CONFIG.locations.bombBagSmall || giIndex == MMR_CONFIG.locations.bombBagBig || giIndex == MMR_CONFIG.locations.bombBagBiggest) {
         if (gSaveContext.perm.inv.upgrades.bombBag == 0) {
-            return MMR_CONFIG.location_bomb_bag_small;
+            return MMR_CONFIG.locations.bombBagSmall;
         }
         if (gSaveContext.perm.inv.upgrades.bombBag == 1) {
-            return MMR_CONFIG.location_bomb_bag_big;
+            return MMR_CONFIG.locations.bombBagBig;
         }
-        return MMR_CONFIG.location_bomb_bag_biggest;
+        return MMR_CONFIG.locations.bombBagBiggest;
     }
-    if (gi_index == MMR_CONFIG.location_quiver_small || gi_index == MMR_CONFIG.location_quiver_large || gi_index == MMR_CONFIG.location_quiver_largest) {
+    if (giIndex == MMR_CONFIG.locations.quiverSmall || giIndex == MMR_CONFIG.locations.quiverLarge || giIndex == MMR_CONFIG.locations.quiverLargest) {
         if (gSaveContext.perm.inv.upgrades.quiver == 0) {
-            return MMR_CONFIG.location_quiver_small;
+            return MMR_CONFIG.locations.quiverSmall;
         }
         if (gSaveContext.perm.inv.upgrades.quiver == 1) {
-            return MMR_CONFIG.location_quiver_large;
+            return MMR_CONFIG.locations.quiverLarge;
         }
-        return MMR_CONFIG.location_quiver_largest;
+        return MMR_CONFIG.locations.quiverLargest;
     }
-    return gi_index;
+    return giIndex;
 }
 
-u16 mmr_GetNewGiIndex(GlobalContext *game, Actor *actor, u16 gi_index, bool grant) {
+u16 MMR_GetNewGiIndex(GlobalContext* ctxt, Actor* actor, u16 giIndex, bool grant) {
     if (gSaveContext.perm.cutscene != 0) {
         grant = false;
     }
-    u16 new_gi_index = gi_index;
+    u16 newGiIndex = giIndex;
     bool flagged;
     if (gSaveContext.extra.titleSetupIndex != 0) {
         flagged = false;
         grant = false;
     } else {
-        flagged = mmr_CheckBottleAndGetGiFlag(gi_index, &new_gi_index);
+        flagged = MMR_CheckBottleAndGetGiFlag(giIndex, &newGiIndex);
     }
     if (!flagged) {
         if (grant) {
-            mmr_SetGiFlag(new_gi_index);
+            MMR_SetGiFlag(newGiIndex);
         }
-        new_gi_index = gi_index;
-        if (MISC_CONFIG.flags.progressiveUpgrades)
-        {
-            new_gi_index = mmr_CheckProgressiveUpgrades(new_gi_index);
+        newGiIndex = giIndex;
+        if (MISC_CONFIG.flags.progressiveUpgrades) {
+            newGiIndex = MMR_CheckProgressiveUpgrades(newGiIndex);
         }
     } else {
-        bool is_cycle_repeatable = false;
-        for (u8 i = 0; i < MMR_CONFIG.cycle_repeatable_locations_length; i++) {
-            if (MMR_CONFIG.cycle_repeatable_locations[i] == new_gi_index) {
-                is_cycle_repeatable = true;
+        bool isCycleRepeatable = false;
+        for (u8 i = 0; i < MMR_CONFIG.locations.cycleRepeatableLength; i++) {
+            if (MMR_CONFIG.locations.cycleRepeatable[i] == newGiIndex) {
+                isCycleRepeatable = true;
                 break;
             }
         }
-        if (!is_cycle_repeatable) {
-            new_gi_index = 0x0A; // Recovery Heart
+        if (!isCycleRepeatable) {
+            newGiIndex = 0x0A; // Recovery Heart
         }
     }
     if (grant) {
-        mmr_SetGiFlag(gi_index);
+        MMR_SetGiFlag(giIndex);
     }
-    if (actor == Z2_LINK(game)) {
-        Z2_LINK(game)->getItem = new_gi_index;
+    if (actor == (Actor*)Z2_LINK(ctxt)) {
+        Z2_LINK(ctxt)->getItem = newGiIndex;
     }
-    return new_gi_index;
+    return newGiIndex;
 }
 
-void mmr_init(void) {
+void MMR_Init(void) {
     // If using vanilla layout, gi-table mod file is not included.
     if (!MISC_CONFIG.internal.vanillaLayout) {
-        mmr_load_gi_table();
+        LoadGiTable();
     }
 }
