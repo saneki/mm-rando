@@ -9,7 +9,7 @@ static bool check_inventory_slot(u8 item, u8 slot) {
     if (gSaveContext.perm.inv.items[slot] == item) {
         return true;
     } else if (MISC_CONFIG.flags.questItemStorage && gSaveContext.perm.inv.items[slot] != Z2_ITEM_NONE) {
-        return quest_item_storage_has(&SAVE_FILE_CONFIG.quest_storage, item);
+        return QuestItemStorage_Has(&SAVE_FILE_CONFIG.quest_storage, item);
     } else {
         return false;
     }
@@ -22,7 +22,7 @@ static bool check_inventory_slot(u8 item, u8 slot) {
  **/
 void quest_items_after_receive(u8 item) {
     // Try to add quest item to storage.
-    quest_item_storage_put(&SAVE_FILE_CONFIG.quest_storage, item);
+    QuestItemStorage_Put(&SAVE_FILE_CONFIG.quest_storage, item);
 }
 
 /**
@@ -31,12 +31,12 @@ void quest_items_after_receive(u8 item) {
  * Used to remove that item from storage as well, if it is a quest item.
  **/
 void quest_items_after_removal(u8 item, u8 slot) {
-    struct quest_item_storage *storage = &SAVE_FILE_CONFIG.quest_storage;
+    struct QuestItemStorage *storage = &SAVE_FILE_CONFIG.quest_storage;
     // Remove quest item from storage.
-    if (quest_item_storage_remove(storage, item)) {
+    if (QuestItemStorage_Remove(storage, item)) {
         // Set next item into inventory if any.
         if (MISC_CONFIG.flags.questItemStorage) {
-            u8 next = quest_item_storage_next(storage, item);
+            u8 next = QuestItemStorage_Next(storage, item);
             if (next != Z2_ITEM_NONE && IS_QUEST_SLOT(slot)) {
                 gSaveContext.perm.inv.items[slot] = next;
             }
@@ -52,7 +52,7 @@ void quest_items_after_removal(u8 item, u8 slot) {
 void quest_items_after_song_of_time_clear(void) {
     // After Song of Time, clear quest items in storage.
     if (MISC_CONFIG.flags.questConsume != QUEST_CONSUME_NEVER) {
-        quest_item_storage_clear(&SAVE_FILE_CONFIG.quest_storage);
+        QuestItemStorage_Clear(&SAVE_FILE_CONFIG.quest_storage);
     }
 }
 
@@ -75,7 +75,7 @@ void quest_items_try_remove_item(u8 item, u8 slot) {
     if (IS_QUEST_ITEM(item) && IS_QUEST_SLOT(slot)) {
         if (MISC_CONFIG.flags.questConsume != QUEST_CONSUME_NEVER) {
             z2_RemoveItem(item, slot);
-            quest_item_storage_remove(&SAVE_FILE_CONFIG.quest_storage, item);
+            QuestItemStorage_Remove(&SAVE_FILE_CONFIG.quest_storage, item);
         }
     } else {
         z2_RemoveItem(item, slot);
@@ -87,7 +87,7 @@ void quest_items_try_remove_item(u8 item, u8 slot) {
  **/
 bool quest_items_get_slot(int *slot, u8 item) {
     int sslot, idx;
-    if (quest_item_storage_get_slot(&sslot, &idx, item)) {
+    if (QuestItemStorage_GetSlot(&sslot, &idx, item)) {
         *slot = ((sslot + 1) * 6) - 1;
         return true;
     } else {
@@ -130,7 +130,7 @@ bool quest_items_remove(u8 item) {
     int slot;
     if (quest_items_get_slot(&slot, item)) {
         z2_RemoveItem(item, (u8)slot);
-        return quest_item_storage_remove(&SAVE_FILE_CONFIG.quest_storage, item);
+        return QuestItemStorage_Remove(&SAVE_FILE_CONFIG.quest_storage, item);
     } else {
         return false;
     }

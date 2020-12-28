@@ -13,7 +13,7 @@
 struct save_file_config {
     u32                       magic;                 /* 0x0000 */
     u32                       version;               /* 0x0004 */
-    struct quest_item_storage quest_storage;         /* 0x0008 */
+    struct QuestItemStorage   quest_storage;         /* 0x0008 */
 };                                                   /* 0x001A */
 
 extern struct save_file_config SAVE_FILE_CONFIG;

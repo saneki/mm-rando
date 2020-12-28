@@ -10,7 +10,7 @@ struct save_file_config SAVE_FILE_CONFIG = {
 static void save_file_init_struct(struct save_file_config *config) {
     config->magic = SAVE_FILE_CONFIG_MAGIC;
     config->version = 0;
-    quest_item_storage_clear(&config->quest_storage);
+    QuestItemStorage_Clear(&config->quest_storage);
 }
 
 static bool save_file_try_copy_struct(struct save_file_config *dest, const void *src_bytes) {
