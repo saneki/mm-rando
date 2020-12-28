@@ -3,31 +3,28 @@
 
 #include "z2.h"
 
-#define GET_RELOC_FUNC(NAME, OVL) ((NAME##_proc)reloc_resolve_player_ovl(&OVL, NAME##_vram))
-#define GET_RELOC_PAUSE_FUNC(NAME)  GET_RELOC_FUNC(NAME, s801D0B70.kaleidoScope)
-#define GET_RELOC_PLAYER_FUNC(NAME) GET_RELOC_FUNC(NAME, s801D0B70.playerActor)
+// Macros for resolving functions present in PlayerOverlay memory regions.
+#define Reloc_ResolvePlayerOverlayFunc(Name, Ovl) ((Name##_Func)Reloc_ResolvePlayerOverlay(&Ovl, Name##_VRAM))
+#define Reloc_ResolvePlayerActorFunc(Name) Reloc_ResolvePlayerOverlayFunc(Name, s801D0B70.playerActor)
+#define Reloc_ResolveKaleidoScopeFunc(Name) Reloc_ResolvePlayerOverlayFunc(Name, s801D0B70.kaleidoScope)
 
-/* Macros for resolving RAM addresses from gamestate entries */
-#define GET_GS_RELOC_TYPE(NAME, GS) (*(NAME##_t *)reloc_resolve_gamestate(&(GS), (NAME##_vram)))
+// Macros for resolving types present in GameStateOverlay memory regions.
+#define Reloc_ResolveGameStateRelocType(Type, Vram, Gs) ((Type*)Reloc_ResolveGameStateOverlay(&(Gs), (Vram)))
+#define Reloc_ResolveFileChooseData() Reloc_ResolveGameStateRelocType(FileChooseData, FileChooseDataVRAM, gGameStateInfo.fileSelect)
 
-/* Relocatable player functions */
-#define z2_LinkDamage        GET_RELOC_PLAYER_FUNC(z2_LinkDamage)
-#define z2_LinkInvincibility GET_RELOC_PLAYER_FUNC(z2_LinkInvincibility)
-#define z2_UseItem           GET_RELOC_PLAYER_FUNC(z2_UseItem)
+// Relocatable PlayerActor functions.
+#define z2_LinkDamage               Reloc_ResolvePlayerActorFunc(z2_LinkDamage)
+#define z2_LinkInvincibility        Reloc_ResolvePlayerActorFunc(z2_LinkInvincibility)
+#define z2_PerformEnterWaterEffects Reloc_ResolvePlayerActorFunc(z2_PerformEnterWaterEffects)
+#define z2_PlayerHandleBuoyancy     Reloc_ResolvePlayerActorFunc(z2_PlayerHandleBuoyancy)
+#define z2_UseItem                  Reloc_ResolvePlayerActorFunc(z2_UseItem)
 
-#define z2_PerformEnterWaterEffects GET_RELOC_PLAYER_FUNC(z2_PerformEnterWaterEffects)
-#define z2_PlayerHandleBuoyancy     GET_RELOC_PLAYER_FUNC(z2_PlayerHandleBuoyancy)
+// Relocatable KaleidoScope functions.
+#define z2_PauseDrawItemIcon        Reloc_ResolveKaleidoScopeFunc(z2_PauseDrawItemIcon)
 
-/* Relocatable pause menu functions */
-#define z2_PauseDrawItemIcon GET_RELOC_PAUSE_FUNC(z2_PauseDrawItemIcon)
-
-/* Relocatable file select data */
-#define ResolveGamestateRelocType(Type, Vram, Gs) ((Type*)reloc_resolve_gamestate(&(Gs), (Vram)))
-#define ResolveFileChooseData() ResolveGamestateRelocType(FileChooseData, FileChooseDataVRAM, gGameStateInfo.fileSelect)
-
-void * reloc_resolve_actor_ovl(ActorOverlay *ovl, u32 vram);
-ActorInit * reloc_resolve_actor_init(ActorOverlay *ovl);
-void * reloc_resolve_gamestate(GameStateOverlay *gs, u32 vram);
-void * reloc_resolve_player_ovl(PlayerOverlay *ovl, u32 vram);
+void* Reloc_ResolveActorOverlay(ActorOverlay* ovl, u32 vram);
+ActorInit* Reloc_ResolveActorInit(ActorOverlay* ovl);
+void* Reloc_ResolveGameStateOverlay(GameStateOverlay* ovl, u32 vram);
+void* Reloc_ResolvePlayerOverlay(PlayerOverlay* ovl, u32 vram);
 
 #endif // RELOC_H

@@ -12,7 +12,7 @@ typedef void(*UpdateCanoeMovementFunc)(ActorBgIngate* actor);
  **/
 static void ProcessMovement(ActorBgIngate *actor) {
     ActorOverlay* entry = &gActorOverlayTable[0xA7];
-    UpdateCanoeMovementFunc function = reloc_resolve_actor_ovl(entry, UpdateCanoeMovementVRAM);
+    UpdateCanoeMovementFunc function = Reloc_ResolveActorOverlay(entry, UpdateCanoeMovementVRAM);
     if (function != NULL) {
         function(actor);
     }

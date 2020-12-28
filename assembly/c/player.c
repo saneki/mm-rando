@@ -99,6 +99,6 @@ bool Player_ShouldIceVoidZora(ActorPlayer* player, GlobalContext* ctxt) {
  * Hook function called to determine if swim state should be prevented from being restored.
  **/
 bool Player_ShouldPreventRestoringSwimState(ActorPlayer* player, GlobalContext* ctxt, void* function) {
-    void* handleFrozen = reloc_resolve_player_ovl(&s801D0B70.playerActor, 0x808546D0); // Offset: 0x26C40
+    void* handleFrozen = Reloc_ResolvePlayerOverlay(&s801D0B70.playerActor, 0x808546D0); // Offset: 0x26C40
     return function == handleFrozen;
 }

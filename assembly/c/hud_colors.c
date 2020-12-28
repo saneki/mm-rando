@@ -343,7 +343,7 @@ void HudColors_UpdatePauseMenuColors(GlobalContext* ctxt) {
     if (s801D0B70.kaleidoScope.loadedRamAddr != NULL) {
         // Resolve address of colors in kaleido_scope (pause) data.
         u32 vram = 0x808160A0 + 0x158A8;
-        void* addr = reloc_resolve_player_ovl(&s801D0B70.kaleidoScope, vram);
+        void* addr = Reloc_ResolvePlayerOverlay(&s801D0B70.kaleidoScope, vram);
         if (addr != NULL) {
             // Update pause menu cursor icon colors.
             struct PauseCursorColors* colors = (struct PauseCursorColors*)addr;
@@ -404,7 +404,7 @@ void HudColors_Init(void) {
 }
 
 void HudColors_FileChooseInit(void) {
-    FileChooseData* data = ResolveFileChooseData();
+    FileChooseData* data = Reloc_ResolveFileChooseData();
     // Update rupee colors.
     UpdateRupeeColors(data->rupeeColors);
     // Update hearts colors.
