@@ -23,7 +23,7 @@ void c_init() {
     HudColors_Init();
     ActorExt_Init();
     models_init();
-    mmr_init();
+    MMR_Init();
     Misc_Init();
     text_init();
     WorldColors_Init();
