@@ -1,4 +1,4 @@
-models_before_stray_fairy_main_hook:
+Models_BeforeStrayFairyMain_Hook:
     ; Store A1 for later usage if needed
     sw      a1, 0x001C (sp)
 
@@ -6,7 +6,7 @@ models_before_stray_fairy_main_hook:
     sw      ra, 0x0018 (sp)
     sw      a0, 0x0010 (sp)
 
-    jal     models_before_stray_fairy_main
+    jal     Models_BeforeStrayFairyMain
     sw      a1, 0x0014 (sp)
 
     lw      a0, 0x0010 (sp)
@@ -19,7 +19,7 @@ models_before_stray_fairy_main_hook:
     jr      ra
     addiu   sp, sp, 0x20
 
-models_draw_stray_fairy_hook:
+Models_DrawStrayFairy_Hook:
     ; Displaced code
     or      s0, a1, r0
 
@@ -27,7 +27,7 @@ models_draw_stray_fairy_hook:
     sw      ra, 0x0018 (sp)
     sw      a0, 0x0010 (sp)
 
-    jal     models_draw_stray_fairy
+    jal     Models_DrawStrayFairy
     sw      a1, 0x0014 (sp)
 
     bnez    v0, @@caller_return
@@ -52,12 +52,12 @@ models_draw_stray_fairy_hook:
     jr      ra
     addiu   sp, sp, 0x40
 
-models_draw_heart_container_hook:
+Models_DrawHeartContainer_Hook:
     addiu   sp, sp, -0x20
     sw      ra, 0x0018 (sp)
     sw      a0, 0x0010 (sp)
 
-    jal     models_draw_heart_container
+    jal     Models_DrawHeartContainer
     sw      a1, 0x0014 (sp)
 
     bnez    v0, @@caller_return
@@ -84,7 +84,7 @@ models_draw_heart_container_hook:
     jr      ra
     addiu   sp, sp, 0x48
 
-models_draw_boss_remains_hook:
+Models_DrawBossRemains_Hook:
     addiu   sp, sp, -0x18
     sw      ra, 0x0010 (sp)
 
@@ -92,19 +92,19 @@ models_draw_boss_remains_hook:
     or      a2, a1, r0
     or      a1, a0, r0
 
-    jal     models_draw_boss_remains
+    jal     Models_DrawBossRemains
     or      a0, s0, r0
 
     lw      ra, 0x0010 (sp)
     jr      ra
     addiu   sp, sp, 0x18
 
-models_before_moons_tear_main_hook:
+Models_BeforeMoonsTearMain_Hook:
     addiu   sp, sp, -0x20
     sw      ra, 0x0018 (sp)
     sw      a0, 0x0010 (sp)
 
-    jal     models_before_moons_tear_main
+    jal     Models_BeforeMoonsTearMain
     sw      a1, 0x0014 (sp)
 
     ; Displaced code
@@ -117,11 +117,11 @@ models_before_moons_tear_main_hook:
     jr      ra
     addiu   sp, sp, 0x20
 
-models_draw_moons_tear_hook:
+Models_DrawMoonsTear_Hook:
     addiu   sp, sp, -0x20
     sw      ra, 0x0018 (sp)
     sw      a0, 0x0010 (sp)
-    jal     models_draw_moons_tear
+    jal     Models_DrawMoonsTear
     sw      a1, 0x0014 (sp)
 
     bnez    v0, @@caller_return
@@ -147,14 +147,14 @@ models_draw_moons_tear_hook:
     jr      ra
     addiu   sp, sp, 0x38
 
-models_draw_lab_fish_heart_piece_hook:
+Models_DrawLabFishHeartPiece_Hook:
     ; Displaced code
     sw      a1, 0x0034 (sp)
 
     addiu   sp, sp, -0x18
     sw      ra, 0x0010 (sp)
 
-    jal     models_draw_lab_fish_heart_piece
+    jal     Models_DrawLabFishHeartPiece
     nop
 
     bnez    v0, @@caller_return
@@ -176,14 +176,14 @@ models_draw_lab_fish_heart_piece_hook:
     jr      ra
     addiu   sp, sp, 0x30
 
-models_before_seahorse_main_hook:
+Models_BeforeSeahorseMain_Hook:
     ; Displaced code
     or      s0, a0, r0
 
     addiu   sp, sp, 0x18
     sw      ra, 0x0014 (sp)
 
-    jal     models_before_seahorse_main
+    jal     Models_BeforeSeahorseMain
     sw      a1, 0x0010 (sp)
 
     lw      a1, 0x0010 (sp)
@@ -191,14 +191,14 @@ models_before_seahorse_main_hook:
     jr      ra
     addiu   sp, sp, -0x18
 
-models_draw_seahorse_hook:
+Models_DrawSeahorse_Hook:
     ; Displaced code
     sw      a1, 0x0054 (sp)
 
     addiu   sp, sp, -0x18
     sw      ra, 0x0010 (sp)
 
-    jal     models_draw_seahorse
+    jal     Models_DrawSeahorse
     nop
 
     bnez    v0, @@caller_return
@@ -220,7 +220,7 @@ models_draw_seahorse_hook:
     jr      ra
     addiu   sp, sp, 0x50
 
-models_draw_shop_inventory_hook:
+Models_DrawShopInventory_Hook:
     addiu   sp, sp, -0x18
     sw      ra, 0x0010 (sp)
 
@@ -228,14 +228,14 @@ models_draw_shop_inventory_hook:
     or      a2, a1, r0
     or      a1, a0, r0
 
-    jal     models_draw_shop_inventory
+    jal     Models_DrawShopInventory
     or      a0, s0, r0
 
     lw      ra, 0x0010 (sp)
     jr      ra
     addiu   sp, sp, 0x18
 
-models_bio_baba_heart_piece_rotation_fix_hook:
+Models_BioBabaHeartPieceRotationFix_Hook:
     bnez    at, @@return
     nop
     addiu   at, r0, 0x0017

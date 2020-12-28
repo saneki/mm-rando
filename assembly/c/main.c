@@ -22,7 +22,7 @@ void c_init() {
     Dpad_Init();
     HudColors_Init();
     ActorExt_Init();
-    models_init();
+    Models_Init();
     MMR_Init();
     Misc_Init();
     text_init();
@@ -46,5 +46,5 @@ bool before_damage_process(ActorPlayer *link, GlobalContext *game) {
  **/
 void game_after_prepare_display_buffers(GraphicsContext *gfx) {
     // Check if models objheap should finish advancing.
-    models_after_prepare_display_buffers(gfx);
+    Models_AfterPrepareDisplayBuffers(gfx);
 }

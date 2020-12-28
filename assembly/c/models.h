@@ -3,16 +3,16 @@
 
 #include "z2.h"
 
-struct model {
-    u16 object_id;
-    u8 graphic_id;
+struct Model {
+    u16 objectId;
+    u8 graphicId;
 };
 
-void models_after_actor_dtor(Actor *actor);
-void models_after_prepare_display_buffers(GraphicsContext *gfx);
-void models_clear_object_heap(void);
-void models_init(void);
-void models_prepare_after_room_unload(GlobalContext *game);
-void models_prepare_before_room_load(RoomContext *room_ctxt, s8 room_index);
+void Models_AfterActorDtor(Actor* actor);
+void Models_AfterPrepareDisplayBuffers(GraphicsContext* gfx);
+void Models_ClearObjectHeap(void);
+void Models_Init(void);
+void Models_PrepareAfterRoomUnload(GlobalContext* ctxt);
+void Models_PrepareBeforeRoomLoad(RoomContext* roomCtx, s8 roomIndex);
 
 #endif // MODELS_H
