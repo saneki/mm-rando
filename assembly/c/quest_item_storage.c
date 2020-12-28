@@ -2,7 +2,7 @@
 #include "quest_item_storage.h"
 #include "z2.h"
 
-void quest_item_storage_clear(struct quest_item_storage *storage) {
+void QuestItemStorage_Clear(struct QuestItemStorage* storage) {
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 6; j++) {
             storage->slots[i][j] = 0;
@@ -10,7 +10,7 @@ void quest_item_storage_clear(struct quest_item_storage *storage) {
     }
 }
 
-bool quest_item_storage_get_slot(int *slot, int *idx, u8 item) {
+bool QuestItemStorage_GetSlot(int* slot, int* idx, u8 item) {
     switch (item) {
         case Z2_ITEM_MOON_TEAR:
         case Z2_ITEM_TOWN_DEED:
@@ -35,21 +35,21 @@ bool quest_item_storage_get_slot(int *slot, int *idx, u8 item) {
     }
 }
 
-bool quest_item_storage_has(const struct quest_item_storage *storage, u8 item) {
+bool QuestItemStorage_Has(const struct QuestItemStorage* storage, u8 item) {
     int idx, slot;
-    if (quest_item_storage_get_slot(&slot, &idx, item)) {
+    if (QuestItemStorage_GetSlot(&slot, &idx, item)) {
         return storage->slots[slot][idx] == item;
     } else {
         return false;
     }
 }
 
-u8 quest_item_storage_next(const struct quest_item_storage *storage, u8 item) {
+u8 QuestItemStorage_Next(const struct QuestItemStorage* storage, u8 item) {
     int idx, slot;
-    if (quest_item_storage_get_slot(&slot, &idx, item)) {
+    if (QuestItemStorage_GetSlot(&slot, &idx, item)) {
         for (int i = 1; i < 6; i++) {
-            int nextidx = (idx + i) % 6;
-            u8 next = storage->slots[slot][nextidx];
+            int nextIdx = (idx + i) % 6;
+            u8 next = storage->slots[slot][nextIdx];
             if (next != 0) {
                 return next;
             }
@@ -58,9 +58,9 @@ u8 quest_item_storage_next(const struct quest_item_storage *storage, u8 item) {
     return Z2_ITEM_NONE;
 }
 
-bool quest_item_storage_put(struct quest_item_storage *storage, u8 item) {
+bool QuestItemStorage_Put(struct QuestItemStorage* storage, u8 item) {
     int idx, slot;
-    if (quest_item_storage_get_slot(&slot, &idx, item)) {
+    if (QuestItemStorage_GetSlot(&slot, &idx, item)) {
         storage->slots[slot][idx] = item;
         return true;
     } else {
@@ -68,9 +68,9 @@ bool quest_item_storage_put(struct quest_item_storage *storage, u8 item) {
     }
 }
 
-bool quest_item_storage_remove(struct quest_item_storage *storage, u8 item) {
+bool QuestItemStorage_Remove(struct QuestItemStorage* storage, u8 item) {
     int idx, slot;
-    if (quest_item_storage_get_slot(&slot, &idx, item)) {
+    if (QuestItemStorage_GetSlot(&slot, &idx, item)) {
         storage->slots[slot][idx] = 0;
         return true;
     } else {
