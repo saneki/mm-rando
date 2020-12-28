@@ -2,16 +2,15 @@
 #include "reloc.h"
 #include "z2.h"
 
-bool player_can_receive_item(GlobalContext *game) {
-    ActorPlayer *link = Z2_LINK(game);
-    if ((link->stateFlags.state1 & Z2_ACTION_STATE1_AIM) != 0) {
+bool Player_CanReceiveItem(GlobalContext* ctxt) {
+    ActorPlayer* player = Z2_LINK(ctxt);
+    if ((player->stateFlags.state1 & Z2_ACTION_STATE1_AIM) != 0) {
         return false;
     }
-    u16 current_animation_id = link->currentAnimation.id;
     bool result = false;
-    switch (current_animation_id) {
+    switch (player->currentAnimation.id) {
         case 0xE208: // rolling - Goron
-            result = game->state.input[0].current.buttons.a != 0;
+            result = ctxt->state.input[0].current.buttons.a != 0;
             break;
         case 0xDD28: // rolling - Human, Goron, Zora
         case 0xDF20: // idle - Human with sword
@@ -35,58 +34,57 @@ bool player_can_receive_item(GlobalContext *game) {
 /**
  * Helper function used to perform effects if entering water, and update the player swim flag.
  **/
-static void HandleEnterWater(ActorPlayer *link, GlobalContext *game) {
+static void HandleEnterWater(ActorPlayer* player, GlobalContext* ctxt) {
     // Check water distance to determine if in water.
-    if (link->tableA68[11] < link->base.waterSurfaceDist) {
+    if (player->tableA68[11] < player->base.waterSurfaceDist) {
         // If swim flag not set, perform effects (sound + visual) for entering water.
-        if ((link->stateFlags.state1 & Z2_ACTION_STATE1_SWIM) == 0) {
-            z2_PerformEnterWaterEffects(game, link);
+        if ((player->stateFlags.state1 & Z2_ACTION_STATE1_SWIM) == 0) {
+            z2_PerformEnterWaterEffects(ctxt, player);
         }
         // Set swim flag.
-        link->stateFlags.state1 |= Z2_ACTION_STATE1_SWIM;
+        player->stateFlags.state1 |= Z2_ACTION_STATE1_SWIM;
     }
 }
 
 /**
  * Helper function called to check if the player is in water.
  **/
-static bool InWater(ActorPlayer *link) {
-    return ((link->stateFlags.state1 & Z2_ACTION_STATE1_SWIM) != 0 ||
-            (link->tableA68[11] < link->base.waterSurfaceDist));
+static bool InWater(ActorPlayer* player) {
+    return ((player->stateFlags.state1 & Z2_ACTION_STATE1_SWIM) != 0 ||
+            (player->tableA68[11] < player->base.waterSurfaceDist));
 }
 
 /**
  * Hook function called before handling "frozen" player state.
  **/
-void player_before_handle_frozen_state(ActorPlayer *link, GlobalContext *game) {
-    HandleEnterWater(link, game);
+void Player_BeforeHandleFrozenState(ActorPlayer* player, GlobalContext* ctxt) {
+    HandleEnterWater(player, ctxt);
     // If frozen while swimming, should float on water.
-    if (InWater(link)) {
-        z2_PlayerHandleBuoyancy(link);
+    if (InWater(player)) {
+        z2_PlayerHandleBuoyancy(player);
     }
 }
 
 /**
  * Hook function called before handling "voiding" player state.
  **/
-void player_before_handle_void_state(ActorPlayer *link, GlobalContext *game) {
-    HandleEnterWater(link, game);
+void Player_BeforeHandleVoidingState(ActorPlayer* player, GlobalContext* ctxt) {
+    HandleEnterWater(player, ctxt);
     // Note: Later in the function of this hook, is where the "frozen" player state flag is set.
     // Since we can't check the player state flags, do the same check this function does instead.
-    bool frozen = link->currentAnimation.value == 0;
-    bool zora = link->form == 2;
+    bool frozen = player->currentAnimation.value == 0;
+    bool zora = player->form == 2;
     // If Zora is voiding (frozen) and swimming, should float in water.
-    if (zora && frozen && InWater(link)) {
-        z2_PlayerHandleBuoyancy(link);
+    if (zora && frozen && InWater(player)) {
+        z2_PlayerHandleBuoyancy(player);
     }
 }
 
 /**
  * Hook function to check whether or not freezing should void Zora.
  **/
-bool player_should_ice_void_zora(ActorPlayer *link, GlobalContext *game) {
-    u16 scene = game->sceneNum;
-    switch (scene) {
+bool Player_ShouldIceVoidZora(ActorPlayer* player, GlobalContext* ctxt) {
+    switch (ctxt->sceneNum) {
         case 0x1F: // Odolwa Boss Room
         case 0x44: // Goht Boss Room
         case 0x5F: // Gyorg Boss Room
@@ -100,7 +98,7 @@ bool player_should_ice_void_zora(ActorPlayer *link, GlobalContext *game) {
 /**
  * Hook function called to determine if swim state should be prevented from being restored.
  **/
-bool player_should_prevent_restoring_swim_state(ActorPlayer *link, GlobalContext *game, void *function) {
-    void *handleFrozen = reloc_resolve_player_ovl(&s801D0B70.playerActor, 0x808546D0); // Offset: 0x26C40
+bool Player_ShouldPreventRestoringSwimState(ActorPlayer* player, GlobalContext* ctxt, void* function) {
+    void* handleFrozen = reloc_resolve_player_ovl(&s801D0B70.playerActor, 0x808546D0); // Offset: 0x26C40
     return function == handleFrozen;
 }

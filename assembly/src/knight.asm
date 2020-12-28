@@ -7,7 +7,7 @@ knight_give_item_hook:
     bnez    v0, @@vanilla_layout
     nop
 
-    jal     player_can_receive_item
+    jal     Player_CanReceiveItem
     nop
 
     beq     v0, r0, @@caller_return
