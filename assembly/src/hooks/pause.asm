@@ -8,7 +8,7 @@
 ; Replaces:
 ;   jal     0x80821AD4
 .org 0x8081BB70 ; In RDRAM: 0x807509F0
-    jal     pause_menu_select_item_draw_icon_hook
+    jal     PauseMenu_SelectItemDrawIcon_Hook
 
 ; Remove relocations.
 .org 0x8082C944
@@ -22,7 +22,7 @@
 ; Replaces:
 ;   jr      ra
 .org 0x8081C67C ; In RDRAM: 0x807514FC
-    j       pause_menu_select_item_subscreen_after_process_hook
+    j       PauseMenu_SelectItemSubscreenAfterProcess_Hook
 
 ;==================================================================================================
 ; Pause Menu (Select Item subscreen) - Process A Button
@@ -34,7 +34,7 @@
 ;   lhu     t7, 0x002E (sp)
 ;   beq     s1, at, 0x8081C61C
 .org 0x8081C250 ; In RDRAM: 0x807510D0
-    jal     pause_menu_select_item_process_a_button_hook
+    jal     PauseMenu_SelectItemProcessAButton_Hook
     sh      t6, 0x025E (s0)
     lhu     t7, 0x002E (sp)
     bnez    v0, 0x8081C61C
@@ -50,7 +50,7 @@
 ;   bnezl   t9, 0x8081C224
 .org 0x8081C1E0 ; In RDRAM: 0x80751060
     nop
-    jal     pause_menu_select_item_show_a_button_enabled_hook
+    jal     PauseMenu_SelectItemShowAButtonEnabled_Hook
     or      a0, t8, r0
     beqzl    v0, 0x8081C224
 
@@ -64,5 +64,5 @@
 ;   sw      ra, 0x001C (sp)
 .org 0x808283DC
     sw      ra, 0x001C (sp)
-    jal     pause_menu_before_update_hook
+    jal     PauseMenu_BeforeUpdate_Hook
     sw      s0, 0x0014 (sp)
