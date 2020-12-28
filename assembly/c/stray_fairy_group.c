@@ -8,7 +8,7 @@ bool stray_fairy_group_give_reward(Actor *actor, GlobalContext *game, void* next
         return false;
     }
 
-    if (player_can_receive_item(game)) {
+    if (Player_CanReceiveItem(game)) {
         u16 gi_index = actor->params >> 9;
         if (gi_index == 0 && gSaveContext.perm.currentForm == 4) { // Town Fairy + Human
             gi_index = 5;
