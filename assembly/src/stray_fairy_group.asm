@@ -1,17 +1,16 @@
-stray_fairy_group_give_item_hook:
+StrayFairyGroup_GiveReward_Hook:
     addiu   sp, sp, -0x20
     sw      ra, 0x0010 (sp)
     sw      a0, 0x0014 (sp)
     sw      a1, 0x0018 (sp)
 
-    jal     stray_fairy_group_give_reward
+    jal     StrayFairyGroup_GiveReward
     sw      a2, 0x001C (sp) ; Store relocated pointer
 
     bnez    v0, @@caller_return
     nop
 
-
-    ;Displaced code:
+    ; Displaced code:
     lb      a0, 0x0038 (s0)
     jal     0x800F1C68
     or      a1, s0, r0

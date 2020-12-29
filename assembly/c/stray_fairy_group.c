@@ -3,21 +3,21 @@
 #include "player.h"
 
 // returns false if using vanilla layout and cutscene should start
-bool stray_fairy_group_give_reward(Actor *actor, GlobalContext *game, void* nextState) {
+bool StrayFairyGroup_GiveReward(Actor* actor, GlobalContext* ctxt, void* nextState) {
     if (MISC_CONFIG.internal.vanillaLayout) {
         return false;
     }
 
-    if (Player_CanReceiveItem(game)) {
-        u16 gi_index = actor->params >> 9;
-        if (gi_index == 0 && gSaveContext.perm.currentForm == 4) { // Town Fairy + Human
-            gi_index = 5;
+    if (Player_CanReceiveItem(ctxt)) {
+        u16 giIndex = actor->params >> 9;
+        if (giIndex == 0 && gSaveContext.perm.currentForm == 4) { // Town Fairy + Human
+            giIndex = 5;
         }
-        gi_index += 0x12C;
-        if (z2_SetGetItemLongrange(actor, game, gi_index)) {
-            void **nextStatePointer = (void**)(((u8*)actor) + 0x14C);
+        giIndex += 0x12C;
+        if (z2_SetGetItemLongrange(actor, ctxt, giIndex)) {
+            void** nextStatePointer = (void**)(((u8*)actor) + 0x14C);
             *nextStatePointer = nextState;
-            z2_remove_generic_flag(game, actor->params >> 9);
+            z2_remove_generic_flag(ctxt, actor->params >> 9);
         }
     }
 
