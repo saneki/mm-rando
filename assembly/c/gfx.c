@@ -101,11 +101,11 @@ void Sprite_Init(void) {
 
     // Allocate space for item textures
     int size = Sprite_GetBytesTotal(&gItemTexturesSprite);
-    gItemTexturesSprite.buf = heap_alloc(size);
+    gItemTexturesSprite.buf = Util_HeapAlloc(size);
 
     // Initialize fairy sprite.
     int fairyBytes = Sprite_GetBytesTotal(&gSpriteFairy);
-    gSpriteFairy.buf = heap_alloc(fairyBytes);
+    gSpriteFairy.buf = Util_HeapAlloc(fairyBytes);
     u8 *temp = (u8*)0x80780000;
     u32 prom = z2_GetFilePhysAddr(0xA0A000);
     const u32 dataOffset = 0x1B80;
@@ -114,7 +114,7 @@ void Sprite_Init(void) {
 
     // Initialize font texture buffer.
     int fontBytes = Sprite_GetBytesTotal(&gSpriteFont);
-    gSpriteFont.buf = heap_alloc(fontBytes);
+    gSpriteFont.buf = Util_HeapAlloc(fontBytes);
     for (int i = 0; i < fontBytes / 2; i++) {
         gSpriteFont.buf[2*i] = (FONT_TEXTURE[i] >> 4) | 0xF0;
         gSpriteFont.buf[2*i + 1] = FONT_TEXTURE[i] | 0xF0;

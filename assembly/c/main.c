@@ -17,7 +17,7 @@
 #include "z2.h"
 
 void c_init() {
-    heap_init();
+    Util_HeapInit();
     Sprite_Init();
     Dpad_Init();
     HudColors_Init();

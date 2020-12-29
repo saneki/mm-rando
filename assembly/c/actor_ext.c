@@ -138,6 +138,6 @@ struct ActorExt* ActorExt_Setup(Actor* actor, bool* created) {
 void ActorExt_Init(void) {
     // Allocate the ActorExt array
     gHeapSize = GetHeapSize(gCount);
-    void *heap = heap_alloc((int)gHeapSize);
+    void *heap = Util_HeapAlloc((int)gHeapSize);
     gHeap = (struct ActorExt*)heap;
 }

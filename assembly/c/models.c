@@ -529,7 +529,7 @@ void Models_ClearObjectHeap(void) {
  * Initialize object heap.
  **/
 void Models_Init(void) {
-    void* alloc = heap_alloc(OBJHEAP_SIZE);
+    void* alloc = Util_HeapAlloc(OBJHEAP_SIZE);
     objheap_init(&gObjheap, alloc, OBJHEAP_SIZE, gObjheapItems, OBJHEAP_SLOTS);
 }
 

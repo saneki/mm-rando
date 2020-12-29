@@ -3,17 +3,16 @@
 
 #include "types.h"
 
-#define array_size(a) (sizeof(a) / sizeof(a[0]))
-
-void heap_init();
-void *heap_alloc(int bytes);
+#define Util_ArraySize(Arr) (sizeof(Arr) / sizeof(Arr[0]))
 
 typedef struct {
-    u8 *buf;
-    u32 vrom_start;
+    u8* buf;
+    u32 vromStart;
     u32 size;
-} file_t;
+} UtilFile;
 
-void file_init(file_t *file);
+void Util_FileInit(UtilFile* file);
+void* Util_HeapAlloc(int bytes);
+void Util_HeapInit(void);
 
 #endif // UTIL_H
