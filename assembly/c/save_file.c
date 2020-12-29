@@ -2,26 +2,26 @@
 #include "quest_item_storage.h"
 #include "save_file.h"
 
-struct save_file_config SAVE_FILE_CONFIG = {
+struct SaveFileConfig SAVE_FILE_CONFIG = {
     .magic = SAVE_FILE_CONFIG_MAGIC,
     .version = 0,
 };
 
-static void save_file_init_struct(struct save_file_config *config) {
+static void InitStruct(struct SaveFileConfig* config) {
     config->magic = SAVE_FILE_CONFIG_MAGIC;
     config->version = 0;
-    QuestItemStorage_Clear(&config->quest_storage);
+    QuestItemStorage_Clear(&config->questStorage);
 }
 
-static bool save_file_try_copy_struct(struct save_file_config *dest, const void *src_bytes) {
-    struct save_file_config *src = (struct save_file_config *)src_bytes;
+static bool TryCopyStruct(struct SaveFileConfig* dest, const void *srcBytes) {
+    struct SaveFileConfig* src = (struct SaveFileConfig*)srcBytes;
     if (src->magic == SAVE_FILE_CONFIG_MAGIC) {
         // If magic matches, copy over struct data
-        z2_memcpy(dest, src_bytes, sizeof(*dest));
+        z2_memcpy(dest, srcBytes, sizeof(*dest));
         return true;
     } else {
         // Otherwise, initialize struct
-        save_file_init_struct(dest);
+        InitStruct(dest);
         return false;
     }
 }
@@ -29,15 +29,15 @@ static bool save_file_try_copy_struct(struct save_file_config *dest, const void 
 /**
  * Clear save file config data.
  **/
-void save_file_clear(void) {
-    save_file_init_struct(&SAVE_FILE_CONFIG);
+void SaveFile_Clear(void) {
+    InitStruct(&SAVE_FILE_CONFIG);
 }
 
 /**
  * Get the offset of custom save file struct in the save flash data section.
  **/
-u32 save_file_get_flash_section_offset(bool owl_save) {
-    if (owl_save) {
+u32 SaveFile_GetFlashSectionOffset(bool owlSave) {
+    if (owlSave) {
         return SAVE_FILE_OFFSET_OWL;
     } else {
         return SAVE_FILE_OFFSET_NEW;
@@ -47,13 +47,13 @@ u32 save_file_get_flash_section_offset(bool owl_save) {
 /**
  * Read existing save file struct data into our struct.
  **/
-bool save_file_read(const void *src) {
-    return save_file_try_copy_struct(&SAVE_FILE_CONFIG, src);
+bool SaveFile_Read(const void* src) {
+    return TryCopyStruct(&SAVE_FILE_CONFIG, src);
 }
 
 /**
  * Write save file config to a destination buffer.
  **/
-void save_file_write(void *dest) {
+void SaveFile_Write(void* dest) {
     z2_memcpy(dest, &SAVE_FILE_CONFIG, sizeof(SAVE_FILE_CONFIG));
 }
