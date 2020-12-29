@@ -12,5 +12,5 @@
 .org 0x801693C4
     or      a0, s0, r0
     lw      s0, 0x0018 (sp)
-    j       scene_after_init
+    j       Scene_AfterInit
     addiu   sp, sp, 0x20
