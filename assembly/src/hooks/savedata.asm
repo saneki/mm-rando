@@ -8,7 +8,7 @@
 ; Replaces:
 ;   jal     0x800FEC90
 .org 0x80145024
-    jal     savedata_after_load_hook
+    jal     Savedata_AfterLoad_Hook
 
 ; Hook after preparing savedata.
 ; Replaces:
@@ -17,17 +17,17 @@
 ;   addiu   sp, sp, 0x30
 .org 0x80144568
     or      a0, s5, r0
-    j       savedata_after_prepare_hook
+    j       Savedata_AfterPrepare_Hook
     lw      s5, 0x0028 (sp)
 
 ; Hook after writing savedata to buffer before flash (owl statue).
 ; Replaces:
 ;   jal     0x800FEC90
 .org 0x80145578
-    jal     savedata_after_write_owl_hook
+    jal     Savedata_AfterWrite_Owl_Hook
 
 ; Hook after writing savedata to buffer before flash (Song of Time).
 ; Replaces:
 ;   jal     0x800FEC90
 .org 0x80145664
-    jal     savedata_after_write_sot_hook
+    jal     Savedata_AfterWrite_Sot_Hook
