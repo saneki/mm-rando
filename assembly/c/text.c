@@ -17,7 +17,7 @@ static TextChar* gTextBuf = NULL;
 static TextChar* gTextEnd = NULL;
 
 void Text_Init(void) {
-    gTextBuf = heap_alloc(gTextMaxChars * sizeof(TextChar));
+    gTextBuf = Util_HeapAlloc(gTextMaxChars * sizeof(TextChar));
     gTextEnd = gTextBuf;
 }
 

@@ -35,7 +35,7 @@ static void LoadGiTable(void) {
     DmaEntry entry = dmadata[index];
     u32 size = entry.vromEnd - entry.vromStart;
     // Load the gi-table table from file into buffer.
-    gGiTable = (GetItemEntry*)heap_alloc(size);
+    gGiTable = (GetItemEntry*)Util_HeapAlloc(size);
     z2_ReadFile(gGiTable, entry.vromStart, size);
 }
 
