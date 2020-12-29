@@ -5,7 +5,7 @@
 
 #define WORLD_COLOR_CONFIG_MAGIC 0x57524C44
 
-struct world_color_config {
+struct WorldColorConfig {
     u32 magic;
     u32 version;
     Color goronEnergyPunch;
