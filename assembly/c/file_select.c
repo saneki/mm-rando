@@ -5,7 +5,7 @@
 #include "misc.h"
 #include "save_file.h"
 #include "util.h"
-#include "z2.h"
+#include <z2.h>
 
 // Enables using Z to refresh file select hash icons.
 // #define FILE_HASH_DEBUG

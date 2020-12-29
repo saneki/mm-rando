@@ -2,7 +2,7 @@
 #define FAIRY_H
 
 #include <stdbool.h>
-#include "z2.h"
+#include <z2.h>
 
 bool Fairy_CanInteractWith(GlobalContext* ctxt, ActorPlayer* player);
 bool Fairy_GetNextInstance(u16* inst, GlobalContext* ctxt);

@@ -4,7 +4,7 @@
 #include "quest_items.h"
 #include "reloc.h"
 #include "save_file.h"
-#include "z2.h"
+#include <z2.h>
 
 // Vertex buffers.
 static Vtx gVertexBufs[(4 * 3) * 2];

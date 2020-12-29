@@ -2,7 +2,7 @@
 #define ACTOR_EXT_H
 
 #include <stdbool.h>
-#include "z2.h"
+#include <z2.h>
 
 enum ActorExtFlag {
     ACTOR_EXT_USED = 0x80000000,

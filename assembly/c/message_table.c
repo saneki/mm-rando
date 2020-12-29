@@ -1,5 +1,5 @@
 #include <stdbool.h>
-#include "z2.h"
+#include <z2.h>
 
 #define MESSAGE_TABLE_EXT_COUNT 0x40
 

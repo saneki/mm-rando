@@ -1,7 +1,7 @@
 #ifndef COLOR_H
 #define COLOR_H
 
-#include "z2.h"
+#include <z2.h>
 
 #define Color_ConvertToInt(Color) (u32)(((Color).r << 24) | ((Color).g << 16) | ((Color).b << 8) | (Color).a)
 #define Color_ConvertToIntWithAlpha(Color, Alpha) (u32)(((Color).r << 24) | ((Color).g << 16) | ((Color).b << 8) | ((Alpha) & 0xFF))

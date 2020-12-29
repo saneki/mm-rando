@@ -2,8 +2,8 @@
 #define _Z64SCENE_H_
 
 #include <n64.h>
-#include "types.h"
-#include "unk.h"
+#include <types.h>
+#include <unk.h>
 
 typedef struct {
 /* 0x0 */ u32 vromStart;

@@ -2,7 +2,7 @@
 #define ICETRAP_H
 
 #include <stdbool.h>
-#include "z2.h"
+#include <z2.h>
 
 bool Icetrap_Give(ActorPlayer* player, GlobalContext* ctxt);
 bool Icetrap_IsPending(void);

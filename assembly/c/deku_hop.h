@@ -1,7 +1,7 @@
 #ifndef DEKU_HOP
 #define DEKU_HOP
 
-#include "z2.h"
+#include <z2.h>
 
 void DekuHop_Handle(ActorPlayer* player, GlobalContext* ctxt);
 

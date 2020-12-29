@@ -1,7 +1,7 @@
 #include <stdbool.h>
 #include "misc.h"
 #include "reloc.h"
-#include "z2.h"
+#include <z2.h>
 
 // Function in Bg_Ingate used to update the actor's movement. It will also update the flags when its path is finished.
 #define UpdateCanoeMovementVRAM 0x80953BEC

@@ -1,7 +1,7 @@
 #include <stdbool.h>
 #include "gfx.h"
 #include "text.h"
-#include "z2.h"
+#include <z2.h>
 
 // Whether or not the overlay menu is enabled.
 static bool gEnable = true;

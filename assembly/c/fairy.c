@@ -1,6 +1,6 @@
 #include <stdbool.h>
 #include "actor.h"
-#include "z2.h"
+#include <z2.h>
 
 // Number of FairyInst entries in table.
 #define FAIRY_INST_COUNT 12

@@ -2,7 +2,7 @@
 #define QUEST_ITEMS_H
 
 #include <stdbool.h>
-#include "z2.h"
+#include <z2.h>
 
 // Check if an item is a quest item.
 #define QuestItems_IsQuestItem(Item) (Z2_ITEM_MOON_TEAR <= (Item) && (Item) <= Z2_ITEM_PENDANT)

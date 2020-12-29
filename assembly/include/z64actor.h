@@ -2,9 +2,9 @@
 #define _Z64ACTOR_H_
 
 #include <n64.h>
-#include "types.h"
-#include "unk.h"
-#include "z64math.h"
+#include <types.h>
+#include <unk.h>
+#include <z64math.h>
 
 struct Actor;
 struct BgPolygon;

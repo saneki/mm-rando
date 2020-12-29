@@ -1,7 +1,7 @@
 #include <stdbool.h>
 #include "misc.h"
 #include "reloc.h"
-#include "z2.h"
+#include <z2.h>
 
 struct ArrowCycleState {
     u16 frameDelay;

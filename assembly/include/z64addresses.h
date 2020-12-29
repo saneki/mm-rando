@@ -1,7 +1,7 @@
 #ifndef _Z64ADDRESSES_H_
 #define _Z64ADDRESSES_H_
 
-#include "z2.h"
+#include <z2.h>
 
 /* Virtual File Addresses */
 #define ItemTextureFileVROM              0xA36C10

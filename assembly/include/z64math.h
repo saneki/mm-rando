@@ -1,7 +1,7 @@
 #ifndef _Z64MATH_H_
 #define _Z64MATH_H_
 
-#include "types.h"
+#include <types.h>
 
 typedef struct {
     /* 0x0 */ f32 x;

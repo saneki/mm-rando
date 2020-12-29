@@ -2,7 +2,7 @@
 #define QUEST_ITEM_STORAGE_H
 
 #include <stdbool.h>
-#include "types.h"
+#include <types.h>
 
 struct QuestItemStorage {
     /* 0x00 */ u8 slots[3][6];

@@ -1,7 +1,7 @@
 #include <stdbool.h>
 #include "arrow_cycle.h"
 #include "misc.h"
-#include "z2.h"
+#include <z2.h>
 
 struct ArrowMagicState {
     Actor *arrow;

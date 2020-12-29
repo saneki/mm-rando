@@ -6,7 +6,7 @@ CFLAGS = -march=vr4300 -mtune=vr4300 -mabi=32 -mno-gpopt -mdivide-breaks \
 	-O1 -fno-reorder-blocks -mexplicit-relocs
 
 # Compile with F3DEX2 support.
-CFLAGS += -DF3DEX_GBI_2
+CFLAGS += -DF3DEX_GBI_2 -I../include
 
 OBJECTS = $(patsubst %.c,%.o,$(sort $(wildcard *.c)))
 

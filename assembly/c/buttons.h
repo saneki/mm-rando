@@ -2,7 +2,7 @@
 #define BUTTONS_H
 
 #include <stdbool.h>
-#include "z2.h"
+#include <z2.h>
 
 bool Buttons_CheckCItemUsable(GlobalContext* ctxt, u8 c);
 void Buttons_CheckItemUsability(bool* dest, GlobalContext* ctxt, u8 b, u8 cLeft, u8 cDown, u8 cRight);

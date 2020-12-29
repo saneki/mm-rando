@@ -2,7 +2,7 @@
 #define DPAD_H
 
 #include <stdbool.h>
-#include "z2.h"
+#include <z2.h>
 
 // Magic number for DpadConfig: "DPAD"
 #define DPAD_CONFIG_MAGIC 0x44504144

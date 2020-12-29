@@ -1,7 +1,7 @@
 #ifndef _UNK_H_
 #define _UNK_H_
 
-#include "types.h"
+#include <types.h>
 
 #define UNK_TYPE s32
 #define UNK_TYPE1 s8
