@@ -2,70 +2,69 @@
 #include "util.h"
 #include "z2.h"
 
-#define text_max_chars 256
-#define text_bucket_count 6
-#define text_bucket_size 18
+const static int gTextMaxChars = 256;
+const static int gTextBucketCount = 6;
+const static int gTextBucketSize = 18;
 
 typedef struct {
     uint32_t c : 8;
     uint32_t left : 12;
     uint32_t top : 12;
     ColorRGBA8 color;
-} text_char_t;
+} TextChar;
 
-static text_char_t *text_end = NULL;
-static text_char_t *text_buf = NULL;
+static TextChar* gTextBuf = NULL;
+static TextChar* gTextEnd = NULL;
 
-void text_init(void) {
-    text_buf = heap_alloc(text_max_chars * sizeof(text_char_t));
-    text_end = text_buf;
+void Text_Init(void) {
+    gTextBuf = heap_alloc(gTextMaxChars * sizeof(TextChar));
+    gTextEnd = gTextBuf;
 }
 
-void text_print_with_color(const char *s, int left, int top, ColorRGBA8 color) {
+void Text_PrintWithColor(const char* s, int left, int top, ColorRGBA8 color) {
     char c;
     while (c = *(s++)) {
-        if (text_end >= text_buf + text_max_chars) {
+        if (gTextEnd >= gTextBuf + gTextMaxChars) {
             break;
         }
-        text_end->c = c;
-        text_end->left = left;
-        text_end->top = top;
-        text_end->color = color;
-        text_end++;
+        gTextEnd->c = c;
+        gTextEnd->left = left;
+        gTextEnd->top = top;
+        gTextEnd->color = color;
+        gTextEnd++;
         left += gSpriteFont.tileW;
     }
 }
 
-void text_print(const char *s, int left, int top) {
+void Text_Print(const char* s, int left, int top) {
     ColorRGBA8 color = { 0xFF, 0xFF, 0xFF, 0xFF };
-    text_print_with_color(s, left, top, color);
+    Text_PrintWithColor(s, left, top, color);
 }
 
-void text_flush(DispBuf *db) {
-    for (int i = 0; i < text_bucket_count; i++) {
-        Sprite_Load(db, &gSpriteFont,
-                i * text_bucket_size, text_bucket_size);
+void Text_Flush(DispBuf* db) {
+    for (int i = 0; i < gTextBucketCount; i++) {
+        Sprite_Load(db, &gSpriteFont, i * gTextBucketSize, gTextBucketSize);
 
-        text_char_t *text_p = text_buf;
-        while (text_p < text_end) {
-            char c = text_p->c;
-            int left = text_p->left;
-            int top = text_p->top;
-            ColorRGBA8 color = text_p->color;
-            text_p++;
+        TextChar *pText = gTextBuf;
+        while (pText < gTextEnd) {
+            char c = pText->c;
+            int left = pText->left;
+            int top = pText->top;
+            ColorRGBA8 color = pText->color;
+            pText++;
 
-            int bucket = (c - 32) / text_bucket_size;
-            if (bucket != i) continue;
+            int bucket = (c - 32) / gTextBucketSize;
+            if (bucket != i) {
+                continue;
+            }
 
             // Apply text color.
             gDPSetPrimColor(db->p++, 0, 0, color.r, color.g, color.b, color.a);
 
-            int tile_index = (c - 32) % text_bucket_size;
-            Sprite_Draw(db, &gSpriteFont, tile_index,
-                    left, top,
-                    gSpriteFont.tileW, gSpriteFont.tileH - 1);
+            int tileIndex = (c - 32) % gTextBucketSize;
+            Sprite_Draw(db, &gSpriteFont, tileIndex, left, top, gSpriteFont.tileW, gSpriteFont.tileH - 1);
         }
     }
 
-    text_end = text_buf;
+    gTextEnd = gTextBuf;
 }

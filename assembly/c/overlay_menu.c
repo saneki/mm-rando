@@ -173,7 +173,7 @@ void OverlayMenu_Draw(GlobalContext* ctxt) {
     for (int i = 0; i < gDungeonCount; i++) {
         struct DungeonEntry *d = &gDungeons[i];
         int top = startTop + ((iconSize + padding) * i) + 1;
-        text_print(d->name, left, top);
+        Text_Print(d->name, left, top);
     }
     left += (9 * gSpriteFont.tileW) + padding;
 
@@ -188,7 +188,7 @@ void OverlayMenu_Draw(GlobalContext* ctxt) {
             GetCountText(keys, count, 1);
             // Draw key count as text.
             int top = startTop + ((iconSize + padding) * i) + 1;
-            text_print(count, left + 4, top);
+            Text_Print(count, left + 4, top);
         }
     }
     left += iconSize + padding;
@@ -290,15 +290,15 @@ void OverlayMenu_Draw(GlobalContext* ctxt) {
             if (total >= maximum) {
                 // Use green text if at maximum.
                 ColorRGBA8 color = { 0x78, 0xFF, 0x00, 0xFF };
-                text_print_with_color(count, left, top, color);
+                Text_PrintWithColor(count, left, top, color);
             } else {
-                text_print(count, left, top);
+                Text_Print(count, left, top);
             }
         }
     }
 
     // Flush text and finish.
-    text_flush(db);
+    Text_Flush(db);
     gDPFullSync(db->p++);
     gSPEndDisplayList(db->p++);
 }
