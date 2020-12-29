@@ -9,7 +9,7 @@
 ;   sw      s0, 0x0018 (sp)
 ;   sw      a1, 0x0024 (sp)
 .org 0x80BA4A08 ; Offset: 0x1348
-    jal     toto_before_advance_formal_replay_hook
+    jal     Toto_BeforeAdvanceFormalReplay_Hook
     sw      s0, 0x0018 (sp)
 
 ; Update behavior when advancing Toto cutscene state (1).
@@ -17,7 +17,7 @@
 ;   b       0x80BA4B10
 ;   addiu   v0, r0, 0x0001
 .org 0x80BA4AE0 ; Offset: 0x1420
-    jal     toto_handle_advance_formal_replay_hook
+    jal     Toto_HandleAdvanceFormalReplay_Hook
     nop
 
 ; Update behavior when advancing Toto cutscene state (2).
@@ -25,7 +25,7 @@
 ;   b       0x80BA4B10
 ;   addiu   v0, r0, 0x0001
 .org 0x80BA4AF4 ; Offset: 0x1434
-    jal     toto_handle_advance_formal_replay_hook
+    jal     Toto_HandleAdvanceFormalReplay_Hook
     nop
 
 ; Update behavior when advancing Toto cutscene state (3).
@@ -33,7 +33,7 @@
 ;   b       0x80BA4B10
 ;   addiu   v0, r0, 0x0001
 .org 0x80BA4B04 ; Offset: 0x1444
-    jal     toto_handle_advance_formal_replay_hook
+    jal     Toto_HandleAdvanceFormalReplay_Hook
     nop
 
 ;==================================================================================================

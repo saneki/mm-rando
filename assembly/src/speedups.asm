@@ -116,13 +116,13 @@ Sakon_ShouldEndThiefEscape_Hook:
     jr      ra
     addiu   sp, sp, 0x18
 
-toto_before_advance_formal_replay_hook:
+Toto_BeforeAdvanceFormalReplay_Hook:
     sw      a1, 0x0024 (sp)
 
     addiu   sp, sp, -0x18
     sw      ra, 0x0014 (sp)
 
-    jal     toto_before_advance_formal_replay
+    jal     Toto_BeforeAdvanceFormalReplay
     sw      a0, 0x0010 (sp)
 
     lw      a0, 0x0010 (sp)
@@ -130,10 +130,10 @@ toto_before_advance_formal_replay_hook:
     jr      ra
     addiu   sp, sp, 0x18
 
-toto_handle_advance_formal_replay_hook:
+Toto_HandleAdvanceFormalReplay_Hook:
     ; Load params from stack for calling hook function.
     lw      a0, 0x0020 (sp)
-    jal     toto_handle_advance_formal_replay
+    jal     Toto_HandleAdvanceFormalReplay
     lw      a1, 0x0024 (sp)
 
     ; Return from caller function early.
