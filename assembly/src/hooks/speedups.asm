@@ -56,7 +56,7 @@
 ;   bne     t3, at, 0x80BAD5B8
 ;   lui     a1, 0x4080
 .org 0x80BAD550 ; Offset: 0x2E80
-    jal     sakon_should_end_thief_escape_hook
+    jal     Sakon_ShouldEndThiefEscape_Hook
     or      a0, s0, r0
     addiu   a0, s0, 0x0070
     beqz    v0, 0x80BAD5B8

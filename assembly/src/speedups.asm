@@ -105,11 +105,11 @@ Fisherman_ShouldPassTimerCheck_Hook:
     jr      ra
     addiu   sp, sp, 0x18
 
-sakon_should_end_thief_escape_hook:
+Sakon_ShouldEndThiefEscape_Hook:
     addiu   sp, sp, -0x18
     sw      ra, 0x0014 (sp)
 
-    jal     sakon_should_end_thief_escape
+    jal     Sakon_ShouldEndThiefEscape
     or      a1, s1, r0
 
     lw      ra, 0x0014 (sp)
