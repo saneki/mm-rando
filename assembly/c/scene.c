@@ -6,7 +6,7 @@
 /**
  * Hook function used after the scene initialize function has been called.
  **/
-void scene_after_init(GlobalContext *game) {
+void Scene_AfterInit(GlobalContext* ctxt) {
     // Set all actor ext heap entries to clear
     ActorExt_Clear();
     // Clear the models object heap
