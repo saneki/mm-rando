@@ -17,7 +17,7 @@
     or      a0, s0, r0
     lw      a1, 0x0024 (sp)
     lui     a2, 0x80A4
-    jal     stray_fairy_group_give_item_hook
+    jal     StrayFairyGroup_GiveReward_Hook
     addiu   a2, a2, 0xA274
     bne     v0, r0, 0x80A3A470
     nop
