@@ -3,7 +3,7 @@
 #include "types.h"
 #include "world_colors.h"
 
-struct world_color_config WORLD_COLOR_CONFIG = {
+struct WorldColorConfig WORLD_COLOR_CONFIG = {
     .magic = WORLD_COLOR_CONFIG_MAGIC,
     .version = 0,
     .goronEnergyPunch        = { 0xFF, 0x00, 0x00, },
@@ -22,11 +22,11 @@ struct world_color_config WORLD_COLOR_CONFIG = {
     .blueBubble              = { 0x00, 0x00, 0xFF, },
 };
 
-u32 WorldColors_GetBlueBubbleColor(Actor *actor, GlobalContext *game) {
+u32 WorldColors_GetBlueBubbleColor(Actor* actor, GlobalContext* ctxt) {
     Color color = WORLD_COLOR_CONFIG.blueBubble;
     if ((color.a & COLOR_SPECIAL_INSTANCE) != 0) {
         bool created = false;
-        struct ActorExt *ext = ActorExt_Setup(actor, &created);
+        struct ActorExt* ext = ActorExt_Setup(actor, &created);
         if (ext != NULL) {
             if (created) {
                 ext->color.rgb = Color_RandomizeHue(color.rgb);
@@ -34,7 +34,6 @@ u32 WorldColors_GetBlueBubbleColor(Actor *actor, GlobalContext *game) {
             return Color_ConvertToIntWithAlpha(ext->color, 0);
         }
     }
-
     return Color_ConvertToIntWithAlpha(color.rgb, 0);
 }
 
