@@ -1,18 +1,18 @@
 #include "models.h"
 #include "z2.h"
 
-void room_after_load(GlobalContext *game, RoomContext *room_ctxt, u32 room_idx) {
+void Room_AfterLoad(GlobalContext* ctxt, RoomContext* roomCtxt, u32 roomIdx) {
 }
 
-void room_after_unload(GlobalContext *game, RoomContext *room_ctxt) {
+void Room_AfterUnload(GlobalContext* ctxt, RoomContext* roomCtxt) {
     // Prepare object data heap for previous room unload.
-    Models_PrepareAfterRoomUnload(game);
+    Models_PrepareAfterRoomUnload(ctxt);
 }
 
-void room_before_load(GlobalContext *game, RoomContext *room_ctxt, u32 room_idx) {
+void Room_beforeLoad(GlobalContext* ctxt, RoomContext* roomCtxt, u32 roomIdx) {
     // Prepare object data heap for new room load.
-    Models_PrepareBeforeRoomLoad(room_ctxt, (s8)room_idx);
+    Models_PrepareBeforeRoomLoad(roomCtxt, (s8)roomIdx);
 }
 
-void room_before_unload(GlobalContext *game, RoomContext *room_ctxt) {
+void Room_BeforeUnload(GlobalContext* ctxt, RoomContext* roomCtxt) {
 }
