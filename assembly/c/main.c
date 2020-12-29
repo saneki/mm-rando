@@ -25,7 +25,7 @@ void c_init() {
     Models_Init();
     MMR_Init();
     Misc_Init();
-    text_init();
+    Text_Init();
     WorldColors_Init();
 }
 
