@@ -22,7 +22,7 @@
 .area 0x30
     nop
     or      a0, s2, r0
-    jal     song_state_handle_playback
+    jal     SongState_HandlePlayback
     or      a1, s0, r0
     lui     at, 0x0001
     addu    at, at, s0
@@ -68,7 +68,7 @@
 .area 0x34
     nop
     or      a0, s2, r0
-    jal     song_state_handle_preset_playback
+    jal     SongState_HandlePresetPlayback
     or      a1, s0, r0
     lui     at, 0x0001
     addu    at, at, s0
