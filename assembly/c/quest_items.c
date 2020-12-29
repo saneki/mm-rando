@@ -9,7 +9,7 @@ static bool CheckInventorySlot(u8 item, u8 slot) {
     if (gSaveContext.perm.inv.items[slot] == item) {
         return true;
     } else if (MISC_CONFIG.flags.questItemStorage && gSaveContext.perm.inv.items[slot] != Z2_ITEM_NONE) {
-        return QuestItemStorage_Has(&SAVE_FILE_CONFIG.quest_storage, item);
+        return QuestItemStorage_Has(&SAVE_FILE_CONFIG.questStorage, item);
     } else {
         return false;
     }
@@ -22,7 +22,7 @@ static bool CheckInventorySlot(u8 item, u8 slot) {
  **/
 void QuestItems_AfterReceive(u8 item) {
     // Try to add quest item to storage.
-    QuestItemStorage_Put(&SAVE_FILE_CONFIG.quest_storage, item);
+    QuestItemStorage_Put(&SAVE_FILE_CONFIG.questStorage, item);
 }
 
 /**
@@ -31,7 +31,7 @@ void QuestItems_AfterReceive(u8 item) {
  * Used to remove that item from storage as well, if it is a quest item.
  **/
 void QuestItems_AfterRemoval(u8 item, u8 slot) {
-    struct QuestItemStorage* storage = &SAVE_FILE_CONFIG.quest_storage;
+    struct QuestItemStorage* storage = &SAVE_FILE_CONFIG.questStorage;
     // Remove quest item from storage.
     if (QuestItemStorage_Remove(storage, item)) {
         // Set next item into inventory if any.
@@ -52,7 +52,7 @@ void QuestItems_AfterRemoval(u8 item, u8 slot) {
 void QuestItems_AfterSongOfTimeClear(void) {
     // After Song of Time, clear quest items in storage.
     if (MISC_CONFIG.flags.questConsume != QUEST_CONSUME_NEVER) {
-        QuestItemStorage_Clear(&SAVE_FILE_CONFIG.quest_storage);
+        QuestItemStorage_Clear(&SAVE_FILE_CONFIG.questStorage);
     }
 }
 
@@ -75,7 +75,7 @@ void QuestItems_TryRemoveItem(u8 item, u8 slot) {
     if (QuestItems_IsQuestItem(item) && QuestItems_IsQuestSlot(slot)) {
         if (MISC_CONFIG.flags.questConsume != QUEST_CONSUME_NEVER) {
             z2_RemoveItem(item, slot);
-            QuestItemStorage_Remove(&SAVE_FILE_CONFIG.quest_storage, item);
+            QuestItemStorage_Remove(&SAVE_FILE_CONFIG.questStorage, item);
         }
     } else {
         z2_RemoveItem(item, slot);
@@ -130,7 +130,7 @@ bool QuestItems_Remove(u8 item) {
     int slot;
     if (QuestItems_GetSlot(&slot, item)) {
         z2_RemoveItem(item, (u8)slot);
-        return QuestItemStorage_Remove(&SAVE_FILE_CONFIG.quest_storage, item);
+        return QuestItemStorage_Remove(&SAVE_FILE_CONFIG.questStorage, item);
     } else {
         return false;
     }

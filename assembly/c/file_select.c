@@ -108,7 +108,7 @@ void FileSelect_HookAfterCtor(GlobalContext* ctxt) {
     // Consider D-Pad item textures cleared so they are reloaded next time
     Dpad_ClearItemTextures();
     // Clear data relevant to save file (including quest item storage).
-    save_file_clear();
+    SaveFile_Clear();
     // Write icon textures
     Sprite* sprite = Sprite_GetItemTexturesSprite();
     if (sprite->buf != NULL) {

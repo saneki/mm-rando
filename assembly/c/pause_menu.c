@@ -88,7 +88,7 @@ static bool IsQuestItemWithStorageSelected(GlobalContext* ctxt) {
     bool correctSlot = IsQuestItemInCorrectSlot(item, cell);
 
     // Check if there's a next item.
-    u8 next = QuestItemStorage_Next(&SAVE_FILE_CONFIG.quest_storage, item);
+    u8 next = QuestItemStorage_Next(&SAVE_FILE_CONFIG.questStorage, item);
 
     // Check if on "Z" or "R" side buttons.
     bool side = ctxt->pauseCtx.sideButton != 0;
@@ -107,7 +107,7 @@ void PauseMenu_SelectItemDrawIcon(GraphicsContext* gfx, u8 item, u16 width, u16 
     z2_PauseDrawItemIcon(gfx, origSegAddr, width, height, quadIdx);
     // If quest item storage, draw next quest item texture on bottom-right of current texture
     if (MISC_CONFIG.flags.questItemStorage && IsQuestItemInCorrectSlot(item, slot)) {
-        struct QuestItemStorage* storage = &SAVE_FILE_CONFIG.quest_storage;
+        struct QuestItemStorage* storage = &SAVE_FILE_CONFIG.questStorage;
         if (QuestItemStorage_Has(storage, item)) {
             int sslot, unused;
             u8 next = QuestItemStorage_Next(storage, item);
@@ -154,7 +154,7 @@ bool PauseMenu_SelectItemProcessAButton(GlobalContext* ctxt, u32 curVal, u32 non
             u8 item = (u8)curVal;
             // Check input for A button, and swap to next quest item.
             InputPad pad = ctxt->state.input->pressEdge.buttons;
-            u8 next = QuestItemStorage_Next(&SAVE_FILE_CONFIG.quest_storage, item);
+            u8 next = QuestItemStorage_Next(&SAVE_FILE_CONFIG.questStorage, item);
             if (pad.a && next != Z2_ITEM_NONE) {
                 ctxt->state.input->pressEdge.buttons.a = 0;
                 CycleQuestItem(ctxt, next, (u8)cell);
