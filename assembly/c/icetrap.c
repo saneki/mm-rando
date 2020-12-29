@@ -1,6 +1,6 @@
 #include <stdbool.h>
 #include "reloc.h"
-#include "z2.h"
+#include <z2.h>
 
 static u8 gPendingFreezes = 0;
 

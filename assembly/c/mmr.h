@@ -2,7 +2,7 @@
 #define MMR_H
 
 #include <stdbool.h>
-#include "z2.h"
+#include <z2.h>
 
 #define MMR_ChestTableFileIndex (*(u32*)(0x80144968))
 #define MMR_GiTableFileIndex (*(u32*)(0x8014496C))

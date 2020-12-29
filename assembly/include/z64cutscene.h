@@ -1,8 +1,8 @@
 #ifndef _Z64CUTSCENE_H_
 #define _Z64CUTSCENE_H_
 
-#include "types.h"
-#include "unk.h"
+#include <types.h>
+#include <unk.h>
 
 typedef struct {
     /* 0x00 */ u16 unk0;

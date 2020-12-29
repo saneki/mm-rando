@@ -1,7 +1,7 @@
 #ifndef UTIL_H
 #define UTIL_H
 
-#include "types.h"
+#include <types.h>
 
 #define Util_ArraySize(Arr) (sizeof(Arr) / sizeof(Arr[0]))
 

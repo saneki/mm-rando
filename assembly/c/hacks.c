@@ -1,5 +1,5 @@
 #include <stdbool.h>
-#include "z2.h"
+#include <z2.h>
 
 void Hacks_DrawBButtonIconColorFix(GlobalContext* ctxt) {
     // Clear the Env color before drawing amounts/text.

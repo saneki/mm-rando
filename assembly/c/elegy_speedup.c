@@ -1,6 +1,6 @@
 #include <stdbool.h>
 #include "misc.h"
-#include "z2.h"
+#include <z2.h>
 
 union ElegyLockParams {
     struct {

@@ -1,6 +1,6 @@
 #include <stdbool.h>
 #include "misc.h"
-#include "z2.h"
+#include <z2.h>
 
 struct MiscConfig MISC_CONFIG = {
     .magic = MISC_CONFIG_MAGIC,

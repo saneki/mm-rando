@@ -1,9 +1,10 @@
 #ifndef _Z_COLLISION_CHECK_H_
 #define _Z_COLLISION_CHECK_H_
 
-#include "types.h"
-#include "unk.h"
-#include "z64math.h"
+#include <types.h>
+#include <unk.h>
+
+#include <z64math.h>
 
 struct Actor;
 

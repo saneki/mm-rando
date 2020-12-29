@@ -1,6 +1,6 @@
 #include <stdbool.h>
 #include "quest_item_storage.h"
-#include "z2.h"
+#include <z2.h>
 
 void QuestItemStorage_Clear(struct QuestItemStorage* storage) {
     for (int i = 0; i < 3; i++) {

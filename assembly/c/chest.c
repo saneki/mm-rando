@@ -1,7 +1,7 @@
 #include "items.h"
 #include "misc.h"
 #include "mmr.h"
-#include "z2.h"
+#include <z2.h>
 
 /**
  * Hook function used to write the chest get-item index on init.

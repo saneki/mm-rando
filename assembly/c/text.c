@@ -1,6 +1,6 @@
 #include "gfx.h"
 #include "util.h"
-#include "z2.h"
+#include <z2.h>
 
 const static int gTextMaxChars = 256;
 const static int gTextBucketCount = 6;

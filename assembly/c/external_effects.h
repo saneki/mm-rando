@@ -1,7 +1,7 @@
 #ifndef EXTERNAL_EFFECTS_H
 #define EXTERNAL_EFFECTS_H
 
-#include "z2.h"
+#include <z2.h>
 
 // Magic number for external_effects: "EXFX"
 #define EXTERNAL_EFFECTS_MAGIC 0x45584658

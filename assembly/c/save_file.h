@@ -3,7 +3,7 @@
 
 #include <stdbool.h>
 #include "quest_item_storage.h"
-#include "z2.h"
+#include <z2.h>
 
 #define SAVE_FILE_CONFIG_MAGIC 0x53415645
 

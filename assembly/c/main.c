@@ -14,7 +14,7 @@
 #include "text.h"
 #include "util.h"
 #include "world_colors.h"
-#include "z2.h"
+#include <z2.h>
 
 void c_init() {
     Util_HeapInit();

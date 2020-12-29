@@ -1,7 +1,7 @@
 #include "color.h"
 #include "color_convert.h"
-#include "types.h"
-#include "z2.h"
+#include <types.h>
+#include <z2.h>
 
 static double EnforceHueBoundary(double hue) {
     if (hue < 0.0) {

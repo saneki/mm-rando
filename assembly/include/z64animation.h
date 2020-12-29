@@ -2,9 +2,10 @@
 #define _Z64_ANIMATION_H
 
 #include <n64.h>
-#include "types.h"
-#include "z64dma.h"
-#include "z64math.h"
+#include <types.h>
+
+#include <z64dma.h>
+#include <z64math.h>
 
 #define LINK_ANIMETION_OFFSET(addr, offset) \
     (((u32)&_link_animetionSegmentRomStart) + ((u32)addr & 0xFFFFFF) + ((u32)offset))

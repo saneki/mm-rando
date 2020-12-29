@@ -1,4 +1,4 @@
-#include "z2.h"
+#include <z2.h>
 #include "misc.h"
 
 /**

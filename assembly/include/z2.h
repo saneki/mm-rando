@@ -1,20 +1,21 @@
 #ifndef Z2_H
 #define Z2_H
 
-#include <n64.h>
 #include <stdbool.h>
-#include "os.h"
-#include "types.h"
-#include "unk.h"
 
-#include "z64actor.h"
-#include "z64animation.h"
-#include "z64collision_check.h"
-#include "z64cutscene.h"
-#include "z64dma.h"
-#include "z64light.h"
-#include "z64math.h"
-#include "z64scene.h"
+#include <n64.h>
+#include <os.h>
+#include <types.h>
+#include <unk.h>
+
+#include <z64actor.h>
+#include <z64animation.h>
+#include <z64collision_check.h>
+#include <z64cutscene.h>
+#include <z64dma.h>
+#include <z64light.h>
+#include <z64math.h>
+#include <z64scene.h>
 
 typedef void (*FuncPtr)(void);
 
@@ -2468,6 +2469,6 @@ typedef struct {
 /// Defines & Prototypes
 /// =============================================================
 
-#include "z64addresses.h"
+#include <z64addresses.h>
 
 #endif // Z2_H

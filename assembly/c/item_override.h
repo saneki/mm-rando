@@ -2,7 +2,7 @@
 #define ITEM_OVERRIDE_H
 
 #include <stdbool.h>
-#include "z2.h"
+#include <z2.h>
 
 bool ItemOverride_GetGraphic(u32 index, u16* graphic, u16* object);
 

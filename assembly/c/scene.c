@@ -1,7 +1,7 @@
 #include "actor_ext.h"
 #include "loaded_models.h"
 #include "models.h"
-#include "z2.h"
+#include <z2.h>
 
 /**
  * Hook function used after the scene initialize function has been called.

@@ -1,6 +1,6 @@
 #include <stdbool.h>
 #include "models.h"
-#include "z2.h"
+#include <z2.h>
 
 #define LOADED_ACTOR_MODEL_SLOTS 8
 

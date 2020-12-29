@@ -1,6 +1,7 @@
 #include "misc.h"
 #include "mmr.h"
 #include "util.h"
+#include <z2.h>
 
 struct MMRConfig MMR_CONFIG = {
     .magic = MMR_CONFIG_MAGIC,

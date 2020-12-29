@@ -2,7 +2,7 @@
 #define _Z64DMA_H_
 
 #include <n64.h>
-#include "types.h"
+#include <types.h>
 
 typedef struct {
     /* 0x00 */ u32 vromAddr;

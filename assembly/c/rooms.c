@@ -1,5 +1,5 @@
 #include "models.h"
-#include "z2.h"
+#include <z2.h>
 
 void Room_AfterLoad(GlobalContext* ctxt, RoomContext* roomCtxt, u32 roomIdx) {
 }
