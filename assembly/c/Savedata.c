@@ -1,10 +1,24 @@
 #include <stdbool.h>
 #include <z2.h>
+#include "MMR.h"
 #include "QuestItems.h"
 #include "SaveFile.h"
 
 static bool IsOwlSaveSize(size_t size) {
     return size == 0x3CA0;
+}
+
+void Savedata_AfterFileInit(GlobalContext* ctxt) {
+    // Give extra starting maps.
+    for (u8 i = 0; i < 6; i++) {
+        if (((MMR_CONFIG.extraStartingMaps.value >> i) & 1) != 0) {
+            z2_GiveMap(i);
+        }
+    }
+    // Give extra starting items.
+    for (u8 i = 0; i < MMR_CONFIG.extraStartingItems.length; i++) {
+        z2_GiveItem(ctxt, MMR_CONFIG.extraStartingItems.ids[i]);
+    }
 }
 
 /**
