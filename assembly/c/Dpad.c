@@ -2,9 +2,9 @@
 #include <z2.h>
 #include "Buttons.h"
 #include "Dpad.h"
-#include "Gfx.h"
 #include "HudColors.h"
 #include "Reloc.h"
+#include "Sprite.h"
 #include "Util.h"
 
 // D-Pad configuration structure that can be set by a randomizer.

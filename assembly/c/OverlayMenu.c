@@ -1,6 +1,6 @@
 #include <stdbool.h>
 #include <z2.h>
-#include "Gfx.h"
+#include "Sprite.h"
 #include "Text.h"
 
 // Whether or not the overlay menu is enabled.

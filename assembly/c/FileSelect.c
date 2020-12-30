@@ -1,10 +1,10 @@
 #include <z2.h>
 #include "Dpad.h"
 #include "FileSelect.h"
-#include "Gfx.h"
 #include "HudColors.h"
 #include "Misc.h"
 #include "SaveFile.h"
+#include "Sprite.h"
 #include "Util.h"
 
 // Enables using Z to refresh file select hash icons.
