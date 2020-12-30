@@ -113,7 +113,7 @@ static bool IsAnyItemUsable(const u8* dpad, const bool* usable) {
 
 static void LoadTexture(u8* buf, int idx, int length, u8 item) {
     u32 phys = z2_GetFilePhysAddr(ItemTextureFileVROM);
-    u8 *dest = buf + (idx * length);
+    u8* dest = buf + (idx * length);
     z2_LoadFileFromArchive(phys, item, dest, length);
     gTextureItems[idx] = item;
 }

@@ -47,7 +47,7 @@ bool Fairy_CanInteractWith(GlobalContext* ctxt, ActorPlayer* player) {
 // Get the next available fairy instance Id, and mark as "used" for this scene.
 bool Fairy_GetNextInstance(u16* inst, GlobalContext* ctxt) {
     for (int i = 0; i < FAIRY_INST_COUNT; i++) {
-        struct FairyInst *fairy = &gFairyTable[i];
+        struct FairyInst* fairy = &gFairyTable[i];
         // Do not use a fairy that is already present in this scene.
         if ((ctxt->sceneNum == fairy->scene1) ||
             (ctxt->sceneNum == fairy->scene2))

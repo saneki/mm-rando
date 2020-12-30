@@ -1,7 +1,7 @@
 #include <z2.h>
 #include "MMR.h"
 
-void file_after_init(GlobalContext *game) {
+void file_after_init(GlobalContext* game) {
     // Give extra starting maps.
     for (u8 i = 0; i < 6; i++) {
         if (((MMR_CONFIG.extraStartingMaps.value >> i) & 1) != 0) {

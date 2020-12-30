@@ -13,7 +13,7 @@ static void InitStruct(struct SaveFileConfig* config) {
     QuestItemStorage_Clear(&config->questStorage);
 }
 
-static bool TryCopyStruct(struct SaveFileConfig* dest, const void *srcBytes) {
+static bool TryCopyStruct(struct SaveFileConfig* dest, const void* srcBytes) {
     struct SaveFileConfig* src = (struct SaveFileConfig*)srcBytes;
     if (src->magic == SAVE_FILE_CONFIG_MAGIC) {
         // If magic matches, copy over struct data

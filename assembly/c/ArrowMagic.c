@@ -4,7 +4,7 @@
 #include "Misc.h"
 
 struct ArrowMagicState {
-    Actor *arrow;
+    Actor* arrow;
 };
 
 static struct ArrowMagicState gArrowMagicState = {
@@ -12,7 +12,7 @@ static struct ArrowMagicState gArrowMagicState = {
 };
 
 static void UpdateState(struct ArrowMagicState* state, ActorPlayer* player, GlobalContext* ctxt) {
-    Actor *arrow = state->arrow;
+    Actor* arrow = state->arrow;
     // Check if arrow has been shot, speed is checked to ensure arrow isn't just put away.
     if (player->base.child == NULL && arrow != NULL && arrow->speedXZ != 0.0) {
         // Update state to consume magic once arrow is shot.
