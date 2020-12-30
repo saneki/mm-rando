@@ -1,13 +1,8 @@
 #include <stdbool.h>
 #include <z2.h>
 #include "ActorExt.h"
-#include "ArrowCycle.h"
-#include "ArrowMagic.h"
-#include "DekuHop.h"
 #include "Dpad.h"
-#include "ExternalEffects.h"
 #include "HudColors.h"
-#include "Icetrap.h"
 #include "Misc.h"
 #include "MMR.h"
 #include "Models.h"
@@ -16,7 +11,7 @@
 #include "Util.h"
 #include "WorldColors.h"
 
-void c_init() {
+void Main_CInit(void) {
     Util_HeapInit();
     Sprite_Init();
     Dpad_Init();
@@ -27,24 +22,4 @@ void c_init() {
     Misc_Init();
     Text_Init();
     WorldColors_Init();
-}
-
-void before_player_actor_update(ActorPlayer* link, GlobalContext* game) {
-    Dpad_BeforePlayerActorUpdate(link, game);
-    ExternalEffects_Handle(link, game);
-    ArrowCycle_Handle(link, game);
-    ArrowMagic_Handle(link, game);
-    DekuHop_Handle(link, game);
-}
-
-bool before_damage_process(ActorPlayer* link, GlobalContext* game) {
-    return Icetrap_Give(link, game);
-}
-
-/**
- * Hook function called after preparing display buffers for writing during current frame.
- **/
-void game_after_prepare_display_buffers(GraphicsContext* gfx) {
-    // Check if models objheap should finish advancing.
-    Models_AfterPrepareDisplayBuffers(gfx);
 }

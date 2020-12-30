@@ -83,7 +83,6 @@ PAYLOAD_START:
 .include "business_scrub.asm"
 .include "chest.asm"
 .include "cows.asm"
-.include "damage.asm"
 .include "dpad.asm"
 .include "elegy_speedup.asm"
 .include "extended_objects.asm"

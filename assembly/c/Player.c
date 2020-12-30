@@ -1,6 +1,24 @@
 #include <stdbool.h>
 #include <z2.h>
+#include "ArrowCycle.h"
+#include "ArrowMagic.h"
+#include "DekuHop.h"
+#include "Dpad.h"
+#include "ExternalEffects.h"
+#include "Icetrap.h"
 #include "Reloc.h"
+
+bool Player_BeforeDamageProcess(ActorPlayer* player, GlobalContext* ctxt) {
+    return Icetrap_Give(player, ctxt);
+}
+
+void Player_BeforeUpdate(ActorPlayer* player, GlobalContext* ctxt) {
+    Dpad_BeforePlayerActorUpdate(player, ctxt);
+    ExternalEffects_Handle(player, ctxt);
+    ArrowCycle_Handle(player, ctxt);
+    ArrowMagic_Handle(player, ctxt);
+    DekuHop_Handle(player, ctxt);
+}
 
 bool Player_CanReceiveItem(GlobalContext* ctxt) {
     ActorPlayer* player = Z2_LINK(ctxt);
