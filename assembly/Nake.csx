@@ -9,7 +9,7 @@ const string DefaultConfig = "Release";
 var ScriptDirectory = "%NakeScriptDirectory%";
 var RandoCliPath = $"{ScriptDirectory}/../MMR.CLI";
 var RandoUiPath = $"{ScriptDirectory}/../MMR.UI";
-var RomPath = $"{ScriptDirectory}/input/Rom.z64";
+var RomPath = $"{ScriptDirectory}/roms/Rom.z64";
 
 /// Build Asm blob using docker-compose.
 [Nake] async Task RunDockerCompose() => await "docker-compose up --abort-on-container-exit";
