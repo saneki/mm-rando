@@ -1,7 +1,7 @@
 #ifndef _Z64CUTSCENE_H_
 #define _Z64CUTSCENE_H_
 
-#include <types.h>
+#include <PR/ultratypes.h>
 #include <unk.h>
 
 typedef struct {

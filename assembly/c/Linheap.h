@@ -3,7 +3,7 @@
 
 #include <stdbool.h>
 #include <stddef.h>
-#include <types.h>
+#include <z2.h>
 
 /**
  * "Revolving linear heap" implementation.

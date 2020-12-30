@@ -2,7 +2,7 @@
 #define _Z64LIGHT_H_
 
 #include <n64.h>
-#include <types.h>
+#include <PR/ultratypes.h>
 
 typedef struct {
     /* 0x0 */ u8 type;
