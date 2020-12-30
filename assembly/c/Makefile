@@ -19,11 +19,14 @@ all: clean bundle symbols
 %.o: %.c
 	$(CC) -c $< $(CFLAGS)
 
-bundle: $(OBJECTS)
+bundle: mkdir-outdir $(OBJECTS)
 	$(LD) -o $(OUTDIR)/bundle.o -i -L. $(patsubst %.o,-l:%.o,$(OBJECTS))
 
-symbols: bundle
+symbols: mkdir-outdir bundle
 	$(OBJDUMP) -t $(OUTDIR)/bundle.o | tr -d '\015' > $(OUTDIR)/c_symbols.txt
+
+mkdir-outdir:
+	mkdir -p "$(OUTDIR)"
 
 clean:
 	rm -f *.o
