@@ -31,3 +31,16 @@
 ;   jal     0x800FEC90
 .org 0x80145664
     jal     Savedata_AfterWrite_Sot_Hook
+
+;==================================================================================================
+; After File Initialized
+;==================================================================================================
+
+.headersize (G_CODE_RAM - G_CODE_FILE)
+
+; Replaces:
+;   jr      ra
+;   nop
+.org 0x80144960
+    j       Savedata_AfterFileInit
+    lw      a0, 0x0038 (sp)
