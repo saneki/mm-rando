@@ -4,29 +4,29 @@
 #include <types.h>
 #include "Linheap.h"
 
-struct objheap_item {
-    u8 *buf;
-    u16 object_id;
+struct ObjheapItem {
+    u8* buf;
+    u16 objectId;
     s8 room;
 };
 
-struct objheap {
+struct Objheap {
     struct Linheap linheap;
-    struct objheap_item *objs;
+    struct ObjheapItem* objs;
     size_t count;
-    s8 cur_room;
-    s8 nex_room;
+    s8 curRoom;
+    s8 nexRoom;
     u8 op; // Prepared operation when data is safe to free.
 };
 
-struct objheap_item * objheap_allocate(struct objheap *heap, u32 object_id, s8 room);
-void objheap_clear(struct objheap *heap);
-void objheap_finish_advance(struct objheap *heap);
-void objheap_flush_operation(struct objheap *heap);
-void objheap_handle_room_unload(struct objheap *heap, s8 cur_room);
-void objheap_init(struct objheap *heap, void *base, size_t size, struct objheap_item *objs, size_t count);
-void objheap_init_room(struct objheap *heap, s8 room);
-void objheap_prepare_advance(struct objheap *heap, s8 room);
-void objheap_revert_advance(struct objheap *heap);
+struct ObjheapItem * Objheap_Allocate(struct Objheap* heap, u32 objectId, s8 room);
+void Objheap_Clear(struct Objheap* heap);
+void Objheap_FinishAdvance(struct Objheap* heap);
+void Objheap_FlushOperation(struct Objheap* heap);
+void Objheap_HandleRoomUnload(struct Objheap* heap, s8 curRoom);
+void Objheap_Init(struct Objheap* heap, void* base, size_t size, struct ObjheapItem* objs, size_t count);
+void Objheap_InitRoom(struct Objheap* heap, s8 room);
+void Objheap_PrepareAdvance(struct Objheap* heap, s8 room);
+void Objheap_RevertAdvance(struct Objheap* heap);
 
 #endif // OBJHEAP_H

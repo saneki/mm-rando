@@ -12,8 +12,8 @@
 #define OBJHEAP_SLOTS (12)
 #define OBJHEAP_SIZE  (0x20000)
 
-struct objheap_item gObjheapItems[OBJHEAP_SLOTS] = { 0 };
-struct objheap gObjheap = { 0 };
+struct ObjheapItem gObjheapItems[OBJHEAP_SLOTS] = { 0 };
+struct Objheap gObjheap = { 0 };
 
 static void ScaleTopMatrix(f32 scaleFactor) {
     f32* matrix = z2_GetMatrixStackTop();
@@ -45,7 +45,7 @@ static void DrawModel(struct Model model, Actor* actor, GlobalContext* ctxt, f32
         return;
     }
 
-    struct objheap_item* object = objheap_allocate(&gObjheap, model.objectId, actor->room);
+    struct ObjheapItem* object = Objheap_Allocate(&gObjheap, model.objectId, actor->room);
     if (object) {
         // Update RDRAM segment table with object pointer during the draw function.
         // This is required by Moon's Tear (and possibly others), which programatically resolves a
@@ -522,7 +522,7 @@ void Models_AfterActorDtor(Actor* actor) {
  * Reset object heap pointer and clear all loaded object slots.
  **/
 void Models_ClearObjectHeap(void) {
-    objheap_clear(&gObjheap);
+    Objheap_Clear(&gObjheap);
 }
 
 /**
@@ -530,7 +530,7 @@ void Models_ClearObjectHeap(void) {
  **/
 void Models_Init(void) {
     void* alloc = Util_HeapAlloc(OBJHEAP_SIZE);
-    objheap_init(&gObjheap, alloc, OBJHEAP_SIZE, gObjheapItems, OBJHEAP_SLOTS);
+    Objheap_Init(&gObjheap, alloc, OBJHEAP_SIZE, gObjheapItems, OBJHEAP_SLOTS);
 }
 
 struct ModelsState {
@@ -555,7 +555,7 @@ void Models_AfterPrepareDisplayBuffers(GraphicsContext* gfx) {
     // to RDP. While this is very likely, it is not guaranteed.
     // If alternative Opa buffer has been cleared, both DLists should be rid of pointers to object data in previous room.
     if (gState.prevOpa != NULL && gfx->polyOpa.buf != gState.prevOpa) {
-        objheap_flush_operation(&gObjheap);
+        Objheap_FlushOperation(&gObjheap);
         gState.prevOpa = NULL;
     }
 }
@@ -572,7 +572,7 @@ void Models_PrepareAfterRoomUnload(GlobalContext* ctxt) {
     // Normally, objects from previously loaded rooms would no longer draw so this isn't an issue, but is required for hack
     // used to draw actors with 0xFF room, so that the pointer can be safely swapped to data of the relevant room.
     s8 curRoom = (s8)ctxt->roomContext.currRoom.num;
-    objheap_handle_room_unload(&gObjheap, curRoom);
+    Objheap_HandleRoomUnload(&gObjheap, curRoom);
 }
 
 /**
@@ -581,7 +581,7 @@ void Models_PrepareAfterRoomUnload(GlobalContext* ctxt) {
 void Models_PrepareBeforeRoomLoad(RoomContext* roomCtx, s8 roomIndex) {
     if ((s8)roomCtx->currRoom.num == -1) {
         // If loading first room in scene, remember room index.
-        objheap_init_room(&gObjheap, roomIndex);
+        Objheap_InitRoom(&gObjheap, roomIndex);
     } else {
         // Safeguard: If previous Opa DList pointer is non-NULL, still waiting to flush advance or revert operation.
         // If attempting to prepare advance before this has happened, prevent flushing advance or revert operations.
@@ -589,6 +589,6 @@ void Models_PrepareBeforeRoomLoad(RoomContext* roomCtx, s8 roomIndex) {
             gState.prevOpa = NULL;
         }
         // If not loading first room in scene, prepare objheap for advance.
-        objheap_prepare_advance(&gObjheap, roomIndex);
+        Objheap_PrepareAdvance(&gObjheap, roomIndex);
     }
 }
