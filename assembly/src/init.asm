@@ -8,7 +8,7 @@ init:
     addiu   sp, sp, -0x18
     sw      ra, 0x10 (sp)
 
-    jal     c_init
+    jal     Main_CInit
     nop
 
     ; Displaced code
