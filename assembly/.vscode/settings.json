@@ -1,6 +1,10 @@
 {
     "files.exclude": {
-        "**/*.o": true
+        "**/*.o": true,
+        "input/": true,
+        "output/": true,
+        "resources/": true,
+        "roms/": true,
     },
     "C_Cpp.default.includePath": [
         "include",
