@@ -15,10 +15,8 @@ data/generated/*.txt
 # Ignore private vagrant directory
 .vagrant*
 
-# Ignore contents of "input" and "output" except for .gitkeep
-input/*
+# Ignore contents of "output" except for .gitkeep
 output/*
-!input/.gitkeep
 !output/.gitkeep
 
 # Ignore n64 directory, optionally included so that VSCode can resolve headers such as: <n64.h>
