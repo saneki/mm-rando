@@ -1,5 +1,9 @@
 {
     "files.exclude": {
         "**/*.o": true
-    }
+    },
+    "C_Cpp.default.includePath": [
+        "include",
+        "n64/include"
+    ]
 }
