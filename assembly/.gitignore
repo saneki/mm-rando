@@ -21,6 +21,9 @@ output/*
 !input/.gitkeep
 !output/.gitkeep
 
+# Ignore n64 directory, optionally included so that VSCode can resolve headers such as: <n64.h>
+n64/
+
 # Ignore Randomizer settings file
 settings.json
 
