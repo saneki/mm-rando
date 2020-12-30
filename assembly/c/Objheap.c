@@ -73,7 +73,7 @@ struct objheap_item* objheap_allocate(struct objheap *heap, u32 object_id, s8 ro
             struct objheap_item *obj = unused;
             size_t objsize = get_object_size(object_id);
             // Ensure heap could successfully allocate enough space.
-            obj->buf = linheap_alloc(&heap->linheap, objsize);
+            obj->buf = Linheap_Alloc(&heap->linheap, objsize);
             if (obj->buf != NULL) {
                 obj->room = room;
                 if (other != NULL) {
@@ -92,13 +92,13 @@ struct objheap_item* objheap_allocate(struct objheap *heap, u32 object_id, s8 ro
 }
 
 /**
- * Clear underlying linheap and all objheap item entries.
+ * Clear underlying Linheap and all objheap item entries.
  **/
 void objheap_clear(struct objheap *heap) {
     for (size_t i = 0; i < heap->count; i++) {
         objheap_item_clear(&heap->objs[i]);
     }
-    linheap_clear(&heap->linheap);
+    Linheap_Clear(&heap->linheap);
 }
 
 /**
@@ -147,7 +147,7 @@ void objheap_handle_room_unload(struct objheap *heap, s8 cur_room) {
 }
 
 /**
- * Finish advance on underlying linheap, and clear objheap item entries from previous room.
+ * Finish advance on underlying Linheap, and clear objheap item entries from previous room.
  **/
 void objheap_finish_advance(struct objheap *heap) {
     // Advance room index.
@@ -155,7 +155,7 @@ void objheap_finish_advance(struct objheap *heap) {
     // Invalidate items for previously-loaded room.
     objheap_invalidate_items(heap);
     // Finish advance in underlying heap.
-    linheap_finish_advance(&heap->linheap);
+    Linheap_FinishAdvance(&heap->linheap);
 }
 
 /**
@@ -163,7 +163,7 @@ void objheap_finish_advance(struct objheap *heap) {
  **/
 void objheap_init(struct objheap *heap, void *base, size_t size, struct objheap_item *objs, size_t count) {
     heap->linheap.size = size;
-    linheap_init(&heap->linheap, base);
+    Linheap_Init(&heap->linheap, base);
     heap->objs = objs;
     heap->count = count;
     for (size_t i = 0; i < count; i++) {
@@ -181,12 +181,12 @@ void objheap_init_room(struct objheap *heap, s8 room) {
 }
 
 /**
- * Prepare underlying linheap for advance, and update next room value.
+ * Prepare underlying Linheap for advance, and update next room value.
  **/
 void objheap_prepare_advance(struct objheap *heap, s8 room) {
     heap->nex_room = room;
     heap->op = OP_NONE;
-    linheap_prepare_advance(&heap->linheap);
+    Linheap_PrepareAdvance(&heap->linheap);
 }
 
 /**
@@ -197,6 +197,6 @@ void objheap_revert_advance(struct objheap *heap) {
     heap->nex_room = heap->cur_room;
     // Invalidate items for previously-loaded room.
     objheap_invalidate_items(heap);
-    // Revert advance on underlying linheap.
-    linheap_revert_advance(&heap->linheap);
+    // Revert advance on underlying Linheap.
+    Linheap_RevertAdvance(&heap->linheap);
 }

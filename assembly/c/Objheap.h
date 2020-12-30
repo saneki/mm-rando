@@ -11,7 +11,7 @@ struct objheap_item {
 };
 
 struct objheap {
-    struct linheap linheap;
+    struct Linheap linheap;
     struct objheap_item *objs;
     size_t count;
     s8 cur_room;
