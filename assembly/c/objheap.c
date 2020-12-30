@@ -1,7 +1,7 @@
+#include <z2.h>
 #include "extended_objects.h"
 #include "linheap.h"
 #include "objheap.h"
-#include <z2.h>
 
 enum objheap_op {
     OP_NONE,

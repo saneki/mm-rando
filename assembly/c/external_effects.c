@@ -1,9 +1,9 @@
 #include <stdbool.h>
+#include <z2.h>
 #include "external_effects.h"
 #include "fairy.h"
 #include "floor_physics.h"
 #include "icetrap.h"
-#include <z2.h>
 
 // Fairy spawn cooldown (in frames).
 #define FAIRY_COOLDOWN 0x10

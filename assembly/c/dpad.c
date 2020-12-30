@@ -1,11 +1,11 @@
 #include <stdbool.h>
+#include <z2.h>
 #include "buttons.h"
 #include "dpad.h"
 #include "gfx.h"
 #include "hud_colors.h"
 #include "reloc.h"
 #include "util.h"
-#include <z2.h>
 
 // D-Pad configuration structure that can be set by a randomizer.
 struct DpadConfig DPAD_CONFIG = {

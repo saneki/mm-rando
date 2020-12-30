@@ -1,6 +1,6 @@
 #include <stdbool.h>
-#include "misc.h"
 #include <z2.h>
+#include "misc.h"
 
 /**
  * Hook function used to check whether or not the Sakon escape sequence should end.

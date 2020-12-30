@@ -1,9 +1,9 @@
 #include <stdbool.h>
+#include <z2.h>
 #include "misc.h"
 #include "quest_items.h"
 #include "quest_item_storage.h"
 #include "save_file.h"
-#include <z2.h>
 
 static bool CheckInventorySlot(u8 item, u8 slot) {
     if (gSaveContext.perm.inv.items[slot] == item) {

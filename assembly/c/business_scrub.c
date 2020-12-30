@@ -1,6 +1,6 @@
+#include <z2.h>
 #include "misc.h"
 #include "quest_items.h"
-#include <z2.h>
 
 /**
  * Hook function called while giving the Moon's Tear to the Clock Town Business Scrub.

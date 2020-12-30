@@ -1,8 +1,8 @@
 #include <stdbool.h>
+#include <z2.h>
 #include "color.h"
 #include "hud_colors.h"
 #include "reloc.h"
-#include <z2.h>
 
 struct HudColorConfig HUD_COLOR_CONFIG = {
     .magic = HUD_COLOR_CONFIG_MAGIC,

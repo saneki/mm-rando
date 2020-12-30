@@ -1,6 +1,6 @@
 #include <stdbool.h>
-#include "reloc.h"
 #include <z2.h>
+#include "reloc.h"
 
 bool Player_CanReceiveItem(GlobalContext* ctxt) {
     ActorPlayer* player = Z2_LINK(ctxt);

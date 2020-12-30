@@ -1,5 +1,5 @@
-#include "overlay_menu.h"
 #include <z2.h>
+#include "overlay_menu.h"
 
 /**
  * Hook function called after game processes next frame.

@@ -1,7 +1,7 @@
 #include <stdbool.h>
+#include <z2.h>
 #include "quest_items.h"
 #include "save_file.h"
-#include <z2.h>
 
 static bool IsOwlSaveSize(size_t size) {
     return size == 0x3CA0;

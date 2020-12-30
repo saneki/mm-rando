@@ -1,6 +1,6 @@
 #include <stdbool.h>
-#include "misc.h"
 #include <z2.h>
+#include "misc.h"
 
 /**
  * Hook function used to check if the Fisherman's Game should end.

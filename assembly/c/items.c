@@ -1,7 +1,7 @@
+#include <z2.h>
 #include "icetrap.h"
 #include "items.h"
 #include "quest_items.h"
-#include <z2.h>
 
 /**
  * Helper function used to process receiving a custom item.

@@ -1,8 +1,8 @@
 #ifndef OBJHEAP_H
 #define OBJHEAP_H
 
-#include "linheap.h"
 #include <types.h>
+#include "linheap.h"
 
 struct objheap_item {
     u8 *buf;

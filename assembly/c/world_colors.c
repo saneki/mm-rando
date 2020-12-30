@@ -1,6 +1,6 @@
+#include <z2.h>
 #include "actor_ext.h"
 #include "color.h"
-#include <types.h>
 #include "world_colors.h"
 
 struct WorldColorConfig WORLD_COLOR_CONFIG = {
