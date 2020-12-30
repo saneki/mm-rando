@@ -2,7 +2,7 @@
 #define _Z64_ANIMATION_H
 
 #include <n64.h>
-#include <types.h>
+#include <PR/ultratypes.h>
 
 #include <z64dma.h>
 #include <z64math.h>

@@ -4,8 +4,8 @@
 #include <stdbool.h>
 
 #include <n64.h>
+#include <PR/ultratypes.h>
 #include <os.h>
-#include <types.h>
 #include <unk.h>
 
 #include <z64actor.h>

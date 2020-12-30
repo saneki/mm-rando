@@ -2,7 +2,7 @@
 #define _Z64SCENE_H_
 
 #include <n64.h>
-#include <types.h>
+#include <PR/ultratypes.h>
 #include <unk.h>
 
 typedef struct {

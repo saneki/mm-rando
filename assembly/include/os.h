@@ -1,7 +1,7 @@
 #ifndef _OS_H_
 #define _OS_H_
 
-#include <types.h>
+#include <PR/ultratypes.h>
 
 typedef u64 OSTime;
 

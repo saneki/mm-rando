@@ -1,7 +1,7 @@
 #ifndef MISC_H
 #define MISC_H
 
-#include <types.h>
+#include <z2.h>
 
 enum CritWiggleState {
     CRIT_WIGGLE_DEFAULT,

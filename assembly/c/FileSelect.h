@@ -1,7 +1,7 @@
 #ifndef FILE_SELECT_H
 #define FILE_SELECT_H
 
-#include <types.h>
+#include <z2.h>
 
 #define HASH_SYMBOL_COUNT 0x40
 

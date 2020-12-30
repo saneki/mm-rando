@@ -1,7 +1,7 @@
 #ifndef _Z_COLLISION_CHECK_H_
 #define _Z_COLLISION_CHECK_H_
 
-#include <types.h>
+#include <PR/ultratypes.h>
 #include <unk.h>
 
 #include <z64math.h>
