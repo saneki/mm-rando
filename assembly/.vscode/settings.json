@@ -2,7 +2,6 @@
     "files.exclude": {
         "**/*.o": true,
         "**/__pycache__": true,
-        "input/": true,
         "output/": true,
         "resources/": true,
         "roms/": true,
