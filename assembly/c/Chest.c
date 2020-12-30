@@ -15,7 +15,7 @@ void Chest_WriteGiIndex(ActorEnBox* actor, GlobalContext* ctxt) {
         z2_RomToRam(prom, &result, sizeof(result));
         actor->giIndex = result;
         // If ice trap chest, use special value instead of index.
-        GetItemEntry *entry = MMR_LoadGiEntry(actor->giIndex);
+        GetItemEntry* entry = MMR_LoadGiEntry(actor->giIndex);
         if (entry->item == Z2_ICE_TRAP) {
             actor->giIndex = 0x76;
         }

@@ -9,7 +9,7 @@ struct LoadedActorModel {
     bool used;
     s16 id;
     u16 variable;
-    void *extra;
+    void* extra;
 };
 
 static struct LoadedActorModel gLoadedActorModels[LOADED_ACTOR_MODEL_SLOTS];

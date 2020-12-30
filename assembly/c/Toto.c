@@ -14,7 +14,7 @@ void Toto_BeforeAdvanceFormalReplay(ActorEnToto* toto, GlobalContext* ctxt) {
         // Cut Sound Check song BGM in half, so it doesn't loop (default frame count is 0x300).
         // This is very hacky, should probably clean up later. Field is offset 0x10 of a struct, which
         // is size 0x160 located at 0x80205230. Likely audio channel state as there are multiple?
-        u16 *bgmFrames = (u16*)(0x80205230 + 0x10);
+        u16* bgmFrames = (u16*)(0x80205230 + 0x10);
         if (*bgmFrames > 0x180) {
             *bgmFrames -= 0x180;
         }

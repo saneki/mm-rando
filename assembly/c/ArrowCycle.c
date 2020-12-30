@@ -6,7 +6,7 @@
 struct ArrowCycleState {
     u16 frameDelay;
     s8 magicCost;
-    Actor *arrow;
+    Actor* arrow;
 };
 
 static struct ArrowCycleState gArrowCycleState = {
@@ -199,7 +199,7 @@ void ArrowCycle_Handle(ActorPlayer* player, GlobalContext* ctxt) {
     }
 
     // Find the arrow currently attached to the player.
-    Actor *arrow = ArrowCycle_FindArrow(player, ctxt);
+    Actor* arrow = ArrowCycle_FindArrow(player, ctxt);
     if (arrow == NULL) {
         return;
     }

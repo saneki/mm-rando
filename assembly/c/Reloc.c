@@ -1,7 +1,7 @@
 #include <z2.h>
 
 struct ResolveInfo {
-    void *ram;
+    void* ram;
     u32 virtStart;
     u32 virtEnd;
 };

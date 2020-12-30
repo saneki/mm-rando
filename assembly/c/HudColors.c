@@ -116,7 +116,7 @@ u32 HudColors_GetMapEntranceCursorColor(void) {
 }
 
 u32 HudColors_GetClockEmblemColor(void) {
-    u8 alpha = (u8)(*(u16 *)(0x801BFB2C));
+    u8 alpha = (u8)(*(u16*)(0x801BFB2C));
     return Color_ConvertToIntWithAlpha(HUD_COLOR_CONFIG.clockEmblem, alpha);
 }
 
@@ -376,9 +376,9 @@ void HudColors_UpdatePauseMenuColors(GlobalContext* ctxt) {
  * Helper function for updating the colors of button icons in text.
  **/
 static void UpdateTextButtonIconColors(void) {
-    ColorRGB16* iconA = (ColorRGB16 *)0x801D0848;
-    ColorRGB16* iconB = (ColorRGB16 *)0x801D0842;
-    ColorRGB16* iconC = (ColorRGB16 *)0x801D084E;
+    ColorRGB16* iconA = (ColorRGB16*)0x801D0848;
+    ColorRGB16* iconB = (ColorRGB16*)0x801D0842;
+    ColorRGB16* iconC = (ColorRGB16*)0x801D084E;
     ColorTo16(iconA, HUD_COLOR_CONFIG.buttonIconA);
     ColorTo16(iconB, HUD_COLOR_CONFIG.buttonIconB);
     ColorTo16(iconC, HUD_COLOR_CONFIG.buttonIconC);
@@ -429,7 +429,7 @@ void HudColors_UpdateScoreLinesColor(GlobalContext* ctxt) {
 /**
  * Hook function called to write shop cursor color values to an output array.
  **/
-void HudColors_WriteShopCursorColor(Actor *actor, u32 *output, u32 amountBits, u32 shopType) {
+void HudColors_WriteShopCursorColor(Actor* actor, u32* output, u32 amountBits, u32 shopType) {
     // Hack to have f32 argument without being weird?
     f32 amount = *(f32*)&amountBits;
     // Build array of RGB values.

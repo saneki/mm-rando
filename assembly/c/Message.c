@@ -380,7 +380,7 @@ typedef struct {
     /* 0xE4 */ UNK_TYPE1 unkE4[0x4];
 } MessageCharacterProcessVariables; // size = 0xE8
 
-static void CheckTextWrapping(GlobalContext* ctxt, MessageCharacterProcessVariables *args, u8 currentCharacter) {
+static void CheckTextWrapping(GlobalContext* ctxt, MessageCharacterProcessVariables* args, u8 currentCharacter) {
     if (gMessageExtensionState.isWrapping) {
         if (currentCharacter == 0x20) {
             // set lastSpaceIndex

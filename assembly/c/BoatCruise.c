@@ -10,7 +10,7 @@ typedef void(*UpdateCanoeMovementFunc)(ActorBgIngate* actor);
 /**
  * Helper function used to resolve and call function for processing boat movement along its path.
  **/
-static void ProcessMovement(ActorBgIngate *actor) {
+static void ProcessMovement(ActorBgIngate* actor) {
     ActorOverlay* entry = &gActorOverlayTable[0xA7];
     UpdateCanoeMovementFunc function = Reloc_ResolveActorOverlay(entry, UpdateCanoeMovementVRAM);
     if (function != NULL) {

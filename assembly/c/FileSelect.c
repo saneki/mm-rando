@@ -87,7 +87,7 @@ struct HashIcons HASH_ICONS = {
 
 static void LoadTexture(u8* buf, int idx, int length, u8 item) {
     u32 phys = z2_GetFilePhysAddr(ItemTextureFileVROM);
-    u8 *dest = buf + (idx * length);
+    u8* dest = buf + (idx * length);
     z2_LoadFileFromArchive(phys, item, dest, length);
 }
 
@@ -131,7 +131,7 @@ void FileSelect_BeforeDraw(GlobalContext* ctxt) {
 
     // When pressing Z, update file hash to random new value
     Sprite* sprite = Sprite_GetItemTexturesSprite();
-    struct misc_config *config = misc_get_config();
+    struct misc_config* config = misc_get_config();
     z2_pad_t pad_pressed = ctxt->state.input[0].pad_pressed;
     if (pad_pressed.z && config->draw_hash && sprite->buf != NULL) {
         config->hash.value = z2_RngInt();

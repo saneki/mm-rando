@@ -29,7 +29,7 @@ void c_init() {
     WorldColors_Init();
 }
 
-void before_player_actor_update(ActorPlayer *link, GlobalContext *game) {
+void before_player_actor_update(ActorPlayer* link, GlobalContext* game) {
     Dpad_BeforePlayerActorUpdate(link, game);
     ExternalEffects_Handle(link, game);
     ArrowCycle_Handle(link, game);
@@ -37,14 +37,14 @@ void before_player_actor_update(ActorPlayer *link, GlobalContext *game) {
     DekuHop_Handle(link, game);
 }
 
-bool before_damage_process(ActorPlayer *link, GlobalContext *game) {
+bool before_damage_process(ActorPlayer* link, GlobalContext* game) {
     return Icetrap_Give(link, game);
 }
 
 /**
  * Hook function called after preparing display buffers for writing during current frame.
  **/
-void game_after_prepare_display_buffers(GraphicsContext *gfx) {
+void game_after_prepare_display_buffers(GraphicsContext* gfx) {
     // Check if models objheap should finish advancing.
     Models_AfterPrepareDisplayBuffers(gfx);
 }

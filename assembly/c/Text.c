@@ -45,7 +45,7 @@ void Text_Flush(DispBuf* db) {
     for (int i = 0; i < gTextBucketCount; i++) {
         Sprite_Load(db, &gSpriteFont, i * gTextBucketSize, gTextBucketSize);
 
-        TextChar *pText = gTextBuf;
+        TextChar* pText = gTextBuf;
         while (pText < gTextEnd) {
             char c = pText->c;
             int left = pText->left;

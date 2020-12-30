@@ -91,7 +91,7 @@ void OverlayMenu_Draw(GlobalContext* ctxt) {
         return;
     }
 
-    DispBuf *db = &ctxt->state.gfxCtx->overlay;
+    DispBuf* db = &ctxt->state.gfxCtx->overlay;
     db->p = db->buf;
 
     // Call setup display list.
@@ -160,7 +160,7 @@ void OverlayMenu_Draw(GlobalContext* ctxt) {
 
     // Draw remains.
     for (int i = 0; i < gDungeonCount; i++) {
-        struct DungeonEntry *d = &gDungeons[i];
+        struct DungeonEntry* d = &gDungeons[i];
         if (d->isDungeon && HasRemains(d->index)) {
             int top = startTop + ((iconSize + padding) * i);
             Sprite_Load(db, &gSpriteIcon, d->remains, 1);
@@ -171,7 +171,7 @@ void OverlayMenu_Draw(GlobalContext* ctxt) {
 
     // Draw names.
     for (int i = 0; i < gDungeonCount; i++) {
-        struct DungeonEntry *d = &gDungeons[i];
+        struct DungeonEntry* d = &gDungeons[i];
         int top = startTop + ((iconSize + padding) * i) + 1;
         Text_Print(d->name, left, top);
     }
@@ -179,7 +179,7 @@ void OverlayMenu_Draw(GlobalContext* ctxt) {
 
     // Draw small keys.
     for (int i = 0; i < gDungeonCount; i++) {
-        struct DungeonEntry *d = &gDungeons[i];
+        struct DungeonEntry* d = &gDungeons[i];
         if (d->isDungeon) {
             // Get key count for dungeon.
             u8 keys = gSaveContext.perm.inv.dungeonKeys[d->index];
@@ -196,7 +196,7 @@ void OverlayMenu_Draw(GlobalContext* ctxt) {
     // Draw boss keys.
     Sprite_Load(db, &gSpriteIcon24, 6, 1);
     for (int i = 0; i < gDungeonCount; i++) {
-        struct DungeonEntry *d = &gDungeons[i];
+        struct DungeonEntry* d = &gDungeons[i];
         if (d->isDungeon) {
             if (gSaveContext.perm.inv.dungeonItems[d->index].bossKey) {
                 int top = startTop + ((iconSize + padding) * i);
@@ -209,7 +209,7 @@ void OverlayMenu_Draw(GlobalContext* ctxt) {
     // Draw maps.
     Sprite_Load(db, &gSpriteIcon24, 8, 1);
     for (int i = 0; i < gDungeonCount; i++) {
-        struct DungeonEntry *d = &gDungeons[i];
+        struct DungeonEntry* d = &gDungeons[i];
         if (d->isDungeon) {
             if (gSaveContext.perm.inv.dungeonItems[d->index].map) {
                 int top = startTop + ((iconSize + padding) * i);
@@ -222,7 +222,7 @@ void OverlayMenu_Draw(GlobalContext* ctxt) {
     // Draw compasses.
     Sprite_Load(db, &gSpriteIcon24, 7, 1);
     for (int i = 0; i < gDungeonCount; i++) {
-        struct DungeonEntry *d = &gDungeons[i];
+        struct DungeonEntry* d = &gDungeons[i];
         if (d->isDungeon) {
             if (gSaveContext.perm.inv.dungeonItems[d->index].compass) {
                 int top = startTop + ((iconSize + padding) * i);
@@ -234,7 +234,7 @@ void OverlayMenu_Draw(GlobalContext* ctxt) {
 
     // Draw stray fairy, skulltula token icons.
     for (int i = 0; i < gDungeonCount; i++) {
-        struct DungeonEntry *d = &gDungeons[i];
+        struct DungeonEntry* d = &gDungeons[i];
         int top = startTop + ((iconSize + padding) * i) - 2;
         if (d->hasFairies) {
             // Draw dungeon fairy icons (32-bit RGBA). Otherwise, draw Clock Town fairy icon.
@@ -256,7 +256,7 @@ void OverlayMenu_Draw(GlobalContext* ctxt) {
 
     // Draw stray fairy count, skulltula token count.
     for (int i = 0; i < gDungeonCount; i++) {
-        struct DungeonEntry *d = &gDungeons[i];
+        struct DungeonEntry* d = &gDungeons[i];
         int top = startTop + ((iconSize + padding) * i);
         // Get total count and maximum count for stray fairies or skulltula tokens.
         int total = 0;
