@@ -1,5 +1,5 @@
 #include <z2.h>
-#include "Gfx.h"
+#include "Sprite.h"
 #include "Util.h"
 
 extern char DPAD_TEXTURE;

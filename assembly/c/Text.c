@@ -1,5 +1,5 @@
 #include <z2.h>
-#include "Gfx.h"
+#include "Sprite.h"
 #include "Util.h"
 
 const static int gTextMaxChars = 256;
