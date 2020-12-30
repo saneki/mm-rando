@@ -1,6 +1,6 @@
 #include <stdbool.h>
-#include "misc.h"
 #include <z2.h>
+#include "misc.h"
 
 /**
  * Hook function used before function which may advance Toto cutscene state after formal song

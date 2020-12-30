@@ -1,6 +1,6 @@
+#include <z2.h>
 #include "gfx.h"
 #include "util.h"
-#include <z2.h>
 
 extern char DPAD_TEXTURE;
 #define DpadTextureRaw ((u8*)&DPAD_TEXTURE)

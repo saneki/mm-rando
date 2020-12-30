@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include <z2.h>
 #include "actor_ext.h"
 #include "arrow_cycle.h"
 #include "arrow_magic.h"
@@ -14,7 +15,6 @@
 #include "text.h"
 #include "util.h"
 #include "world_colors.h"
-#include <z2.h>
 
 void c_init() {
     Util_HeapInit();

@@ -1,7 +1,7 @@
 #ifndef WORLD_COLORS_H
 #define WORLD_COLORS_H
 
-#include "color.h"
+#include <z2.h>
 
 #define WORLD_COLOR_CONFIG_MAGIC 0x57524C44
 

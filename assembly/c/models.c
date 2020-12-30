@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include <z2.h>
 #include "items.h"
 #include "item_override.h"
 #include "loaded_models.h"
@@ -7,7 +8,6 @@
 #include "models.h"
 #include "objheap.h"
 #include "util.h"
-#include <z2.h>
 
 #define OBJHEAP_SLOTS (12)
 #define OBJHEAP_SIZE  (0x20000)

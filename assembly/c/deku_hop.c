@@ -1,5 +1,5 @@
-#include "misc.h"
 #include <z2.h>
+#include "misc.h"
 
 struct DekuHopState {
     u8 lastHop;

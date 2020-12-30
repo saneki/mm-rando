@@ -1,3 +1,4 @@
+#include <z2.h>
 #include "dpad.h"
 #include "file_select.h"
 #include "gfx.h"
@@ -5,7 +6,6 @@
 #include "misc.h"
 #include "save_file.h"
 #include "util.h"
-#include <z2.h>
 
 // Enables using Z to refresh file select hash icons.
 // #define FILE_HASH_DEBUG

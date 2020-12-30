@@ -1,10 +1,10 @@
+#include <z2.h>
 #include "hud_colors.h"
 #include "misc.h"
 #include "quest_item_storage.h"
 #include "quest_items.h"
 #include "reloc.h"
 #include "save_file.h"
-#include <z2.h>
 
 // Vertex buffers.
 static Vtx gVertexBufs[(4 * 3) * 2];

@@ -1,7 +1,7 @@
 #include <stdbool.h>
+#include <z2.h>
 #include "actor_ext.h"
 #include "util.h"
-#include <z2.h>
 
 // Number of ActorExt entries in the heap.
 static const size_t gCount = 0x80;

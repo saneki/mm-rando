@@ -1,5 +1,5 @@
-#include "misc.h"
 #include <z2.h>
+#include "misc.h"
 
 /**
  * Get the En_Cow actor which is closest to Link and which can give milk.

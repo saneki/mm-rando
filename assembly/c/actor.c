@@ -1,6 +1,6 @@
+#include <z2.h>
 #include "actor_ext.h"
 #include "models.h"
-#include <z2.h>
 
 /**
  * Hook function called after an actor's deconstructor function has been called.

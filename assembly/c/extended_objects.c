@@ -1,5 +1,5 @@
-#include "extended_objects.h"
 #include <z2.h>
+#include "extended_objects.h"
 
 ObjectFileTableEntry EXT_OBJECTS[EXT_OBJECT_COUNT] = { 0 };
 
