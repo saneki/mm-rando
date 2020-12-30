@@ -3,6 +3,7 @@
 
 using Nake;
 using System;
+using System.IO;
 
 const string DefaultConfig = "Release";
 
@@ -24,6 +25,9 @@ var RomPath = $"{ScriptDirectory}/roms/Rom.z64";
 /// Run MMR.CLI to generate a patched ROM.
 [Nake] async Task RunRandoCli(string config, bool useUiConfig = true)
 {
+    // Create output directory used by MMR.CLI.
+    Directory.CreateDirectory($"{ScriptDirectory}/output");
+
     var cliDllPath = Path.GetFullPath($"{RandoCliPath}/bin/{config}/netcoreapp3.1/MMR.CLI.dll");
     var settingsPath = Path.GetFullPath($"{RandoUiPath}/bin/{config}/settings.json");
     await $"dotnet '{cliDllPath}' -input '{RomPath}' {(useUiConfig ? $"-settings '{settingsPath}'" : "")}";

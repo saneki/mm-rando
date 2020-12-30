@@ -15,9 +15,8 @@ build/generated/*.txt
 # Ignore private vagrant directory
 .vagrant*
 
-# Ignore contents of "output" except for .gitkeep
-output/*
-!output/.gitkeep
+# Ignore output directory, used by MMR.CLI for outputting ROMs.
+output/
 
 # Ignore n64 directory, optionally included so that VSCode can resolve headers such as: <n64.h>
 n64/
