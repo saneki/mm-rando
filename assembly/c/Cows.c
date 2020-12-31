@@ -14,7 +14,7 @@ static Actor* GetClosestToPlayer(GlobalContext* ctxt) {
         for (s32 j = 0; j < count; j++, cur = cur->next) {
             // In vanilla game: cow only gives milk if variable 0 or 2.
             // In MMR, just make sure variable is not 1, since it is used for the gi-table index.
-            if (cur->id == Z2_ACTOR_EN_COW && cur->params != 1) {
+            if (cur->id == ACTOR_EN_COW && cur->params != 1) {
                 // Check if we already have a closest but the current actor is closer.
                 if (closest != NULL && cur->xzDistanceFromLink < closest->xzDistanceFromLink) {
                     closest = cur;

@@ -12,23 +12,23 @@ void QuestItemStorage_Clear(struct QuestItemStorage* storage) {
 
 bool QuestItemStorage_GetSlot(int* slot, int* idx, u8 item) {
     switch (item) {
-        case Z2_ITEM_MOON_TEAR:
-        case Z2_ITEM_TOWN_DEED:
-        case Z2_ITEM_SWAMP_DEED:
-        case Z2_ITEM_MOUNTAIN_DEED:
-        case Z2_ITEM_OCEAN_DEED:
+        case ITEM_MOON_TEAR:
+        case ITEM_TOWN_DEED:
+        case ITEM_SWAMP_DEED:
+        case ITEM_MOUNTAIN_DEED:
+        case ITEM_OCEAN_DEED:
             *slot = 0;
-            *idx = item - Z2_ITEM_MOON_TEAR;
+            *idx = item - ITEM_MOON_TEAR;
             return true;
-        case Z2_ITEM_ROOM_KEY:
-        case Z2_ITEM_MAMA_LETTER:
+        case ITEM_ROOM_KEY:
+        case ITEM_MAMA_LETTER:
             *slot = 1;
-            *idx = item - Z2_ITEM_ROOM_KEY;
+            *idx = item - ITEM_ROOM_KEY;
             return true;
-        case Z2_ITEM_KAFEI_LETTER:
-        case Z2_ITEM_PENDANT:
+        case ITEM_KAFEI_LETTER:
+        case ITEM_PENDANT:
             *slot = 2;
-            *idx = item - Z2_ITEM_KAFEI_LETTER;
+            *idx = item - ITEM_KAFEI_LETTER;
             return true;
         default:
             return false;
@@ -55,7 +55,7 @@ u8 QuestItemStorage_Next(const struct QuestItemStorage* storage, u8 item) {
             }
         }
     }
-    return Z2_ITEM_NONE;
+    return ITEM_NONE;
 }
 
 bool QuestItemStorage_Put(struct QuestItemStorage* storage, u8 item) {

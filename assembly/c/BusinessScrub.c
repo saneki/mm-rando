@@ -7,7 +7,7 @@
  **/
 void BusinessScrub_BeforeGiveItemClockTown(Actor* actor, GlobalContext* ctxt) {
     if (MISC_CONFIG.flags.questConsume == QUEST_CONSUME_ALWAYS) {
-        QuestItems_Remove(Z2_ITEM_MOON_TEAR);
+        QuestItems_Remove(ITEM_MOON_TEAR);
     }
 }
 
@@ -21,22 +21,22 @@ void BusinessScrub_ConsumeItem(Actor* actor) {
     if (flag == 0) {
         // Southern Swamp Business Scrub
         if (consume == QUEST_CONSUME_ALWAYS) {
-            QuestItems_Remove(Z2_ITEM_TOWN_DEED);
+            QuestItems_Remove(ITEM_TOWN_DEED);
         }
     } else if (flag == 1) {
         // Goron Village Business Scrub
         if (consume == QUEST_CONSUME_ALWAYS) {
-            QuestItems_Remove(Z2_ITEM_SWAMP_DEED);
+            QuestItems_Remove(ITEM_SWAMP_DEED);
         }
     } else if (flag == 2) {
         // Zora Chamber Business Scrub
         if (consume == QUEST_CONSUME_ALWAYS) {
-            QuestItems_Remove(Z2_ITEM_MOUNTAIN_DEED);
+            QuestItems_Remove(ITEM_MOUNTAIN_DEED);
         }
     } else if (flag == 3) {
         // Ikana Canyon Business Scrub
         if (consume == QUEST_CONSUME_DEFAULT || consume == QUEST_CONSUME_ALWAYS) {
-            QuestItems_Remove(Z2_ITEM_OCEAN_DEED);
+            QuestItems_Remove(ITEM_OCEAN_DEED);
         }
     }
 }

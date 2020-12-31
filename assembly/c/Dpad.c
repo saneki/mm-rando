@@ -11,7 +11,7 @@
 struct DpadConfig DPAD_CONFIG = {
     .magic = DPAD_CONFIG_MAGIC,
     .version = 0,
-    .primary = { Z2_ITEM_NONE },
+    .primary = { ITEM_NONE },
     .state = DPAD_STATE_DEFAULTS,
     .display = DPAD_DISPLAY_LEFT,
     .reserved = { 0 },
@@ -19,18 +19,18 @@ struct DpadConfig DPAD_CONFIG = {
 
 // Default D-Pad values that will be used if config values undefined.
 const static u8 gDpadDefault[4] = {
-    Z2_ITEM_DEKU_MASK,
-    Z2_ITEM_ZORA_MASK,
-    Z2_ITEM_OCARINA,
-    Z2_ITEM_GORON_MASK,
+    ITEM_DEKU_MASK,
+    ITEM_ZORA_MASK,
+    ITEM_OCARINA,
+    ITEM_GORON_MASK,
 };
 
 // Indicates which item textures are currently loaded into our buffer.
 static u8 gTextureItems[4] = {
-    Z2_ITEM_NONE,
-    Z2_ITEM_NONE,
-    Z2_ITEM_NONE,
-    Z2_ITEM_NONE,
+    ITEM_NONE,
+    ITEM_NONE,
+    ITEM_NONE,
+    ITEM_NONE,
 };
 
 // Position of D-Pad texture.
@@ -131,9 +131,9 @@ static u16 UpdateYPosition(u16 x, u16 y, u16 padding) {
     // Check if we have magic
     bool magic = gSaveContext.perm.unk24.hasMagic != 0;
     // Check if there's a timer
-    bool timer = IS_TIMER_VISIBLE(gSaveContext.extra.timers[Z2_TIMER_INDEX_POE_SISTERS]) ||
-                 IS_TIMER_VISIBLE(gSaveContext.extra.timers[Z2_TIMER_INDEX_TREASURE_CHEST_GAME]) ||
-                 IS_TIMER_VISIBLE(gSaveContext.extra.timers[Z2_TIMER_INDEX_DROWNING]);
+    bool timer = IS_TIMER_VISIBLE(gSaveContext.extra.timers[TIMER_INDEX_POE_SISTERS]) ||
+                 IS_TIMER_VISIBLE(gSaveContext.extra.timers[TIMER_INDEX_TREASURE_CHEST_GAME]) ||
+                 IS_TIMER_VISIBLE(gSaveContext.extra.timers[TIMER_INDEX_DROWNING]);
 
     // If on left-half of screen
     if (x < 160) {
@@ -172,8 +172,8 @@ static bool IsMinigameFrame(void) {
     // Note on state 1 (transition):
     // In the Deku playground, can go from 0xC to 0x1 when cutscene-transitioning to the business scrub.
     // Thus, if the minigame state goes directly to the transition state, consider that a minigame frame.
-    gWasMinigame = (gSaveContext.extra.buttonsState.state == Z2_BUTTONS_STATE_MINIGAME ||
-                   (gWasMinigame && gSaveContext.extra.buttonsState.state == Z2_BUTTONS_STATE_TRANSITION) ||
+    gWasMinigame = (gSaveContext.extra.buttonsState.state == BUTTONS_STATE_MINIGAME ||
+                   (gWasMinigame && gSaveContext.extra.buttonsState.state == BUTTONS_STATE_TRANSITION) ||
                     gSaveContext.extra.buttonsState.state == 6);
     return result || gWasMinigame;
 }
@@ -190,7 +190,7 @@ void Dpad_BeforePlayerActorUpdate(ActorPlayer* player, GlobalContext* ctxt) {
 
 void Dpad_ClearItemTextures(void) {
     for (int i = 0; i < 4; i++) {
-        gTextureItems[i] = Z2_ITEM_NONE;
+        gTextureItems[i] = ITEM_NONE;
     }
 }
 
@@ -225,13 +225,13 @@ bool Dpad_Handle(ActorPlayer* player, GlobalContext* ctxt) {
     // Check general buttons state to know if we can use C buttons at all
     // Note: After collecting a stray fairy (and possibly in other cases) the state flags are set
     // to 0 despite the game running normally.
-    if (gSaveContext.extra.buttonsState.state != Z2_BUTTONS_STATE_NORMAL &&
-        gSaveContext.extra.buttonsState.state != Z2_BUTTONS_STATE_BLACK_SCREEN) {
+    if (gSaveContext.extra.buttonsState.state != BUTTONS_STATE_NORMAL &&
+        gSaveContext.extra.buttonsState.state != BUTTONS_STATE_BLACK_SCREEN) {
         return false;
     }
 
     // Make sure certain Link state flags are cleared before processing D-Pad input.
-    u32 flags1 = Z2_ACTION_STATE1_HOLD | Z2_ACTION_STATE1_MOVE_SCENE | Z2_ACTION_STATE1_EPONA;
+    u32 flags1 = PLAYER_STATE1_HOLD | PLAYER_STATE1_MOVE_SCENE | PLAYER_STATE1_EPONA;
     if ((player->stateFlags.state1 & flags1) != 0) {
         return false;
     }
@@ -269,7 +269,7 @@ void Dpad_Draw(GlobalContext* ctxt) {
 
     // Check for minigame frame, and do nothing unless transitioning into minigame
     // In which case the C-buttons alpha will be used instead for fade-in
-    if (isMinigame && gSaveContext.extra.buttonsState.previousState != Z2_BUTTONS_STATE_MINIGAME) {
+    if (isMinigame && gSaveContext.extra.buttonsState.previousState != BUTTONS_STATE_MINIGAME) {
         return;
     }
 
@@ -282,9 +282,9 @@ void Dpad_Draw(GlobalContext* ctxt) {
     // Use minimap alpha by default for fading textures out
     u8 primAlpha = ctxt->interfaceCtx.alphas.minimap & 0xFF;
     // If in minigame, the C buttons fade out and so should the D-Pad
-    if (gSaveContext.extra.buttonsState.state == Z2_BUTTONS_STATE_MINIGAME ||
-        gSaveContext.extra.buttonsState.state == Z2_BUTTONS_STATE_BOAT_ARCHERY ||
-        gSaveContext.extra.buttonsState.state == Z2_BUTTONS_STATE_SWORDSMAN_GAME ||
+    if (gSaveContext.extra.buttonsState.state == BUTTONS_STATE_MINIGAME ||
+        gSaveContext.extra.buttonsState.state == BUTTONS_STATE_BOAT_ARCHERY ||
+        gSaveContext.extra.buttonsState.state == BUTTONS_STATE_SWORDSMAN_GAME ||
         isMinigame) {
         primAlpha = ctxt->interfaceCtx.alphas.buttonCLeft & 0xFF;
     }
@@ -297,7 +297,7 @@ void Dpad_Draw(GlobalContext* ctxt) {
 
     // Show faded while flying as a Deku
     ActorPlayer* player = Z2_LINK(ctxt);
-    if (((player->stateFlags.state3 & Z2_ACTION_STATE3_DEKU_AIR) != 0) && primAlpha > 0x4A) {
+    if (((player->stateFlags.state3 & PLAYER_STATE3_DEKU_AIR) != 0) && primAlpha > 0x4A) {
         primAlpha = 0x4A;
     }
 

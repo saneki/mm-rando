@@ -62,7 +62,7 @@ static void CycleQuestItem(GlobalContext* ctxt, u8 item, u8 slot) {
     gSaveContext.perm.inv.items[slot] = item;
     // Replace item in C buttons.
     for (int i = 1; i < 4; i++) {
-        if (orig != Z2_ITEM_NONE && gSaveContext.perm.unk4C.formButtonItems[0].buttons[i] == orig) {
+        if (orig != ITEM_NONE && gSaveContext.perm.unk4C.formButtonItems[0].buttons[i] == orig) {
             gSaveContext.perm.unk4C.formButtonItems[0].buttons[i] = item;
             z2_ReloadButtonTexture(ctxt, i);
         }
@@ -93,7 +93,7 @@ static bool IsQuestItemWithStorageSelected(GlobalContext* ctxt) {
     // Check if on "Z" or "R" side buttons.
     bool side = ctxt->pauseCtx.sideButton != 0;
 
-    return (quest && correctSlot && !side && item != Z2_ITEM_NONE && next != Z2_ITEM_NONE);
+    return (quest && correctSlot && !side && item != ITEM_NONE && next != ITEM_NONE);
 }
 
 /**
@@ -111,7 +111,7 @@ void PauseMenu_SelectItemDrawIcon(GraphicsContext* gfx, u8 item, u16 width, u16 
         if (QuestItemStorage_Has(storage, item)) {
             int sslot, unused;
             u8 next = QuestItemStorage_Next(storage, item);
-            if (next != Z2_ITEM_NONE && QuestItemStorage_GetSlot(&sslot, &unused, next)) {
+            if (next != ITEM_NONE && QuestItemStorage_GetSlot(&sslot, &unused, next)) {
                 u32 segAddr = gItemTextureSegAddrTable[next];
                 Vtx* vtx = GetVtxBuffer(gfx->globalContext, vertIdx, sslot);
                 DrawIcon(gfx, vtx, segAddr, width, height, quadIdx);
@@ -130,13 +130,13 @@ void PauseMenu_SelectItemSubscreenAfterProcess(GlobalContext* ctxt) {
         u16 text = ctxt->interfaceCtx.buttonATextCurrent;
         if (IsQuestItemWithStorageSelected(ctxt)) {
             // Set A button text to "Decide" (only if on "Info")
-            if (text == Z2_BUTTON_TEXT_INFO) {
-                z2_HudSetAButtonText(ctxt, Z2_BUTTON_TEXT_DECIDE);
+            if (text == BUTTON_TEXT_INFO) {
+                z2_HudSetAButtonText(ctxt, BUTTON_TEXT_DECIDE);
             }
         } else {
             // Set A button text to "Info" (only if on "Decide")
-            if (text == Z2_BUTTON_TEXT_DECIDE) {
-                z2_HudSetAButtonText(ctxt, Z2_BUTTON_TEXT_INFO);
+            if (text == BUTTON_TEXT_DECIDE) {
+                z2_HudSetAButtonText(ctxt, BUTTON_TEXT_INFO);
             }
         }
     }
@@ -155,7 +155,7 @@ bool PauseMenu_SelectItemProcessAButton(GlobalContext* ctxt, u32 curVal, u32 non
             // Check input for A button, and swap to next quest item.
             InputPad pad = ctxt->state.input->pressEdge.buttons;
             u8 next = QuestItemStorage_Next(&SAVE_FILE_CONFIG.questStorage, item);
-            if (pad.a && next != Z2_ITEM_NONE) {
+            if (pad.a && next != ITEM_NONE) {
                 ctxt->state.input->pressEdge.buttons.a = 0;
                 CycleQuestItem(ctxt, next, (u8)cell);
             }
