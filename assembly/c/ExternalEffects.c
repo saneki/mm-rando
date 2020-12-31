@@ -144,10 +144,10 @@ static void HandleCameraOverlookEffect(GlobalContext* ctxt, ActorPlayer* player)
     // Handle "Camera Overlook" effect.
     if (gExternalEffects.cameraOverlook) {
         s16 curstate = ctxt->activeCameras[0].state;
-        if (gFreecamModes[curstate] && curstate != Z2_CAMERA_STATE_FUKAN1) {
-            ctxt->activeCameras[0].state = Z2_CAMERA_STATE_FUKAN1;
+        if (gFreecamModes[curstate] && curstate != CAMERA_STATE_FUKAN1) {
+            ctxt->activeCameras[0].state = CAMERA_STATE_FUKAN1;
             // Camera mode used while Z-targetting, it should trigger the camera to begin drifting over Link
-            ctxt->activeCameras[0].mode = Z2_CAMERA_MODE_PARALLEL;
+            ctxt->activeCameras[0].mode = CAMERA_MODE_PARALLEL;
         }
     }
 }
@@ -225,7 +225,7 @@ static void HandleFreezeEffect(GlobalContext* ctxt, ActorPlayer* player) {
 static void HandleIcePhysicsEffect(GlobalContext* ctxt, ActorPlayer* player) {
     // Handle "Ice Physics" effect.
     if (gExternalEffects.icePhysics) {
-        FloorPhysics_OverrideType(true, Z2_FLOOR_PHYSICS_ICE);
+        FloorPhysics_OverrideType(true, FLOOR_PHYSICS_ICE);
     } else {
         FloorPhysics_OverrideType(false, 0);
     }

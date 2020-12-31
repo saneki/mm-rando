@@ -31,13 +31,13 @@ static struct FairyInst gFairyTable[FAIRY_INST_COUNT] = {
 // Spawn a fairy actor.
 static Actor* SpawnFairyActor(GlobalContext* ctxt, Vec3f pos, u16 inst) {
     Vec3s rot = { 0, 0, 0 };
-    return Actor_Spawn(ctxt, Z2_ACTOR_EN_ELF, pos, rot, inst);
+    return Actor_Spawn(ctxt, ACTOR_EN_ELF, pos, rot, inst);
 }
 
 // Whether or not Link can interact with a fairy currently.
 bool Fairy_CanInteractWith(GlobalContext* ctxt, ActorPlayer* player) {
     // Cannot collect fairy if in Deku flower
-    if ((player->stateFlags.state3 & Z2_ACTION_STATE3_DEKU_DIVE) != 0) {
+    if ((player->stateFlags.state3 & PLAYER_STATE3_DEKU_DIVE) != 0) {
         return false;
     } else {
         return z2_CanInteract(ctxt) == 0;

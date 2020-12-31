@@ -25,10 +25,10 @@ struct ArrowInfo {
 };
 
 static struct ArrowInfo gArrows[4] = {
-    { Z2_ITEM_BOW,         Z2_SLOT_BOW,         Z2_ITEM_BOW,             0x9, 0x0, 0x2, },
-    { Z2_ITEM_FIRE_ARROW,  Z2_SLOT_FIRE_ARROW,  Z2_ITEM_BOW_FIRE_ARROW,  0xA, 0x4, 0x3, },
-    { Z2_ITEM_ICE_ARROW,   Z2_SLOT_ICE_ARROW,   Z2_ITEM_BOW_ICE_ARROW,   0xB, 0x4, 0x4, },
-    { Z2_ITEM_LIGHT_ARROW, Z2_SLOT_LIGHT_ARROW, Z2_ITEM_BOW_LIGHT_ARROW, 0xC, 0x8, 0x5, },
+    { ITEM_BOW,         SLOT_BOW,         ITEM_BOW,             0x9, 0x0, 0x2, },
+    { ITEM_FIRE_ARROW,  SLOT_FIRE_ARROW,  ITEM_BOW_FIRE_ARROW,  0xA, 0x4, 0x3, },
+    { ITEM_ICE_ARROW,   SLOT_ICE_ARROW,   ITEM_BOW_ICE_ARROW,   0xB, 0x4, 0x4, },
+    { ITEM_LIGHT_ARROW, SLOT_LIGHT_ARROW, ITEM_BOW_LIGHT_ARROW, 0xC, 0x8, 0x5, },
 };
 
 static const struct ArrowInfo* GetInfo(u16 variable) {
@@ -86,7 +86,7 @@ static const struct ArrowInfo* GetNextInfo(u16 variable) {
  * This will re-copy the data used to draw the arrow trail color, and thus it will appear as it should.
  **/
 static bool CallArrowActorCtor(Actor* arrow, GlobalContext* ctxt) {
-    ActorOverlay* ovl = &gActorOverlayTable[Z2_ACTOR_EN_ARROW];
+    ActorOverlay* ovl = &gActorOverlayTable[ACTOR_EN_ARROW];
     ActorInit* init = Reloc_ResolveActorInit(ovl);
     if (init != NULL && init->init != NULL) {
         init->destroy(arrow, ctxt);
@@ -99,10 +99,10 @@ static bool CallArrowActorCtor(Actor* arrow, GlobalContext* ctxt) {
 
 static bool IsArrowItem(u8 item) {
     switch (item) {
-        case Z2_ITEM_BOW:
-        case Z2_ITEM_BOW_FIRE_ARROW:
-        case Z2_ITEM_BOW_ICE_ARROW:
-        case Z2_ITEM_BOW_LIGHT_ARROW:
+        case ITEM_BOW:
+        case ITEM_BOW_FIRE_ARROW:
+        case ITEM_BOW_ICE_ARROW:
+        case ITEM_BOW_LIGHT_ARROW:
             return true;
         default:
             return false;
@@ -136,14 +136,14 @@ static void HandleFrameDelay(ActorPlayer* player, GlobalContext* ctxt, Actor* ar
         }
         // Handle magic consume state.
         if (MISC_CONFIG.flags.arrowMagicShow) {
-            if (curInfo->item != Z2_ITEM_BOW) {
+            if (curInfo->item != ITEM_BOW) {
                 gSaveContext.extra.magicConsumeState = 4;
             }
         } else {
             // Make sure the game is aware that a special arrow effect is happening when switching
             // from normal arrow -> elemental arrow. Uses value 2 to make sure the magic cost is
             // consumed this frame.
-            if (curInfo->item != Z2_ITEM_BOW) {
+            if (curInfo->item != ITEM_BOW) {
                 gSaveContext.extra.magicConsumeState = 2;
             }
             // Refund magic cost of previous arrow type.
@@ -161,7 +161,7 @@ static void HandleFrameDelay(ActorPlayer* player, GlobalContext* ctxt, Actor* ar
  **/
 Actor* ArrowCycle_FindArrow(ActorPlayer* player, GlobalContext* ctxt) {
     Actor* attached = player->base.child;
-    if (attached != NULL && attached->id == Z2_ACTOR_EN_ARROW && attached->parent == &player->base) {
+    if (attached != NULL && attached->id == ACTOR_EN_ARROW && attached->parent == &player->base) {
         return attached;
     } else {
         return NULL;
@@ -194,7 +194,7 @@ void ArrowCycle_Handle(ActorPlayer* player, GlobalContext* ctxt) {
     }
 
     // Check if buttons state is normal, otherwise we are possibly in a minigame or on Epona.
-    if (gSaveContext.extra.buttonsState.state != Z2_BUTTONS_STATE_NORMAL) {
+    if (gSaveContext.extra.buttonsState.state != BUTTONS_STATE_NORMAL) {
         return;
     }
 
@@ -230,7 +230,7 @@ void ArrowCycle_Handle(ActorPlayer* player, GlobalContext* ctxt) {
     if (curInfo == NULL || nextInfo == NULL || curInfo->var == nextInfo->var) {
         // When not enough magic to cycle to anything else, switch C button back to normal bow.
         u8 item = gSaveContext.perm.unk4C.formButtonItems[0].buttons[player->itemButton];
-        if (curInfo->var == 2 && item != Z2_ITEM_BOW && gSaveContext.perm.inv.items[Z2_SLOT_BOW] == Z2_ITEM_BOW) {
+        if (curInfo->var == 2 && item != ITEM_BOW && gSaveContext.perm.inv.items[SLOT_BOW] == ITEM_BOW) {
             UpdateCButton(player, ctxt, &gArrows[0]);
         }
         z2_PlaySfx(0x4806);
@@ -241,7 +241,7 @@ void ArrowCycle_Handle(ActorPlayer* player, GlobalContext* ctxt) {
     // existing effect is not active. Otherwise the game may crash by attempting to load the actor
     // code file for one effect while an existing effect is still processing.
     // This also prevents from switching when Lens of Truth is activated.
-    if (curInfo->item == Z2_ITEM_BOW && gSaveContext.extra.magicConsumeState != 0) {
+    if (curInfo->item == ITEM_BOW && gSaveContext.extra.magicConsumeState != 0) {
         z2_PlaySfx(0x4806);
         return;
     }

@@ -196,7 +196,7 @@ void Models_DrawSkulltulaToken(Actor* actor, GlobalContext* ctxt) {
         u16 giIndex = GetSkulltulaTokenGiIndex(actor, ctxt);
         DrawFromGiTable(actor, ctxt, 1.0, giIndex);
     } else {
-        DrawModelLowLevel(actor, ctxt, Z2_GRAPHIC_ST_TOKEN - 1);
+        DrawModelLowLevel(actor, ctxt, GRAPHIC_ST_TOKEN - 1);
     }
 }
 
@@ -352,7 +352,7 @@ void Models_RotateHeartContainer(Actor* actor, GlobalContext* ctxt) {
 void Models_WriteBossRemainsObjectSegment(GlobalContext* ctxt, u32 graphicIdMinus1) {
     DispBuf* opa = &ctxt->state.gfxCtx->polyOpa;
     // Get index of object, and use it to get the data pointer
-    s8 index = z2_GetObjectIndex(&ctxt->sceneContext, Z2_OBJECT_BSMASK);
+    s8 index = z2_GetObjectIndex(&ctxt->sceneContext, OBJECT_BSMASK);
     // Only write segment instruction if object found in ctxt's object list.
     // Otherwise, assume it was set by the caller.
     if (index >= 0) {
@@ -512,7 +512,7 @@ void Models_DrawShopInventory(ActorEnGirlA* actor, GlobalContext* ctxt, u32 grap
 
 void Models_AfterActorDtor(Actor* actor) {
     if (MISC_CONFIG.flags.freestanding) {
-        if (actor->id == Z2_ACTOR_EN_ELFORG) {
+        if (actor->id == ACTOR_EN_ELFORG) {
             LoadedModels_RemoveActorModel(actor);
         }
     }

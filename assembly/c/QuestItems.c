@@ -8,7 +8,7 @@
 static bool CheckInventorySlot(u8 item, u8 slot) {
     if (gSaveContext.perm.inv.items[slot] == item) {
         return true;
-    } else if (MISC_CONFIG.flags.questItemStorage && gSaveContext.perm.inv.items[slot] != Z2_ITEM_NONE) {
+    } else if (MISC_CONFIG.flags.questItemStorage && gSaveContext.perm.inv.items[slot] != ITEM_NONE) {
         return QuestItemStorage_Has(&SAVE_FILE_CONFIG.questStorage, item);
     } else {
         return false;
@@ -37,7 +37,7 @@ void QuestItems_AfterRemoval(u8 item, u8 slot) {
         // Set next item into inventory if any.
         if (MISC_CONFIG.flags.questItemStorage) {
             u8 next = QuestItemStorage_Next(storage, item);
-            if (next != Z2_ITEM_NONE && QuestItems_IsQuestSlot(slot)) {
+            if (next != ITEM_NONE && QuestItems_IsQuestSlot(slot)) {
                 gSaveContext.perm.inv.items[slot] = next;
             }
         }

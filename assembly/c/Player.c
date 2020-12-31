@@ -22,7 +22,7 @@ void Player_BeforeUpdate(ActorPlayer* player, GlobalContext* ctxt) {
 
 bool Player_CanReceiveItem(GlobalContext* ctxt) {
     ActorPlayer* player = Z2_LINK(ctxt);
-    if ((player->stateFlags.state1 & Z2_ACTION_STATE1_AIM) != 0) {
+    if ((player->stateFlags.state1 & PLAYER_STATE1_AIM) != 0) {
         return false;
     }
     bool result = false;
@@ -56,11 +56,11 @@ static void HandleEnterWater(ActorPlayer* player, GlobalContext* ctxt) {
     // Check water distance to determine if in water.
     if (player->tableA68[11] < player->base.waterSurfaceDist) {
         // If swim flag not set, perform effects (sound + visual) for entering water.
-        if ((player->stateFlags.state1 & Z2_ACTION_STATE1_SWIM) == 0) {
+        if ((player->stateFlags.state1 & PLAYER_STATE1_SWIM) == 0) {
             z2_PerformEnterWaterEffects(ctxt, player);
         }
         // Set swim flag.
-        player->stateFlags.state1 |= Z2_ACTION_STATE1_SWIM;
+        player->stateFlags.state1 |= PLAYER_STATE1_SWIM;
     }
 }
 
@@ -68,7 +68,7 @@ static void HandleEnterWater(ActorPlayer* player, GlobalContext* ctxt) {
  * Helper function called to check if the player is in water.
  **/
 static bool InWater(ActorPlayer* player) {
-    return ((player->stateFlags.state1 & Z2_ACTION_STATE1_SWIM) != 0 ||
+    return ((player->stateFlags.state1 & PLAYER_STATE1_SWIM) != 0 ||
             (player->tableA68[11] < player->base.waterSurfaceDist));
 }
 
