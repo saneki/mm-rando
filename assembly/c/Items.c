@@ -7,7 +7,7 @@
  * Helper function used to process receiving a custom item.
  **/
 static void HandleCustomItem(GlobalContext* ctxt, u8 item) {
-    if (item == Z2_ICE_TRAP) {
+    if (item == CUSTOM_ITEM_ICE_TRAP) {
         Icetrap_PushPending();
     }
 }
