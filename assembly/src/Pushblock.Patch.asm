@@ -2,7 +2,7 @@
 ; Pushblock Speed
 ;==================================================================================================
 
-.headersize (G_OBJ_OSHIHIKI_VRAM - G_OBJ_OSHIHIKI_FILE)
+.headersize G_OBJ_OSHIHIKI_DELTA
 
 ; Replaces:
 ;   sw      a1, 0x0004 (sp)
@@ -21,7 +21,7 @@
 ; Iceblock Push Speed
 ;==================================================================================================
 
-.headersize (G_OBJ_ICEBLOCK_VRAM - G_OBJ_ICEBLOCK_FILE)
+.headersize G_OBJ_ICEBLOCK_DELTA
 
 ; Actor: 0x143 (Obj_Iceblock)
 ; Actor File VRAM: 0x80A23090
@@ -54,7 +54,7 @@
 ; Great Bay Temple Faucets
 ;==================================================================================================
 
-.headersize (G_BG_DBLUE_MOVEBG_VRAM - G_BG_DBLUE_MOVEBG_FILE)
+.headersize G_BG_DBLUE_MOVEBG_DELTA
 
 ; Actor: 0x174 (Bg_Dblue_Movebg)
 
@@ -136,7 +136,7 @@
 ; Oceanside Spider House Shelves
 ;==================================================================================================
 
-.headersize (G_BG_KIN2_SHELF_VRAM - G_BG_KIN2_SHELF_FILE)
+.headersize G_BG_KIN2_SHELF_DELTA
 
 ; Adjust speed of smaller shelves.
 ; Replaces:
@@ -193,7 +193,7 @@
 ; Ikana Pushblock Speed
 ;==================================================================================================
 
-.headersize (G_BG_IKANA_BLOCK_VRAM - G_BG_IKANA_BLOCK_FILE)
+.headersize G_BG_IKANA_BLOCK_DELTA
 
 ; Replaces:
 ;   lui     a2, 0x3ECC
@@ -212,7 +212,7 @@
 ; Pzlblock Speed
 ;==================================================================================================
 
-.headersize (G_OBJ_PZLBLOCK_VRAM - G_OBJ_PZLBLOCK_FILE)
+.headersize G_OBJ_PZLBLOCK_DELTA
 
 ; Replaces:
 ;   lui     a2, 0x4013
@@ -225,7 +225,7 @@
 ; Darmani's Gravestone Speed
 ;==================================================================================================
 
-.headersize (G_OBJ_GHAKA_VRAM - G_OBJ_GHAKA_FILE)
+.headersize G_OBJ_GHAKA_DELTA
 
 ; Replaces:
 ;   or      a3, a0, r0
@@ -250,7 +250,7 @@
 ; In-Water Pushing Multiplier (Mikau Pushing)
 ;==================================================================================================
 
-.headersize (G_PLAYER_ACTOR_VRAM - G_PLAYER_ACTOR_FILE)
+.headersize G_PLAYER_ACTOR_DELTA
 
 ; Replaces:
 ;   lwc1    f8, 0x0AD0 (s1)

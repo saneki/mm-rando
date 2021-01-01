@@ -2,7 +2,7 @@
 ; Business Scrub Item Consume
 ;==================================================================================================
 
-.headersize (G_EN_AKINDONUTS_VRAM - G_EN_AKINDONUTS_FILE)
+.headersize G_EN_AKINDONUTS_DELTA
 
 ; Consume quest item while getting index of get-item table for scrub item.
 ; Replaces:
@@ -16,7 +16,7 @@
 ; Business Scrub Before Giving Item (Clock Town)
 ;==================================================================================================
 
-.headersize (G_EN_SELLNUTS_VRAM - G_EN_SELLNUTS_FILE)
+.headersize G_EN_SELLNUTS_DELTA
 
 ; Optionally consume item before receiving the new item.
 ; Replaces:
@@ -30,7 +30,7 @@
 ; Business Scrub Initial Dialogue (Swamp Scrub)
 ;==================================================================================================
 
-.headersize (G_EN_AKINDONUTS_VRAM - G_EN_AKINDONUTS_FILE)
+.headersize G_EN_AKINDONUTS_DELTA
 
 ; Check if deed has already been given.
 ; Replaces:
@@ -44,7 +44,7 @@
 ; Business Scrub Initial Dialogue (Mountain Scrub)
 ;==================================================================================================
 
-.headersize (G_EN_AKINDONUTS_VRAM - G_EN_AKINDONUTS_FILE)
+.headersize G_EN_AKINDONUTS_DELTA
 
 ; Check if deed has already been given.
 ; Replaces:
@@ -64,7 +64,7 @@
 ; Business Scrub Initial Dialogue (Ocean Scrub)
 ;==================================================================================================
 
-.headersize (G_EN_AKINDONUTS_VRAM - G_EN_AKINDONUTS_FILE)
+.headersize G_EN_AKINDONUTS_DELTA
 
 ; Check if deed has already been given.
 ; Replaces:
@@ -84,7 +84,7 @@
 ; Business Scrub Initial Dialogue (Canyon Scrub)
 ;==================================================================================================
 
-.headersize (G_EN_AKINDONUTS_VRAM - G_EN_AKINDONUTS_FILE)
+.headersize G_EN_AKINDONUTS_DELTA
 
 ; Check if deed has already been given.
 ; Replaces:

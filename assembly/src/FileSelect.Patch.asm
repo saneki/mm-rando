@@ -2,7 +2,7 @@
 ; File Select Constructor & Destructor
 ;==================================================================================================
 
-.headersize (G_FILE_CHOOSE_VRAM - G_FILE_CHOOSE_FILE)
+.headersize G_FILE_CHOOSE_DELTA
 
 ; Replaces:
 ;   jr      ra

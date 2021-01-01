@@ -2,7 +2,7 @@
 ; DPAD Display
 ;==================================================================================================
 
-.headersize (G_CODE_RAM - G_CODE_FILE)
+.headersize G_CODE_DELTA
 
 ; Replaces:
 ;   sw      a0, 0x0068 (sp)
@@ -15,7 +15,7 @@
 ; DPAD Handle (Safer)
 ;==================================================================================================
 
-.headersize (G_PLAYER_ACTOR_VRAM - G_PLAYER_ACTOR_FILE)
+.headersize G_PLAYER_ACTOR_DELTA
 
 ; Replaces:
 ;   sw      s0, 0x0030 (sp)

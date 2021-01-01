@@ -2,7 +2,7 @@
 ; Freestanding Models (Heart Piece)
 ;==================================================================================================
 
-.headersize (G_CODE_RAM - G_CODE_FILE)
+.headersize G_CODE_DELTA
 
 ; Heart Piece draw function call.
 ; Replaces:
@@ -24,7 +24,7 @@
 ; Freestanding Models (Skulltula Token)
 ;==================================================================================================
 
-.headersize (G_EN_SI_VRAM - G_EN_SI_FILE)
+.headersize G_EN_SI_DELTA
 
 ; Skulltula Token draw function.
 ; Replaces:
@@ -38,7 +38,7 @@
 ; Freestanding Models (Stray Fairy)
 ;==================================================================================================
 
-.headersize (G_EN_ELFORG_VRAM - G_EN_ELFORG_FILE)
+.headersize G_EN_ELFORG_DELTA
 
 ; Stray Fairy main function.
 ; Replaces:
@@ -64,7 +64,7 @@
 ; Freestanding Models (Heart Container)
 ;==================================================================================================
 
-.headersize (G_ITEM_B_HEART_VRAM - G_ITEM_B_HEART_FILE)
+.headersize G_ITEM_B_HEART_DELTA
 
 ; Heart Container draw function.
 ; Replaces:
@@ -78,7 +78,7 @@
 ; Freestanding Models (Boss Remains)
 ;==================================================================================================
 
-.headersize (G_DM_HINA_VRAM - G_DM_HINA_FILE)
+.headersize G_DM_HINA_DELTA
 
 ; Overwrite draw function call for Odolwa's Remains.
 ; Replaces:
@@ -104,7 +104,7 @@
 .org 0x80A1FD84
     jal     Models_DrawBossRemains_Hook
 
-.headersize (G_CODE_RAM - G_CODE_FILE)
+.headersize G_CODE_DELTA
 
 ; Replace behaviour of Boss Remains' Get-Item function always writing DList instruction to set
 ; object segment address.
@@ -133,7 +133,7 @@
 ; Freestanding Models (Moon's Tear)
 ;==================================================================================================
 
-.headersize (G_OBJ_MOON_STONE_VRAM - G_OBJ_MOON_STONE_FILE)
+.headersize G_OBJ_MOON_STONE_DELTA
 
 ; Before Moon's Tear main function.
 ; Replaces:
@@ -159,7 +159,7 @@
 ; Freestanding Models (Lab Fish Heart Piece)
 ;==================================================================================================
 
-.headersize (G_EN_COL_MAN_VRAM - G_EN_COL_MAN_FILE)
+.headersize G_EN_COL_MAN_DELTA
 
 ; Lab Fish Heart Piece draw function.
 ; Replaces:
@@ -175,7 +175,7 @@
 ; Freestanding Models (Seahorse)
 ;==================================================================================================
 
-.headersize (G_EN_OT_VRAM - G_EN_OT_FILE)
+.headersize G_EN_OT_DELTA
 
 ; Before Seahorse main function.
 ; Replaces:
@@ -203,7 +203,7 @@
 ; Freestanding Models (Shops)
 ;==================================================================================================
 
-.headersize (G_EN_GIRLA_VRAM - G_EN_GIRLA_FILE)
+.headersize G_EN_GIRLA_DELTA
 
 ; Overwrite draw function call for shop inventory.
 ; Replaces:
@@ -215,7 +215,7 @@
 ; Model Rotation (En_Item00)
 ;==================================================================================================
 
-.headersize (G_CODE_RAM - G_CODE_FILE)
+.headersize G_CODE_DELTA
 
 ; Allow rotating backwards for En_Item00 (Heart Piece).
 ; Replaces:
@@ -235,7 +235,7 @@
 ; Model Rotation (Skulltula Token)
 ;==================================================================================================
 
-.headersize (G_EN_SI_VRAM - G_EN_SI_FILE)
+.headersize G_EN_SI_DELTA
 
 ; Allows rotating backwards for Skulltula Tokens.
 ; Replaces:
@@ -249,7 +249,7 @@
 ; Model Rotation (Heart Container)
 ;==================================================================================================
 
-.headersize (G_ITEM_B_HEART_VRAM - G_ITEM_B_HEART_FILE)
+.headersize G_ITEM_B_HEART_DELTA
 
 ; Allows rotating backwards for Heart Containers.
 ; Replaces:
@@ -273,7 +273,7 @@
 ; Model Rotation (Lab Fish Heart Piece)
 ;==================================================================================================
 
-.headersize (G_EN_COL_MAN_VRAM - G_EN_COL_MAN_FILE)
+.headersize G_EN_COL_MAN_DELTA
 
 ; Allows rotating backwards for Lab Fish Heart Piece.
 ; Replaces:

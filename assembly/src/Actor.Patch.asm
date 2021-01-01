@@ -2,7 +2,7 @@
 ; Actor Hooks
 ;==================================================================================================
 
-.headersize (G_CODE_RAM - G_CODE_FILE)
+.headersize G_CODE_DELTA
 
 ; Replaced:
 ;   jalr    ra, v0

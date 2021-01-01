@@ -2,7 +2,7 @@
 ; DPad Not-on-C-Buttons Fixes
 ;==================================================================================================
 
-.headersize (G_PLAYER_ACTOR_VRAM - G_PLAYER_ACTOR_FILE)
+.headersize G_PLAYER_ACTOR_DELTA
 
 ; Remove C button check for equipped mask, fixes using B button item (usually sword).
 ; Replaces:
@@ -27,7 +27,7 @@
 ; Draw C Button Amounts Fix
 ;==================================================================================================
 
-.headersize (G_CODE_RAM - G_CODE_FILE)
+.headersize G_CODE_DELTA
 
 ; Fixes B & C button item amounts and text being drawn in green if magic has not yet been obtained.
 

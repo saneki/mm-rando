@@ -2,7 +2,7 @@
 ; Arrow Magic Consumption
 ;==================================================================================================
 
-.headersize (G_CODE_RAM - G_CODE_FILE)
+.headersize G_CODE_DELTA
 
 ; Get initial magic consume state for elemental arrows.
 ; Replaces:

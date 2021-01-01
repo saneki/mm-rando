@@ -2,7 +2,7 @@
 ; Extended Message Table - Get Data File VROM Address
 ;==================================================================================================
 
-.headersize (G_CODE_RAM - G_CODE_FILE)
+.headersize G_CODE_DELTA
 
 ; Called when getting data for get-item message.
 ; Other potential areas to patch: 0x801511DC, 0x801516C4
@@ -38,7 +38,7 @@
 ; Extended Message Table - Determine Data File Type
 ;==================================================================================================
 
-.headersize (G_CODE_RAM - G_CODE_FILE)
+.headersize G_CODE_DELTA
 
 ; Replaces:
 ;   lui     at, 0x3F80
@@ -55,7 +55,7 @@
 ; Extended Message Table - Extend Lookup
 ;==================================================================================================
 
-.headersize (G_CODE_RAM - G_CODE_FILE)
+.headersize G_CODE_DELTA
 
 ; Replaces:
 ;   addiu   v0, a0, 0x4A70

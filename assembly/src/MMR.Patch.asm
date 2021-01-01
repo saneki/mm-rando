@@ -3,7 +3,7 @@
 ; Name: code
 ; =========================================================
 
-.headersize (G_CODE_RAM - G_CODE_FILE)
+.headersize G_CODE_DELTA
 
 ; Replaces (. is \x00):
 ;   nt_reg[82]..week

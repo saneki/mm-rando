@@ -2,7 +2,7 @@
 ; Add dmadata File Entry
 ;==================================================================================================
 
-.headersize (G_CODE_RAM - G_CODE_FILE)
+.headersize G_CODE_DELTA
 
 .orga (G_DMA_TABLE + (0x10 * 1544))
 .area 0x70, 0

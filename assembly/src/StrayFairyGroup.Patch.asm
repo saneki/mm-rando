@@ -2,7 +2,7 @@
 ; Stray Fairy group gives item instead of starting cutscene if not vanilla layout
 ;==================================================================================================
 
-.headersize (G_EN_ELFGRP_VRAM - G_EN_ELFGRP_FILE)
+.headersize G_EN_ELFGRP_DELTA
 
 ; Check if player can receive item before triggering the item cutscene.
 ; Replaces:

@@ -2,7 +2,7 @@
 ; Item Receive & Removal
 ;==================================================================================================
 
-.headersize (G_CODE_RAM - G_CODE_FILE)
+.headersize G_CODE_DELTA
 
 ; Hook after item receive.
 ; Replaces:
@@ -20,7 +20,7 @@
 ; Fix Item Receive for Custom Items
 ;==================================================================================================
 
-.headersize (G_CODE_RAM - G_CODE_FILE)
+.headersize G_CODE_DELTA
 
 ; Function begins at: 0x80112E80
 ; Prevent overwriting Ocarina inventory byte if item Id 0xA4 or higher.

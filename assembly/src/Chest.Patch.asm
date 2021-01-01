@@ -2,7 +2,7 @@
 ; Write Get-Item Index on Init
 ;==================================================================================================
 
-.headersize (G_EN_BOX_VRAM - G_EN_BOX_FILE)
+.headersize G_EN_BOX_DELTA
 
 ; Resolve get-item table index from chest table, and write to En_Box actor field.
 ; Replaces:
@@ -22,7 +22,7 @@
 ; Update Get-Item Index Before/While Opening
 ;==================================================================================================
 
-.headersize (G_EN_BOX_VRAM - G_EN_BOX_FILE)
+.headersize G_EN_BOX_DELTA
 
 ; Always branch to while-opening code (see below).
 ; Replaces:

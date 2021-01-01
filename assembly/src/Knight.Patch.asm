@@ -2,7 +2,7 @@
 ; Igos gives item instead of starting cutscene if not vanilla layout
 ;==================================================================================================
 
-.headersize (G_EN_KNIGHT_VRAM - G_EN_KNIGHT_FILE)
+.headersize G_EN_KNIGHT_DELTA
 
 ; Check if player can receive item before triggering the item cutscene.
 ; Replaces:

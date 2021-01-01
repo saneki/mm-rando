@@ -2,7 +2,7 @@
 ; Pause Menu (Select Item subscreen) - Icon Draw
 ;==================================================================================================
 
-.headersize (G_KALEIDO_SCOPE_VRAM - G_KALEIDO_SCOPE_FILE)
+.headersize G_KALEIDO_SCOPE_DELTA
 
 ; Hook draw for item textures on "Select Item" screen.
 ; Replaces:
@@ -18,7 +18,7 @@
 ; Pause Menu (Select Item subscreen) - Process
 ;==================================================================================================
 
-.headersize (G_KALEIDO_SCOPE_VRAM - G_KALEIDO_SCOPE_FILE)
+.headersize G_KALEIDO_SCOPE_DELTA
 
 ; After Select Item subscreen processing complete.
 ; Replaces:
@@ -30,7 +30,7 @@
 ; Pause Menu (Select Item subscreen) - Process A Button
 ;==================================================================================================
 
-.headersize (G_KALEIDO_SCOPE_VRAM - G_KALEIDO_SCOPE_FILE)
+.headersize G_KALEIDO_SCOPE_DELTA
 
 ; Replaces:
 ;   addiu   at, r0, 0x03E7
@@ -47,7 +47,7 @@
 ; Pause Menu (Select Item subscreen) - Set Button Enabled
 ;==================================================================================================
 
-.headersize (G_KALEIDO_SCOPE_VRAM - G_KALEIDO_SCOPE_FILE)
+.headersize G_KALEIDO_SCOPE_DELTA
 
 ; Replaces:
 ;   lui     t9, 0x0001
@@ -64,7 +64,7 @@
 ; Pause Menu Update
 ;==================================================================================================
 
-.headersize (G_KALEIDO_SCOPE_VRAM - G_KALEIDO_SCOPE_FILE)
+.headersize G_KALEIDO_SCOPE_DELTA
 
 ; Replaces:
 ;   sw      s0, 0x0014 (sp)

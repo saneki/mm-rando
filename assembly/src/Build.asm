@@ -21,7 +21,7 @@
 ; RAM translation for "code" (file 31)
 ;==================================================================================================
 
-.headersize (G_CODE_RAM - G_CODE_FILE) // ROM != VROM for all tools
+.headersize G_CODE_DELTA // ROM != VROM for all tools
 
 ;==================================================================================================
 ; Base game editing region
