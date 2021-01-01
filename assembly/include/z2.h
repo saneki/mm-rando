@@ -277,10 +277,8 @@ typedef struct {
 /// Actor Context
 /// =============================================================
 
-/**
- * Number of array elements in actorList field of ActorContext.
- **/
-#define Z2_ACTOR_LIST_ENTRIES 12
+// Number of array elements in actorList field of ActorContext.
+#define ACTOR_LIST_ENTRIES 12
 
 typedef struct {
     /* 0x0 */ s32 length; // number of actors loaded of this type

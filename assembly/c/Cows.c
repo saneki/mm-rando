@@ -7,7 +7,7 @@
 static Actor* GetClosestToPlayer(GlobalContext* ctxt) {
     Actor* closest = NULL;
     // Iterate actor_list entries.
-    for (int i = 0; i < Z2_ACTOR_LIST_ENTRIES; i++) {
+    for (int i = 0; i < ACTOR_LIST_ENTRIES; i++) {
         s32 count = ctxt->actorCtx.actorList[i].length;
         Actor* cur = ctxt->actorCtx.actorList[i].first;
         // Iterate actor linked list for each entry.
