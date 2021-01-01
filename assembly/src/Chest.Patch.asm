@@ -66,6 +66,8 @@
 ; Fix Ice Trap Sound Effect
 ;==================================================================================================
 
+.headersize G_EN_BOX_DELTA
+
 ; Use the correct sound effect Id for ice traps.
 ; Replaces:
 ;   addiu   a1, r0, 0x31F1
