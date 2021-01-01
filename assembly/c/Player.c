@@ -21,7 +21,7 @@ void Player_BeforeUpdate(ActorPlayer* player, GlobalContext* ctxt) {
 }
 
 bool Player_CanReceiveItem(GlobalContext* ctxt) {
-    ActorPlayer* player = Z2_LINK(ctxt);
+    ActorPlayer* player = GET_PLAYER(ctxt);
     if ((player->stateFlags.state1 & PLAYER_STATE1_AIM) != 0) {
         return false;
     }
