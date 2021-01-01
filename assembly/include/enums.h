@@ -520,6 +520,11 @@ enum SegmentID {
     SEGMENT_FRAME_BUFFER = 15,
 };
 
+enum StoredSong {
+    STORED_SONG_NONE1 = -1, // No stored song while not using ocarina.
+    STORED_SONG_NONE2 = -2, // No stored song while using ocarina.
+};
+
 enum TimerIndex {
     TIMER_INDEX_POE_SISTERS = 1,         // Poe sisters fight.
     TIMER_INDEX_TREASURE_CHEST_GAME = 4, // Treasure Chest Shop game.

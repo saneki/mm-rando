@@ -640,13 +640,6 @@ typedef struct {
 /// Ocarina & Song
 /// =============================================================
 
-enum z2_stored_song {
-    // No stored song while using ocarina.
-    Z2_STORED_SONG_OCARINA_NONE = 0xFE,
-    // No stored song (while not using ocarina).
-    Z2_STORED_SONG_NONE = 0xFF,
-};
-
 typedef struct {
     /* 0x00 */ s8 notes[0x9]; // 8 notes + extra terminator (0xFF).
     /* 0x09 */ UNK_TYPE1 pad9[0x3];
