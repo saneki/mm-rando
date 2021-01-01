@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <z2.h>
+#include <z64.h>
 #include "MMR.h"
 
 typedef struct String {

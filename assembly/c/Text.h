@@ -1,7 +1,7 @@
 #ifndef TEXT_H
 #define TEXT_H
 
-#include <z2.h>
+#include <z64.h>
 
 void Text_Init(void);
 void Text_Print(const char* s, int left, int top);

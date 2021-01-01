@@ -1,7 +1,7 @@
 #ifndef EXTENDED_OBJECTS_H
 #define EXTENDED_OBJECTS_H
 
-#include <z2.h>
+#include <z64.h>
 
 #define EXT_OBJECT_COUNT 16
 

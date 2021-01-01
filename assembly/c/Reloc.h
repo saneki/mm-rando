@@ -1,7 +1,7 @@
 #ifndef RELOC_H
 #define RELOC_H
 
-#include <z2.h>
+#include <z64.h>
 
 // Macros for resolving functions present in PlayerOverlay memory regions.
 #define Reloc_ResolvePlayerOverlayFunc(Name, Ovl) ((Name##_Func)Reloc_ResolvePlayerOverlay(&Ovl, Name##_VRAM))

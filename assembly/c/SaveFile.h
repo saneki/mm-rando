@@ -2,7 +2,7 @@
 #define SAVE_FILE_H
 
 #include <stdbool.h>
-#include <z2.h>
+#include <z64.h>
 #include "QuestItemStorage.h"
 
 #define SAVE_FILE_CONFIG_MAGIC 0x53415645

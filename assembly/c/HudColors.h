@@ -1,7 +1,7 @@
 #ifndef HUD_COLORS_H
 #define HUD_COLORS_H
 
-#include <z2.h>
+#include <z64.h>
 
 // Magic number for HudColorConfig: "HUDC"
 #define HUD_COLOR_CONFIG_MAGIC 0x48554443

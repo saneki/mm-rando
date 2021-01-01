@@ -1,5 +1,5 @@
-#ifndef Z2_H
-#define Z2_H
+#ifndef _Z64_H_
+#define _Z64_H_
 
 #include <stdbool.h>
 #include <n64.h>
@@ -1697,4 +1697,4 @@ typedef struct {
 
 #include <z64addresses.h>
 
-#endif // Z2_H
+#endif

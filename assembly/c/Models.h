@@ -1,7 +1,7 @@
 #ifndef MODELS_H
 #define MODELS_H
 
-#include <z2.h>
+#include <z64.h>
 
 struct Model {
     u16 objectId;

@@ -1,5 +1,5 @@
 #include <stdbool.h>
-#include <z2.h>
+#include <z64.h>
 
 #define ITEM_OVERRIDE_ENTRY_COUNT 0x200
 

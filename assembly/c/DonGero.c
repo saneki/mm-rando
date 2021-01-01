@@ -1,4 +1,4 @@
-#include <z2.h>
+#include <z64.h>
 #include "Misc.h"
 
 static Vec3f rollTargets[6] = {

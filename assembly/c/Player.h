@@ -2,7 +2,7 @@
 #define PLAYER_H
 
 #include <stdbool.h>
-#include <z2.h>
+#include <z64.h>
 
 bool Player_CanReceiveItem(GlobalContext* ctxt);
 

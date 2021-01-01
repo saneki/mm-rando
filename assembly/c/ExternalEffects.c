@@ -1,5 +1,5 @@
 #include <stdbool.h>
-#include <z2.h>
+#include <z64.h>
 #include "ExternalEffects.h"
 #include "Fairy.h"
 #include "FloorPhysics.h"

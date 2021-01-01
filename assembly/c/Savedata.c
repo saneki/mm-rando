@@ -1,5 +1,5 @@
 #include <stdbool.h>
-#include <z2.h>
+#include <z64.h>
 #include "MMR.h"
 #include "QuestItems.h"
 #include "SaveFile.h"

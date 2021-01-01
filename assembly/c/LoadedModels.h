@@ -2,7 +2,7 @@
 #define LOADED_MODELS_H
 
 #include <stdbool.h>
-#include <z2.h>
+#include <z64.h>
 #include "Models.h"
 
 bool LoadedModels_AddActorModel(struct Model model, void* extra, Actor* actor);

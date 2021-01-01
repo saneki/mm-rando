@@ -1,4 +1,4 @@
-#include <z2.h>
+#include <z64.h>
 #include "ExtendedObjects.h"
 #include "Linheap.h"
 #include "Objheap.h"
