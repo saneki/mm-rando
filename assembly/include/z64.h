@@ -648,7 +648,6 @@ enum z2_stored_song {
 };
 
 typedef struct {
-    /* Might be part of a larger messagebox context. */
     /* 0x00 */ s8 notes[0x9]; // 8 notes + extra terminator (0xFF).
     /* 0x09 */ UNK_TYPE1 pad9[0x3];
     /* 0x0C */ s16 alphas[0x8]; // Note alphas.
@@ -1360,9 +1359,6 @@ typedef struct {
     /* 0x2C8 */ CycleSceneFlags cycleSceneFlags[120];
 } SaveContextExtra; // size = 0xC28
 
-/**
- * Savefile structure.
- **/
 typedef struct {
     /* 0x0000 */ SaveContextPerm perm;
     /* 0x100C */ SaveContextOwl owl;
@@ -1378,9 +1374,7 @@ typedef struct {
 /// Other Actors
 /// =============================================================
 
-/**
- * En_Box actor (Treasure Chest).
- **/
+// En_Box actor (Treasure Chest).
 typedef struct {
     /* 0x000 */ Actor base;
     /* 0x144 */ UNK_TYPE1 pad144[0xA8];
@@ -1395,18 +1389,14 @@ typedef struct {
     /* 0x220 */ u32 unk220;
 } ActorEnBox; // size = 0x224?
 
-/**
- * En_Elf actor.
- **/
+// En_Elf actor (Fairy).
 typedef struct {
     /* 0x000 */ Actor base;
     /* 0x144 */ UNK_TYPE1 pad144[0x116];
     /* 0x25A */ u16 animTimer; // Counts from 0 to 0x5F as "fairy heal" animation progresses.
 } ActorEnElf; // size = 0x25C?
 
-/**
- * En_Test4 actor.
- **/
+// En_Test4 actor.
 typedef struct {
     /* 0x000 */ Actor base;
     /* 0x144 */ u8 daynight;
@@ -1414,9 +1404,7 @@ typedef struct {
     /* 0x146 */ u16 timerBoundaries[0x3];
 } ActorEnTest4; // size = 0x14C?
 
-/**
- * En_Elforg actor (stray fairy).
- **/
+// En_Elforg actor (Stray Fairy).
 typedef struct {
     /* 0x000 */ Actor base;
     /* 0x144 */ u8 unk144;
@@ -1442,9 +1430,7 @@ typedef struct {
     /* 0x22C */ void* unk22C;
 } ActorEnElforg; // size = 0x230?
 
-/**
- * En_Akindonuts actor (Business Scrub)
- **/
+// En_Akindonuts actor (Travelling Business Scrub).
 typedef struct {
     /* 0x000 */ Actor base;
     /* 0x144 */ UNK_TYPE1 pad144[0x1E8];
@@ -1453,18 +1439,14 @@ typedef struct {
     /* 0x33C */ u16 lastMessageId;
 } ActorEnAkindonuts; // size = ?
 
-/**
- * En_GirlA actor (Shop Inventory Data)
- **/
+// En_GirlA actor (Shop Inventory Data).
 typedef struct {
     /* 0x000 */ Actor base;
     /* 0x144 */ UNK_TYPE1 pad144[0x5A];
     /* 0x19E */ u16 giIndex;
 } ActorEnGirlA; // size = ?
 
-/**
- * En_Toto actor (Toto)
- **/
+// En_Toto actor (Toto).
 typedef struct {
     /* 0x000 */ Actor base;
     /* 0x144 */ UNK_TYPE1 pad144[0x16C];
@@ -1480,9 +1462,7 @@ typedef struct {
     /* 0x2C8 */ UNK_TYPE1 pad2C8[0x8];
 } ActorEnToto; // size = 0x2D0
 
-/**
- * En_Suttari (Sakon)
- **/
+// En_Suttari actor (Sakon).
 typedef struct {
     /* 0x000 */ Actor base;
     /* 0x144 */ UNK_TYPE1 pad144[0x4];
@@ -1500,6 +1480,7 @@ typedef struct {
     /* 0x45A */ UNK_TYPE1 pad45A[0x2];
 } ActorEnSuttari; // size = 0x45C
 
+// Obj_Boat actor.
 typedef struct {
     /* 0x000 */ Actor base;
     /* 0x144 */ UNK_TYPE1 pad144[0x18];
@@ -1510,9 +1491,7 @@ typedef struct {
     /* 0x160 */ UNK_TYPE1 pad160[0x8];
 } ActorObjBoat; // size = 0x168
 
-/**
- * Bg_Ingate (Boat Cruise Canoe)
- **/
+// Bg_Ingate actor (Boat Cruise Canoe).
 typedef struct {
     /* 0x000 */ Actor base;
     /* 0x144 */ UNK_TYPE1 pad144[0x18];
