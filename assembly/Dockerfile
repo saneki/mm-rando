@@ -18,7 +18,7 @@ RUN pacman -Syu --needed --noconfirm --noprogressbar \
 ARG user=docker
 
 RUN useradd -m $user -p $user
-	
+
 RUN echo "$user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 # Setup abs directory
