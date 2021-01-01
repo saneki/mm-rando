@@ -2,7 +2,7 @@
 ; Elegy Speedup - Elegy Statue
 ;==================================================================================================
 
-.headersize(G_EN_TORCH2_VRAM - G_EN_TORCH2_FILE)
+.headersize (G_EN_TORCH2_VRAM - G_EN_TORCH2_FILE)
 
 ; Get the speed at which the Elegy statue fades in or out.
 ; Replaces:
@@ -18,7 +18,7 @@
     jal     0x800FEF2C
     or      a2, v0, r0
 
-.headersize(G_EFF_CHANGE_VRAM - G_EFF_CHANGE_FILE)
+.headersize (G_EFF_CHANGE_VRAM - G_EFF_CHANGE_FILE)
 
 ; Sync position of Eff_Change effect with the position of the Elegy statue.
 ; Replaces:
@@ -44,7 +44,7 @@
 .org 0x80A4C760
     jal     ElegySpeedup_HandleCamera_Hook
 
-.headersize(G_PLAYER_ACTOR_VRAM - G_PLAYER_ACTOR_FILE)
+.headersize (G_PLAYER_ACTOR_VRAM - G_PLAYER_ACTOR_FILE)
 
 ; Get frames to wait before beginning to despawn current Elegy statue.
 ; Replaces:
@@ -80,7 +80,7 @@
 ; Elegy Speedup - Stone Tower Blocks
 ;==================================================================================================
 
-.headersize(G_BG_F40_BLOCK_VRAM - G_BG_F40_BLOCK_FILE)
+.headersize (G_BG_F40_BLOCK_VRAM - G_BG_F40_BLOCK_FILE)
 
 ; Get speed of block moving to new area (normally moving slow).
 ; Replaces:

@@ -2,7 +2,7 @@
 ; Hook cutscene starting
 ;==================================================================================================
 
-.headersize(G_EN_GEG_VRAM - G_EN_GEG_FILE)
+.headersize (G_EN_GEG_VRAM - G_EN_GEG_FILE)
 
 ; Replaces:
 ;   jal     0x800F1CE0

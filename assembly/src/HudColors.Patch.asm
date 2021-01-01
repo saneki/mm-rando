@@ -70,6 +70,8 @@
 ; Clock color hooks
 ;==================================================================================================
 
+.headersize (G_CODE_RAM - G_CODE_FILE)
+
 ; Custom color for clock.
 ; Replaces:
 ;   lui     at, 0x00AA
@@ -189,6 +191,8 @@
 ; Heart colors hooks
 ;==================================================================================================
 
+.headersize (G_CODE_RAM - G_CODE_FILE)
+
 ; Custom colors for hearts.
 ; Replaces:
 ;   jal     0x8010069C
@@ -198,6 +202,8 @@
 ;==================================================================================================
 ; Magic meter color hooks
 ;==================================================================================================
+
+.headersize (G_CODE_RAM - G_CODE_FILE)
 
 ; Custom color for infinite magic (original: #0000C8)
 ; Replaces:
@@ -255,6 +261,8 @@
 ; Map color hooks
 ;==================================================================================================
 
+.headersize (G_CODE_RAM - G_CODE_FILE)
+
 ; Custom color for map (original: #00FFFFA0)
 ; Replaces:
 ;   andi    t6, t9, 0x00FF
@@ -282,6 +290,8 @@
 ;==================================================================================================
 ; Song A + C Button Note Colors
 ;==================================================================================================
+
+.headersize (G_CODE_RAM - G_CODE_FILE)
 
 ; Write colors for A, C button note icons.
 ; Replaces:
@@ -363,7 +373,7 @@
 ; Pause Menu Border Primary Color
 ;==================================================================================================
 
-.headersize(G_KALEIDO_SCOPE_VRAM - G_KALEIDO_SCOPE_FILE)
+.headersize (G_KALEIDO_SCOPE_VRAM - G_KALEIDO_SCOPE_FILE)
 
 ; Replaces:
 ;   lw      v0, 0x02B0 (s0)
@@ -450,7 +460,7 @@
 ; Pause Menu Border Secondary Color
 ;==================================================================================================
 
-.headersize(G_KALEIDO_SCOPE_VRAM - G_KALEIDO_SCOPE_FILE)
+.headersize (G_KALEIDO_SCOPE_VRAM - G_KALEIDO_SCOPE_FILE)
 
 ; Color used for bottom panel, Z/R buttons when not selected.
 ; Replaces:
@@ -526,7 +536,7 @@
 ; Pause Menu Subtitle Text Color
 ;==================================================================================================
 
-.headersize(G_KALEIDO_SCOPE_VRAM - G_KALEIDO_SCOPE_FILE)
+.headersize (G_KALEIDO_SCOPE_VRAM - G_KALEIDO_SCOPE_FILE)
 
 ; Color of pause menu subtitle text (when colored).
 ; Replaces:
@@ -542,7 +552,7 @@
 ; Song Score Lines Color
 ;==================================================================================================
 
-.headersize(G_CODE_RAM - G_CODE_FILE)
+.headersize (G_CODE_RAM - G_CODE_FILE)
 
 ; Replaces:
 ;   lui     at, 0x0001
@@ -571,7 +581,7 @@
 ; Song Score Note Color
 ;==================================================================================================
 
-.headersize(G_CODE_RAM - G_CODE_FILE)
+.headersize (G_CODE_RAM - G_CODE_FILE)
 
 @ScoreNoteColor equ (HUD_COLOR_CONFIG + 0xBC)
 
@@ -593,7 +603,7 @@
 ;==================================================================================================
 
 ; Write cursor color for Trading Post.
-.headersize(G_EN_OSSAN_VRAM - G_EN_OSSAN_FILE)
+.headersize (G_EN_OSSAN_VRAM - G_EN_OSSAN_FILE)
 .org 0x808AAAF8 ; Offset: 0x2A58
     addiu   a1, a0, 0x220 ;; A1 = Output array.
     mfc1    a2, f0        ;; A2 = Amount.
@@ -601,7 +611,7 @@
     or      a3, r0, r0    ;; A3 = Shop type (0).
 
 ; Write cursor color for Curiosity Shop.
-.headersize(G_EN_FSN_VRAM - G_EN_FSN_FILE)
+.headersize (G_EN_FSN_VRAM - G_EN_FSN_FILE)
 .org 0x80AE2D90 ; Offset: 0x1220
     addiu   a1, a0, 0x3B4  ;; A1 = Output array.
     mfc1    a2, f0         ;; A2 = Amount.
@@ -609,7 +619,7 @@
     ori     a3, r0, 0x0001 ;; A3 = Shop type (1).
 
 ; Write cursor color for Bomb Shop, Goron Shop, Zora Shop.
-.headersize(G_EN_SOB1_VRAM - G_EN_SOB1_FILE)
+.headersize (G_EN_SOB1_VRAM - G_EN_SOB1_FILE)
 .org 0x80A0EFDC ; Offset: 0x27CC
     addiu   a1, a0, 0x30C  ;; A1 = Output array.
     mfc1    a2, f0         ;; A2 = Amount.
@@ -617,7 +627,7 @@
     ori     a3, r0, 0x0002 ;; A3 = Shop type (2).
 
 ; Write cursor color for Potion Hut.
-.headersize(G_EN_TRT_VRAM - G_EN_TRT_FILE)
+.headersize (G_EN_TRT_VRAM - G_EN_TRT_FILE)
 .org 0x80A8E56C ; Offset: 0x2DFC
     addiu   a1, a0, 0x3F0  ;; A1 = Output array.
     mfc1    a2, f0         ;; A2 = Amount.

@@ -45,6 +45,8 @@
 ; Underwater Ocarina
 ;==================================================================================================
 
+.headersize (G_CODE_RAM - G_CODE_FILE)
+
 ; Replaces:
 ;   andi    t7, a2, 0x00FF
 ;   slti    at, t7, 0x0012
