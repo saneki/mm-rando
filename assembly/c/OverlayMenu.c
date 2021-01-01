@@ -108,8 +108,8 @@ void OverlayMenu_Draw(GlobalContext* ctxt) {
         (9 * gSpriteFont.tileW) +
         (9 * padding);
     int bgHeight = (rows * iconSize) + ((rows + 1) * padding);
-    int bgLeft = (Z2_SCREEN_WIDTH - bgWidth) / 2;
-    int bgTop = (Z2_SCREEN_HEIGHT - bgHeight) / 2;
+    int bgLeft = (SCREEN_WIDTH - bgWidth) / 2;
+    int bgTop = (SCREEN_HEIGHT - bgHeight) / 2;
 
     // Left & top starting positions for drawing columns.
     int left = bgLeft + padding;

@@ -145,7 +145,7 @@ void FileSelect_DrawHash(GlobalContext* ctxt) {
     int iconSize = 24;
     int padding = 8;
     int width = (gIconCount * iconSize) + ((gIconCount - 1) * padding);
-    int left = (Z2_SCREEN_WIDTH - width) / 2;
+    int left = (SCREEN_WIDTH - width) / 2;
     int top = 12;
 
     if (MISC_CONFIG.flags.drawHash) {
