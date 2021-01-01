@@ -3,10 +3,10 @@
 
 #include <z64.h>
 
-/* Virtual File Addresses */
+// Virtual File Addresses.
 #define ItemTextureFileVROM              0xA36C10
 
-/* Data Addresses */
+// Data Addresses.
 #define ArenaAddr                        0x8009CD20
 #define DmaEntryTableAddr                0x8009F8B0
 #define ActorOverlayTableAddr            0x801AEFD0
@@ -21,7 +21,7 @@
 #define StaticContextAddr                0x803824D0
 #define GlobalContextAddr                0x803E6B20 // Todo: Remove.
 
-/* Data */
+// Data.
 #define gActorOverlayTable               ((ActorOverlay*)            ActorOverlayTableAddr)
 #define gSaveContext                     (*(SaveContext*)            SaveContextAddr)
 #define dmadata                          ((DmaEntry*)                DmaEntryTableAddr)
@@ -33,14 +33,14 @@
 #define gSongNotes                       (*(SongNotes*)              SongNotesAddr)
 #define s803824D0                        (*(StaticContext*)          StaticContextAddr)
 
-/* Data (non-struct) */
+// Data (non-struct).
 #define gItemTextureSegAddrTable         ((u32*)                     ItemTextureSegAddrTableAddr)
 
-/* Data (Unknown) */
+// Data (unknown).
 #define s801BD8B0                        (*(struct_801BD8B0*)        0x801BD8B0)
 #define s801D0B70                        (*(struct_801D0B70*)        0x801D0B70)
 
-/* Function Addresses */
+// Function Addresses.
 #define z2_CanInteract_addr              0x801233E4
 #define z2_CanInteract2_addr             0x80123358
 #define z2_DrawButtonAmounts_addr        0x80117BD0
@@ -57,7 +57,7 @@
 #define z2_HandleInputVelocity_addr      0x800FF2F8
 #define z2_SetGetItemLongrange_addr      0x800B8BD0
 
-/* Scene Flags */
+// Scene Flags.
 #define z2_get_generic_flag_addr         0x800B5BB0
 #define z2_set_generic_flag_addr         0x800B5BF4
 #define z2_remove_generic_flag_addr      0x800B5C34
@@ -77,12 +77,12 @@
 #define z2_check_scene_pairs_addr        0x80169CBC
 #define z2_store_scene_flags_addr        0x80169D40
 
-/* Function Addresses (Actors) */
+// Function Addresses (Actors).
 #define z2_ActorDtor_addr                0x800B6948
 #define z2_ActorRemove_addr              0x800BB498
 #define z2_ActorUnload_addr              0x800B670C
 
-/* Function Addresses (Actor Cutscene) */
+// Function Addresses (Actor Cutscene).
 #define z2_ActorCutscene_ClearWaiting_addr             0x800F1648
 #define z2_ActorCutscene_ClearNextCutscenes_addr       0x800F1678
 #define z2_ActorCutscene_MarkNextCutscenes_addr        0x800F16A8
@@ -101,7 +101,7 @@
 #define z2_ActorCutscene_GetCurrentCamera_addr         0x800F21B8
 #define z2_ActorCutscene_SetReturnCamera_addr          0x800F23C4
 
-/* Function Addresses (Drawing) */
+// Function Addresses (Drawing).
 #define z2_BaseDrawCollectable_addr      0x800A7128
 #define z2_DrawHeartPiece_addr           0x800A75B8
 #define z2_PreDraw2_addr                 0x800B8050
@@ -109,7 +109,7 @@
 #define z2_BaseDrawGiModel_addr          0x800EE320
 #define z2_CallSetupDList_addr           0x8012C2DC
 
-/* Function Addresses (File Loading) */
+// Function Addresses (File Loading).
 #define z2_RomToRam_addr                 0x80080790
 #define z2_GetFileTable_addr             0x800808F4
 #define z2_GetFilePhysAddr_addr          0x80080950
@@ -121,42 +121,42 @@
 
 #define z2_Yaz0_LoadAndDecompressFile_addr 0x80081178
 
-/* Function Addresses (Get Item) */
+// Function Addresses (Get Item).
 #define z2_SetGetItem_addr               0x800B8A1C
 #define z2_GiveItem_addr                 0x80112E80
 #define z2_GiveMap_addr                  0x8012EF0C
 
-/* Function Addresses (HUD) */
+// Function Addresses (HUD).
 #define z2_UpdateButtonsState_addr       0x8010EF68
 #define z2_ReloadButtonTexture_addr      0x80112B40
 #define z2_HudSetAButtonText_addr        0x8011552C
 #define z2_InitButtonNoteColors_addr     0x80147564
 
-/* Function Addresses (Math) */
+// Function Addresses (Math).
 #define z2_Math_Sins_addr                0x800FED84
 #define z2_Math_Vec3f_DistXZ_addr        0x800FF92C
 
-/* Function Addresses (Objects) */
+// Function Addresses (Objects).
 #define z2_GetObjectIndex_addr           0x8012F608
 
-/* Function Addresses (OS) */
+// Function Addresses (OS).
 #define z2_memcpy_addr                   0x800FEC90
 
-/* Function Addresses (RNG) */
+// Function Addresses (RNG).
 #define z2_RngInt_addr                   0x80086FA0
 #define z2_RngSetSeed_addr               0x80086FD0
 
-/* Function Addresses (Rooms) */
+// Function Addresses (Rooms).
 #define z2_LoadRoom_addr                 0x8012E96C
 #define z2_UnloadRoom_addr               0x8012EBF8
 
-/* Function Addresses (Sound) */
+// Function Addresses (Sound).
 #define z2_SetBGM2_addr                  0x801A3098
 
-/* Function Addresses (Text) */
+// Function Addresses (Text).
 #define z2_ShowMessage_addr              0x801518B0
 
-/* Function Prototypes */
+// Function Prototypes.
 typedef int (*z2_CanInteract_proc)(GlobalContext *game);
 typedef int (*z2_CanInteract2_proc)(GlobalContext *game, ActorPlayer *link);
 typedef void (*z2_DrawButtonAmounts_proc)(GlobalContext *game, u32 arg1, u16 alpha);
@@ -174,7 +174,7 @@ typedef void (*z2_ToggleSfxDampen_proc)(int enable);
 typedef void (*z2_HandleInputVelocity_proc)(f32 *linear_velocity, f32 input_velocity, f32 increaseBy, f32 decreaseBy);
 typedef bool (*z2_SetGetItemLongrange_proc)(Actor *actor, GlobalContext *game, u16 gi_index);
 
-/* Function Prototypes (Scene Flags) */
+// Function Prototypes (Scene Flags).
 // TODO parameters
 typedef void (*z2_get_generic_flag_proc)();
 typedef void (*z2_set_generic_flag_proc)();
@@ -195,12 +195,12 @@ typedef void (*z2_load_scene_flags_proc)();
 typedef void (*z2_check_scene_pairs_proc)();
 typedef void (*z2_store_scene_flags_proc)();
 
-/* Function Prototypes (Actors) */
+// Function Prototypes (Actors).
 typedef void (*z2_ActorProc_proc)(Actor *actor, GlobalContext *game);
 typedef void (*z2_ActorRemove_proc)(ActorContext *ctxt, Actor *actor, GlobalContext *game);
 typedef void (*z2_ActorUnload_proc)(Actor *actor);
 
-/* Function Prototypes (Actor Cutscene) */
+// Function Prototypes (Actor Cutscene).
 typedef void (*z2_ActorCutscene_ClearWaiting_proc)(void);
 typedef void (*z2_ActorCutscene_ClearNextCutscenes_proc)(void);
 typedef void (*z2_ActorCutscene_MarkNextCutscenes_proc)(void);
@@ -219,13 +219,13 @@ typedef s16 (*z2_ActorCutscene_GetLength_proc)(s16 index);
 typedef s16 (*z2_ActorCutscene_GetCurrentCamera_proc)(void);
 typedef void (*z2_ActorCutscene_SetReturnCamera_proc)(s16 index);
 
-/* Function Prototypes (Drawing) */
+// Function Prototypes (Drawing).
 typedef void (*z2_ActorDraw_proc)(Actor *actor, GlobalContext *game);
 typedef void (*z2_BaseDrawGiModel_proc)(GlobalContext *game, u32 graphic_id_minus_1);
 typedef void (*z2_CallDList_proc)(GraphicsContext *gfx);
 typedef void (*z2_PreDraw_proc)(Actor *actor, GlobalContext *game, u32 unknown);
 
-/* Function Prototypes (File Loading) */
+// Function Prototypes (File Loading).
 typedef s32 (*z2_RomToRam_proc)(u32 src, void *dst, u32 length);
 typedef s16 (*z2_GetFileNumber_proc)(u32 vrom_addr);
 typedef u32 (*z2_GetFilePhysAddr_proc)(u32 vrom_addr);
@@ -237,42 +237,42 @@ typedef void (*z2_ReadFile_proc)(void *mem_addr, u32 vrom_addr, u32 size);
 
 typedef void (*z2_Yaz0_LoadAndDecompressFile_proc)(u32 prom_addr, void *dest, u32 length);
 
-/* Function Prototypes (Get Item) */
+// Function Prototypes (Get Item).
 typedef void (*z2_SetGetItem_proc)(Actor *actor, GlobalContext *game, s32 unk2, u32 unk3);
 typedef void (*z2_GiveItem_proc)(GlobalContext *game, u8 item_id);
 typedef void (*z2_GiveMap_proc)(u32 map_index);
 
-/* Function Prototypes (HUD) */
+// Function Prototypes (HUD).
 typedef void (*z2_HudSetAButtonText_proc)(GlobalContext *game, u16 text_id);
 typedef void (*z2_InitButtonNoteColors_proc)(GlobalContext *game);
 typedef void (*z2_ReloadButtonTexture_proc)(GlobalContext *game, u8 idx);
 typedef void (*z2_UpdateButtonsState_proc)(u32 state);
 
-/* Function Prototypes (Math) */
+// Function Prototypes (Math).
 typedef f32 (*z2_Math_Sins_proc)(s16 angle);
 typedef f32 (*z2_Math_Vec3f_DistXZ_proc)(Vec3f *p1, Vec3f *p2);
 
-/* Function Prototypes (Objects) */
+// Function Prototypes (Objects).
 typedef s8 (*z2_GetObjectIndex_proc)(const SceneContext *ctxt, u16 object_id);
 
-/* Function Prototypes (OS) */
+// Function Prototypes (OS).
 typedef void (*z2_memcpy_proc)(void *dest, const void *src, size_t size);
 
-/* Function Prototypes (RNG) */
+// Function Prototypes (RNG).
 typedef u32 (*z2_RngInt_proc)();
 typedef void (*z2_RngSetSeed_proc)(u32 seed);
 
-/* Function Prototypes (Rooms) */
+// Function Prototypes (Rooms).
 typedef void (*z2_LoadRoom_proc)(GlobalContext *game, RoomContext *room_ctxt, uint8_t room_id);
 typedef void (*z2_UnloadRoom_proc)(GlobalContext *game, RoomContext *room_ctxt);
 
-/* Function Prototypes (Sound) */
+// Function Prototypes (Sound).
 typedef void (*z2_SetBGM2_proc)(u16 bgm_id);
 
-/* Function Prototypes (Text) */
+// Function Prototypes (Text).
 typedef void (*z2_ShowMessage_proc)(GlobalContext *game, u16 message_id, u8 something); // TODO figure out something?
 
-/* Functions */
+// Functions.
 #define z2_CanInteract                   ((z2_CanInteract_proc)           z2_CanInteract_addr)
 #define z2_CanInteract2                  ((z2_CanInteract2_proc)          z2_CanInteract2_addr)
 #define z2_DrawButtonAmounts             ((z2_DrawButtonAmounts_proc)     z2_DrawButtonAmounts_addr)
@@ -289,7 +289,7 @@ typedef void (*z2_ShowMessage_proc)(GlobalContext *game, u16 message_id, u8 some
 #define z2_HandleInputVelocity           ((z2_HandleInputVelocity_proc)   z2_HandleInputVelocity_addr)
 #define z2_SetGetItemLongrange           ((z2_SetGetItemLongrange_proc)   z2_SetGetItemLongrange_addr)
 
-/* Functions (Scene Flags) */
+// Functions (Scene Flags).
 #define z2_get_generic_flag ((z2_get_generic_flag_proc) z2_get_generic_flag_addr)
 #define z2_set_generic_flag ((z2_set_generic_flag_proc) z2_set_generic_flag_addr)
 #define z2_remove_generic_flag ((z2_remove_generic_flag_proc) z2_remove_generic_flag_addr)
@@ -309,12 +309,12 @@ typedef void (*z2_ShowMessage_proc)(GlobalContext *game, u16 message_id, u8 some
 #define z2_check_scene_pairs ((z2_check_scene_pairs_proc) z2_check_scene_pairs_addr)
 #define z2_store_scene_flags ((z2_store_scene_flags_proc) z2_store_scene_flags_addr)
 
-/* Functions (Actors) */
+// Functions (Actors).
 #define z2_ActorDtor                     ((z2_ActorProc_proc)             z2_ActorDtor_addr)
 #define z2_ActorRemove                   ((z2_ActorRemove_proc)           z2_ActorRemove_addr)
 #define z2_ActorUnload                   ((z2_ActorUnload_proc)           z2_ActorUnload_addr)
 
-/* Functions (Actor Cutscene) */
+// Functions (Actor Cutscene).
 #define z2_ActorCutscene_ClearWaiting             ((z2_ActorCutscene_ClearWaiting_proc)             z2_ActorCutscene_ClearWaiting_addr)
 #define z2_ActorCutscene_ClearNextCutscenes       ((z2_ActorCutscene_ClearNextCutscenes_proc)       z2_ActorCutscene_ClearNextCutscenes_addr)
 #define z2_ActorCutscene_MarkNextCutscenes        ((z2_ActorCutscene_MarkNextCutscenes_proc)        z2_ActorCutscene_MarkNextCutscenes_addr)
@@ -333,7 +333,7 @@ typedef void (*z2_ShowMessage_proc)(GlobalContext *game, u16 message_id, u8 some
 #define z2_ActorCutscene_GetCurrentCamera         ((z2_ActorCutscene_GetCurrentCamera_proc)         z2_ActorCutscene_GetCurrentCamera_addr)
 #define z2_ActorCutscene_SetReturnCamera          ((z2_ActorCutscene_SetReturnCamera_proc)          z2_ActorCutscene_SetReturnCamera_addr)
 
-/* Functions (Drawing) */
+// Functions (Drawing).
 #define z2_BaseDrawCollectable           ((z2_ActorDraw_proc)             z2_BaseDrawCollectable_addr)
 #define z2_BaseDrawGiModel               ((z2_BaseDrawGiModel_proc)       z2_BaseDrawGiModel_addr)
 #define z2_CallSetupDList                ((z2_CallDList_proc)             z2_CallSetupDList_addr)
@@ -341,7 +341,7 @@ typedef void (*z2_ShowMessage_proc)(GlobalContext *game, u16 message_id, u8 some
 #define z2_PreDraw1                      ((z2_PreDraw_proc)               z2_PreDraw1_addr)
 #define z2_PreDraw2                      ((z2_PreDraw_proc)               z2_PreDraw2_addr)
 
-/* Functions (File Loading) */
+// Functions (File Loading).
 #define z2_GetFileNumber                 ((z2_GetFileNumber_proc)         z2_GetFileNumber_addr)
 #define z2_GetFilePhysAddr               ((z2_GetFilePhysAddr_proc)       z2_GetFilePhysAddr_addr)
 #define z2_GetFileTable                  ((z2_GetFileTable_proc)          z2_GetFileTable_addr)
@@ -353,39 +353,39 @@ typedef void (*z2_ShowMessage_proc)(GlobalContext *game, u16 message_id, u8 some
 
 #define z2_Yaz0_LoadAndDecompressFile    ((z2_Yaz0_LoadAndDecompressFile_proc) z2_Yaz0_LoadAndDecompressFile_addr)
 
-/* Functions (Get Item) */
+// Functions (Get Item).
 #define z2_SetGetItem                    ((z2_SetGetItem_proc)            z2_SetGetItem_addr)
 #define z2_GiveItem                      ((z2_GiveItem_proc)              z2_GiveItem_addr)
 #define z2_GiveMap                       ((z2_GiveMap_proc)               z2_GiveMap_addr)
 
-/* Functions (HUD) */
+// Functions (HUD).
 #define z2_HudSetAButtonText             ((z2_HudSetAButtonText_proc)     z2_HudSetAButtonText_addr)
 #define z2_InitButtonNoteColors          ((z2_InitButtonNoteColors_proc)  z2_InitButtonNoteColors_addr)
 #define z2_ReloadButtonTexture           ((z2_ReloadButtonTexture_proc)   z2_ReloadButtonTexture_addr)
 #define z2_UpdateButtonsState            ((z2_UpdateButtonsState_proc)    z2_UpdateButtonsState_addr)
 
-/* Functions (Math) */
+// Functions (Math).
 #define z2_Math_Sins                     ((z2_Math_Sins_proc)             z2_Math_Sins_addr)
 #define z2_Math_Vec3f_DistXZ             ((z2_Math_Vec3f_DistXZ_proc)     z2_Math_Vec3f_DistXZ_addr)
 
-/* Functions (Objects) */
+// Functions (Objects).
 #define z2_GetObjectIndex                ((z2_GetObjectIndex_proc)        z2_GetObjectIndex_addr)
 
-/* Functions (OS) */
+// Functions (OS).
 #define z2_memcpy                        ((z2_memcpy_proc)                z2_memcpy_addr)
 
-/* Functions (RNG) */
+// Functions (RNG).
 #define z2_RngInt                        ((z2_RngInt_proc)                z2_RngInt_addr)
 #define z2_RngSetSeed                    ((z2_RngSetSeed_proc)            z2_RngSetSeed_addr)
 
-/* Functions (Rooms) */
+// Functions (Rooms).
 #define z2_LoadRoom                      ((z2_LoadRoom_proc)              z2_LoadRoom_addr)
 #define z2_UnloadRoom                    ((z2_UnloadRoom_proc)            z2_UnloadRoom_addr)
 
-/* Functions (Sound) */
+// Functions (Sound).
 #define z2_SetBGM2                       ((z2_SetBGM2_proc)               z2_SetBGM2_addr)
 
-/* Functions (Text) */
+// Functions (Text).
 #define z2_ShowMessage                   ((z2_ShowMessage_proc)           z2_ShowMessage_addr)
 
 // Relocatable Functions (kaleido_scope).
