@@ -9,11 +9,8 @@ extern u8 FONT_TEXTURE[];
 
 Gfx gSetupDb[] = {
     gsDPPipeSync(),
-
     gsSPLoadGeometryMode(0),
-    gsDPSetScissor(G_SC_NON_INTERLACE,
-                  0, 0, SCREEN_WIDTH, SCREEN_HEIGHT),
-
+    gsDPSetScissor(G_SC_NON_INTERLACE, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT),
     gsDPSetOtherMode(G_AD_DISABLE | G_CD_DISABLE |
         G_CK_NONE | G_TC_FILT |
         G_TD_CLAMP | G_TP_NONE |
@@ -22,8 +19,7 @@ Gfx gSetupDb[] = {
         G_TF_BILERP, // HI
         G_AC_NONE | G_ZS_PRIM |
         G_RM_XLU_SURF | G_RM_XLU_SURF2), // LO
-
-    gsSPEndDisplayList()
+    gsSPEndDisplayList(),
 };
 
 Sprite gSpriteDpad = {
