@@ -2,7 +2,7 @@
 ; Extended Objects Table
 ;==================================================================================================
 
-.headersize (G_PLAYER_ACTOR_VRAM - G_PLAYER_ACTOR_FILE)
+.headersize G_PLAYER_ACTOR_DELTA
 
 ; Lookup for get-item when loading into special buffer.
 ; Vanilla relocated address: 0x80755CFC (offset 0xADDC)
@@ -13,7 +13,7 @@
     jal     extended_objects_lookup_gi_hook
     nop
 
-.headersize (G_CODE_RAM - G_CODE_FILE)
+.headersize G_CODE_DELTA
 
 ; Lookup for loading objects when loading a new scene.
 ; Replaces:

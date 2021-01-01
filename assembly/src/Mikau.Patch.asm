@@ -2,7 +2,7 @@
 ; Mikau - Activate Beach Cutscene
 ;==================================================================================================
 
-.headersize (G_EN_ZOG_VRAM - G_EN_ZOG_FILE)
+.headersize G_EN_ZOG_DELTA
 
 ; Check if beach cutscene should activate.
 ; Replaces:

@@ -2,7 +2,7 @@
 ; After Game Update Hook
 ;==================================================================================================
 
-.headersize (G_CODE_RAM - G_CODE_FILE)
+.headersize G_CODE_DELTA
 
 ; Replaces:
 ;   addiu   sp, sp, 0x18
@@ -17,7 +17,7 @@
 ; Display Buffer Hooks
 ;==================================================================================================
 
-.headersize (G_CODE_RAM - G_CODE_FILE)
+.headersize G_CODE_DELTA
 
 ; Hook called after preparing display buffers for writing.
 ; Replaces:

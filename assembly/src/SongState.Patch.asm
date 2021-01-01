@@ -2,7 +2,7 @@
 ; Song State - Skip Song Playback
 ;==================================================================================================
 
-.headersize (G_CODE_RAM - G_CODE_FILE)
+.headersize G_CODE_DELTA
 
 ; Tweak advancement of state machine for deciding if song playback & message box should be skipped.
 ; Replaces:
@@ -50,7 +50,7 @@
 ; Song State - Skip Preset Song Playback
 ;==================================================================================================
 
-.headersize (G_CODE_RAM - G_CODE_FILE)
+.headersize G_CODE_DELTA
 
 ; Replaces:
 ;   lui     at, 0x0001

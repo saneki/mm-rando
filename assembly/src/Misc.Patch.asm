@@ -2,7 +2,7 @@
 ; Crit Wiggle
 ;==================================================================================================
 
-.headersize (G_CODE_RAM - G_CODE_FILE)
+.headersize G_CODE_DELTA
 
 ; Enables crit wiggle movement.
 ; Replaces:
@@ -45,7 +45,7 @@
 ; Underwater Ocarina
 ;==================================================================================================
 
-.headersize (G_CODE_RAM - G_CODE_FILE)
+.headersize G_CODE_DELTA
 
 ; Replaces:
 ;   andi    t7, a2, 0x00FF

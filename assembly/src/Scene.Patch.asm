@@ -2,7 +2,7 @@
 ; Scene Hooks
 ;==================================================================================================
 
-.headersize (G_CODE_RAM - G_CODE_FILE)
+.headersize G_CODE_DELTA
 
 ; Replaces:
 ;   lw      s0, 0x0018 (sp)

@@ -2,7 +2,7 @@
 ; Room Load Hooks
 ;==================================================================================================
 
-.headersize (G_CODE_RAM - G_CODE_FILE)
+.headersize G_CODE_DELTA
 
 ; Before room load.
 ; Replaces:
@@ -24,7 +24,7 @@
 ; Room Unload Hooks
 ;==================================================================================================
 
-.headersize (G_CODE_RAM - G_CODE_FILE)
+.headersize G_CODE_DELTA
 
 ; Before room unload.
 ; Replaces:

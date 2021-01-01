@@ -2,7 +2,7 @@
 ; Check Speedups - Sound Check (Actor Cutscene Index 0xD)
 ;==================================================================================================
 
-.headersize (G_EN_TOTO_VRAM - G_EN_TOTO_FILE)
+.headersize G_EN_TOTO_DELTA
 
 ; Call hook before beginning of function which may advance Toto cutscene state.
 ; Replaces:
@@ -40,7 +40,7 @@
 ; Check Speedups - Saving Bomb Shop Lady
 ;==================================================================================================
 
-.headersize (G_EN_SUTTARI_VRAM - G_EN_SUTTARI_FILE)
+.headersize G_EN_SUTTARI_DELTA
 
 ; Prevent branching into delay slot due to following patch.
 ; Replaces:
@@ -81,7 +81,7 @@
 ; Check Speedups - Fisherman's Game
 ;==================================================================================================
 
-.headersize (G_EN_JGAME_TSN_VRAM - G_EN_JGAME_TSN_FILE)
+.headersize G_EN_JGAME_TSN_DELTA
 
 ; Ignore timer check if speedup is enabled.
 ; Replaces:
@@ -127,7 +127,7 @@
 ; Speedups - Fisherman Boat
 ;==================================================================================================
 
-.headersize (G_OBJ_BOAT_VRAM - G_OBJ_BOAT_FILE)
+.headersize G_OBJ_BOAT_DELTA
 
 ; Store A1 (context pointer) on stack for later usage.
 ; Replaces:
@@ -175,7 +175,7 @@
 ; Check Speedups - Boat Archery
 ;==================================================================================================
 
-.headersize (G_BG_INGATE_VRAM - G_BG_INGATE_FILE)
+.headersize G_BG_INGATE_DELTA
 
 ; Get whether or not archery should end.
 ; Replaces:
@@ -215,7 +215,7 @@
 ; Speedups - Cruise Boat
 ;==================================================================================================
 
-.headersize (G_BG_INGATE_VRAM - G_BG_INGATE_FILE)
+.headersize G_BG_INGATE_DELTA
 
 ; Get boat speed during cruise.
 ; Replaces:

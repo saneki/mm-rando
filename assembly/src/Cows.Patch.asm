@@ -2,7 +2,7 @@
 ; Get Item From Closest Cow
 ;==================================================================================================
 
-.headersize (G_EN_COW_VRAM - G_EN_COW_FILE)
+.headersize G_EN_COW_DELTA
 
 ; Replaces:
 ;   lwc1    f4, 0x0098 (a0)

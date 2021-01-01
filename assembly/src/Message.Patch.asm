@@ -2,7 +2,7 @@
 ; Before a character in a raw message is processed
 ;==================================================================================================
 
-.headersize (G_CODE_RAM - G_CODE_FILE)
+.headersize G_CODE_DELTA
 
 ; Replaces:
 ;   lw      t2, 0x0070 (sp)

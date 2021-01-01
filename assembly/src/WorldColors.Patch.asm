@@ -2,7 +2,7 @@
 ; Blue Bubble color
 ;==================================================================================================
 
-.headersize (G_EN_BB_VRAM - G_EN_BB_FILE)
+.headersize G_EN_BB_DELTA
 
 ; Replaces:
 ;   lui     t8, 0xFB00
@@ -25,7 +25,7 @@
 ; Goron Punching Energy Color
 ;==================================================================================================
 
-.headersize (G_CODE_RAM - G_CODE_FILE)
+.headersize G_CODE_DELTA
 
 @GoronPunchEnergyColor equ (WORLD_COLOR_CONFIG + 0x8)
 
@@ -46,7 +46,7 @@
 ; Goron Rolling Interior Energy Color
 ;==================================================================================================
 
-.headersize (G_PLAYER_ACTOR_VRAM - G_PLAYER_ACTOR_FILE)
+.headersize G_PLAYER_ACTOR_DELTA
 
 @GoronInnerEnergyColor equ (WORLD_COLOR_CONFIG + 0xC)
 
@@ -69,7 +69,7 @@
 ; Sword Spin Charge Energy Color
 ;==================================================================================================
 
-.headersize (G_EN_M_THUNDER_VRAM - G_EN_M_THUNDER_FILE)
+.headersize G_EN_M_THUNDER_DELTA
 
 @SwordChargeBluEnvColor equ (WORLD_COLOR_CONFIG + 0x10)
 @SwordChargeBluPriColor equ (WORLD_COLOR_CONFIG + 0x14)
@@ -125,7 +125,7 @@
 ; Sword Spin Charge Sparks Color
 ;==================================================================================================
 
-.headersize (G_EFF_DUST_VRAM - G_EFF_DUST_FILE)
+.headersize G_EFF_DUST_DELTA
 
 @SwordChargeSparksBluColor equ (WORLD_COLOR_CONFIG + 0x20)
 @SwordChargeSparksRedColor equ (WORLD_COLOR_CONFIG + 0x24)
@@ -164,7 +164,7 @@
 ; Sword Spin Attack Energy Color
 ;==================================================================================================
 
-.headersize (G_EN_M_THUNDER_VRAM - G_EN_M_THUNDER_FILE)
+.headersize G_EN_M_THUNDER_DELTA
 
 @SwordSlashBluPriColor equ (WORLD_COLOR_CONFIG + 0x28)
 @SwordSlashRedPriColor equ (WORLD_COLOR_CONFIG + 0x2C)
@@ -205,7 +205,7 @@
 ; Fierce Deity Sword Beam Energy Color
 ;==================================================================================================
 
-.headersize (G_EN_M_THUNDER_VRAM - G_EN_M_THUNDER_FILE)
+.headersize G_EN_M_THUNDER_DELTA
 
 @SwordBeamEnvColor equ (WORLD_COLOR_CONFIG + 0x30)
 @SwordBeamPriColor equ (WORLD_COLOR_CONFIG + 0x34)
@@ -234,7 +234,7 @@
 ; Fierce Deity Sword Beam Damage Color
 ;==================================================================================================
 
-.headersize (G_CODE_RAM - G_CODE_FILE)
+.headersize G_CODE_DELTA
 
 @SwordBeamDamageEnvColor equ (WORLD_COLOR_CONFIG + 0x38)
 

@@ -2,7 +2,7 @@
 ; Player actor update hooks
 ;==================================================================================================
 
-.headersize (G_PLAYER_ACTOR_VRAM - G_PLAYER_ACTOR_FILE)
+.headersize G_PLAYER_ACTOR_DELTA
 
 ; Runs when in the "main game" (and not using the menu)
 ; Replaces:
@@ -16,7 +16,7 @@
 ; Damage processing hook
 ;==================================================================================================
 
-.headersize (G_PLAYER_ACTOR_VRAM - G_PLAYER_ACTOR_FILE)
+.headersize G_PLAYER_ACTOR_DELTA
 
 ; Replaces:
 ;   sw      s0, 0x0028 (sp)
@@ -31,7 +31,7 @@
 ; Before Handle Player Frozen State
 ;==================================================================================================
 
-.headersize (G_PLAYER_ACTOR_VRAM - G_PLAYER_ACTOR_FILE)
+.headersize G_PLAYER_ACTOR_DELTA
 
 ; Replaces:
 ;   or      s0, a0, r0
@@ -46,7 +46,7 @@
 ; Before Handle Player Voiding State
 ;==================================================================================================
 
-.headersize (G_PLAYER_ACTOR_VRAM - G_PLAYER_ACTOR_FILE)
+.headersize G_PLAYER_ACTOR_DELTA
 
 ; Replaces:
 ;   or      s0, a0, r0
@@ -61,7 +61,7 @@
 ; Should Ice Void Zora
 ;==================================================================================================
 
-.headersize (G_PLAYER_ACTOR_VRAM - G_PLAYER_ACTOR_FILE)
+.headersize G_PLAYER_ACTOR_DELTA
 
 ; Call function to determine if Zora should void during freeze.
 ; Replaces:
@@ -81,7 +81,7 @@
 ; Should Prevent Restoring Swim State
 ;==================================================================================================
 
-.headersize (G_PLAYER_ACTOR_VRAM - G_PLAYER_ACTOR_FILE)
+.headersize G_PLAYER_ACTOR_DELTA
 
 ; Fix branch into patched code, jump into the branch (instead of the delay slot).
 ; Replaces:

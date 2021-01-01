@@ -2,7 +2,7 @@
 ; Quest Item Inventory Checks (Near Door)
 ;==================================================================================================
 
-.headersize (G_CODE_RAM - G_CODE_FILE)
+.headersize G_CODE_DELTA
 
 ; Lookup type 0 (Room Key)
 ; Replaces:
@@ -36,7 +36,7 @@
 ; Quest Item Inventory Checks (En_Time_Tag)
 ;==================================================================================================
 
-.headersize (G_EN_TIME_TAG_VRAM - G_EN_TIME_TAG_FILE)
+.headersize G_EN_TIME_TAG_DELTA
 
 ; Prevent from being kicked out of Inn if Room Key is in storage.
 ; Replaces:
@@ -58,7 +58,7 @@
 ; Quest Item Inventory Checks (Trade Prompt)
 ;==================================================================================================
 
-.headersize (G_CODE_RAM - G_CODE_FILE)
+.headersize G_CODE_DELTA
 
 ; Still show trade prompts for items which are in storage but not on inventory slot.
 ; Replaces:
@@ -78,7 +78,7 @@
 ; Quest Inventory Slot Clear (Song of Time)
 ;==================================================================================================
 
-.headersize (G_CODE_RAM - G_CODE_FILE)
+.headersize G_CODE_DELTA
 
 ; Handle inventory quest slots being removed during Song of Time.
 ; Replaces:
@@ -108,7 +108,7 @@
 ; Quest Item Removal (General)
 ;==================================================================================================
 
-.headersize (G_CODE_RAM - G_CODE_FILE)
+.headersize G_CODE_DELTA
 
 ; Handle removal of multiple different quest items.
 ; Used when giving: Letter to Mama, Letter to Kafei, Pendant.
@@ -121,7 +121,7 @@
 ; Quest Item Removal (Hand in Toilet)
 ;==================================================================================================
 
-.headersize (G_EN_BJT_VRAM - G_EN_BJT_FILE)
+.headersize G_EN_BJT_DELTA
 
 ; Handle removal of Letter to Kafei.
 ; Replaces:
