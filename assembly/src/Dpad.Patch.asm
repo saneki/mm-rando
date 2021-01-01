@@ -30,6 +30,8 @@
 ; Transformation Mask Cutscene Skip
 ;==================================================================================================
 
+.headersize G_PLAYER_ACTOR_DELTA
+
 ; Replaces:
 ;   lhu     v0, 0x000C (t8)
 ;   andi    v0, v0, 0xC00F ; Input pad flags
