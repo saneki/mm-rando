@@ -90,7 +90,7 @@ typedef struct {
 typedef struct {
     /* 0x000 */ Gfx* polyOpaBuffer;
     /* 0x004 */ Gfx* polyXluBuffer;
-    /* 0x008 */ UNK_TYPE1 pad8[0x08];
+    /* 0x008 */ UNK_TYPE1 pad8[0x8];
     /* 0x010 */ Gfx* overlayBuffer;
     /* 0x014 */ UNK_TYPE1 pad14[0x24];
     /* 0x038 */ OSMesg taskMesg[8];
@@ -671,7 +671,7 @@ typedef struct {
     /* 0x12 */ s16 analogAngle; // Angle of analog stick, modifies sound.
     /* 0x14 */ UNK_TYPE1 pad14[0x14];
     /* 0x28 */ u8 hasPlayedNote; // 1 if has played note since using ocarina.
-    /* 0x29 */ UNK_TYPE1 pad29[0x07];
+    /* 0x29 */ UNK_TYPE1 pad29[0x7];
     /* 0x30 */ u16 flags; // 0x37DF if all songs.
     /* 0x32 */ u8 noteIndex3;
     /* 0x33 */ UNK_TYPE1 pad33;
@@ -1089,7 +1089,7 @@ typedef union {
         s8 cDown;
         s8 cRight;
     };
-    s8 buttons[0x04];
+    s8 buttons[0x4];
 } SaveContextButtonSet;
 
 typedef union {
@@ -1280,7 +1280,7 @@ typedef struct {
     /* 0x0EDE */ u16 bankRupees;
     /* 0x0EE0 */ UNK_TYPE1 padEE0[0x10];
     /* 0x0EF0 */ u32 lotteryGuess;
-    /* 0x0EF4 */ UNK_TYPE1 padEF4[0x04];
+    /* 0x0EF4 */ UNK_TYPE1 padEF4[0x4];
     // [0xF0C] & 0x01 = Woodfall Temple Raised
     // [0xF0C] & 0x02 = Swamp Clear
     // [0xF19] & 0x80 = Mountain Clear
