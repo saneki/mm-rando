@@ -5,16 +5,16 @@
 .headersize (G_CODE_RAM - G_CODE_FILE)
 
 ; Replaces:
-;   LW T2 0x0070 (SP)
-;   LH T6 0x00DA (SP)
-;   ADDIU AT R0 0x0010
-;   LHU T3 0x1FEC (T2)
-;   ADDU T7 S6 T6
-;   ADDU T8 T7 S7
-;   ADDU T4 S3 T3
-;   ADDU T5 T4 S7
-;   LBU S2 0x1880 (T5)
-;   SB S2 0x1F24 (T8)
+;   lw      t2, 0x0070 (sp)
+;   lh      t6, 0x00DA (sp)
+;   addiu   at, r0 0x0010
+;   lhu     t3, 0x1FEC (t2)
+;   addu    t7, s6, t6
+;   addu    t8, t7, s7
+;   addu    t4, s3, t3
+;   addu    t5, t4, s7
+;   lbu     s2, 0x1880 (t5)
+;   sb      s2, 0x1F24 (t8)
 .org 0x8015B27C
     or      a0, s4, r0
     jal     Message_BeforeCharacterProcess
