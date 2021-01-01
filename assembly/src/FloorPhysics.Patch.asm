@@ -2,7 +2,7 @@
 ; Override floor physics type hook
 ;==================================================================================================
 
-.headersize(G_PLAYER_ACTOR_VRAM - G_PLAYER_ACTOR_FILE)
+.headersize (G_PLAYER_ACTOR_VRAM - G_PLAYER_ACTOR_FILE)
 
 ; Replaces:
 ;   jal     0x800C99D4

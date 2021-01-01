@@ -102,9 +102,9 @@ PAYLOAD_START:
 .importobj "../build/bundle.o"
 .align 8
 DPAD_TEXTURE:
-.incbin("../resources/dpad32.bin")
+.incbin "../resources/dpad32.bin"
 FONT_TEXTURE:
-.incbin("../resources/font.bin")
+.incbin "../resources/font.bin"
 
 .align 0x10
 PAYLOAD_END:

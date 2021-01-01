@@ -2,7 +2,9 @@
 ; File: 0x00B3C000, Address: 0x00C72CD0, Offset: 0x00136CD0
 ; Name: code
 ; =========================================================
-.headersize (0x800A5AC0 - 0x00B3C000)
+
+.headersize (G_CODE_RAM - G_CODE_FILE)
+
 ; Replaces (. is \x00):
 ;   nt_reg[82]..week
 ;   _event_reg[83]..

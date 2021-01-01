@@ -2,7 +2,7 @@
 ; Savedata Hooks
 ;==================================================================================================
 
-.headersize(G_CODE_RAM - G_CODE_FILE)
+.headersize (G_CODE_RAM - G_CODE_FILE)
 
 ; Hook after loading savedata into z2_file from buffer after flash.
 ; Replaces:
