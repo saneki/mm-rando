@@ -1,5 +1,5 @@
-#ifndef GFX_H
-#define GFX_H
+#ifndef SPRITE_H
+#define SPRITE_H
 
 #include <z64.h>
 
@@ -28,4 +28,4 @@ Sprite* Sprite_GetItemTexturesSprite(void);
 void Sprite_Init(void);
 void Sprite_Load(DispBuf* db, Sprite* sprite, int startTile, int tileCount);
 
-#endif // GFX_H
+#endif // SPRITE_H

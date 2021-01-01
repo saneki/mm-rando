@@ -1,8 +1,8 @@
-#ifndef ARROW_MAGIC
-#define ARROW_MAGIC
+#ifndef ARROW_MAGIC_H
+#define ARROW_MAGIC_H
 
 #include <z64.h>
 
 void ArrowMagic_Handle(ActorPlayer* player, GlobalContext* ctxt);
 
-#endif // ARROW_MAGIC
+#endif // ARROW_MAGIC_H

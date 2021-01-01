@@ -43,4 +43,4 @@ void Dpad_BeforePlayerActorUpdate(ActorPlayer* player, GlobalContext* ctxt);
 void Dpad_ClearItemTextures(void);
 void Dpad_Init(void);
 
-#endif
+#endif // DPAD_H
