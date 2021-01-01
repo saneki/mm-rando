@@ -13,7 +13,7 @@
 ;   jal     0x800F1C68
 ;   lb      a0, 0x0038 (s0)
 .org 0x809B5868
-    jal     knight_give_item_hook
+    jal     Knight_GiveItem_Hook
     lw      a0, 0x0054 (sp)
     beq     v0, r0, 0x809B58A4
     nop

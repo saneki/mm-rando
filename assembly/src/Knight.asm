@@ -1,4 +1,4 @@
-knight_give_item_hook:
+Knight_GiveItem_Hook:
     addiu   sp, sp, -0x20
     sw      ra, 0x0010 (sp)
 
