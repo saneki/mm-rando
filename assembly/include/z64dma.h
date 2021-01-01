@@ -28,4 +28,4 @@ typedef struct {
     /* 0x0C */ u32 romEnd;
 } DmaEntry; // size = 0x10
 
-#endif // _Z64DMA_H_
+#endif

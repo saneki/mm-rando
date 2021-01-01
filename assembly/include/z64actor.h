@@ -963,4 +963,4 @@ typedef enum {
     /* 0x2B2 */ ACTOR_ID_MAX // originally "ACTOR_DLF_MAX"
 } ActorID;
 
-#endif // _Z64ACTOR_H_
+#endif

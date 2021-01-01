@@ -553,4 +553,4 @@ enum TimeSpeed {
     TIME_SPEED_STOPPED = -3,
 };
 
-#endif // _ENUMS_H_
+#endif

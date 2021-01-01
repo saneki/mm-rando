@@ -5,4 +5,4 @@
 
 typedef u64 OSTime;
 
-#endif // _OS_H_
+#endif
