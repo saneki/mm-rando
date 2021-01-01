@@ -1,5 +1,5 @@
-#ifndef _Z64_ANIMATION_H
-#define _Z64_ANIMATION_H
+#ifndef _Z64ANIMATION_H_
+#define _Z64ANIMATION_H_
 
 #include <n64.h>
 #include <PR/ultratypes.h>
@@ -249,4 +249,4 @@ typedef s32 (*OverrideCurveLimbDraw)(struct GlobalContext* globalCtx, SkelAnimeC
 typedef void (*PostCurveLimbDraw)(struct GlobalContext* globalCtx, SkelAnimeCurve* skelCuve, s32 limbIndex,
                                   struct Actor* actor);
 
-#endif // _Z64_ANIMATION_H_
+#endif

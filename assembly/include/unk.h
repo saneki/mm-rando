@@ -14,4 +14,4 @@
 #define UNK_FUN_PTR(name) void(*name)(void)
 #define UNK_ARGS void
 
-#endif // _UNK_H_
+#endif

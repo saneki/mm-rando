@@ -1,5 +1,5 @@
-#ifndef _Z_COLLISION_CHECK_H_
-#define _Z_COLLISION_CHECK_H_
+#ifndef _Z64COLLISION_CHECK_H_
+#define _Z64COLLISION_CHECK_H_
 
 #include <PR/ultratypes.h>
 #include <unk.h>
@@ -229,4 +229,4 @@ typedef struct {
     /* 0x1C */ ColTri* tris;
 } ColTriGroup; // size = 0x20
 
-#endif // _Z_COLLISION_CHECK_H_
+#endif

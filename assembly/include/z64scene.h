@@ -380,4 +380,4 @@ typedef union {
     /* Command: 0x1E */ SCmdMinimapChests     minimapChests;
 } SceneCmd; // size = 0x8
 
-#endif // _Z64SCENE_H_
+#endif

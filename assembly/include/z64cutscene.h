@@ -77,4 +77,4 @@ typedef struct {
     /* 0x9 */ UNK_TYPE1 pad9[0x3];
 } CsCmdUnk9B; // size = 0xC
 
-#endif // _Z64CUTSCENE_H_
+#endif

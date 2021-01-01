@@ -71,4 +71,4 @@ typedef struct {
     /* 0x2 */ LightInfoPositionalParams params;
 } LightInfoPositional; // size = 0xE
 
-#endif // _Z64LIGHT_H_
+#endif

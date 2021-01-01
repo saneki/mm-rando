@@ -411,4 +411,4 @@ typedef void (*z2_PerformEnterWaterEffects_Func)(GlobalContext* ctxt, ActorPlaye
 typedef void (*z2_PlayerHandleBuoyancy_Func)(ActorPlayer* player);
 typedef void (*z2_UseItem_Func)(GlobalContext* ctxt, ActorPlayer* player, u8 item);
 
-#endif // _Z64ADDRESSES_H_
+#endif

@@ -15,4 +15,4 @@ typedef struct {
     /* 0x4 */ s16 z;
 } Vec3s; // size = 0x6
 
-#endif // _Z64MATH_H_
+#endif
