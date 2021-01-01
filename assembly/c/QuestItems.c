@@ -1,5 +1,5 @@
 #include <stdbool.h>
-#include <z2.h>
+#include <z64.h>
 #include "Misc.h"
 #include "QuestItems.h"
 #include "QuestItemStorage.h"

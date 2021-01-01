@@ -1,7 +1,7 @@
 #ifndef ARROW_MAGIC
 #define ARROW_MAGIC
 
-#include <z2.h>
+#include <z64.h>
 
 void ArrowMagic_Handle(ActorPlayer* player, GlobalContext* ctxt);
 

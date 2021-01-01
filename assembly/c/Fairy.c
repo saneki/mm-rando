@@ -1,5 +1,5 @@
 #include <stdbool.h>
-#include <z2.h>
+#include <z64.h>
 #include "Actor.h"
 
 // Number of FairyInst entries in table.

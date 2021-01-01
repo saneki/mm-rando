@@ -1,4 +1,4 @@
-#include <z2.h>
+#include <z64.h>
 #include "Util.h"
 
 extern char G_C_HEAP;

@@ -1,5 +1,5 @@
 #include <stdbool.h>
-#include <z2.h>
+#include <z64.h>
 #include "Reloc.h"
 
 static u8 gPendingFreezes = 0;

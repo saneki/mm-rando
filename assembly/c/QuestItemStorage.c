@@ -1,5 +1,5 @@
 #include <stdbool.h>
-#include <z2.h>
+#include <z64.h>
 #include "QuestItemStorage.h"
 
 void QuestItemStorage_Clear(struct QuestItemStorage* storage) {

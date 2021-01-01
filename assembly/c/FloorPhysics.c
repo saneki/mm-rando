@@ -1,5 +1,5 @@
 #include <stdbool.h>
-#include <z2.h>
+#include <z64.h>
 
 static bool gIsOverride = false;
 static u32 gOverrideType = 0;

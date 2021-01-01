@@ -1,4 +1,4 @@
-#include <z2.h>
+#include <z64.h>
 
 struct ResolveInfo {
     void* ram;

@@ -1,4 +1,4 @@
-#include <z2.h>
+#include <z64.h>
 #include "HudColors.h"
 #include "Misc.h"
 #include "QuestItemStorage.h"

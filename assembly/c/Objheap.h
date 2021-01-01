@@ -1,7 +1,7 @@
 #ifndef OBJHEAP_H
 #define OBJHEAP_H
 
-#include <z2.h>
+#include <z64.h>
 #include "Linheap.h"
 
 struct ObjheapItem {
