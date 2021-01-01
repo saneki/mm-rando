@@ -21,7 +21,7 @@
     or      a3, a1, r0
     or      a2, a0, r0
     or      a1, s0, r0
-    jal     mmr_GetNewGiIndex
+    jal     MMR_GetNewGiIndex
     or      a0, s6, r0
     lw      a3, 0x0008 (sp)
     lw      a2, 0x0010 (sp)
