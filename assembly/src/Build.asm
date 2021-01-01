@@ -48,6 +48,7 @@
 .include "MessageTable.Patch.asm"
 .include "Mikau.Patch.asm"
 .include "Misc.Patch.asm"
+.include "MMR.Patch.asm"
 .include "Models.Patch.asm"
 .include "Pause.Patch.asm"
 .include "PlayerActor.Patch.asm"
@@ -60,7 +61,6 @@
 .include "Speedups.Patch.asm"
 .include "StrayFairyGroup.Patch.asm"
 .include "WorldColors.Patch.asm"
-.include "MMR.Patch.asm"
 
 ;==================================================================================================
 ; New code region
@@ -100,6 +100,7 @@ PAYLOAD_START:
 .include "StrayFairyGroup.asm"
 .include "WorldColors.asm"
 .importobj "../build/bundle.o"
+
 .align 8
 DPAD_TEXTURE:
 .incbin "../resources/dpad32.bin"
