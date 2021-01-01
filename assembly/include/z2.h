@@ -20,27 +20,14 @@
 #include <z64object.h>
 #include <z64scene.h>
 
-typedef void (*FuncPtr)(void);
+#define SCREEN_WIDTH 320
+#define SCREEN_HEIGHT 240
 
-#define Z2_SCREEN_WIDTH      320
-#define Z2_SCREEN_HEIGHT     240
+// Function type aliases.
+typedef void(*FuncPtr)(void);
 
-/* Structure type aliases. */
+// Structure type aliases.
 typedef struct GlobalContext GlobalContext;
-
-/**
- * Floating point matrix (copied from krimtonz' gu.h)
- **/
-typedef union {
-    f32 mf[4][4];
-    f32 f[16];
-    struct {
-        f32 xx, xy, xz, xw,
-            yx, yy, yz, yw,
-            zx, zy, zz, zw,
-            wx, wy, wz, ww;
-    };
-} MtxF;
 
 typedef struct {
     /* 0x00 */ f32 x[4];

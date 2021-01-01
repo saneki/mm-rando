@@ -12,7 +12,7 @@ Gfx gSetupDb[] = {
 
     gsSPLoadGeometryMode(0),
     gsDPSetScissor(G_SC_NON_INTERLACE,
-                  0, 0, Z2_SCREEN_WIDTH, Z2_SCREEN_HEIGHT),
+                  0, 0, SCREEN_WIDTH, SCREEN_HEIGHT),
 
     gsDPSetOtherMode(G_AD_DISABLE | G_CD_DISABLE |
         G_CK_NONE | G_TC_FILT |
