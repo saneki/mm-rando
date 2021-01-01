@@ -164,7 +164,7 @@ typedef struct {
 } DynaPolyActor; // size = 0x15C
 
 // Macro for getting the ActorPlayer pointer from the GlobalContext pointer.
-#define Z2_LINK(CTX) ((ActorPlayer*)(((CTX)->actorCtx.actorList[2].first)))
+#define GET_PLAYER(Ctxt) ((ActorPlayer*)(((Ctxt)->actorCtx.actorList[2].first)))
 
 typedef union {
     struct {

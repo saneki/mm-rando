@@ -296,7 +296,7 @@ void Dpad_Draw(GlobalContext* ctxt) {
     }
 
     // Show faded while flying as a Deku
-    ActorPlayer* player = Z2_LINK(ctxt);
+    ActorPlayer* player = GET_PLAYER(ctxt);
     if (((player->stateFlags.state3 & PLAYER_STATE3_DEKU_AIR) != 0) && primAlpha > 0x4A) {
         primAlpha = 0x4A;
     }
