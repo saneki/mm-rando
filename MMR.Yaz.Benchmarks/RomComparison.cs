@@ -10,6 +10,39 @@ namespace MMR.Yaz.Benchmarks
     using MzxYaz = Randomizer.Utils.Mzxrules.Yaz;
 
     [MemoryDiagnoser]
+    public class CodeFileBenchmarks
+    {
+        const uint CodeVirtualStart = 0xB3C000;
+        byte[] CodeBytes { get; set; }
+        VirtualFile CodeFile { get; set; }
+        RomFile Rom { get; set; }
+
+        [GlobalSetup]
+        public void GlobalSetup()
+        {
+            Rom = RomFile.From(PathUtil.GetInputRomFilePath());
+            CodeFile = Rom.Files.First(x => x.VirtualStart == CodeVirtualStart);
+            var length = CodeFile.PhysicalEnd - CodeFile.PhysicalStart;
+            var slice = Rom.Buffer.Span.Slice((int)CodeFile.PhysicalStart, (int)length);
+            CodeBytes = Yaz.Decode(slice);
+        }
+
+        [Benchmark]
+        public byte[] EncodeMzx()
+        {
+            var length = MzxYaz.Encode(CodeBytes, CodeBytes.Length, out var encoded);
+            return encoded;
+        }
+
+        [Benchmark]
+        public byte[] EncodeNew()
+        {
+            var length = Yaz.Encode(CodeBytes, out var encoded);
+            return encoded;
+        }
+    }
+
+    [MemoryDiagnoser]
     public class RomHeapBenchmarks
     {
         RomFile Rom { get; set; }
