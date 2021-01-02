@@ -566,7 +566,7 @@ typedef struct {
     /* 0x254 */ s16 lifeSizeChangeDirection; // 1 means shrinking, 0 growing
     /* 0x256 */ UNK_TYPE1 pad256[0xE];
     /* 0x264 */ InterfaceAlphas alphas;
-    /* 0x276 */ UNK_TYPE1 pad272[0x98];
+    /* 0x276 */ UNK_TYPE1 pad276[0x98];
     /* 0x30E */ u8 restrictionFlags[0xC];
     /* 0x31A */ UNK_TYPE1 pad31A[0x2E];
 } InterfaceContext; // size = 0x348
@@ -688,7 +688,7 @@ typedef struct {
     /* 0x03A */ s16 acceleration;
     /* 0x03C */ UNK_TYPE1 pad3C[0xE];
     /* 0x04A */ s16 turnSpeed;
-    /* 0x04C */ UNK_TYPE1 pad4E[0x50];
+    /* 0x04C */ UNK_TYPE1 pad4C[0x50];
     /* 0x09C */ s16 gravity;
     /* 0x09E */ UNK_TYPE1 pad9E[0x72];
     /* 0x110 */ u16 updateRate;
@@ -726,7 +726,7 @@ typedef struct {
     /* 0x11F22 */ u8 messageState1;
     /* 0x11F23 */ UNK_TYPE1 unk11F23;
     /* 0x11F24 */ u8 currentMessageDisplayed[0xC0]; // Length may be wrong.
-    /* 0x11FE4 */ UNK_TYPE1 pad1FE4[0x8];
+    /* 0x11FE4 */ UNK_TYPE1 pad11FE4[0x8];
     /* 0x11FEC */ u16 currentMessageCharIndex;
     /* 0x11FEE */ u16 unk11FEE;
     /* 0x11FF0 */ UNK_TYPE1 pad11FF0[0xA];
@@ -1239,7 +1239,7 @@ typedef struct {
     /* 0x1E */ u8 hasDoubleDefense;
     /* 0x1F */ UNK_TYPE1 pad1F[0x3];
     /* 0x22 */ SaveContextOwlsActive owlsHit;
-    /* 0x24 */ UNK_TYPE1 pad48[0x4];
+    /* 0x24 */ UNK_TYPE1 pad24[0x4];
 } SaveContext_struct1; // size = 0x28
 
 typedef struct {
