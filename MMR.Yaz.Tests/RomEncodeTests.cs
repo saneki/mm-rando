@@ -26,8 +26,7 @@ namespace MMR.Yaz.Tests
 
         static void PerformCompression(RomFile rom, VirtualFile entry)
         {
-            var length = entry.PhysicalEnd - entry.PhysicalStart;
-            var slice = rom.Buffer.Span.Slice((int)entry.PhysicalStart, (int)length);
+            var slice = rom.Slice(entry);
             var decoded = Yaz.Decode(slice);
             var encoded = Yaz.EncodeWithHeader(decoded, slice); // Yaz.EncodeAndCopy(decoded);
             var aligned = Yaz.AlignTo16(encoded);

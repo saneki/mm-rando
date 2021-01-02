@@ -91,5 +91,20 @@ namespace MMR.Randomizer.Models.Rom
             }
             return list.ToArray();
         }
+
+        /// <summary>
+        /// Get a slice of the ROM data for a specific <see cref="VirtualFile"/>.
+        /// </summary>
+        /// <param name="file">File used to get slice.</param>
+        /// <returns></returns>
+        public Span<byte> Slice(VirtualFile file)
+        {
+            if (file.IsIgnored)
+            {
+                throw new ArgumentException("File must not be Ignored to get slice of data.", "file");
+            }
+            var range = file.ToRange();
+            return Buffer.Span.Slice((int)range.Start, (int)range.Length);
+        }
     }
 }

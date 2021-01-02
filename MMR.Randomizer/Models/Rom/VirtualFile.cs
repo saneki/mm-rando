@@ -3,7 +3,7 @@ using System.Buffers.Binary;
 
 namespace MMR.Randomizer.Models.Rom
 {
-    public readonly struct VirtualFile
+    public readonly partial struct VirtualFile
     {
         /// <summary>
         /// Virtual start address.
@@ -60,6 +60,24 @@ namespace MMR.Randomizer.Models.Rom
             var word3 = BinaryPrimitives.ReadUInt32BigEndian(span.Slice(0x8));
             var word4 = BinaryPrimitives.ReadUInt32BigEndian(span.Slice(0xC));
             return new VirtualFile(word1, word2, word3, word4);
+        }
+
+        /// <summary>
+        /// Get the <see cref="ValueRange"/> of the file data relative to ROM start.
+        /// </summary>
+        /// <remarks>Certain files may return a range outside of the ROM bounds.</remarks>
+        /// <returns></returns>
+        public ValueRange ToRange()
+        {
+            if (IsCompressed || IsIgnored)
+            {
+                return new ValueRange(PhysicalStart, PhysicalEnd);
+            }
+            else
+            {
+                var length = VirtualEnd - VirtualStart;
+                return new ValueRange(PhysicalStart, PhysicalStart + length);
+            }
         }
 
         /// <summary>

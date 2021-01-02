@@ -22,8 +22,7 @@ namespace MMR.Yaz.Benchmarks
         {
             Rom = RomFile.From(PathUtil.GetInputRomFilePath());
             CodeFile = Rom.Files.First(x => x.VirtualStart == CodeVirtualStart);
-            var length = CodeFile.PhysicalEnd - CodeFile.PhysicalStart;
-            var slice = Rom.Buffer.Span.Slice((int)CodeFile.PhysicalStart, (int)length);
+            var slice = Rom.Slice(CodeFile);
             CodeBytes = Yaz.Decode(slice);
         }
 
@@ -57,8 +56,7 @@ namespace MMR.Yaz.Benchmarks
             {
                 if (entry.IsCompressed)
                 {
-                    var length = entry.PhysicalEnd - entry.PhysicalStart;
-                    var slice = Rom.Buffer.Span.Slice((int)entry.PhysicalStart, (int)length);
+                    var slice = Rom.Slice(entry);
                     var bytes = slice.ToArray();
                     samples.Add(bytes);
                 }
@@ -152,8 +150,7 @@ namespace MMR.Yaz.Benchmarks
 
             foreach (var sample in Samples)
             {
-                var length = sample.PhysicalEnd - sample.PhysicalStart;
-                var slice = Rom.Buffer.Span.Slice((int)sample.PhysicalStart, (int)length);
+                var slice = Rom.Slice(sample);
                 result = Yaz.Decode(slice);
             }
 
@@ -167,8 +164,7 @@ namespace MMR.Yaz.Benchmarks
 
             foreach (var sample in Samples)
             {
-                var length = sample.PhysicalEnd - sample.PhysicalStart;
-                var slice = Rom.Buffer.Span.Slice((int)sample.PhysicalStart, (int)length);
+                var slice = Rom.Slice(sample);
                 var decoded = Yaz.Decode(slice);
                 result = Yaz.EncodeWithHeader(decoded, slice);
                 // Fill remaining bytes with 0.
