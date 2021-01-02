@@ -13,6 +13,17 @@ namespace MMR.Yaz
         public const int MaxCompare = 0xFF + 0x12;
 
         /// <summary>
+        /// Align given value to <c>0x10</c> boundary.
+        /// </summary>
+        /// <param name="value">Value to align.</param>
+        /// <returns>Aligned value.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        static int AlignTo16(int value)
+        {
+            return (value + 0xF) & -0x10;
+        }
+
+        /// <summary>
         /// Calculate maximum possible length of data if it were encoded. Does not include length of header.
         /// </summary>
         /// <param name="decodedLength">Length of decoded data.</param>
@@ -48,6 +59,21 @@ namespace MMR.Yaz
             {
                 return EncodeRaw(src, span.Slice(HeaderSize)) + HeaderSize;
             }
+        }
+
+        /// <summary>
+        /// Perform encode into a managed destination buffer, and copy encoded data into a 16-byte aligned buffer of the minimum length needed.
+        /// </summary>
+        /// <param name="src">Source buffer.</param>
+        /// <returns>Resulting buffer with encoded data.</returns>
+        public static byte[] EncodeAndCopy(ReadOnlySpan<byte> src, bool managed = false)
+        {
+            var written = Encode(src, out var dst, managed);
+
+            // Allocate new buffer with aligned size, and copy data over.
+            var result = new byte[AlignTo16(written)];
+            dst.AsSpan().Slice(0, written).CopyTo(result);
+            return result;
         }
 
         /// <summary>

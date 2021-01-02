@@ -29,10 +29,9 @@ namespace MMR.Yaz.Tests
             var length = entry.PhysicalEnd - entry.PhysicalStart;
             var slice = rom.Buffer.Span.Slice((int)entry.PhysicalStart, (int)length);
             var decoded = Yaz.Decode(slice);
-            var encodedLength = Yaz.Encode(decoded, out var encoded);
-            var aligned = (encodedLength + 0xF) & -0x10;
+            var encoded = Yaz.EncodeAndCopy(decoded);
             // Currently only compares compressed lengths, as compressed output is likely slightly different due to optimization.
-            Assert.AreEqual(slice.Length, aligned);
+            Assert.AreEqual(slice.Length, encoded.Length);
         }
     }
 }
