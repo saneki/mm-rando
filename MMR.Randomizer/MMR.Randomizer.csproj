@@ -32,6 +32,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MMR.Common\MMR.Common.csproj" />
+    <ProjectReference Include="..\MMR.Yaz\MMR.Yaz.csproj" />
   </ItemGroup>
 
   <ItemGroup>

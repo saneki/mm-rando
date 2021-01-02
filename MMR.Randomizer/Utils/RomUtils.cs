@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO.Compression;
-using MMR.Randomizer.Utils.Mzxrules;
 using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Threading;
@@ -16,6 +15,8 @@ using System.Numerics;
 
 namespace MMR.Randomizer.Utils
 {
+    using Yaz = Yaz.Yaz;
+
     public static class RomUtils
     {
         const int FILE_TABLE = 0x1A500;
@@ -61,10 +62,7 @@ namespace MMR.Randomizer.Utils
             var file = mmFileList[fileIndex];
             if (file.IsCompressed && !file.WasEdited)
             {
-                using (var stream = new MemoryStream(file.Data))
-                {
-                    file.Data = Yaz.Decode(stream, file.Data.Length);
-                }
+                file.Data = Yaz.Decode(file.Data);
                 file.WasEdited = true;
             }
         }
@@ -83,11 +81,8 @@ namespace MMR.Randomizer.Utils
                 var dest = new byte[fileLength];
                 ReadWriteUtils.Arr_Insert(data, pointer, fileLength, dest, 0);
                 pointer += fileLength;
-                using (var stream = new MemoryStream(dest))
-                {
-                    var decompressed = Yaz.Decode(stream, dest.Length);
-                    files.Add(decompressed);
-                }
+                var decompressed = Yaz.Decode(dest);
+                files.Add(decompressed);
             }
             return files;
         }
@@ -335,13 +330,7 @@ namespace MMR.Randomizer.Utils
                     // lower priority so that the rando can't lock a badly scheduled CPU by using 100%
                     var previousThreadPriority = Thread.CurrentThread.Priority;
                     Thread.CurrentThread.Priority = ThreadPriority.Lowest;
-                    byte[] result;
-                    var newSize = Yaz.Encode(file.Data, file.Data.Length, out result);
-                    if (newSize >= 0)
-                    {
-                        file.Data = new byte[newSize];
-                        ReadWriteUtils.Arr_Insert(result, 0, newSize, file.Data, 0);
-                    }
+                    file.Data = Yaz.EncodeAndCopy(file.Data);
                     // this thread is borrowed, we don't want it to always be the lowest priority, return to previous state
                     Thread.CurrentThread.Priority = previousThreadPriority;
                 }
