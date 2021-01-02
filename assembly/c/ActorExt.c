@@ -109,8 +109,8 @@ void ActorExt_SetFree(struct ActorExt* ext) {
         ext->flags &= ~ACTOR_EXT_USED;
     } else {
         // Mess with health to indicate an issue.
-        // gSaveContext.max_health = 0x140;
-        // gSaveContext.current_health = 0x04;
+        // gSaveContext.perm.unk24.maxLife = 0x140;
+        // gSaveContext.perm.unk24.currentLife = 4;
     }
 }
 
