@@ -66,7 +66,8 @@ struct misc_config {
             u32 shop_models           : 1;
             u32 progressive_upgrades  : 1;
             u32 ice_trap_quirks       : 1;
-            u32                       : 15;
+            u32 mikau_early_beach     : 1;
+            u32                       : 14;
         };
         u32 flags;          /* 0x0018 */
     };

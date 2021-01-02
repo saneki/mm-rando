@@ -1,5 +1,6 @@
 ﻿using Be.IO;
 using MMR.Common.Extensions;
+using MMR.Randomizer.GameObjects;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -39,6 +40,10 @@ namespace MMR.Randomizer.Asm
         public ushort LocationQuiverSmall;
         public ushort LocationQuiverLarge;
         public ushort LocationQuiverLargest;
+
+        public byte ExtraStartingMaps;
+        public byte[] ExtraStartingItemIds;
+        public ushort ExtraStartingItemIdsLength;
 
         /// <summary>
         /// Convert to bytes.
@@ -81,6 +86,11 @@ namespace MMR.Randomizer.Asm
                 writer.WriteUInt16(this.LocationQuiverLarge);
                 writer.WriteUInt16(this.LocationQuiverLargest);
 
+                writer.WriteByte(this.ExtraStartingMaps);
+                writer.WriteByte(0); // padding
+                writer.WriteBytes(this.ExtraStartingItemIds);
+                writer.WriteUInt16(this.ExtraStartingItemIdsLength);
+
                 return memStream.ToArray();
             }
         }
@@ -117,8 +127,13 @@ namespace MMR.Randomizer.Asm
         public ushort LocationQuiverLarge { get; set; }
         public ushort LocationQuiverLargest { get; set; }
 
+        public TingleMap ExtraStartingMaps { get; set; }
+
+        public List<byte> ExtraStartingItemIds { get; set; }
+
         public MMRConfig()
         {
+            ExtraStartingItemIds = new List<byte>();
             CycleRepeatableLocations = new List<ushort>();
             BaseCycleRepeatableLocations = new ReadOnlyCollection<ushort>(new List<ushort>
             {
@@ -190,12 +205,20 @@ namespace MMR.Randomizer.Asm
         /// <returns>Configuration structure</returns>
         public override IAsmConfigStruct ToStruct(uint version)
         {
+            if (this.ExtraStartingItemIds.Count > 0x10)
+            {
+                throw new ArgumentException($"{nameof(ExtraStartingItemIds)} is too large.");
+            }
+
             var endBuffer = 0x80 - this.CycleRepeatableLocations.Count - this.BaseCycleRepeatableLocations.Count;
             if (endBuffer < 0)
             {
-                throw new ArgumentException("cycleRepeatableLocations is too large.");
+                throw new ArgumentException($"{nameof(CycleRepeatableLocations)} is too large.");
             }
+
             var cycleRepeatableLocations = this.BaseCycleRepeatableLocations.Concat(this.CycleRepeatableLocations).Concat(Enumerable.Repeat((ushort)0, endBuffer)).ToArray();
+            var extraStartingItemIds = this.ExtraStartingItemIds.ToArray();
+            Array.Resize(ref extraStartingItemIds, 0x10);
             return new MMRConfigStruct
             {
                 Version = version,
@@ -224,7 +247,11 @@ namespace MMR.Randomizer.Asm
                 LocationQuiverSmall = this.LocationQuiverSmall,
                 LocationQuiverLarge = this.LocationQuiverLarge,
                 LocationQuiverLargest = this.LocationQuiverLargest,
-    };
+
+                ExtraStartingMaps = (byte)this.ExtraStartingMaps,
+                ExtraStartingItemIds = extraStartingItemIds,
+                ExtraStartingItemIdsLength = (ushort)this.ExtraStartingItemIds.Count,
+            };
         }
     }
 }

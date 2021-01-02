@@ -78,7 +78,7 @@ namespace MMR.Randomizer.Asm
         /// <summary>
         /// Whether or not to enable cycling arrow types while using the bow.
         /// </summary>
-        public bool ArrowCycling { get; set; }
+        public bool ArrowCycling { get; set; } = true;
 
         /// <summary>
         /// Whether or not to show magic being consumed ahead of time when using elemental arrows.
@@ -101,7 +101,7 @@ namespace MMR.Randomizer.Asm
         /// <summary>
         /// Whether or not to use the closest cow to the player when giving an item.
         /// </summary>
-        public bool CloseCows { get; set; }
+        public bool CloseCows { get; set; } = true;
 
         /// <summary>
         /// Whether or not to draw hash icons on the file select screen.
@@ -109,14 +109,19 @@ namespace MMR.Randomizer.Asm
         public bool DrawHash { get; set; } = true;
 
         /// <summary>
+        /// Whether or not to activate beach cutscene earlier when pushing Mikau to shore.
+        /// </summary>
+        public bool EarlyMikau { get; set; }
+
+        /// <summary>
         /// Whether or not to apply Elegy of Emptiness speedups.
         /// </summary>
-        public bool ElegySpeedup { get; set; }
+        public bool ElegySpeedup { get; set; } = true;
 
         /// <summary>
         /// Whether or not to enable faster pushing and pulling speeds.
         /// </summary>
-        public bool FastPush { get; set; }
+        public bool FastPush { get; set; } = true;
 
         /// <summary>
         /// Whether or not to enable freestanding models.
@@ -209,6 +214,7 @@ namespace MMR.Randomizer.Asm
             flags |= (this.ShopModels ? (uint)1 : 0) << 17;
             flags |= (this.ProgressiveUpgrades ? (uint)1 : 0) << 16;
             flags |= (this.IceTrapQuirks ? (uint)1 : 0) << 15;
+            flags |= (this.EarlyMikau ? (uint)1 : 0) << 14;
             return flags;
         }
     }
@@ -323,11 +329,14 @@ namespace MMR.Randomizer.Asm
         public void FinalizeSettings(GameplaySettings settings)
         {
             // Update speedup flags which correspond with ShortenCutscenes.
-            this.Speedups.BlastMaskThief = settings.ShortenCutscenes;
-            this.Speedups.BoatArchery = settings.ShortenCutscenes;
-            this.Speedups.FishermanGame = settings.ShortenCutscenes;
-            this.Speedups.SoundCheck = settings.ShortenCutscenes;
-            this.Speedups.DonGero = settings.ShortenCutscenes;
+            this.Speedups.BlastMaskThief = settings.ShortenCutsceneSettings.General.HasFlag(ShortenCutsceneGeneral.BlastMaskThief);
+            this.Speedups.BoatArchery = settings.ShortenCutsceneSettings.General.HasFlag(ShortenCutsceneGeneral.BoatArchery);
+            this.Speedups.FishermanGame = settings.ShortenCutsceneSettings.General.HasFlag(ShortenCutsceneGeneral.FishermanGame);
+            this.Speedups.SoundCheck = settings.ShortenCutsceneSettings.General.HasFlag(ShortenCutsceneGeneral.MilkBarPerformance);
+            this.Speedups.DonGero = settings.ShortenCutsceneSettings.General.HasFlag(ShortenCutsceneGeneral.HungryGoron);
+
+            // If using Adult Link model, allow Mikau cutscene to activate early.
+            this.Flags.EarlyMikau = settings.Character == Character.AdultLink;
 
             // Update internal flags.
             this.InternalFlags.VanillaLayout = settings.LogicMode == LogicMode.Vanilla;
