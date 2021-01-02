@@ -131,11 +131,10 @@ void FileSelect_BeforeDraw(GlobalContext* ctxt) {
 
     // When pressing Z, update file hash to random new value
     Sprite* sprite = Sprite_GetItemTexturesSprite();
-    struct misc_config* config = misc_get_config();
-    z2_pad_t pad_pressed = ctxt->state.input[0].pad_pressed;
-    if (pad_pressed.z && config->draw_hash && sprite->buf != NULL) {
-        config->hash.value = z2_RngInt();
-        update_textures_from_sprite(sprite, gIconCount, config->hash.value);
+    InputPad padPressed = ctxt->state.input[0].pressEdge.buttons;
+    if (padPressed.z && MISC_CONFIG.flags.drawHash && sprite->buf != NULL) {
+        MISC_CONFIG.hash.value = z2_RngInt();
+        UpdateTexturesFromSprite(sprite, gIconCount, MISC_CONFIG.hash.value);
         z2_PlaySfx(0x483B);
     }
 #endif
