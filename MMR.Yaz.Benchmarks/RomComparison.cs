@@ -159,5 +159,23 @@ namespace MMR.Yaz.Benchmarks
 
             return result;
         }
+
+        [Benchmark]
+        public int EncodeNew()
+        {
+            int result = 0;
+
+            foreach (var sample in Samples)
+            {
+                var length = sample.PhysicalEnd - sample.PhysicalStart;
+                var slice = Rom.Buffer.Span.Slice((int)sample.PhysicalStart, (int)length);
+                var decoded = Yaz.Decode(slice);
+                result = Yaz.EncodeWithHeader(decoded, slice);
+                // Fill remaining bytes with 0.
+                slice.Slice(result).Fill(0);
+            }
+
+            return result;
+        }
     }
 }

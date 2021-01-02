@@ -17,6 +17,17 @@ namespace MMR.Yaz
         public const uint Magic = 0x59617A30;
 
         /// <summary>
+        /// Align given value to <c>0x10</c> boundary.
+        /// </summary>
+        /// <param name="value">Value to align.</param>
+        /// <returns>Aligned value.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int AlignTo16(int value)
+        {
+            return (value + 0xF) & -0x10;
+        }
+
+        /// <summary>
         /// Validate magic number value in header is expected.
         /// </summary>
         /// <param name="src">Source buffer with Yaz0 header</param>

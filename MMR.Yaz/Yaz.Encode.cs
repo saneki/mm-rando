@@ -13,17 +13,6 @@ namespace MMR.Yaz
         public const int MaxCompare = 0xFF + 0x12;
 
         /// <summary>
-        /// Align given value to <c>0x10</c> boundary.
-        /// </summary>
-        /// <param name="value">Value to align.</param>
-        /// <returns>Aligned value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static int AlignTo16(int value)
-        {
-            return (value + 0xF) & -0x10;
-        }
-
-        /// <summary>
         /// Calculate maximum possible length of data if it were encoded. Does not include length of header.
         /// </summary>
         /// <param name="decodedLength">Length of decoded data.</param>
@@ -46,18 +35,28 @@ namespace MMR.Yaz
         public static int Encode(ReadOnlySpan<byte> src, out byte[] dst, bool managed = false)
         {
             dst = new byte[HeaderSize + CalculateMaxEncodedLength(src.Length)];
+            return EncodeWithHeader(src, dst, managed);
+        }
 
+        /// <summary>
+        /// Perform encode into given destination buffer along with a header.
+        /// </summary>
+        /// <param name="src">Soruce buffer.</param>
+        /// <param name="dst">Destination buffer.</param>
+        /// <param name="managed">Whether or not to use managed buffers for state relating to encode operation.</param>
+        /// <returns>Length of encoded bytes.</returns>
+        public static int EncodeWithHeader(ReadOnlySpan<byte> src, Span<byte> dst, bool managed = false)
+        {
             // Write Yaz0 header bytes and encode.
-            var span = dst.AsSpan();
-            WriteHeader(span, (uint)src.Length);
+            WriteHeader(dst, (uint)src.Length);
 
             if (managed)
             {
-                return EncodeRawManaged(src, span.Slice(HeaderSize)) + HeaderSize;
+                return EncodeRawManaged(src, dst.Slice(HeaderSize)) + HeaderSize;
             }
             else
             {
-                return EncodeRaw(src, span.Slice(HeaderSize)) + HeaderSize;
+                return EncodeRaw(src, dst.Slice(HeaderSize)) + HeaderSize;
             }
         }
 
