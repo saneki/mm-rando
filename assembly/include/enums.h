@@ -441,52 +441,52 @@ enum PlayerForm {
 };
 
 enum PlayerState1 {
-    PLAYER_STATE1_TIME_STOP    = 0x20000000, // Time is stopped but Link & NPC animations continue.
-    PLAYER_STATE1_SPECIAL_2    = 0x10000000, // Form transition, using ocarina.
-    PLAYER_STATE1_SWIM         = 0x08000000, // Swimming.
-    PLAYER_STATE1_DAMAGED      = 0x04000000, // Damaged.
-    PLAYER_STATE1_ZORA_WEAPON  = 0x01000000, // Zora fins are out, "Put Away" may be prompted.
-    PLAYER_STATE1_EPONA        = 0x00800000, // On Epona.
-    PLAYER_STATE1_SHIELD       = 0x00400000, // Shielding.
-    PLAYER_STATE1_ZORA_FINS    = 0x00200000, // Using Zora fins.
-    PLAYER_STATE1_AIM          = 0x00100000, // Aiming bow, hookshot, Zora fins, etc.
-    PLAYER_STATE1_FALLING      = 0x00080000, // In the air (without jumping beforehand).
-    PLAYER_STATE1_AIR          = 0x00040000, // In the air (with jumping beforehand).
-    PLAYER_STATE1_Z_VIEW       = 0x00020000, // In Z-target view.
-    PLAYER_STATE1_Z_CHECK      = 0x00010000, // Z-target check-able or speak-able.
-    PLAYER_STATE1_Z_ON         = 0x00008000, // Z-target enabled.
-    PLAYER_STATE1_LEDGE_HANG   = 0x00002000, // Hanging from ledge.
-    PLAYER_STATE1_CHARGE_SPIN  = 0x00001000, // Charging spin attack.
-    PLAYER_STATE1_HOLD         = 0x00000800, // Hold above head.
-    PLAYER_STATE1_GET_ITEM     = 0x00000400, // Hold new item over head.
-    PLAYER_STATE1_TIME_STOP_2  = 0x00000200, // Time is stopped (does not affect Tatl, HUD animations).
-    PLAYER_STATE1_DEAD         = 0x00000080, // Dead.
-    PLAYER_STATE1_MOVE_SCENE   = 0x00000020, // When walking in a cutscene? Used during Postman's minigame.
-    PLAYER_STATE1_BARRIER      = 0x00000010, // Zora electric barrier.
-    PLAYER_STATE1_ITEM_OUT     = 0x00000008, // Item is out, may later prompt "Put Away." Relevant to Bow, Hookshot, not Great Fairy Sword.
-    PLAYER_STATE1_LEDGE_CLIMB  = 0x00000004, // Climbing ledge.
+    PLAYER_STATE1_TIME_STOP   = 0x20000000, // Time is stopped but Link & NPC animations continue.
+    PLAYER_STATE1_SPECIAL_2   = 0x10000000, // Form transition, using ocarina.
+    PLAYER_STATE1_SWIM        = 0x08000000, // Swimming.
+    PLAYER_STATE1_DAMAGED     = 0x04000000, // Damaged.
+    PLAYER_STATE1_ZORA_WEAPON = 0x01000000, // Zora fins are out, "Put Away" may be prompted.
+    PLAYER_STATE1_EPONA       = 0x00800000, // On Epona.
+    PLAYER_STATE1_SHIELD      = 0x00400000, // Shielding.
+    PLAYER_STATE1_ZORA_FINS   = 0x00200000, // Using Zora fins.
+    PLAYER_STATE1_AIM         = 0x00100000, // Aiming bow, hookshot, Zora fins, etc.
+    PLAYER_STATE1_FALLING     = 0x00080000, // In the air (without jumping beforehand).
+    PLAYER_STATE1_AIR         = 0x00040000, // In the air (with jumping beforehand).
+    PLAYER_STATE1_Z_VIEW      = 0x00020000, // In Z-target view.
+    PLAYER_STATE1_Z_CHECK     = 0x00010000, // Z-target check-able or speak-able.
+    PLAYER_STATE1_Z_ON        = 0x00008000, // Z-target enabled.
+    PLAYER_STATE1_LEDGE_HANG  = 0x00002000, // Hanging from ledge.
+    PLAYER_STATE1_CHARGE_SPIN = 0x00001000, // Charging spin attack.
+    PLAYER_STATE1_HOLD        = 0x00000800, // Hold above head.
+    PLAYER_STATE1_GET_ITEM    = 0x00000400, // Hold new item over head.
+    PLAYER_STATE1_TIME_STOP_2 = 0x00000200, // Time is stopped (does not affect Tatl, HUD animations).
+    PLAYER_STATE1_DEAD        = 0x00000080, // Dead.
+    PLAYER_STATE1_MOVE_SCENE  = 0x00000020, // When walking in a cutscene? Used during Postman's minigame.
+    PLAYER_STATE1_BARRIER     = 0x00000010, // Zora electric barrier.
+    PLAYER_STATE1_ITEM_OUT    = 0x00000008, // Item is out, may later prompt "Put Away." Relevant to Bow, Hookshot, not Great Fairy Sword.
+    PLAYER_STATE1_LEDGE_CLIMB = 0x00000004, // Climbing ledge.
 };
 
 enum PlayerState2 {
-    PLAYER_STATE2_IDLE         = 0x10000000, // Idle animation.
-    PLAYER_STATE2_OCARINA      = 0x08000000, // Using ocarina? Maybe more.
-    PLAYER_STATE2_KAMARO       = 0x02000000, // Kamaro mask dance.
-    PLAYER_STATE2_CAN_DOWN     = 0x00400000, // Can get down from Epona.
-    PLAYER_STATE2_TATL_BUTTON  = 0x00200000, // Tatl C up button prompt.
-    PLAYER_STATE2_TATL_OUT     = 0x00100000, // When tatl is out.
-    PLAYER_STATE2_Z_JUMP       = 0x00080000, // Z-target jumping (sidehop, backflip).
-    PLAYER_STATE2_SPIN_ATTACK  = 0x00020000, // Spin attack.
-    PLAYER_STATE2_FROZEN       = 0x00004000, // Frozen, ends once ice cracks.
-    PLAYER_STATE2_CLIMB_STAY   = 0x00001000, // Stationary while climbing.
-    PLAYER_STATE2_DIVING       = 0x00000800, // Diving.
-    PLAYER_STATE2_DIVING_2     = 0x00000400, // Diving, swimming as Zora.
-    PLAYER_STATE2_GRABBING     = 0x00000100, // Grabbing onto a block.
-    PLAYER_STATE2_CLIMBING     = 0x00000040, // Climbing. Also occurs during: transforming, hanging from ledge, deku spinning, goron ball, sliding.
-    PLAYER_STATE2_MOVING       = 0x00000020, // Running / moving.
-    PLAYER_STATE2_PUSH_PULL    = 0x00000010, // Pushing or pulling a block.
-    PLAYER_STATE2_MOVING_2     = 0x00000008, // Is set for some movement frames.
-    PLAYER_STATE2_CHECK        = 0x00000002, // "Check" or "Speak" prompt may appear.
-    PLAYER_STATE2_MAY_GRAB     = 0x00000001, // "Grab" prompt may appear.
+    PLAYER_STATE2_IDLE        = 0x10000000, // Idle animation.
+    PLAYER_STATE2_OCARINA     = 0x08000000, // Using ocarina? Maybe more.
+    PLAYER_STATE2_KAMARO      = 0x02000000, // Kamaro mask dance.
+    PLAYER_STATE2_CAN_DOWN    = 0x00400000, // Can get down from Epona.
+    PLAYER_STATE2_TATL_BUTTON = 0x00200000, // Tatl C up button prompt.
+    PLAYER_STATE2_TATL_OUT    = 0x00100000, // When tatl is out.
+    PLAYER_STATE2_Z_JUMP      = 0x00080000, // Z-target jumping (sidehop, backflip).
+    PLAYER_STATE2_SPIN_ATTACK = 0x00020000, // Spin attack.
+    PLAYER_STATE2_FROZEN      = 0x00004000, // Frozen, ends once ice cracks.
+    PLAYER_STATE2_CLIMB_STAY  = 0x00001000, // Stationary while climbing.
+    PLAYER_STATE2_DIVING      = 0x00000800, // Diving.
+    PLAYER_STATE2_DIVING_2    = 0x00000400, // Diving, swimming as Zora.
+    PLAYER_STATE2_GRABBING    = 0x00000100, // Grabbing onto a block.
+    PLAYER_STATE2_CLIMBING    = 0x00000040, // Climbing. Also occurs during: transforming, hanging from ledge, deku spinning, goron ball, sliding.
+    PLAYER_STATE2_MOVING      = 0x00000020, // Running / moving.
+    PLAYER_STATE2_PUSH_PULL   = 0x00000010, // Pushing or pulling a block.
+    PLAYER_STATE2_MOVING_2    = 0x00000008, // Is set for some movement frames.
+    PLAYER_STATE2_CHECK       = 0x00000002, // "Check" or "Speak" prompt may appear.
+    PLAYER_STATE2_MAY_GRAB    = 0x00000001, // "Grab" prompt may appear.
 };
 
 enum PlayerState3 {
