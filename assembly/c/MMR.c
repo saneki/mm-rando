@@ -135,9 +135,9 @@ u16 MMR_GetNewGiIndex(GlobalContext* ctxt, Actor* actor, u16 giIndex, bool grant
     }
     if (grant) {
         MMR_SetGiFlag(giIndex);
-    }
-    if (actor == (Actor*)GET_PLAYER(ctxt)) {
-        GET_PLAYER(ctxt)->getItem = newGiIndex;
+        if (actor == (Actor*)GET_PLAYER(ctxt)) {
+            GET_PLAYER(ctxt)->getItem = newGiIndex;
+        }
     }
     return newGiIndex;
 }
