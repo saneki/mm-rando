@@ -2709,7 +2709,7 @@ namespace MMR.Randomizer
             if (!string.IsNullOrWhiteSpace(outputSettings.InputPatchFilename))
             {
                 progressReporter.ReportProgress(50, "Applying patch...");
-                hash = RomUtils.ApplyPatch(outputSettings.InputPatchFilename);
+                hash = Patch.Patcher.ApplyPatch(outputSettings.InputPatchFilename);
 
                 // Parse Symbols data from the ROM (specific MMFile)
                 asm = AsmContext.LoadFromROM();
@@ -2785,7 +2785,7 @@ namespace MMR.Randomizer
                 WriteNutsAndSticks();
                 
                 progressReporter.ReportProgress(72, outputSettings.GeneratePatch ? "Generating patch..." : "Computing hash...");
-                hash = RomUtils.CreatePatch(outputSettings.GeneratePatch ? outputSettings.OutputROMFilename : null, originalMMFileList);
+                hash = Patch.Patcher.CreatePatch(outputSettings.GeneratePatch ? outputSettings.OutputROMFilename : null, originalMMFileList);
 
                 // Write subset of Asm config post-patch
                 WriteAsmConfig(asm, hash);
