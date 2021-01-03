@@ -646,9 +646,7 @@ typedef struct {
     /* 0x0C */ s16 alphas[0x8]; // Note alphas.
 } SongNotes; // size = 0x1C
 
-/**
- * Song state substructure which alternates between 2 via frame counter.
- **/
+// Song state substructure which alternates between 2 via frame counter.
 typedef struct {
     /* 0x0 */ s8 recentNote;
     /* 0x1 */ s8 storedSong;
@@ -660,11 +658,7 @@ typedef struct {
     /* 0x7 */ UNK_TYPE1 pad7;
 } SongFrameInfo; // size = 0x8
 
-/**
- * Structure with some song state.
- *
- * Usually located at: 0x801FD43A
- **/
+// Structure with some song state. Usually located at: 0x801FD43A.
 typedef struct {
     /* 0x00 */ SongFrameInfo frameInfo[2];
     /* 0x10 */ u16 frameCount;
