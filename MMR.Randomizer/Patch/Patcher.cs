@@ -171,7 +171,6 @@ namespace MMR.Randomizer.Patch
                             // Write header bytes and file contents.
                             writer.Write(headerBytes);
                             writer.Write(file.Data);
-                            continue;
                         }
                         else
                         {
