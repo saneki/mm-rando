@@ -74,9 +74,12 @@ namespace MMR.Randomizer.Patch
                     var magic = reader.ReadUInt32();
                     ValidateMagic(magic);
 
+                    Span<byte> headerBytes = stackalloc byte[PatchHeader.Size];
                     while (reader.BaseStream.Position != reader.BaseStream.Length)
                     {
-                        var header = PatchHeader.Read(reader.ReadBytes(PatchHeader.Size));
+                        // Read header bytes into stack buffer to prevent allocation.
+                        reader.ReadExact(headerBytes);
+                        var header = PatchHeader.Read(headerBytes);
                         var data = reader.ReadBytes(header.Length);
                         var address = (int)header.Address;
                         var index = (int)header.Index;
