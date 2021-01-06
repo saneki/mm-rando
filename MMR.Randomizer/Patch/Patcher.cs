@@ -223,18 +223,17 @@ namespace MMR.Randomizer.Patch
         /// <returns>Modified file data.</returns>
         static byte[] VcDiffDecodeManaged(byte[] original, byte[] patch)
         {
-            using (var output = new MemoryStream())
-            using (var dict = new MemoryStream(original))
-            using (var target = new MemoryStream(patch))
+            using var output = new MemoryStream();
+            using var dict = new MemoryStream(original);
+            using var target = new MemoryStream(patch);
+
+            // Decode using patch data.
+            var decoder = new VcDecoder(dict, target, output);
+            if (decoder.Decode(out var written) != VCDiffResult.SUCCESS)
             {
-                // Decode using patch data.
-                var decoder = new VcDecoder(dict, target, output);
-                if (decoder.Decode(out var written) != VCDiffResult.SUCCESS)
-                {
-                    throw new Exception("VCDiff decode failed.");
-                }
-                return output.ToArray();
+                throw new Exception("VCDiff decode failed.");
             }
+            return output.ToArray();
         }
 
         /// <summary>
@@ -245,18 +244,17 @@ namespace MMR.Randomizer.Patch
         /// <returns>Diff data.</returns>
         static byte[] VcDiffEncodeManaged(byte[] original, byte[] modified)
         {
-            using (var output = new MemoryStream())
-            using (var dict = new MemoryStream(original))
-            using (var target = new MemoryStream(modified))
+            using var output = new MemoryStream();
+            using var dict = new MemoryStream(original);
+            using var target = new MemoryStream(modified);
+
+            // Encode and write patch data.
+            var encoder = new VcEncoder(dict, target, output);
+            if (encoder.Encode(false) != VCDiffResult.SUCCESS)
             {
-                // Encode and write patch data.
-                var encoder = new VcEncoder(dict, target, output);
-                if (encoder.Encode(false) != VCDiffResult.SUCCESS)
-                {
-                    throw new Exception("VCDiff encode failed.");
-                }
-                return output.ToArray();
+                throw new Exception("VCDiff encode failed.");
             }
+            return output.ToArray();
         }
     }
 }
