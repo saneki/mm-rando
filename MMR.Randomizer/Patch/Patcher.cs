@@ -37,6 +37,40 @@ namespace MMR.Randomizer.Patch
         }
 
         /// <summary>
+        /// Apply a patch entry.
+        /// </summary>
+        /// <param name="header">Patch entry header.</param>
+        /// <param name="data">Patch entry data.</param>
+        static void ApplyPatchEntry(PatchHeader header, byte[] data)
+        {
+            var address = (int)header.Address;
+            var index = (int)header.Index;
+            if (header.Command == PatchCommand.NewFile)
+            {
+                var newFile = new MMFile
+                {
+                    Addr = address,
+                    IsCompressed = false,
+                    Data = data,
+                    End = address + data.Length,
+                    IsStatic = header.Flags.HasFlag(PatchFlags.IsStatic),
+                };
+                RomUtils.AppendFile(newFile);
+            }
+            else if (header.Command == PatchCommand.ExistingFile)
+            {
+                RomUtils.CheckCompressed(index);
+                var original = RomData.MMFileList[index];
+                original.Data = VcDiffDecodeManaged(original.Data, data);
+                if (original.Data.Length == 0)
+                {
+                    original.Cmp_Addr = -1;
+                    original.Cmp_End = -1;
+                }
+            }
+        }
+
+        /// <summary>
         /// Apply patch data from file at given path to the ROM.
         /// </summary>
         /// <param name="filename">Patch file path.</param>
@@ -81,32 +115,7 @@ namespace MMR.Randomizer.Patch
                         reader.ReadExact(headerBytes);
                         var header = PatchHeader.Read(headerBytes);
                         var data = reader.ReadBytes(header.Length);
-                        var address = (int)header.Address;
-                        var index = (int)header.Index;
-
-                        if (header.Command == PatchCommand.NewFile)
-                        {
-                            var newFile = new MMFile
-                            {
-                                Addr = address,
-                                IsCompressed = false,
-                                Data = data,
-                                End = address + data.Length,
-                                IsStatic = header.Flags.HasFlag(PatchFlags.IsStatic),
-                            };
-                            RomUtils.AppendFile(newFile);
-                        }
-                        else if (header.Command == PatchCommand.ExistingFile)
-                        {
-                            RomUtils.CheckCompressed(index);
-                            var original = RomData.MMFileList[index];
-                            original.Data = VcDiffDecodeManaged(original.Data, data);
-                            if (original.Data.Length == 0)
-                            {
-                                original.Cmp_Addr = -1;
-                                original.Cmp_End = -1;
-                            }
-                        }
+                        ApplyPatchEntry(header, data);
                     }
                 }
                 return hashAlg.Hash;
