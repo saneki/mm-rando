@@ -76,7 +76,7 @@ namespace MMR.Randomizer.Patch
 
                     while (reader.BaseStream.Position != reader.BaseStream.Length)
                     {
-                        var header = PatchHeader.Read(reader.ReadBytes(0x10));
+                        var header = PatchHeader.Read(reader.ReadBytes(PatchHeader.Size));
                         var data = reader.ReadBytes(header.Length);
                         var address = (int)header.Address;
                         var index = (int)header.Index;
@@ -154,7 +154,7 @@ namespace MMR.Randomizer.Patch
                 // Write magic value.
                 writer.WriteUInt32(PatchMagic);
 
-                Span<byte> headerBytes = stackalloc byte[0x10];
+                Span<byte> headerBytes = stackalloc byte[PatchHeader.Size];
                 for (var fileIndex = 0; fileIndex < RomData.MMFileList.Count; fileIndex++)
                 {
                     var file = RomData.MMFileList[fileIndex];

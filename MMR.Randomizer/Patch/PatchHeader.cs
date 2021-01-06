@@ -9,6 +9,11 @@ namespace MMR.Randomizer.Patch
     public readonly struct PatchHeader
     {
         /// <summary>
+        /// Size of serialized <see cref="PatchHeader"/>.
+        /// </summary>
+        public const int Size = 0x10;
+
+        /// <summary>
         /// Address of file.
         /// </summary>
         public readonly uint Address { get; }
