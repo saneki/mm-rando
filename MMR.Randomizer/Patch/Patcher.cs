@@ -77,10 +77,8 @@ namespace MMR.Randomizer.Patch
         /// <returns><see cref="SHA256"/> hash of the patch.</returns>
         public static byte[] ApplyPatch(string filename)
         {
-            using (var outStream = File.OpenRead(filename))
-            {
-                return ApplyPatch(outStream);
-            }
+            using var outStream = File.OpenRead(filename);
+            return ApplyPatch(outStream);
         }
 
         /// <summary>
