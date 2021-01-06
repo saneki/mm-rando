@@ -65,48 +65,48 @@ namespace MMR.Randomizer.Patch
                 using (var decompressStream = new GZipStream(hashStream, CompressionMode.Decompress))
                 using (var memoryStream = new MemoryStream())
                 {
+                    // Fully decompress into MemoryStream so that we can access Position to check for end of Stream.
                     decompressStream.CopyTo(memoryStream);
                     memoryStream.Seek(0, SeekOrigin.Begin);
-                    using (var reader = new BeBinaryReader(memoryStream))
+                    using var reader = new BeBinaryReader(memoryStream);
+
+                    // Validate patch magic.
+                    var magic = reader.ReadUInt32();
+                    ValidateMagic(magic);
+
+                    while (reader.BaseStream.Position != reader.BaseStream.Length)
                     {
-                        // Validate patch magic.
-                        var magic = reader.ReadUInt32();
-                        ValidateMagic(magic);
+                        var header = PatchHeader.Read(reader.ReadBytes(0x10));
+                        var data = reader.ReadBytes(header.Length);
+                        var address = (int)header.Address;
+                        var index = (int)header.Index;
 
-                        while (reader.BaseStream.Position != reader.BaseStream.Length)
+                        if (header.Command == PatchCommand.NewFile)
                         {
-                            var header = PatchHeader.Read(reader.ReadBytes(0x10));
-                            var data = reader.ReadBytes(header.Length);
-                            var address = (int)header.Address;
-                            var index = (int)header.Index;
-
-                            if (header.Command == PatchCommand.NewFile)
+                            var newFile = new MMFile
                             {
-                                var newFile = new MMFile
-                                {
-                                    Addr = address,
-                                    IsCompressed = false,
-                                    Data = data,
-                                    End = address + data.Length,
-                                    IsStatic = header.Flags.HasFlag(PatchFlags.IsStatic),
-                                };
-                                RomUtils.AppendFile(newFile);
-                            }
-                            else if (header.Command == PatchCommand.ExistingFile)
+                                Addr = address,
+                                IsCompressed = false,
+                                Data = data,
+                                End = address + data.Length,
+                                IsStatic = header.Flags.HasFlag(PatchFlags.IsStatic),
+                            };
+                            RomUtils.AppendFile(newFile);
+                        }
+                        else if (header.Command == PatchCommand.ExistingFile)
+                        {
+                            RomUtils.CheckCompressed(index);
+                            var original = RomData.MMFileList[index];
+                            original.Data = VcDiffDecodeManaged(original.Data, data);
+                            if (original.Data.Length == 0)
                             {
-                                RomUtils.CheckCompressed(index);
-                                var original = RomData.MMFileList[index];
-                                original.Data = VcDiffDecodeManaged(original.Data, data);
-                                if (original.Data.Length == 0)
-                                {
-                                    original.Cmp_Addr = -1;
-                                    original.Cmp_End = -1;
-                                }
+                                original.Cmp_Addr = -1;
+                                original.Cmp_End = -1;
                             }
                         }
                     }
-                    return hashAlg.Hash;
                 }
+                return hashAlg.Hash;
             }
             catch
             {
@@ -132,10 +132,8 @@ namespace MMR.Randomizer.Patch
         /// <returns><see cref="SHA256"/> hash of the patch.</returns>
         public static byte[] CreatePatch(string filePath, List<MMFile> originalMMFiles)
         {
-            using (var outStream = File.Open(filePath, FileMode.Create))
-            {
-                return CreatePatch(outStream, originalMMFiles);
-            }
+            using var outStream = File.Open(filePath, FileMode.Create);
+            return CreatePatch(outStream, originalMMFiles);
         }
 
         /// <summary>
@@ -146,63 +144,60 @@ namespace MMR.Randomizer.Patch
         /// <returns><see cref="SHA256"/> hash of the patch.</returns>
         public static byte[] CreatePatch(Stream outStream, List<MMFile> originalMMFiles)
         {
-            Span<byte> headerBytes = stackalloc byte[0x10];
-
             var aes = Aes.Create();
             var hashAlg = new SHA256Managed();
             using (var cryptoStream = new CryptoStream(outStream, aes.CreateEncryptor(key, iv), CryptoStreamMode.Write))
             using (var hashStream = new CryptoStream(cryptoStream, hashAlg, CryptoStreamMode.Write))
+            using (var compressStream = new GZipStream(hashStream, CompressionMode.Compress))
+            using (var writer = new BeBinaryWriter(compressStream))
             {
-                using (var compressStream = new GZipStream(hashStream, CompressionMode.Compress))
-                using (var writer = new BeBinaryWriter(compressStream))
+                // Write magic value.
+                writer.WriteUInt32(PatchMagic);
+
+                Span<byte> headerBytes = stackalloc byte[0x10];
+                for (var fileIndex = 0; fileIndex < RomData.MMFileList.Count; fileIndex++)
                 {
-                    // Write magic value.
-                    writer.WriteUInt32(PatchMagic);
+                    var file = RomData.MMFileList[fileIndex];
 
-                    for (var fileIndex = 0; fileIndex < RomData.MMFileList.Count; fileIndex++)
+                    // Check whether file should be included in the patch.
+                    if (file.Data == null || (file.IsCompressed && !file.WasEdited))
                     {
-                        var file = RomData.MMFileList[fileIndex];
+                        continue;
+                    }
 
-                        // Check whether file should be included in the patch.
-                        if (file.Data == null || (file.IsCompressed && !file.WasEdited))
-                        {
-                            continue;
-                        }
+                    if (fileIndex >= originalMMFiles.Count)
+                    {
+                        var index = (uint)fileIndex;
+                        var address = (uint)file.Addr;
 
-                        if (fileIndex >= originalMMFiles.Count)
-                        {
-                            var index = (uint)fileIndex;
-                            var address = (uint)file.Addr;
+                        // Create header for appending new file.
+                        var header = PatchHeader.CreateNew(index, address, file.Data.Length, file.IsStatic);
+                        header.Write(headerBytes);
 
-                            // Create header for appending new file.
-                            var header = PatchHeader.CreateNew(index, address, file.Data.Length, file.IsStatic);
-                            header.Write(headerBytes);
+                        // Write header bytes and file contents.
+                        writer.Write(headerBytes);
+                        writer.Write(file.Data);
+                    }
+                    else
+                    {
+                        RomUtils.CheckCompressed(fileIndex, originalMMFiles);
+                        var originalFile = originalMMFiles[fileIndex];
 
-                            // Write header bytes and file contents.
-                            writer.Write(headerBytes);
-                            writer.Write(file.Data);
-                        }
-                        else
-                        {
-                            RomUtils.CheckCompressed(fileIndex, originalMMFiles);
-                            var originalFile = originalMMFiles[fileIndex];
+                        var index = (uint)fileIndex;
+                        var address = (uint)file.Addr;
+                        var diff = VcDiffEncodeManaged(originalFile.Data, file.Data);
 
-                            var index = (uint)fileIndex;
-                            var address = (uint)file.Addr;
-                            var diff = VcDiffEncodeManaged(originalFile.Data, file.Data);
+                        // Create header for patching existing file.
+                        var header = PatchHeader.CreateExisting(index, address, diff.Length, file.IsStatic);
+                        header.Write(headerBytes);
 
-                            // Create header for patching existing file.
-                            var header = PatchHeader.CreateExisting(index, address, diff.Length, file.IsStatic);
-                            header.Write(headerBytes);
-
-                            // Write header bytes and diff bytes.
-                            writer.Write(headerBytes);
-                            writer.Write(diff);
-                        }
+                        // Write header bytes and diff bytes.
+                        writer.Write(headerBytes);
+                        writer.Write(diff);
                     }
                 }
-                return hashAlg.Hash;
             }
+            return hashAlg.Hash;
         }
 
         /// <summary>
