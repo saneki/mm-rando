@@ -73,11 +73,11 @@ namespace MMR.Randomizer.Patch
         /// <summary>
         /// Apply patch data from file at given path to the ROM.
         /// </summary>
-        /// <param name="filename">Patch file path.</param>
+        /// <param name="filePath">Patch file path.</param>
         /// <returns><see cref="SHA256"/> hash of the patch.</returns>
-        public static byte[] ApplyPatch(string filename)
+        public static byte[] ApplyPatch(string filePath)
         {
-            using var outStream = File.OpenRead(filename);
+            using var outStream = File.OpenRead(filePath);
             return ApplyPatch(outStream);
         }
 
