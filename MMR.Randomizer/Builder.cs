@@ -2785,7 +2785,13 @@ namespace MMR.Randomizer
                 WriteNutsAndSticks();
                 
                 progressReporter.ReportProgress(72, outputSettings.GeneratePatch ? "Generating patch..." : "Computing hash...");
-                hash = Patch.Patcher.CreatePatch(outputSettings.GeneratePatch ? outputSettings.OutputROMFilename : null, originalMMFileList);
+                hash = outputSettings.GeneratePatch switch
+                {
+                    // Write patch file to path and return hash.
+                    true => Patch.Patcher.CreatePatch(Path.ChangeExtension(outputSettings.OutputROMFilename, "mmr"), originalMMFileList),
+                    // Only return hash.
+                    false => Patch.Patcher.CreatePatch(originalMMFileList),
+                };
 
                 // Write subset of Asm config post-patch
                 WriteAsmConfig(asm, hash);

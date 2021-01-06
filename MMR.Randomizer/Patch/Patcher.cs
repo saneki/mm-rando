@@ -115,14 +115,27 @@ namespace MMR.Randomizer.Patch
         }
 
         /// <summary>
-        /// Create patch data from current ROM state and write to a file.
+        /// Create hash of patch data from current ROM state.
         /// </summary>
-        /// <param name="filename">Output file path.</param>
         /// <param name="originalMMFiles">Original <see cref="MMFile"/> collection.</param>
         /// <returns><see cref="SHA256"/> hash of the patch.</returns>
-        public static byte[] CreatePatch(string filename, List<MMFile> originalMMFiles)
+        public static byte[] CreatePatch(List<MMFile> originalMMFiles)
         {
-            using (var outStream = filename != null ? (Stream)File.Open(Path.ChangeExtension(filename, "mmr"), FileMode.Create) : new MemoryStream())
+            using (var outStream = new MemoryStream())
+            {
+                return CreatePatch(outStream, originalMMFiles);
+            }
+        }
+
+        /// <summary>
+        /// Create patch data from current ROM state and write to a file.
+        /// </summary>
+        /// <param name="filePath">Output file path.</param>
+        /// <param name="originalMMFiles">Original <see cref="MMFile"/> collection.</param>
+        /// <returns><see cref="SHA256"/> hash of the patch.</returns>
+        public static byte[] CreatePatch(string filePath, List<MMFile> originalMMFiles)
+        {
+            using (var outStream = File.Open(filePath, FileMode.Create))
             {
                 return CreatePatch(outStream, originalMMFiles);
             }
