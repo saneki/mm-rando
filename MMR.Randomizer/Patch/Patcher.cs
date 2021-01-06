@@ -121,10 +121,7 @@ namespace MMR.Randomizer.Patch
         /// <returns><see cref="SHA256"/> hash of the patch.</returns>
         public static byte[] CreatePatch(List<MMFile> originalMMFiles)
         {
-            using (var outStream = new MemoryStream())
-            {
-                return CreatePatch(outStream, originalMMFiles);
-            }
+            return CreatePatch(Stream.Null, originalMMFiles);
         }
 
         /// <summary>
