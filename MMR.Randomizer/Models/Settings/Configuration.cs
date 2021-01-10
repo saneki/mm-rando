@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Text.Encodings.Web;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace MMR.Randomizer.Models.Settings
@@ -21,6 +22,7 @@ namespace MMR.Randomizer.Models.Settings
 
         private readonly static JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions
         {
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
             IgnoreReadOnlyFields = true,
             IgnoreReadOnlyProperties = true,
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
