@@ -1,12 +1,12 @@
 ﻿using MMR.Randomizer.GameObjects;
 using MMR.Randomizer.Models.Rom;
 using MMR.Randomizer.Utils;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 
 namespace MMR.Randomizer.Asm
 {
@@ -358,8 +358,7 @@ namespace MMR.Randomizer.Asm
         /// <returns>Symbols</returns>
         public static Symbols FromJSON(string json)
         {
-            var jobject = JObject.Parse(json);
-            var result = jobject.ToObject<Dictionary<string, string>>()
+            var result = JsonSerializer.Deserialize<Dictionary<string, string>>(json)
                 .Select(x => new KeyValuePair<string, uint>(x.Key, Convert.ToUInt32(x.Value, 16)))
                 .ToDictionary(x => x.Key, x => x.Value);
             return new Symbols(result);

@@ -1,11 +1,11 @@
 ﻿using MMR.Randomizer.Asm;
 using MMR.Randomizer.Utils;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace MMR.Randomizer.Models.Settings
 {
@@ -429,16 +429,18 @@ namespace MMR.Randomizer.Models.Settings
 
         public override string ToString()
         {
-            return JsonConvert.SerializeObject(this, _jsonSerializerSettings);
+            return JsonSerializer.Serialize(this, _jsonSerializerOptions);
         }
 
-        private readonly static JsonSerializerSettings _jsonSerializerSettings = new JsonSerializerSettings
+        private readonly static JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions
         {
-            ContractResolver = new WritablePropertiesOnlyResolver(),
-            NullValueHandling = NullValueHandling.Ignore,
+            IgnoreReadOnlyFields = true,
+            IgnoreReadOnlyProperties = true,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
             Converters =
             {
-                new StringEnumConverter(),
+                new JsonColorConverter(),
+                new JsonStringEnumConverter(),
             }
         };
 
