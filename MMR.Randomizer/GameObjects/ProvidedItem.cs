@@ -705,56 +705,6 @@ namespace MMR.Randomizer.GameObjects
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
         StoneTowerSmallKey,
 
-        [ItemName("Bottle: Fairy"), LocationName("Bottle: Fairy"), Region(Region.BottleCatch)]
-        [GossipItemHint("a winged friend", "a healer")]
-        [GetBottleItemIndices(0x00, 0x0D)]
-        BottleCatchFairy,
-
-        [ItemName("Bottle: Deku Princess"), LocationName("Bottle: Deku Princess"), Region(Region.BottleCatch)]
-        [GossipItemHint("a princess", "a woodland royal")]
-        [GetBottleItemIndices(0x08)]
-        BottleCatchPrincess,
-
-        [ItemName("Bottle: Fish"), LocationName("Bottle: Fish"), Region(Region.BottleCatch)]
-        [GossipItemHint("something fresh")]
-        [GetBottleItemIndices(0x01)]
-        BottleCatchFish,
-
-        [ItemName("Bottle: Bug"), LocationName("Bottle: Bug"), Region(Region.BottleCatch)]
-        [GossipItemHint("an insect", "a scuttling creature")]
-        [GetBottleItemIndices(0x02, 0x03)]
-        BottleCatchBug,
-
-        [ItemName("Bottle: Poe"), LocationName("Bottle: Poe"), Region(Region.BottleCatch)]
-        [GossipItemHint("a captured spirit")]
-        [GetBottleItemIndices(0x0B)]
-        BottleCatchPoe,
-
-        [ItemName("Bottle: Big Poe"), LocationName("Bottle: Big Poe"), Region(Region.BottleCatch)]
-        [GossipItemHint("a captured spirit")]
-        [GetBottleItemIndices(0x0C)]
-        BottleCatchBigPoe,
-
-        [ItemName("Bottle: Spring Water"), LocationName("Bottle: Spring Water"), Region(Region.BottleCatch)]
-        [GossipItemHint("a common liquid", "a fresh drink")]
-        [GetBottleItemIndices(0x04)]
-        BottleCatchSpringWater,
-
-        [ItemName("Bottle: Hot Spring Water"), LocationName("Bottle: Hot Spring Water"), Region(Region.BottleCatch)]
-        [GossipItemHint("a boiling liquid", "a hot liquid")]
-        [GetBottleItemIndices(0x05, 0x06)]
-        BottleCatchHotSpringWater,
-
-        [ItemName("Bottle: Zora Egg"), LocationName("Bottle: Zora Egg"), Region(Region.BottleCatch)]
-        [GossipItemHint("a lost child")]
-        [GetBottleItemIndices(0x07)]
-        BottleCatchEgg,
-
-        [ItemName("Bottle: Mushroom"), LocationName("Bottle: Mushroom"), Region(Region.BottleCatch)]
-        [GossipItemHint("a strange fungus")]
-        [GetBottleItemIndices(0x0A)]
-        BottleCatchMushroom,
-
         [StartingItem(0xC5CE70, 0x10, true)]
         [ItemName("Piece of Heart")]
         [GossipItemHint("a segment of health")]
