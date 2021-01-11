@@ -3065,10 +3065,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.IceTrap)]
         IceTrap = -1,
 
-        [ItemName("Recovery Heart")]
-        [GossipItemHint("health")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [ShopText("Replenishes a small amount of your life energy.")]
+        [ProvidesItem(ProvidedItem.RecoveryHeart)]
         [GetItemIndex(0x0A)]
         RecoveryHeart = -2,
     }
