@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MMR.Randomizer.GameObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,23 +9,15 @@ namespace MMR.Randomizer.Attributes
     public class ChestAttribute : Attribute
     {
         public int[] Addresses { get; private set; }
-        public AppearanceType Type { get; private set; }
+        public ChestAppearanceType Type { get; private set; }
 
-        public ChestAttribute(int address, AppearanceType type = AppearanceType.Normal, params int[] additionalAddresses)
+        public ChestAttribute(int address, ChestAppearanceType type = ChestAppearanceType.Normal, params int[] additionalAddresses)
         {
             Addresses = additionalAddresses.Concat(new[] { address }).ToArray();
             Type = type;
         }
 
-        public enum AppearanceType
-        {
-            Normal = 0,
-            Invisible = 1,
-            AppearsClear = 2,
-            AppearsSwitch = 3,
-        }
-
-        public static byte GetType(ChestTypeAttribute.ChestType chestType, AppearanceType appearanceType)
+        public static byte GetType(ChestType chestType, ChestAppearanceType appearanceType)
         {
             var type = (byte)chestType;
             type <<= 2;

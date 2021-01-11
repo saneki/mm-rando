@@ -1,11 +1,10 @@
 ﻿using MMR.Common.Extensions;
-using MMR.Randomizer.Attributes;
 using MMR.Randomizer.Extensions;
+using MMR.Randomizer.GameObjects;
 using MMR.Randomizer.Models;
 using MMR.Randomizer.Models.Settings;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace MMR.Randomizer.Utils
 {
@@ -67,23 +66,23 @@ namespace MMR.Randomizer.Utils
         /// <param name="appearance">Ice trap appearance setting</param>
         /// <param name="random">Random</param>
         /// <returns>Chest type.</returns>
-        public static ChestTypeAttribute.ChestType GetIceTrapChestTypeOverride(IceTrapAppearance appearance, Random random)
+        public static ChestType GetIceTrapChestTypeOverride(IceTrapAppearance appearance, Random random)
         {
             if (appearance == IceTrapAppearance.MajorItems)
             {
-                return ChestTypeAttribute.ChestType.LargeGold;
+                return ChestType.LargeGold;
             }
             else if (appearance == IceTrapAppearance.JunkItems)
             {
-                return ChestTypeAttribute.ChestType.SmallWooden;
+                return ChestType.SmallWooden;
             }
             else
             {
-                var choices = new ChestTypeAttribute.ChestType[]
+                var choices = new ChestType[]
                 {
-                    ChestTypeAttribute.ChestType.LargeGold,
-                    ChestTypeAttribute.ChestType.SmallGold,
-                    ChestTypeAttribute.ChestType.SmallWooden,
+                    ChestType.LargeGold,
+                    ChestType.SmallGold,
+                    ChestType.SmallWooden,
                 };
                 return choices[random.Next(choices.Length)];
             }
@@ -106,9 +105,9 @@ namespace MMR.Randomizer.Utils
                 if (index.HasValue && allowSong)
                 {
                     var chestType = itemObj.Item.ChestType();
-                    if ((appearance == IceTrapAppearance.MajorItems && chestType == ChestTypeAttribute.ChestType.LargeGold) ||
-                        (appearance == IceTrapAppearance.MajorItems && chestType == ChestTypeAttribute.ChestType.SmallGold) ||
-                        (appearance == IceTrapAppearance.JunkItems && chestType == ChestTypeAttribute.ChestType.SmallWooden) ||
+                    if ((appearance == IceTrapAppearance.MajorItems && chestType == ChestType.LargeGold) ||
+                        (appearance == IceTrapAppearance.MajorItems && chestType == ChestType.SmallGold) ||
+                        (appearance == IceTrapAppearance.JunkItems && chestType == ChestType.SmallWooden) ||
                         (appearance == IceTrapAppearance.Anything))
                     {
                         // Add mimic item to set.

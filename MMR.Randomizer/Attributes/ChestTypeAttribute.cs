@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using MMR.Randomizer.GameObjects;
+using System;
 
 namespace MMR.Randomizer.Attributes
 {
@@ -12,14 +10,6 @@ namespace MMR.Randomizer.Attributes
         public ChestTypeAttribute(ChestType type)
         {
             Type = type;
-        }
-
-        public enum ChestType
-        {
-            SmallWooden = 0,
-            SmallGold = 1,
-            LargeGold = 2,
-            BossKey = 3,
         }
     }
 }

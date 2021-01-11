@@ -100,7 +100,7 @@ namespace MMR.Randomizer.Utils
             }
         }
 
-        public static void WriteNewItem(ItemObject itemObject, List<MessageEntry> newMessages, GameplaySettings settings, ChestTypeAttribute.ChestType? overrideChestType)
+        public static void WriteNewItem(ItemObject itemObject, List<MessageEntry> newMessages, GameplaySettings settings, ChestType? overrideChestType)
         {
             var item = itemObject.Item;
             var location = itemObject.NewLocation.Value;
@@ -255,7 +255,7 @@ namespace MMR.Randomizer.Utils
             }
         }
 
-        private static void UpdateChest(Item location, Item item, ChestTypeAttribute.ChestType? overrideChestType)
+        private static void UpdateChest(Item location, Item item, ChestType? overrideChestType)
         {
             var chestType = item.ChestType().Value;
             if (overrideChestType.HasValue)

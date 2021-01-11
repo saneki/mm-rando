@@ -17,28 +17,28 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.Bow)]
         [LocationName("Hero's Bow Chest"), Region(Region.WoodfallTemple)]
         [GossipLocationHint("Woodfall Temple", "the sleeping temple")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x02223000 + 0xAA, ChestAttribute.AppearanceType.AppearsClear)]
+        [ChestType(ChestType.LargeGold), Chest(0x02223000 + 0xAA, ChestAppearanceType.AppearsClear)]
         [GetItemIndex(0x22)]
         ItemBow,
 
         [ProvidesItem(ProvidedItem.FireArrow)]
         [LocationName("Fire Arrow Chest"), Region(Region.SnowheadTemple)]
         [GossipLocationHint("Snowhead Temple", "an icy gale")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x02336000 + 0xCA, ChestAttribute.AppearanceType.AppearsClear)]
+        [ChestType(ChestType.LargeGold), Chest(0x02336000 + 0xCA, ChestAppearanceType.AppearsClear)]
         [GetItemIndex(0x25)]
         ItemFireArrow,
 
         [ProvidesItem(ProvidedItem.IceArrow)]
         [LocationName("Ice Arrow Chest"), Region(Region.GreatBayTemple)]
         [GossipLocationHint("Great Bay Temple", "the ocean temple")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x0292F000 + 0x11E, ChestAttribute.AppearanceType.AppearsClear)]
+        [ChestType(ChestType.LargeGold), Chest(0x0292F000 + 0x11E, ChestAppearanceType.AppearsClear)]
         [GetItemIndex(0x26)]
         ItemIceArrow,
 
         [ProvidesItem(ProvidedItem.LightArrow)]
         [LocationName("Light Arrow Chest"), Region(Region.StoneTowerTemple)]
         [GossipLocationHint("Stone Tower Temple", "the cursed temple")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x0212B000 + 0xB2, ChestAttribute.AppearanceType.AppearsSwitch, 0x02192000 + 0x8E)]
+        [ChestType(ChestType.LargeGold), Chest(0x0212B000 + 0xB2, ChestAppearanceType.AppearsSwitch, 0x02192000 + 0x8E)]
         [GetItemIndex(0x27)]
         ItemLightArrow,
 
@@ -73,14 +73,14 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.LensOfTruth)]
         [LocationName("Lens of Truth Chest"), Region(Region.GoronVillage)]
         [GossipLocationHint("a lonely peak")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x02EB8000 + 0x9A, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.LargeGold), Chest(0x02EB8000 + 0x9A, ChestAppearanceType.Normal)]
         [GetItemIndex(0x42)]
         ItemLens,
 
         [ProvidesItem(ProvidedItem.Hookshot)]
         [LocationName("Hookshot Chest"), Region(Region.PiratesFortressInterior)]
         [GossipLocationHint("the home of pirates")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x0238B000 + 0x14A, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.LargeGold), Chest(0x0238B000 + 0x14A, ChestAppearanceType.Normal)]
         [GetItemIndex(0x41)]
         ItemHookshot,
 
@@ -147,7 +147,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.EmptyBottle)]
         [LocationName("Dampe Digging"), Region(Region.IkanaGraveyard)]
         [GossipLocationHint("a fearful basement"), GossipCompetitiveHint]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x0261E000 + 0x1FE, ChestAttribute.AppearanceType.AppearsSwitch)]
+        [ChestType(ChestType.LargeGold), Chest(0x0261E000 + 0x1FE, ChestAppearanceType.AppearsSwitch)]
         [GetItemIndex(0x64)]
         ItemBottleDampe,
 
@@ -180,7 +180,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.MirrorShield)]
         [LocationName("Mirror Shield Chest"), Region(Region.BeneathTheWell)]
         [GossipLocationHint("a hollow ground")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x029FE000 + 0x1AA, ChestAttribute.AppearanceType.AppearsSwitch)]
+        [ChestType(ChestType.LargeGold), Chest(0x029FE000 + 0x1AA, ChestAppearanceType.AppearsSwitch)]
         [GetItemIndex(0x33)]
         UpgradeMirrorShield,
 
@@ -461,49 +461,49 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.HeartPiece)]
         [LocationName("Treasure Chest Game Goron"), Region(Region.EastClockTown)]
         [GossipLocationHint("a town game")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x00F43F10 + 0xFAA, ChestAttribute.AppearanceType.AppearsSwitch)]
+        [ChestType(ChestType.SmallWooden), Chest(0x00F43F10 + 0xFAA, ChestAppearanceType.AppearsSwitch)]
         [GetItemIndex(0x17)]
         HeartPieceTreasureChestGame,
 
         [ProvidesItem(ProvidedItem.HeartPiece)]
         [LocationName("Peahat Grotto"), Region(Region.TerminaField)]
         [GossipLocationHint("a hollow ground")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02ED3000 + 0x76, ChestAttribute.AppearanceType.AppearsClear)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02ED3000 + 0x76, ChestAppearanceType.AppearsClear)]
         [GetItemIndex(0x18)]
         HeartPiecePeahat,
 
         [ProvidesItem(ProvidedItem.HeartPiece)]
         [LocationName("Dodongo Grotto"), Region(Region.TerminaField)]
         [GossipLocationHint("a hollow ground")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02EBD000 + 0x76, ChestAttribute.AppearanceType.AppearsClear)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02EBD000 + 0x76, ChestAppearanceType.AppearsClear)]
         [GetItemIndex(0x20)]
         HeartPieceDodong,
 
         [ProvidesItem(ProvidedItem.HeartPiece)]
         [LocationName("Woodfall Bridge Chest"), Region(Region.Woodfall)]
         [GossipLocationHint("the swamp lands", "an exposed chest")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02884000 + 0x252, ChestAttribute.AppearanceType.Normal, 0x02884000 + 0xA52)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02884000 + 0x252, ChestAppearanceType.Normal, 0x02884000 + 0xA52)]
         [GetItemIndex(0x29)]
         HeartPieceWoodFallChest,
 
         [ProvidesItem(ProvidedItem.HeartPiece)]
         [LocationName("Twin Islands Underwater Ramp Chest"), Region(Region.TwinIslands)]
         [GossipLocationHint("a spring treasure", "a defrosted land", "a submerged chest")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02C23000 + 0x2B6, ChestAttribute.AppearanceType.Normal, 0x02C34000 + 0x19A)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02C23000 + 0x2B6, ChestAppearanceType.Normal, 0x02C34000 + 0x19A)]
         [GetItemIndex(0x2E)]
         HeartPieceTwinIslandsChest,
 
         [ProvidesItem(ProvidedItem.HeartPiece)]
         [LocationName("Ocean Spider House Chest"), Region(Region.GreatBayCoast)]
         [GossipLocationHint("the strange masks", "coloured faces")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x024DB000 + 0x76, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x024DB000 + 0x76, ChestAppearanceType.Normal)]
         [GetItemIndex(0x14)]
         HeartPieceOceanSpiderHouse,
 
         [ProvidesItem(ProvidedItem.HeartPiece)]
         [LocationName("Iron Knuckle Chest"), Region(Region.IkanaGraveyard)]
         [GossipLocationHint("a hollow ground")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x01FAB000 + 0xBA, ChestAttribute.AppearanceType.AppearsClear)]
+        [ChestType(ChestType.SmallWooden), Chest(0x01FAB000 + 0xBA, ChestAppearanceType.AppearsClear)]
         [GetItemIndex(0x44)]
         HeartPieceKnuckle,
 
@@ -624,14 +624,14 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.CaptainHat)]
         [LocationName("Captain Keeta's Chest"), Region(Region.IkanaGraveyard)]
         [GossipLocationHint("a ghostly battle", "a skeletal leader")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x0280D000 + 0x392, ChestAttribute.AppearanceType.Normal, 0x0280D000 + 0x6FA)]
+        [ChestType(ChestType.LargeGold), Chest(0x0280D000 + 0x392, ChestAppearanceType.Normal, 0x0280D000 + 0x6FA)]
         [GetItemIndex(0x7C)]
         MaskCaptainHat,
 
         [ProvidesItem(ProvidedItem.GiantMask)]
         [LocationName("Giant's Mask Chest"), Region(Region.StoneTowerTemple)]
         [GossipLocationHint("Stone Tower Temple", "the cursed temple")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x020F1000 + 0x1C2, ChestAttribute.AppearanceType.AppearsSwitch, 0x02164000 + 0x19E)]
+        [ChestType(ChestType.LargeGold), Chest(0x020F1000 + 0x1C2, ChestAppearanceType.AppearsSwitch, 0x02164000 + 0x19E)]
         [GetItemIndex(0x7D)]
         MaskGiant,
 
@@ -753,14 +753,14 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.WoodfallMap)]
         [LocationName("Woodfall Map Chest"), Region(Region.WoodfallTemple)]
         [GossipLocationHint("Woodfall Temple", "the sleeping temple")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x0221F000 + 0x12A, ChestAttribute.AppearanceType.AppearsClear)]
+        [ChestType(ChestType.SmallWooden), Chest(0x0221F000 + 0x12A, ChestAppearanceType.AppearsClear)]
         [GetItemIndex(0x3E)]
         ItemWoodfallMap,
 
         [ProvidesItem(ProvidedItem.WoodfallCompass)]
         [LocationName("Woodfall Compass Chest"), Region(Region.WoodfallTemple)]
         [GossipLocationHint("Woodfall Temple", "the sleeping temple")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02215000 + 0xFA, ChestAttribute.AppearanceType.AppearsClear)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02215000 + 0xFA, ChestAppearanceType.AppearsClear)]
         [GetItemIndex(0x3F)]
         ItemWoodfallCompass,
 
@@ -768,7 +768,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.WoodfallBossKey)]
         [LocationName("Woodfall Boss Key Chest"), Region(Region.WoodfallTemple)]
         [GossipLocationHint("Woodfall Temple", "the sleeping temple")]
-        [ChestType(ChestTypeAttribute.ChestType.BossKey), Chest(0x02227000 + 0x11A, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.BossKey), Chest(0x02227000 + 0x11A, ChestAppearanceType.Normal)]
         [GetItemIndex(0x3D)]
         ItemWoodfallBossKey,
 
@@ -776,21 +776,21 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.WoodfallSmallKey)]
         [LocationName("Woodfall Small Key Chest"), Region(Region.WoodfallTemple)]
         [GossipLocationHint("Woodfall Temple", "the sleeping temple")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02218000 + 0x1CA, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallGold), Chest(0x02218000 + 0x1CA, ChestAppearanceType.Normal)]
         [GetItemIndex(0x3C)]
         ItemWoodfallKey1,
 
         [ProvidesItem(ProvidedItem.SnowheadMap)]
         [LocationName("Snowhead Map Chest"), Region(Region.SnowheadTemple)]
         [GossipLocationHint("Snowhead Temple", "an icy gale")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02346000 + 0x13A, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02346000 + 0x13A, ChestAppearanceType.Normal)]
         [GetItemIndex(0x54)]
         ItemSnowheadMap,
 
         [ProvidesItem(ProvidedItem.SnowheadCompass)]
         [LocationName("Snowhead Compass Chest"), Region(Region.SnowheadTemple)]
         [GossipLocationHint("Snowhead Temple", "an icy gale")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x022F2000 + 0x1BA, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x022F2000 + 0x1BA, ChestAppearanceType.Normal)]
         [GetItemIndex(0x57)]
         ItemSnowheadCompass,
 
@@ -798,7 +798,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.SnowheadBossKey)]
         [LocationName("Snowhead Boss Key Chest"), Region(Region.SnowheadTemple)]
         [GossipLocationHint("Snowhead Temple", "an icy gale")]
-        [ChestType(ChestTypeAttribute.ChestType.BossKey), Chest(0x0230C000 + 0x57A, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.BossKey), Chest(0x0230C000 + 0x57A, ChestAppearanceType.Normal)]
         [GetItemIndex(0x4E)]
         ItemSnowheadBossKey,
 
@@ -806,7 +806,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.SnowheadSmallKey)]
         [LocationName("Snowhead Block Room Chest"), Region(Region.SnowheadTemple)]
         [GossipLocationHint("Snowhead Temple", "an icy gale")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02306000 + 0x12A, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallGold), Chest(0x02306000 + 0x12A, ChestAppearanceType.Normal)]
         [GetItemIndex(0x46)]
         ItemSnowheadKey1,
 
@@ -814,7 +814,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.SnowheadSmallKey)]
         [LocationName("Snowhead Icicle Room Chest"), Region(Region.SnowheadTemple)]
         [GossipLocationHint("Snowhead Temple", "an icy gale")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x0233A000 + 0x23A, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallGold), Chest(0x0233A000 + 0x23A, ChestAppearanceType.Normal)]
         [GetItemIndex(0x47)]
         ItemSnowheadKey2,
 
@@ -822,21 +822,21 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.SnowheadSmallKey)]
         [LocationName("Snowhead Bridge Room Chest"), Region(Region.SnowheadTemple)]
         [GossipLocationHint("Snowhead Temple", "an icy gale")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x022F9000 + 0x19A, ChestAttribute.AppearanceType.AppearsClear)]
+        [ChestType(ChestType.SmallGold), Chest(0x022F9000 + 0x19A, ChestAppearanceType.AppearsClear)]
         [GetItemIndex(0x48)]
         ItemSnowheadKey3,
 
         [ProvidesItem(ProvidedItem.GreatBayMap)]
         [LocationName("Great Bay Map Chest"), Region(Region.GreatBayTemple)]
         [GossipLocationHint("Great Bay Temple", "the ocean temple")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02905000 + 0x19A, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02905000 + 0x19A, ChestAppearanceType.Normal)]
         [GetItemIndex(0x55)]
         ItemGreatBayMap,
 
         [ProvidesItem(ProvidedItem.GreatBayCompass)]
         [LocationName("Great Bay Compass Chest"), Region(Region.GreatBayTemple)]
         [GossipLocationHint("Great Bay Temple", "the ocean temple")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02914000 + 0x21A, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02914000 + 0x21A, ChestAppearanceType.Normal)]
         [GetItemIndex(0x58)]
         ItemGreatBayCompass,
 
@@ -844,7 +844,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.GreatBayBossKey)]
         [LocationName("Great Bay Boss Key Chest"), Region(Region.GreatBayTemple)]
         [GossipLocationHint("Great Bay Temple", "the ocean temple")]
-        [ChestType(ChestTypeAttribute.ChestType.BossKey), Chest(0x02914000 + 0x1FA, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.BossKey), Chest(0x02914000 + 0x1FA, ChestAppearanceType.Normal)]
         [GetItemIndex(0x4F)]
         ItemGreatBayBossKey,
 
@@ -852,21 +852,21 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.GreatBaySmallKey)]
         [LocationName("Great Bay Small Key Chest"), Region(Region.GreatBayTemple)]
         [GossipLocationHint("Great Bay Temple", "the ocean temple")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02914000 + 0x20A, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallGold), Chest(0x02914000 + 0x20A, ChestAppearanceType.Normal)]
         [GetItemIndex(0x40)]
         ItemGreatBayKey1,
 
         [ProvidesItem(ProvidedItem.StoneTowerMap)]
         [LocationName("Stone Tower Map Chest"), Region(Region.StoneTowerTemple)]
         [GossipLocationHint("Stone Tower Temple", "the cursed temple")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x0210F000 + 0x222, ChestAttribute.AppearanceType.Normal, 0x02182000 + 0x21E)]
+        [ChestType(ChestType.SmallWooden), Chest(0x0210F000 + 0x222, ChestAppearanceType.Normal, 0x02182000 + 0x21E)]
         [GetItemIndex(0x56)]
         ItemStoneTowerMap,
 
         [ProvidesItem(ProvidedItem.StoneTowerCompass)]
         [LocationName("Stone Tower Compass Chest"), Region(Region.StoneTowerTemple)]
         [GossipLocationHint("Stone Tower Temple", "the cursed temple")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02104000 + 0x292, ChestAttribute.AppearanceType.Normal, 0x02177000 + 0x2DE)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02104000 + 0x292, ChestAppearanceType.Normal, 0x02177000 + 0x2DE)]
         [GetItemIndex(0x6C)]
         ItemStoneTowerCompass,
 
@@ -874,7 +874,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.StoneTowerBossKey)]
         [LocationName("Stone Tower Boss Key Chest"), Region(Region.StoneTowerTemple)]
         [GossipLocationHint("Stone Tower Temple", "the cursed temple")]
-        [ChestType(ChestTypeAttribute.ChestType.BossKey), Chest(0x02130000 + 0x82, ChestAttribute.AppearanceType.Normal, 0x02198000 + 0xCE)]
+        [ChestType(ChestType.BossKey), Chest(0x02130000 + 0x82, ChestAppearanceType.Normal, 0x02198000 + 0xCE)]
         [GetItemIndex(0x53)]
         ItemStoneTowerBossKey,
 
@@ -882,7 +882,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.StoneTowerSmallKey)]
         [LocationName("Stone Tower Armor Room Chest"), Region(Region.StoneTowerTemple)]
         [GossipLocationHint("Stone Tower Temple", "the cursed temple")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x0210F000 + 0x202, ChestAttribute.AppearanceType.AppearsSwitch, 0x02182000 + 0x1FE)]
+        [ChestType(ChestType.SmallGold), Chest(0x0210F000 + 0x202, ChestAppearanceType.AppearsSwitch, 0x02182000 + 0x1FE)]
         [GetItemIndex(0x49)]
         ItemStoneTowerKey1,
 
@@ -890,7 +890,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.StoneTowerSmallKey)]
         [LocationName("Stone Tower Eyegore Room Chest"), Region(Region.StoneTowerTemple)]
         [GossipLocationHint("Stone Tower Temple", "the cursed temple")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x020F1000 + 0x1D2, ChestAttribute.AppearanceType.Normal, 0x02164000 + 0x1AE)]
+        [ChestType(ChestType.SmallGold), Chest(0x020F1000 + 0x1D2, ChestAppearanceType.Normal, 0x02164000 + 0x1AE)]
         [GetItemIndex(0x4A)]
         ItemStoneTowerKey2,
 
@@ -898,7 +898,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.StoneTowerSmallKey)]
         [LocationName("Stone Tower Updraft Room Chest"), Region(Region.StoneTowerTemple)]
         [GossipLocationHint("Stone Tower Temple", "the cursed temple")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02104000 + 0x282, ChestAttribute.AppearanceType.AppearsSwitch, 0x02177000 + 0x2CE)]
+        [ChestType(ChestType.SmallGold), Chest(0x02104000 + 0x282, ChestAppearanceType.AppearsSwitch, 0x02177000 + 0x2CE)]
         [GetItemIndex(0x4B)]
         ItemStoneTowerKey3,
 
@@ -906,7 +906,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.StoneTowerSmallKey)]
         [LocationName("Stone Tower Death Armos Maze Chest"), Region(Region.StoneTowerTemple)]
         [GossipLocationHint("Stone Tower Temple", "the cursed temple")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x020FC000 + 0x252, ChestAttribute.AppearanceType.Normal, 0x0216E000 + 0x1CE)]
+        [ChestType(ChestType.SmallGold), Chest(0x020FC000 + 0x252, ChestAppearanceType.Normal, 0x0216E000 + 0x1CE)]
         [GetItemIndex(0x4D)]
         ItemStoneTowerKey4,
 
@@ -1149,7 +1149,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.RedRupee)]
         [LocationName("Lens Cave Invisible Chest"), Region(Region.GoronVillage)]
         [GossipLocationHint("a lonely peak")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02EB8000 + 0xAA, ChestAttribute.AppearanceType.Invisible)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02EB8000 + 0xAA, ChestAppearanceType.Invisible)]
         [GetItemIndex(0xDD)]
         ChestLensCaveRedRupee,
 
@@ -1157,7 +1157,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.PurpleRupee)]
         [LocationName("Lens Cave Rock Chest"), Region(Region.GoronVillage)]
         [GossipLocationHint("a lonely peak")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02EB8000 + 0xDA, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02EB8000 + 0xDA, ChestAppearanceType.Normal)]
         [GetItemIndex(0xF4)]
         ChestLensCavePurpleRupee,
 
@@ -1165,7 +1165,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.RedRupee)]
         [LocationName("Bean Grotto"), Region(Region.DekuPalace)]
         [GossipLocationHint("a merchant's cave")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02ECC000 + 0xFA, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02ECC000 + 0xFA, ChestAppearanceType.Normal)]
         [GetItemIndex(0xDE)]
         ChestBeanGrottoRedRupee,
 
@@ -1173,7 +1173,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.RedRupee)]
         [LocationName("Hot Spring Water Grotto"), Region(Region.TwinIslands)]
         [GossipLocationHint("a steaming cave")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02ED7000 + 0xC6, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02ED7000 + 0xC6, ChestAppearanceType.Normal)]
         [GetItemIndex(0xDF)]
         ChestHotSpringGrottoRedRupee,
 
@@ -1181,7 +1181,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.PurpleRupee)]
         [LocationName("Day 1 Grave Bats"), Region(Region.IkanaGraveyard)]
         [GossipLocationHint("a cloud of bats")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x01F97000 + 0xCE, ChestAttribute.AppearanceType.AppearsClear)]
+        [ChestType(ChestType.SmallWooden), Chest(0x01F97000 + 0xCE, ChestAppearanceType.AppearsClear)]
         [GetItemIndex(0xF5)]
         ChestBadBatsGrottoPurpleRupee,
 
@@ -1189,7 +1189,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.Bombchu5)]
         [LocationName("Secret Shrine Grotto"), Region(Region.IkanaCanyon)]
         [GossipLocationHint("a waterfall cave")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x02080000 + 0x93, 0x02080000 + 0x1E3, 0x02080000 + 0x2EB)]
+        [ChestType(ChestType.SmallWooden), GrottoChest(0x02080000 + 0x93, 0x02080000 + 0x1E3, 0x02080000 + 0x2EB)]
         [GetItemIndex(0xD1)]
         ChestIkanaSecretShrineGrotto,
 
@@ -1197,7 +1197,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.RedRupee)]
         [LocationName("Pirates' Fortress Interior Lower Chest"), Region(Region.PiratesFortressInterior)]
         [GossipLocationHint("the home of pirates")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x020A2000 + 0x256, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x020A2000 + 0x256, ChestAppearanceType.Normal)]
         [GetItemIndex(0xE0)]
         ChestPiratesFortressRedRupee1,
 
@@ -1205,7 +1205,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.RedRupee)]
         [LocationName("Pirates' Fortress Interior Upper Chest"), Region(Region.PiratesFortressInterior)]
         [GossipLocationHint("the home of pirates")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x020A2000 + 0x266, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x020A2000 + 0x266, ChestAppearanceType.Normal)]
         [GetItemIndex(0xE1)]
         ChestPiratesFortressRedRupee2,
 
@@ -1213,7 +1213,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.RedRupee)]
         [LocationName("Pirates' Fortress Interior Tank Chest"), Region(Region.PiratesFortressInterior)]
         [GossipLocationHint("the home of pirates")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x023B7000 + 0x66, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x023B7000 + 0x66, ChestAppearanceType.Normal)]
         [GetItemIndex(0xE2)]
         ChestInsidePiratesFortressTankRedRupee,
 
@@ -1221,7 +1221,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.SilverRupee)]
         [LocationName("Pirates' Fortress Interior Guard Room Chest"), Region(Region.PiratesFortressInterior)]
         [GossipLocationHint("the home of pirates")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x023BB000 + 0x56, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x023BB000 + 0x56, ChestAppearanceType.Normal)]
         [GetItemIndex(0xFB)]
         ChestInsidePiratesFortressGuardSilverRupee,
 
@@ -1229,7 +1229,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.RedRupee)]
         [LocationName("Pirates' Fortress Cage Room Shallow Chest"), Region(Region.PiratesFortressSewer)]
         [GossipLocationHint("the home of pirates")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x023E6000 + 0x24E, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x023E6000 + 0x24E, ChestAppearanceType.Normal)]
         [GetItemIndex(0xE3)]
         ChestInsidePiratesFortressHeartPieceRoomRedRupee,
 
@@ -1237,7 +1237,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.BlueRupee)]
         [LocationName("Pirates' Fortress Cage Room Deep Chest"), Region(Region.PiratesFortressSewer)]
         [GossipLocationHint("the home of pirates")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x023E6000 + 0x25E, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x023E6000 + 0x25E, ChestAppearanceType.Normal)]
         [GetItemIndex(0x105)]
         ChestInsidePiratesFortressHeartPieceRoomBlueRupee,
 
@@ -1245,7 +1245,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.RedRupee)]
         [LocationName("Pirates' Fortress Maze Chest"), Region(Region.PiratesFortressSewer)]
         [GossipLocationHint("the home of pirates")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x023F0000 + 0xDE, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x023F0000 + 0xDE, ChestAppearanceType.Normal)]
         [GetItemIndex(0xE4)]
         ChestInsidePiratesFortressMazeRedRupee,
 
@@ -1253,7 +1253,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.RedRupee)]
         [LocationName("Pinnacle Rock Lower Chest"), Region(Region.PinnacleRock)]
         [GossipLocationHint("a marine trench")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02428000 + 0x24E, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02428000 + 0x24E, ChestAppearanceType.Normal)]
         [GetItemIndex(0xE5)]
         ChestPinacleRockRedRupee1,
 
@@ -1261,7 +1261,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.RedRupee)]
         [LocationName("Pinnacle Rock Upper Chest"), Region(Region.PinnacleRock)]
         [GossipLocationHint("a marine trench")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02428000 + 0x25E, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02428000 + 0x25E, ChestAppearanceType.Normal)]
         [GetItemIndex(0xE6)]
         ChestPinacleRockRedRupee2,
 
@@ -1269,7 +1269,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.SilverRupee)]
         [LocationName("Bombers' Hideout Chest"), Region(Region.EastClockTown)]
         [GossipLocationHint("a secret hideout")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x024F1000 + 0x1DE, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x024F1000 + 0x1DE, ChestAppearanceType.Normal)]
         [GetItemIndex(0xFC)]
         ChestBomberHideoutSilverRupee,
 
@@ -1277,7 +1277,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.Bombchu)]
         [LocationName("Termina Field Pillar Grotto"), Region(Region.TerminaField)]
         [GossipLocationHint("a hollow pillar")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x025C5000 + 0x583)]
+        [ChestType(ChestType.SmallWooden), GrottoChest(0x025C5000 + 0x583)]
         [GetItemIndex(0xD7)]
         ChestTerminaGrottoBombchu,
 
@@ -1285,7 +1285,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.RedRupee)]
         [LocationName("Termina Field Grass Grotto"), Region(Region.TerminaField)]
         [GossipLocationHint("a grassy cave")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x025C5000 + 0x593)]
+        [ChestType(ChestType.SmallWooden), GrottoChest(0x025C5000 + 0x593)]
         [GetItemIndex(0xDC)]
         ChestTerminaGrottoRedRupee,
 
@@ -1293,7 +1293,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.RedRupee)]
         [LocationName("Termina Field Underwater Chest"), Region(Region.TerminaField)]
         [GossipLocationHint("a sunken chest")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x025C5000 + 0xD52, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x025C5000 + 0xD52, ChestAppearanceType.Normal)]
         [GetItemIndex(0xE7)]
         ChestTerminaUnderwaterRedRupee,
 
@@ -1301,7 +1301,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.RedRupee)]
         [LocationName("Termina Field Grass Chest"), Region(Region.TerminaField)]
         [GossipLocationHint("a grassy chest")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x025C5000 + 0xD62, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x025C5000 + 0xD62, ChestAppearanceType.Normal)]
         [GetItemIndex(0xE8)]
         ChestTerminaGrassRedRupee,
 
@@ -1309,7 +1309,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.RedRupee)]
         [LocationName("Termina Field Stump Chest"), Region(Region.TerminaField)]
         [GossipLocationHint("a tree's chest")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x025C5000 + 0xD72, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x025C5000 + 0xD72, ChestAppearanceType.Normal)]
         [GetItemIndex(0xE9)]
         ChestTerminaStumpRedRupee,
 
@@ -1317,7 +1317,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.RedRupee)]
         [LocationName("Great Bay Coast Grotto"), Region(Region.GreatBayCoast)]
         [GossipLocationHint("a beach cave")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x026DE000 + 0x43F, 0x026DE000 + 0xFE3)]
+        [ChestType(ChestType.SmallWooden), GrottoChest(0x026DE000 + 0x43F, 0x026DE000 + 0xFE3)]
         [GetItemIndex(0xD4)]
         ChestGreatBayCoastGrotto, //contents?
 
@@ -1325,7 +1325,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.RedRupee)]
         [LocationName("Zora Cape Ledge Without Tree Chest"), Region(Region.ZoraCape)]
         [GossipLocationHint("a high place")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02715000 + 0x42A, ChestAttribute.AppearanceType.Normal, 0x02715000 + 0xB16)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02715000 + 0x42A, ChestAppearanceType.Normal, 0x02715000 + 0xB16)]
         [GetItemIndex(0xEA)]
         ChestGreatBayCapeLedge1, //contents?
 
@@ -1333,7 +1333,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.RedRupee)]
         [LocationName("Zora Cape Ledge With Tree Chest"), Region(Region.ZoraCape)]
         [GossipLocationHint("a high place")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02715000 + 0x43A, ChestAttribute.AppearanceType.Normal, 0x02715000 + 0xB26)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02715000 + 0x43A, ChestAppearanceType.Normal, 0x02715000 + 0xB26)]
         [GetItemIndex(0xEB)]
         ChestGreatBayCapeLedge2, //contents?
 
@@ -1341,7 +1341,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.Bombchu)]
         [LocationName("Zora Cape Grotto"), Region(Region.ZoraCape)]
         [GossipLocationHint("a beach cave")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x02715000 + 0x45B, 0x02715000 + 0xB47)]
+        [ChestType(ChestType.SmallWooden), GrottoChest(0x02715000 + 0x45B, 0x02715000 + 0xB47)]
         [GetItemIndex(0xD2)]
         ChestGreatBayCapeGrotto, //contents?
 
@@ -1349,7 +1349,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.PurpleRupee)]
         [LocationName("Zora Cape Underwater Chest"), Region(Region.ZoraCape)]
         [GossipLocationHint("a sunken chest")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02715000 + 0x48A, ChestAttribute.AppearanceType.Normal, 0x02715000 + 0xB56)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02715000 + 0x48A, ChestAppearanceType.Normal, 0x02715000 + 0xB56)]
         [GetItemIndex(0xF6)]
         ChestGreatBayCapeUnderwater, //contents?
 
@@ -1357,7 +1357,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.RedRupee)]
         [LocationName("Pirates' Fortress Exterior Log Chest"), Region(Region.PiratesFortressExterior)]
         [GossipLocationHint("the home of pirates")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02740000 + 0x196, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02740000 + 0x196, ChestAppearanceType.Normal)]
         [GetItemIndex(0xEC)]
         ChestPiratesFortressEntranceRedRupee1,
 
@@ -1365,7 +1365,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.RedRupee)]
         [LocationName("Pirates' Fortress Exterior Sand Chest"), Region(Region.PiratesFortressExterior)]
         [GossipLocationHint("the home of pirates")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02740000 + 0x1A6, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02740000 + 0x1A6, ChestAppearanceType.Normal)]
         [GetItemIndex(0xED)]
         ChestPiratesFortressEntranceRedRupee2,
 
@@ -1373,7 +1373,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.RedRupee)]
         [LocationName("Pirates' Fortress Exterior Corner Chest"), Region(Region.PiratesFortressExterior)]
         [GossipLocationHint("the home of pirates")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02740000 + 0x1B6, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02740000 + 0x1B6, ChestAppearanceType.Normal)]
         [GetItemIndex(0xEE)]
         ChestPiratesFortressEntranceRedRupee3,
 
@@ -1381,7 +1381,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.RedRupee)]
         [LocationName("Path to Swamp Grotto"), Region(Region.RoadToSouthernSwamp)]
         [GossipLocationHint("a southern cave")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x027C1000 + 0x33B)]
+        [ChestType(ChestType.SmallWooden), GrottoChest(0x027C1000 + 0x33B)]
         [GetItemIndex(0xDB)]
         ChestToSwampGrotto, //contents?
 
@@ -1389,7 +1389,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.PurpleRupee)]
         [LocationName("Doggy Racetrack Roof Chest"), Region(Region.RomaniRanch)]
         [GossipLocationHint("a day at the races")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x027D4000 + 0xB6, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x027D4000 + 0xB6, ChestAppearanceType.Normal)]
         [GetItemIndex(0xF7)]
         ChestDogRacePurpleRupee,
 
@@ -1397,7 +1397,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.Bombchu5)]
         [LocationName("Ikana Graveyard Grotto"), Region(Region.IkanaGraveyard)]
         [GossipLocationHint("a circled cave")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x0280D000 + 0x353, 0x0280D000 + 0x54B)]
+        [ChestType(ChestType.SmallWooden), GrottoChest(0x0280D000 + 0x353, 0x0280D000 + 0x54B)]
         [GetItemIndex(0xD5)]
         ChestGraveyardGrotto, //contents?
 
@@ -1405,7 +1405,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.RedRupee)]
         [LocationName("Near Swamp Spider House Grotto"), Region(Region.SouthernSwamp)]
         [GossipLocationHint("a southern cave")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x01F3A000 + 0x227, 0x02855000 + 0x2AF)]
+        [ChestType(ChestType.SmallWooden), GrottoChest(0x01F3A000 + 0x227, 0x02855000 + 0x2AF)]
         [GetItemIndex(0xDA)]
         ChestSwampGrotto,  //contents?
 
@@ -1413,7 +1413,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.BlueRupee)]
         [LocationName("Behind Woodfall Owl Chest"), Region(Region.Woodfall)]
         [GossipLocationHint("a swamp chest")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02884000 + 0x232, ChestAttribute.AppearanceType.Normal, 0x02884000 + 0xA62)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02884000 + 0x232, ChestAppearanceType.Normal, 0x02884000 + 0xA62)]
         [GetItemIndex(0x106)]
         ChestWoodfallBlueRupee,
 
@@ -1421,7 +1421,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.RedRupee)]
         [LocationName("Entrance to Woodfall Chest"), Region(Region.Woodfall)]
         [GossipLocationHint("a swamp chest")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02884000 + 0x242, ChestAttribute.AppearanceType.Normal, 0x02884000 + 0xA32)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02884000 + 0x242, ChestAppearanceType.Normal, 0x02884000 + 0xA32)]
         [GetItemIndex(0xEF)]
         ChestWoodfallRedRupee,
 
@@ -1429,7 +1429,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.PurpleRupee)]
         [LocationName("Well Right Path Chest"), Region(Region.BeneathTheWell)]
         [GossipLocationHint("a frightful exchange")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x029EA000 + 0xE6, ChestAttribute.AppearanceType.AppearsSwitch)]
+        [ChestType(ChestType.SmallWooden), Chest(0x029EA000 + 0xE6, ChestAppearanceType.AppearsSwitch)]
         [GetItemIndex(0xF8)]
         ChestWellRightPurpleRupee,
 
@@ -1437,7 +1437,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.PurpleRupee)]
         [LocationName("Well Left Path Chest"), Region(Region.BeneathTheWell)]
         [GossipLocationHint("a frightful exchange")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x029F0000 + 0x106, ChestAttribute.AppearanceType.Invisible)]
+        [ChestType(ChestType.SmallWooden), Chest(0x029F0000 + 0x106, ChestAppearanceType.Invisible)]
         [GetItemIndex(0xF9)]
         ChestWellLeftPurpleRupee,
 
@@ -1445,7 +1445,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.RedRupee)]
         [LocationName("Mountain Waterfall Chest"), Region(Region.MountainVillage)]
         [GossipLocationHint("the springtime")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02BDD000 + 0x2E2, ChestAttribute.AppearanceType.Invisible, 0x02BDD000 + 0x946)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02BDD000 + 0x2E2, ChestAppearanceType.Invisible, 0x02BDD000 + 0x946)]
         [GetItemIndex(0xF0)]
         ChestMountainVillage, //contents?
 
@@ -1453,7 +1453,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.RedRupee)]
         [LocationName("Mountain Spring Grotto"), Region(Region.MountainVillage)]
         [GossipLocationHint("the springtime")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x02BFC000 + 0x1F3, 0x02BFC000 + 0x2B3)]
+        [ChestType(ChestType.SmallWooden), GrottoChest(0x02BFC000 + 0x1F3, 0x02BFC000 + 0x2B3)]
         [GetItemIndex(0xD8)]
         ChestMountainVillageGrottoRedRupee,
 
@@ -1461,7 +1461,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.RedRupee)]
         [LocationName("Path to Ikana Pillar Chest"), Region(Region.RoadToIkana)]
         [GossipLocationHint("a high chest")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02B34000 + 0x442, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02B34000 + 0x442, ChestAppearanceType.Normal)]
         [GetItemIndex(0xF1)]
         ChestToIkanaRedRupee,
 
@@ -1469,7 +1469,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.Bombchu)]
         [LocationName("Path to Ikana Grotto"), Region(Region.RoadToIkana)]
         [GossipLocationHint("a blocked cave")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x02B34000 + 0x523)]
+        [ChestType(ChestType.SmallWooden), GrottoChest(0x02B34000 + 0x523)]
         [GetItemIndex(0xD3)]
         ChestToIkanaGrotto, //contents?
 
@@ -1477,7 +1477,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.SilverRupee)]
         [LocationName("Inverted Stone Tower Right Chest"), Region(Region.StoneTower)]
         [GossipLocationHint("a sky below")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02BC9000 + 0x236, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02BC9000 + 0x236, ChestAppearanceType.Normal)]
         [GetItemIndex(0xFD)]
         ChestInvertedStoneTowerSilverRupee,
 
@@ -1485,7 +1485,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.Bombchu10)]
         [LocationName("Inverted Stone Tower Middle Chest"), Region(Region.StoneTower)]
         [GossipLocationHint("a sky below")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02BC9000 + 0x246, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02BC9000 + 0x246, ChestAppearanceType.Normal)]
         [GetItemIndex(0x10A)]
         ChestInvertedStoneTowerBombchu10,
 
@@ -1493,7 +1493,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.MagicBean)]
         [LocationName("Inverted Stone Tower Left Chest"), Region(Region.StoneTower)]
         [GossipLocationHint("a sky below")]
-        [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x02BC9000 + 0x256, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.LargeGold), Chest(0x02BC9000 + 0x256, ChestAppearanceType.Normal)]
         [GetItemIndex(0x109)]
         ChestInvertedStoneTowerBean,
 
@@ -1501,7 +1501,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.RedRupee)]
         [LocationName("Path to Snowhead Grotto"), Region(Region.PathToSnowhead)]
         [GossipLocationHint("a snowy cave")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x02C04000 + 0xAF, 0x02C04000 + 0x487)]
+        [ChestType(ChestType.SmallWooden), GrottoChest(0x02C04000 + 0xAF, 0x02C04000 + 0x487)]
         [GetItemIndex(0xD0)]
         ChestToSnowheadGrotto, //contents?
 
@@ -1509,14 +1509,14 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.RedRupee)]
         [LocationName("Twin Islands Cave Chest"), Region(Region.TwinIslands)]
         [GossipLocationHint("the springtime")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02C34000 + 0x13A, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02C34000 + 0x13A, ChestAppearanceType.Normal)]
         [GetItemIndex(0xF2)]
         ChestToGoronVillageRedRupee,
 
         [ProvidesItem(ProvidedItem.HeartPiece)]
         [LocationName("Secret Shrine Final Chest"), Region(Region.SecretShrine)]
         [GossipLocationHint("a secret place")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02C57000 + 0xB6, ChestAttribute.AppearanceType.AppearsSwitch)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02C57000 + 0xB6, ChestAppearanceType.AppearsSwitch)]
         [GetItemIndex(0x107)]
         ChestSecretShrineHeartPiece,
 
@@ -1524,7 +1524,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.SilverRupee)]
         [LocationName("Secret Shrine Dinolfos Chest"), Region(Region.SecretShrine)]
         [GossipLocationHint("a secret place")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02C61000 + 0x9A, ChestAttribute.AppearanceType.AppearsClear)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02C61000 + 0x9A, ChestAppearanceType.AppearsClear)]
         [GetItemIndex(0xFE)]
         ChestSecretShrineDinoGrotto,
 
@@ -1532,7 +1532,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.SilverRupee)]
         [LocationName("Secret Shrine Wizzrobe Chest"), Region(Region.SecretShrine)]
         [GossipLocationHint("a secret place")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02C69000 + 0xB2, ChestAttribute.AppearanceType.AppearsClear)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02C69000 + 0xB2, ChestAppearanceType.AppearsClear)]
         [GetItemIndex(0xFF)]
         ChestSecretShrineWizzGrotto,
 
@@ -1540,7 +1540,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.SilverRupee)]
         [LocationName("Secret Shrine Wart Chest"), Region(Region.SecretShrine)]
         [GossipLocationHint("a secret place")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02C71000 + 0xA6, ChestAttribute.AppearanceType.AppearsClear)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02C71000 + 0xA6, ChestAppearanceType.AppearsClear)]
         [GetItemIndex(0x100)]
         ChestSecretShrineWartGrotto,
 
@@ -1548,7 +1548,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.SilverRupee)]
         [LocationName("Secret Shrine Garo Master Chest"), Region(Region.SecretShrine)]
         [GossipLocationHint("a secret place")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02C75000 + 0x76, ChestAttribute.AppearanceType.AppearsClear)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02C75000 + 0x76, ChestAppearanceType.AppearsClear)]
         [GetItemIndex(0x101)]
         ChestSecretShrineGaroGrotto,
 
@@ -1556,7 +1556,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.SilverRupee)]
         [LocationName("Inn Staff Room Chest"), Region(Region.StockPotInn)]
         [GossipLocationHint("an employee room")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02CAB000 + 0x10E, ChestAttribute.AppearanceType.Normal, 0x02CAB000 + 0x242)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02CAB000 + 0x10E, ChestAppearanceType.Normal, 0x02CAB000 + 0x242)]
         [GetItemIndex(0x102)]
         ChestInnStaffRoom, //contents?
 
@@ -1564,7 +1564,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.SilverRupee)]
         [LocationName("Inn Guest Room Chest"), Region(Region.StockPotInn)]
         [GossipLocationHint("a guest bedroom")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02CB1000 + 0xDA, ChestAttribute.AppearanceType.Normal, 0x02CB1000 + 0x212)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02CB1000 + 0xDA, ChestAppearanceType.Normal, 0x02CB1000 + 0x212)]
         [GetItemIndex(0x103)]
         ChestInnGuestRoom, //contents?
 
@@ -1572,7 +1572,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.PurpleRupee)]
         [LocationName("Mystery Woods Grotto"), Region(Region.SouthernSwamp)]
         [GossipLocationHint("a mystery cave")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x02CFC000 + 0x5B)]
+        [ChestType(ChestType.SmallWooden), GrottoChest(0x02CFC000 + 0x5B)]
         [GetItemIndex(0xD9)]
         ChestWoodsGrotto, //contents?
 
@@ -1580,7 +1580,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.SilverRupee)]
         [LocationName("East Clock Town Chest"), Region(Region.EastClockTown)]
         [GossipLocationHint("a shop roof")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02DE4000 + 0x442, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02DE4000 + 0x442, ChestAppearanceType.Normal)]
         [GetItemIndex(0x104)]
         ChestEastClockTownSilverRupee,
 
@@ -1588,7 +1588,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.RedRupee)]
         [LocationName("South Clock Town Straw Roof Chest"), Region(Region.SouthClockTown)]
         [GossipLocationHint("a straw roof")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02E5C000 + 0x342, ChestAttribute.AppearanceType.Normal, 0x02E5C000 + 0x806)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02E5C000 + 0x342, ChestAppearanceType.Normal, 0x02E5C000 + 0x806)]
         [GetItemIndex(0xF3)]
         ChestSouthClockTownRedRupee,
 
@@ -1596,14 +1596,14 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.PurpleRupee)]
         [LocationName("South Clock Town Final Day Chest"), Region(Region.SouthClockTown)]
         [GossipLocationHint("a carnival tower")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02E5C000 + 0x352, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02E5C000 + 0x352, ChestAppearanceType.Normal)]
         [GetItemIndex(0xFA)]
         ChestSouthClockTownPurpleRupee,
 
         [ProvidesItem(ProvidedItem.HeartPiece)]
         [LocationName("Bank Reward #3"), Region(Region.WestClockTown)]
         [GossipLocationHint("being rich"), GossipCompetitiveHint(-2)]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [ChestType(ChestType.SmallWooden)]
         [GetItemIndex(0x108)]
         HeartPieceBank,
 
@@ -1612,7 +1612,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.HeartPiece)]
         [LocationName("Clock Tower Entrance"), Region(Region.SouthClockTown)]
         [GossipLocationHint("the tower doors")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [ChestType(ChestType.SmallWooden)]
         [GetItemIndex(0x10B)]
         HeartPieceSouthClockTown,
 
@@ -1620,7 +1620,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.HeartPiece)]
         [LocationName("North Clock Town Tree"), Region(Region.NorthClockTown)]
         [GossipLocationHint("a town playground")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [ChestType(ChestType.SmallWooden)]
         [GetItemIndex(0x10C)]
         HeartPieceNorthClockTown,
 
@@ -1628,7 +1628,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.HeartPiece)]
         [LocationName("Path to Swamp Tree"), Region(Region.RoadToSouthernSwamp)]
         [GossipLocationHint("a tree of bats")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [ChestType(ChestType.SmallWooden)]
         [GetItemIndex(0x10D)]
         HeartPieceToSwamp,
 
@@ -1636,7 +1636,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.HeartPiece)]
         [LocationName("Swamp Tourist Center Roof"), Region(Region.SouthernSwamp)]
         [GossipLocationHint("a tourist centre")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [ChestType(ChestType.SmallWooden)]
         [GetItemIndex(0x10E)]
         HeartPieceSwampScrub,
 
@@ -1644,7 +1644,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.HeartPiece)]
         [LocationName("Deku Palace West Garden"), Region(Region.DekuPalace)]
         [GossipLocationHint("the home of scrubs")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [ChestType(ChestType.SmallWooden)]
         [GetItemIndex(0x10F)]
         HeartPieceDekuPalace,
 
@@ -1652,7 +1652,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.HeartPiece)]
         [LocationName("Goron Village Ledge"), Region(Region.GoronVillage)]
         [GossipLocationHint("a cold ledge")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [ChestType(ChestType.SmallWooden)]
         [GetItemIndex(0x110)]
         HeartPieceGoronVillageScrub,
 
@@ -1660,7 +1660,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.HeartPiece)]
         [LocationName("Bio Baba Grotto"), Region(Region.TerminaField)]
         [GossipLocationHint("a beehive")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [ChestType(ChestType.SmallWooden)]
         [GetItemIndex(0x111)]
         HeartPieceZoraGrotto,
 
@@ -1668,7 +1668,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.HeartPiece)]
         [LocationName("Lab Fish"), Region(Region.GreatBayCoast)]
         [GossipLocationHint("feeding the fish"), GossipCompetitiveHint(0, nameof(GameplaySettings.SpeedupLabFish), false)]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [ChestType(ChestType.SmallWooden)]
         [GetItemIndex(0x112)]
         HeartPieceLabFish,
 
@@ -1676,7 +1676,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.HeartPiece)]
         [LocationName("Zora Cape Like-Like"), Region(Region.ZoraCape)]
         [GossipLocationHint("a shield eater")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [ChestType(ChestType.SmallWooden)]
         [GetItemIndex(0x113)]
         HeartPieceGreatBayCapeLikeLike,
 
@@ -1684,7 +1684,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.HeartPiece)]
         [LocationName("Pirates' Fortress Cage"), Region(Region.PiratesFortressSewer)]
         [GossipLocationHint("a timed door")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [ChestType(ChestType.SmallWooden)]
         [GetItemIndex(0x114)]
         HeartPiecePiratesFortress,
 
@@ -1692,7 +1692,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.HeartPiece)]
         [LocationName("Lulu's Room Ledge"), Region(Region.ZoraHall)]
         [GossipLocationHint("the singer's room")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [ChestType(ChestType.SmallWooden)]
         [GetItemIndex(0x115)]
         HeartPieceZoraHallScrub,
 
@@ -1700,7 +1700,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.HeartPiece)]
         [LocationName("Path to Snowhead Pillar"), Region(Region.PathToSnowhead)]
         [GossipLocationHint("a cold platform")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [ChestType(ChestType.SmallWooden)]
         [GetItemIndex(0x116)]
         HeartPieceToSnowhead,
 
@@ -1708,7 +1708,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.HeartPiece)]
         [LocationName("Great Bay Coast Ledge"), Region(Region.GreatBayCoast)]
         [GossipLocationHint("a rock face")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [ChestType(ChestType.SmallWooden)]
         [GetItemIndex(0x117)]
         HeartPieceGreatBayCoast,
 
@@ -1716,7 +1716,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.HeartPiece)]
         [LocationName("Ikana Canyon Ledge"), Region(Region.IkanaCanyon)]
         [GossipLocationHint("a thief's doorstep")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [ChestType(ChestType.SmallWooden)]
         [GetItemIndex(0x118)]
         HeartPieceIkana,
 
@@ -1724,7 +1724,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.HeartPiece)]
         [LocationName("Ikana Castle Pillar"), Region(Region.IkanaCastle)]
         [GossipLocationHint("a fiery pillar")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [ChestType(ChestType.SmallWooden)]
         [GetItemIndex(0x119)]
         HeartPieceCastle,
 
@@ -1804,7 +1804,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.Bombchu)]
         [LocationName("Goron Racetrack Grotto"), Region(Region.TwinIslands)]
         [GossipLocationHint("a hidden cave")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x02C23000 + 0x2D7, 0x02C34000 + 0x1DB)]
+        [ChestType(ChestType.SmallWooden), GrottoChest(0x02C23000 + 0x2D7, 0x02C34000 + 0x1DB)]
         [GetItemIndex(0xD6)]
         ChestToGoronRaceGrotto, //contents?
 
@@ -1860,7 +1860,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.Arrow30)]
         [LocationName("Link Trial Garo Master Chest"), Region(Region.TheMoon)]
         [GossipLocationHint("a masked child's game")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02D4B000 + 0x76, ChestAttribute.AppearanceType.AppearsClear)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02D4B000 + 0x76, ChestAppearanceType.AppearsClear)]
         [GetItemIndex(0x126)]
         ChestLinkTrialArrow30,
 
@@ -1868,7 +1868,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.Bombchu10)]
         [LocationName("Link Trial Iron Knuckle Chest"), Region(Region.TheMoon)]
         [GossipLocationHint("a masked child's game")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02D4E000 + 0xC6, ChestAttribute.AppearanceType.AppearsClear)]
+        [ChestType(ChestType.SmallWooden), Chest(0x02D4E000 + 0xC6, ChestAppearanceType.AppearsClear)]
         [GetItemIndex(0x127)]
         ChestLinkTrialBombchu10,
 
@@ -1876,7 +1876,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.DekuNut10)]
         [LocationName("Pre-Clocktown Chest"), Region(Region.BeneathClocktown)]
         [GossipLocationHint("the first chest")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x021D2000 + 0x102, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallWooden), Chest(0x021D2000 + 0x102, ChestAppearanceType.Normal)]
         [GetItemIndex(0x128)]
         ChestPreClocktownDekuNut,
 
@@ -2456,7 +2456,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.WoodfallStrayFairy)]
         [LocationName("Woodfall Main Room Switch"), Region(Region.WoodfallTemple)]
         [GossipLocationHint("a lost creature")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x021FB000 + 0x28A, ChestAttribute.AppearanceType.AppearsSwitch)]
+        [ChestType(ChestType.SmallGold), Chest(0x021FB000 + 0x28A, ChestAppearanceType.AppearsSwitch)]
         [GetItemIndex(0x184)]
         CollectibleStrayFairyWoodfall10,
 
@@ -2464,7 +2464,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.WoodfallStrayFairy)]
         [LocationName("Woodfall Entrance Platform"), Region(Region.WoodfallTemple)]
         [GossipLocationHint("a lost creature")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02204000 + 0x23A, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallGold), Chest(0x02204000 + 0x23A, ChestAppearanceType.Normal)]
         [GetItemIndex(0x185)]
         CollectibleStrayFairyWoodfall11,
 
@@ -2472,7 +2472,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.WoodfallStrayFairy)]
         [LocationName("Woodfall Dark Room"), Region(Region.WoodfallTemple)]
         [GossipLocationHint("a lost creature")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x0222E000 + 0x1AA, ChestAttribute.AppearanceType.AppearsClear)]
+        [ChestType(ChestType.SmallGold), Chest(0x0222E000 + 0x1AA, ChestAppearanceType.AppearsClear)]
         [GetItemIndex(0x186)]
         CollectibleStrayFairyWoodfall12,
 
@@ -2550,7 +2550,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.SnowheadStrayFairy)]
         [LocationName("Snowhead Map Room Ledge"), Region(Region.SnowheadTemple)]
         [GossipLocationHint("a lost creature")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02346000 + 0x12A, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallGold), Chest(0x02346000 + 0x12A, ChestAppearanceType.Normal)]
         [GetItemIndex(0x194)]
         CollectibleStrayFairySnowhead8,
 
@@ -2558,7 +2558,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.SnowheadStrayFairy)]
         [LocationName("Snowhead Basement"), Region(Region.SnowheadTemple)]
         [GossipLocationHint("a lost creature")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x0230C000 + 0x56A, ChestAttribute.AppearanceType.AppearsSwitch)]
+        [ChestType(ChestType.SmallGold), Chest(0x0230C000 + 0x56A, ChestAppearanceType.AppearsSwitch)]
         [GetItemIndex(0x195)]
         CollectibleStrayFairySnowhead9,
 
@@ -2566,7 +2566,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.SnowheadStrayFairy)]
         [LocationName("Snowhead Twin Block"), Region(Region.SnowheadTemple)]
         [GossipLocationHint("a lost creature")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02306000 + 0x11A, ChestAttribute.AppearanceType.AppearsSwitch)]
+        [ChestType(ChestType.SmallGold), Chest(0x02306000 + 0x11A, ChestAppearanceType.AppearsSwitch)]
         [GetItemIndex(0x196)]
         CollectibleStrayFairySnowhead10,
 
@@ -2574,7 +2574,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.SnowheadStrayFairy)]
         [LocationName("Snowhead Icicle Room Wall"), Region(Region.SnowheadTemple)]
         [GossipLocationHint("a lost creature")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x0233A000 + 0x22A, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallGold), Chest(0x0233A000 + 0x22A, ChestAppearanceType.Normal)]
         [GetItemIndex(0x197)]
         CollectibleStrayFairySnowhead11,
 
@@ -2582,7 +2582,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.SnowheadStrayFairy)]
         [LocationName("Snowhead Main Room Wall"), Region(Region.SnowheadTemple)]
         [GossipLocationHint("a lost creature")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x0230C000 + 0x58A, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallGold), Chest(0x0230C000 + 0x58A, ChestAppearanceType.Normal)]
         [GetItemIndex(0x198)]
         CollectibleStrayFairySnowhead12,
 
@@ -2590,7 +2590,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.SnowheadStrayFairy)]
         [LocationName("Snowhead Pillar Freezards"), Region(Region.SnowheadTemple)]
         [GossipLocationHint("a lost creature")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x0232E000 + 0x20A, ChestAttribute.AppearanceType.AppearsClear)]
+        [ChestType(ChestType.SmallGold), Chest(0x0232E000 + 0x20A, ChestAppearanceType.AppearsClear)]
         [GetItemIndex(0x199)]
         CollectibleStrayFairySnowhead13,
 
@@ -2598,7 +2598,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.SnowheadStrayFairy)]
         [LocationName("Snowhead Ice Puzzle"), Region(Region.SnowheadTemple)]
         [GossipLocationHint("a lost creature")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x022F2000 + 0x1AA, ChestAttribute.AppearanceType.AppearsSwitch)]
+        [ChestType(ChestType.SmallGold), Chest(0x022F2000 + 0x1AA, ChestAppearanceType.AppearsSwitch)]
         [GetItemIndex(0x19A)]
         CollectibleStrayFairySnowhead14,
 
@@ -2643,7 +2643,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.GreatBayStrayFairy)]
         [LocationName("Great Bay Waterwheel Room Upper"), Region(Region.GreatBayTemple)]
         [GossipLocationHint("a lost creature")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02940000 + 0x23A, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallGold), Chest(0x02940000 + 0x23A, ChestAppearanceType.Normal)]
         [GetItemIndex(0x1A9)]
         CollectibleStrayFairyGreatBay5,
 
@@ -2651,7 +2651,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.GreatBayStrayFairy)]
         [LocationName("Great Bay Green Valve"), Region(Region.GreatBayTemple)]
         [GossipLocationHint("a lost creature")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02959000 + 0x18E, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallGold), Chest(0x02959000 + 0x18E, ChestAppearanceType.Normal)]
         [GetItemIndex(0x1AA)]
         CollectibleStrayFairyGreatBay6,
 
@@ -2659,7 +2659,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.GreatBayStrayFairy)]
         [LocationName("Great Bay Seesaw Room"), Region(Region.GreatBayTemple)]
         [GossipLocationHint("a lost creature")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02945000 + 0x24A, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallGold), Chest(0x02945000 + 0x24A, ChestAppearanceType.Normal)]
         [GetItemIndex(0x1AB)]
         CollectibleStrayFairyGreatBay7,
 
@@ -2667,7 +2667,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.GreatBayStrayFairy)]
         [LocationName("Great Bay Waterwheel Room Lower"), Region(Region.GreatBayTemple)]
         [GossipLocationHint("a lost creature")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02940000 + 0x24A, ChestAttribute.AppearanceType.Normal)]
+        [ChestType(ChestType.SmallGold), Chest(0x02940000 + 0x24A, ChestAppearanceType.Normal)]
         [GetItemIndex(0x1AC)]
         CollectibleStrayFairyGreatBay8,
 
@@ -2675,7 +2675,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.GreatBayStrayFairy)]
         [LocationName("Great Bay Entrance Torches"), Region(Region.GreatBayTemple)]
         [GossipLocationHint("a lost creature")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02962000 + 0x1F2, ChestAttribute.AppearanceType.AppearsSwitch)]
+        [ChestType(ChestType.SmallGold), Chest(0x02962000 + 0x1F2, ChestAppearanceType.AppearsSwitch)]
         [GetItemIndex(0x1AD)]
         CollectibleStrayFairyGreatBay9,
 
@@ -2683,7 +2683,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.GreatBayStrayFairy)]
         [LocationName("Great Bay Bio Babas"), Region(Region.GreatBayTemple)]
         [GossipLocationHint("a lost creature")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02911000 + 0xDA, ChestAttribute.AppearanceType.AppearsClear)]
+        [ChestType(ChestType.SmallGold), Chest(0x02911000 + 0xDA, ChestAppearanceType.AppearsClear)]
         [GetItemIndex(0x1AE)]
         CollectibleStrayFairyGreatBay10,
 
@@ -2726,7 +2726,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.StoneTowerStrayFairy)]
         [LocationName("Stone Tower Mirror Sun Block"), Region(Region.StoneTowerTemple)]
         [GossipLocationHint("a lost creature")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02119000 + 0x282, ChestAttribute.AppearanceType.Normal, 0x0218B000 + 0x8A)]
+        [ChestType(ChestType.SmallGold), Chest(0x02119000 + 0x282, ChestAppearanceType.Normal, 0x0218B000 + 0x8A)]
         [GetItemIndex(0x1B4)]
         CollectibleStrayFairyStoneTower1,
 
@@ -2734,7 +2734,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.StoneTowerStrayFairy)]
         [LocationName("Stone Tower Eyegore"), Region(Region.StoneTowerTemple)]
         [GossipLocationHint("a lost creature")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x020F1000 + 0x1A2, ChestAttribute.AppearanceType.AppearsSwitch, 0x02164000 + 0x17E)]
+        [ChestType(ChestType.SmallGold), Chest(0x020F1000 + 0x1A2, ChestAppearanceType.AppearsSwitch, 0x02164000 + 0x17E)]
         [GetItemIndex(0x1B5)]
         CollectibleStrayFairyStoneTower2,
 
@@ -2742,7 +2742,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.StoneTowerStrayFairy)]
         [LocationName("Stone Tower Lava Room Fire Ring"), Region(Region.StoneTowerTemple)]
         [GossipLocationHint("a lost creature")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02122000 + 0x1F6, ChestAttribute.AppearanceType.Normal, 0x02191000 + 0x7A)]
+        [ChestType(ChestType.SmallGold), Chest(0x02122000 + 0x1F6, ChestAppearanceType.Normal, 0x02191000 + 0x7A)]
         [GetItemIndex(0x1B6)]
         CollectibleStrayFairyStoneTower3,
 
@@ -2750,7 +2750,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.StoneTowerStrayFairy)]
         [LocationName("Stone Tower Updraft Fire Ring"), Region(Region.StoneTowerTemple)]
         [GossipLocationHint("a lost creature")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02104000 + 0x252, ChestAttribute.AppearanceType.AppearsSwitch, 0x02177000 + 0x29E)]
+        [ChestType(ChestType.SmallGold), Chest(0x02104000 + 0x252, ChestAppearanceType.AppearsSwitch, 0x02177000 + 0x29E)]
         [GetItemIndex(0x1B7)]
         CollectibleStrayFairyStoneTower4,
 
@@ -2758,7 +2758,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.StoneTowerStrayFairy)]
         [LocationName("Stone Tower Mirror Sun Switch"), Region(Region.StoneTowerTemple)]
         [GossipLocationHint("a lost creature")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02119000 + 0x272, ChestAttribute.AppearanceType.AppearsSwitch, 0x0218B000 + 0x7A)]
+        [ChestType(ChestType.SmallGold), Chest(0x02119000 + 0x272, ChestAppearanceType.AppearsSwitch, 0x0218B000 + 0x7A)]
         [GetItemIndex(0x1B8)]
         CollectibleStrayFairyStoneTower5,
 
@@ -2766,7 +2766,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.StoneTowerStrayFairy)]
         [LocationName("Stone Tower Boss Warp"), Region(Region.StoneTowerTemple)]
         [GossipLocationHint("a lost creature")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x020E2000 + 0x162, ChestAttribute.AppearanceType.AppearsSwitch, 0x02156000 + 0xFA)]
+        [ChestType(ChestType.SmallGold), Chest(0x020E2000 + 0x162, ChestAppearanceType.AppearsSwitch, 0x02156000 + 0xFA)]
         [GetItemIndex(0x1B9)]
         CollectibleStrayFairyStoneTower6,
 
@@ -2774,7 +2774,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.StoneTowerStrayFairy)]
         [LocationName("Stone Tower Wizzrobe"), Region(Region.StoneTowerTemple)]
         [GossipLocationHint("a lost creature")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x0210F000 + 0x1F2, ChestAttribute.AppearanceType.AppearsSwitch, 0x02182000 + 0x1EE)]
+        [ChestType(ChestType.SmallGold), Chest(0x0210F000 + 0x1F2, ChestAppearanceType.AppearsSwitch, 0x02182000 + 0x1EE)]
         [GetItemIndex(0x1BA)]
         CollectibleStrayFairyStoneTower7,
 
@@ -2782,7 +2782,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.StoneTowerStrayFairy)]
         [LocationName("Stone Tower Death Armos"), Region(Region.StoneTowerTemple)]
         [GossipLocationHint("a lost creature")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x020E2000 + 0x172, ChestAttribute.AppearanceType.AppearsSwitch, 0x02156000 + 0x10A)]
+        [ChestType(ChestType.SmallGold), Chest(0x020E2000 + 0x172, ChestAppearanceType.AppearsSwitch, 0x02156000 + 0x10A)]
         [GetItemIndex(0x1BB)]
         CollectibleStrayFairyStoneTower8,
 
@@ -2790,7 +2790,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.StoneTowerStrayFairy)]
         [LocationName("Stone Tower Updraft Frozen Eye"), Region(Region.StoneTowerTemple)]
         [GossipLocationHint("a lost creature")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02104000 + 0x262, ChestAttribute.AppearanceType.AppearsSwitch, 0x02177000 + 0x2AE)]
+        [ChestType(ChestType.SmallGold), Chest(0x02104000 + 0x262, ChestAppearanceType.AppearsSwitch, 0x02177000 + 0x2AE)]
         [GetItemIndex(0x1BC)]
         CollectibleStrayFairyStoneTower9,
 
@@ -2798,7 +2798,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.StoneTowerStrayFairy)]
         [LocationName("Stone Tower Thin Bridge"), Region(Region.StoneTowerTemple)]
         [GossipLocationHint("a lost creature")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x0211D000 + 0x1E2, ChestAttribute.AppearanceType.AppearsSwitch, 0x0218C000 + 0x25E)]
+        [ChestType(ChestType.SmallGold), Chest(0x0211D000 + 0x1E2, ChestAppearanceType.AppearsSwitch, 0x0218C000 + 0x25E)]
         [GetItemIndex(0x1BD)]
         CollectibleStrayFairyStoneTower10,
 
@@ -2806,7 +2806,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.StoneTowerStrayFairy)]
         [LocationName("Stone Tower Basement Ledge"), Region(Region.StoneTowerTemple)]
         [GossipLocationHint("a lost creature")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x0210F000 + 0x212, ChestAttribute.AppearanceType.Normal, 0x02182000 + 0x20E)]
+        [ChestType(ChestType.SmallGold), Chest(0x0210F000 + 0x212, ChestAppearanceType.Normal, 0x02182000 + 0x20E)]
         [GetItemIndex(0x1BE)]
         CollectibleStrayFairyStoneTower11,
 
@@ -2814,7 +2814,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.StoneTowerStrayFairy)]
         [LocationName("Stone Tower Statue Eye"), Region(Region.StoneTowerTemple)]
         [GossipLocationHint("a lost creature")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x020E2000 + 0x182, ChestAttribute.AppearanceType.AppearsSwitch, 0x02156000 + 0x11A)]
+        [ChestType(ChestType.SmallGold), Chest(0x020E2000 + 0x182, ChestAppearanceType.AppearsSwitch, 0x02156000 + 0x11A)]
         [GetItemIndex(0x1BF)]
         CollectibleStrayFairyStoneTower12,
 
@@ -2822,7 +2822,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.StoneTowerStrayFairy)]
         [LocationName("Stone Tower Underwater"), Region(Region.StoneTowerTemple)]
         [GossipLocationHint("a lost creature")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02104000 + 0x272, ChestAttribute.AppearanceType.AppearsSwitch, 0x02177000 + 0x2BE)]
+        [ChestType(ChestType.SmallGold), Chest(0x02104000 + 0x272, ChestAppearanceType.AppearsSwitch, 0x02177000 + 0x2BE)]
         [GetItemIndex(0x1C0)]
         CollectibleStrayFairyStoneTower13,
 
@@ -2830,7 +2830,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.StoneTowerStrayFairy)]
         [LocationName("Stone Tower Bridge Crystal"), Region(Region.StoneTowerTemple)]
         [GossipLocationHint("a lost creature")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x020F1000 + 0x1B2, ChestAttribute.AppearanceType.AppearsSwitch, 0x02164000 + 0x18E)]
+        [ChestType(ChestType.SmallGold), Chest(0x020F1000 + 0x1B2, ChestAppearanceType.AppearsSwitch, 0x02164000 + 0x18E)]
         [GetItemIndex(0x1C1)]
         CollectibleStrayFairyStoneTower14,
 
@@ -2838,7 +2838,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.StoneTowerStrayFairy)]
         [LocationName("Stone Tower Lava Room Ledge"), Region(Region.StoneTowerTemple)]
         [GossipLocationHint("a lost creature")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x02122000 + 0x206, ChestAttribute.AppearanceType.Normal, 0x02191000 + 0x8A)]
+        [ChestType(ChestType.SmallGold), Chest(0x02122000 + 0x206, ChestAppearanceType.Normal, 0x02191000 + 0x8A)]
         [GetItemIndex(0x1C2)]
         CollectibleStrayFairyStoneTower15,
 
@@ -2976,7 +2976,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.PurpleRupee)]
         [LocationName("Treasure Chest Game Human"), Region(Region.EastClockTown)]
         [GossipLocationHint("a town game")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x00F43F10 + 0xFA8, ChestAttribute.AppearanceType.AppearsSwitch, 0x00F43F10 + 0xFB0)]
+        [ChestType(ChestType.SmallWooden), Chest(0x00F43F10 + 0xFA8, ChestAppearanceType.AppearsSwitch, 0x00F43F10 + 0xFB0)]
         [GetItemIndex(0x1C4)]
         MundaneItemTreasureChestGamePurpleRupee,
 
@@ -2984,7 +2984,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.RedRupee)]
         [LocationName("Treasure Chest Game Zora"), Region(Region.EastClockTown)]
         [GossipLocationHint("a town game")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x00F43F10 + 0xFAC, ChestAttribute.AppearanceType.AppearsSwitch)]
+        [ChestType(ChestType.SmallWooden), Chest(0x00F43F10 + 0xFAC, ChestAppearanceType.AppearsSwitch)]
         [GetItemIndex(0x1C5)]
         MundaneItemTreasureChestGameRedRupee,
 
@@ -2992,7 +2992,7 @@ namespace MMR.Randomizer.GameObjects
         [ProvidesItem(ProvidedItem.DekuNut10)]
         [LocationName("Treasure Chest Game Deku"), Region(Region.EastClockTown)]
         [GossipLocationHint("a town game")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x00F43F10 + 0xFAE, ChestAttribute.AppearanceType.AppearsSwitch)]
+        [ChestType(ChestType.SmallWooden), Chest(0x00F43F10 + 0xFAE, ChestAppearanceType.AppearsSwitch)]
         [GetItemIndex(0x1C6)]
         MundaneItemTreasureChestGameDekuNuts,
 

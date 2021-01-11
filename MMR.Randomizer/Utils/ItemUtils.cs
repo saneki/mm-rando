@@ -151,7 +151,7 @@ namespace MMR.Randomizer.Utils
         public static List<Item> JunkItems { get; private set; }
         public static void PrepareJunkItems(List<ItemObject> itemList)
         {
-            JunkItems = itemList.Where(io => io.Item.ChestType() == ChestTypeAttribute.ChestType.SmallWooden && !itemList.Any(other => (other.DependsOnItems?.Contains(io.Item) ?? false) || (other.Conditionals?.Any(c => c.Contains(io.Item)) ?? false))).Select(io => io.Item).ToList();
+            JunkItems = itemList.Where(io => io.Item.ChestType() == ChestType.SmallWooden && !itemList.Any(other => (other.DependsOnItems?.Contains(io.Item) ?? false) || (other.Conditionals?.Any(c => c.Contains(io.Item)) ?? false))).Select(io => io.Item).ToList();
         }
         public static bool IsJunk(Item item)
         {

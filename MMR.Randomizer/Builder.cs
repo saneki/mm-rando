@@ -1463,10 +1463,10 @@ namespace MMR.Randomizer
                 }
                 else
                 {
-                    ChestTypeAttribute.ChestType? overrideChestType = null;
+                    ChestType? overrideChestType = null;
                     if ((item.Item.Name().Contains("Bombchu") || item.Item.Name().Contains("Shield")) && _randomized.Logic.Any(il => il.RequiredItemIds?.Contains(item.ID) == true || il.ConditionalItemIds?.Any(c => c.Contains(item.ID)) == true))
                     {
-                        overrideChestType = ChestTypeAttribute.ChestType.LargeGold;
+                        overrideChestType = ChestType.LargeGold;
                     }
                     ItemSwapUtils.WriteNewItem(item, newMessages, _randomized.Settings, item.Mimic?.ChestType ?? overrideChestType);
                 }

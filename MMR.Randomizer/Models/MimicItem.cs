@@ -20,7 +20,7 @@ namespace MMR.Randomizer.Models
         /// <summary>
         /// Chest type override.
         /// </summary>
-        public ChestTypeAttribute.ChestType? ChestType { get; set; }
+        public ChestType? ChestType { get; set; }
 
         public MimicItem(Item item)
         {
