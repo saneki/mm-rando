@@ -113,9 +113,7 @@ namespace MMR.Randomizer.Utils
         {
             return Enum.GetValues(typeof(Item))
                 .Cast<Item>()
-                .Where(item => item.HasAttribute<StartingItemAttribute>()
-                    || item.HasAttribute<StartingTingleMapAttribute>()
-                    || item.HasAttribute<StartingItemIdAttribute>());
+                .Where(item => item.IsStarting());
         }
 
         // todo cache

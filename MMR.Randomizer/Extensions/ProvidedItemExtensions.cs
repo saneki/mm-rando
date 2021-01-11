@@ -56,6 +56,13 @@ namespace MMR.Randomizer.Extensions
             return item.GetAttribute<ItemNameAttribute>()?.Name;
         }
 
+        public static bool IsStarting(this ProvidedItem item)
+        {
+            return item.HasAttribute<StartingItemAttribute>()
+                || item.HasAttribute<StartingItemIdAttribute>()
+                || item.HasAttribute<StartingTingleMapAttribute>();
+        }
+
         public static ShopTextAttribute ShopTexts(this ProvidedItem item)
         {
             return item.GetAttribute<ShopTextAttribute>();

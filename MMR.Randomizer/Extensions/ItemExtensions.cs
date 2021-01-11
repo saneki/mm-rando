@@ -191,5 +191,11 @@ namespace MMR.Randomizer.Extensions
             var provided = item.GetProvidedItem();
             return provided.HasValue ? provided.Value.IsProgressive() : false;
         }
+
+        public static bool IsStarting(this Item item)
+        {
+            var provided = item.GetProvidedItem();
+            return provided.HasValue ? provided.Value.IsStarting() : false;
+        }
     }
 }
