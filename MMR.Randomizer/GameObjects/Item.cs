@@ -22,7 +22,6 @@ namespace MMR.Randomizer.GameObjects
         ItemBow,
 
         [ProvidesItem(ProvidedItem.FireArrow)]
-        [StartingItem(0xC5CE26, 0x02)]
         [LocationName("Fire Arrow Chest"), Region(Region.SnowheadTemple)]
         [GossipLocationHint("Snowhead Temple", "an icy gale")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x02336000 + 0xCA, ChestAttribute.AppearanceType.AppearsClear)]
@@ -30,7 +29,6 @@ namespace MMR.Randomizer.GameObjects
         ItemFireArrow,
 
         [ProvidesItem(ProvidedItem.IceArrow)]
-        [StartingItem(0xC5CE27, 0x03)]
         [LocationName("Ice Arrow Chest"), Region(Region.GreatBayTemple)]
         [GossipLocationHint("Great Bay Temple", "the ocean temple")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x0292F000 + 0x11E, ChestAttribute.AppearanceType.AppearsClear)]
@@ -38,7 +36,6 @@ namespace MMR.Randomizer.GameObjects
         ItemIceArrow,
 
         [ProvidesItem(ProvidedItem.LightArrow)]
-        [StartingItem(0xC5CE28, 0x04)]
         [LocationName("Light Arrow Chest"), Region(Region.StoneTowerTemple)]
         [GossipLocationHint("Stone Tower Temple", "the cursed temple")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x0212B000 + 0xB2, ChestAttribute.AppearanceType.AppearsSwitch, 0x02192000 + 0x8E)]
@@ -46,8 +43,6 @@ namespace MMR.Randomizer.GameObjects
         ItemLightArrow,
 
         [ProvidesItem(ProvidedItem.BombBag)]
-        [StartingItem(0xC5CE2A, 0x06)]
-        [StartingItem(0xC5CE6F, 0x08)]
         [LocationName("Bomb Bag Purchase"), Region(Region.WestClockTown)]
         [GossipLocationHint("a town shop")]
         [ShopRoom(ShopRoomAttribute.Room.BombShop, 0x48)]
@@ -57,7 +52,6 @@ namespace MMR.Randomizer.GameObjects
 
         [ProvidesItem(ProvidedItem.MagicBean)]
         [Repeatable, Temporary, CycleRepeatable]
-        //[StartingItem(0xC5CE2E, 0x0A)]
         [LocationName("Bean Man"), Region(Region.DekuPalace)]
         [GossipLocationHint("a hidden merchant", "a gorging merchant")]
         [GetItemIndex(0x11E)]
@@ -65,21 +59,18 @@ namespace MMR.Randomizer.GameObjects
 
         [ProvidesItem(ProvidedItem.PowderKeg)]
         [Repeatable, CycleRepeatable]
-        //[StartingItem(0xC5CE30, 0x0C)]
         [LocationName("Powder Keg Challenge"), Region(Region.GoronVillage)]
         [GossipLocationHint("a large goron")]
         [GetItemIndex(0x123)]
         ItemPowderKeg,
 
         [ProvidesItem(ProvidedItem.Pictobox)]
-        [StartingItem(0xC5CE31, 0x0D)]
         [LocationName("Koume"), Region(Region.SouthernSwamp)]
         [GossipLocationHint("a witch")]
         [GetItemIndex(0x43)]
         ItemPictobox,
 
         [ProvidesItem(ProvidedItem.LensOfTruth)]
-        [StartingItem(0xC5CE32, 0x0E)]
         [LocationName("Lens of Truth Chest"), Region(Region.GoronVillage)]
         [GossipLocationHint("a lonely peak")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x02EB8000 + 0x9A, ChestAttribute.AppearanceType.Normal)]
@@ -87,7 +78,6 @@ namespace MMR.Randomizer.GameObjects
         ItemLens,
 
         [ProvidesItem(ProvidedItem.Hookshot)]
-        [StartingItem(0xC5CE33, 0x0F)]
         [LocationName("Hookshot Chest"), Region(Region.PiratesFortressInterior)]
         [GossipLocationHint("the home of pirates")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x0238B000 + 0x14A, ChestAttribute.AppearanceType.Normal)]
@@ -95,46 +85,36 @@ namespace MMR.Randomizer.GameObjects
         ItemHookshot,
 
         [ProvidesItem(ProvidedItem.Magic)]
-        [StartingItem(0xC5CDED, 0x30)]
-        [StartingItem(0xC5CDF4, 0x01)]
         [LocationName("Town Great Fairy Non-Human"), Region(Region.NorthClockTown)]
         [GossipLocationHint("a magical being")]
         [GetItemIndex(0x12C)]
         FairyMagic,
 
         [ProvidesItem(ProvidedItem.SpinAttack)]
-        [StartingItemId(0x9C)]
         [LocationName("Woodfall Great Fairy"), Region(Region.Woodfall)]
         [GossipLocationHint("a magical being"), GossipCompetitiveHint(4, nameof(GameplaySettings.AddStrayFairies), false)]
         [GetItemIndex(0x12D)]
         FairySpinAttack,
 
         [ProvidesItem(ProvidedItem.DoubleMagic)]
-        [StartingItem(0xC5CDED, 0x60)]
-        [StartingItem(0xC5CDF4, 0x01)]
-        [StartingItem(0xC5CDF5, 0x01)]
         [LocationName("Snowhead Great Fairy"), Region(Region.Snowhead)]
         [GossipLocationHint("a magical being"), GossipCompetitiveHint(4, nameof(GameplaySettings.AddStrayFairies), false)]
         [GetItemIndex(0x12E)]
         FairyDoubleMagic,
 
         [ProvidesItem(ProvidedItem.DoubleDefense)]
-        [StartingItem(0xC5CDF6, 0x01)]
-        [StartingItem(0xC5CE87, 0x14)]
         [LocationName("Ocean Great Fairy"), Region(Region.ZoraCape)]
         [GossipLocationHint("a magical being"), GossipCompetitiveHint(4, nameof(GameplaySettings.AddStrayFairies), false)]
         [GetItemIndex(0x12F)]
         FairyDoubleDefense,
 
         [ProvidesItem(ProvidedItem.GreatFairySword)]
-        [StartingItem(0xC5CE34, 0x10)]
         [LocationName("Ikana Great Fairy"), Region(Region.IkanaCanyon)]
         [GossipLocationHint("a magical being"), GossipCompetitiveHint(4, nameof(GameplaySettings.AddStrayFairies), false)]
         [GetItemIndex(0x130)]
         ItemFairySword,
 
         [ProvidesItem(ProvidedItem.BottleWithRedPotion)]
-        //[StartingItem(0xC5CE36, 0x12)]
         [Repeatable, Temporary, Overwritable] // specially handled to turn into Red Potion on subsequent times
         [LocationName("Kotake"), Region(Region.SouthernSwamp)]
         [GossipLocationHint("the sleeping witch")]
@@ -142,7 +122,6 @@ namespace MMR.Randomizer.GameObjects
         ItemBottleWitch,
 
         [ProvidesItem(ProvidedItem.BottleWithMilk)]
-        //[StartingItem(0xC5CE37, 0x12)]
         [Repeatable, Temporary, Overwritable] // specially handled to turn into Milk on subsequent times
         [LocationName("Aliens Defense"), Region(Region.RomaniRanch)]
         [GossipLocationHint("the ranch girl", "a good deed")]
@@ -152,7 +131,6 @@ namespace MMR.Randomizer.GameObjects
 
         [ProvidesItem(ProvidedItem.BottleWithGoldDust)]
         [RupeeRepeatable]
-        //[StartingItem(0xC5CE38, 0x12)]
         [Repeatable, Temporary, Overwritable] // specially handled to turn into Gold Dust on subsequent times
         [LocationName("Goron Race"), Region(Region.TwinIslands)]
         [GossipLocationHint("a sporting event"), GossipCompetitiveHint(-2)]
@@ -160,7 +138,6 @@ namespace MMR.Randomizer.GameObjects
         ItemBottleGoronRace,
 
         [ProvidesItem(ProvidedItem.EmptyBottle)]
-        //[StartingItem(0xC5CE39, 0x12)]
         [LocationName("Beaver Race #1"), Region(Region.ZoraCape)]
         [GossipLocationHint("a river dweller"), GossipCompetitiveHint(-2)]
         [GossipCombineOrder(0), GossipCombine(HeartPieceBeaverRace, "Beaver Races")]
@@ -168,7 +145,6 @@ namespace MMR.Randomizer.GameObjects
         ItemBottleBeavers,
 
         [ProvidesItem(ProvidedItem.EmptyBottle)]
-        //[StartingItem(0xC5CE3A, 0x12)]
         [LocationName("Dampe Digging"), Region(Region.IkanaGraveyard)]
         [GossipLocationHint("a fearful basement"), GossipCompetitiveHint]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x0261E000 + 0x1FE, ChestAttribute.AppearanceType.AppearsSwitch)]
@@ -176,7 +152,6 @@ namespace MMR.Randomizer.GameObjects
         ItemBottleDampe,
 
         [ProvidesItem(ProvidedItem.ChateauRomani)]
-        //[StartingItem(0xC5CE3B, 0x12)]
         [Repeatable, Temporary, Overwritable] // specially handled to turn into Chateau Romani on subsequent times
         [LocationName("Madame Aroma in Bar"), Region(Region.EastClockTown)]
         [GossipLocationHint("an important lady")]
@@ -184,7 +159,6 @@ namespace MMR.Randomizer.GameObjects
         ItemBottleMadameAroma,
 
         [ProvidesItem(ProvidedItem.Notebook)]
-        [StartingItem(0xC5CE71, 0x04)]
         [LocationName("Bombers' Hide and Seek"), Region(Region.NorthClockTown)]
         [GossipLocationHint("a group of children", "a town game")]
         [GetItemIndex(0x50)]
@@ -192,23 +166,18 @@ namespace MMR.Randomizer.GameObjects
 
         //upgrades
         [ProvidesItem(ProvidedItem.RazorSword)]
-        [StartingItem(0xC5CE21, 0x02)]
-        [StartingItem(0xC5CE00, 0x4E)]
         [LocationName("Mountain Smithy Day 1"), Region(Region.MountainVillage)]
         [GossipLocationHint("the mountain smith")]
         [GetItemIndex(0x38)]
         UpgradeRazorSword,
 
         [ProvidesItem(ProvidedItem.GildedSword)]
-        [StartingItem(0xC5CE21, 0x03)]
-        [StartingItem(0xC5CE00, 0x4F)]
         [LocationName("Mountain Smithy Day 2"), Region(Region.MountainVillage)]
         [GossipLocationHint("the mountain smith")]
         [GetItemIndex(0x39)]
         UpgradeGildedSword,
 
         [ProvidesItem(ProvidedItem.MirrorShield)]
-        [StartingItem(0xC5CE21, 0x20)]
         [LocationName("Mirror Shield Chest"), Region(Region.BeneathTheWell)]
         [GossipLocationHint("a hollow ground")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x029FE000 + 0x1AA, ChestAttribute.AppearanceType.AppearsSwitch)]
@@ -217,8 +186,6 @@ namespace MMR.Randomizer.GameObjects
 
         [ProvidesItem(ProvidedItem.BigQuiver)]
         [RupeeRepeatable]
-        [StartingItem(0xC5CE25, 0x01)]
-        [StartingItem(0xC5CE6F, 0x02)]
         [LocationName("Town Archery #1"), Region(Region.EastClockTown)]
         [GossipLocationHint("a town activity")]
         [GossipCombineOrder(0), GossipCombine(HeartPieceTownArchery, "Town Archery")]
@@ -227,8 +194,6 @@ namespace MMR.Randomizer.GameObjects
 
         [ProvidesItem(ProvidedItem.BiggestQuiver)]
         [RupeeRepeatable]
-        [StartingItem(0xC5CE25, 0x01)]
-        [StartingItem(0xC5CE6F, 0x03)]
         [LocationName("Swamp Archery #1"), Region(Region.RoadToSouthernSwamp)]
         [GossipLocationHint("a swamp game")]
         [GossipCombineOrder(0), GossipCombine(HeartPieceSwampArchery, "Swamp Archery")]
@@ -236,8 +201,6 @@ namespace MMR.Randomizer.GameObjects
         UpgradeBiggestQuiver,
 
         [ProvidesItem(ProvidedItem.BigBombBag)]
-        [StartingItem(0xC5CE2A, 0x06)]
-        [StartingItem(0xC5CE6F, 0x10)]
         [LocationName("Big Bomb Bag Purchase"), Region(Region.WestClockTown)]
         [GossipLocationHint("a town shop")]
         [ShopRoom(ShopRoomAttribute.Room.BombShop, 0x52)]
@@ -249,22 +212,18 @@ namespace MMR.Randomizer.GameObjects
 
         [ProvidesItem(ProvidedItem.BiggestBombBag)]
         [Purchaseable]
-        [StartingItem(0xC5CE2A, 0x06)]
-        [StartingItem(0xC5CE6F, 0x18)]
         [LocationName("Biggest Bomb Bag Purchase"), Region(Region.GoronVillage)]
         [GossipLocationHint("a northern merchant")]
         [GetItemIndex(0x1D)]
         UpgradeBiggestBombBag,
 
         [ProvidesItem(ProvidedItem.AdultWallet)]
-        [StartingItem(0xC5CE6E, 0x10)]
         [LocationName("Bank Reward #1"), Region(Region.WestClockTown)]
         [GossipLocationHint("a keeper of wealth")]
         [GetItemIndex(0x08)]
         UpgradeAdultWallet,
 
         [ProvidesItem(ProvidedItem.GiantWallet)]
-        [StartingItem(0xC5CE6E, 0x20)]
         [LocationName("Ocean Spider House Day 1 Reward"), Region(Region.GreatBayCoast)]
         [GossipLocationHint("a gold spider"), GossipCompetitiveHint(0, nameof(GameplaySettings.AddSkulltulaTokens), false)]
         [GossipCombineOrder(0), GossipCombine(MundaneItemOceanSpiderHouseDay2PurpleRupee, "Ocean Spider House"), GossipCombine(MundaneItemOceanSpiderHouseDay3RedRupee, "Ocean Spider House")]
@@ -904,7 +863,6 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x56)]
         ItemStoneTowerMap,
 
-        [StartingItem(0xC5CE77, 0x02)]
         [ProvidesItem(ProvidedItem.StoneTowerCompass)]
         [LocationName("Stone Tower Compass Chest"), Region(Region.StoneTowerTemple)]
         [GossipLocationHint("Stone Tower Temple", "the cursed temple")]
