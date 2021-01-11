@@ -8,9 +8,9 @@ namespace MMR.Randomizer.Extensions
 {
     public static class ProvidedItemExtensions
     {
-        public static ChestTypeAttribute.ChestType ChestType(this ProvidedItem item)
+        public static ChestTypeAttribute.ChestType? ChestType(this ProvidedItem item)
         {
-            return item.GetAttribute<ChestTypeAttribute>().Type;
+            return item.GetAttribute<ChestTypeAttribute>()?.Type;
         }
 
         public static GetItemEntry ExclusiveItemEntry(this ProvidedItem item)

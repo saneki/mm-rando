@@ -257,7 +257,7 @@ namespace MMR.Randomizer.Utils
 
         private static void UpdateChest(Item location, Item item, ChestTypeAttribute.ChestType? overrideChestType)
         {
-            var chestType = item.GetAttribute<ChestTypeAttribute>().Type;
+            var chestType = item.ChestType().Value;
             if (overrideChestType.HasValue)
             {
                 chestType = overrideChestType.Value;

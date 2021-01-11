@@ -143,10 +143,10 @@ namespace MMR.Randomizer.Extensions
             return (Item.SongHealing <= item && item <= Item.SongOath);
         }
 
-        public static ChestTypeAttribute.ChestType ChestType(this Item item)
+        public static ChestTypeAttribute.ChestType? ChestType(this Item item)
         {
             var chestType = item.GetAttribute<ChestTypeAttribute>()?.Type;
-            return chestType.HasValue ? chestType.Value: item.GetProvidedItem().Value.ChestType();
+            return chestType.HasValue ? chestType.Value : item.GetProvidedItem()?.ChestType();
         }
 
         public static bool IsPurchaseable(this Item item)
