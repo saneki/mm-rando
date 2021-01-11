@@ -151,7 +151,7 @@ namespace MMR.Randomizer.Utils
             }
 
             var isRepeatable = item.IsRepeatable() || (!settings.PreventDowngrades && item.IsDowngradable());
-            if (settings.ProgressiveUpgrades && item.HasAttribute<ProgressiveAttribute>())
+            if (settings.ProgressiveUpgrades && item.IsProgressive())
             {
                 isRepeatable = false;
             }

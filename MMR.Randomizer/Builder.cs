@@ -1345,21 +1345,21 @@ namespace MMR.Randomizer
             _randomized.Settings.AsmOptions.MMRConfig.ExtraStartingItemIds.Clear();
             foreach (var item in itemList)
             {
-                var startingTingleMap = item.GetAttribute<StartingTingleMapAttribute>();
+                var startingTingleMap = item.StartingTingleMap();
                 if (startingTingleMap != null)
                 {
                     _randomized.Settings.AsmOptions.MMRConfig.ExtraStartingMaps |= startingTingleMap.TingleMap;
                     continue;
                 }
-                if (item.HasAttribute<StartingItemIdAttribute>())
+                if (item.GetProvidedItem().HasAttribute<StartingItemIdAttribute>())
                 {
-                    foreach (var startingItemIdAttribute in item.GetAttributes<StartingItemIdAttribute>())
+                    foreach (var startingItemIdAttribute in item.GetProvidedItem().GetAttributes<StartingItemIdAttribute>())
                     {
                         _randomized.Settings.AsmOptions.MMRConfig.ExtraStartingItemIds.Add(startingItemIdAttribute.ItemId);
                     }
                     continue;
                 }
-                var startingItemValues = item.GetAttributes<StartingItemAttribute>();
+                var startingItemValues = item.StartingItems();
                 if (!startingItemValues.Any() && !_randomized.Settings.NoStartingItems)
                 {
                     throw new Exception($@"Invalid starting item ""{item}""");
@@ -2689,8 +2689,8 @@ namespace MMR.Randomizer
 
             // Add "You are a FOOL!" message to extra messages table.
             var entry = new MessageEntry(
-                Item.IceTrap.ExclusiveItemEntry().Message,
-                Item.IceTrap.ExclusiveItemMessage());
+                ProvidedItem.IceTrap.ExclusiveItemEntry().Message,
+                ProvidedItem.IceTrap.ExclusiveItemMessage());
             _extraMessages.Add(entry);
         }
 

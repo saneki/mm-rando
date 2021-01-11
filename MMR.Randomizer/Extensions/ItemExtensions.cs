@@ -21,7 +21,7 @@ namespace MMR.Randomizer.Extensions
 
         public static string Name(this Item item)
         {
-            return item.GetAttribute<ItemNameAttribute>()?.Name;
+            return item.GetProvidedItem()?.Name();
         }
 
         public static string ProgressiveUpgradeName(this Item item, bool progressiveUpgradesEnabled)
@@ -69,12 +69,12 @@ namespace MMR.Randomizer.Extensions
 
         public static ShopTextAttribute ShopTexts(this Item item)
         {
-            return item.GetAttribute<ShopTextAttribute>();
+            return item.GetProvidedItem()?.ShopTexts();
         }
 
         public static string[] ItemHints(this Item item)
         {
-            return item.GetAttribute<GossipItemHintAttribute>().Values;
+            return item.GetProvidedItem()?.Hints();
         }
 
         public static string[] LocationHints(this Item item)
@@ -99,7 +99,7 @@ namespace MMR.Randomizer.Extensions
 
         public static bool IsDowngradable(this Item item)
         {
-            return item.HasAttribute<DowngradableAttribute>();
+            return item.GetProvidedItem().Value.IsDowngradable();
         }
 
         public static bool IsTemporary(this Item item)
@@ -145,7 +145,8 @@ namespace MMR.Randomizer.Extensions
 
         public static ChestTypeAttribute.ChestType ChestType(this Item item)
         {
-            return item.GetAttribute<ChestTypeAttribute>().Type;
+            var chestType = item.GetAttribute<ChestTypeAttribute>()?.Type;
+            return chestType.HasValue ? chestType.Value: item.GetProvidedItem().Value.ChestType();
         }
 
         public static bool IsPurchaseable(this Item item)
@@ -158,27 +159,37 @@ namespace MMR.Randomizer.Extensions
             return item.HasAttribute<VisibleAttribute>();
         }
 
-        public static bool IsExclusiveItem(this Item item)
+        public static ProvidedItem? GetProvidedItem(this Item item)
         {
-            return item.HasAttribute<ExclusiveItemAttribute>();
+            return item.GetAttribute<ProvidesItemAttribute>()?.Item;
+        }
+
+        public static IEnumerable<StartingItemAttribute> StartingItems(this Item item)
+        {
+            var provided = item.GetProvidedItem();
+            return provided.HasValue ? provided.Value.StartingItems() : new List<StartingItemAttribute>();
+        }
+
+        public static StartingTingleMapAttribute StartingTingleMap(this Item item)
+        {
+            return item.GetProvidedItem()?.StartingTingleMap();
         }
 
         public static GetItemEntry ExclusiveItemEntry(this Item item)
         {
-            return new GetItemEntry
-            {
-                ItemGained = item.GetAttribute<ExclusiveItemAttribute>().Item,
-                Flag = item.GetAttribute<ExclusiveItemAttribute>().Flags,
-                Index = item.GetAttribute<ExclusiveItemGraphicAttribute>().Graphic,
-                Type = item.GetAttribute<ExclusiveItemAttribute>().Type,
-                Message = (short)item.GetAttribute<ExclusiveItemMessageAttribute>().Id,
-                Object = (short)item.GetAttribute<ExclusiveItemGraphicAttribute>().Object,
-            };
+            return item.GetProvidedItem()?.ExclusiveItemEntry();
         }
 
-        public static string ExclusiveItemMessage(this Item item)
+        public static bool IsExclusiveItem(this Item item)
         {
-            return item.GetAttribute<ExclusiveItemMessageAttribute>().Message;
+            var provided = item.GetProvidedItem();
+            return provided.HasValue ? provided.Value.IsExclusiveItem() : false;
+        }
+
+        public static bool IsProgressive(this Item item)
+        {
+            var provided = item.GetProvidedItem();
+            return provided.HasValue ? provided.Value.IsProgressive() : false;
         }
     }
 }
