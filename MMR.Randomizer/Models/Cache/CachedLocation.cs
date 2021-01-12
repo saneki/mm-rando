@@ -93,7 +93,7 @@ namespace MMR.Randomizer.Models.Cache
         /// </summary>
         public ShopTextAttribute? ShopTexts => Item?.ShopText;
 
-        public CachedLocation(Item location, CachedItem[] items)
+        public CachedLocation(Item location, ReadOnlyCollection<CachedItem> items)
         {
             Location = location;
             LocationHints = new List<string>().AsReadOnly();
@@ -182,12 +182,12 @@ namespace MMR.Randomizer.Models.Cache
             ShopRoom = shopRooms.AsReadOnly();
         }
 
-        public static CachedLocation[] Build(CachedItem[] items)
+        public static CachedLocation[] Build(ReadOnlyCollection<CachedItem> items)
         {
             return Enumerate(items).ToArray();
         }
 
-        static IEnumerable<CachedLocation> Enumerate(CachedItem[] items)
+        static IEnumerable<CachedLocation> Enumerate(ReadOnlyCollection<CachedItem> items)
         {
             foreach (var value in Enum.GetValues(typeof(Item)))
             {

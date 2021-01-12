@@ -18,10 +18,10 @@ namespace MMR.Randomizer.Models.Cache
         /// </summary>
         public readonly ReadOnlyCollection<CachedLocation> Locations;
 
-        public RandomizerCache(CachedItem[] items, CachedLocation[] locations)
+        public RandomizerCache(ReadOnlyCollection<CachedItem> items, ReadOnlyCollection<CachedLocation> locations)
         {
-            Items = new ReadOnlyCollection<CachedItem>(items);
-            Locations = new ReadOnlyCollection<CachedLocation>(locations);
+            Items = items;
+            Locations = locations;
         }
 
         /// <summary>
@@ -30,8 +30,8 @@ namespace MMR.Randomizer.Models.Cache
         /// <returns></returns>
         public static RandomizerCache Create()
         {
-            var items = CachedItem.Build();
-            var locations = CachedLocation.Build(items);
+            var items = new ReadOnlyCollection<CachedItem>(CachedItem.Build());
+            var locations = new ReadOnlyCollection<CachedLocation>(CachedLocation.Build(items));
             return new RandomizerCache(items, locations);
         }
 
