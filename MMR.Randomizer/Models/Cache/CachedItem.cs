@@ -17,6 +17,7 @@ namespace MMR.Randomizer.Models.Cache
     public record CachedItem
     {
         public readonly ChestType? ChestType;
+        public readonly ProvidesConsumableAttribute? Consumable;
         public readonly ExclusiveItemInfo? ExclusiveItem;
         public readonly ReadOnlyCollection<string> Hints;
         public readonly bool IsDowngradable;
@@ -27,6 +28,7 @@ namespace MMR.Randomizer.Models.Cache
         public readonly ReadOnlyCollection<StartingItemAttribute> StartingItems;
         public readonly ReadOnlyCollection<byte> StartingItemIds;
         public readonly TingleMap? StartingTingleMap;
+        public readonly ProvidesUpgradeAttribute? Upgrade;
 
         public CachedItem(ProvidedItem item)
         {
@@ -66,6 +68,12 @@ namespace MMR.Randomizer.Models.Cache
                         break;
                     case ProgressiveAttribute:
                         IsProgressive = true;
+                        break;
+                    case ProvidesConsumableAttribute attr:
+                        Consumable = attr;
+                        break;
+                    case ProvidesUpgradeAttribute attr:
+                        Upgrade = attr;
                         break;
                     case ShopTextAttribute attr:
                         ShopText = attr;

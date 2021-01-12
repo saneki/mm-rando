@@ -39,6 +39,7 @@ namespace MMR.Randomizer.Models.Cache
         public readonly ReadOnlyCollection<string> LocationHints;
         public readonly string? LocationName;
         public readonly Region? Region;
+        public readonly RequiresConsumableAttribute? RequiresConsumable;
         public readonly ReadOnlyCollection<ShopInventoryAttribute> ShopInventory;
         public readonly ReadOnlyCollection<ShopRoomAttribute> ShopRoom;
 
@@ -155,6 +156,9 @@ namespace MMR.Randomizer.Models.Cache
                     case RepeatableAttribute:
                         IsRepeatable = true;
                         break;
+                    case RequiresConsumableAttribute attr:
+                        RequiresConsumable = attr;
+                        break;
                     case RupeeRepeatableAttribute:
                         IsRupeeRepeatable = true;
                         break;
@@ -198,9 +202,21 @@ namespace MMR.Randomizer.Models.Cache
         /// </summary>
         /// <param name="progressiveUpgradesEnabled">Whether or not progressive upgrades are enabled.</param>
         /// <returns></returns>
-        public string ProgressiveUpgradeName(bool progressiveUpgradesEnabled)
+        public string? ProgressiveUpgradeName(bool progressiveUpgradesEnabled)
         {
-            return Location.ProgressiveUpgradeName(progressiveUpgradesEnabled);
+            if (progressiveUpgradesEnabled && Item != null && Item.Upgrade != null)
+            {
+                return Item.Upgrade.Type switch
+                {
+                    UpgradeType.BombBag => "Bomb Bag Upgrade",
+                    UpgradeType.BowQuiver => "Bow Upgrade",
+                    UpgradeType.Magic => "Magic Upgrade",
+                    UpgradeType.Sword => "Sword Upgrade",
+                    UpgradeType.Wallet => "Wallet Upgrade",
+                    _ => Item.Name,
+                };
+            }
+            return Item?.Name;
         }
     }
 }

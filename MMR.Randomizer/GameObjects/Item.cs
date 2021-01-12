@@ -186,6 +186,7 @@ namespace MMR.Randomizer.GameObjects
 
         [ProvidesItem(ProvidedItem.BigQuiver)]
         [RupeeRepeatable]
+        [RequiresConsumable(ConsumableType.Arrow, 40)]
         [LocationName("Town Archery #1"), Region(Region.EastClockTown)]
         [GossipLocationHint("a town activity")]
         [GossipCombineOrder(0), GossipCombine(HeartPieceTownArchery, "Town Archery")]
@@ -194,6 +195,7 @@ namespace MMR.Randomizer.GameObjects
 
         [ProvidesItem(ProvidedItem.BiggestQuiver)]
         [RupeeRepeatable]
+        [RequiresConsumable(ConsumableType.Arrow, 40)]
         [LocationName("Swamp Archery #1"), Region(Region.RoadToSouthernSwamp)]
         [GossipLocationHint("a swamp game")]
         [GossipCombineOrder(0), GossipCombine(HeartPieceSwampArchery, "Swamp Archery")]
@@ -350,6 +352,7 @@ namespace MMR.Randomizer.GameObjects
 
         [RupeeRepeatable]
         [ProvidesItem(ProvidedItem.HeartPiece)]
+        [RequiresConsumable(ConsumableType.Arrow, 50)]
         [LocationName("Town Archery #2"), Region(Region.EastClockTown)]
         [GossipLocationHint("a town game"), GossipCompetitiveHint(1)]
         [GossipCombineOrder(1), GossipCombine(UpgradeBigQuiver, "Town Archery")]
@@ -357,6 +360,7 @@ namespace MMR.Randomizer.GameObjects
         HeartPieceTownArchery,
 
         [ProvidesItem(ProvidedItem.HeartPiece)]
+        [RequiresConsumable(ConsumableType.Bombchu, 10)]
         [LocationName("Honey and Darling Three Days"), Region(Region.EastClockTown)]
         [GossipLocationHint("a town game"), GossipCompetitiveHint(-2)]
         [GossipCombineOrder(1), GossipCombine(MundaneItemHoneyAndDarlingPurpleRupee, "Honey and Darling")]
@@ -391,6 +395,7 @@ namespace MMR.Randomizer.GameObjects
 
         [RupeeRepeatable]
         [ProvidesItem(ProvidedItem.HeartPiece)]
+        [RequiresConsumable(ConsumableType.Arrow, 40)]
         [LocationName("Swamp Archery #2"), Region(Region.RoadToSouthernSwamp)]
         [GossipLocationHint("a swamp game"), GossipCompetitiveHint(1)]
         [GossipCombineOrder(1), GossipCombine(UpgradeBiggestQuiver, "Swamp Archery")]

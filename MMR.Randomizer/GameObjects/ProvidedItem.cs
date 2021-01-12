@@ -4,7 +4,7 @@ namespace MMR.Randomizer.GameObjects
 {
     public enum ProvidedItem
     {
-        [Progressive]
+        [Progressive, ProvidesUpgrade(UpgradeType.BowQuiver, 1)]
         [StartingItem(0xC5CE25, 0x01)]
         [StartingItem(0xC5CE6F, 0x01)]
         [ItemName("Hero's Bow")]
@@ -35,6 +35,7 @@ namespace MMR.Randomizer.GameObjects
         LightArrow,
 
         [ItemName("Deku Stick")]
+        [ProvidesConsumable(ConsumableType.DekuStick, 1)]
         [GossipItemHint("a flammable weapon", "a flimsy weapon")]
         [ShopText("Deku Sticks burn well. You can only carry 10.")]
         [ChestType(ChestType.SmallWooden)]
@@ -42,6 +43,7 @@ namespace MMR.Randomizer.GameObjects
 
         //[StartingItem(0xC5CE2E, 0x0A)]
         [ItemName("Magic Bean")]
+        [ProvidesConsumable(ConsumableType.MagicBean, 1)]
         [GossipItemHint("a plant seed")]
         [ShopText("Plant it in soft soil.")]
         [ChestType(ChestType.LargeGold)]
@@ -49,6 +51,7 @@ namespace MMR.Randomizer.GameObjects
 
         //[StartingItem(0xC5CE30, 0x0C)]
         [ItemName("Powder Keg")]
+        [ProvidesConsumable(ConsumableType.PowderKeg, 1)]
         [GossipItemHint("gunpowder", "a dangerous item", "an explosive barrel")]
         [ShopText("Both its power and its size are immense!")]
         [ChestType(ChestType.LargeGold)]
@@ -402,7 +405,7 @@ namespace MMR.Randomizer.GameObjects
         [ChestType(ChestType.LargeGold)]
         GiantMask,
 
-        [Progressive]
+        [Progressive, ProvidesUpgrade(UpgradeType.Sword, 1)]
         [StartingItem(0xC5CE21, 0x01)]
         [StartingItem(0xC5CE00, 0x4D)]
         [ItemName("Kokiri Sword")]
@@ -411,7 +414,7 @@ namespace MMR.Randomizer.GameObjects
         [ChestType(ChestType.LargeGold)]
         KokiriSword,
 
-        [Downgradable, Progressive]
+        [Downgradable, Progressive, ProvidesUpgrade(UpgradeType.Sword, 2)]
         [StartingItem(0xC5CE21, 0x02)]
         [StartingItem(0xC5CE00, 0x4E)]
         [ItemName("Razor Sword")]
@@ -420,7 +423,7 @@ namespace MMR.Randomizer.GameObjects
         [ChestType(ChestType.LargeGold)]
         RazorSword,
 
-        [Progressive, Downgradable]
+        [Downgradable, Progressive, ProvidesUpgrade(UpgradeType.Sword, 3)]
         [StartingItem(0xC5CE21, 0x03)]
         [StartingItem(0xC5CE00, 0x4F)]
         [ItemName("Gilded Sword")]
@@ -443,7 +446,7 @@ namespace MMR.Randomizer.GameObjects
         [ChestType(ChestType.LargeGold)]
         MirrorShield,
 
-        [Downgradable, Progressive]
+        [Downgradable, Progressive, ProvidesUpgrade(UpgradeType.BowQuiver, 2)]
         [StartingItem(0xC5CE25, 0x01)]
         [StartingItem(0xC5CE6F, 0x02)]
         [ItemName("Large Quiver")]
@@ -452,7 +455,7 @@ namespace MMR.Randomizer.GameObjects
         [ChestType(ChestType.LargeGold)]
         BigQuiver,
 
-        [Downgradable, Progressive]
+        [Downgradable, Progressive, ProvidesUpgrade(UpgradeType.BowQuiver, 3)]
         [StartingItem(0xC5CE25, 0x01)]
         [StartingItem(0xC5CE6F, 0x03)]
         [ItemName("Largest Quiver")]
@@ -461,7 +464,7 @@ namespace MMR.Randomizer.GameObjects
         [ChestType(ChestType.LargeGold)]
         BiggestQuiver,
 
-        [Progressive]
+        [Progressive, ProvidesUpgrade(UpgradeType.BombBag, 1)]
         [StartingItem(0xC5CE2A, 0x06)]
         [StartingItem(0xC5CE6F, 0x08)]
         [ItemName("Bomb Bag")]
@@ -470,7 +473,7 @@ namespace MMR.Randomizer.GameObjects
         [ChestType(ChestType.LargeGold)]
         BombBag,
 
-        [Downgradable, Progressive]
+        [Downgradable, Progressive, ProvidesUpgrade(UpgradeType.BombBag, 2)]
         [StartingItem(0xC5CE2A, 0x06)]
         [StartingItem(0xC5CE6F, 0x10)]
         [ItemName("Big Bomb Bag")]
@@ -483,7 +486,7 @@ namespace MMR.Randomizer.GameObjects
         [ChestType(ChestType.LargeGold)]
         BigBombBag,
 
-        [Downgradable, Progressive]
+        [Downgradable, Progressive, ProvidesUpgrade(UpgradeType.BombBag, 3)]
         [StartingItem(0xC5CE2A, 0x06)]
         [StartingItem(0xC5CE6F, 0x18)]
         [ItemName("Biggest Bomb Bag")]
@@ -492,7 +495,7 @@ namespace MMR.Randomizer.GameObjects
         [ChestType(ChestType.LargeGold)]
         BiggestBombBag,
 
-        [Progressive]
+        [Progressive, ProvidesUpgrade(UpgradeType.Wallet, 1)]
         [StartingItem(0xC5CE6E, 0x10)]
         [ItemName("Adult Wallet")]
         [GossipItemHint("a coin case", "great wealth")]
@@ -500,7 +503,7 @@ namespace MMR.Randomizer.GameObjects
         [ChestType(ChestType.LargeGold)]
         AdultWallet,
 
-        [Downgradable, Progressive]
+        [Downgradable, Progressive, ProvidesUpgrade(UpgradeType.Wallet, 2)]
         [StartingItem(0xC5CE6E, 0x20)]
         [ItemName("Giant Wallet")]
         [GossipItemHint("a coin case", "great wealth")]
@@ -713,84 +716,97 @@ namespace MMR.Randomizer.GameObjects
         HeartPiece,
 
         [ItemName("Blue Rupee")]
+        [ProvidesConsumable(ConsumableType.Rupee, 5)]
         [GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 5 rupees.")]
         [ChestType(ChestType.SmallWooden)]
         BlueRupee,
 
         [ItemName("Red Rupee")]
+        [ProvidesConsumable(ConsumableType.Rupee, 20)]
         [GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
         [ChestType(ChestType.SmallWooden)]
         RedRupee,
 
         [ItemName("Purple Rupee")]
+        [ProvidesConsumable(ConsumableType.Rupee, 50)]
         [GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 50 rupees.")]
         [ChestType(ChestType.SmallWooden)]
         PurpleRupee,
 
         [ItemName("Silver Rupee")]
+        [ProvidesConsumable(ConsumableType.Rupee, 100)]
         [GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 100 rupees.")]
         [ChestType(ChestType.SmallWooden)]
         SilverRupee,
 
         [ItemName("Gold Rupee")]
+        [ProvidesConsumable(ConsumableType.Rupee, 200)]
         [GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 200 rupees.")]
         [ChestType(ChestType.SmallWooden)]
         GoldRupee,
 
         [ItemName("10 Deku Nuts")]
+        [ProvidesConsumable(ConsumableType.DekuNut, 10)]
         [GossipItemHint("a flashing impact")]
         [ShopText("Its flash blinds enemies.", isMultiple: true)]
         [ChestType(ChestType.SmallWooden)]
         DekuNut10,
 
         [ItemName("10 Bombs")]
+        [ProvidesConsumable(ConsumableType.Bomb, 10)]
         [GossipItemHint("explosives")]
         [ShopText("Explosives. You need a Bomb Bag to carry them.", isMultiple: true)]
         [ChestType(ChestType.SmallWooden)]
         Bomb10,
 
         [ItemName("10 Arrows")]
+        [ProvidesConsumable(ConsumableType.Arrow, 10)]
         [GossipItemHint("a quiver refill", "a bundle of projectiles")]
         [ShopText("Ammo for your bow.", isMultiple: true)]
         [ChestType(ChestType.SmallWooden)]
         Arrow10,
 
         [ItemName("30 Arrows")]
+        [ProvidesConsumable(ConsumableType.Arrow, 30)]
         [GossipItemHint("a quiver refill", "a bundle of projectiles")]
         [ShopText("Ammo for your bow.", isMultiple: true)]
         [ChestType(ChestType.SmallWooden)]
         Arrow30,
 
         [ItemName("50 Arrows")]
+        [ProvidesConsumable(ConsumableType.Arrow, 50)]
         [GossipItemHint("a quiver refill", "a bundle of projectiles")]
         [ShopText("Ammo for your bow.", isMultiple: true)]
         [ChestType(ChestType.SmallWooden)]
         Arrow50,
 
         [ItemName("10 Bombchu")]
+        [ProvidesConsumable(ConsumableType.Bombchu, 10)]
         [GossipItemHint("explosives")]
         [ShopText("Mouse-shaped bombs that are practical, sleek and self-propelled.", isMultiple: true)]
         [ChestType(ChestType.SmallWooden)]
         Bombchu10,
 
         [ItemName("Bombchu")]
+        [ProvidesConsumable(ConsumableType.Bombchu, 1)]
         [GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bomb that is practical, sleek and self-propelled.")]
         [ChestType(ChestType.SmallWooden)]
         Bombchu,
 
         [ItemName("5 Bombchu")]
+        [ProvidesConsumable(ConsumableType.Bombchu, 5)]
         [GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bombs that are practical, sleek and self-propelled.", isMultiple: true)]
         [ChestType(ChestType.SmallWooden)]
         Bombchu5,
 
-        [Progressive]
+        [Progressive, ProvidesUpgrade(UpgradeType.Magic, 1)]
         [StartingItem(0xC5CDED, 0x30)]
         [StartingItem(0xC5CDF4, 0x01)]
         [ItemName("Magic Power")]
@@ -799,7 +815,7 @@ namespace MMR.Randomizer.GameObjects
         [ChestType(ChestType.LargeGold)]
         Magic,
 
-        [Progressive]
+        [Progressive, ProvidesUpgrade(UpgradeType.Magic, 2)]
         [StartingItem(0xC5CDED, 0x60)]
         [StartingItem(0xC5CDF4, 0x01)]
         [StartingItem(0xC5CDF5, 0x01)]
