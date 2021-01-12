@@ -3,7 +3,6 @@
 using MMR.Common.Extensions;
 using MMR.Randomizer.Attributes;
 using MMR.Randomizer.Attributes.Entrance;
-using MMR.Randomizer.Extensions;
 using MMR.Randomizer.GameObjects;
 using MMR.Randomizer.Models.Attributes;
 using System;
