@@ -14,7 +14,7 @@ namespace MMR.Randomizer.Models.Cache
     /// <summary>
     /// Cached struct describing a <see cref="ProvidedItem"/> using information provided via reflection.
     /// </summary>
-    public record CachedItem
+    public sealed record CachedItem
     {
         public readonly ChestType? ChestType;
         public readonly ProvidesConsumableAttribute? Consumable;
@@ -109,5 +109,9 @@ namespace MMR.Randomizer.Models.Cache
                 yield return cached;
             }
         }
+
+        public bool Equals(CachedItem? other) => other != null ? Item == other.Item : false;
+
+        public override int GetHashCode() => (int)Item;
     }
 }

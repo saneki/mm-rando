@@ -196,6 +196,10 @@ namespace MMR.Randomizer.Models.Cache
             }
         }
 
+        public bool Equals(CachedLocation? other) => other != null ? Location == other.Location : false;
+
+        public override int GetHashCode() => (int)Location;
+
         /// <summary>
         /// Get the progressive upgrade name if progressive upgrades are enabled. If not enabled or not a progressive upgrade, return the location name.
         /// </summary>
