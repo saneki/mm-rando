@@ -30,7 +30,7 @@ namespace MMR.Randomizer.Models.Cache
 
         public CachedItem(ProvidedItem item)
         {
-            Hints = new ReadOnlyCollection<string>(new string[0]);
+            Hints = new List<string>().AsReadOnly();
 
             ExclusiveItemAttribute? exclusiveItemAttribute = null;
             ExclusiveItemGraphicAttribute? exclusiveItemGraphicAttribute = null;
@@ -83,8 +83,8 @@ namespace MMR.Randomizer.Models.Cache
             }
 
             ExclusiveItem = ExclusiveItemInfo.CreateOrNull(exclusiveItemAttribute, exclusiveItemGraphicAttribute, exclusiveItemMessageAttribute);
-            StartingItems = new ReadOnlyCollection<StartingItemAttribute>(startingItems);
-            StartingItemIds = new ReadOnlyCollection<byte>(startingItemIds);
+            StartingItems = startingItems.AsReadOnly();
+            StartingItemIds = startingItemIds.AsReadOnly();
         }
 
         public static CachedItem[] Build()

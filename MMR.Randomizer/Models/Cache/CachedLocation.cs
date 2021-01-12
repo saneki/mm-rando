@@ -36,7 +36,7 @@ namespace MMR.Randomizer.Models.Cache
         public readonly bool IsVisible;
         public readonly CachedItem? Item;
         public readonly Item Location;
-        public readonly ReadOnlyCollection<string> LocationHints = new ReadOnlyCollection<string>(new string[0]);
+        public readonly ReadOnlyCollection<string> LocationHints;
         public readonly string? LocationName;
         public readonly Region? Region;
         public readonly ReadOnlyCollection<ShopInventoryAttribute> ShopInventory;
@@ -95,7 +95,7 @@ namespace MMR.Randomizer.Models.Cache
         public CachedLocation(Item location, CachedItem[] items)
         {
             Location = location;
-            LocationHints = new ReadOnlyCollection<string>(new string[0]);
+            LocationHints = new List<string>().AsReadOnly();
 
             var gossipCombine = new List<GossipCombineAttribute>();
             var shopInventories = new List<ShopInventoryAttribute>();
@@ -173,9 +173,9 @@ namespace MMR.Randomizer.Models.Cache
                 };
             }
 
-            GossipCombine = new ReadOnlyCollection<GossipCombineAttribute>(gossipCombine);
-            ShopInventory = new ReadOnlyCollection<ShopInventoryAttribute>(shopInventories);
-            ShopRoom = new ReadOnlyCollection<ShopRoomAttribute>(shopRooms);
+            GossipCombine = gossipCombine.AsReadOnly();
+            ShopInventory = shopInventories.AsReadOnly();
+            ShopRoom = shopRooms.AsReadOnly();
         }
 
         public static CachedLocation[] Build(CachedItem[] items)
