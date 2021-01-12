@@ -2,7 +2,10 @@
 
 using MMR.Common.Extensions;
 using MMR.Randomizer.Attributes;
+using MMR.Randomizer.Attributes.Entrance;
+using MMR.Randomizer.Extensions;
 using MMR.Randomizer.GameObjects;
+using MMR.Randomizer.Models.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,48 +14,90 @@ using System.Linq;
 namespace MMR.Randomizer.Models.Cache
 {
     /// <summary>
-    /// Cached struct describing a <see cref="Item"/> using information provided via reflection.
+    /// Cached record describing a <see cref="GameObjects.Item"/> using information provided via reflection.
     /// </summary>
-    public readonly struct CachedLocation
+    public sealed record CachedLocation
     {
         public readonly ChestAttribute? Chest;
         public readonly ChestType? ChestType;
+        public readonly DungeonEntranceAttribute? DungeonEntrance;
+        public readonly string? EntranceName;
+        public readonly GetBottleItemIndicesAttribute? GetBottleItemIndices;
         public readonly ushort? GetItemIndex;
-        public readonly GossipCombineAttribute? GossipCombine;
+        public readonly ReadOnlyCollection<GossipCombineAttribute> GossipCombine;
         public readonly int? GossipCombineOrder;
+        public readonly GossipCompetitiveHintAttribute? GossipCompetitiveHint;
         public readonly GrottoChestAttribute? GrottoChest;
         public readonly bool IsCycleRepeatable;
         public readonly bool IsOverwritable;
         public readonly bool IsRepeatable;
         public readonly bool IsRupeeRepeatable;
         public readonly bool IsTemporary;
+        public readonly bool IsVisible;
         public readonly CachedItem? Item;
         public readonly Item Location;
-        public readonly ReadOnlyCollection<string> LocationHints;
+        public readonly ReadOnlyCollection<string> LocationHints = new ReadOnlyCollection<string>(new string[0]);
         public readonly string? LocationName;
         public readonly Region? Region;
         public readonly ReadOnlyCollection<ShopInventoryAttribute> ShopInventory;
         public readonly ReadOnlyCollection<ShopRoomAttribute> ShopRoom;
 
+        /// <summary>
+        /// Get <see cref="GameObjects.DungeonEntrance"/> values.
+        /// </summary>
+        public IList<DungeonEntrance>? DungeonEntrances => DungeonEntrance?.Entrances();
+
+        /// <summary>
+        /// Get <see cref="ExclusiveItemInfo"/> of attached <see cref="CachedItem"/>.
+        /// </summary>
+        public ExclusiveItemInfo? ExclusiveItem => Item?.ExclusiveItem;
+
+        /// <summary>
+        /// Whether or not this location has an attached <see cref="CachedItem"/> which is downgradable.
+        /// </summary>
+        public bool IsDowngradable => Item != null && Item.IsDowngradable;
+
+        /// <summary>
+        /// Whether or not this location has an attached <see cref="CachedItem"/> which has an <see cref="ExclusiveItemInfo"/>.
+        /// </summary>
+        public bool IsExclusiveItem => Item != null && Item.ExclusiveItem.HasValue;
+
+        /// <summary>
+        /// Whether or not this location has an attached <see cref="CachedItem"/>.
+        /// </summary>
+        public bool IsFake => Item == null;
+
+        /// <summary>
+        /// Whether or not this location has an attached <see cref="CachedItem"/> which is progressive.
+        /// </summary>
+        public bool IsProgressive => Item != null && Item.IsProgressive;
+
+        /// <summary>
+        /// Whether or not this location has any <see cref="ShopRoomAttribute"/> attributes.
+        /// </summary>
+        public bool IsShop => ShopRoom.Count > 0;
+
+        /// <summary>
+        /// Get hints of attached <see cref="CachedItem"/>.
+        /// </summary>
+        public ReadOnlyCollection<string>? ItemHints => Item?.Hints;
+
+        /// <summary>
+        /// Get the name of attached <see cref="CachedItem"/>.
+        /// </summary>
+        public string? Name => Item?.Name;
+
+        /// <summary>
+        /// Get <see cref="ShopTextAttribute"/> of attached <see cref="CachedItem"/>.
+        /// </summary>
+        public ShopTextAttribute? ShopTexts => Item?.ShopText;
+
         public CachedLocation(Item location, CachedItem[] items)
         {
-            Chest = null;
-            ChestType = null;
-            GetItemIndex = null;
-            GossipCombine = null;
-            GossipCombineOrder = null;
-            GrottoChest = null;
-            IsCycleRepeatable = false;
-            IsOverwritable = false;
-            IsRepeatable = false;
-            IsRupeeRepeatable = false;
-            IsTemporary = false;
-            Item = null;
             Location = location;
             LocationHints = new ReadOnlyCollection<string>(new string[0]);
-            LocationName = null;
-            Region = null;
 
+            var gossipCombine = new List<GossipCombineAttribute>();
             var shopInventories = new List<ShopInventoryAttribute>();
             var shopRooms = new List<ShopRoomAttribute>();
             foreach (var attribute in location.GetAttributes())
@@ -68,14 +113,26 @@ namespace MMR.Randomizer.Models.Cache
                     case CycleRepeatableAttribute:
                         IsCycleRepeatable = true;
                         break;
+                    case DungeonEntranceAttribute attr:
+                        DungeonEntrance = attr;
+                        break;
+                    case EntranceNameAttribute attr:
+                        EntranceName = attr.Name;
+                        break;
+                    case GetBottleItemIndicesAttribute attr:
+                        GetBottleItemIndices = attr;
+                        break;
                     case GetItemIndexAttribute attr:
                         GetItemIndex = attr.Index;
                         break;
                     case GossipCombineAttribute attr:
-                        GossipCombine = attr;
+                        gossipCombine.Add(attr);
                         break;
                     case GossipCombineOrderAttribute attr:
                         GossipCombineOrder = attr.Order;
+                        break;
+                    case GossipCompetitiveHintAttribute attr:
+                        GossipCompetitiveHint = attr;
                         break;
                     case GossipLocationHintAttribute attr:
                         LocationHints = new ReadOnlyCollection<string>(attr.Values);
@@ -110,9 +167,13 @@ namespace MMR.Randomizer.Models.Cache
                     case TemporaryAttribute:
                         IsTemporary = true;
                         break;
+                    case VisibleAttribute:
+                        IsVisible = true;
+                        break;
                 };
             }
 
+            GossipCombine = new ReadOnlyCollection<GossipCombineAttribute>(gossipCombine);
             ShopInventory = new ReadOnlyCollection<ShopInventoryAttribute>(shopInventories);
             ShopRoom = new ReadOnlyCollection<ShopRoomAttribute>(shopRooms);
         }
@@ -130,6 +191,16 @@ namespace MMR.Randomizer.Models.Cache
                 var cached = new CachedLocation(location, items);
                 yield return cached;
             }
+        }
+
+        /// <summary>
+        /// Get the progressive upgrade name if progressive upgrades are enabled. If not enabled or not a progressive upgrade, return the location name.
+        /// </summary>
+        /// <param name="progressiveUpgradesEnabled">Whether or not progressive upgrades are enabled.</param>
+        /// <returns></returns>
+        public string ProgressiveUpgradeName(bool progressiveUpgradesEnabled)
+        {
+            return Location.ProgressiveUpgradeName(progressiveUpgradesEnabled);
         }
     }
 }

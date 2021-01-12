@@ -3,6 +3,7 @@
 using MMR.Common.Extensions;
 using MMR.Randomizer.Attributes;
 using MMR.Randomizer.GameObjects;
+using MMR.Randomizer.Models.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,9 +14,10 @@ namespace MMR.Randomizer.Models.Cache
     /// <summary>
     /// Cached struct describing a <see cref="ProvidedItem"/> using information provided via reflection.
     /// </summary>
-    public readonly struct CachedItem
+    public record CachedItem
     {
         public readonly ChestType? ChestType;
+        public readonly ExclusiveItemInfo? ExclusiveItem;
         public readonly ReadOnlyCollection<string> Hints;
         public readonly bool IsDowngradable;
         public readonly bool IsProgressive;
@@ -28,15 +30,11 @@ namespace MMR.Randomizer.Models.Cache
 
         public CachedItem(ProvidedItem item)
         {
-            // Initialize default values.
-            ChestType = null;
             Hints = new ReadOnlyCollection<string>(new string[0]);
-            IsDowngradable = false;
-            IsProgressive = false;
-            Item = item;
-            Name = null;
-            ShopText = null;
-            StartingTingleMap = null;
+
+            ExclusiveItemAttribute? exclusiveItemAttribute = null;
+            ExclusiveItemGraphicAttribute? exclusiveItemGraphicAttribute = null;
+            ExclusiveItemMessageAttribute? exclusiveItemMessageAttribute = null;
 
             // Iterate attributes to update fields.
             var startingItems = new List<StartingItemAttribute>();
@@ -50,6 +48,15 @@ namespace MMR.Randomizer.Models.Cache
                         break;
                     case DowngradableAttribute:
                         IsDowngradable = true;
+                        break;
+                    case ExclusiveItemAttribute attr:
+                        exclusiveItemAttribute = attr;
+                        break;
+                    case ExclusiveItemGraphicAttribute attr:
+                        exclusiveItemGraphicAttribute = attr;
+                        break;
+                    case ExclusiveItemMessageAttribute attr:
+                        exclusiveItemMessageAttribute = attr;
                         break;
                     case GossipItemHintAttribute attr:
                         Hints = new ReadOnlyCollection<string>(attr.Values);
@@ -75,6 +82,7 @@ namespace MMR.Randomizer.Models.Cache
                 }
             }
 
+            ExclusiveItem = ExclusiveItemInfo.CreateOrNull(exclusiveItemAttribute, exclusiveItemGraphicAttribute, exclusiveItemMessageAttribute);
             StartingItems = new ReadOnlyCollection<StartingItemAttribute>(startingItems);
             StartingItemIds = new ReadOnlyCollection<byte>(startingItemIds);
         }

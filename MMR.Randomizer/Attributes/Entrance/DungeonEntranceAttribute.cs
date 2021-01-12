@@ -20,5 +20,20 @@ namespace MMR.Randomizer.Attributes.Entrance
             Entrance = entrance;
             Pair = pair;
         }
+
+        /// <summary>
+        /// Get <see cref="DungeonEntrance"/> values as an <see cref="IList{DungeonEntrance}"/>.
+        /// </summary>
+        /// <returns></returns>
+        public IList<DungeonEntrance> Entrances()
+        {
+            var list = new List<DungeonEntrance>();
+            list.Add(Entrance);
+            if (Pair.HasValue)
+            {
+                list.Add(Pair.Value);
+            }
+            return list;
+        }
     }
 }
