@@ -57,7 +57,7 @@
 #define z2_HandleInputVelocity_addr      0x800FF2F8
 #define z2_SetGetItemLongrange_addr      0x800B8BD0
 
-// Scene Flags.
+// Function Addresses (Scene Flags).
 #define z2_get_generic_flag_addr         0x800B5BB0
 #define z2_set_generic_flag_addr         0x800B5BF4
 #define z2_remove_generic_flag_addr      0x800B5C34
@@ -76,6 +76,17 @@
 #define z2_load_scene_flags_addr         0x800B9170
 #define z2_check_scene_pairs_addr        0x80169CBC
 #define z2_store_scene_flags_addr        0x80169D40
+
+// Function Addresses (Spawners).
+#define z2_fixed_drop_spawn_addr         0x800A7730
+#define z2_rupee_drop_spawn_addr         0x800A7AD4
+#define z2_random_drop_spawn_addr        0x800A7D28
+#define z2_spawn_map_actors_addr         0x800B9334
+#define z2_actor_spawn_1_addr            0x800BAC60
+#define z2_actor_spawn_2_addr            0x800BAE14
+#define z2_object_spawn_addr             0x8012F2E0
+#define z2_load_objects_addr             0x8012F4FC
+#define z2_load_scene_addr               0x801693D4
 
 // Function Addresses (Actors).
 #define z2_ActorDtor_addr                0x800B6948
@@ -103,6 +114,7 @@
 
 // Function Addresses (Drawing).
 #define z2_BaseDrawCollectable_addr      0x800A7128
+#define z2_DrawRupee_addr                0x800A72AC
 #define z2_DrawHeartPiece_addr           0x800A75B8
 #define z2_PreDraw2_addr                 0x800B8050
 #define z2_PreDraw1_addr                 0x800B8118
@@ -123,6 +135,7 @@
 
 // Function Addresses (Get Item).
 #define z2_SetGetItem_addr               0x800B8A1C
+#define z2_SetGetItemLongrange_addr      0x800B8BD0
 #define z2_GiveItem_addr                 0x80112E80
 #define z2_GiveMap_addr                  0x8012EF0C
 
@@ -155,6 +168,7 @@
 
 // Function Addresses (Text).
 #define z2_ShowMessage_addr              0x801518B0
+#define z2_IsMessageClosed_addr          0x800B867C
 
 // Function Prototypes.
 typedef int (*z2_CanInteract_proc)(GlobalContext *game);
@@ -172,7 +186,6 @@ typedef void (*z2_WriteHeartColors_proc)(GlobalContext *game);
 typedef void (*z2_RemoveItem_proc)(u32 item, u8 slot);
 typedef void (*z2_ToggleSfxDampen_proc)(int enable);
 typedef void (*z2_HandleInputVelocity_proc)(f32 *linear_velocity, f32 input_velocity, f32 increaseBy, f32 decreaseBy);
-typedef bool (*z2_SetGetItemLongrange_proc)(Actor *actor, GlobalContext *game, u16 gi_index);
 
 // Function Prototypes (Scene Flags).
 // TODO parameters
@@ -192,8 +205,20 @@ typedef void (*z2_remove_temp_clear_flag_proc)();
 typedef void (*z2_get_collectible_flag_proc)();
 typedef void (*z2_set_collectibe_flag_proc)();
 typedef void (*z2_load_scene_flags_proc)();
-typedef void (*z2_check_scene_pairs_proc)();
+typedef u16 (*z2_check_scene_pairs_proc)(u16 scene_id);
 typedef void (*z2_store_scene_flags_proc)();
+
+/* Function Prototypes (Spawners) */
+// TODO parameters
+typedef z2_en_item00_t* (*z2_fixed_drop_spawn_proc)(GlobalContext *game, Vec3f *position, u16 type);
+typedef void (*z2_rupee_drop_spawn_proc)();
+typedef void (*z2_random_drop_spawn_proc)();
+typedef void (*z2_spawn_map_actors_proc)();
+typedef void (*z2_actor_spawn_1_proc)();
+typedef void (*z2_actor_spawn_2_proc)();
+typedef void (*z2_object_spawn_proc)();
+typedef void (*z2_load_objects_proc)();
+typedef void (*z2_load_scene_proc)();
 
 // Function Prototypes (Actors).
 typedef void (*z2_ActorProc_proc)(Actor *actor, GlobalContext *game);
@@ -239,6 +264,7 @@ typedef void (*z2_Yaz0_LoadAndDecompressFile_proc)(u32 prom_addr, void *dest, u3
 
 // Function Prototypes (Get Item).
 typedef void (*z2_SetGetItem_proc)(Actor *actor, GlobalContext *game, s32 unk2, u32 unk3);
+typedef bool (*z2_SetGetItemLongrange_proc)(Actor *actor, GlobalContext *game, u16 gi_index);
 typedef void (*z2_GiveItem_proc)(GlobalContext *game, u8 item_id);
 typedef void (*z2_GiveMap_proc)(u32 map_index);
 
@@ -271,6 +297,7 @@ typedef void (*z2_SetBGM2_proc)(u16 bgm_id);
 
 // Function Prototypes (Text).
 typedef void (*z2_ShowMessage_proc)(GlobalContext *game, u16 message_id, u8 something); // TODO figure out something?
+typedef bool (*z2_IsMessageClosed_proc)(Actor *actor, GlobalContext *game);
 
 // Functions.
 #define z2_CanInteract                   ((z2_CanInteract_proc)           z2_CanInteract_addr)
@@ -287,7 +314,6 @@ typedef void (*z2_ShowMessage_proc)(GlobalContext *game, u16 message_id, u8 some
 #define z2_RemoveItem                    ((z2_RemoveItem_proc)            z2_RemoveItem_addr)
 #define z2_ToggleSfxDampen               ((z2_ToggleSfxDampen_proc)       z2_ToggleSfxDampen_addr)
 #define z2_HandleInputVelocity           ((z2_HandleInputVelocity_proc)   z2_HandleInputVelocity_addr)
-#define z2_SetGetItemLongrange           ((z2_SetGetItemLongrange_proc)   z2_SetGetItemLongrange_addr)
 
 // Functions (Scene Flags).
 #define z2_get_generic_flag ((z2_get_generic_flag_proc) z2_get_generic_flag_addr)
@@ -308,6 +334,17 @@ typedef void (*z2_ShowMessage_proc)(GlobalContext *game, u16 message_id, u8 some
 #define z2_load_scene_flags ((z2_load_scene_flags_proc) z2_load_scene_flags_addr)
 #define z2_check_scene_pairs ((z2_check_scene_pairs_proc) z2_check_scene_pairs_addr)
 #define z2_store_scene_flags ((z2_store_scene_flags_proc) z2_store_scene_flags_addr)
+
+/* Functions (Spawners) */
+#define z2_fixed_drop_spawn ((z2_fixed_drop_spawn_proc) z2_fixed_drop_spawn_addr)
+#define z2_rupee_drop_spawn ((z2_rupee_drop_spawn_proc) z2_rupee_drop_spawn_addr)
+#define z2_random_drop_spawn ((z2_random_drop_spawn_proc) z2_random_drop_spawn_addr)
+#define z2_spawn_map_actors ((z2_spawn_map_actors_proc) z2_spawn_map_actors_addr)
+#define z2_actor_spawn_1 ((z2_actor_spawn_1_proc) z2_actor_spawn_1_addr)
+#define z2_actor_spawn_2 ((z2_actor_spawn_2_proc) z2_actor_spawn_2_addr)
+#define z2_object_spawn ((z2_object_spawn_proc) z2_object_spawn_addr)
+#define z2_load_objects ((z2_load_objects_proc) z2_load_objects_addr)
+#define z2_load_scene ((z2_load_scene_proc) z2_load_scene_addr)
 
 // Functions (Actors).
 #define z2_ActorDtor                     ((z2_ActorProc_proc)             z2_ActorDtor_addr)
@@ -337,6 +374,7 @@ typedef void (*z2_ShowMessage_proc)(GlobalContext *game, u16 message_id, u8 some
 #define z2_BaseDrawCollectable           ((z2_ActorDraw_proc)             z2_BaseDrawCollectable_addr)
 #define z2_BaseDrawGiModel               ((z2_BaseDrawGiModel_proc)       z2_BaseDrawGiModel_addr)
 #define z2_CallSetupDList                ((z2_CallDList_proc)             z2_CallSetupDList_addr)
+#define z2_DrawRupee                     ((z2_ActorDraw_proc)             z2_DrawRupee_addr)
 #define z2_DrawHeartPiece                ((z2_ActorDraw_proc)             z2_DrawHeartPiece_addr)
 #define z2_PreDraw1                      ((z2_PreDraw_proc)               z2_PreDraw1_addr)
 #define z2_PreDraw2                      ((z2_PreDraw_proc)               z2_PreDraw2_addr)
@@ -355,6 +393,7 @@ typedef void (*z2_ShowMessage_proc)(GlobalContext *game, u16 message_id, u8 some
 
 // Functions (Get Item).
 #define z2_SetGetItem                    ((z2_SetGetItem_proc)            z2_SetGetItem_addr)
+#define z2_SetGetItemLongrange           ((z2_SetGetItemLongrange_proc)   z2_SetGetItemLongrange_addr)
 #define z2_GiveItem                      ((z2_GiveItem_proc)              z2_GiveItem_addr)
 #define z2_GiveMap                       ((z2_GiveMap_proc)               z2_GiveMap_addr)
 
@@ -387,6 +426,7 @@ typedef void (*z2_ShowMessage_proc)(GlobalContext *game, u16 message_id, u8 some
 
 // Functions (Text).
 #define z2_ShowMessage                   ((z2_ShowMessage_proc)           z2_ShowMessage_addr)
+#define z2_IsMessageClosed               ((z2_IsMessageClosed_proc)       z2_IsMessageClosed_addr)
 
 // Relocatable Functions (kaleido_scope).
 #define z2_PauseDrawItemIcon_VRAM        0x80821AD4

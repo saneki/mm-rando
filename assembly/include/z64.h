@@ -1433,6 +1433,29 @@ typedef struct {
     /* 0x19E */ u16 giIndex;
 } ActorEnGirlA; // size = ?
 
+/**
+ * En_Item00 actor (Collectable Field Item)
+ **/
+typedef struct {
+    Actor            common;                         /* 0x0000 */
+    u8               unk_0x144[0x04];                /* 0x0144 */
+    u16              collectable_flag;               /* 0x0148 */
+    u16              unk_0x14A;                      /* 0x014A */
+    u16              unk_state;                      /* 0x014C */
+    u16              disappear_countdown_copy;       /* 0x014E */ // Copied from disappear_countdown
+    u16              render_frame_mask;              /* 0x0150 */ // (disappear_countdown_copy & render_frame_mask) != 0 means dont render
+    u16              disappear_countdown;            /* 0x0152 */
+} z2_en_item00_t;
+
+/**
+ * En_Ruppecrow (Guay (Circling Clock Town))
+ **/
+typedef struct {
+    Actor           common;                         /* 0x0000 */
+    u8              unk_0x144[0x178];               /* 0x0144 */
+    u16             rupee_spawn_count;              /* 0x02BC */
+} z2_en_ruppecrow_t;
+
 // En_Toto actor (Toto).
 typedef struct {
     /* 0x000 */ Actor base;

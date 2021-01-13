@@ -21,6 +21,36 @@
     bnez    at, 0x800A68F0
 
 ;==================================================================================================
+; Freestanding Models (Item00 Not Heart Piece)
+;==================================================================================================
+
+.headersize(G_CODE_RAM - G_CODE_FILE)
+
+; Remove original "disappear flicker" handling. Now handled in models_draw_item00
+; Replaces:
+;   lh      t6, 0x014E (a2)
+;   lh      t7, 0x0150 (a2)
+;   and     t8, t6, t7
+;   bnezl   t8, 0x800A72A0
+;   lw      ra, 0x0014 (sp)
+.org 0x800A7138
+    nop
+    nop
+    nop
+    nop
+    nop
+
+; Item draw function call.
+; Replaces:
+;   lui     at, 0x801E
+;   addu    at, at, t9
+;   lw      t9, 0xBFF4 (at)
+.org 0x800A715C
+    jal     models_draw_item00_hook
+    nop
+    nop
+
+;==================================================================================================
 ; Freestanding Models (Skulltula Token)
 ;==================================================================================================
 

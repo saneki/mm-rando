@@ -247,3 +247,35 @@ Models_BioBabaHeartPieceRotationFix_Hook:
 @@return:
     jr      ra
     nop
+
+models_draw_item00_hook:
+    addiu   sp, sp, -0x20
+    sw      ra, 0x0010 (sp)
+    sw      a0, 0x0014 (sp)
+    sw      a1, 0x0018 (sp)
+    sw      a2, 0x001C (sp)
+
+    jal     models_draw_item00
+    nop
+
+    beq     v0, r0, @@displaced_code
+    nop
+
+    lui     t9, 0x800A
+    b       @@caller_return
+    addiu   t9, t9, 0x729C
+
+@@displaced_code:
+    lhu     t9, 0x001C (s0)
+    sll     t9, t9, 2
+    lui     at, 0x801E
+    addu    at, at, t9
+    lw      t9, 0xBFF4 (at)
+
+@@caller_return:
+    lw      a2, 0x001C (sp)
+    lw      a1, 0x0018 (sp)
+    lw      a0, 0x0014 (sp)
+    lw      ra, 0x0010 (sp)
+    jr      ra
+    addiu   sp, sp, 0x20

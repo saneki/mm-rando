@@ -44,6 +44,52 @@ GetItemEntry* MMR_GetGiEntry(u16 index) {
     return &gGiTable[index - 1];
 }
 
+u8 * mmr_GiFlag(u16 gi_index) {
+    u8* address = (u8*)(&gSaveContext.extra.cycleSceneFlags);
+    // skip scenes' Clear flags, because they don't get saved
+    if (gi_index >= 0x60) {
+        address += 4;
+    }
+    if (gi_index >= 0xE0) {
+        address += 4;
+    }
+    if (gi_index >= 0x160) {
+        address += 4;
+    }
+    if (gi_index >= 0x1E0) {
+        address += 4;
+    }
+    if (gi_index >= 0x260) {
+        address += 4;
+    }
+    if (gi_index >= 0x2E0) {
+        address += 4;
+    }
+    if (gi_index >= 0x360) {
+        address += 4;
+    }
+    if (gi_index >= 0x380) { // skip scene 7 (Grottos)
+        address += 0x14;
+    }
+    // TODO maybe skip Cutscene Map?
+    address += (gi_index >> 3);
+    return address;
+}
+
+// TODO remove function from MMR mod files.
+bool MMR_GetGiFlag(u16 gi_index) {
+    u8 bit = gi_index & 7;
+    u8 *byte = mmr_GiFlag(gi_index);
+    return (*byte >> bit)&1;
+}
+
+// TODO remove function from MMR mod files.
+void MMR_SetGiFlag(u16 gi_index) {
+    u8 bit = gi_index & 7;
+    u8 *byte = mmr_GiFlag(gi_index);
+    *byte |= (1 << bit);
+}
+
 bool MMR_CheckBottleAndGetGiFlag(u16 giIndex, u16* newGiIndex) {
     if (giIndex == MMR_CONFIG.locations.bottleRedPotion) {
         giIndex = 0x5B;
@@ -140,6 +186,22 @@ u16 MMR_GetNewGiIndex(GlobalContext* ctxt, Actor* actor, u16 giIndex, bool grant
         }
     }
     return newGiIndex;
+}
+
+u16 fanfares[5] = { 0x0922, 0x0924, 0x0037, 0x0039, 0x0052 };
+
+void mmr_GiveItem(GlobalContext *game, Actor *actor, u16 gi_index) {
+    gi_index = MMR_GetNewGiIndex(game, actor, gi_index, true);
+    GetItemEntry *entry = MMR_GetGiEntry(gi_index);
+    z2_memcpy((void*)0x800B35F0, entry, 8); // copy entry to 0x800B35F0 otherwise hacky stuff i wrote ages ago won't work.
+    z2_ShowMessage(game, entry->message, 0);
+    u8 sound_type = entry->type & 0x0F;
+    if (sound_type == 0) {
+        z2_PlaySfx(0x4831);
+    } else {
+        z2_SetBGM2(fanfares[sound_type-1]);
+    }
+    z2_GiveItem(game, entry->item);
 }
 
 void MMR_Init(void) {

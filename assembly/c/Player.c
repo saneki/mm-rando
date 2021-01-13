@@ -49,6 +49,18 @@ bool Player_CanReceiveItem(GlobalContext* ctxt) {
     return result;
 }
 
+void player_pause(GlobalContext *game) {
+    ActorPlayer *link = GET_PLAYER(game);
+    link->base.freeze = 0x64;
+    link->stateFlags.state1 |= 0x0200;
+}
+
+void player_unpause(GlobalContext *game) {
+    ActorPlayer *link = GET_PLAYER(game);
+    link->base.freeze = 0;
+    link->stateFlags.state1 &= 0xFFFFFDFF;
+}
+
 /**
  * Helper function used to perform effects if entering water, and update the player swim flag.
  **/
