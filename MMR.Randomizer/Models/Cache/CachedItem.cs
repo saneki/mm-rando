@@ -18,7 +18,7 @@ namespace MMR.Randomizer.Models.Cache
     {
         public readonly ChestType? ChestType;
         public readonly ProvidesConsumableAttribute? Consumable;
-        public readonly ExclusiveItemInfo? ExclusiveItem;
+        public readonly GetItemInfo? GetItem;
         public readonly ReadOnlyCollection<string> Hints;
         public readonly bool IsDowngradable;
         public readonly bool IsProgressive;
@@ -34,10 +34,6 @@ namespace MMR.Randomizer.Models.Cache
         {
             Hints = new List<string>().AsReadOnly();
 
-            ExclusiveItemAttribute? exclusiveItemAttribute = null;
-            ExclusiveItemGraphicAttribute? exclusiveItemGraphicAttribute = null;
-            ExclusiveItemMessageAttribute? exclusiveItemMessageAttribute = null;
-
             // Iterate attributes to update fields.
             var startingItems = new List<StartingItemAttribute>();
             var startingItemIds = new List<byte>();
@@ -48,17 +44,11 @@ namespace MMR.Randomizer.Models.Cache
                     case ChestTypeAttribute attr:
                         ChestType = attr.Type;
                         break;
+                    case GetItemEntryAttribute attr:
+                        GetItem = new GetItemInfo(attr);
+                        break;
                     case DowngradableAttribute:
                         IsDowngradable = true;
-                        break;
-                    case ExclusiveItemAttribute attr:
-                        exclusiveItemAttribute = attr;
-                        break;
-                    case ExclusiveItemGraphicAttribute attr:
-                        exclusiveItemGraphicAttribute = attr;
-                        break;
-                    case ExclusiveItemMessageAttribute attr:
-                        exclusiveItemMessageAttribute = attr;
                         break;
                     case GossipItemHintAttribute attr:
                         Hints = new ReadOnlyCollection<string>(attr.Values);
@@ -90,7 +80,6 @@ namespace MMR.Randomizer.Models.Cache
                 }
             }
 
-            ExclusiveItem = ExclusiveItemInfo.CreateOrNull(exclusiveItemAttribute, exclusiveItemGraphicAttribute, exclusiveItemMessageAttribute);
             StartingItems = startingItems.AsReadOnly();
             StartingItemIds = startingItemIds.AsReadOnly();
         }

@@ -15,20 +15,13 @@ namespace MMR.Randomizer.Extensions
 
         public static GetItemEntry ExclusiveItemEntry(this ProvidedItem item)
         {
-            return new GetItemEntry
-            {
-                ItemGained = item.GetAttribute<ExclusiveItemAttribute>().Item,
-                Flag = item.GetAttribute<ExclusiveItemAttribute>().Flags,
-                Index = item.GetAttribute<ExclusiveItemGraphicAttribute>().Graphic,
-                Type = item.GetAttribute<ExclusiveItemAttribute>().Type,
-                Message = (short)item.GetAttribute<ExclusiveItemMessageAttribute>().Id,
-                Object = (short)item.GetAttribute<ExclusiveItemGraphicAttribute>().Object,
-            };
+            var attr = item.GetAttribute<GetItemEntryAttribute>();
+            return attr.CreateEntry();
         }
 
         public static string ExclusiveItemMessage(this ProvidedItem item)
         {
-            return item.GetAttribute<ExclusiveItemMessageAttribute>().Message;
+            return item.GetAttribute<GetItemEntryAttribute>().Message;
         }
 
         public static string[] Hints(this ProvidedItem item)
@@ -43,7 +36,7 @@ namespace MMR.Randomizer.Extensions
 
         public static bool IsExclusiveItem(this ProvidedItem item)
         {
-            return item.HasAttribute<ExclusiveItemAttribute>();
+            return item.HasAttribute<GetItemEntryAttribute>();
         }
 
         public static bool IsProgressive(this ProvidedItem item)

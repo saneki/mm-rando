@@ -48,9 +48,9 @@ namespace MMR.Randomizer.Models.Cache
         public IList<DungeonEntrance>? DungeonEntrances => DungeonEntrance?.Entrances();
 
         /// <summary>
-        /// Get <see cref="ExclusiveItemInfo"/> of attached <see cref="CachedItem"/>.
+        /// Get <see cref="GetItemInfo"/> of attached <see cref="CachedItem"/>.
         /// </summary>
-        public ExclusiveItemInfo? ExclusiveItem => Item?.ExclusiveItem;
+        public GetItemInfo? GetItem => Item?.GetItem;
 
         /// <summary>
         /// Whether or not this location has an attached <see cref="CachedItem"/> which is downgradable.
@@ -58,9 +58,9 @@ namespace MMR.Randomizer.Models.Cache
         public bool IsDowngradable => Item != null && Item.IsDowngradable;
 
         /// <summary>
-        /// Whether or not this location has an attached <see cref="CachedItem"/> which has an <see cref="ExclusiveItemInfo"/>.
+        /// Whether or not this location has an attached <see cref="CachedItem"/> which has a <see cref="GetItemInfo"/>.
         /// </summary>
-        public bool IsExclusiveItem => Item != null && Item.ExclusiveItem.HasValue;
+        public bool HasGetItem => Item != null && Item.GetItem != null;
 
         /// <summary>
         /// Whether or not this location has an attached <see cref="CachedItem"/>.

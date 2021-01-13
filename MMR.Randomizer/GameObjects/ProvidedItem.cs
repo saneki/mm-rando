@@ -891,9 +891,7 @@ namespace MMR.Randomizer.GameObjects
         [ItemName("Ice Trap")]
         [GossipItemHint("a cold surprise", "an icy breeze")]
         [ChestType(ChestType.SmallWooden)]
-        [ExclusiveItem(0xB0)]
-        [ExclusiveItemGraphic(0, 0)]
-        [ExclusiveItemMessage(0x9000, "\u0017You are a \u0003FOOL\u0000!\u0018\u00BF")]
+        [GetItemEntry(0xB0, 0, 0, 0, 0x9000, 0, "\u0017You are a \u0003FOOL\u0000!\u0018\u00BF")]
         IceTrap,
 
         [ItemName("Recovery Heart")]
