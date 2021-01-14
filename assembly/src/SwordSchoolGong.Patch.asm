@@ -2,9 +2,9 @@
 ; Spawn rupee
 ;==================================================================================================
 
-.headersize (G_OBJ_DORA_VRAM - G_OBJ_DORA_FILE)
+.headersize G_OBJ_DORA_DELTA
 
 ; Replaces:
 ;   jal     0x800A7730
 .org 0x80B60AD0
-    jal     sword_school_gong_rupee_spawn
+    jal     SwordSchoolGong_RupeeSpawn

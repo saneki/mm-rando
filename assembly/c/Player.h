@@ -5,7 +5,7 @@
 #include <z64.h>
 
 bool Player_CanReceiveItem(GlobalContext* ctxt);
-void player_pause(GlobalContext *game);
-void player_unpause(GlobalContext *game);
+void Player_Pause(GlobalContext* ctxt);
+void Player_Unpause(GlobalContext* ctxt);
 
 #endif // PLAYER_H

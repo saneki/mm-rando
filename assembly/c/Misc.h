@@ -49,9 +49,9 @@ typedef union {
 
 typedef struct {
     // Version 1 flags
-    u32 vanillaLayout : 1;
-    u32               : 15;
-    u32 collectable_table_file_index : 16;
+    u32 vanillaLayout             : 1;
+    u32                           : 15;
+    u32 collectableTableFileIndex : 16;
 } MiscInternal;
 
 typedef struct {

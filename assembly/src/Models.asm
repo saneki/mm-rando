@@ -248,14 +248,14 @@ Models_BioBabaHeartPieceRotationFix_Hook:
     jr      ra
     nop
 
-models_draw_item00_hook:
+Models_DrawItem00_Hook:
     addiu   sp, sp, -0x20
     sw      ra, 0x0010 (sp)
     sw      a0, 0x0014 (sp)
     sw      a1, 0x0018 (sp)
     sw      a2, 0x001C (sp)
 
-    jal     models_draw_item00
+    jal     Models_DrawItem00
     nop
 
     beq     v0, r0, @@displaced_code

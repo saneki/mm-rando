@@ -191,7 +191,7 @@ typedef void (*z2_HandleInputVelocity_proc)(f32 *linear_velocity, f32 input_velo
 // TODO parameters
 typedef void (*z2_get_generic_flag_proc)();
 typedef void (*z2_set_generic_flag_proc)();
-typedef void (*z2_remove_generic_flag_proc)(GlobalContext *game, s8 flag);
+typedef void (*z2_remove_generic_flag_proc)(GlobalContext* ctxt, s8 flag);
 typedef void (*z2_get_chest_flag_proc)();
 typedef void (*z2_set_chest_flag_proc)();
 typedef void (*z2_set_all_chest_flags_proc)();
@@ -205,12 +205,12 @@ typedef void (*z2_remove_temp_clear_flag_proc)();
 typedef void (*z2_get_collectible_flag_proc)();
 typedef void (*z2_set_collectibe_flag_proc)();
 typedef void (*z2_load_scene_flags_proc)();
-typedef u16 (*z2_check_scene_pairs_proc)(u16 scene_id);
+typedef u16 (*z2_check_scene_pairs_proc)(u16 sceneId);
 typedef void (*z2_store_scene_flags_proc)();
 
 /* Function Prototypes (Spawners) */
 // TODO parameters
-typedef z2_en_item00_t* (*z2_fixed_drop_spawn_proc)(GlobalContext *game, Vec3f *position, u16 type);
+typedef ActorEnItem00* (*z2_fixed_drop_spawn_proc)(GlobalContext* ctxt, Vec3f* position, u16 type);
 typedef void (*z2_rupee_drop_spawn_proc)();
 typedef void (*z2_random_drop_spawn_proc)();
 typedef void (*z2_spawn_map_actors_proc)();
@@ -264,7 +264,7 @@ typedef void (*z2_Yaz0_LoadAndDecompressFile_proc)(u32 prom_addr, void *dest, u3
 
 // Function Prototypes (Get Item).
 typedef void (*z2_SetGetItem_proc)(Actor *actor, GlobalContext *game, s32 unk2, u32 unk3);
-typedef bool (*z2_SetGetItemLongrange_proc)(Actor *actor, GlobalContext *game, u16 gi_index);
+typedef bool (*z2_SetGetItemLongrange_proc)(Actor* actor, GlobalContext* ctxt, u16 giIndex);
 typedef void (*z2_GiveItem_proc)(GlobalContext *game, u8 item_id);
 typedef void (*z2_GiveMap_proc)(u32 map_index);
 
@@ -297,7 +297,7 @@ typedef void (*z2_SetBGM2_proc)(u16 bgm_id);
 
 // Function Prototypes (Text).
 typedef void (*z2_ShowMessage_proc)(GlobalContext *game, u16 message_id, u8 something); // TODO figure out something?
-typedef bool (*z2_IsMessageClosed_proc)(Actor *actor, GlobalContext *game);
+typedef bool (*z2_IsMessageClosed_proc)(Actor* actor, GlobalContext *ctxt);
 
 // Functions.
 #define z2_CanInteract                   ((z2_CanInteract_proc)           z2_CanInteract_addr)

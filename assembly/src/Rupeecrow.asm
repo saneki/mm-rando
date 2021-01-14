@@ -1,5 +1,5 @@
-rupeecrow_after_rupee_spawn_hook:
+Rupeecrow_AfterRupeeSpawn_Hook:
     lw      a0, 0x003C (sp)
-    j       rupeecrow_after_rupee_spawn
+    j       Rupeecrow_AfterRupeeSpawn
     or      a1, s0, r0
     or      a2, v0, r0

@@ -1,6 +1,6 @@
 #include <stdbool.h>
 #include <z64.h>
-#include "item00.h"
+#include "Item00.h"
 #include "Items.h"
 #include "ItemOverride.h"
 #include "LoadedModels.h"
@@ -166,38 +166,38 @@ void Models_DrawHeartPiece(Actor* actor, GlobalContext* ctxt) {
 }
 
 /**
- * Hook function for drawing Item00 actors as their new item.
+ * Hook function for drawing En_Item00 actors as their new item.
  **/
-bool models_draw_item00(z2_en_item00_t *actor, GlobalContext* game) {
-    if (actor->unk_state == 0x23 && item00_get_gi_index(actor) > 0) {
-        if (z2_IsMessageClosed(&(actor->common), game)) {
-            player_unpause(game);
+bool Models_DrawItem00(ActorEnItem00* actor, GlobalContext* ctxt) {
+    if (actor->unkState == 0x23 && Item00_GetGiIndex(actor) > 0) {
+        if (z2_IsMessageClosed(&actor->base, ctxt)) {
+            Player_Unpause(ctxt);
         }
 
-        if (actor->disappear_countdown == 0x0F) {
+        if (actor->disappearCountdown == 0x0F) {
             return true;
         }
     }
 
-    if ((actor->disappear_countdown_copy & actor->render_frame_mask) != 0) {
+    if ((actor->disappearCountdownCopy & actor->renderFrameMask) != 0) {
         return true;
     }
 
     if (MISC_CONFIG.flags.freestanding) {
-        u16 gi_index = item00_get_gi_index(actor);
-        if (gi_index > 0) {
-            if (actor->unk_state != 0x23) {
-                u16 draw_gi_index = MMR_GetNewGiIndex(game, 0, gi_index, false);
-                item00_set_draw_gi_index(actor, draw_gi_index);
+        u16 giIndex = Item00_GetGiIndex(actor);
+        if (giIndex > 0) {
+            if (actor->unkState != 0x23) {
+                u16 drawGiIndex = MMR_GetNewGiIndex(ctxt, 0, giIndex, false);
+                Item00_SetDrawGiIndex(actor, drawGiIndex);
             }
-            u16 gi_index_to_draw = item00_get_draw_gi_index(actor);
+            u16 giIndexToDraw = Item00_GetDrawGiIndex(actor);
 
             // TODO render rupees as rupees?
             struct Model model;
-            GetItemEntry *entry = PrepareGiEntry(&model, game, gi_index_to_draw, false);
+            GetItemEntry* entry = PrepareGiEntry(&model, ctxt, giIndexToDraw, false);
 
-            z2_CallSetupDList(game->state.gfxCtx);
-            DrawModel(model, &(actor->common), game, 22.0);
+            z2_CallSetupDList(ctxt->state.gfxCtx);
+            DrawModel(model, &actor->base, ctxt, 22.0);
 
             return true;
         }
@@ -216,11 +216,10 @@ void Models_RotateEnItem00(Actor* actor, GlobalContext* ctxt) {
         if ((actor->params & 0xFF) >= 0x1D) {
             index = actor->params + 0x80;
         } else {
-            index = item00_get_gi_index((z2_en_item00_t*)actor);
+            index = Item00_GetGiIndex((ActorEnItem00*)actor);
         }
     }
     if (index > 0) {
-        // Rotate Heart Piece.
         RotateActor(actor, ctxt, index, 0x3C0);
     } else {
         actor->shape.rot.y += 0x3C0;

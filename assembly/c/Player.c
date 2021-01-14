@@ -49,16 +49,16 @@ bool Player_CanReceiveItem(GlobalContext* ctxt) {
     return result;
 }
 
-void player_pause(GlobalContext *game) {
-    ActorPlayer *link = GET_PLAYER(game);
-    link->base.freeze = 0x64;
-    link->stateFlags.state1 |= 0x0200;
+void Player_Pause(GlobalContext* ctxt) {
+    ActorPlayer* player = GET_PLAYER(ctxt);
+    player->base.freeze = 0x64;
+    player->stateFlags.state1 |= PLAYER_STATE1_TIME_STOP_2;
 }
 
-void player_unpause(GlobalContext *game) {
-    ActorPlayer *link = GET_PLAYER(game);
-    link->base.freeze = 0;
-    link->stateFlags.state1 &= 0xFFFFFDFF;
+void Player_Unpause(GlobalContext* ctxt) {
+    ActorPlayer* player = GET_PLAYER(ctxt);
+    player->base.freeze = 0;
+    player->stateFlags.state1 &= ~PLAYER_STATE1_TIME_STOP_2;
 }
 
 /**

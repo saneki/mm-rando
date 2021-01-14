@@ -20,7 +20,7 @@ typedef struct {
 GetItemEntry* MMR_GetGiEntry(u16 index);
 void MMR_Init(void);
 u16 MMR_GetNewGiIndex(GlobalContext* ctxt, Actor* actor, u16 giIndex, bool grant);
-void mmr_GiveItem(GlobalContext *game, Actor *actor, u16 gi_index);
+void MMR_GiveItem(GlobalContext* ctxt, Actor* actor, u16 giIndex);
 
 // Function Addresses.
 #define MMR_LoadGiEntry_Addr 0x801449A4
