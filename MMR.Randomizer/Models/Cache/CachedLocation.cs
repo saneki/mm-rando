@@ -13,7 +13,7 @@ using System.Linq;
 namespace MMR.Randomizer.Models.Cache
 {
     /// <summary>
-    /// Cached record describing a <see cref="GameObjects.Item"/> using information provided via reflection.
+    /// Cached record describing a <see cref="Item"/> using information provided via reflection.
     /// </summary>
     public sealed record CachedLocation
     {
@@ -34,7 +34,7 @@ namespace MMR.Randomizer.Models.Cache
         public readonly bool IsRupeeRepeatable;
         public readonly bool IsTemporary;
         public readonly bool IsVisible;
-        public readonly CachedItem? Item;
+        public readonly CachedItem? ProvidedItem;
         public readonly Item Location;
         public readonly ReadOnlyCollection<string> LocationHints;
         public readonly string? LocationName;
@@ -46,7 +46,7 @@ namespace MMR.Randomizer.Models.Cache
         /// <summary>
         /// Whether or not this <see cref="CachedLocation"/> consumes toilet paper.
         /// </summary>
-        public bool ConsumesToiletPaper => Location == GameObjects.Item.HeartPieceNotebookHand;
+        public bool ConsumesToiletPaper => Location == Item.HeartPieceNotebookHand;
 
         /// <summary>
         /// Get <see cref="GameObjects.DungeonEntrance"/> values.
@@ -56,27 +56,27 @@ namespace MMR.Randomizer.Models.Cache
         /// <summary>
         /// Get <see cref="GetItemInfo"/> of attached <see cref="CachedItem"/>.
         /// </summary>
-        public GetItemInfo? GetItem => Item?.GetItem;
+        public GetItemInfo? GetItem => ProvidedItem?.GetItem;
 
         /// <summary>
         /// Whether or not this location has an attached <see cref="CachedItem"/> which is downgradable.
         /// </summary>
-        public bool IsDowngradable => Item != null && Item.IsDowngradable;
+        public bool IsDowngradable => ProvidedItem != null && ProvidedItem.IsDowngradable;
 
         /// <summary>
         /// Whether or not this location has an attached <see cref="CachedItem"/> which has a <see cref="GetItemInfo"/>.
         /// </summary>
-        public bool HasGetItem => Item != null && Item.GetItem != null;
+        public bool HasGetItem => ProvidedItem != null && ProvidedItem.GetItem != null;
 
         /// <summary>
         /// Whether or not this location has an attached <see cref="CachedItem"/>.
         /// </summary>
-        public bool IsFake => Item == null;
+        public bool IsFake => ProvidedItem == null;
 
         /// <summary>
         /// Whether or not this location has an attached <see cref="CachedItem"/> which is progressive.
         /// </summary>
-        public bool IsProgressive => Item != null && Item.IsProgressive;
+        public bool IsProgressive => ProvidedItem != null && ProvidedItem.IsProgressive;
 
         /// <summary>
         /// Whether or not this location has any <see cref="ShopRoomAttribute"/> attributes.
@@ -86,17 +86,17 @@ namespace MMR.Randomizer.Models.Cache
         /// <summary>
         /// Get hints of attached <see cref="CachedItem"/>.
         /// </summary>
-        public ReadOnlyCollection<string>? ItemHints => Item?.Hints;
+        public ReadOnlyCollection<string>? ItemHints => ProvidedItem?.Hints;
 
         /// <summary>
         /// Get the name of attached <see cref="CachedItem"/>.
         /// </summary>
-        public string? Name => Item?.Name;
+        public string? Name => ProvidedItem?.Name;
 
         /// <summary>
         /// Get <see cref="ShopTextAttribute"/> of attached <see cref="CachedItem"/>.
         /// </summary>
-        public ShopTextAttribute? ShopTexts => Item?.ShopText;
+        public ShopTextAttribute? ShopTexts => ProvidedItem?.ShopText;
 
         public CachedLocation(Item location, ReadOnlyCollection<CachedItem> items)
         {
@@ -156,7 +156,7 @@ namespace MMR.Randomizer.Models.Cache
                         IsOverwritable = true;
                         break;
                     case ProvidesItemAttribute attr:
-                        Item = items[(int)attr.Item];
+                        ProvidedItem = items[(int)attr.Item];
                         break;
                     case RegionAttribute attr:
                         Region = attr.Region;
@@ -216,19 +216,19 @@ namespace MMR.Randomizer.Models.Cache
         /// <returns></returns>
         public string? ProgressiveUpgradeName(bool progressiveUpgradesEnabled)
         {
-            if (progressiveUpgradesEnabled && Item != null && Item.Upgrade != null)
+            if (progressiveUpgradesEnabled && ProvidedItem != null && ProvidedItem.Upgrade != null)
             {
-                return Item.Upgrade.Type switch
+                return ProvidedItem.Upgrade.Type switch
                 {
                     UpgradeType.BombBag => "Bomb Bag Upgrade",
                     UpgradeType.BowQuiver => "Bow Upgrade",
                     UpgradeType.Magic => "Magic Upgrade",
                     UpgradeType.Sword => "Sword Upgrade",
                     UpgradeType.Wallet => "Wallet Upgrade",
-                    _ => Item.Name,
+                    _ => ProvidedItem.Name,
                 };
             }
-            return Item?.Name;
+            return ProvidedItem?.Name;
         }
     }
 }
