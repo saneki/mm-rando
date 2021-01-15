@@ -19,6 +19,7 @@ namespace MMR.Randomizer.Models.Cache
     {
         public readonly ChestAttribute? Chest;
         public readonly ChestType? ChestType;
+        public readonly CachedItem? ConsumesTradeItem;
         public readonly DungeonEntranceAttribute? DungeonEntrance;
         public readonly string? EntranceName;
         public readonly GetBottleItemIndicesAttribute? GetBottleItemIndices;
@@ -41,6 +42,11 @@ namespace MMR.Randomizer.Models.Cache
         public readonly RequiresConsumableAttribute? RequiresConsumable;
         public readonly ReadOnlyCollection<ShopInventoryAttribute> ShopInventory;
         public readonly ReadOnlyCollection<ShopRoomAttribute> ShopRoom;
+
+        /// <summary>
+        /// Whether or not this <see cref="CachedLocation"/> consumes toilet paper.
+        /// </summary>
+        public bool ConsumesToiletPaper => Location == GameObjects.Item.HeartPieceNotebookHand;
 
         /// <summary>
         /// Get <see cref="GameObjects.DungeonEntrance"/> values.
@@ -109,6 +115,9 @@ namespace MMR.Randomizer.Models.Cache
                         break;
                     case ChestTypeAttribute attr:
                         ChestType = attr.Type;
+                        break;
+                    case ConsumesTradeItemAttribute attr:
+                        ConsumesTradeItem = items[(int)attr.TradeItem];
                         break;
                     case CycleRepeatableAttribute:
                         IsCycleRepeatable = true;

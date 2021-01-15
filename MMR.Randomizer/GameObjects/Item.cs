@@ -151,7 +151,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x64)]
         ItemBottleDampe,
 
-        [ProvidesItem(ProvidedItem.ChateauRomani)]
+        [ConsumesTradeItem(ProvidedItem.MamaLetter), ProvidesItem(ProvidedItem.ChateauRomani)]
         [Repeatable, Temporary, Overwritable] // specially handled to turn into Chateau Romani on subsequent times
         [LocationName("Madame Aroma in Bar"), Region(Region.EastClockTown)]
         [GossipLocationHint("an important lady")]
@@ -241,28 +241,28 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x96)]
         TradeItemMoonTear,
 
-        [ProvidesItem(ProvidedItem.LandDeed)]
+        [ConsumesTradeItem(ProvidedItem.MoonTear), ProvidesItem(ProvidedItem.LandDeed)]
         [Repeatable, Temporary, CycleRepeatable, Overwritable]
         [LocationName("Clock Town Scrub Trade"), Region(Region.SouthClockTown)]
         [GossipLocationHint("a town merchant")]
         [GetItemIndex(0x97)]
         TradeItemLandDeed,
 
-        [ProvidesItem(ProvidedItem.SwampDeed)]
+        [ConsumesTradeItem(ProvidedItem.LandDeed), ProvidesItem(ProvidedItem.SwampDeed)]
         [Repeatable, Temporary, CycleRepeatable, Overwritable]
         [LocationName("Swamp Scrub Trade"), Region(Region.SouthernSwamp)]
         [GossipLocationHint("a southern merchant")]
         [GetItemIndex(0x98)]
         TradeItemSwampDeed,
 
-        [ProvidesItem(ProvidedItem.MountainDeed)]
+        [ConsumesTradeItem(ProvidedItem.SwampDeed), ProvidesItem(ProvidedItem.MountainDeed)]
         [Repeatable, Temporary, CycleRepeatable, Overwritable]
         [LocationName("Mountain Scrub Trade"), Region(Region.GoronVillage)]
         [GossipLocationHint("a northern merchant")]
         [GetItemIndex(0x99)]
         TradeItemMountainDeed,
 
-        [ProvidesItem(ProvidedItem.OceanDeed)]
+        [ConsumesTradeItem(ProvidedItem.MountainDeed), ProvidesItem(ProvidedItem.OceanDeed)]
         [Repeatable, Temporary, CycleRepeatable, Overwritable]
         [LocationName("Ocean Scrub Trade"), Region(Region.ZoraHall)]
         [GossipLocationHint("a western merchant")]
@@ -513,7 +513,7 @@ namespace MMR.Randomizer.GameObjects
         HeartPieceKnuckle,
 
         //mask
-        [ProvidesItem(ProvidedItem.PostmanHat)]
+        [ConsumesTradeItem(ProvidedItem.MamaLetter), ProvidesItem(ProvidedItem.PostmanHat)]
         [LocationName("Postman's Freedom Reward"), Region(Region.EastClockTown)]
         [GossipLocationHint("a special delivery", "one last job")]
         [GetItemIndex(0x84)]
@@ -1814,7 +1814,7 @@ namespace MMR.Randomizer.GameObjects
         ChestToGoronRaceGrotto, //contents?
 
         [Repeatable]
-        [ProvidesItem(ProvidedItem.GoldRupee)]
+        [ConsumesTradeItem(ProvidedItem.OceanDeed), ProvidesItem(ProvidedItem.GoldRupee)]
         [LocationName("Canyon Scrub Trade"), Region(Region.IkanaCanyon)]
         [GossipLocationHint("an eastern merchant")]
         [GetItemIndex(0x125)]

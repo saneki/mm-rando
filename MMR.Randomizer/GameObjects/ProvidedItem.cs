@@ -154,24 +154,28 @@ namespace MMR.Randomizer.GameObjects
         [GossipItemHint("a property deal")]
         [ShopText("The title deed to the Deku Flower in Clock Town.")]
         [ChestType(ChestType.SmallGold)]
+        [ProvidesToiletPaper]
         LandDeed,
 
         [ItemName("Swamp Title Deed")]
         [GossipItemHint("a property deal")]
         [ShopText("The title deed to the Deku Flower in Southern Swamp.")]
         [ChestType(ChestType.SmallGold)]
+        [ProvidesToiletPaper]
         SwampDeed,
 
         [ItemName("Mountain Title Deed")]
         [GossipItemHint("a property deal")]
         [ShopText("The title deed to the Deku Flower near Goron Village.")]
         [ChestType(ChestType.SmallGold)]
+        [ProvidesToiletPaper]
         MountainDeed,
 
         [ItemName("Ocean Title Deed")]
         [GossipItemHint("a property deal")]
         [ShopText("The title deed to the Deku Flower in Zora Hall.")]
         [ChestType(ChestType.SmallGold)]
+        [ProvidesToiletPaper]
         OceanDeed,
 
         [ItemName("Room Key")]
@@ -184,12 +188,14 @@ namespace MMR.Randomizer.GameObjects
         [GossipItemHint("an important note", "a special delivery")]
         [ShopText("It's a parcel for Kafei's mother.")]
         [ChestType(ChestType.SmallGold)]
+        [ProvidesToiletPaper]
         MamaLetter,
 
         [ItemName("Letter to Kafei")]
         [GossipItemHint("a lover's plight", "a lover's letter")]
         [ShopText("A love letter from Anju to Kafei.")]
         [ChestType(ChestType.SmallGold)]
+        [ProvidesToiletPaper]
         KafeiLetter,
 
         [ItemName("Pendant of Memories")]

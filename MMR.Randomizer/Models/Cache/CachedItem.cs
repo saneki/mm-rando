@@ -22,6 +22,7 @@ namespace MMR.Randomizer.Models.Cache
         public readonly ReadOnlyCollection<string> Hints;
         public readonly bool IsDowngradable;
         public readonly bool IsProgressive;
+        public readonly bool IsToiletPaper;
         public readonly ProvidedItem Item;
         public readonly string? Name;
         public readonly ShopTextAttribute? ShopText;
@@ -61,6 +62,9 @@ namespace MMR.Randomizer.Models.Cache
                         break;
                     case ProvidesConsumableAttribute attr:
                         Consumable = attr;
+                        break;
+                    case ProvidesToiletPaperAttribute:
+                        IsToiletPaper = true;
                         break;
                     case ProvidesUpgradeAttribute attr:
                         Upgrade = attr;
