@@ -23,7 +23,7 @@ namespace MMR.Randomizer.Models.Cache
         public readonly bool IsDowngradable;
         public readonly bool IsProgressive;
         public readonly bool IsToiletPaper;
-        public readonly ProvidedItem Item;
+        public readonly ProvidedItem Id;
         public readonly string? Name;
         public readonly ShopTextAttribute? ShopText;
         public readonly ReadOnlyCollection<StartingItemAttribute> StartingItems;
@@ -33,6 +33,7 @@ namespace MMR.Randomizer.Models.Cache
 
         public CachedItem(ProvidedItem item)
         {
+            Id = item;
             Hints = new List<string>().AsReadOnly();
 
             // Iterate attributes to update fields.
@@ -103,8 +104,8 @@ namespace MMR.Randomizer.Models.Cache
             }
         }
 
-        public bool Equals(CachedItem? other) => other != null ? Item == other.Item : false;
+        public bool Equals(CachedItem? other) => other != null ? Id == other.Id : false;
 
-        public override int GetHashCode() => (int)Item;
+        public override int GetHashCode() => (int)Id;
     }
 }

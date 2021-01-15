@@ -35,7 +35,7 @@ namespace MMR.Randomizer.Models.Cache
         public readonly bool IsTemporary;
         public readonly bool IsVisible;
         public readonly CachedItem? ProvidedItem;
-        public readonly Item Location;
+        public readonly Item Id;
         public readonly ReadOnlyCollection<string> LocationHints;
         public readonly string? LocationName;
         public readonly Region? Region;
@@ -46,7 +46,7 @@ namespace MMR.Randomizer.Models.Cache
         /// <summary>
         /// Whether or not this <see cref="CachedLocation"/> consumes toilet paper.
         /// </summary>
-        public bool ConsumesToiletPaper => Location == Item.HeartPieceNotebookHand;
+        public bool ConsumesToiletPaper => Id == Item.HeartPieceNotebookHand;
 
         /// <summary>
         /// Get <see cref="GameObjects.DungeonEntrance"/> values.
@@ -100,7 +100,7 @@ namespace MMR.Randomizer.Models.Cache
 
         public CachedLocation(Item location, ReadOnlyCollection<CachedItem> items)
         {
-            Location = location;
+            Id = location;
             LocationHints = new List<string>().AsReadOnly();
 
             var gossipCombine = new List<GossipCombineAttribute>();
@@ -205,9 +205,9 @@ namespace MMR.Randomizer.Models.Cache
             }
         }
 
-        public bool Equals(CachedLocation? other) => other != null ? Location == other.Location : false;
+        public bool Equals(CachedLocation? other) => other != null ? Id == other.Id : false;
 
-        public override int GetHashCode() => (int)Location;
+        public override int GetHashCode() => (int)Id;
 
         /// <summary>
         /// Get the progressive upgrade name if progressive upgrades are enabled. If not enabled or not a progressive upgrade, return the location name.
