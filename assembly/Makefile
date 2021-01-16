@@ -2,7 +2,7 @@ BUILD_PY := scripts/build.py
 PYTHON   := python
 
 # Directories used for copying built Asm patch files to MMR Resources directory.
-GEN_DIR  := data/generated
+GEN_DIR  := build/generated
 RES_DIR  := ../MMR.Randomizer/Resources/asm
 
 # Build for Majora's Mask by default
