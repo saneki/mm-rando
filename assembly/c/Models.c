@@ -1,6 +1,7 @@
 #include <stdbool.h>
 #include <z64.h>
 #include "Item00.h"
+#include "Scopecoin.h"
 #include "Items.h"
 #include "ItemOverride.h"
 #include "LoadedModels.h"
@@ -557,6 +558,18 @@ void Models_DrawShopInventory(ActorEnGirlA* actor, GlobalContext* ctxt, u32 grap
     } else {
         DrawModelLowLevel(&actor->base, ctxt, graphicIdMinus1);
     }
+}
+
+bool Models_DrawScopecoin(Actor* actor, GlobalContext* ctxt) {
+    if (MISC_CONFIG.flags.freestanding) {
+        u16 giIndex = Scopecoin_GetGiIndex(actor);
+        if (giIndex > 0) {
+            DrawFromGiTable(actor, ctxt, 1.0, giIndex);
+            return true;
+        }
+    }
+
+    return false;
 }
 
 void Models_AfterActorDtor(Actor* actor) {

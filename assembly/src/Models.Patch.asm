@@ -322,3 +322,21 @@
     lw      a0, 0x0020 (sp)
     lw      a1, 0x0024 (sp)
 .endarea
+
+;==================================================================================================
+; Freestanding Models (Scopecoin)
+;==================================================================================================
+
+.headersize G_EN_SCOPECOIN_DELTA
+
+; Scopecoin draw function.
+; Replaces:
+;   sw      s0, 0x0018 (sp)
+;   sw      a0, 0x0038 (sp)
+;   sw      a1, 0x003C (sp)
+;   lw      t6, 0x003C (sp)
+.org 0x80BFD184
+    jal     Models_DrawScopecoin_Hook
+    nop
+    bnez    v0, 0x80BFD240
+    nop
