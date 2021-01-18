@@ -564,7 +564,7 @@ bool Models_DrawScopecoin(Actor* actor, GlobalContext* ctxt) {
     if (MISC_CONFIG.flags.freestanding) {
         u16 giIndex = Scopecoin_GetGiIndex(actor);
         if (giIndex > 0) {
-            DrawFromGiTable(actor, ctxt, 1.0, giIndex);
+            DrawFromGiTable(actor, ctxt, 25.0, giIndex);
             return true;
         }
     }
