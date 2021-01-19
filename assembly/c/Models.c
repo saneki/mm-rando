@@ -2,6 +2,7 @@
 #include <z64.h>
 #include "Item00.h"
 #include "Scopecoin.h"
+#include "ScRuppe.h"
 #include "Items.h"
 #include "ItemOverride.h"
 #include "LoadedModels.h"
@@ -565,6 +566,18 @@ bool Models_DrawScopecoin(Actor* actor, GlobalContext* ctxt) {
         u16 giIndex = Scopecoin_GetGiIndex(actor);
         if (giIndex > 0) {
             DrawFromGiTable(actor, ctxt, 25.0, giIndex);
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool Models_DrawScRuppe(Actor* actor, GlobalContext* ctxt) {
+    if (MISC_CONFIG.flags.freestanding) {
+        u16 giIndex = ScRuppe_GetGiIndex(actor);
+        if (giIndex > 0) {
+            DrawFromGiTable(actor, ctxt, 35.0, giIndex);
             return true;
         }
     }

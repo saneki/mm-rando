@@ -340,3 +340,21 @@
     nop
     bnez    v0, 0x80BFD240
     nop
+
+;==================================================================================================
+; Freestanding Models (ScRuppe)
+;==================================================================================================
+
+.headersize G_EN_SC_RUPPE_DELTA
+
+; ScRuppe draw function.
+; Replaces:
+;   sw      s0, 0x0018 (sp)
+;   sw      a0, 0x0038 (sp)
+;   sw      a1, 0x003C (sp)
+;   lw      t6, 0x003C (sp)
+.org 0x80BD6D20
+    jal     Models_DrawScRuppe_Hook
+    nop
+    bnez    v0, 0x80BD6DDC
+    nop
