@@ -1445,6 +1445,13 @@ typedef struct {
     /* 0x152 */ u16 disappearCountdown;
 } ActorEnItem00;
 
+// En_Item00 actor (Collectable Field Item).
+typedef struct {
+    /* 0x000 */ Actor base;
+    /* 0x144 */ UNK_TYPE1 pad144[0x50];
+    /* 0x194 */ u16 disappearCountdown;
+} ActorEnScRuppe;
+
 // En_Ruppecrow actor (Guay (Circling Clock Town)).
 typedef struct {
     /* 0x000 */ Actor base;

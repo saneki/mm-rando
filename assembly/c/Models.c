@@ -573,10 +573,11 @@ bool Models_DrawScopecoin(Actor* actor, GlobalContext* ctxt) {
     return false;
 }
 
-bool Models_DrawScRuppe(Actor* actor, GlobalContext* ctxt) {
+bool Models_DrawScRuppe(ActorEnScRuppe* actor, GlobalContext* ctxt) {
     // if receiving item
-    if (actor->gravity == 0 && ScRuppe_GetGiIndex(actor) > 0) {
-        if (z2_IsMessageClosed(actor, ctxt)) {
+    if (actor->disappearCountdown == 1 && ScRuppe_GetGiIndex(actor) > 0) {
+        Player_Pause(ctxt);
+        if (z2_IsMessageClosed(&actor->base, ctxt)) {
             Player_Unpause(ctxt);
         }
     }
@@ -585,7 +586,7 @@ bool Models_DrawScRuppe(Actor* actor, GlobalContext* ctxt) {
         u16 giIndex = ScRuppe_GetGiIndex(actor);
         if (giIndex > 0) {
             // if not receiving item
-            if (actor->gravity != 0) {
+            if (actor->base.gravity != 0) {
                 u16 drawGiIndex = MMR_GetNewGiIndex(ctxt, 0, giIndex, false);
                 ScRuppe_SetDrawGiIndex(actor, drawGiIndex);
             }
@@ -596,7 +597,7 @@ bool Models_DrawScRuppe(Actor* actor, GlobalContext* ctxt) {
             GetItemEntry* entry = PrepareGiEntry(&model, ctxt, giIndexToDraw, false);
 
             z2_CallSetupDList(ctxt->state.gfxCtx);
-            DrawModel(model, actor, ctxt, 35.0);
+            DrawModel(model, &actor->base, ctxt, 35.0);
             return true;
         }
     }
