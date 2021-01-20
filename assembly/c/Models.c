@@ -577,7 +577,20 @@ bool Models_DrawScRuppe(Actor* actor, GlobalContext* ctxt) {
     if (MISC_CONFIG.flags.freestanding) {
         u16 giIndex = ScRuppe_GetGiIndex(actor);
         if (giIndex > 0) {
-            DrawFromGiTable(actor, ctxt, 35.0, giIndex);
+            // if not receiving item
+            // TODO update this. this is currently copied from item00
+            //if (actor->unkState != 0x23) {
+                u16 drawGiIndex = MMR_GetNewGiIndex(ctxt, 0, giIndex, false);
+                ScRuppe_SetDrawGiIndex(actor, drawGiIndex);
+            //}
+            u16 giIndexToDraw = ScRuppe_GetDrawGiIndex(actor);
+
+            // TODO render rupees as rupees?
+            struct Model model;
+            GetItemEntry* entry = PrepareGiEntry(&model, ctxt, giIndexToDraw, false);
+
+            z2_CallSetupDList(ctxt->state.gfxCtx);
+            DrawModel(model, actor, ctxt, 35.0);
             return true;
         }
     }
