@@ -13,3 +13,8 @@ ScRuppe_GiveItem_Hook:
     lw      ra, 0x0010 (sp)
     jr      ra
     addiu   sp, sp, 0x20
+
+ScRuppe_Constructor_Hook:
+    or      a0, s0, r0
+    j       ScRuppe_Constructor
+    lw      a1, 0x0004 (sp)

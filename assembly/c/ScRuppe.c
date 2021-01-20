@@ -1,5 +1,6 @@
 #include <z64.h>
 #include "MMR.h"
+#include "Player.h"
 
 // TODO pick a definitely unused part of the ScRuppe actor memory
 void ScRuppe_SetGiIndex(Actor* actor, u16 giIndex) {
@@ -43,9 +44,10 @@ void ScRuppe_Constructor(Actor* actor, GlobalContext* ctxt) {
 
 bool ScRuppe_GiveItem(Actor* actor, GlobalContext* ctxt) {
     u16 giIndex = ScRuppe_GetGiIndex(actor);
-    if (giIndex > 0) {
-        MMR_GiveItem(ctxt, actor, giIndex);
-        return true;
+    if (giIndex == 0) {
+        return false;
     }
-    return false;
+    MMR_GiveItem(ctxt, actor, giIndex);
+    Player_Pause(ctxt);
+    return true;
 }

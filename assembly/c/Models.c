@@ -574,15 +574,21 @@ bool Models_DrawScopecoin(Actor* actor, GlobalContext* ctxt) {
 }
 
 bool Models_DrawScRuppe(Actor* actor, GlobalContext* ctxt) {
+    // if receiving item
+    if (actor->gravity == 0 && ScRuppe_GetGiIndex(actor) > 0) {
+        if (z2_IsMessageClosed(actor, ctxt)) {
+            Player_Unpause(ctxt);
+        }
+    }
+
     if (MISC_CONFIG.flags.freestanding) {
         u16 giIndex = ScRuppe_GetGiIndex(actor);
         if (giIndex > 0) {
             // if not receiving item
-            // TODO update this. this is currently copied from item00
-            //if (actor->unkState != 0x23) {
+            if (actor->gravity != 0) {
                 u16 drawGiIndex = MMR_GetNewGiIndex(ctxt, 0, giIndex, false);
                 ScRuppe_SetDrawGiIndex(actor, drawGiIndex);
-            //}
+            }
             u16 giIndexToDraw = ScRuppe_GetDrawGiIndex(actor);
 
             // TODO render rupees as rupees?
