@@ -1,5 +1,5 @@
 #include <z64.h>
-#include "Item00.h"
+#include "BaseRupee.h"
 #include "MMR.h"
 
 ActorEnItem00* Rupeecrow_AfterRupeeSpawn(GlobalContext* ctxt, ActorEnRuppecrow* actor, ActorEnItem00* item) {
@@ -11,6 +11,6 @@ ActorEnItem00* Rupeecrow_AfterRupeeSpawn(GlobalContext* ctxt, ActorEnRuppecrow* 
         // green or red rupee
         giIndex = 0x382 + actor->rupeeSpawnCount;
     }
-    Item00_CheckAndSetGiIndex(item, ctxt, giIndex);
+    Rupee_CheckAndSetGiIndex(&item->base, ctxt, giIndex);
     return item;
 }

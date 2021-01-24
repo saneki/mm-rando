@@ -1,5 +1,5 @@
 #include <z64.h>
-#include "Item00.h"
+#include "BaseRupee.h"
 
 ActorEnItem00* SoftSoilPrize_ItemSpawn(GlobalContext* ctxt, Actor* actor, u16 type) {
     ActorEnItem00* item = z2_fixed_drop_spawn(ctxt, &actor->currPosRot.pos, type);
@@ -58,7 +58,7 @@ ActorEnItem00* SoftSoilPrize_ItemSpawn(GlobalContext* ctxt, Actor* actor, u16 ty
             break;
     }
     if (giIndex > 0) {
-        Item00_CheckAndSetGiIndex(item, ctxt, giIndex);
+        Rupee_CheckAndSetGiIndex(&item->base, ctxt, giIndex);
     }
     return item;
 }

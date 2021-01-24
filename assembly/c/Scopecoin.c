@@ -1,5 +1,5 @@
 #include <z64.h>
-#include "Item00.h"
+#include "BaseRupee.h"
 #include "MMR.h"
 
 u16 Scopecoin_GetGiIndex(Actor* actor) {
@@ -26,7 +26,7 @@ ActorEnItem00* Scopecoin_RupeeSpawn(GlobalContext* ctxt, Actor* actor, u16 type)
     ActorEnItem00* item = z2_fixed_drop_spawn(ctxt, &actor->currPosRot.pos, type);
     u16 giIndex = Scopecoin_GetGiIndex(actor);
     if (giIndex > 0) {
-        Item00_CheckAndSetGiIndex(item, ctxt, giIndex);
+        Rupee_CheckAndSetGiIndex(&item->base, ctxt, giIndex);
     }
     return item;
 }

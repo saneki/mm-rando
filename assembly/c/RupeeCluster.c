@@ -1,5 +1,5 @@
 #include <z64.h>
-#include "Item00.h"
+#include "BaseRupee.h"
 
 ActorEnItem00* RupeeCluster_SpawnRupee(GlobalContext* ctxt, Actor* spawner, ActorEnItem00* item, u8 count) {
     u16 giIndex;
@@ -14,7 +14,7 @@ ActorEnItem00* RupeeCluster_SpawnRupee(GlobalContext* ctxt, Actor* spawner, Acto
     }
 
     if (giIndex > 0) {
-        Item00_CheckAndSetGiIndex(item, ctxt, giIndex);
+        Rupee_CheckAndSetGiIndex(&item->base, ctxt, giIndex);
     }
     return item;
 }

@@ -1445,12 +1445,22 @@ typedef struct {
     /* 0x152 */ u16 disappearCountdown;
 } ActorEnItem00;
 
-// En_Item00 actor (Collectable Field Item).
+// En_Sc_Ruppe actor (Rupee Spawned by Telescope Guay).
 typedef struct {
     /* 0x000 */ Actor base;
     /* 0x144 */ UNK_TYPE1 pad144[0x50];
     /* 0x194 */ u16 disappearCountdown;
 } ActorEnScRuppe;
+
+// En_Gamelupy actor (Deku Scrub Playground Rupee).
+typedef struct {
+    /* 0x000 */ Actor base;
+    /* 0x144 */ UNK_TYPE1 pad144[0x50];
+    /* 0x194 */ UNK_TYPE1 pad194[0x3];
+    /* 0x197 */ bool isBlueRupee;
+    /* 0x198 */ UNK_TYPE1 pad198[0x4];
+    /* 0x19C */ u16 disappearCountdown;
+} ActorEnGamelupy;
 
 // En_Ruppecrow actor (Guay (Circling Clock Town)).
 typedef struct {

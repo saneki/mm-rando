@@ -309,3 +309,18 @@ Models_DrawScRuppe_Hook:
     lw      ra, 0x0010 (sp)
     jr      ra
     addiu   sp, sp, 0x20
+
+Models_DrawDekuScrubPlaygroundRupee_Hook:
+    addiu   sp, sp, -0x20
+    sw      ra, 0x0010 (sp)
+    sw      s0, 0x0038 (sp)
+    sw      a0, 0x0058 (sp)
+    sw      a1, 0x005C (sp)
+
+    jal     Models_DrawDekuScrubPlaygroundRupee
+    nop
+
+    lw      t6, 0x005C (sp)
+    lw      ra, 0x0010 (sp)
+    jr      ra
+    addiu   sp, sp, 0x20

@@ -358,3 +358,20 @@
     nop
     bnez    v0, 0x80BD6DDC
     nop
+
+;==================================================================================================
+; Freestanding Models (Deku Playground Rupee)
+;==================================================================================================
+
+.headersize G_EN_GAMELUPY_DELTA
+
+; Replaces:
+;   sw      s0, 0x0018 (sp)
+;   sw      a0, 0x0038 (sp)
+;   sw      a1, 0x003C (sp)
+;   lw      t6, 0x003C (sp)
+.org 0x80AF6C00
+    jal     Models_DrawDekuScrubPlaygroundRupee_Hook
+    nop
+    bnez    v0, 0x80AF6CBC
+    nop

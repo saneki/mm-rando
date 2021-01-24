@@ -1,5 +1,5 @@
 #include <z64.h>
-#include "Item00.h"
+#include "BaseRupee.h"
 #include "Player.h"
 
 void InvisibleRupee_GiveItem(Actor* actor, GlobalContext* ctxt) {
@@ -8,5 +8,5 @@ void InvisibleRupee_GiveItem(Actor* actor, GlobalContext* ctxt) {
 
     u16 flag = actor->params >> 2;
     u16 giIndex = 0x350 + flag;
-    Item00_CheckAndSetGiIndex(item, ctxt, giIndex);
+    Rupee_CheckAndSetGiIndex(&item->base, ctxt, giIndex);
 }

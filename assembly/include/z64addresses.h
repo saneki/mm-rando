@@ -49,6 +49,7 @@
 #define z2_GetFloorPhysicsType_addr      0x800C99D4
 #define z2_GetMatrixStackTop_addr        0x80180234
 #define z2_PlaySfx_addr                  0x8019F0C8
+#define z2_PlaySfxAtActor_addr           0x800B8EC8
 #define z2_SpawnActor_addr               0x800BAC60
 #define z2_UpdateButtonUsability_addr    0x80110038
 #define z2_WriteHeartColors_addr         0x8010069C
@@ -138,6 +139,7 @@
 #define z2_SetGetItemLongrange_addr      0x800B8BD0
 #define z2_GiveItem_addr                 0x80112E80
 #define z2_GiveMap_addr                  0x8012EF0C
+#define z2_AddRupees_addr                0x801159EC
 
 // Function Addresses (HUD).
 #define z2_UpdateButtonsState_addr       0x8010EF68
@@ -179,6 +181,7 @@ typedef void (*z2_DrawCButtonIcons_proc)(GlobalContext *game);
 typedef u32 (*z2_GetFloorPhysicsType_proc)(void *arg0, void *arg1, u8 arg2);
 typedef f32* (*z2_GetMatrixStackTop_proc)();
 typedef void (*z2_PlaySfx_proc)(u32 id);
+typedef void (*z2_PlaySfxAtActor_proc)(Actor* actor, u32 id);
 typedef Actor* (*z2_SpawnActor_proc)(ActorContext *actor_ctx, GlobalContext *game, u16 id,
                                           f32 x, f32 y, f32 z, u16 rx, u16 ry, u16 rz, u16 variable);
 typedef void (*z2_UpdateButtonUsability_proc)(GlobalContext *game);
@@ -267,6 +270,7 @@ typedef void (*z2_SetGetItem_proc)(Actor *actor, GlobalContext *game, s32 unk2, 
 typedef bool (*z2_SetGetItemLongrange_proc)(Actor* actor, GlobalContext* ctxt, u16 giIndex);
 typedef void (*z2_GiveItem_proc)(GlobalContext *game, u8 item_id);
 typedef void (*z2_GiveMap_proc)(u32 map_index);
+typedef void (*z2_AddRupees_proc)(u32 amount);
 
 // Function Prototypes (HUD).
 typedef void (*z2_HudSetAButtonText_proc)(GlobalContext *game, u16 text_id);
@@ -308,6 +312,7 @@ typedef bool (*z2_IsMessageClosed_proc)(Actor* actor, GlobalContext *ctxt);
 #define z2_GetFloorPhysicsType           ((z2_GetFloorPhysicsType_proc)   z2_GetFloorPhysicsType_addr)
 #define z2_GetMatrixStackTop             ((z2_GetMatrixStackTop_proc)     z2_GetMatrixStackTop_addr)
 #define z2_PlaySfx                       ((z2_PlaySfx_proc)               z2_PlaySfx_addr)
+#define z2_PlaySfxAtActor                ((z2_PlaySfxAtActor_proc)        z2_PlaySfxAtActor_addr)
 #define z2_SpawnActor                    ((z2_SpawnActor_proc)            z2_SpawnActor_addr)
 #define z2_UpdateButtonUsability         ((z2_UpdateButtonUsability_proc) z2_UpdateButtonUsability_addr)
 #define z2_WriteHeartColors              ((z2_WriteHeartColors_proc)      z2_WriteHeartColors_addr)
@@ -396,6 +401,7 @@ typedef bool (*z2_IsMessageClosed_proc)(Actor* actor, GlobalContext *ctxt);
 #define z2_SetGetItemLongrange           ((z2_SetGetItemLongrange_proc)   z2_SetGetItemLongrange_addr)
 #define z2_GiveItem                      ((z2_GiveItem_proc)              z2_GiveItem_addr)
 #define z2_GiveMap                       ((z2_GiveMap_proc)               z2_GiveMap_addr)
+#define z2_AddRupees                     ((z2_AddRupees_proc)             z2_AddRupees_addr)
 
 // Functions (HUD).
 #define z2_HudSetAButtonText             ((z2_HudSetAButtonText_proc)     z2_HudSetAButtonText_addr)

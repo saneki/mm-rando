@@ -3,38 +3,7 @@
 #include "Misc.h"
 #include "MMR.h"
 #include "Player.h"
-
-// TODO pick a definitely unused part of the item00 actor memory
-void Item00_SetGiIndex(ActorEnItem00* actor, u16 giIndex) {
-    u16* pointer = (u16*)(&actor->base.unkE0);
-    *pointer = giIndex;
-}
-
-u16 Item00_GetGiIndex(ActorEnItem00* actor) {
-    u16* pointer = (u16*)(&actor->base.unkE0);
-    return *pointer;
-}
-
-void Item00_SetDrawGiIndex(ActorEnItem00* actor, u16 drawGiIndex) {
-    u16* pointer = (u16*)(&actor->base.unkE0);
-    pointer++;
-    *pointer = drawGiIndex;
-}
-
-u16 Item00_GetDrawGiIndex(ActorEnItem00* actor) {
-    u16* pointer = (u16*)(&actor->base.unkE0);
-    pointer++;
-    return *pointer;
-}
-
-void Item00_CheckAndSetGiIndex(ActorEnItem00* actor, GlobalContext* ctxt, u16 giIndex) {
-    GetItemEntry* entry = MMR_GetGiEntry(giIndex);
-    if (entry->item != 0 && entry->message != 0) {
-        Item00_SetGiIndex(actor, giIndex);
-        u16 drawGiIndex = MMR_GetNewGiIndex(ctxt, 0, giIndex, false);
-        Item00_SetDrawGiIndex(actor, drawGiIndex);
-    }
-}
+#include "BaseRupee.h"
 
 void Item00_Constructor(ActorEnItem00* actor, GlobalContext* ctxt) {
     if (actor->collectableFlag != 0) {
@@ -55,15 +24,15 @@ void Item00_Constructor(ActorEnItem00* actor, GlobalContext* ctxt) {
         u16 giIndex;
         z2_ReadFile(&giIndex, start, 2);
         if (giIndex > 0) {
-            Item00_SetGiIndex(actor, giIndex);
+            Rupee_SetGiIndex(&actor->base, giIndex);
             u16 drawGiIndex = MMR_GetNewGiIndex(ctxt, 0, giIndex, false);
-            Item00_SetDrawGiIndex(actor, drawGiIndex);
+            Rupee_SetDrawGiIndex(&actor->base, drawGiIndex);
         }
     }
 }
 
 bool Item00_GiveItem(ActorEnItem00* actor, GlobalContext* ctxt) {
-    u16 giIndex = Item00_GetGiIndex(actor);
+    u16 giIndex = Rupee_GetGiIndex(&actor->base);
     if (giIndex == 0) {
         return false;
     }

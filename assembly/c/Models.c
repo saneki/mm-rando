@@ -1,8 +1,7 @@
 #include <stdbool.h>
 #include <z64.h>
-#include "Item00.h"
+#include "BaseRupee.h"
 #include "Scopecoin.h"
-#include "ScRuppe.h"
 #include "Items.h"
 #include "ItemOverride.h"
 #include "LoadedModels.h"
@@ -171,7 +170,7 @@ void Models_DrawHeartPiece(Actor* actor, GlobalContext* ctxt) {
  * Hook function for drawing En_Item00 actors as their new item.
  **/
 bool Models_DrawItem00(ActorEnItem00* actor, GlobalContext* ctxt) {
-    if (actor->unkState == 0x23 && Item00_GetGiIndex(actor) > 0) {
+    if (actor->unkState == 0x23 && Rupee_GetGiIndex(&actor->base) > 0) {
         if (z2_IsMessageClosed(&actor->base, ctxt)) {
             Player_Unpause(ctxt);
         }
@@ -186,13 +185,13 @@ bool Models_DrawItem00(ActorEnItem00* actor, GlobalContext* ctxt) {
     }
 
     if (MISC_CONFIG.flags.freestanding) {
-        u16 giIndex = Item00_GetGiIndex(actor);
+        u16 giIndex = Rupee_GetGiIndex(&actor->base);
         if (giIndex > 0) {
             if (actor->unkState != 0x23) {
                 u16 drawGiIndex = MMR_GetNewGiIndex(ctxt, 0, giIndex, false);
-                Item00_SetDrawGiIndex(actor, drawGiIndex);
+                Rupee_SetDrawGiIndex(&actor->base, drawGiIndex);
             }
-            u16 giIndexToDraw = Item00_GetDrawGiIndex(actor);
+            u16 giIndexToDraw = Rupee_GetDrawGiIndex(&actor->base);
 
             // TODO render rupees as rupees?
             struct Model model;
@@ -218,7 +217,7 @@ void Models_RotateEnItem00(Actor* actor, GlobalContext* ctxt) {
         if ((actor->params & 0xFF) >= 0x1D) {
             index = actor->params + 0x80;
         } else {
-            index = Item00_GetGiIndex((ActorEnItem00*)actor);
+            index = Rupee_GetGiIndex(actor);
         }
     }
     if (index > 0) {
@@ -575,7 +574,7 @@ bool Models_DrawScopecoin(Actor* actor, GlobalContext* ctxt) {
 
 bool Models_DrawScRuppe(ActorEnScRuppe* actor, GlobalContext* ctxt) {
     // if receiving item
-    if (actor->disappearCountdown == 1 && ScRuppe_GetGiIndex(actor) > 0) {
+    if (actor->disappearCountdown == 1 && Rupee_GetGiIndex(&actor->base) > 0) {
         Player_Pause(ctxt);
         if (z2_IsMessageClosed(&actor->base, ctxt)) {
             Player_Unpause(ctxt);
@@ -583,14 +582,46 @@ bool Models_DrawScRuppe(ActorEnScRuppe* actor, GlobalContext* ctxt) {
     }
 
     if (MISC_CONFIG.flags.freestanding) {
-        u16 giIndex = ScRuppe_GetGiIndex(actor);
+        u16 giIndex = Rupee_GetGiIndex(&actor->base);
         if (giIndex > 0) {
             // if not receiving item
             if (actor->base.gravity != 0) {
                 u16 drawGiIndex = MMR_GetNewGiIndex(ctxt, 0, giIndex, false);
-                ScRuppe_SetDrawGiIndex(actor, drawGiIndex);
+                Rupee_SetDrawGiIndex(&actor->base, drawGiIndex);
             }
-            u16 giIndexToDraw = ScRuppe_GetDrawGiIndex(actor);
+            u16 giIndexToDraw = Rupee_GetDrawGiIndex(&actor->base);
+
+            // TODO render rupees as rupees?
+            struct Model model;
+            GetItemEntry* entry = PrepareGiEntry(&model, ctxt, giIndexToDraw, false);
+
+            z2_CallSetupDList(ctxt->state.gfxCtx);
+            DrawModel(model, &actor->base, ctxt, 35.0);
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool Models_DrawDekuScrubPlaygroundRupee(ActorEnGamelupy* actor, GlobalContext* ctxt) {
+    // if receiving item
+    if (actor->disappearCountdown == 1 && Rupee_GetGiIndex(&actor->base) > 0) {
+        Player_Pause(ctxt);
+        if (z2_IsMessageClosed(&actor->base, ctxt)) {
+            Player_Unpause(ctxt);
+        }
+    }
+
+    if (MISC_CONFIG.flags.freestanding) {
+        u16 giIndex = Rupee_GetGiIndex(&actor->base);
+        if (giIndex > 0) {
+            // if not receiving item
+            if (actor->base.gravity != 0) {
+                u16 drawGiIndex = MMR_GetNewGiIndex(ctxt, 0, giIndex, false);
+                Rupee_SetDrawGiIndex(&actor->base, drawGiIndex);
+            }
+            u16 giIndexToDraw = Rupee_GetDrawGiIndex(&actor->base);
 
             // TODO render rupees as rupees?
             struct Model model;
