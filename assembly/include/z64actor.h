@@ -91,7 +91,7 @@ typedef struct Actor {
     /* 0x003 */ s8 room;
     /* 0x004 */ u32 flags;
     /* 0x008 */ PosRot initPosRot;
-    /* 0x01C */ s16 params;
+    /* 0x01C */ u16 params;
     /* 0x01E */ s8 objBankIndex;
     /* 0x01F */ UNK_TYPE1 unk1F;
     /* 0x020 */ u16 soundEffect;
