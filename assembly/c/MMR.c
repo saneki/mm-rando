@@ -7,7 +7,7 @@ struct MMRConfig MMR_CONFIG = {
     .magic = MMR_CONFIG_MAGIC,
     .version = 1,
     .locations = {
-        .cycleRepeatableLength = 0x80,
+        .rupeeRepeatableLength = 0x80,
         .bottleRedPotion = 0x59,
         .bottleChateau = 0x6F,
         .bottleMilk = 0x60,
@@ -147,6 +147,69 @@ u16 MMR_CheckProgressiveUpgrades(u16 giIndex) {
     return giIndex;
 }
 
+#define cycleRepeatableItemsLength 34
+static u8 cycleRepeatableItems[cycleRepeatableItemsLength] = {
+    0x06, // 1 Bomb
+    0x07, // 10 Bombchu
+    0x08, // 1 Deku Stick
+    0x09, // 1 Deku Nut
+    0x0A, // 1 Magic Bean
+    0x0C, // Powder Keg
+    0x13, // Red Potion
+    0x14, // Green Potion
+    0x15, // Blue Potion
+    0x16, // Fairy
+    0x51, // Hero's Shield
+    0x79, // Magic Jar
+    0x7A, // Large Magic Jar
+    0x83, // 1 Heart
+    0x8B, // 5 Deku Sticks
+    0x8C, // 10 Deku Sticks
+    0x8D, // 5 Deku Nuts
+    0x8E, // 10 Deku Nuts
+    0x8F, // 5 Bombs
+    0x90, // 10 Bombs
+    0x91, // 20 Bombs
+    0x92, // 30 Bombs
+    0x93, // 10 Arrows
+    0x94, // 30 Arrows
+    0x95, // 40 Arrows
+    0x96, // 50 Arrows
+    0x97, // 20 Bombchu
+    0x98, // 10 Bombchu
+    0x99, // 1 Bombchu
+    0x9A, // 5 Bombchu
+    0x9F, // Chateau Romani
+    0xA0, // Milk
+    0xA1, // Gold Dust
+    0xFF, // ? Stray Fairy ?
+};
+bool MMR_IsCycleRepeatable(u16 giIndex) {
+    GetItemEntry* entry = MMR_GetGiEntry(giIndex);
+    if (entry->item >= 0x28 && entry->item <= 0x30) {
+        // Trade/Quest items
+        return MISC_CONFIG.flags.questItemStorage == 0;
+    }
+    if (entry->item >= 0x84 && entry->item <= 0x8A) {
+        // Rupees
+        if (giIndex >= 0x1CC) {
+            // Collectable Drops
+            return true;
+        }
+        for (u8 i = 0; i < MMR_CONFIG.locations.rupeeRepeatableLength; i++) {
+            if (MMR_CONFIG.locations.rupeeRepeatable[i] == giIndex) {
+                return true;
+            }
+        }
+    }
+    for (u8 i = 0; i < cycleRepeatableItemsLength; i++) {
+        if (entry->item == cycleRepeatableItems[i]) {
+            return true;
+        }
+    }
+    return false;
+}
+
 u16 MMR_GetNewGiIndex(GlobalContext* ctxt, Actor* actor, u16 giIndex, bool grant) {
     if (gSaveContext.perm.cutscene != 0) {
         grant = false;
@@ -168,13 +231,7 @@ u16 MMR_GetNewGiIndex(GlobalContext* ctxt, Actor* actor, u16 giIndex, bool grant
             newGiIndex = MMR_CheckProgressiveUpgrades(newGiIndex);
         }
     } else {
-        bool isCycleRepeatable = false;
-        for (u8 i = 0; i < MMR_CONFIG.locations.cycleRepeatableLength; i++) {
-            if (MMR_CONFIG.locations.cycleRepeatable[i] == newGiIndex) {
-                isCycleRepeatable = true;
-                break;
-            }
-        }
+        bool isCycleRepeatable = MMR_IsCycleRepeatable(newGiIndex);
         if (!isCycleRepeatable) {
             newGiIndex = 0x0A; // Recovery Heart
         }

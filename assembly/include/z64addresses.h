@@ -79,6 +79,7 @@
 #define z2_store_scene_flags_addr        0x80169D40
 
 // Function Addresses (Spawners).
+#define z2_item_can_be_spawned_addr      0x800A7650
 #define z2_fixed_drop_spawn_addr         0x800A7730
 #define z2_rupee_drop_spawn_addr         0x800A7AD4
 #define z2_random_drop_spawn_addr        0x800A7D28
@@ -93,6 +94,7 @@
 #define z2_ActorDtor_addr                0x800B6948
 #define z2_ActorRemove_addr              0x800BB498
 #define z2_ActorUnload_addr              0x800B670C
+#define z2_SetActorSize_addr             0x800B67E0
 
 // Function Addresses (Actor Cutscene).
 #define z2_ActorCutscene_ClearWaiting_addr             0x800F1648
@@ -213,6 +215,7 @@ typedef void (*z2_store_scene_flags_proc)();
 
 /* Function Prototypes (Spawners) */
 // TODO parameters
+typedef s8 (*z2_item_can_be_spawned_proc)(u8 type);
 typedef ActorEnItem00* (*z2_fixed_drop_spawn_proc)(GlobalContext* ctxt, Vec3f* position, u16 type);
 typedef void (*z2_rupee_drop_spawn_proc)();
 typedef void (*z2_random_drop_spawn_proc)();
@@ -227,6 +230,7 @@ typedef void (*z2_load_scene_proc)();
 typedef void (*z2_ActorProc_proc)(Actor *actor, GlobalContext *game);
 typedef void (*z2_ActorRemove_proc)(ActorContext *ctxt, Actor *actor, GlobalContext *game);
 typedef void (*z2_ActorUnload_proc)(Actor *actor);
+typedef void (*z2_SetActorSize_proc)(Actor *actor, f32 size);
 
 // Function Prototypes (Actor Cutscene).
 typedef void (*z2_ActorCutscene_ClearWaiting_proc)(void);
@@ -341,20 +345,22 @@ typedef bool (*z2_IsMessageClosed_proc)(Actor* actor, GlobalContext *ctxt);
 #define z2_store_scene_flags ((z2_store_scene_flags_proc) z2_store_scene_flags_addr)
 
 /* Functions (Spawners) */
-#define z2_fixed_drop_spawn ((z2_fixed_drop_spawn_proc) z2_fixed_drop_spawn_addr)
-#define z2_rupee_drop_spawn ((z2_rupee_drop_spawn_proc) z2_rupee_drop_spawn_addr)
-#define z2_random_drop_spawn ((z2_random_drop_spawn_proc) z2_random_drop_spawn_addr)
-#define z2_spawn_map_actors ((z2_spawn_map_actors_proc) z2_spawn_map_actors_addr)
-#define z2_actor_spawn_1 ((z2_actor_spawn_1_proc) z2_actor_spawn_1_addr)
-#define z2_actor_spawn_2 ((z2_actor_spawn_2_proc) z2_actor_spawn_2_addr)
-#define z2_object_spawn ((z2_object_spawn_proc) z2_object_spawn_addr)
-#define z2_load_objects ((z2_load_objects_proc) z2_load_objects_addr)
-#define z2_load_scene ((z2_load_scene_proc) z2_load_scene_addr)
+#define z2_item_can_be_spawned           ((z2_item_can_be_spawned_proc)   z2_item_can_be_spawned_addr)
+#define z2_fixed_drop_spawn              ((z2_fixed_drop_spawn_proc)      z2_fixed_drop_spawn_addr)
+#define z2_rupee_drop_spawn              ((z2_rupee_drop_spawn_proc)      z2_rupee_drop_spawn_addr)
+#define z2_random_drop_spawn             ((z2_random_drop_spawn_proc)     z2_random_drop_spawn_addr)
+#define z2_spawn_map_actors              ((z2_spawn_map_actors_proc)      z2_spawn_map_actors_addr)
+#define z2_actor_spawn_1                 ((z2_actor_spawn_1_proc)         z2_actor_spawn_1_addr)
+#define z2_actor_spawn_2                 ((z2_actor_spawn_2_proc)         z2_actor_spawn_2_addr)
+#define z2_object_spawn                  ((z2_object_spawn_proc)          z2_object_spawn_addr)
+#define z2_load_objects                  ((z2_load_objects_proc)          z2_load_objects_addr)
+#define z2_load_scene                    ((z2_load_scene_proc)            z2_load_scene_addr)
 
 // Functions (Actors).
 #define z2_ActorDtor                     ((z2_ActorProc_proc)             z2_ActorDtor_addr)
 #define z2_ActorRemove                   ((z2_ActorRemove_proc)           z2_ActorRemove_addr)
 #define z2_ActorUnload                   ((z2_ActorUnload_proc)           z2_ActorUnload_addr)
+#define z2_SetActorSize                  ((z2_SetActorSize_proc)          z2_SetActorSize_addr)
 
 // Functions (Actor Cutscene).
 #define z2_ActorCutscene_ClearWaiting             ((z2_ActorCutscene_ClearWaiting_proc)             z2_ActorCutscene_ClearWaiting_addr)

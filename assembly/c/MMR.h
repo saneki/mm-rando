@@ -35,8 +35,8 @@ typedef GetItemEntry*(*MMR_LoadGiEntry_Func)(u32 giIndex);
 #define MMR_CONFIG_MAGIC 0x4D4D5243
 
 typedef struct {
-    /* 0x000 */ u16 cycleRepeatable[0x80];
-    /* 0x100 */ u16 cycleRepeatableLength;
+    /* 0x000 */ u16 rupeeRepeatable[0x80];
+    /* 0x100 */ u16 rupeeRepeatableLength;
     /* 0x102 */ u16 bottleRedPotion;
     /* 0x104 */ u16 bottleGoldDust;
     /* 0x106 */ u16 bottleMilk;

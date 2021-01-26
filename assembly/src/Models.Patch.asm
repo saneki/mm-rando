@@ -50,6 +50,16 @@
     nop
     nop
 
+; Item set scale in constructor
+; Replaces:
+;   lui     at, 0x801E
+;   addu    at, at, t7
+;   lw      t7, 0xBDF4 (at)
+.org 0x800A5E6C
+    jal     Models_Item00_SetActorSize_Hook
+    or      a1, s0, r0
+    nop
+
 ;==================================================================================================
 ; Freestanding Models (Skulltula Token)
 ;==================================================================================================

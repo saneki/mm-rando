@@ -206,6 +206,19 @@ bool Models_DrawItem00(ActorEnItem00* actor, GlobalContext* ctxt) {
 
     return false;
 }
+/**
+ * Hook function for setting Item00 scale during constructor.
+ **/
+bool Models_Item00_SetActorSize(GlobalContext* ctxt, Actor* actor) {
+    if (MISC_CONFIG.flags.freestanding) {
+        if (Rupee_GetGiIndex(actor) > 0) {
+            // Size set as if this is a Piece of Heart
+            return true;
+        }
+    }
+    
+    return false;
+}
 
 /**
  * Hook function for rotating En_Item00 actors (Heart Piece).

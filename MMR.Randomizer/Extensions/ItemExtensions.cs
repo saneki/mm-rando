@@ -97,11 +97,6 @@ namespace MMR.Randomizer.Extensions
             return item.HasAttribute<RepeatableAttribute>();
         }
 
-        public static bool IsCycleRepeatable(this Item item)
-        {
-            return item.HasAttribute<CycleRepeatableAttribute>();
-        }
-
         public static bool IsRupeeRepeatable(this Item item)
         {
             return item.HasAttribute<RupeeRepeatableAttribute>();

@@ -19,3 +19,21 @@
     jal     Item00_GiveItem_Hook
     nop
     nop
+
+;==================================================================================================
+; Check if item can be spawned
+;==================================================================================================
+
+; Replaces:
+;   andi    a0, s0, 0x00FF
+;   sll     a0, a0, 16
+;   sra     a0, a0, 16
+.org 0x800A7984
+    or      a0, s2, r0
+    or      a1, s0, r0
+    nop
+
+; Replaces:
+;   jal     0x800A7650
+.org 0x800A7994
+    jal     Item00_CanBeSpawned

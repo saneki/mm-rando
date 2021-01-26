@@ -152,19 +152,9 @@ namespace MMR.Randomizer.Utils
             };
             ReadWriteUtils.Arr_Insert(data, 0, data.Length, fileData, offset);
 
-            // todo use Logic Editor to handle which locations should be repeatable and which shouldn't.
-            var isCycleRepeatable = item.IsCycleRepeatable();
-            if (item.Name().Contains("Rupee") && location.IsRupeeRepeatable())
+            if (location.IsRupeeRepeatable())
             {
-                isCycleRepeatable = true;
-            }
-            if (item.ToString().StartsWith("Trade") && settings.QuestItemStorage)
-            {
-                isCycleRepeatable = false;
-            }
-            if (isCycleRepeatable)
-            {
-                settings.AsmOptions.MMRConfig.CycleRepeatableLocations.Add(getItemIndex);
+                settings.AsmOptions.MMRConfig.RupeeRepeatableLocations.Add(getItemIndex);
             }
 
             var isRepeatable = item.IsRepeatable() || (!settings.PreventDowngrades && item.IsDowngradable());

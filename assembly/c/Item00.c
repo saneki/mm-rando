@@ -5,24 +5,29 @@
 #include "Player.h"
 #include "BaseRupee.h"
 
+u16 Item00_CollectableFlagToGiIndex(GlobalContext* ctxt, u16 collectableFlag) {
+    u16 sceneIndex = ctxt->sceneNum;
+    // Stone Tower Temple (Inverted) has distinct collectable switches
+    if (sceneIndex != 0x18 && collectableFlag < 0x20) {
+        sceneIndex = z2_check_scene_pairs(sceneIndex);
+    }
+    u16 collectableTableIndex = sceneIndex * 0x80 + collectableFlag;
+
+    u32 index = MISC_CONFIG.internal.collectableTableFileIndex;
+    DmaEntry entry = dmadata[index];
+
+    u32 start = entry.vromStart + collectableTableIndex * 2;
+
+    // TODO optimization. check if this works on compressed files.
+    // TODO optimization. maybe read the whole scene block when a scene loads.
+    u16 giIndex;
+    z2_ReadFile(&giIndex, start, 2);
+    return giIndex;
+}
+
 void Item00_Constructor(ActorEnItem00* actor, GlobalContext* ctxt) {
     if (actor->collectableFlag != 0) {
-        u16 sceneIndex = ctxt->sceneNum;
-        // Stone Tower Temple (Inverted) has distinct collectable switches
-        if (sceneIndex != 0x18 && actor->collectableFlag < 0x20) {
-            sceneIndex = z2_check_scene_pairs(sceneIndex);
-        }
-        u16 collectableTableIndex = sceneIndex * 0x80 + actor->collectableFlag;
-
-        u32 index = MISC_CONFIG.internal.collectableTableFileIndex;
-        DmaEntry entry = dmadata[index];
-
-        u32 start = entry.vromStart + collectableTableIndex * 2;
-
-        // TODO optimization. check if this works on compressed files.
-        // TODO optimization. maybe read the whole scene block when a scene loads.
-        u16 giIndex;
-        z2_ReadFile(&giIndex, start, 2);
+        u16 giIndex = Item00_CollectableFlagToGiIndex(ctxt, actor->collectableFlag);
         if (giIndex > 0) {
             Rupee_SetGiIndex(&actor->base, giIndex);
             u16 drawGiIndex = MMR_GetNewGiIndex(ctxt, 0, giIndex, false);
@@ -39,4 +44,15 @@ bool Item00_GiveItem(ActorEnItem00* actor, GlobalContext* ctxt) {
     MMR_GiveItem(ctxt, &actor->base, giIndex);
     Player_Pause(ctxt);
     return true;
+}
+
+s8 Item00_CanBeSpawned(GlobalContext* ctxt, u16 params) {
+    u16 collectableFlag = (params >> 8) & 0x7F;
+    if (collectableFlag > 0) {
+        u16 giIndex = Item00_CollectableFlagToGiIndex(ctxt, collectableFlag);
+        if (giIndex > 0) {
+            return params & 0xFF;
+        }
+    }
+    return z2_item_can_be_spawned(params & 0xFF);
 }

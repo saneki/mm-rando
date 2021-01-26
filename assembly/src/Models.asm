@@ -280,6 +280,32 @@ Models_DrawItem00_Hook:
     jr      ra
     addiu   sp, sp, 0x20
 
+Models_Item00_SetActorSize_Hook:
+    addiu   sp, sp, -0x14
+    sw      ra, 0x0010 (sp)
+
+    jal     Models_Item00_SetActorSize
+    nop
+
+    beq     v0, r0, @@displaced_code
+    nop
+
+    lui     t7, 0x800A
+    b       @@caller_return
+    addiu   t7, t7, 0x5EDC
+
+@@displaced_code:
+    lhu     t7, 0x001C (s0)
+    sll     t7, t7, 2
+    lui     at, 0x801E
+    addu    at, at, t7
+    lw      t7, 0xBDF4 (at)
+
+@@caller_return:
+    lw      ra, 0x0010 (sp)
+    jr      ra
+    addiu   sp, sp, 0x14
+
 Models_DrawScopecoin_Hook:
     addiu   sp, sp, -0x20
     sw      ra, 0x0010 (sp)

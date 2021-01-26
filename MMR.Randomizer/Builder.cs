@@ -1443,7 +1443,7 @@ namespace MMR.Randomizer
             ResourceUtils.ApplyHack(Resources.mods.update_trade_scrubs);
 
             var newMessages = new List<MessageEntry>();
-            _randomized.Settings.AsmOptions.MMRConfig.CycleRepeatableLocations.Clear();
+            _randomized.Settings.AsmOptions.MMRConfig.RupeeRepeatableLocations.Clear();
             foreach (var item in _randomized.ItemList)
             {
                 // Unused item
