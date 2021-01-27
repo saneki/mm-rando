@@ -95,6 +95,7 @@
 #define z2_ActorRemove_addr              0x800BB498
 #define z2_ActorUnload_addr              0x800B670C
 #define z2_SetActorSize_addr             0x800B67E0
+#define z2_SetShape_addr                 0x800B3BA4
 
 // Function Addresses (Actor Cutscene).
 #define z2_ActorCutscene_ClearWaiting_addr             0x800F1648
@@ -231,6 +232,7 @@ typedef void (*z2_ActorProc_proc)(Actor *actor, GlobalContext *game);
 typedef void (*z2_ActorRemove_proc)(ActorContext *ctxt, Actor *actor, GlobalContext *game);
 typedef void (*z2_ActorUnload_proc)(Actor *actor);
 typedef void (*z2_SetActorSize_proc)(Actor *actor, f32 size);
+typedef void (*z2_SetShape_proc)(ActorShape* shape, f32 yDisplacement, void* shadowDrawFunc, f32 scale);
 
 // Function Prototypes (Actor Cutscene).
 typedef void (*z2_ActorCutscene_ClearWaiting_proc)(void);
@@ -361,6 +363,7 @@ typedef bool (*z2_IsMessageClosed_proc)(Actor* actor, GlobalContext *ctxt);
 #define z2_ActorRemove                   ((z2_ActorRemove_proc)           z2_ActorRemove_addr)
 #define z2_ActorUnload                   ((z2_ActorUnload_proc)           z2_ActorUnload_addr)
 #define z2_SetActorSize                  ((z2_SetActorSize_proc)          z2_SetActorSize_addr)
+#define z2_SetShape                      ((z2_SetShape_proc)              z2_SetShape_addr)
 
 // Functions (Actor Cutscene).
 #define z2_ActorCutscene_ClearWaiting             ((z2_ActorCutscene_ClearWaiting_proc)             z2_ActorCutscene_ClearWaiting_addr)

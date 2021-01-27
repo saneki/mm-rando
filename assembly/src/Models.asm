@@ -292,7 +292,7 @@ Models_Item00_SetActorSize_Hook:
 
     lui     t7, 0x800A
     b       @@caller_return
-    addiu   t7, t7, 0x5EDC
+    addiu   t7, t7, 0x5E80
 
 @@displaced_code:
     lhu     t7, 0x001C (s0)

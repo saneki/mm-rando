@@ -1,11 +1,12 @@
 #include <z64.h>
 #include "BaseRupee.h"
+#include "MMR.h"
+#include "Misc.h"
+
+// TODO maybe find a better way to force an item to spawn.
+bool forceSpawn = false;
 
 ActorEnItem00* SoftSoilPrize_ItemSpawn(GlobalContext* ctxt, Actor* actor, u16 type) {
-    ActorEnItem00* item = z2_fixed_drop_spawn(ctxt, &actor->currPosRot.pos, type);
-    if (item == NULL) { // TODO items should be made to spawn regardless of inventory
-        return item;
-    }
     u16 giIndex = 0;
     u8 flag = actor->params & 0x7F;
     switch (ctxt->sceneNum) {
@@ -58,7 +59,26 @@ ActorEnItem00* SoftSoilPrize_ItemSpawn(GlobalContext* ctxt, Actor* actor, u16 ty
             break;
     }
     if (giIndex > 0) {
+        // TODO move somewhere common
+        GetItemEntry* entry = MMR_GetGiEntry(giIndex);
+        // TODO handle randomized Ocarina (entry->item would be 0)
+        if (entry->item != 0 && entry->message != 0) {
+            // is randomized
+            forceSpawn = true;
+        }
+    }
+    ActorEnItem00* item = z2_fixed_drop_spawn(ctxt, &actor->currPosRot.pos, type);
+    forceSpawn = false;
+    if (item == NULL) { // TODO items should be made to spawn regardless of inventory
+        return item;
+    }
+    if (giIndex > 0) {
         Rupee_CheckAndSetGiIndex(&item->base, ctxt, giIndex);
+        if (MISC_CONFIG.flags.freestanding) {
+            z2_SetActorSize(&item->base, 0.015);
+            item->targetSize = 0.015;
+            z2_SetShape(&item->base.shape, 750, (void*)0x800B3FC0, 6);
+        }
     }
     return item;
 }

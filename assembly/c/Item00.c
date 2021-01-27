@@ -46,12 +46,17 @@ bool Item00_GiveItem(ActorEnItem00* actor, GlobalContext* ctxt) {
     return true;
 }
 
+extern bool forceSpawn;
 s8 Item00_CanBeSpawned(GlobalContext* ctxt, u16 params) {
+    s8 result = params & 0xFF;
+    if (forceSpawn) {
+        return result;
+    }
     u16 collectableFlag = (params >> 8) & 0x7F;
     if (collectableFlag > 0) {
         u16 giIndex = Item00_CollectableFlagToGiIndex(ctxt, collectableFlag);
         if (giIndex > 0) {
-            return params & 0xFF;
+            return result;
         }
     }
     return z2_item_can_be_spawned(params & 0xFF);

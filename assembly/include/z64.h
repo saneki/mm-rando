@@ -1443,6 +1443,7 @@ typedef struct {
     /* 0x14E */ u16 disappearCountdownCopy; // Copied from disappear_countdown
     /* 0x150 */ u16 renderFrameMask; // (disappear_countdown_copy & render_frame_mask) != 0 means dont render
     /* 0x152 */ u16 disappearCountdown;
+    /* 0x154 */ f32 targetSize;
 } ActorEnItem00;
 
 // En_Sc_Ruppe actor (Rupee Spawned by Telescope Guay).
