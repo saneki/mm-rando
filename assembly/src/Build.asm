@@ -43,6 +43,7 @@
 .include "FileSelect.Patch.asm"
 .include "FloorPhysics.Patch.asm"
 .include "Game.Patch.asm"
+.include "HitTag.Patch.asm"
 .include "HudColors.Patch.asm"
 .include "InvisibleRupee.Patch.asm"
 .include "Item00.Patch.asm"
