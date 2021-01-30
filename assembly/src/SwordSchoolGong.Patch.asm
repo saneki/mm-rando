@@ -6,5 +6,5 @@
 
 ; Replaces:
 ;   jal     0x800A7730
-.org 0x80B60AD0
+.org 0x80B60FC0
     jal     SwordSchoolGong_RupeeSpawn
