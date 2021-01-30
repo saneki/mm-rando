@@ -171,10 +171,6 @@ void Models_DrawHeartPiece(Actor* actor, GlobalContext* ctxt) {
  **/
 bool Models_DrawItem00(ActorEnItem00* actor, GlobalContext* ctxt) {
     if (actor->unkState == 0x23 && Rupee_GetGiIndex(&actor->base) > 0) {
-        if (z2_IsMessageClosed(&actor->base, ctxt)) {
-            Player_Unpause(ctxt);
-        }
-
         if (actor->disappearCountdown == 0x0F) {
             return true;
         }
@@ -589,9 +585,6 @@ bool Models_DrawScRuppe(ActorEnScRuppe* actor, GlobalContext* ctxt) {
     // if receiving item
     if (actor->disappearCountdown == 1 && Rupee_GetGiIndex(&actor->base) > 0) {
         Player_Pause(ctxt);
-        if (z2_IsMessageClosed(&actor->base, ctxt)) {
-            Player_Unpause(ctxt);
-        }
     }
 
     if (MISC_CONFIG.flags.freestanding) {
@@ -621,9 +614,6 @@ bool Models_DrawDekuScrubPlaygroundRupee(ActorEnGamelupy* actor, GlobalContext* 
     // if receiving item
     if (actor->disappearCountdown == 1 && Rupee_GetGiIndex(&actor->base) > 0) {
         Player_Pause(ctxt);
-        if (z2_IsMessageClosed(&actor->base, ctxt)) {
-            Player_Unpause(ctxt);
-        }
     }
 
     if (MISC_CONFIG.flags.freestanding) {

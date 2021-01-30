@@ -51,13 +51,11 @@ bool Player_CanReceiveItem(GlobalContext* ctxt) {
 
 void Player_Pause(GlobalContext* ctxt) {
     ActorPlayer* player = GET_PLAYER(ctxt);
-    player->base.freeze = 0x64;
     player->stateFlags.state1 |= PLAYER_STATE1_TIME_STOP_2;
 }
 
 void Player_Unpause(GlobalContext* ctxt) {
     ActorPlayer* player = GET_PLAYER(ctxt);
-    player->base.freeze = 0;
     player->stateFlags.state1 &= ~PLAYER_STATE1_TIME_STOP_2;
 }
 

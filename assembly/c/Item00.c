@@ -41,7 +41,7 @@ bool Item00_GiveItem(ActorEnItem00* actor, GlobalContext* ctxt) {
     if (giIndex == 0) {
         return false;
     }
-    MMR_GiveItem(ctxt, &actor->base, giIndex);
+    MMR_GiveItem(giIndex);
     Player_Pause(ctxt);
     return true;
 }

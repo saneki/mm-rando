@@ -247,8 +247,11 @@ u16 MMR_GetNewGiIndex(GlobalContext* ctxt, Actor* actor, u16 giIndex, bool grant
 
 static u16 gFanfares[5] = { 0x0922, 0x0924, 0x0037, 0x0039, 0x0052 };
 
-void MMR_GiveItem(GlobalContext* ctxt, Actor* actor, u16 giIndex) {
-    giIndex = MMR_GetNewGiIndex(ctxt, actor, giIndex, true);
+#define ITEM_QUEUE_LENGTH 4
+static u16 itemQueue[ITEM_QUEUE_LENGTH] = { 0, 0, 0, 0 };
+
+void MMR_ProcessItem(GlobalContext* ctxt, u16 giIndex) {
+    giIndex = MMR_GetNewGiIndex(ctxt, NULL, giIndex, true);
     GetItemEntry* entry = MMR_GetGiEntry(giIndex);
     z2_memcpy((void*)0x800B35F0, entry, 8); // copy entry to 0x800B35F0 otherwise hacky stuff i wrote ages ago won't work.
     z2_ShowMessage(ctxt, entry->message, 0);
@@ -259,6 +262,36 @@ void MMR_GiveItem(GlobalContext* ctxt, Actor* actor, u16 giIndex) {
         z2_SetBGM2(gFanfares[soundType-1]);
     }
     z2_GiveItem(ctxt, entry->item);
+}
+
+void MMR_ProcessItemQueue(GlobalContext* ctxt) {
+    ActorPlayer* player = GET_PLAYER(ctxt);
+    if (player && (player->stateFlags.state1 & PLAYER_STATE1_TIME_STOP_2)) {
+        u16 giIndex = itemQueue[0];
+        if (giIndex) {
+            u8 messageState = z2_GetMessageState(&ctxt->msgCtx);
+            if (!messageState) {
+                MMR_ProcessItem(ctxt, giIndex);
+            } else if (messageState == 0x02) {
+                // Closing
+                for (u8 i = 0; i < ITEM_QUEUE_LENGTH - 1; i++) {
+                    itemQueue[i] = itemQueue[i + 1];
+                }
+                if (!itemQueue[0]) {
+                    player->stateFlags.state1 &= ~PLAYER_STATE1_TIME_STOP_2;
+                }
+            }
+        }
+    }
+}
+
+void MMR_GiveItem(u16 giIndex) {
+    for (u8 i = 0; i < ITEM_QUEUE_LENGTH; i++) {
+        if (itemQueue[i] == 0) {
+            itemQueue[i] = giIndex;
+            break;
+        }
+    }
 }
 
 void MMR_Init(void) {

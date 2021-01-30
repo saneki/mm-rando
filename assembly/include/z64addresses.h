@@ -173,7 +173,8 @@
 
 // Function Addresses (Text).
 #define z2_ShowMessage_addr              0x801518B0
-#define z2_IsMessageClosed_addr          0x800B867C
+#define z2_IsMessageClosing_addr         0x800B867C
+#define z2_GetMessageState_addr          0x80152498
 
 // Function Prototypes.
 typedef int (*z2_CanInteract_proc)(GlobalContext *game);
@@ -307,7 +308,8 @@ typedef void (*z2_SetBGM2_proc)(u16 bgm_id);
 
 // Function Prototypes (Text).
 typedef void (*z2_ShowMessage_proc)(GlobalContext *game, u16 message_id, u8 something); // TODO figure out something?
-typedef bool (*z2_IsMessageClosed_proc)(Actor* actor, GlobalContext *ctxt);
+typedef bool (*z2_IsMessageClosing_proc)(Actor* actor, GlobalContext *ctxt);
+typedef u8 (*z2_GetMessageState_proc)(MessageContext* msgCtx);
 
 // Functions.
 #define z2_CanInteract                   ((z2_CanInteract_proc)           z2_CanInteract_addr)
@@ -441,7 +443,8 @@ typedef bool (*z2_IsMessageClosed_proc)(Actor* actor, GlobalContext *ctxt);
 
 // Functions (Text).
 #define z2_ShowMessage                   ((z2_ShowMessage_proc)           z2_ShowMessage_addr)
-#define z2_IsMessageClosed               ((z2_IsMessageClosed_proc)       z2_IsMessageClosed_addr)
+#define z2_IsMessageClosing              ((z2_IsMessageClosing_proc)      z2_IsMessageClosing_addr)
+#define z2_GetMessageState               ((z2_GetMessageState_proc)       z2_GetMessageState_addr)
 
 // Relocatable Functions (kaleido_scope).
 #define z2_PauseDrawItemIcon_VRAM        0x80821AD4
