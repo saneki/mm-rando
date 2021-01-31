@@ -602,7 +602,7 @@ bool Models_DrawScRuppe(ActorEnScRuppe* actor, GlobalContext* ctxt) {
             GetItemEntry* entry = PrepareGiEntry(&model, ctxt, giIndexToDraw, false);
 
             z2_CallSetupDList(ctxt->state.gfxCtx);
-            DrawModel(model, &actor->base, ctxt, 35.0);
+            DrawModel(model, &actor->base, ctxt, 25.0);
             return true;
         }
     }
@@ -631,7 +631,7 @@ bool Models_DrawDekuScrubPlaygroundRupee(ActorEnGamelupy* actor, GlobalContext* 
             GetItemEntry* entry = PrepareGiEntry(&model, ctxt, giIndexToDraw, false);
 
             z2_CallSetupDList(ctxt->state.gfxCtx);
-            DrawModel(model, &actor->base, ctxt, 35.0);
+            DrawModel(model, &actor->base, ctxt, 25.0);
             return true;
         }
     }
