@@ -26,8 +26,7 @@ u16 Rupee_GetDrawGiIndex(Actor* actor) {
 
 void Rupee_CheckAndSetGiIndex(Actor* actor, GlobalContext* ctxt, u16 giIndex) {
     GetItemEntry* entry = MMR_GetGiEntry(giIndex);
-    // TODO handle randomized Ocarina (entry->item would be 0)
-    if (entry->item != 0 && entry->message != 0) {
+    if (entry->message != 0) {
         Rupee_SetGiIndex(actor, giIndex);
         u16 drawGiIndex = MMR_GetNewGiIndex(ctxt, 0, giIndex, false);
         Rupee_SetDrawGiIndex(actor, drawGiIndex);

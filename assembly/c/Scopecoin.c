@@ -15,7 +15,7 @@ u16 Scopecoin_GetGiIndex(Actor* actor) {
     
     if (giIndex > 0) {
         GetItemEntry* entry = MMR_GetGiEntry(giIndex);
-        if (entry->item == 0 || entry->message == 0) {
+        if (entry->message == 0) {
             giIndex = 0;
         }
     }

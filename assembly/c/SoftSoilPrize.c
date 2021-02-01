@@ -61,8 +61,7 @@ ActorEnItem00* SoftSoilPrize_ItemSpawn(GlobalContext* ctxt, Actor* actor, u16 ty
     if (giIndex > 0) {
         // TODO move somewhere common
         GetItemEntry* entry = MMR_GetGiEntry(giIndex);
-        // TODO handle randomized Ocarina (entry->item would be 0)
-        if (entry->item != 0 && entry->message != 0) {
+        if (entry->message != 0) {
             // is randomized
             forceSpawn = true;
         }
