@@ -72,6 +72,7 @@
 .include "Speedups.Patch.asm"
 .include "StrayFairyGroup.Patch.asm"
 .include "SwordSchoolGong.Patch.asm"
+.include "Thiefbird.Patch.asm"
 .include "WorldColors.Patch.asm"
 
 ;==================================================================================================
