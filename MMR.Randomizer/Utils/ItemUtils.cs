@@ -119,7 +119,7 @@ namespace MMR.Randomizer.Utils
             }.AsEnumerable();
         }
 
-        public static IEnumerable<Item> DungeonFairies()
+        public static IEnumerable<Item> DungeonStrayFairies()
         {
             return Enumerable.Range((int)Item.CollectibleStrayFairyWoodfall1, 60).Cast<Item>();
         }

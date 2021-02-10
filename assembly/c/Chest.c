@@ -15,7 +15,7 @@ void Chest_WriteGiIndex(ActorEnBox* actor, GlobalContext* ctxt) {
         z2_RomToRam(prom, &result, sizeof(result));
         actor->giIndex = result;
 
-        //if (MISC_CONFIG.flags.fairyChests) {
+        if (MISC_CONFIG.flags.fairyChests) {
             //If fairy chest
             if (actor->giIndex == 0x11) {
                 u16 curDungeonOffset = *(u16*)0x801F3F38;
@@ -26,7 +26,7 @@ void Chest_WriteGiIndex(ActorEnBox* actor, GlobalContext* ctxt) {
                     actor->giIndex = giIndex;
                 }
             }
-        //}
+        }
 
         GetItemEntry* entry = MMR_LoadGiEntry(actor->giIndex);
 

@@ -38,7 +38,8 @@ typedef struct {
     u32 progressiveUpgrades : 1;
     u32 iceTrapQuirks       : 1;
     u32 mikauEarlyBeach     : 1;
-    u32                     : 14;
+    u32 fairyChests         : 1;
+    u32                     : 13;
 } MiscFlags;
 
 typedef union {

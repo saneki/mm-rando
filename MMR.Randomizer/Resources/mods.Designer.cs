@@ -203,6 +203,16 @@ namespace MMR.Randomizer.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] fairies_chests_only {
+            get {
+                object obj = ResourceManager.GetObject("fairies_chests_only", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] fast_deku_hops {
             get {
                 object obj = ResourceManager.GetObject("fast_deku_hops", resourceCulture);
@@ -486,6 +496,26 @@ namespace MMR.Randomizer.Resources {
         internal static byte[] inst24_swap_guitar {
             get {
                 object obj = ResourceManager.GetObject("inst24_swap_guitar", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] key_boss_open {
+            get {
+                object obj = ResourceManager.GetObject("key_boss_open", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] key_small_open {
+            get {
+                object obj = ResourceManager.GetObject("key_small_open", resourceCulture);
                 return ((byte[])(obj));
             }
         }

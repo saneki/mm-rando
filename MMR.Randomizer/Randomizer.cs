@@ -1116,6 +1116,10 @@ namespace MMR.Randomizer
                 foreach (var item in ItemUtils.DungeonStrayFairies())
                 {
                     ItemList[item].ItemOverride = Item.RecoveryHeart;
+                    if (!item.HasAttribute<ChestAttribute>())
+                    {
+                        ItemList[item].NewLocation = item;
+                    }
                 }
             }
         }
