@@ -14,8 +14,23 @@ void Chest_WriteGiIndex(ActorEnBox* actor, GlobalContext* ctxt) {
         u32 prom = dmadata[MMR_ChestTableFileIndex].romStart + (index * 2);
         z2_RomToRam(prom, &result, sizeof(result));
         actor->giIndex = result;
-        // If ice trap chest, use special value instead of index.
+
+        //if (MISC_CONFIG.flags.fairyChests) {
+            //If fairy chest
+            if (actor->giIndex == 0x11) {
+                u16 curDungeonOffset = *(u16*)0x801F3F38;
+                u16 chestFlag = actor.base->params & 0x1F;
+                u16 giIndex = 0x16D + (curDungeonOffset * 0x14) + chestFlag;
+                GetItemEntry* entry = MMR_LoadGiEntry(actor->giIndex);
+                if (entry->item != 0x9D) {
+                    actor->giIndex = giIndex;
+                }
+            }
+        //}
+
         GetItemEntry* entry = MMR_LoadGiEntry(actor->giIndex);
+
+        // If ice trap chest, use special value instead of index.
         if (entry->item == CUSTOM_ITEM_ICE_TRAP) {
             actor->giIndex = 0x76;
         }
