@@ -671,6 +671,10 @@ namespace MMR.Randomizer
                         {
                             continue;
                         }
+                        if (ItemList[d].Item < 0)
+                        {
+                            continue;
+                        }
 
                         int[] check = new int[] { (int)target, i, j };
 
@@ -753,6 +757,10 @@ namespace MMR.Randomizer
                 if (!currentItem.IsTemporary() && target == Item.MaskBlast && (dependency == Item.TradeItemKafeiLetter || dependency == Item.TradeItemPendant))
                 {
                     // Permanent items ignore Kafei Letter and Pendant on Blast Mask check.
+                    continue;
+                }
+                if (ItemList[dependency].Item < 0)
+                {
                     continue;
                 }
                 if (dependency == currentItem)
