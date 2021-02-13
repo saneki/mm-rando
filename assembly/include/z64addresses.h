@@ -119,6 +119,7 @@
 #define z2_LoadFileFromArchive_addr      0x80178DAC
 #define z2_LoadVFileFromArchive_addr     0x80178E3C
 
+#define z2_DmaMgr_SendRequest0_addr        0x80080C90
 #define z2_Yaz0_LoadAndDecompressFile_addr 0x80081178
 
 // Function Addresses (Get Item).
@@ -235,6 +236,7 @@ typedef void (*z2_LoadFileFromArchive_proc)(u32 phys_file, u8 index, u8 *dest, u
 typedef void (*z2_LoadVFileFromArchive_proc)(u32 virt_file, u8 index, u8 *dest, u32 length);
 typedef void (*z2_ReadFile_proc)(void *mem_addr, u32 vrom_addr, u32 size);
 
+typedef s32 (*z2_DmaMgr_SendRequest0_proc)(void* vramStart, u32 vromStart, u32 size);
 typedef void (*z2_Yaz0_LoadAndDecompressFile_proc)(u32 prom_addr, void *dest, u32 length);
 
 // Function Prototypes (Get Item).
@@ -351,6 +353,7 @@ typedef void (*z2_ShowMessage_proc)(GlobalContext *game, u16 message_id, u8 some
 #define z2_ReadFile                      ((z2_ReadFile_proc)              z2_ReadFile_addr)
 #define z2_RomToRam                      ((z2_RomToRam_proc)              z2_RomToRam_addr)
 
+#define z2_DmaMgr_SendRequest0           ((z2_DmaMgr_SendRequest0_proc)        z2_DmaMgr_SendRequest0_addr)
 #define z2_Yaz0_LoadAndDecompressFile    ((z2_Yaz0_LoadAndDecompressFile_proc) z2_Yaz0_LoadAndDecompressFile_addr)
 
 // Functions (Get Item).
