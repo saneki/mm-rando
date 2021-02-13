@@ -1132,6 +1132,18 @@ namespace MMR.Randomizer
             }
         }
 
+        private void ReplaceRecoveryHeartsWithJunk()
+        {
+            var usableJunk = ItemUtils.JunkItems.Where(item => item.IsRepeatable()).ToList();
+            foreach (var io in ItemList)
+            {
+                if (io.Item == Item.RecoveryHeart)
+                {
+                    io.ItemOverride = usableJunk.Random(Random);
+                }
+            }
+        }
+
         private void RandomizeItems()
         {
             var itemPool = new List<Item>();
@@ -1850,6 +1862,7 @@ namespace MMR.Randomizer
                 progressReporter.ReportProgress(30, "Shuffling items...");
                 SetupItems();
                 RandomizeItems();
+                ReplaceRecoveryHeartsWithJunk(); // TODO make this an option?
 
                 // Replace junk items with ice traps according to settings.
                 AddIceTraps(_randomized.Settings.IceTraps, _randomized.Settings.IceTrapAppearance);
