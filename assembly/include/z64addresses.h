@@ -41,28 +41,27 @@
 #define s801D0B70                        (*(struct_801D0B70*)        0x801D0B70)
 
 // Function Prototypes.
-extern int z2_CanInteract(GlobalContext *game);
-extern int z2_CanInteract2(GlobalContext *game, ActorPlayer *link);
-extern void z2_DrawButtonAmounts(GlobalContext *game, u32 arg1, u16 alpha);
-extern void z2_DrawBButtonIcon(GlobalContext *game);
-extern void z2_DrawCButtonIcons(GlobalContext *game);
-extern u32 z2_GetFloorPhysicsType(void *arg0, void *arg1, u8 arg2);
+extern int z2_CanInteract(GlobalContext* ctxt);
+extern int z2_CanInteract2(GlobalContext* ctxt, ActorPlayer* player);
+extern void z2_DrawButtonAmounts(GlobalContext* ctxt, u32 arg1, u16 alpha);
+extern void z2_DrawBButtonIcon(GlobalContext* ctxt);
+extern void z2_DrawCButtonIcons(GlobalContext* ctxt);
+extern u32 z2_GetFloorPhysicsType(void* arg0, void* arg1, u8 arg2);
 extern f32* z2_GetMatrixStackTop();
 extern void z2_PlaySfx(u32 id);
-extern Actor* z2_SpawnActor(ActorContext *actor_ctx, GlobalContext *game, u16 id,
-                                          f32 x, f32 y, f32 z, u16 rx, u16 ry, u16 rz, u16 variable);
-extern void z2_UpdateButtonUsability(GlobalContext *game);
-extern void z2_WriteHeartColors(GlobalContext *game);
+extern Actor* z2_SpawnActor(ActorContext* actorCtxt, GlobalContext* ctxt, u16 id, f32 x, f32 y, f32 z, u16 rx, u16 ry, u16 rz, u16 params);
+extern void z2_UpdateButtonUsability(GlobalContext* ctxt);
+extern void z2_WriteHeartColors(GlobalContext* ctxt);
 extern void z2_RemoveItem(u32 item, u8 slot);
 extern void z2_ToggleSfxDampen(int enable);
-extern void z2_HandleInputVelocity(f32 *linear_velocity, f32 input_velocity, f32 increaseBy, f32 decreaseBy);
-extern bool z2_SetGetItemLongrange(Actor *actor, GlobalContext *game, u16 gi_index);
+extern void z2_HandleInputVelocity(f32* linearVelocity, f32 inputVelocity, f32 increaseBy, f32 decreaseBy);
+extern bool z2_SetGetItemLongrange(Actor* actor, GlobalContext* ctxt, u16 giIndex);
 
 // Function Prototypes (Scene Flags).
 // TODO parameters
 extern void z2_get_generic_flag();
 extern void z2_set_generic_flag();
-extern void z2_remove_generic_flag(GlobalContext *game, s8 flag);
+extern void z2_remove_generic_flag(GlobalContext* ctxt, s8 flag);
 extern void z2_get_chest_flag();
 extern void z2_set_chest_flag();
 extern void z2_set_all_chest_flags();
@@ -80,9 +79,9 @@ extern void z2_check_scene_pairs();
 extern void z2_store_scene_flags();
 
 // Function Prototypes (Actors).
-extern void z2_ActorProc(Actor *actor, GlobalContext *game);
-extern void z2_ActorRemove(ActorContext *ctxt, Actor *actor, GlobalContext *game);
-extern void z2_ActorUnload(Actor *actor);
+extern void z2_ActorProc(Actor* actor, GlobalContext* ctxt);
+extern void z2_ActorRemove(ActorContext* actorCtxt, Actor* actor, GlobalContext* ctxt);
+extern void z2_ActorUnload(Actor* actor);
 
 // Function Prototypes (Actor Cutscene).
 extern void z2_ActorCutscene_ClearWaiting(void);
@@ -92,9 +91,9 @@ extern void z2_ActorCutscene_End(void);
 extern void z2_ActorCutscene_Update(void);
 extern void z2_ActorCutscene_SetIntentToPlay(s16 index);
 extern s16 z2_ActorCutscene_GetCanPlayNext(s16 index);
-extern s16 z2_ActorCutscene_StartAndSetUnkLinkFields(s16 index, Actor *actor);
-extern s16 z2_ActorCutscene_StartAndSetFlag(s16 index, Actor *actor);
-extern s16 z2_ActorCutscene_Start(s16 index, Actor *actor);
+extern s16 z2_ActorCutscene_StartAndSetUnkLinkFields(s16 index, Actor* actor);
+extern s16 z2_ActorCutscene_StartAndSetFlag(s16 index, Actor* actor);
+extern s16 z2_ActorCutscene_Start(s16 index, Actor* actor);
 extern s16 z2_ActorCutscene_Stop(s16 index);
 extern s16 z2_ActorCutscene_GetCurrentIndex(void);
 extern ActorCutscene* z2_ActorCutscene_GetCutscene(s16 index);
@@ -104,60 +103,60 @@ extern s16 z2_ActorCutscene_GetCurrentCamera(void);
 extern void z2_ActorCutscene_SetReturnCamera(s16 index);
 
 // Function Prototypes (Drawing).
-extern void z2_BaseDrawCollectable(Actor *actor, GlobalContext *game);
-extern void z2_BaseDrawGiModel(GlobalContext *game, u32 graphic_id_minus_1);
-extern void z2_CallSetupDList(GraphicsContext *gfx);
-extern void z2_DrawHeartPiece(Actor *actor, GlobalContext *game);
-extern void z2_PreDraw1(Actor *actor, GlobalContext *game, u32 unknown);
-extern void z2_PreDraw2(Actor *actor, GlobalContext *game, u32 unknown);
+extern void z2_BaseDrawCollectable(Actor* actor, GlobalContext* ctxt);
+extern void z2_BaseDrawGiModel(GlobalContext* ctxt, u32 graphicIdMinus1);
+extern void z2_CallSetupDList(GraphicsContext* gfx);
+extern void z2_DrawHeartPiece(Actor* actor, GlobalContext* ctxt);
+extern void z2_PreDraw1(Actor* actor, GlobalContext* ctxt, u32 unknown);
+extern void z2_PreDraw2(Actor* actor, GlobalContext* ctxt, u32 unknown);
 
 // Function Prototypes (File Loading).
-extern s32 z2_RomToRam(u32 src, void *dst, u32 length);
-extern s16 z2_GetFileNumber(u32 vrom_addr);
-extern u32 z2_GetFilePhysAddr(u32 vrom_addr);
-extern DmaEntry* z2_GetFileTable(u32 vrom_addr);
-extern void z2_LoadFile(DmaParams *loadfile);
-extern void z2_LoadFileFromArchive(u32 phys_file, u8 index, u8 *dest, u32 length);
-extern void z2_LoadVFileFromArchive(u32 virt_file, u8 index, u8 *dest, u32 length);
-extern void z2_ReadFile(void *mem_addr, u32 vrom_addr, u32 size);
+extern s32 z2_RomToRam(u32 src, void* dst, u32 length);
+extern s16 z2_GetFileNumber(u32 vromAddr);
+extern u32 z2_GetFilePhysAddr(u32 vromAddr);
+extern DmaEntry* z2_GetFileTable(u32 vromAddr);
+extern void z2_LoadFile(DmaParams* loadfile);
+extern void z2_LoadFileFromArchive(u32 physFile, u8 index, u8* dest, u32 length);
+extern void z2_LoadVFileFromArchive(u32 virtFile, u8 index, u8* dest, u32 length);
+extern void z2_ReadFile(void* memAddr, u32 vromAddr, u32 size);
 
 extern s32 z2_DmaMgr_SendRequest0(void* vramStart, u32 vromStart, u32 size);
-extern void z2_Yaz0_LoadAndDecompressFile(u32 prom_addr, void *dest, u32 length);
+extern void z2_Yaz0_LoadAndDecompressFile(u32 promAddr, void* dest, u32 length);
 
 // Function Prototypes (Get Item).
-extern void z2_SetGetItem(Actor *actor, GlobalContext *game, s32 unk2, u32 unk3);
-extern void z2_GiveItem(GlobalContext *game, u8 item_id);
-extern void z2_GiveMap(u32 map_index);
+extern void z2_SetGetItem(Actor* actor, GlobalContext* ctxt, s32 unk2, u32 unk3);
+extern void z2_GiveItem(GlobalContext* ctxt, u8 itemId);
+extern void z2_GiveMap(u32 mapIndex);
 
 // Function Prototypes (HUD).
-extern void z2_HudSetAButtonText(GlobalContext *game, u16 text_id);
-extern void z2_InitButtonNoteColors(GlobalContext *game);
-extern void z2_ReloadButtonTexture(GlobalContext *game, u8 idx);
+extern void z2_HudSetAButtonText(GlobalContext* ctxt, u16 textId);
+extern void z2_InitButtonNoteColors(GlobalContext* ctxt);
+extern void z2_ReloadButtonTexture(GlobalContext* ctxt, u8 idx);
 extern void z2_UpdateButtonsState(u32 state);
 
 // Function Prototypes (Math).
 extern f32 z2_Math_Sins(s16 angle);
-extern f32 z2_Math_Vec3f_DistXZ(Vec3f *p1, Vec3f *p2);
+extern f32 z2_Math_Vec3f_DistXZ(Vec3f* p1, Vec3f* p2);
 
 // Function Prototypes (Objects).
-extern s8 z2_GetObjectIndex(const SceneContext *ctxt, u16 object_id);
+extern s8 z2_GetObjectIndex(const SceneContext* ctxt, u16 objectId);
 
 // Function Prototypes (OS).
-extern void z2_memcpy(void *dest, const void *src, size_t size);
+extern void z2_memcpy(void* dest, const void* src, u32 size);
 
 // Function Prototypes (RNG).
-extern u32 z2_RngInt();
+extern u32 z2_RngInt(void);
 extern void z2_RngSetSeed(u32 seed);
 
 // Function Prototypes (Rooms).
-extern void z2_LoadRoom(GlobalContext *game, RoomContext *room_ctxt, uint8_t room_id);
-extern void z2_UnloadRoom(GlobalContext *game, RoomContext *room_ctxt);
+extern void z2_LoadRoom(GlobalContext* ctxt, RoomContext* roomCtxt, u8 roomId);
+extern void z2_UnloadRoom(GlobalContext* ctxt, RoomContext* roomCtxt);
 
 // Function Prototypes (Sound).
-extern void z2_SetBGM2(u16 bgm_id);
+extern void z2_SetBGM2(u16 bgmId);
 
 // Function Prototypes (Text).
-extern void z2_ShowMessage(GlobalContext *game, u16 message_id, u8 something); // TODO figure out something?
+extern void z2_ShowMessage(GlobalContext* ctxt, u16 messageId, u8 something); // TODO figure out something?
 
 // Relocatable Functions (kaleido_scope).
 #define z2_PauseDrawItemIcon_VRAM        0x80821AD4
