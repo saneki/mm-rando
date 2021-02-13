@@ -19,7 +19,7 @@ void Chest_WriteGiIndex(ActorEnBox* actor, GlobalContext* ctxt) {
             //If fairy chest
             if (actor->giIndex == 0x11) {
                 u16 curDungeonOffset = *(u16*)0x801F3F38;
-                u16 chestFlag = actor.base->params & 0x1F;
+                u16 chestFlag = actor->base.params & 0x1F;
                 u16 giIndex = 0x16D + (curDungeonOffset * 0x14) + chestFlag;
                 GetItemEntry* entry = MMR_LoadGiEntry(actor->giIndex);
                 if (entry->item != 0x9D) {
