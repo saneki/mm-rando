@@ -210,7 +210,7 @@ namespace MMR.Randomizer.Asm
                 throw new ArgumentException($"{nameof(ExtraStartingItemIds)} is too large.");
             }
 
-            var endBuffer = 0x80 - this.CycleRepeatableLocations.Count - this.BaseCycleRepeatableLocations.Count;
+            var endBuffer = 0xC0 - this.CycleRepeatableLocations.Count - this.BaseCycleRepeatableLocations.Count;
             if (endBuffer < 0)
             {
                 throw new ArgumentException($"{nameof(CycleRepeatableLocations)} is too large.");
