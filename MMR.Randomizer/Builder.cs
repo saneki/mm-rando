@@ -2667,6 +2667,12 @@ namespace MMR.Randomizer
                 {
                     e.Object = extended.Indexes.MusicNotes.Value;
                 }
+
+                // Update gi-table for Magic Power
+                if (e.ItemGained == 0x9B && e.Object == 0xA4 && extended.Indexes.MagicPower != null)
+                {
+                    e.Object = extended.Indexes.MagicPower.Value;
+                }
             }
         }
 
