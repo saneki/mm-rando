@@ -131,7 +131,7 @@ def main():
         call(['make'])
 
     os.chdir(os.path.join(run_dir, relpath, 'src'))
-    call(['armips', '-sym2', '../build/asm_symbols.txt', 'build.asm'])
+    call(['armips', '-sym2', '../build/asm_symbols.txt', 'Build.asm'])
     os.chdir(run_dir)
 
     fixup_asm_symbols(os.path.join(relpath, 'build/asm_symbols.txt'))
