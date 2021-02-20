@@ -1611,7 +1611,7 @@ namespace MMR.Randomizer
                             {
                                 it.RuntimeItemName(biggestBombBagItem.AlternateName(), biggestBombBagItem.NewLocation.Value);
                             })
-                            .Text(", but I'm focusing my marketing effords on ").Red("Gorons").Text(".")
+                            .Text(", but I'm focusing my marketing efforts on ").Red("Gorons").Text(".")
                             ;
                         })
                         .EndTextBox()
