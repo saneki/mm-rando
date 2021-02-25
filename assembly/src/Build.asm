@@ -16,6 +16,7 @@
 
 .include "Constants.asm"
 .include "dmadata.asm"
+.include "Symbols.asm"
 
 ;==================================================================================================
 ; RAM translation for "code" (file 31)
