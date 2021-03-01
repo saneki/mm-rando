@@ -13,7 +13,7 @@
 #include "Player.h"
 #include "Util.h"
 
-#define OBJHEAP_SLOTS (12)
+#define OBJHEAP_SLOTS (24)
 #define OBJHEAP_SIZE  (0x20000)
 
 struct ObjheapItem gObjheapItems[OBJHEAP_SLOTS] = { 0 };
