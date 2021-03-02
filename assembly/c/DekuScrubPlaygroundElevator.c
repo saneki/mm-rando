@@ -7,6 +7,6 @@ ActorEnItem00* DekuScrubPlaygroundElevator_AfterSpawnRupee(GlobalContext* ctxt, 
         giIndexOffset -= 2;
     }
 
-    Rupee_CheckAndSetGiIndex(&item->base, ctxt, 0x3B7 + giIndexOffset);
+    Rupee_CheckAndSetGiIndex(&item->base, ctxt, 0x3B4 + giIndexOffset);
     return item;
 }

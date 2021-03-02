@@ -7,10 +7,10 @@ u16 Scopecoin_GetGiIndex(Actor* actor) {
     u16 giIndex = 0;
     if (flag == 0xA) {
         // Red Rupees in tree
-        giIndex = 0x364;
+        giIndex = 0x361;
     } else if (flag == 0x2) {
         // Red Rupee in pillar
-        giIndex = 0x365;
+        giIndex = 0x362;
     }
     
     if (giIndex > 0) {

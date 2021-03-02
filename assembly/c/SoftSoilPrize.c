@@ -11,51 +11,51 @@ ActorEnItem00* SoftSoilPrize_ItemSpawn(GlobalContext* ctxt, Actor* actor, u16 ty
     u8 flag = actor->params & 0x7F;
     switch (ctxt->sceneNum) {
         case 0x07: // Grottos
-            giIndex = 0x362; // Bean Grotto
+            giIndex = 0x35F; // Bean Grotto
             break;
         case 0x27: // Swamp Spider House
             if (flag == 0) {
-                giIndex = 0x37D; // Rock
+                giIndex = 0x37A; // Rock
             } else {
-                giIndex = 0x37E; // Gold Room
+                giIndex = 0x37B; // Gold Room
             }
             break;
         case 0x2B: // Deku Palace
-            giIndex = 0x370;
+            giIndex = 0x36D;
             break;
         case 0x2D: // Termina Field
             if (flag == 0xE) {
-                giIndex = 0x37F; // Stump
+                giIndex = 0x37C; // Stump
             } else if (flag == 0x5) {
-                giIndex = 0x380; // Observatory
+                giIndex = 0x37D; // Observatory
             } else if (flag == 0x14) {
-                giIndex = 0x381; // South Wall
+                giIndex = 0x37E; // South Wall
             } else {
-                giIndex = 0x382; // Pillar
+                giIndex = 0x37F; // Pillar
             }
             break;
         case 0x35: // Romani Ranch
             if (gSaveContext.perm.day <= 1) {
-                giIndex = 0x37A;
+                giIndex = 0x377;
             } else {
-                giIndex = 0x374;
+                giIndex = 0x371;
             }
             break;
         case 0x37: // Great Bay Coast
-            giIndex = 0x372;
+            giIndex = 0x36F;
             break;
         case 0x41: // Doggy Racetrack
-            giIndex = 0x371;
+            giIndex = 0x36E;
             break;
         case 0x59: // Stone Tower (Inverted)
             if (flag == 0) {
-                giIndex = 0x37B; // Lower
+                giIndex = 0x378; // Lower
             } else {
-                giIndex = 0x37C; // Upper
+                giIndex = 0x379; // Upper
             }
             break;
         case 0x60: // Secret Shrine
-            giIndex = 0x373;
+            giIndex = 0x370;
             break;
     }
     if (giIndex > 0) {
