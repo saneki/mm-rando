@@ -2,6 +2,7 @@
 #include <z64.h>
 #include "BaseRupee.h"
 #include "Scopecoin.h"
+#include "Game.h"
 #include "Items.h"
 #include "ItemOverride.h"
 #include "LoadedModels.h"
@@ -12,7 +13,7 @@
 #include "Player.h"
 #include "Util.h"
 
-#define OBJHEAP_SLOTS (12)
+#define OBJHEAP_SLOTS (24)
 #define OBJHEAP_SIZE  (0x20000)
 
 struct ObjheapItem gObjheapItems[OBJHEAP_SLOTS] = { 0 };
@@ -48,7 +49,7 @@ static void DrawModel(struct Model model, Actor* actor, GlobalContext* ctxt, f32
         return;
     }
 
-    struct ObjheapItem* object = Objheap_Allocate(&gObjheap, model.objectId, actor->room);
+    struct ObjheapItem* object = Objheap_Allocate(&gObjheap, model.objectId);
     if (object) {
         // Update RDRAM segment table with object pointer during the draw function.
         // This is required by Moon's Tear (and possibly others), which programatically resolves a
@@ -662,62 +663,11 @@ void Models_Init(void) {
     Objheap_Init(&gObjheap, alloc, OBJHEAP_SIZE, gObjheapItems, OBJHEAP_SLOTS);
 }
 
-struct ModelsState {
-    // Pointer to graphics context, cannot be retrieved from normal pointer during room unload.
-    GraphicsContext* gfx;
-    // Pointer to polyOpa, used to check if objheap should finish advance.
-    const Gfx* prevOpa;
-};
-
-static struct ModelsState gState = { 0 };
-
 /**
  * Helper function called after preparing game's display buffers for writing (write pointer set to buffer start).
- * Used to finish advancing objheap when needed.
  **/
 void Models_AfterPrepareDisplayBuffers(GraphicsContext* gfx) {
-    // Apparently gfx pointer cannot be retrieved during room unload, so store in global.
-    if (gfx != NULL) {
-        gState.gfx = gfx;
-    }
-    // Note: This assumes that when the polyOpa buffer pointer has been reset to start, it has already been flushed
-    // to RDP. While this is very likely, it is not guaranteed.
-    // If alternative Opa buffer has been cleared, both DLists should be rid of pointers to object data in previous room.
-    if (gState.prevOpa != NULL && gfx->polyOpa.buf != gState.prevOpa) {
-        Objheap_FlushOperation(&gObjheap);
-        gState.prevOpa = NULL;
-    }
-}
-
-/**
- * Helper function called when unloading previous room, to prepare for finishing advance of objheap in a subsequent frame.
- **/
-void Models_PrepareAfterRoomUnload(GlobalContext* ctxt) {
-    // Note: During frame processing loop, unloads room before drawing actors.
-    // Not sure how to get alternative Opa buffer, so get current and check if non-NULL and non-equal (there are only 2).
-    gState.prevOpa = gState.gfx->polyOpa.buf;
-
-    // Determine operation before finish advancing or reverting.
-    // Normally, objects from previously loaded rooms would no longer draw so this isn't an issue, but is required for hack
-    // used to draw actors with 0xFF room, so that the pointer can be safely swapped to data of the relevant room.
-    s8 curRoom = (s8)ctxt->roomContext.currRoom.num;
-    Objheap_HandleRoomUnload(&gObjheap, curRoom);
-}
-
-/**
- * Helper function called when loading next room, to prepare objheap for advancing.
- **/
-void Models_PrepareBeforeRoomLoad(RoomContext* roomCtx, s8 roomIndex) {
-    if ((s8)roomCtx->currRoom.num == -1) {
-        // If loading first room in scene, remember room index.
-        Objheap_InitRoom(&gObjheap, roomIndex);
-    } else {
-        // Safeguard: If previous Opa DList pointer is non-NULL, still waiting to flush advance or revert operation.
-        // If attempting to prepare advance before this has happened, prevent flushing advance or revert operations.
-        if (gState.prevOpa) {
-            gState.prevOpa = NULL;
-        }
-        // If not loading first room in scene, prepare objheap for advance.
-        Objheap_PrepareAdvance(&gObjheap, roomIndex);
+    if (Game_IsPlayerActor()) {
+        Objheap_NextFrame(&gObjheap);
     }
 }

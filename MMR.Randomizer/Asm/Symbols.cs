@@ -20,7 +20,7 @@ namespace MMR.Randomizer.Asm
         /// <summary>
         /// Virtual address of the <see cref="MMFile"/> containing serialized <see cref="Symbols"/> data.
         /// </summary>
-        public static readonly uint MMFILE_START = 0x3F000000;
+        public static readonly uint MMFILE_START = 0x03F00000;
 
         /// <summary>
         /// Address of payload end.
