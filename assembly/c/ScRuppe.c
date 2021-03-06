@@ -4,7 +4,7 @@
 #include "BaseRupee.h"
 
 void ScRuppe_Constructor(ActorEnScRuppe* actor, GlobalContext* ctxt) {
-    u16 giIndex = 0x363;
+    u16 giIndex = 0x362;
     // There's only two instances of this actor in the game. They'll both give the same item.
     // If more are discovered, this will have to be updated.
 

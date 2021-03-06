@@ -7,6 +7,6 @@ void InvisibleRupee_GiveItem(Actor* actor, GlobalContext* ctxt) {
     ActorEnItem00* item = z2_fixed_drop_spawn(ctxt, &actor->currPosRot.pos, type);
 
     u16 flag = actor->params >> 2;
-    u16 giIndex = 0x34D + flag;
+    u16 giIndex = 0x34C + flag;
     Rupee_CheckAndSetGiIndex(&item->base, ctxt, giIndex);
 }

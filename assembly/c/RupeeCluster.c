@@ -5,10 +5,10 @@ ActorEnItem00* RupeeCluster_SpawnRupee(GlobalContext* ctxt, Actor* spawner, Acto
     u16 giIndex;
     if (spawner->params == 0x4013) {
         // Deku Palace
-        giIndex = 0x397 + count;
+        giIndex = 0x396 + count;
     } else if (spawner->params == 0x402D) {
         // Beneath the Graveyard
-        giIndex = 0x39E + count;
+        giIndex = 0x39D + count;
     } else {
         giIndex = 0;
     }
