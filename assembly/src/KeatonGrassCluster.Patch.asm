@@ -2,7 +2,7 @@
 ; Spawn rupee
 ;==================================================================================================
 
-.headersize G_OBJ_DORA_DELTA
+.headersize G_EN_KUSA2_DELTA
 
 ; Replaces:
 ;   lw      a2, 0xEB24 (a2)
