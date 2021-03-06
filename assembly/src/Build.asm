@@ -49,6 +49,7 @@
 .include "InvisibleRupee.Patch.asm"
 .include "Item00.Patch.asm"
 .include "Items.Patch.asm"
+.include "KeatonGrassCluster.Patch.asm"
 .include "Knight.Patch.asm"
 .include "Message.Patch.asm"
 .include "MessageTable.Patch.asm"
