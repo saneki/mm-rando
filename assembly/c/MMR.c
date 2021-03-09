@@ -267,22 +267,28 @@ void MMR_ProcessItem(GlobalContext* ctxt, u16 giIndex) {
     z2_GiveItem(ctxt, entry->item);
 }
 
-void MMR_ProcessItemQueue(GlobalContext* ctxt) {
+u16 MMR_GetProcessingItemGiIndex(GlobalContext* ctxt) {
     ActorPlayer* player = GET_PLAYER(ctxt);
     if (player && (player->stateFlags.state1 & PLAYER_STATE1_TIME_STOP_2)) {
-        u16 giIndex = itemQueue[0];
-        if (giIndex) {
-            u8 messageState = z2_GetMessageState(&ctxt->msgCtx);
-            if (!messageState) {
-                MMR_ProcessItem(ctxt, giIndex);
-            } else if (messageState == 0x02) {
-                // Closing
-                for (u8 i = 0; i < ITEM_QUEUE_LENGTH - 1; i++) {
-                    itemQueue[i] = itemQueue[i + 1];
-                }
-                if (!itemQueue[0]) {
-                    player->stateFlags.state1 &= ~PLAYER_STATE1_TIME_STOP_2;
-                }
+        return itemQueue[0];
+    }
+    return 0;
+}
+
+void MMR_ProcessItemQueue(GlobalContext* ctxt) {
+    u16 giIndex = MMR_GetProcessingItemGiIndex(ctxt);
+    if (giIndex) {
+        u8 messageState = z2_GetMessageState(&ctxt->msgCtx);
+        if (!messageState) {
+            MMR_ProcessItem(ctxt, giIndex);
+        } else if (messageState == 0x02) {
+            // Closing
+            for (u8 i = 0; i < ITEM_QUEUE_LENGTH - 1; i++) {
+                itemQueue[i] = itemQueue[i + 1];
+            }
+            if (!itemQueue[0]) {
+                ActorPlayer* player = GET_PLAYER(ctxt);
+                player->stateFlags.state1 &= ~PLAYER_STATE1_TIME_STOP_2;
             }
         }
     }

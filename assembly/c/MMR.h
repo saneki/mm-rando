@@ -22,6 +22,7 @@ void MMR_Init(void);
 u16 MMR_GetNewGiIndex(GlobalContext* ctxt, Actor* actor, u16 giIndex, bool grant);
 void MMR_ProcessItemQueue(GlobalContext* ctxt);
 void MMR_GiveItem(u16 giIndex);
+u16 MMR_GetProcessingItemGiIndex(GlobalContext* ctxt);
 
 // Function Addresses.
 #define MMR_LoadGiEntry_Addr 0x801449A4
