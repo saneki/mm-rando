@@ -126,7 +126,7 @@ namespace MMR.Randomizer.Utils
             var fileData = RomData.MMFileList[f].Data;
 
             GetItemEntry newItem;
-            if (!itemObject.IsRandomized && location.IsInvisibleRupee()) // TODO also do other rupees, like the TF Guay
+            if (!itemObject.IsRandomized && location.IsNullableItem())
             {
                 newItem = new GetItemEntry();
             }

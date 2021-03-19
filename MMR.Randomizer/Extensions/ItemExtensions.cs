@@ -19,9 +19,9 @@ namespace MMR.Randomizer.Extensions
             return item.GetAttribute<CollectableIndexAttribute>()?.Index;
         }
 
-        public static bool IsInvisibleRupee(this Item item)
+        public static bool IsNullableItem(this Item item)
         {
-            return item.HasAttribute<InvisibleRupeeAttribute>();
+            return item.HasAttribute<NullableItemAttribute>();
         }
 
         public static int[] GetBottleItemIndices(this Item item)

@@ -2,7 +2,7 @@
 
 namespace MMR.Randomizer.Attributes
 {
-    public class InvisibleRupeeAttribute : Attribute
+    public class NullableItemAttribute : Attribute
     {
     }
 }
