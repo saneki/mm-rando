@@ -1100,8 +1100,23 @@ namespace MMR.Randomizer
             PlaceHeartpieces(itemPool);
             PlaceOther(itemPool);
             PlaceTingleMaps(itemPool);
+            PlaceRemainingItems(itemPool);
 
             _randomized.ItemList = ItemList;
+        }
+
+        /// <summary>
+        /// Places starting items in the randomization pool.
+        /// </summary>
+        private void PlaceRemainingItems(List<Item> itemPool)
+        {
+            foreach (var item in ItemUtils.AllLocations())
+            {
+                if (ItemList[item].NewLocation == null)
+                {
+                    PlaceItem(item, itemPool);
+                }
+            }
         }
 
         /// <summary>

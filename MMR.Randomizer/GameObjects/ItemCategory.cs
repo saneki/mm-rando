@@ -7,7 +7,7 @@ namespace MMR.Randomizer.GameObjects
         Fake = -1,
         None,
 
-        [Description("Enable Song of Soaring being placed in the randomization pool.")]
+        [Description("Randomize the Song of Soaring.")]
         SongOfSoaring,
 
         [Description("Randomize Pieces of Heart and Heart Containers.")]
@@ -43,26 +43,32 @@ namespace MMR.Randomizer.GameObjects
         [Description("Randomize stray fairies including the Clock Town stray fairy. Stray fairies will not reset to 0 after Song of Time.")]
         StrayFairies,
 
-        [Description("Randomize Gold Rupees within chests, rewarded by NPCs and dropped by enemies.")]
+        [Description("Randomize Gold Rupees from chests, rewarded by NPCs and dropped by enemies.")]
         GoldRupees,
 
-        [Description("Randomize Silver Rupees within chests.")]
+        [Description("Randomize Silver Rupees from chests.")]
         SilverRupees,
 
-        [Description("Randomize Purple Rupees within chests, rewarded by NPCs and from jars.")]
+        [Description("Randomize Purple Rupees from chests, rewarded by NPCs and from jars.")]
         PurpleRupees,
 
-        [Description("Randomize Red Rupees within chests, rewarded by NPCs and freestanding ones.")]
+        [Description("Randomize Red Rupees from chests, spawned by events, rewarded by NPCs, from beehives, rocks, soft soil, crates, keaton grass and freestanding/invisible ones.")]
         RedRupees,
 
-        [Description("Randomize Blue Rupees within chests, rewarded by NPCs, from jars and freestanding ones.")]
+        [Description("Randomize Blue Rupees from chests, spawned by events, rewarded by NPCs, from jars, rocks, soft soil, snowballs, beehives, crates and freestanding/invisible ones.")]
         BlueRupees,
 
-        [Description("Randomize Green Rupees from jars and freestanding ones.")]
+        [Description("Randomize Green Rupees spawned by events and hit spots, from jars, crates, grass, keaton grass and freestanding/invisible ones.")]
         GreenRupees,
 
-        [Description("Randomize ammo (including Bombs, Arrows, Deku Nuts, Deku Sticks and Magic Bean) from chests, jars and grass.")]
+        [Description("Randomize the recovery hearts in Pirates' Fortress.")]
+        RecoveryHearts,
+
+        [Description("Randomize ammo (including Bombs, Arrows, Deku Nuts, Deku Sticks and Magic Bean) from chests, soft soil, jars, crates, snowballs, barrels and grass.")]
         Ammo,
+
+        [Description("Randomize large and small magic jars from jars, crates, snowballs and grass.")]
+        MagicJars,
 
         [Description("Randomize Bombchu.")]
         Bombchu,
