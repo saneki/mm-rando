@@ -444,7 +444,7 @@ namespace MMR.Randomizer
             var freePlayInstrumentsOffset = 0x12A8E4; // data for free play instruments
             var freePlayInstrumentsArrayAddress = 0x51CBE;
             var previouslyUsedInstruments = new List<Instrument>();
-            foreach (var form in Enum.GetValues(typeof(TransformationForm)).Cast<TransformationForm>().Where(form => form != TransformationForm.FierceDeity).OrderBy(f => _cosmeticSettings.Instruments[f] == Instrument.Random))
+            foreach (var form in Enum.GetValues<TransformationForm>().Where(form => form != TransformationForm.FierceDeity).OrderBy(f => _cosmeticSettings.Instruments[f] == Instrument.Random))
             {
                 var index = form.Id();
 
@@ -1435,7 +1435,7 @@ namespace MMR.Randomizer
             {
                 ResourceUtils.ApplyHack(Resources.mods.fix_downgrades);
             }
-            if (_randomized.Settings.AddCowMilk)
+            if (_randomized.Settings.CategoriesRandomized.Contains(ItemCategory.CowMilk))
             {
                 ResourceUtils.ApplyHack(Resources.mods.fix_cow_bottle_check);
             }
@@ -1509,7 +1509,7 @@ namespace MMR.Randomizer
             if (_randomized.Settings.UpdateShopAppearance)
             {
                 // update tingle shops
-                foreach (var messageShopText in Enum.GetValues(typeof(MessageShopText)).Cast<MessageShopText>())
+                foreach (var messageShopText in Enum.GetValues<MessageShopText>())
                 {
                     var messageShop = messageShopText.GetAttribute<MessageShopAttribute>();
                     var item1 = _randomized.ItemList.First(io => io.NewLocation == messageShop.Items[0]);
@@ -2263,7 +2263,7 @@ namespace MMR.Randomizer
                 .Build()
             );
 
-            if (_randomized.Settings.AddSkulltulaTokens)
+            if (_randomized.Settings.CategoriesRandomized.Contains(ItemCategory.SkulltulaTokens))
             {
                 ResourceUtils.ApplyHack(Resources.mods.fix_skulltula_tokens);
 
@@ -2319,7 +2319,7 @@ namespace MMR.Randomizer
                 newMessages.Add(swampSkulltulaEntry);
             }
 
-            if (_randomized.Settings.AddStrayFairies)
+            if (_randomized.Settings.CategoriesRandomized.Contains(ItemCategory.StrayFairies))
             {
                 ResourceUtils.ApplyHack(Resources.mods.fix_fairies);
             }
@@ -2394,7 +2394,7 @@ namespace MMR.Randomizer
 
             _messageTable.UpdateMessages(newMessages);
 
-            if (_randomized.Settings.AddShopItems)
+            if (_randomized.Settings.CategoriesRandomized.Contains(ItemCategory.ShopItems)) // TODO only apply when actual shops are randomized
             {
                 ResourceUtils.ApplyHack(Resources.mods.fix_shop_checks);
             }
@@ -2636,8 +2636,8 @@ namespace MMR.Randomizer
         /// </summary>
         private void WriteExtendedObjects()
         {
-            var addFairies = _randomized.Settings.AddStrayFairies;
-            var addSkulltulas = _randomized.Settings.AddSkulltulaTokens;
+            var addFairies = _randomized.Settings.CategoriesRandomized.Contains(ItemCategory.StrayFairies);
+            var addSkulltulas = _randomized.Settings.CategoriesRandomized.Contains(ItemCategory.SkulltulaTokens);
             var extended = _extendedObjects = ExtendedObjects.Create(addFairies, addSkulltulas);
 
             foreach (var e in RomData.GetItemList.Values)

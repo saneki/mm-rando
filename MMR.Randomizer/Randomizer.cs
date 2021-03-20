@@ -155,12 +155,12 @@ namespace MMR.Randomizer
                 }
             }
 
-            if (_settings.AddShopItems)
+            if (_settings.CategoriesRandomized.Contains(ItemCategory.ShopItems))
             {
                 ItemList[Item.ShopItemWitchBluePotion].DependsOnItems?.Remove(Item.BottleCatchMushroom);
             }
 
-            if (_settings.RandomizeBottleCatchContents && _settings.LogicMode == LogicMode.Casual)
+            if (_settings.CategoriesRandomized.Contains(ItemCategory.CaughtBottleContents) && _settings.LogicMode == LogicMode.Casual)
             {
                 var anyBottleIndex = ItemList.FindIndex(io => io.Name == "Any Bottle");
                 var twoBottlesIndex = ItemList.FindIndex(io => io.Name == "2 Bottles");
@@ -567,45 +567,45 @@ namespace MMR.Randomizer
             }
 
             // Keep shop items vanilla, unless custom item list contains a shop item
-            _settings.AddShopItems = false;
+            _settings.CategoriesRandomized.Remove(ItemCategory.ShopItems);
 
             // Keep cows vanilla, unless custom item list contains a cow
-            _settings.AddCowMilk = false;
+            _settings.CategoriesRandomized.Remove(ItemCategory.CowMilk);
 
             // Keep skulltula tokens vanilla, unless custom item list contains a token
-            _settings.AddSkulltulaTokens = false;
+            _settings.CategoriesRandomized.Remove(ItemCategory.SkulltulaTokens);
 
             // Keep stray fairies vanilla, unless custom item list contains a fairy
-            _settings.AddStrayFairies = false;
+            _settings.CategoriesRandomized.Remove(ItemCategory.StrayFairies);
 
             // Keep scoops vanilla, unless custom item list contains a scoop
-            _settings.RandomizeBottleCatchContents = false;
+            _settings.CategoriesRandomized.Remove(ItemCategory.CaughtBottleContents);
 
             foreach (var item in _settings.CustomItemList.Select(ItemUtils.AddItemOffset).Cast<Item>())
             {
                 if (ItemUtils.IsShopItem(item))
                 {
-                    _settings.AddShopItems = true;
+                    _settings.CategoriesRandomized.Add(ItemCategory.ShopItems);
                 }
 
                 if (ItemUtils.IsCowItem(item))
                 {
-                    _settings.AddCowMilk = true;
+                    _settings.CategoriesRandomized.Add(ItemCategory.CowMilk);
                 }
 
                 if (ItemUtils.IsSkulltulaToken(item))
                 {
-                    _settings.AddSkulltulaTokens = true;
+                    _settings.CategoriesRandomized.Add(ItemCategory.SkulltulaTokens);
                 }
 
                 if (ItemUtils.IsStrayFairy(item))
                 {
-                    _settings.AddStrayFairies = true;
+                    _settings.CategoriesRandomized.Add(ItemCategory.StrayFairies);
                 }
 
                 if (ItemUtils.IsBottleCatchContent(item))
                 {
-                    _settings.RandomizeBottleCatchContents = true;
+                    _settings.CategoriesRandomized.Add(ItemCategory.CaughtBottleContents);
                 }
             }
         }
@@ -1364,9 +1364,12 @@ namespace MMR.Randomizer
         /// </summary>
         private void Setup()
         {
-            if (_settings.ExcludeSongOfSoaring)
+            foreach (var itemCategory in Enum.GetValues<ItemCategory>())
             {
-                ItemList[Item.SongSoaring].NewLocation = Item.SongSoaring;
+                if (itemCategory > 0 && !_settings.CategoriesRandomized.Contains(itemCategory))
+                {
+                    PreserveCategory(itemCategory);
+                }
             }
 
             if (!_settings.AddSongs)
@@ -1374,73 +1377,27 @@ namespace MMR.Randomizer
                 ShuffleSongs();
             }
 
-            if (!_settings.AddDungeonItems)
-            {
-                PreserveDungeonItems();
-            }
-
-            if (!_settings.AddShopItems)
-            {
-                PreserveShopItems();
-            }
-
-            if (!_settings.AddOther)
-            {
-                PreserveOther();
-            }
-
-            if (_settings.RandomizeBottleCatchContents)
+            if (_settings.CategoriesRandomized.Contains(ItemCategory.CaughtBottleContents))
             {
                 AddBottleCatchContents();
             }
-            else
-            {
-                PreserveBottleCatchContents();
-            }
 
-            if (!_settings.AddMoonItems)
+            if (!_settings.CategoriesRandomized.Contains(ItemCategory.GlitchesRequired) || _settings.LogicMode == LogicMode.Casual)
             {
-                PreserveMoonItems();
-            }
-
-            if (!_settings.AddFairyRewards)
-            {
-                PreserveFairyRewards();
-            }
-
-            if (!_settings.AddNutChest || _settings.LogicMode == LogicMode.Casual)
-            {
-                PreserveNutChest();
-            }
-
-            if (!_settings.CrazyStartingItems)
-            {
-                PreserveStartingItems();
-            }
-
-            if (!_settings.AddCowMilk)
-            {
-                PreserveCowMilk();
-            }
-
-            if (!_settings.AddSkulltulaTokens)
-            {
-                PreserveSkulltulaTokens();
-            }
-
-            if (!_settings.AddStrayFairies)
-            {
-                PreserveStrayFairies();
-            }
-
-            if (!_settings.AddMundaneRewards)
-            {
-                PreserveMundaneRewards();
+                PreserveCategory(ItemCategory.GlitchesRequired);
             }
 
             if (_settings.LogicMode == LogicMode.Casual && ItemList[Item.ItemRanchBarnOtherCowMilk2].Conditionals.Count == 1)
             {
                 PreserveGlitchedCowMilk();
+            }
+        }
+
+        private void PreserveCategory(ItemCategory itemCategory)
+        {
+            foreach (var item in Enum.GetValues<Item>().Where(item => item.Category() == itemCategory))
+            {
+                ItemList[item].NewLocation = item;
             }
         }
 
