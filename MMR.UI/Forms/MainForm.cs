@@ -162,10 +162,14 @@ namespace MMR.UI.Forms
             var initialY = 29;
             var deltaX = 190;
             var deltaY = 23;
-            var width = 150;
+            var width = 190;
             var height = 23;
             var currentX = initialX;
             var currentY = initialY;
+            var itemsInCategories = Enum.GetValues<Item>()
+                .GroupBy(item => item.Category())
+                .Where(g => g.Key != null)
+                .ToDictionary(kvp => kvp.Key, kvp => kvp.ToList());
             foreach (var itemCategory in Enum.GetValues<ItemCategory>())
             {
                 if (itemCategory <= 0)
@@ -176,7 +180,7 @@ namespace MMR.UI.Forms
                 {
                     Tag = itemCategory,
                     Name = "cItemCategory_" + itemCategory.ToString(),
-                    Text = addSpacesRegex.Replace(itemCategory.ToString(), " $1"),
+                    Text = $"{addSpacesRegex.Replace(itemCategory.ToString(), " $1")} (+{itemsInCategories.GetValueOrDefault(itemCategory)?.Count ?? 0})",
                     Location = new Point(currentX, currentY),
                     Size = new Size(width, height),
                 };
@@ -188,7 +192,7 @@ namespace MMR.UI.Forms
                 checkBox.CheckedChanged += cItemCategory_CheckedChanged;
                 gItemPoolOptions.Controls.Add(checkBox);
                 currentX += deltaX;
-                if (currentX > gItemPoolOptions.Width - width)
+                if (currentX > gItemPoolOptions.Width - width + 20)
                 {
                     currentX = initialX;
                     currentY += deltaY;
@@ -233,7 +237,7 @@ namespace MMR.UI.Forms
                 var deltaX = 150;
                 var deltaY = 23;
                 var width = 150;
-                var height = 17;
+                var height = 23;
                 var currentX = initialX;
                 var currentY = initialY;
                 foreach (var value in Enum.GetValues(shortenCutsceneGroup.PropertyType).Cast<Enum>())
