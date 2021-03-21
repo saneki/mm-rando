@@ -1270,7 +1270,9 @@ typedef struct {
     /* 0x0E80 */ UNK_TYPE1 padE80[0x24];
     /* 0x0EA4 */ u8 minimapBitfield[0x1C]; // Bit per scene indicating whether minimap is enabled.
     /* 0x0EC0 */ u16 skullTokens[2];
-    /* 0x0EC4 */ UNK_TYPE1 padEC4[0x1A];
+    /* 0x0EC4 */ UNK_TYPE1 padEC4[0x10];
+    /* 0x0ED4 */ u8 stolenItem; // There's a 4 byte struct here of some kind.
+    /* 0x0ED5 */ UNK_TYPE1 padED5[0x9];
     /* 0x0EDE */ u16 bankRupees;
     /* 0x0EE0 */ UNK_TYPE1 padEE0[0x10];
     /* 0x0EF0 */ u32 lotteryGuess;
