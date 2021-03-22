@@ -111,9 +111,9 @@ bool MMR_CheckBottleAndGetGiFlag(u16 giIndex, u16* newGiIndex) {
 u16 MMR_CheckProgressiveUpgrades(u16 giIndex) {
     if (giIndex == MMR_CONFIG.locations.swordKokiri || giIndex == MMR_CONFIG.locations.swordRazor || giIndex == MMR_CONFIG.locations.swordGilded) {
         if (gSaveContext.perm.unk4C.equipment.sword == 0) {
-            if (gSaveContext.perm.stolenItem == ItemValue.ITEM_GILDED_SWORD || gSaveContext.perm.stolenItem == ItemValue.ITEM_RAZOR_SWORD) {
+            if (gSaveContext.perm.stolenItem == ITEM_GILDED_SWORD || gSaveContext.perm.stolenItem == ITEM_RAZOR_SWORD) {
                 return MMR_CONFIG.locations.swordGilded;
-            } else if (gSaveContext.perm.stolenItem == ItemValue.ITEM_KOKIRI_SWORD) {
+            } else if (gSaveContext.perm.stolenItem == ITEM_KOKIRI_SWORD) {
                 return MMR_CONFIG.locations.swordRazor;
             }
             return MMR_CONFIG.locations.swordKokiri;
