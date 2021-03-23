@@ -68,7 +68,7 @@ ActorEnItem00* SoftSoilPrize_ItemSpawn(GlobalContext* ctxt, Actor* actor, u16 ty
     }
     ActorEnItem00* item = z2_fixed_drop_spawn(ctxt, &actor->currPosRot.pos, type);
     forceSpawn = false;
-    if (item == NULL) { // TODO items should be made to spawn regardless of inventory
+    if (item == NULL) {
         return item;
     }
     if (giIndex > 0) {
