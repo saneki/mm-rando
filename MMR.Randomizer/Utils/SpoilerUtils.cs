@@ -21,8 +21,11 @@ namespace MMR.Randomizer.Utils
 
             randomized.Logic.ForEach((il) =>
             {
-                var io = randomized.ItemList[il.ItemId];
-                il.IsFakeItem = (io.Item.IsFake() && io.Item.Entrance() == null) || !io.IsRandomized;
+                if (il.ItemId >= 0)
+                {
+                    var io = randomized.ItemList[il.ItemId];
+                    il.IsFakeItem = (io.Item.IsFake() && io.Item.Entrance() == null) || !io.IsRandomized;
+                }
             });
 
             Dictionary<Item, Item> dungeonEntrances = new Dictionary<Item, Item>();
