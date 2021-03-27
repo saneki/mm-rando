@@ -191,6 +191,7 @@ static u8 cycleRepeatableItems[cycleRepeatableItemsLength] = {
     0x9F, // Chateau Romani
     0xA0, // Milk
     0xA1, // Gold Dust
+    0xB0, // Ice Trap
     0xFF, // ? Stray Fairy ?
 };
 bool MMR_IsCycleRepeatable(u16 giIndex) {
@@ -300,12 +301,40 @@ void MMR_ProcessItemQueue(GlobalContext* ctxt) {
     }
 }
 
-void MMR_GiveItem(u16 giIndex) {
-    for (u8 i = 0; i < ITEM_QUEUE_LENGTH; i++) {
-        if (itemQueue[i] == 0) {
-            itemQueue[i] = giIndex;
-            break;
+u32 MMR_GetMinorItemSfxId(u8 item) {
+    if (item >= 0x84 && item <= 0x8A) {
+        return 0x4803; // Rupee
+    }
+    if (item == 0x83) {
+        return 0x480B; // Recovery Heart
+    }
+    if (item >= 0x8B && item <= 0x9A) {
+        return 0x4824;
+    }
+    if (item >= 0x6 && item <= 0x9) {
+        return 0x4824;
+    }
+    if (item == 0x79 || item <= 0x7A) {
+        return 0x4824;
+    }
+    return 0;
+}
+
+bool MMR_GiveItem(GlobalContext* ctxt, u16 giIndex) {
+    GetItemEntry* entry = MMR_GetGiEntry(giIndex);
+    u32 minorItemSfxId = MMR_GetMinorItemSfxId(entry->item);
+    if (minorItemSfxId) {
+        z2_PlaySfx(minorItemSfxId);
+        z2_GiveItem(ctxt, entry->item);
+        return true;
+    } else {
+        for (u8 i = 0; i < ITEM_QUEUE_LENGTH; i++) {
+            if (itemQueue[i] == 0) {
+                itemQueue[i] = giIndex;
+                break;
+            }
         }
+        return false;
     }
 }
 

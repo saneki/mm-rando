@@ -1,4 +1,4 @@
-﻿using MMR.Randomizer.Attributes;
+using MMR.Randomizer.Attributes;
 using MMR.Randomizer.Attributes.Entrance;
 using MMR.Randomizer.Models.Settings;
 
@@ -3520,6 +3520,7 @@ namespace MMR.Randomizer.GameObjects
         GossipTerminaGossipPipes,
         GossipTerminaGossipDrums,
 
+        [Repeatable]
         [ItemName("Ice Trap")]
         [GossipItemHint("a cold surprise", "an icy breeze")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]

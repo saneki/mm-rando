@@ -590,13 +590,13 @@ bool Models_DrawScRuppe(ActorEnScRuppe* actor, GlobalContext* ctxt) {
 
     if (MISC_CONFIG.flags.freestanding) {
         u16 giIndex = Rupee_GetGiIndex(&actor->base);
-        if (giIndex > 0) {
+        u16 giIndexToDraw = Rupee_GetDrawGiIndex(&actor->base);
+        if (giIndex > 0 || giIndexToDraw > 0) {
             // if not receiving item
             if (actor->base.gravity != 0) {
-                u16 drawGiIndex = MMR_GetNewGiIndex(ctxt, 0, giIndex, false);
-                Rupee_SetDrawGiIndex(&actor->base, drawGiIndex);
+                giIndexToDraw = MMR_GetNewGiIndex(ctxt, 0, giIndex, false);
+                Rupee_SetDrawGiIndex(&actor->base, giIndexToDraw);
             }
-            u16 giIndexToDraw = Rupee_GetDrawGiIndex(&actor->base);
 
             // TODO render rupees as rupees?
             struct Model model;
@@ -619,13 +619,13 @@ bool Models_DrawDekuScrubPlaygroundRupee(ActorEnGamelupy* actor, GlobalContext* 
 
     if (MISC_CONFIG.flags.freestanding) {
         u16 giIndex = Rupee_GetGiIndex(&actor->base);
-        if (giIndex > 0) {
+        u16 giIndexToDraw = Rupee_GetDrawGiIndex(&actor->base);
+        if (giIndex > 0 || giIndexToDraw > 0) {
             // if not receiving item
             if (actor->base.gravity != 0) {
-                u16 drawGiIndex = MMR_GetNewGiIndex(ctxt, 0, giIndex, false);
-                Rupee_SetDrawGiIndex(&actor->base, drawGiIndex);
+                giIndexToDraw = MMR_GetNewGiIndex(ctxt, 0, giIndex, false);
+                Rupee_SetDrawGiIndex(&actor->base, giIndexToDraw);
             }
-            u16 giIndexToDraw = Rupee_GetDrawGiIndex(&actor->base);
 
             // TODO render rupees as rupees?
             struct Model model;

@@ -16,6 +16,8 @@ bool ScRuppe_GiveItem(ActorEnScRuppe* actor, GlobalContext* ctxt) {
     if (giIndex == 0) {
         return false;
     }
-    MMR_GiveItem(giIndex);
+    if (MMR_GiveItem(ctxt, giIndex)) {
+        Rupee_SetGiIndex(&actor->base, 0);
+    }
     return true;
 }

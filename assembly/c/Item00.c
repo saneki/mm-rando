@@ -41,9 +41,10 @@ bool Item00_GiveItem(ActorEnItem00* actor, GlobalContext* ctxt) {
     if (giIndex == 0) {
         return false;
     }
-    MMR_GiveItem(giIndex);
-    Player_Pause(ctxt);
     actor->pickedUp = true;
+    if (!MMR_GiveItem(ctxt, giIndex)) {
+        Player_Pause(ctxt);
+    }
     return true;
 }
 
