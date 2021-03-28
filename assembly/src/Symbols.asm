@@ -41,6 +41,7 @@
 .definelabel z2_SetGetItem, 0x800B8A1C
 .definelabel z2_SetGetItemLongrange, 0x800B8BD0
 .definelabel z2_PlaySfxAtActor, 0x800B8EC8
+.definelabel z2_PlayLoopingSfxAtActor, 0x800B9010
 .definelabel z2_load_scene_flags, 0x800B9170
 .definelabel z2_spawn_map_actors, 0x800B9334
 .definelabel z2_SpawnActor, 0x800BAC60

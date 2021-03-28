@@ -98,10 +98,10 @@ typedef struct Actor {
     /* 0x022 */ UNK_TYPE1 pad22[0x2];
     /* 0x024 */ PosRot currPosRot;
     /* 0x038 */ s8 cutscene;
-    /* 0x039 */ u8 unk39;
+    /* 0x039 */ u8 isSfxBeingPlayed;
     /* 0x03A */ UNK_TYPE1 pad3A[0x2];
     /* 0x03C */ PosRot topPosRot;
-    /* 0x050 */ u16 unk50;
+    /* 0x050 */ u16 sfxBeingPlayed;
     /* 0x052 */ UNK_TYPE1 pad52[0x2];
     /* 0x054 */ f32 unk54;
     /* 0x058 */ Vec3f scale;

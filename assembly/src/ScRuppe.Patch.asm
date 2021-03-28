@@ -23,3 +23,14 @@
 ;   jr      ra
 .org 0x80BD6CA8
     j       ScRuppe_Constructor_Hook
+
+;==================================================================================================
+; When the rupee is disappearing into link
+;==================================================================================================
+
+; Replaces:
+;   lw      v1, 0x1CCC (a1)
+;   slti    at, v0, 0x001F
+.org 0x80BD6B2C
+    jal     ScRuppe_BeforeDisappearing_Hook
+    nop

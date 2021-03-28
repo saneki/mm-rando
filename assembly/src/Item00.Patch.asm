@@ -41,3 +41,25 @@
 ;   jal     0x800A7650
 .org 0x800A7994
     jal     Item00_CanBeSpawned
+
+;==================================================================================================
+; Run before code block when item is being picked up
+;==================================================================================================
+
+; Replaces:
+;   lw      t6, 0x1CCC (a1)
+;   or      a0, s0, r0
+.org 0x800A6A50
+    jal     Item00_BeforeBeingPickedUp_Hook
+    nop
+
+;==================================================================================================
+; Get how long item should delay before despawning
+;==================================================================================================
+
+; Replaces:
+;   addiu   t1, r0, 0x000F
+;   addiu   t2, r0, 0x0023
+.org 0x800A70D8
+    jal     Item00_GetDespawnDelayAmount_Hook
+    nop

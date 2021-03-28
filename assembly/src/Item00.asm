@@ -50,3 +50,35 @@ Item00_GiveItem_Hook:
     lw      ra, 0x0010 (sp)
     jr      ra
     addiu   sp, sp, 0x20
+
+Item00_BeforeBeingPickedUp_Hook:
+    addiu   sp, sp, -0x14
+    sw      ra, 0x0010 (sp)
+
+    jal     Item00_BeforeBeingPickedUp
+    sw      a1, 0x0018 (sp)
+
+    lw      a1, 0x0018 (sp)
+
+    ; Displaced code
+    lw      t6, 0x1CCC (a1)
+    or      a0, s0, r0
+
+    lw      ra, 0x0010 (sp)
+    jr      ra
+    addiu   sp, sp, 0x14
+
+Item00_GetDespawnDelayAmount_Hook:
+    addiu   sp, sp, -0x14
+    sw      ra, 0x0010 (sp)
+
+    jal     Item00_GetDespawnDelayAmount
+    or      a0, s0, r0
+
+    ; Displaced code
+    or      t1, v0, r0
+    addiu   t2, r0, 0x0023
+
+    lw      ra, 0x0010 (sp)
+    jr      ra
+    addiu   sp, sp, 0x0014

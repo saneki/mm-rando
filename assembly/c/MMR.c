@@ -156,7 +156,7 @@ u16 MMR_CheckProgressiveUpgrades(u16 giIndex) {
     return giIndex;
 }
 
-#define cycleRepeatableItemsLength 34
+#define cycleRepeatableItemsLength 35
 static u8 cycleRepeatableItems[cycleRepeatableItemsLength] = {
     0x06, // 1 Bomb
     0x07, // 10 Bombchu
@@ -317,14 +317,25 @@ u32 MMR_GetMinorItemSfxId(u8 item) {
     if (item == 0x79 || item <= 0x7A) {
         return 0x4824;
     }
+    if (item == 0xB0) {
+        return 0x31A4; // Ice Trap
+    }
     return 0;
 }
 
-bool MMR_GiveItem(GlobalContext* ctxt, u16 giIndex) {
-    GetItemEntry* entry = MMR_GetGiEntry(giIndex);
-    u32 minorItemSfxId = MMR_GetMinorItemSfxId(entry->item);
-    if (minorItemSfxId) {
-        z2_PlaySfx(minorItemSfxId);
+bool MMR_GiveItem(GlobalContext* ctxt, Actor* actor, u16 giIndex) {
+    u32 minorItemSfxId = 0;
+    GetItemEntry* entry = NULL;
+    if (MISC_CONFIG.flags.freestanding) {
+        entry = MMR_GetGiEntry(giIndex);
+        minorItemSfxId = MMR_GetMinorItemSfxId(entry->item);
+    }
+    if (minorItemSfxId && entry) {
+        if (minorItemSfxId == 0x31A4) {
+            z2_PlayLoopingSfxAtActor(actor, minorItemSfxId);
+        } else {
+            z2_PlaySfx(minorItemSfxId);
+        }
         z2_GiveItem(ctxt, entry->item);
         return true;
     } else {

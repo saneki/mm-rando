@@ -32,3 +32,14 @@
 ;   jal     0x800B8EC8
 .org 0x80AF6A50
     nop
+
+;==================================================================================================
+; When the rupee is disappearing into link
+;==================================================================================================
+
+; Replaces
+;   lw      v1, 0x1CCC (a2)
+;   slti    at, v0, 0x001F
+.org 0x80AF6A90
+    jal     DekuScrubPlaygroundRupee_BeforeDisappearing_Hook
+    nop

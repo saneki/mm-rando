@@ -42,10 +42,33 @@ bool Item00_GiveItem(ActorEnItem00* actor, GlobalContext* ctxt) {
         return false;
     }
     actor->pickedUp = true;
-    if (!MMR_GiveItem(ctxt, giIndex)) {
+    if (!MMR_GiveItem(ctxt, &actor->base, giIndex)) {
         Player_Pause(ctxt);
     }
     return true;
+}
+
+u16 Item00_GetDespawnDelayAmount(ActorEnItem00* actor) {
+    u16 giIndex = Rupee_GetDrawGiIndex(&actor->base);
+    if (giIndex > 0) {
+        GetItemEntry* entry = MMR_GetGiEntry(giIndex);
+        if (entry->item == 0xB0) {
+            // Ice Trap
+            return 0x40;
+        }
+    }
+    return 0xF;
+}
+
+void Item00_BeforeBeingPickedUp(ActorEnItem00* actor, GlobalContext* ctxt) {
+    u16 giIndex = Rupee_GetDrawGiIndex(&actor->base);
+    if (giIndex > 0) {
+        GetItemEntry* entry = MMR_GetGiEntry(giIndex);
+        if (entry->item == 0xB0) {
+            // Ice Trap
+            z2_PlayLoopingSfxAtActor(&actor->base, 0x31A4);
+        }
+    }
 }
 
 extern bool forceSpawn;

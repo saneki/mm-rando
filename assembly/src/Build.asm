@@ -95,6 +95,7 @@ PAYLOAD_START:
 .include "Chest.asm"
 .include "Cows.asm"
 .include "DekuScrubPlaygroundElevator.asm"
+.include "DekuScrubPlaygroundRupee.asm"
 .include "Dpad.asm"
 .include "ElegySpeedup.asm"
 .include "ExtendedObjects.asm"

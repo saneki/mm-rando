@@ -21,7 +21,7 @@ GetItemEntry* MMR_GetGiEntry(u16 index);
 void MMR_Init(void);
 u16 MMR_GetNewGiIndex(GlobalContext* ctxt, Actor* actor, u16 giIndex, bool grant);
 void MMR_ProcessItemQueue(GlobalContext* ctxt);
-bool MMR_GiveItem(GlobalContext* ctxt, u16 giIndex);
+bool MMR_GiveItem(GlobalContext* ctxt, Actor* actor, u16 giIndex);
 u16 MMR_GetProcessingItemGiIndex(GlobalContext* ctxt);
 
 // Function Addresses.

@@ -16,8 +16,23 @@ bool ScRuppe_GiveItem(ActorEnScRuppe* actor, GlobalContext* ctxt) {
     if (giIndex == 0) {
         return false;
     }
-    if (MMR_GiveItem(ctxt, giIndex)) {
+    if (MMR_GiveItem(ctxt, &actor->base, giIndex)) {
         Rupee_SetGiIndex(&actor->base, 0);
     }
     return true;
+}
+
+u16 ScRuppe_BeforeDisappearing(ActorEnScRuppe* actor, GlobalContext* ctxt) {
+    u16 giIndex = Rupee_GetDrawGiIndex(&actor->base);
+    if (giIndex > 0) {
+        GetItemEntry* entry = MMR_GetGiEntry(giIndex);
+        if (entry->item == 0xB0) {
+            // Ice Trap
+            if (actor->disappearCountdown < 0x40) {
+                z2_PlayLoopingSfxAtActor(&actor->base, 0x31A4);
+            }
+            return actor->disappearCountdown < 0x40;
+        }
+    }
+    return actor->disappearCountdown < 0x1F;
 }

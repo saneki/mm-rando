@@ -18,3 +18,23 @@ ScRuppe_Constructor_Hook:
     or      a0, s0, r0
     j       ScRuppe_Constructor
     lw      a1, 0x0004 (sp)
+
+ScRuppe_BeforeDisappearing_Hook:
+    addiu   sp, sp, -0x14
+    sw      ra, 0x0010 (sp)
+    sw      a1, 0x0018 (sp)
+
+    jal     ScRuppe_BeforeDisappearing
+    nop
+
+    lw      a1, 0x0018 (sp)
+
+    ; Displaced code
+    lw      v1, 0x1CCC (a1)
+    or      at, v0, r0
+
+    lh      v0, 0x0194 (s0)
+
+    lw      ra, 0x0010 (sp)
+    jr      ra
+    addiu   sp, sp, 0x14

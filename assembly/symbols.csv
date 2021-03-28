@@ -101,3 +101,4 @@
 0x8019C300,z2_ToggleSfxDampen
 0x8019F0C8,z2_PlaySfx
 0x801A3098,z2_SetBGM2
+0x800B9010,z2_PlayLoopingSfxAtActor
