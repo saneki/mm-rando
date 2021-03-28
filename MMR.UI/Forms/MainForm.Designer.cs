@@ -43,6 +43,13 @@ namespace MMR.UI.Forms
             this.cUserItems = new System.Windows.Forms.CheckBox();
             this.tSettings = new System.Windows.Forms.TabControl();
             this.tabMain = new System.Windows.Forms.TabPage();
+            this.tOtherCustomizations = new System.Windows.Forms.TabControl();
+            this.tOtherCustomization = new System.Windows.Forms.TabPage();
+            this.cProgressiveUpgrades = new System.Windows.Forms.CheckBox();
+            this.cDEnt = new System.Windows.Forms.CheckBox();
+            this.cNoStartingItems = new System.Windows.Forms.CheckBox();
+            this.cMixSongs = new System.Windows.Forms.CheckBox();
+            this.cEnemy = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.bToggleTricks = new System.Windows.Forms.Button();
@@ -58,12 +65,6 @@ namespace MMR.UI.Forms
             this.tStartingItemList = new System.Windows.Forms.TextBox();
             this.lCustomStartingItemAmount = new System.Windows.Forms.Label();
             this.bStartingItemEditor = new System.Windows.Forms.Button();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.cProgressiveUpgrades = new System.Windows.Forms.CheckBox();
-            this.cNoStartingItems = new System.Windows.Forms.CheckBox();
-            this.cDEnt = new System.Windows.Forms.CheckBox();
-            this.cEnemy = new System.Windows.Forms.CheckBox();
-            this.cMixSongs = new System.Windows.Forms.CheckBox();
             this.gItemPoolOptions = new System.Windows.Forms.GroupBox();
             this.bItemListEditor = new System.Windows.Forms.Button();
             this.tCustomItemList = new System.Windows.Forms.TextBox();
@@ -195,11 +196,12 @@ namespace MMR.UI.Forms
             this.bLoadPatch = new System.Windows.Forms.Button();
             this.tSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
+            this.tOtherCustomizations.SuspendLayout();
+            this.tOtherCustomization.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.gItemPoolOptions.SuspendLayout();
             this.tabGimmicks.SuspendLayout();
             this.groupBox12.SuspendLayout();
@@ -282,11 +284,11 @@ namespace MMR.UI.Forms
             // 
             // tabMain
             // 
+            this.tabMain.Controls.Add(this.tOtherCustomizations);
             this.tabMain.Controls.Add(this.panel1);
             this.tabMain.Controls.Add(this.groupBox9);
             this.tabMain.Controls.Add(this.groupBox6);
             this.tabMain.Controls.Add(this.groupBox4);
-            this.tabMain.Controls.Add(this.groupBox3);
             this.tabMain.Controls.Add(this.gItemPoolOptions);
             this.tabMain.Location = new System.Drawing.Point(4, 24);
             this.tabMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -296,6 +298,105 @@ namespace MMR.UI.Forms
             this.tabMain.TabIndex = 0;
             this.tabMain.Text = "Main Settings";
             this.tabMain.UseVisualStyleBackColor = true;
+            // 
+            // tOtherCustomizations
+            // 
+            this.tOtherCustomizations.Controls.Add(this.tOtherCustomization);
+            this.tOtherCustomizations.Location = new System.Drawing.Point(7, 197);
+            this.tOtherCustomizations.Name = "tOtherCustomizations";
+            this.tOtherCustomizations.SelectedIndex = 0;
+            this.tOtherCustomizations.Size = new System.Drawing.Size(381, 160);
+            this.tOtherCustomizations.TabIndex = 22;
+            // 
+            // tOtherCustomization
+            // 
+            this.tOtherCustomization.Controls.Add(this.cProgressiveUpgrades);
+            this.tOtherCustomization.Controls.Add(this.cDEnt);
+            this.tOtherCustomization.Controls.Add(this.cNoStartingItems);
+            this.tOtherCustomization.Controls.Add(this.cMixSongs);
+            this.tOtherCustomization.Controls.Add(this.cEnemy);
+            this.tOtherCustomization.Location = new System.Drawing.Point(4, 24);
+            this.tOtherCustomization.Name = "tOtherCustomization";
+            this.tOtherCustomization.Padding = new System.Windows.Forms.Padding(3);
+            this.tOtherCustomization.Size = new System.Drawing.Size(373, 132);
+            this.tOtherCustomization.TabIndex = 0;
+            this.tOtherCustomization.Text = "Other";
+            this.tOtherCustomization.UseVisualStyleBackColor = true;
+            // 
+            // cProgressiveUpgrades
+            // 
+            this.cProgressiveUpgrades.AutoSize = true;
+            this.cProgressiveUpgrades.BackColor = System.Drawing.Color.Transparent;
+            this.cProgressiveUpgrades.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cProgressiveUpgrades.ForeColor = System.Drawing.Color.Black;
+            this.cProgressiveUpgrades.Location = new System.Drawing.Point(6, 63);
+            this.cProgressiveUpgrades.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.cProgressiveUpgrades.Name = "cProgressiveUpgrades";
+            this.cProgressiveUpgrades.Size = new System.Drawing.Size(130, 17);
+            this.cProgressiveUpgrades.TabIndex = 21;
+            this.cProgressiveUpgrades.Text = "Progressive Upgrades";
+            this.cProgressiveUpgrades.UseVisualStyleBackColor = false;
+            this.cProgressiveUpgrades.CheckedChanged += new System.EventHandler(this.cProgressiveUpgrades_CheckedChanged);
+            // 
+            // cDEnt
+            // 
+            this.cDEnt.AutoSize = true;
+            this.cDEnt.BackColor = System.Drawing.Color.Transparent;
+            this.cDEnt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cDEnt.ForeColor = System.Drawing.Color.Black;
+            this.cDEnt.Location = new System.Drawing.Point(6, 10);
+            this.cDEnt.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.cDEnt.Name = "cDEnt";
+            this.cDEnt.Size = new System.Drawing.Size(120, 17);
+            this.cDEnt.TabIndex = 7;
+            this.cDEnt.Text = "Dungeon entrances";
+            this.cDEnt.UseVisualStyleBackColor = false;
+            this.cDEnt.CheckedChanged += new System.EventHandler(this.cDEnt_CheckedChanged);
+            // 
+            // cNoStartingItems
+            // 
+            this.cNoStartingItems.AutoSize = true;
+            this.cNoStartingItems.BackColor = System.Drawing.Color.Transparent;
+            this.cNoStartingItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cNoStartingItems.ForeColor = System.Drawing.Color.Black;
+            this.cNoStartingItems.Location = new System.Drawing.Point(193, 10);
+            this.cNoStartingItems.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.cNoStartingItems.Name = "cNoStartingItems";
+            this.cNoStartingItems.Size = new System.Drawing.Size(107, 17);
+            this.cNoStartingItems.TabIndex = 20;
+            this.cNoStartingItems.Text = "No Starting Items";
+            this.cNoStartingItems.UseVisualStyleBackColor = false;
+            this.cNoStartingItems.CheckedChanged += new System.EventHandler(this.cNoStartingItems_CheckedChanged);
+            // 
+            // cMixSongs
+            // 
+            this.cMixSongs.AutoSize = true;
+            this.cMixSongs.BackColor = System.Drawing.Color.Transparent;
+            this.cMixSongs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cMixSongs.ForeColor = System.Drawing.Color.Black;
+            this.cMixSongs.Location = new System.Drawing.Point(6, 36);
+            this.cMixSongs.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.cMixSongs.Name = "cMixSongs";
+            this.cMixSongs.Size = new System.Drawing.Size(122, 17);
+            this.cMixSongs.TabIndex = 3;
+            this.cMixSongs.Text = "Mix songs with items";
+            this.cMixSongs.UseVisualStyleBackColor = false;
+            this.cMixSongs.CheckedChanged += new System.EventHandler(this.cMixSongs_CheckedChanged);
+            // 
+            // cEnemy
+            // 
+            this.cEnemy.AutoSize = true;
+            this.cEnemy.BackColor = System.Drawing.Color.Transparent;
+            this.cEnemy.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cEnemy.ForeColor = System.Drawing.Color.Black;
+            this.cEnemy.Location = new System.Drawing.Point(193, 36);
+            this.cEnemy.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.cEnemy.Name = "cEnemy";
+            this.cEnemy.Size = new System.Drawing.Size(106, 17);
+            this.cEnemy.TabIndex = 9;
+            this.cEnemy.Text = "Enemies (BETA!)";
+            this.cEnemy.UseVisualStyleBackColor = false;
+            this.cEnemy.CheckedChanged += new System.EventHandler(this.cEnemy_CheckedChanged);
             // 
             // panel1
             // 
@@ -480,97 +581,6 @@ namespace MMR.UI.Forms
             this.bStartingItemEditor.Text = "Edit";
             this.bStartingItemEditor.UseVisualStyleBackColor = true;
             this.bStartingItemEditor.Click += new System.EventHandler(this.bStartingItemEditor_Click);
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.cProgressiveUpgrades);
-            this.groupBox3.Controls.Add(this.cNoStartingItems);
-            this.groupBox3.Controls.Add(this.cDEnt);
-            this.groupBox3.Controls.Add(this.cEnemy);
-            this.groupBox3.Controls.Add(this.cMixSongs);
-            this.groupBox3.Location = new System.Drawing.Point(7, 196);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox3.Size = new System.Drawing.Size(379, 161);
-            this.groupBox3.TabIndex = 16;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Other Customizations";
-            // 
-            // cProgressiveUpgrades
-            // 
-            this.cProgressiveUpgrades.AutoSize = true;
-            this.cProgressiveUpgrades.BackColor = System.Drawing.Color.Transparent;
-            this.cProgressiveUpgrades.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cProgressiveUpgrades.ForeColor = System.Drawing.Color.Black;
-            this.cProgressiveUpgrades.Location = new System.Drawing.Point(10, 75);
-            this.cProgressiveUpgrades.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cProgressiveUpgrades.Name = "cProgressiveUpgrades";
-            this.cProgressiveUpgrades.Size = new System.Drawing.Size(130, 17);
-            this.cProgressiveUpgrades.TabIndex = 21;
-            this.cProgressiveUpgrades.Text = "Progressive Upgrades";
-            this.cProgressiveUpgrades.UseVisualStyleBackColor = false;
-            this.cProgressiveUpgrades.CheckedChanged += new System.EventHandler(this.cProgressiveUpgrades_CheckedChanged);
-            // 
-            // cNoStartingItems
-            // 
-            this.cNoStartingItems.AutoSize = true;
-            this.cNoStartingItems.BackColor = System.Drawing.Color.Transparent;
-            this.cNoStartingItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cNoStartingItems.ForeColor = System.Drawing.Color.Black;
-            this.cNoStartingItems.Location = new System.Drawing.Point(197, 22);
-            this.cNoStartingItems.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cNoStartingItems.Name = "cNoStartingItems";
-            this.cNoStartingItems.Size = new System.Drawing.Size(107, 17);
-            this.cNoStartingItems.TabIndex = 20;
-            this.cNoStartingItems.Text = "No Starting Items";
-            this.cNoStartingItems.UseVisualStyleBackColor = false;
-            this.cNoStartingItems.CheckedChanged += new System.EventHandler(this.cNoStartingItems_CheckedChanged);
-            // 
-            // cDEnt
-            // 
-            this.cDEnt.AutoSize = true;
-            this.cDEnt.BackColor = System.Drawing.Color.Transparent;
-            this.cDEnt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cDEnt.ForeColor = System.Drawing.Color.Black;
-            this.cDEnt.Location = new System.Drawing.Point(10, 22);
-            this.cDEnt.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cDEnt.Name = "cDEnt";
-            this.cDEnt.Size = new System.Drawing.Size(120, 17);
-            this.cDEnt.TabIndex = 7;
-            this.cDEnt.Text = "Dungeon entrances";
-            this.cDEnt.UseVisualStyleBackColor = false;
-            this.cDEnt.CheckedChanged += new System.EventHandler(this.cDEnt_CheckedChanged);
-            // 
-            // cEnemy
-            // 
-            this.cEnemy.AutoSize = true;
-            this.cEnemy.BackColor = System.Drawing.Color.Transparent;
-            this.cEnemy.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cEnemy.ForeColor = System.Drawing.Color.Black;
-            this.cEnemy.Location = new System.Drawing.Point(197, 48);
-            this.cEnemy.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cEnemy.Name = "cEnemy";
-            this.cEnemy.Size = new System.Drawing.Size(106, 17);
-            this.cEnemy.TabIndex = 9;
-            this.cEnemy.Text = "Enemies (BETA!)";
-            this.cEnemy.UseVisualStyleBackColor = false;
-            this.cEnemy.CheckedChanged += new System.EventHandler(this.cEnemy_CheckedChanged);
-            // 
-            // cMixSongs
-            // 
-            this.cMixSongs.AutoSize = true;
-            this.cMixSongs.BackColor = System.Drawing.Color.Transparent;
-            this.cMixSongs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cMixSongs.ForeColor = System.Drawing.Color.Black;
-            this.cMixSongs.Location = new System.Drawing.Point(10, 48);
-            this.cMixSongs.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cMixSongs.Name = "cMixSongs";
-            this.cMixSongs.Size = new System.Drawing.Size(122, 17);
-            this.cMixSongs.TabIndex = 3;
-            this.cMixSongs.Text = "Mix songs with items";
-            this.cMixSongs.UseVisualStyleBackColor = false;
-            this.cMixSongs.CheckedChanged += new System.EventHandler(this.cMixSongs_CheckedChanged);
             // 
             // gItemPoolOptions
             // 
@@ -2219,6 +2229,9 @@ namespace MMR.UI.Forms
             this.Load += new System.EventHandler(this.mmrMain_Load);
             this.tSettings.ResumeLayout(false);
             this.tabMain.ResumeLayout(false);
+            this.tOtherCustomizations.ResumeLayout(false);
+            this.tOtherCustomization.ResumeLayout(false);
+            this.tOtherCustomization.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.groupBox9.ResumeLayout(false);
@@ -2227,8 +2240,6 @@ namespace MMR.UI.Forms
             this.groupBox6.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.gItemPoolOptions.ResumeLayout(false);
             this.gItemPoolOptions.PerformLayout();
             this.tabGimmicks.ResumeLayout(false);
@@ -2351,7 +2362,6 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.CheckBox cUpdateChests;
         private System.Windows.Forms.GroupBox gGameOutput;
         private System.Windows.Forms.GroupBox gItemPoolOptions;
-        private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.CheckBox cNoStartingItems;
         private System.Windows.Forms.Button bItemListEditor;
         private System.Windows.Forms.TextBox tCustomItemList;
@@ -2437,6 +2447,8 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TabControl tOtherCustomizations;
+        private System.Windows.Forms.TabPage tOtherCustomization;
     }
 }
 

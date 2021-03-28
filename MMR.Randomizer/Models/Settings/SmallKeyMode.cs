@@ -1,24 +1,20 @@
 ﻿using MMR.Randomizer.Attributes;
 using System;
+using System.ComponentModel;
 
 namespace MMR.Randomizer.Models
 {
     [Flags]
+    [Description("Small Key Mode")]
     public enum SmallKeyMode
     {
         Default,
 
-        /// <summary>
-        /// Small Key Doors should be modified to assume they have been opened.
-        /// Small Keys in the item pool will be replaced with other items.
-        /// </summary>
+        [Description("Small Key doors will always be open. Small Keys in the item pool will be replaced with other items.")]
         [HackContent(nameof(Resources.mods.key_small_open))]
         DoorsOpen,
 
-        /// <summary>
-        /// Randomization algorithm should place any randomized Small Keys into a location within the same region.
-        /// Even if the Small Key has been replaced via another SmallKeyMode.
-        /// </summary>
+        [Description("Randomization algorithm will place any randomized Small Keys into a location within the same region, even if the Small Key has been replaced via another Small Key Mode.")]
         KeepWithinDungeon,
     }
 }

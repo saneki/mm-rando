@@ -49,6 +49,7 @@ namespace MMR.UI.Forms
             InitializeTransformationFormSettings();
             InitializeShortenCutsceneSettings();
             InitializeItemPoolSettings();
+            InitializeDungeonModeSettings();
             InitalizeLowHealthSFXOptions();
 
             ItemEditor = new ItemEditForm();
@@ -155,6 +156,72 @@ namespace MMR.UI.Forms
         }
 
         Regex addSpacesRegex = new Regex("(?<!^)([A-Z])");
+
+        private void InitializeDungeonModeSettings()
+        {
+            //var dungeonModeSettings = new List<Type> { typeof(SmallKeyMode), typeof(BossKeyMode), typeof(StrayFairyMode) };
+            var properties = new List<PropertyInfo>();
+            properties.Add(typeof(GameplaySettings).GetProperty(nameof(GameplaySettings.SmallKeyMode)));
+            properties.Add(typeof(GameplaySettings).GetProperty(nameof(GameplaySettings.BossKeyMode)));
+            properties.Add(typeof(GameplaySettings).GetProperty(nameof(GameplaySettings.StrayFairyMode)));
+            foreach (var propertyInfo in properties)
+            {
+                var tabPage = new TabPage
+                {
+                    Tag = propertyInfo,
+                    Text = propertyInfo.PropertyType.GetCustomAttribute<DescriptionAttribute>().Description,
+                    UseVisualStyleBackColor = true,
+                };
+                tOtherCustomizations.TabPages.Add(tabPage);
+
+                var initialX = 6;
+                var initialY = 7;
+                var deltaX = 187;
+                var deltaY = 23;
+                var width = 187;
+                var height = 23;
+                var currentX = initialX;
+                var currentY = initialY;
+                foreach (var value in Enum.GetValues(propertyInfo.PropertyType).Cast<Enum>())
+                {
+                    if (Convert.ToInt32(value) == 0)
+                    {
+                        continue;
+                    }
+                    var checkBox = new CheckBox
+                    {
+                        Tag = value,
+                        Name = "cDungeonMode_" + value.ToString(),
+                        Text = addSpacesRegex.Replace(value.ToString(), " $1"),
+                        Location = new Point(currentX, currentY),
+                        Size = new Size(width, height),
+                    };
+                    var description = value.GetAttribute<DescriptionAttribute>()?.Description;
+                    if (description != null)
+                    {
+                        TooltipBuilder.SetTooltip(checkBox, description);
+                    }
+                    checkBox.CheckedChanged += cDungeonMode_CheckedChanged;
+                    tabPage.Controls.Add(checkBox);
+                    currentX += deltaX;
+                    if (currentX > tShortenCutscenes.Width - width)
+                    {
+                        currentX = initialX;
+                        currentY += deltaY;
+                    }
+                }
+            }
+        }
+
+        private void cDungeonMode_CheckedChanged(object sender, EventArgs e)
+        {
+            var checkBox = (CheckBox)sender;
+            var propertyInfo = (PropertyInfo)checkBox.Parent.Tag;
+            var cutsceneFlag = (int)checkBox.Tag;
+            var value = (int)propertyInfo.GetValue(_configuration.GameplaySettings);
+            var newValue = checkBox.Checked ? value | cutsceneFlag : value & ~cutsceneFlag;
+            UpdateSingleSetting(() => propertyInfo.SetValue(_configuration.GameplaySettings, newValue));
+        }
 
         private void InitializeItemPoolSettings()
         {
@@ -708,6 +775,24 @@ namespace MMR.UI.Forms
                     }
                     var cShortenCutscene = (CheckBox)shortenCutsceneTab.Controls.Find("cShortenCutscene_" + flagValue.ToString(), false)[0];
                     cShortenCutscene.Checked = value.HasFlag(flagValue);
+                }
+            }
+            foreach (TabPage dungeonModeTab in tOtherCustomizations.TabPages)
+            {
+                var propertyInfo = (PropertyInfo)dungeonModeTab.Tag;
+                if (propertyInfo == null)
+                {
+                    continue;
+                }
+                var value = (Enum)propertyInfo.GetValue(_configuration.GameplaySettings);
+                foreach (var flagValue in Enum.GetValues(propertyInfo.PropertyType).Cast<Enum>())
+                {
+                    if (Convert.ToInt32(flagValue) == 0)
+                    {
+                        continue;
+                    }
+                    var cDungeonMode = (CheckBox)dungeonModeTab.Controls.Find("cDungeonMode_" + flagValue.ToString(), false)[0];
+                    cDungeonMode.Checked = value.HasFlag(flagValue);
                 }
             }
             cQText.Checked = _configuration.GameplaySettings.QuickTextEnabled;
