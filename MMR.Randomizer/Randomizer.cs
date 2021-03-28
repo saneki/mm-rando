@@ -584,27 +584,27 @@ namespace MMR.Randomizer
 
             foreach (var item in _settings.CustomItemList.Select(ItemUtils.AddItemOffset).Cast<Item>())
             {
-                if (ItemUtils.IsShopItem(item))
+                if (ItemUtils.IsShopItem(item) && !_settings.CategoriesRandomized.Contains(ItemCategory.ShopItems))
                 {
                     _settings.CategoriesRandomized.Add(ItemCategory.ShopItems);
                 }
 
-                if (ItemUtils.IsCowItem(item))
+                if (ItemUtils.IsCowItem(item) && !_settings.CategoriesRandomized.Contains(ItemCategory.CowMilk))
                 {
                     _settings.CategoriesRandomized.Add(ItemCategory.CowMilk);
                 }
 
-                if (ItemUtils.IsSkulltulaToken(item))
+                if (ItemUtils.IsSkulltulaToken(item) && !_settings.CategoriesRandomized.Contains(ItemCategory.SkulltulaTokens))
                 {
                     _settings.CategoriesRandomized.Add(ItemCategory.SkulltulaTokens);
                 }
 
-                if (ItemUtils.IsStrayFairy(item))
+                if (ItemUtils.IsStrayFairy(item) && !_settings.CategoriesRandomized.Contains(ItemCategory.StrayFairies))
                 {
                     _settings.CategoriesRandomized.Add(ItemCategory.StrayFairies);
                 }
 
-                if (ItemUtils.IsBottleCatchContent(item))
+                if (ItemUtils.IsBottleCatchContent(item) && !_settings.CategoriesRandomized.Contains(ItemCategory.CaughtBottleContents))
                 {
                     _settings.CategoriesRandomized.Add(ItemCategory.CaughtBottleContents);
                 }

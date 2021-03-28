@@ -1665,6 +1665,8 @@ namespace MMR.UI.Forms
                 }
             }
 
+            _configuration.GameplaySettings.CategoriesRandomized = _configuration.GameplaySettings.CategoriesRandomized.Distinct().ToList();
+
             UpdateJunkLocationAmountLabel();
             UpdateCustomStartingItemAmountLabel();
             UpdateCustomItemAmountLabel();
