@@ -1387,6 +1387,36 @@ namespace MMR.Randomizer
             return itemObject.Item != Item.RecoveryHeart ? itemObject.NewLocation.Value.GetItemIndex().Value : (ushort)0;
         }
 
+        private void WriteMiscHacks()
+        {
+            var hacks = new List<byte[]>();
+
+            if (_randomized.Settings.SmallKeyMode.HasFlag(SmallKeyMode.DoorsOpen))
+            {
+                hacks.AddRange(SmallKeyMode.DoorsOpen.GetAttributes<HackContentAttribute>().Select(hc => hc.HackContent));
+            }
+
+            if (_randomized.Settings.BossKeyMode.HasFlag(BossKeyMode.DoorsOpen))
+            {
+                hacks.AddRange(BossKeyMode.DoorsOpen.GetAttributes<HackContentAttribute>().Select(hc => hc.HackContent));
+            }
+
+            ushort requiredStrayFairies = 15;
+            if (_randomized.Settings.StrayFairyMode.HasFlag(StrayFairyMode.ChestsOnly))
+            {
+                requiredStrayFairies = 0;
+                hacks.AddRange(StrayFairyMode.ChestsOnly.GetAttributes<HackContentAttribute>().Select(hc => hc.HackContent));
+            }
+
+            requiredStrayFairies += 0xA; // Needed for the value to be correct.
+            ReadWriteUtils.WriteToROM(0x00EA3366, requiredStrayFairies);
+
+            foreach (var hack in hacks)
+            {
+                ResourceUtils.ApplyHack(hack);
+            }
+        }
+
         private void WriteItems()
         {
             var freeItems = new List<Item>();
@@ -2767,6 +2797,7 @@ namespace MMR.Randomizer
 
                 progressReporter.ReportProgress(67, "Writing items...");
                 WriteItems();
+                WriteMiscHacks();
 
                 progressReporter.ReportProgress(68, "Writing messages...");
                 WriteGossipQuotes();

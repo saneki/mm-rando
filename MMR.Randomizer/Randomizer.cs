@@ -1,4 +1,5 @@
 using MMR.Common.Extensions;
+using MMR.Randomizer.Attributes;
 using MMR.Randomizer.Constants;
 using MMR.Randomizer.Extensions;
 using MMR.Randomizer.GameObjects;
@@ -670,6 +671,10 @@ namespace MMR.Randomizer
                         {
                             continue;
                         }
+                        if (ItemList[d].Item < 0)
+                        {
+                            continue;
+                        }
 
                         int[] check = new int[] { (int)target, i, j };
 
@@ -752,6 +757,10 @@ namespace MMR.Randomizer
                 if (!currentItem.IsTemporary() && target == Item.MaskBlast && (dependency == Item.TradeItemKafeiLetter || dependency == Item.TradeItemPendant))
                 {
                     // Permanent items ignore Kafei Letter and Pendant on Blast Mask check.
+                    continue;
+                }
+                if (ItemList[dependency].Item < 0)
+                {
                     continue;
                 }
                 if (dependency == currentItem)
@@ -955,6 +964,11 @@ namespace MMR.Randomizer
 
         private bool CheckMatch(Item currentItem, Item target)
         {
+            if (currentItem < 0)
+            {
+                return true;
+            }
+
             if (_settings.CustomStartingItemList.Contains(currentItem))
             {
                 return true;
@@ -1023,7 +1037,7 @@ namespace MMR.Randomizer
             return true;
         }
 
-        private void PlaceItem(Item currentItem, List<Item> targets)
+        private void PlaceItem(Item currentItem, List<Item> targets, bool lockRegion = false)
         {
             var currentItemObject = ItemList[currentItem];
             if (currentItemObject.NewLocation.HasValue)
@@ -1038,6 +1052,12 @@ namespace MMR.Randomizer
                 availableItems.Remove(Item.SongHealing);
             }
 
+            if (lockRegion)
+            {
+                availableItems.RemoveAll(location => location.Region() != currentItem.Region());
+            }
+
+            currentItem = currentItemObject.Item;
             while (true)
             {
                 if (availableItems.Count == 0)
@@ -1052,7 +1072,11 @@ namespace MMR.Randomizer
                 if (CheckMatch(currentItem, targetLocation))
                 {
                     currentItemObject.NewLocation = targetLocation;
-                    currentItemObject.IsRandomized = true;
+
+                    if (!lockRegion)
+                    {
+                        currentItemObject.IsRandomized = true;
+                    }
 
                     Debug.WriteLine($"----Placed {currentItem.Name()} at {targetLocation.Location()}----");
 
@@ -1067,7 +1091,7 @@ namespace MMR.Randomizer
             }
         }
 
-        private void RandomizeItems()
+        private void SetupItems()
         {
             if (_settings.UseCustomItemList)
             {
@@ -1078,9 +1102,59 @@ namespace MMR.Randomizer
                 Setup();
             }
 
+            foreach (var item in _settings.CustomStartingItemList)
+            {
+                ItemList[item].ItemOverride = Item.RecoveryHeart;
+            }
+
+            if (_randomized.Settings.SmallKeyMode.HasFlag(SmallKeyMode.DoorsOpen))
+            {
+                foreach (var item in ItemUtils.SmallKeys())
+                {
+                    ItemList[item].ItemOverride = Item.RecoveryHeart;
+                }
+            }
+
+            if (_randomized.Settings.BossKeyMode.HasFlag(BossKeyMode.DoorsOpen))
+            {
+                foreach (var item in ItemUtils.BossKeys())
+                {
+                    ItemList[item].ItemOverride = Item.RecoveryHeart;
+                }
+            }
+
+            if (_randomized.Settings.StrayFairyMode.HasFlag(StrayFairyMode.ChestsOnly))
+            {
+                foreach (var item in ItemUtils.DungeonStrayFairies())
+                {
+                    ItemList[item].ItemOverride = Item.RecoveryHeart;
+                    if (!item.HasAttribute<ChestAttribute>())
+                    {
+                        ItemList[item].NewLocation = item;
+                    }
+                }
+            }
+        }
+
+        private void ReplaceRecoveryHeartsWithJunk()
+        {
+            var usableJunk = ItemUtils.JunkItems.Where(item => item.IsRepeatable()).ToList();
+            foreach (var io in ItemList)
+            {
+                if (io.Item == Item.RecoveryHeart)
+                {
+                    io.ItemOverride = usableJunk.Random(Random);
+                }
+            }
+        }
+
+        private void RandomizeItems()
+        {
             var itemPool = new List<Item>();
 
             AddAllItems(itemPool);
+
+            PlaceRestrictedDungeonItems(itemPool);
 
             PlaceFreeItems(itemPool);
             PlaceQuestItems(itemPool);
@@ -1241,6 +1315,33 @@ namespace MMR.Randomizer
             for (var i = Item.ItemRanchBarnMainCowMilk; i <= Item.ItemCoastGrottoCowMilk2; i++)
             {
                 PlaceItem(i, itemPool);
+            }
+        }
+
+        private void PlaceRestrictedDungeonItems(List<Item> itemPool)
+        {
+            if (_randomized.Settings.SmallKeyMode.HasFlag(SmallKeyMode.KeepWithinDungeon))
+            {
+                foreach (var item in ItemUtils.SmallKeys())
+                {
+                    PlaceItem(item, itemPool, true);
+                }
+            }
+
+            if (_randomized.Settings.BossKeyMode.HasFlag(BossKeyMode.KeepWithinDungeon))
+            {
+                foreach (var item in ItemUtils.BossKeys())
+                {
+                    PlaceItem(item, itemPool, true);
+                }
+            }
+
+            if (_randomized.Settings.StrayFairyMode.HasFlag(StrayFairyMode.KeepWithinDungeon))
+            {
+                foreach (var item in ItemUtils.DungeonStrayFairies())
+                {
+                    PlaceItem(item, itemPool, true);
+                }
             }
         }
 
@@ -1735,12 +1836,9 @@ namespace MMR.Randomizer
                 _randomized.Logic = ItemList.Select(io => new ItemLogic(io)).ToList();
 
                 progressReporter.ReportProgress(30, "Shuffling items...");
+                SetupItems();
                 RandomizeItems();
-
-                foreach (var item in _settings.CustomStartingItemList)
-                {
-                    ItemList[item].ItemOverride = Item.RecoveryHeart;
-                }
+                ReplaceRecoveryHeartsWithJunk(); // TODO make this an option?
 
                 // Replace junk items with ice traps according to settings.
                 AddIceTraps(_randomized.Settings.IceTraps, _randomized.Settings.IceTrapAppearance);

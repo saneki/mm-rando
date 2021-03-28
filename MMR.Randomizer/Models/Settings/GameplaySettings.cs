@@ -179,6 +179,12 @@ namespace MMR.Randomizer.Models.Settings
         /// </summary>
         public bool NoStartingItems { get; set; } = true;
 
+        public SmallKeyMode SmallKeyMode { get; set; }
+
+        public BossKeyMode BossKeyMode { get; set; }
+
+        public StrayFairyMode StrayFairyMode { get; set; }
+
 
         /// <summary>
         ///  Custom item list selections
