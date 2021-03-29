@@ -314,7 +314,7 @@ u32 MMR_GetMinorItemSfxId(u8 item) {
     if (item >= 0x6 && item <= 0x9) {
         return 0x4824;
     }
-    if (item == 0x79 || item <= 0x7A) {
+    if (item == 0x79 || item == 0x7A) {
         return 0x4824;
     }
     if (item == 0xB0) {
