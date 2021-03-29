@@ -327,7 +327,8 @@ bool MMR_GiveItem(GlobalContext* ctxt, Actor* actor, u16 giIndex) {
     u32 minorItemSfxId = 0;
     GetItemEntry* entry = NULL;
     if (MISC_CONFIG.flags.freestanding) {
-        entry = MMR_GetGiEntry(giIndex);
+        u16 newGiIndex = MMR_GetNewGiIndex(ctxt, NULL, giIndex, false);
+        entry = MMR_GetGiEntry(newGiIndex);
         minorItemSfxId = MMR_GetMinorItemSfxId(entry->item);
     }
     if (minorItemSfxId && entry) {
