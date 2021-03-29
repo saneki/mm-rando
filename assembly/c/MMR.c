@@ -333,6 +333,8 @@ bool MMR_GiveItem(GlobalContext* ctxt, Actor* actor, u16 giIndex) {
     }
     if (minorItemSfxId && entry) {
         if (minorItemSfxId == 0x31A4) {
+            // TODO maybe check actor type is Item00/ScRuppe/DekuScrubPlaygroundRupee ?
+            actor.draw = NULL;
             z2_PlayLoopingSfxAtActor(actor, minorItemSfxId);
         } else {
             z2_PlaySfx(minorItemSfxId);

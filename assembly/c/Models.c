@@ -181,12 +181,6 @@ bool Models_DrawItem00(ActorEnItem00* actor, GlobalContext* ctxt) {
         return true;
     }
 
-    if (actor->base.isSfxBeingPlayed && actor->base.sfxBeingPlayed == 0x31A4) {
-        // Ice Trap
-        actor->base.shape.shadowDrawFunc = NULL;
-        return true;
-    }
-
     if (MISC_CONFIG.flags.freestanding) {
         u16 giIndex = Rupee_GetGiIndex(&actor->base);
         if (giIndex > 0) {
@@ -594,12 +588,6 @@ bool Models_DrawScRuppe(ActorEnScRuppe* actor, GlobalContext* ctxt) {
         Player_Pause(ctxt);
     }
 
-    if (actor->base.shape.shadowDrawFunc == NULL || (actor->base.isSfxBeingPlayed && actor->base.sfxBeingPlayed == 0x31A4)) {
-        // Ice Trap
-        actor->base.shape.shadowDrawFunc = NULL;
-        return true;
-    }
-
     if (MISC_CONFIG.flags.freestanding) {
         u16 giIndex = Rupee_GetGiIndex(&actor->base);
         u16 giIndexToDraw = Rupee_GetDrawGiIndex(&actor->base);
@@ -627,12 +615,6 @@ bool Models_DrawDekuScrubPlaygroundRupee(ActorEnGamelupy* actor, GlobalContext* 
     // if receiving item
     if (actor->disappearCountdown == 1 && Rupee_GetGiIndex(&actor->base) > 0) {
         Player_Pause(ctxt);
-    }
-
-    if (actor->base.isSfxBeingPlayed && actor->base.sfxBeingPlayed == 0x31A4) {
-        // Ice Trap
-        actor->base.shape.shadowDrawFunc = NULL;
-        return true;
     }
 
     if (MISC_CONFIG.flags.freestanding) {
