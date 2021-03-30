@@ -3,10 +3,12 @@
 
 struct DekuHopState {
     u8 lastHop;
+    u8 isUsingContinuousDekuHop;
 };
 
 static struct DekuHopState gDekuHopState = {
     .lastHop = 5,
+    .isUsingContinuousDekuHop = 0,
 };
 
 void DekuHop_Handle(ActorPlayer* player, GlobalContext* ctxt) {
@@ -19,8 +21,17 @@ void DekuHop_Handle(ActorPlayer* player, GlobalContext* ctxt) {
             ctxt->state.input[0].pressEdge.buttons.a = 0;
             player->dekuHopCounter++;
             gDekuHopState.lastHop = player->dekuHopCounter;
+            gDekuHopState.isUsingContinuousDekuHop = true;
         }
     } else {
         gDekuHopState.lastHop = player->dekuHopCounter;
+        gDekuHopState.isUsingContinuousDekuHop = false;
     }
+}
+
+f32 DekuHop_GetSpeedModifier() {
+    if (gDekuHopState.isUsingContinuousDekuHop) {
+        return 1;
+    }
+    return 0.5;
 }
