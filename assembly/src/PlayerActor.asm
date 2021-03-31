@@ -104,8 +104,7 @@ DekuHop_GetSpeedModifier_Hook:
     jal     DekuHop_GetSpeedModifier
     nop
 
-    ; Displaced code
-    mtc1    v0, f4
+    mov.s   f4, f0
 
     lw      ra, 0x0010 (sp)
     jr      ra

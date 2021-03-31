@@ -16,17 +16,21 @@ void DekuHop_Handle(ActorPlayer* player, GlobalContext* ctxt) {
         return;
     }
 
-    if (player->dekuHopCounter < 5 && player->dekuHopCounter > 0 && player->dekuHopCounter != gDekuHopState.lastHop) {
-        if (ctxt->state.input[0].pressEdge.buttons.a) {
-            ctxt->state.input[0].pressEdge.buttons.a = 0;
-            player->dekuHopCounter++;
+    if (player->stateFlags.state3 & PLAYER_STATE3_DEKU_HOP) {
+        if (player->dekuHopCounter < 5 && player->dekuHopCounter > 0 && player->dekuHopCounter != gDekuHopState.lastHop) {
+            if (ctxt->state.input[0].pressEdge.buttons.a) {
+                ctxt->state.input[0].pressEdge.buttons.a = 0;
+                player->dekuHopCounter++;
+                gDekuHopState.lastHop = player->dekuHopCounter;
+                gDekuHopState.isUsingContinuousDekuHop = true;
+            }
+        } else {
             gDekuHopState.lastHop = player->dekuHopCounter;
-            gDekuHopState.isUsingContinuousDekuHop = true;
         }
     } else {
-        gDekuHopState.lastHop = player->dekuHopCounter;
         gDekuHopState.isUsingContinuousDekuHop = false;
     }
+
 }
 
 f32 DekuHop_GetSpeedModifier() {
