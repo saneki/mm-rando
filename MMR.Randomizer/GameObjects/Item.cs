@@ -3491,6 +3491,6239 @@ namespace MMR.Randomizer.GameObjects
 
         //[GetItemIndex(0x1A1)]
 
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Ikana Castle Courtyard Grass"), Region(Region.IkanaCastle)]
+        [GossipLocationHint("an ancient plant"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1CC), ItemCategory(ItemCategory.Ammo), CollectableIndex(0xEB7)]
+        CollectableAncientCastleOfIkanaCastleExteriorGrass1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Ikana Castle Courtyard Grass 2"), Region(Region.IkanaCastle)]
+        [GossipLocationHint("an ancient plant"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1CD), ItemCategory(ItemCategory.Ammo), CollectableIndex(0xEBB)]
+        CollectableAncientCastleOfIkanaCastleExteriorGrass2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Night 1 Grave Pot"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("an unholy jar"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1CE), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x623)]
+        CollectableBeneathTheGraveyardMainAreaPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Night 2 Grave Pot"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("an unholy jar"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1CF), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x625)]
+        CollectableBeneathTheGraveyardInvisibleRoomPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Night 1 Grave Pot 2"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("an unholy jar"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1D0), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x629)]
+        CollectableBeneathTheGraveyardBadBatRoomPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Cucco Shack Crate"), Region(Region.RomaniRanch)]
+        [GossipLocationHint("a chicken crate"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1D1), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x210A)]
+        CollectableCuccoShackWoodenCrateLarge1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Dampe's Basement Pot"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("an unholy jar"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1D2), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x1807)]
+        CollectableDampéSHouseBasementPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Dampe's Basement Pot 2"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("an unholy jar"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1D3), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x180A)]
+        CollectableDampéSHouseBasementPot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Dampe's Basement Pot 3"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("an unholy jar"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1D4), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x180C)]
+        CollectableDampéSHouseBasementPot3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Dampe's Basement Pot 4"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("an unholy jar"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1D5), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x180D)]
+        CollectableDampéSHouseBasementPot4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Goron Village Small Snowball"), Region(Region.GoronVillage)]
+        [GossipLocationHint("a village snowball"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1D6), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x26B3)]
+        CollectableGoronVillageWinterSmallSnowball1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Goron Village Small Snowball 2"), Region(Region.GoronVillage)]
+        [GossipLocationHint("a village snowball"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1D7), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x26B4)]
+        CollectableGoronVillageWinterSmallSnowball2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Great Bay Coast Pot"), Region(Region.GreatBayCoast)]
+        [GossipLocationHint("an ocean jar"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1D8), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x1BA4)]
+        CollectableGreatBayCoastPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Great Bay Coast Pot 2"), Region(Region.GreatBayCoast)]
+        [GossipLocationHint("an ocean jar"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1D9), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x1BA6)]
+        CollectableGreatBayCoastPot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Great Bay Coast Pot 3"), Region(Region.GreatBayCoast)]
+        [GossipLocationHint("an ocean jar"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1DA), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x1BA8)]
+        CollectableGreatBayCoastPot3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Great Bay Coast Pot 4"), Region(Region.GreatBayCoast)]
+        [GossipLocationHint("an ocean jar"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1DB), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x1BAA)]
+        CollectableGreatBayCoastPot4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Great Bay Temple Red Valve Barrel"), Region(Region.GreatBayTemple)]
+        [GossipLocationHint("Great Bay Temple", "the ocean temple"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1DC), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x24A1)]
+        CollectableGreatBayTempleBlueChuchuValveRoomBarrel1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Ikana King Pot"), Region(Region.IkanaCastle)]
+        [GossipLocationHint("an ancient jar"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1DD), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x2B20)]
+        CollectableIgosDuIkanaSLairIgosDuIkanaSRoomPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Ikana King Pot 2"), Region(Region.IkanaCastle)]
+        [GossipLocationHint("an ancient jar"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1DE), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x2B23)]
+        CollectableIgosDuIkanaSLairIgosDuIkanaSRoomPot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Ikana King Entry Pot"), Region(Region.IkanaCastle)]
+        [GossipLocationHint("an ancient jar"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1DF), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x2B2E)]
+        CollectableIgosDuIkanaSLairPreBossRoomPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Ikana King Entry Pot 2"), Region(Region.IkanaCastle)]
+        [GossipLocationHint("an ancient jar"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1E0), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x2B2F)]
+        CollectableIgosDuIkanaSLairPreBossRoomPot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Ikana Graveyard Grass"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("unholy grass"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1E1), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x21A9)]
+        CollectableIkanaGraveyardIkanaGraveyardLowerGrass1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Oceanside Spider House Entrance Pot"), Region(Region.GreatBayCoast)]
+        [GossipLocationHint("a creepy basement pot"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1E2), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x1430)]
+        CollectableOceansideSpiderHouseEntrancePot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Oceanside Spider House Entrance Pot 2"), Region(Region.GreatBayCoast)]
+        [GossipLocationHint("a creepy basement pot"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1E3), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x1431)]
+        CollectableOceansideSpiderHouseEntrancePot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Pirates' Fortress Sewer Gate Pot"), Region(Region.PiratesFortressSewer)]
+        [GossipLocationHint("the home of pirates"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1E4), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x11A5)]
+        CollectablePiratesFortressInteriorWaterCurrentRoomPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Pirates' Fortress Guarded Egg Pot"), Region(Region.PiratesFortressInterior)]
+        [GossipLocationHint("the home of pirates"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1E5), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x11AA)]
+        CollectablePiratesFortressInterior100RupeeEggRoomPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Pirates' Fortress Barrel Maze Egg Pot"), Region(Region.PiratesFortressInterior)]
+        [GossipLocationHint("the home of pirates"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1E6), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x11AB)]
+        CollectablePiratesFortressInteriorBarrelRoomEggPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Pirates' Fortress Sewer Exit Pot"), Region(Region.PiratesFortressSewer)]
+        [GossipLocationHint("the home of pirates"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1E7), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x11AC)]
+        CollectablePiratesFortressInteriorTelescopeRoomPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Secret Shrine Underwater Pot"), Region(Region.SecretShrine)]
+        [GossipLocationHint("a secret place"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1E8), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x307C)]
+        CollectableSecretShrineMainRoomPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Secret Shrine Underwater Pot 2"), Region(Region.SecretShrine)]
+        [GossipLocationHint("a secret place"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1E9), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x307D)]
+        CollectableSecretShrineMainRoomPot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Snowhead Temple Icicle Room Snowball"), Region(Region.SnowheadTemple)]
+        [GossipLocationHint("Snowhead Temple", "an icy gale"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1EA), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x10A0)]
+        CollectableSnowheadTempleIceBlockRoomSmallSnowball1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Snowhead Temple Icicle Room Snowball 2"), Region(Region.SnowheadTemple)]
+        [GossipLocationHint("Snowhead Temple", "an icy gale"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1EB), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x10A1)]
+        CollectableSnowheadTempleIceBlockRoomSmallSnowball2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Stone Tower Upper Scarecrow Pot"), Region(Region.StoneTower)]
+        [GossipLocationHint("a high tower"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1EC), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x2C2F)]
+        CollectableStoneTowerPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Stone Tower Upper Scarecrow Pot 2"), Region(Region.StoneTower)]
+        [GossipLocationHint("a high tower"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1ED), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x2C33)]
+        CollectableStoneTowerPot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("30 Arrows"), LocationName("Great Bay Coast Pot 5"), Region(Region.GreatBayCoast)]
+        [GossipLocationHint("an ocean jar"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1EE), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x1BAE)]
+        CollectableGreatBayCoastPot5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("30 Arrows"), LocationName("Great Bay Temple Seesaw Room Pot"), Region(Region.GreatBayTemple)]
+        [GossipLocationHint("Great Bay Temple", "the ocean temple"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1EF), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x24A0)]
+        CollectableGreatBayTempleSeesawRoomPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("30 Arrows"), LocationName("Great Bay Temple Green Pump Barrel"), Region(Region.GreatBayTemple)]
+        [GossipLocationHint("Great Bay Temple", "the ocean temple"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1F0), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x24A4)]
+        CollectableGreatBayTempleTopmostRoomWithGreenValveBarrel1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("30 Arrows"), LocationName("Ikana Canyon Grass"), Region(Region.IkanaCanyon)]
+        [GossipLocationHint("cursed grass"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1F1), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x9C8)]
+        CollectableIkanaCanyonMainAreaGrass1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("30 Arrows"), LocationName("Milk Road Grass"), Region(Region.MilkRoad)]
+        [GossipLocationHint("a roadside plant"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1F2), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x1121)]
+        CollectableMilkRoadGrass1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("30 Arrows"), LocationName("Mountain Village Spring Snowball"), Region(Region.MountainVillage)]
+        [GossipLocationHint("a spring snowball"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1F3), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x2D2A)]
+        CollectableMountainVillageSpringSmallSnowball1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("30 Arrows"), LocationName("Mountain Village Winter Small Snowball"), Region(Region.MountainVillage)]
+        [GossipLocationHint("a village snowball"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1F4), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x2835)]
+        CollectableMountainVillageWinterSmallSnowball1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("30 Arrows"), LocationName("Pirates' Fortress Lone Guard Egg Pot"), Region(Region.PiratesFortressInterior)]
+        [GossipLocationHint("the home of pirates"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1F5), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x11A9)]
+        CollectablePiratesFortressInteriorTwinBarrelEggRoomPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("30 Arrows"), LocationName("Pirates' Fortress Cage Pot"), Region(Region.PiratesFortressSewer)]
+        [GossipLocationHint("the home of pirates"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1F6), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x1188)]
+        CollectablePiratesFortressInteriorCellRoomWithPieceOfHeartPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("30 Arrows"), LocationName("Ranch Crate"), Region(Region.RomaniRanch)]
+        [GossipLocationHint("a ranch container"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1F7), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x1AFF)]
+        CollectableRomaniRanchWoodenCrateLarge1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("30 Arrows"), LocationName("Snowhead Small Snowball"), Region(Region.Snowhead)]
+        [GossipLocationHint("a mountain-top snowball"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1F8), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x2E21)]
+        CollectableSnowheadSmallSnowball1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("30 Arrows"), LocationName("Stone Tower Owl Pot"), Region(Region.StoneTower)]
+        [GossipLocationHint("a high tower"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1F9), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x2C38)]
+        CollectableStoneTowerPot3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("30 Arrows"), LocationName("Zora Cape Owl Pot"), Region(Region.ZoraCape)]
+        [GossipLocationHint("a cape jar"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1FA), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x1C23)]
+        CollectableZoraCapePot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Observatory Scarecrow Pot"), Region(Region.EastClockTown)]
+        [GossipLocationHint("an underground jar"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1FB), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x14A4)]
+        CollectableAstralObservatoryObservatoryBombersHideoutPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Observatory Scarecrow Pot 2"), Region(Region.EastClockTown)]
+        [GossipLocationHint("an underground jar"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1FC), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x14A5)]
+        CollectableAstralObservatoryObservatoryBombersHideoutPot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Deku Palace Item"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal garden", "the home of scrubs"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1FD), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x1590)]
+        CollectableDekuPalaceWestInnerGardenItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Deku Palace Item 2"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal garden", "the home of scrubs"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1FE), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x1591)]
+        CollectableDekuPalaceEastInnerGardenItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Deku Palace Item 3"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal garden", "the home of scrubs"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x1FF), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x1592)]
+        CollectableDekuPalaceEastInnerGardenItem2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Deku Palace Item 4"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal garden", "the home of scrubs"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x200), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x158E)]
+        CollectableDekuPalaceWestInnerGardenItem2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Deku Palace Item 5"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal garden", "the home of scrubs"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x201), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x158F)]
+        CollectableDekuPalaceWestInnerGardenItem3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Doggy Racetrack Pot"), Region(Region.RomaniRanch)]
+        [GossipLocationHint("a sporting arena"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x202), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x2081)]
+        CollectableDoggyRacetrackPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Doggy Racetrack Pot 2"), Region(Region.RomaniRanch)]
+        [GossipLocationHint("a sporting arena"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x203), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x2082)]
+        CollectableDoggyRacetrackPot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Doggy Racetrack Pot 3"), Region(Region.RomaniRanch)]
+        [GossipLocationHint("a sporting arena"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x204), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x2083)]
+        CollectableDoggyRacetrackPot3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Doggy Racetrack Pot 4"), Region(Region.RomaniRanch)]
+        [GossipLocationHint("a sporting arena"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x205), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x2084)]
+        CollectableDoggyRacetrackPot4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Goron Village Large Snowball"), Region(Region.GoronVillage)]
+        [GossipLocationHint("a village snowball"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x206), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x26A0)]
+        CollectableGoronVillageWinterLargeSnowball1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Goron Village Large Snowball 2"), Region(Region.GoronVillage)]
+        [GossipLocationHint("a village snowball"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x207), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x26A2)]
+        CollectableGoronVillageWinterLargeSnowball2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Goron Village Large Snowball 3"), Region(Region.GoronVillage)]
+        [GossipLocationHint("a village snowball"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x208), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x26A4)]
+        CollectableGoronVillageWinterLargeSnowball3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Great Bay Coast Ledge Pot"), Region(Region.GreatBayCoast)]
+        [GossipLocationHint("a high ocean jar"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x209), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x1B83)]
+        CollectableGreatBayCoastPot6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Great Bay Coast Ledge Pot 2"), Region(Region.GreatBayCoast)]
+        [GossipLocationHint("a high ocean jar"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x20A), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x1B84)]
+        CollectableGreatBayCoastPot7,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Great Bay Coast Ledge Pot 3"), Region(Region.GreatBayCoast)]
+        [GossipLocationHint("a high ocean jar"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x20B), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x1B86)]
+        CollectableGreatBayCoastPot8,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Great Bay Temple Water Control Room Item"), Region(Region.GreatBayTemple)]
+        [GossipLocationHint("Great Bay Temple", "the ocean temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x20C), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x2482)]
+        CollectableGreatBayTempleWaterControlRoomItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Great Bay Temple Water Control Room Item 2"), Region(Region.GreatBayTemple)]
+        [GossipLocationHint("Great Bay Temple", "the ocean temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x20D), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x2483)]
+        CollectableGreatBayTempleWaterControlRoomItem2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Bio Baba Grotto Hive"), Region(Region.TerminaField)]
+        [GossipLocationHint("an underground hive"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x20E), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x383)]
+        CollectableGrottosOceanHeartPieceGrottoBeehive1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Laundry Pool Crate"), Region(Region.LaundryPool)]
+        [GossipLocationHint("a town crate"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x20F), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x3820)]
+        CollectableLaundryPoolWoodenCrateSmall1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Mountain Village Day 3 Snowball"), Region(Region.MountainVillage)]
+        [GossipLocationHint("a village snowball"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x210), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x2828)]
+        CollectableMountainVillageWinterLargeSnowball1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Mountain Village Day 2 Snowball"), Region(Region.MountainVillage)]
+        [GossipLocationHint("a village snowball"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x211), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x2829)]
+        CollectableMountainVillageWinterLargeSnowball2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Twin Islands Item"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a frozen lake"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x212), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x2E81)]
+        CollectablePathToGoronVillageWinterItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Twin Islands Item 2"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a frozen lake"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x213), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x2E82)]
+        CollectablePathToGoronVillageWinterItem2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Twin Islands Item 3"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a frozen lake"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x214), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x2E83)]
+        CollectablePathToGoronVillageWinterItem3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Twin Islands Item 4"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a frozen lake"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x215), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x2E84)]
+        CollectablePathToGoronVillageWinterItem4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Pirates' Fortress Barrel Maze Egg Pot 2"), Region(Region.PiratesFortressInterior)]
+        [GossipLocationHint("the home of pirates"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x216), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x11A3)]
+        CollectablePiratesFortressInteriorBarrelRoomEggPot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Pirates' Fortress Sewer Exit Barrel"), Region(Region.PiratesFortressSewer)]
+        [GossipLocationHint("the home of pirates"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x217), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x1185)]
+        CollectablePiratesFortressInteriorTelescopeRoomItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Pirates' Fortress Sewer Exit Barrel 2"), Region(Region.PiratesFortressSewer)]
+        [GossipLocationHint("the home of pirates"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x218), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x1186)]
+        CollectablePiratesFortressInteriorTelescopeRoomItem2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Pirates' Fortress Sewer Exit Barrel 3"), Region(Region.PiratesFortressSewer)]
+        [GossipLocationHint("the home of pirates"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x219), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x118A)]
+        CollectablePiratesFortressInteriorTelescopeRoomItem3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Pirates' Fortress Cage Room Barrel"), Region(Region.PiratesFortressSewer)]
+        [GossipLocationHint("the home of pirates"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x21A), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x118B)]
+        CollectablePiratesFortressInteriorCellRoomWithPieceOfHeartItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Ranch Barn Hay Item"), Region(Region.RomaniRanch)]
+        [GossipLocationHint("a bale of hay"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x21B), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x801)]
+        CollectableRanchHouseBarnBarnItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Ranch Barn Hay Item 2"), Region(Region.RomaniRanch)]
+        [GossipLocationHint("a bale of hay"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x21C), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x802)]
+        CollectableRanchHouseBarnBarnItem2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Snowhead Temple Icicle Room Snowball 3"), Region(Region.SnowheadTemple)]
+        [GossipLocationHint("Snowhead Temple", "an icy gale"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x21D), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x10A2)]
+        CollectableSnowheadTempleIceBlockRoomSmallSnowball3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Snowhead Temple Icicle Room Snowball 4"), Region(Region.SnowheadTemple)]
+        [GossipLocationHint("Snowhead Temple", "an icy gale"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x21E), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x10A3)]
+        CollectableSnowheadTempleIceBlockRoomSmallSnowball4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Snowhead Temple Icicle Room Snowball 5"), Region(Region.SnowheadTemple)]
+        [GossipLocationHint("Snowhead Temple", "an icy gale"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x21F), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x10A4)]
+        CollectableSnowheadTempleIceBlockRoomSmallSnowball5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Snowhead Temple Elevator Room Crate"), Region(Region.SnowheadTemple)]
+        [GossipLocationHint("Snowhead Temple", "an icy gale"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x220), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x10A8)]
+        CollectableSnowheadTempleMapRoomWoodenCrateLarge1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Snowhead Temple Elevator Room Crate 2"), Region(Region.SnowheadTemple)]
+        [GossipLocationHint("Snowhead Temple", "an icy gale"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x221), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x10A9)]
+        CollectableSnowheadTempleMapRoomWoodenCrateLarge2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Snowhead Temple Elevator Room Crate 3"), Region(Region.SnowheadTemple)]
+        [GossipLocationHint("Snowhead Temple", "an icy gale"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x222), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x10AA)]
+        CollectableSnowheadTempleMapRoomWoodenCrateLarge3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Snowhead Temple Elevator Room Crate 4"), Region(Region.SnowheadTemple)]
+        [GossipLocationHint("Snowhead Temple", "an icy gale"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x223), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x10AB)]
+        CollectableSnowheadTempleMapRoomWoodenCrateLarge4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Snowhead Temple Elevator Room Crate 5"), Region(Region.SnowheadTemple)]
+        [GossipLocationHint("Snowhead Temple", "an icy gale"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x224), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x10AC)]
+        CollectableSnowheadTempleMapRoomWoodenCrateLarge5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Snowhead Temple Safety Bridge Pot"), Region(Region.SnowheadTemple)]
+        [GossipLocationHint("Snowhead Temple", "an icy gale"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x225), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x10AD)]
+        CollectableSnowheadTempleMainRoomPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Snowhead Temple Safety Bridge Pot 2"), Region(Region.SnowheadTemple)]
+        [GossipLocationHint("Snowhead Temple", "an icy gale"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x226), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x10AE)]
+        CollectableSnowheadTempleMainRoomPot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Cleared Swamp Potion Shop Pot"), Region(Region.SouthernSwamp)]
+        [GossipLocationHint("a swamp jar"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x227), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x21)]
+        CollectableSouthernSwampClearMagicHagsPotionShopExteriorPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Swamp Near Frog Item"), Region(Region.SouthernSwamp)]
+        [GossipLocationHint("a swamp flower"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x228), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x2295)]
+        CollectableSouthernSwampPoisonedCentralSwampItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Swamp Near Frog Item 2"), Region(Region.SouthernSwamp)]
+        [GossipLocationHint("a swamp flower"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x229), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x2296)]
+        CollectableSouthernSwampPoisonedCentralSwampItem2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Potion Shop Pot"), Region(Region.SouthernSwamp)]
+        [GossipLocationHint("a swamp jar"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x22A), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x22A6)]
+        CollectableSouthernSwampPoisonedMagicHagsPotionShopExteriorPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Stone Tower Temple Lava Room Item"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x22B), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0xB05)]
+        CollectableStoneTowerTempleLavaRoomItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Stone Tower Temple Lava Room Item 2"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x22C), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0xB06)]
+        CollectableStoneTowerTempleLavaRoomItem2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Stone Tower Temple Thin Bridge Item"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x22D), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0xB07)]
+        CollectableStoneTowerTempleRoomAfterLightArrowsItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Stone Tower Temple Thin Bridge Item 2"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x22E), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0xB08)]
+        CollectableStoneTowerTempleRoomAfterLightArrowsItem2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Stone Tower Temple Thin Bridge Item 3"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x22F), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0xB09)]
+        CollectableStoneTowerTempleRoomAfterLightArrowsItem3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Stone Tower Temple Thin Bridge Item 4"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x230), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0xB0A)]
+        CollectableStoneTowerTempleRoomAfterLightArrowsItem4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Stone Tower Temple Thin Bridge Item 5"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x231), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0xB0B)]
+        CollectableStoneTowerTempleRoomAfterLightArrowsItem5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Stone Tower Temple Thin Bridge Item 6"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x232), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0xB0C)]
+        CollectableStoneTowerTempleRoomAfterLightArrowsItem6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Stone Tower Temple Thin Bridge Item 7"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x233), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0xB0D)]
+        CollectableStoneTowerTempleRoomAfterLightArrowsItem7,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Stone Tower Temple Thin Bridge Item 8"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x234), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0xB0E)]
+        CollectableStoneTowerTempleRoomAfterLightArrowsItem8,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Inverted Stone Tower Temple Dexihand Item"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x235), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0xC01)]
+        CollectableStoneTowerTempleInvertedEyegoreRoomItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Inverted Stone Tower Temple Pre-Boss Closest Item"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x236), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0xC10)]
+        CollectableStoneTowerTempleInvertedPreBossRoomItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Inverted Stone Tower Temple Pre-Boss 2nd Closest Item"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x237), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0xC11)]
+        CollectableStoneTowerTempleInvertedPreBossRoomItem2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Inverted Stone Tower Temple Pre-Boss Item"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x238), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0xC07)]
+        CollectableStoneTowerTempleInvertedPreBossRoomItem3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Inverted Stone Tower Temple Pre-Boss Item 2"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x239), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0xC08)]
+        CollectableStoneTowerTempleInvertedPreBossRoomItem4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Inverted Stone Tower Temple Pre-Boss Item 3"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x23A), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0xC09)]
+        CollectableStoneTowerTempleInvertedPreBossRoomItem5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Inverted Stone Tower Temple Pre-Boss Furthest Item"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x23B), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0xC0A)]
+        CollectableStoneTowerTempleInvertedPreBossRoomItem6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Inverted Stone Tower Temple Pre-Boss Furthest Item 2"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x23C), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0xC0B)]
+        CollectableStoneTowerTempleInvertedPreBossRoomItem7,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Inverted Stone Tower Temple Pre-Boss 2nd Furthest Item"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x23D), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0xC0C)]
+        CollectableStoneTowerTempleInvertedPreBossRoomItem8,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Inverted Stone Tower Temple Pre-Boss 2nd Furthest Item 2"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x23E), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0xC0D)]
+        CollectableStoneTowerTempleInvertedPreBossRoomItem9,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Inverted Stone Tower Temple Pre-Boss Closest Item 2"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x23F), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0xC0E)]
+        CollectableStoneTowerTempleInvertedPreBossRoomItem10,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Inverted Stone Tower Temple Pre-Boss 2nd Closest Item 2"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x240), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0xC0F)]
+        CollectableStoneTowerTempleInvertedPreBossRoomItem11,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Swordsman's School Pot"), Region(Region.WestClockTown)]
+        [GossipLocationHint("cowering"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x241), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x2A01)]
+        CollectableSwordsmanSSchoolPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Swordsman's School Pot 2"), Region(Region.WestClockTown)]
+        [GossipLocationHint("cowering"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x242), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x2A03)]
+        CollectableSwordsmanSSchoolPot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Swordsman's School Pot 3"), Region(Region.WestClockTown)]
+        [GossipLocationHint("cowering"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x243), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x2A04)]
+        CollectableSwordsmanSSchoolPot3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Swordsman's School Pot 4"), Region(Region.WestClockTown)]
+        [GossipLocationHint("cowering"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x244), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x2A05)]
+        CollectableSwordsmanSSchoolPot4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Swordsman's School Pot 5"), Region(Region.WestClockTown)]
+        [GossipLocationHint("cowering"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x245), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x2A06)]
+        CollectableSwordsmanSSchoolPot5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Woodfall Item"), Region(Region.Woodfall)]
+        [GossipLocationHint("a poisoned stump"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x246), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x2301)]
+        CollectableWoodfallItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Woodfall Temple Entrance Hive"), Region(Region.WoodfallTemple)]
+        [GossipLocationHint("Woodfall Temple", "the sleeping temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x247), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0xDA0)]
+        CollectableWoodfallTempleEntranceRoomBeehive1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Woodfall Temple Gekko Room Pot"), Region(Region.WoodfallTemple)]
+        [GossipLocationHint("Woodfall Temple", "the sleeping temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x248), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0xDA6)]
+        CollectableWoodfallTempleGekkoRoomPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Woodfall Temple Gekko Room Pot 2"), Region(Region.WoodfallTemple)]
+        [GossipLocationHint("Woodfall Temple", "the sleeping temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x249), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0xDA7)]
+        CollectableWoodfallTempleGekkoRoomPot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Woodfall Temple Gekko Room Pot 3"), Region(Region.WoodfallTemple)]
+        [GossipLocationHint("Woodfall Temple", "the sleeping temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x24A), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0xDA8)]
+        CollectableWoodfallTempleGekkoRoomPot3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Woodfall Temple Gekko Room Pot 4"), Region(Region.WoodfallTemple)]
+        [GossipLocationHint("Woodfall Temple", "the sleeping temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x24B), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0xDA9)]
+        CollectableWoodfallTempleGekkoRoomPot4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Woodfall Temple Pre-Boss Platform Item"), Region(Region.WoodfallTemple)]
+        [GossipLocationHint("Woodfall Temple", "the sleeping temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x24C), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0xD83)]
+        CollectableWoodfallTemplePreBossRoomItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Woodfall Temple Pre-Boss Platform Item 2"), Region(Region.WoodfallTemple)]
+        [GossipLocationHint("Woodfall Temple", "the sleeping temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x24D), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0xD84)]
+        CollectableWoodfallTemplePreBossRoomItem2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Woodfall Temple Pre-Boss Platform Item 3"), Region(Region.WoodfallTemple)]
+        [GossipLocationHint("Woodfall Temple", "the sleeping temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x24E), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0xD85)]
+        CollectableWoodfallTemplePreBossRoomItem3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Woodfall Temple Pre-Boss Platform Item 4"), Region(Region.WoodfallTemple)]
+        [GossipLocationHint("Woodfall Temple", "the sleeping temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x24F), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0xD86)]
+        CollectableWoodfallTemplePreBossRoomItem4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("5 Bombs"), LocationName("Well Left Path Pot"), Region(Region.BeneathTheWell)]
+        [GossipLocationHint("a cursed pot"), GossipItemHint("explosives")]
+        [ShopText("Explosives. You need a Bomb Bag to carry them.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x250), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x25A0)]
+        CollectableBeneathTheWellBugAndBombRoomPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("5 Bombs"), LocationName("Well Left Path Pot 2"), Region(Region.BeneathTheWell)]
+        [GossipLocationHint("a cursed pot"), GossipItemHint("explosives")]
+        [ShopText("Explosives. You need a Bomb Bag to carry them.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x251), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x25A1)]
+        CollectableBeneathTheWellBugAndBombRoomPot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("5 Bombs"), LocationName("Well Left Path Pot 3"), Region(Region.BeneathTheWell)]
+        [GossipLocationHint("a cursed pot"), GossipItemHint("explosives")]
+        [ShopText("Explosives. You need a Bomb Bag to carry them.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x252), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x25A2)]
+        CollectableBeneathTheWellBugAndBombRoomPot3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("5 Bombs"), LocationName("Well Left Path Pot 4"), Region(Region.BeneathTheWell)]
+        [GossipLocationHint("a cursed pot"), GossipItemHint("explosives")]
+        [ShopText("Explosives. You need a Bomb Bag to carry them.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x253), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x25A3)]
+        CollectableBeneathTheWellBugAndBombRoomPot4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("5 Bombs"), LocationName("Well Left Path Pot 5"), Region(Region.BeneathTheWell)]
+        [GossipLocationHint("a cursed pot"), GossipItemHint("explosives")]
+        [ShopText("Explosives. You need a Bomb Bag to carry them.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x254), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x25A4)]
+        CollectableBeneathTheWellBugAndBombRoomPot5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("5 Bombs"), LocationName("Goron Village Small Snowball 3"), Region(Region.GoronVillage)]
+        [GossipLocationHint("a village snowball"), GossipItemHint("explosives")]
+        [ShopText("Explosives. You need a Bomb Bag to carry them.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x255), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x26AB)]
+        CollectableGoronVillageWinterSmallSnowball3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("5 Bombs"), LocationName("Goron Village Small Snowball 4"), Region(Region.GoronVillage)]
+        [GossipLocationHint("a village snowball"), GossipItemHint("explosives")]
+        [ShopText("Explosives. You need a Bomb Bag to carry them.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x256), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x26B0)]
+        CollectableGoronVillageWinterSmallSnowball4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("5 Bombs"), LocationName("Great Bay Coast Pot 6"), Region(Region.GreatBayCoast)]
+        [GossipLocationHint("an ocean jar"), GossipItemHint("explosives")]
+        [ShopText("Explosives. You need a Bomb Bag to carry them.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x257), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x1BAD)]
+        CollectableGreatBayCoastPot9,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("5 Bombs"), LocationName("Great Bay Temple Red Valve Barrel 2"), Region(Region.GreatBayTemple)]
+        [GossipLocationHint("Great Bay Temple", "the ocean temple"), GossipItemHint("explosives")]
+        [ShopText("Explosives. You need a Bomb Bag to carry them.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x258), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x24A2)]
+        CollectableGreatBayTempleBlueChuchuValveRoomBarrel2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("5 Bombs"), LocationName("Great Bay Temple Green Pump Barrel 2"), Region(Region.GreatBayTemple)]
+        [GossipLocationHint("Great Bay Temple", "the ocean temple"), GossipItemHint("explosives")]
+        [ShopText("Explosives. You need a Bomb Bag to carry them.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x259), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x24A5)]
+        CollectableGreatBayTempleTopmostRoomWithGreenValveBarrel2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("5 Bombs"), LocationName("Ikana Canyon Grass 2"), Region(Region.IkanaCanyon)]
+        [GossipLocationHint("cursed grass"), GossipItemHint("explosives")]
+        [ShopText("Explosives. You need a Bomb Bag to carry them.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x25A), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x9C7)]
+        CollectableIkanaCanyonMainAreaGrass2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("5 Bombs"), LocationName("Mountain Village Spring Snowball 2"), Region(Region.MountainVillage)]
+        [GossipLocationHint("a spring snowball"), GossipItemHint("explosives")]
+        [ShopText("Explosives. You need a Bomb Bag to carry them.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x25B), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x2D29)]
+        CollectableMountainVillageSpringSmallSnowball2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("5 Bombs"), LocationName("Mountain Village Winter Small Snowball 2"), Region(Region.MountainVillage)]
+        [GossipLocationHint("a village snowball"), GossipItemHint("explosives")]
+        [ShopText("Explosives. You need a Bomb Bag to carry them.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x25C), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x2834)]
+        CollectableMountainVillageWinterSmallSnowball2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("5 Bombs"), LocationName("Snowhead Small Snowball 2"), Region(Region.Snowhead)]
+        [GossipLocationHint("a mountain-top snowball"), GossipItemHint("explosives")]
+        [ShopText("Explosives. You need a Bomb Bag to carry them.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x25D), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x2E20)]
+        CollectableSnowheadSmallSnowball2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("5 Bombs"), LocationName("Stone Tower Owl Pot 2"), Region(Region.StoneTower)]
+        [GossipLocationHint("a high tower"), GossipItemHint("explosives")]
+        [ShopText("Explosives. You need a Bomb Bag to carry them.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x25E), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x2C37)]
+        CollectableStoneTowerPot4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("5 Bombs"), LocationName("Inverted Stone Tower Pot"), Region(Region.StoneTower)]
+        [GossipLocationHint("a sky below"), GossipItemHint("explosives")]
+        [ShopText("Explosives. You need a Bomb Bag to carry them.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x25F), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x2CBA)]
+        CollectableStoneTowerInvertedStoneTowerFlippedPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("5 Bombs"), LocationName("Zora Cape Owl Pot 2"), Region(Region.ZoraCape)]
+        [GossipLocationHint("a cape jar"), GossipItemHint("explosives")]
+        [ShopText("Explosives. You need a Bomb Bag to carry them.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x260), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x1C22)]
+        CollectableZoraCapePot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Deku Nuts"), LocationName("Ikana Castle Left Staircase Pot"), Region(Region.IkanaCastle)]
+        [GossipLocationHint("an ancient jar"), GossipItemHint("a flashing impact")]
+        [ShopText("Its flash blinds enemies.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x261), ItemCategory(ItemCategory.Ammo), CollectableIndex(0xEC4)]
+        CollectableAncientCastleOfIkana1FWestStaircasePot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Deku Nuts"), LocationName("Goron Village Small Snowball 5"), Region(Region.GoronVillage)]
+        [GossipLocationHint("a village snowball"), GossipItemHint("a flashing impact")]
+        [ShopText("Its flash blinds enemies.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x262), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x26AD)]
+        CollectableGoronVillageWinterSmallSnowball5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Deku Nuts"), LocationName("Goron Village Small Snowball 6"), Region(Region.GoronVillage)]
+        [GossipLocationHint("a village snowball"), GossipItemHint("a flashing impact")]
+        [ShopText("Its flash blinds enemies.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x263), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x26B1)]
+        CollectableGoronVillageWinterSmallSnowball6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Deku Nuts"), LocationName("Pirates' Fortress Sewer Exit Pot 2"), Region(Region.PiratesFortressSewer)]
+        [GossipLocationHint("the home of pirates"), GossipItemHint("a flashing impact")]
+        [ShopText("Its flash blinds enemies.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x264), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x11A8)]
+        CollectablePiratesFortressInteriorTelescopeRoomPot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Deku Nuts"), LocationName("Woodfall Pot"), Region(Region.Woodfall)]
+        [GossipLocationHint("a poisoned platform"), GossipItemHint("a flashing impact")]
+        [ShopText("Its flash blinds enemies.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x265), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x2322)]
+        CollectableWoodfallPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Deku Stick"), LocationName("Goron Shrine Pot"), Region(Region.GoronVillage)]
+        [GossipLocationHint("a crying child's jar"), GossipItemHint("a flammable weapon", "a flimsy weapon")]
+        [ShopText("Deku Sticks burn well. You can only carry 10.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x266), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x1960)]
+        CollectableGoronShrineGoronKidSRoomPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Deku Stick"), LocationName("Goron Shrine Pot 2"), Region(Region.GoronVillage)]
+        [GossipLocationHint("a crying child's jar"), GossipItemHint("a flammable weapon", "a flimsy weapon")]
+        [ShopText("Deku Sticks burn well. You can only carry 10.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x267), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x1961)]
+        CollectableGoronShrineGoronKidSRoomPot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Deku Stick"), LocationName("Goron Shrine Pot 3"), Region(Region.GoronVillage)]
+        [GossipLocationHint("a crying child's jar"), GossipItemHint("a flammable weapon", "a flimsy weapon")]
+        [ShopText("Deku Sticks burn well. You can only carry 10.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x268), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x1963)]
+        CollectableGoronShrineMainRoomPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Deku Stick"), LocationName("Goron Shrine Pot 4"), Region(Region.GoronVillage)]
+        [GossipLocationHint("a crying child's jar"), GossipItemHint("a flammable weapon", "a flimsy weapon")]
+        [ShopText("Deku Sticks burn well. You can only carry 10.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x269), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x1966)]
+        CollectableGoronShrineMainRoomPot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Deku Stick"), LocationName("Goron Shrine Pot 5"), Region(Region.GoronVillage)]
+        [GossipLocationHint("a crying child's jar"), GossipItemHint("a flammable weapon", "a flimsy weapon")]
+        [ShopText("Deku Sticks burn well. You can only carry 10.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x26A), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x196A)]
+        CollectableGoronShrineMainRoomPot3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Deku Stick"), LocationName("Goron Village Small Snowball 7"), Region(Region.GoronVillage)]
+        [GossipLocationHint("a village snowball"), GossipItemHint("a flammable weapon", "a flimsy weapon")]
+        [ShopText("Deku Sticks burn well. You can only carry 10.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x26B), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x26AC)]
+        CollectableGoronVillageWinterSmallSnowball7,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Deku Stick"), LocationName("Goron Village Small Snowball 8"), Region(Region.GoronVillage)]
+        [GossipLocationHint("a village snowball"), GossipItemHint("a flammable weapon", "a flimsy weapon")]
+        [ShopText("Deku Sticks burn well. You can only carry 10.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x26C), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x26AF)]
+        CollectableGoronVillageWinterSmallSnowball8,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Deku Stick"), LocationName("Cleared Swamp Owl Grass"), Region(Region.SouthernSwamp)]
+        [GossipLocationHint("swamp grass"), GossipItemHint("a flammable weapon", "a flimsy weapon")]
+        [ShopText("Deku Sticks burn well. You can only carry 10.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x26D), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x26)]
+        CollectableSouthernSwampClearCentralSwampGrass1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Deku Stick"), LocationName("Southern Swamp Owl Grass"), Region(Region.SouthernSwamp)]
+        [GossipLocationHint("swamp grass"), GossipItemHint("a flammable weapon", "a flimsy weapon")]
+        [ShopText("Deku Sticks burn well. You can only carry 10.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x26E), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x22AC)]
+        CollectableSouthernSwampPoisonedCentralSwampGrass1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Deku Stick"), LocationName("Woodfall Pot 2"), Region(Region.Woodfall)]
+        [GossipLocationHint("a poisoned platform"), GossipItemHint("a flammable weapon", "a flimsy weapon")]
+        [ShopText("Deku Sticks burn well. You can only carry 10.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x26F), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x2320)]
+        CollectableWoodfallPot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Dampe's Basement Pot 5"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("an unholy jar"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x270), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x1805)]
+        CollectableDampéSHouseBasementPot5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Dampe's Basement Pot 6"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("an unholy jar"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x271), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x1806)]
+        CollectableDampéSHouseBasementPot6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Dampe's Basement Pot 7"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("an unholy jar"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x272), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x1809)]
+        CollectableDampéSHouseBasementPot7,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Palace Item 6"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal garden", "the home of scrubs"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x273), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x1581)]
+        CollectableDekuPalaceEastInnerGardenItem3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Palace Item 7"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal garden", "the home of scrubs"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x274), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x1582)]
+        CollectableDekuPalaceEastInnerGardenItem4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Palace Item 8"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal garden", "the home of scrubs"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x275), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x1583)]
+        CollectableDekuPalaceEastInnerGardenItem5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Palace Item 9"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal garden", "the home of scrubs"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x276), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x1584)]
+        CollectableDekuPalaceEastInnerGardenItem6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Palace Item 10"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal garden", "the home of scrubs"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x277), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x1585)]
+        CollectableDekuPalaceEastInnerGardenItem7,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Palace Item 11"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal garden", "the home of scrubs"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x278), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x1586)]
+        CollectableDekuPalaceEastInnerGardenItem8,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Palace Item 12"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal garden", "the home of scrubs"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x279), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x1587)]
+        CollectableDekuPalaceWestInnerGardenItem4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Palace Item 13"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal garden", "the home of scrubs"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x27A), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x1588)]
+        CollectableDekuPalaceWestInnerGardenItem5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Palace Item 14"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal garden", "the home of scrubs"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x27B), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x1589)]
+        CollectableDekuPalaceWestInnerGardenItem6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Palace Out of Bounds Item"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a hidden royal treasure"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x27C), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x158A)]
+        CollectableDekuPalaceWestInnerGardenItem7,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Palace Item 15"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal garden", "the home of scrubs"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x27D), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x158B)]
+        CollectableDekuPalaceWestInnerGardenItem8,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Palace Item 16"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal garden", "the home of scrubs"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x27E), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x158C)]
+        CollectableDekuPalaceWestInnerGardenItem9,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Palace Item 17"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal garden", "the home of scrubs"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x27F), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x158D)]
+        CollectableDekuPalaceWestInnerGardenItem10,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Butler Race Pillar Item"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal race"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x280), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x2920)]
+        CollectableDekuShrineGiantRoomFloor1Item1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Butler Race Pillar Item 2"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal race"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x281), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x2921)]
+        CollectableDekuShrineGiantRoomFloor1Item2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Butler Race Pillar Item 3"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal race"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x282), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x2922)]
+        CollectableDekuShrineGiantRoomFloor1Item3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Butler Race Pillar Item 4"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal race"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x283), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x2923)]
+        CollectableDekuShrineGiantRoomFloor1Item4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Butler Race Pillar Item 5"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal race"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x284), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x2924)]
+        CollectableDekuShrineGiantRoomFloor1Item5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Butler Race Pillar Item 6"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal race"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x285), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x2925)]
+        CollectableDekuShrineGiantRoomFloor1Item6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Butler Race River Item"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal race"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x286), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x2926)]
+        CollectableDekuShrineWaterRoomWithPlatformsItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Butler Race River Item 2"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal race"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x287), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x2927)]
+        CollectableDekuShrineWaterRoomWithPlatformsItem2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Butler Race River Item 3"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal race"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x288), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x2928)]
+        CollectableDekuShrineWaterRoomWithPlatformsItem3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Butler Race River Item 4"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal race"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x289), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x2929)]
+        CollectableDekuShrineWaterRoomWithPlatformsItem4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Butler Race River Item 5"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal race"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x28A), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x292A)]
+        CollectableDekuShrineWaterRoomWithPlatformsItem5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Butler Race River Item 6"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal race"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x28B), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x292B)]
+        CollectableDekuShrineWaterRoomWithPlatformsItem6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Butler Race Right Path Item"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal race"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x28C), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x292C)]
+        CollectableDekuShrineRoomBeforeFlameWallsItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Butler Race Right Path Item 2"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal race"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x28D), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x292D)]
+        CollectableDekuShrineRoomBeforeFlameWallsItem2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Butler Race Right Path Item 3"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal race"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x28E), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x292E)]
+        CollectableDekuShrineRoomBeforeFlameWallsItem3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Butler Race Right Path Item 4"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal race"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x28F), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x292F)]
+        CollectableDekuShrineRoomBeforeFlameWallsItem4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Butler Race Right Path Item 5"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal race"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x290), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x2930)]
+        CollectableDekuShrineRoomBeforeFlameWallsItem5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Butler Race Right Path Item 6"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal race"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x291), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x2931)]
+        CollectableDekuShrineRoomBeforeFlameWallsItem6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Butler Race Final Room Item"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal race"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x292), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x2932)]
+        CollectableDekuShrineDekuButlerSRoomItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Butler Race Final Room Item 2"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal race"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x293), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x2933)]
+        CollectableDekuShrineDekuButlerSRoomItem2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Butler Race Final Room Item 3"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal race"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x294), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x2934)]
+        CollectableDekuShrineDekuButlerSRoomItem3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Butler Race Final Room Item 4"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal race"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x295), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x2935)]
+        CollectableDekuShrineDekuButlerSRoomItem4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Butler Race Final Room Item 5"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal race"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x296), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x2936)]
+        CollectableDekuShrineDekuButlerSRoomItem5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Butler Race Final Room Item 6"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal race"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x297), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x2937)]
+        CollectableDekuShrineDekuButlerSRoomItem6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Butler Race Final Room Item 7"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal race"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x298), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x2938)]
+        CollectableDekuShrineDekuButlerSRoomItem7,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Butler Race Final Room Item 8"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal race"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x299), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x2939)]
+        CollectableDekuShrineDekuButlerSRoomItem8,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Butler Race Final Room Item 9"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal race"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x29A), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x293A)]
+        CollectableDekuShrineDekuButlerSRoomItem9,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Butler Race Final Room Item 10"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal race"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x29B), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x293B)]
+        CollectableDekuShrineDekuButlerSRoomItem10,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Butler Race Dual Pot"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal race"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x29C), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x297F)]
+        CollectableDekuShrineGreyBoulderRoomPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("East Clock Town Crate"), Region(Region.EastClockTown)]
+        [GossipLocationHint("a town crate"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x29D), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x3601)]
+        CollectableEastClockTownWoodenCrateSmall1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Great Bay Temple Water Control Room Item 3"), Region(Region.GreatBayTemple)]
+        [GossipLocationHint("Great Bay Temple", "the ocean temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x29E), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x2484)]
+        CollectableGreatBayTempleWaterControlRoomItem3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Great Bay Temple Water Control Room Item 4"), Region(Region.GreatBayTemple)]
+        [GossipLocationHint("Great Bay Temple", "the ocean temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x29F), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x2485)]
+        CollectableGreatBayTempleWaterControlRoomItem4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Ikana Graveyard Grass 2"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("unholy grass"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2A0), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x21A5)]
+        CollectableIkanaGraveyardIkanaGraveyardLowerGrass2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Potion Shop Item"), Region(Region.SouthernSwamp)]
+        [GossipLocationHint("a shop corner"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2A1), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x501)]
+        CollectableMagicHagsPotionShopItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Pirates' Fortress Cage Room Barrel 2"), Region(Region.PiratesFortressSewer)]
+        [GossipLocationHint("the home of pirates"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2A2), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x1181)]
+        CollectablePiratesFortressInteriorCellRoomWithPieceOfHeartItem2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Pirates' Fortress Cage Room Barrel 3"), Region(Region.PiratesFortressSewer)]
+        [GossipLocationHint("the home of pirates"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2A3), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x1183)]
+        CollectablePiratesFortressInteriorCellRoomWithPieceOfHeartItem3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Pirates' Fortress Cage Room Barrel 4"), Region(Region.PiratesFortressSewer)]
+        [GossipLocationHint("the home of pirates"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2A4), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x1184)]
+        CollectablePiratesFortressInteriorCellRoomWithPieceOfHeartItem4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Pirates' Fortress Cage Room Barrel 5"), Region(Region.PiratesFortressSewer)]
+        [GossipLocationHint("the home of pirates"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2A5), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x1187)]
+        CollectablePiratesFortressInteriorCellRoomWithPieceOfHeartItem5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Secret Shrine Floating Item"), Region(Region.SecretShrine)]
+        [GossipLocationHint("a secret place"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2A6), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x3032)]
+        CollectableSecretShrineEntranceRoomItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Secret Shrine Floating Item 2"), Region(Region.SecretShrine)]
+        [GossipLocationHint("a secret place"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2A7), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x3033)]
+        CollectableSecretShrineEntranceRoomItem2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Secret Shrine Floating Item 3"), Region(Region.SecretShrine)]
+        [GossipLocationHint("a secret place"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2A8), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x3034)]
+        CollectableSecretShrineEntranceRoomItem3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Secret Shrine Floating Item 4"), Region(Region.SecretShrine)]
+        [GossipLocationHint("a secret place"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2A9), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x3035)]
+        CollectableSecretShrineEntranceRoomItem4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Secret Shrine Floating Item 5"), Region(Region.SecretShrine)]
+        [GossipLocationHint("a secret place"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2AA), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x3036)]
+        CollectableSecretShrineEntranceRoomItem5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Secret Shrine Floating Item 6"), Region(Region.SecretShrine)]
+        [GossipLocationHint("a secret place"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2AB), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x3037)]
+        CollectableSecretShrineEntranceRoomItem6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Secret Shrine Floating Item 7"), Region(Region.SecretShrine)]
+        [GossipLocationHint("a secret place"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2AC), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x3038)]
+        CollectableSecretShrineEntranceRoomItem7,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Secret Shrine Floating Item 8"), Region(Region.SecretShrine)]
+        [GossipLocationHint("a secret place"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2AD), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x3039)]
+        CollectableSecretShrineEntranceRoomItem8,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Secret Shrine Floating Item 9"), Region(Region.SecretShrine)]
+        [GossipLocationHint("a secret place"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2AE), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x303A)]
+        CollectableSecretShrineEntranceRoomItem9,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Secret Shrine Floating Item 10"), Region(Region.SecretShrine)]
+        [GossipLocationHint("a secret place"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2AF), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x303B)]
+        CollectableSecretShrineEntranceRoomItem10,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Secret Shrine Floating Item 11"), Region(Region.SecretShrine)]
+        [GossipLocationHint("a secret place"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2B0), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x303C)]
+        CollectableSecretShrineEntranceRoomItem11,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Secret Shrine Floating Item 12"), Region(Region.SecretShrine)]
+        [GossipLocationHint("a secret place"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2B1), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x303D)]
+        CollectableSecretShrineEntranceRoomItem12,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Secret Shrine Floating Item 13"), Region(Region.SecretShrine)]
+        [GossipLocationHint("a secret place"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2B2), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x303E)]
+        CollectableSecretShrineEntranceRoomItem13,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Secret Shrine Floating Item 14"), Region(Region.SecretShrine)]
+        [GossipLocationHint("a secret place"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2B3), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x303F)]
+        CollectableSecretShrineEntranceRoomItem14,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Secret Shrine Floating Item 15"), Region(Region.SecretShrine)]
+        [GossipLocationHint("a secret place"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2B4), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x3040)]
+        CollectableSecretShrineEntranceRoomItem15,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Secret Shrine Floating Item 16"), Region(Region.SecretShrine)]
+        [GossipLocationHint("a secret place"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2B5), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x3041)]
+        CollectableSecretShrineEntranceRoomItem16,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Secret Shrine Floating Item 17"), Region(Region.SecretShrine)]
+        [GossipLocationHint("a secret place"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2B6), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x3042)]
+        CollectableSecretShrineEntranceRoomItem17,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Cleared Swamp Potion Shop Pot 2"), Region(Region.SouthernSwamp)]
+        [GossipLocationHint("a swamp jar"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2B7), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x22)]
+        CollectableSouthernSwampClearMagicHagsPotionShopExteriorPot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Potion Shop Pot 2"), Region(Region.SouthernSwamp)]
+        [GossipLocationHint("a swamp jar"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2B8), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0x22A7)]
+        CollectableSouthernSwampPoisonedMagicHagsPotionShopExteriorPot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Stone Tower Temple Lava Room Item 3"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2B9), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0xB02)]
+        CollectableStoneTowerTempleLavaRoomItem3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Stone Tower Temple Lava Room Item 4"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2BA), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0xB03)]
+        CollectableStoneTowerTempleLavaRoomItem4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Stone Tower Temple Lava Room Item 5"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2BB), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0xB04)]
+        CollectableStoneTowerTempleLavaRoomItem5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Inverted Stone Tower Temple Dexihand Item 2"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2BC), ItemCategory(ItemCategory.GreenRupees), CollectableIndex(0xC03)]
+        CollectableStoneTowerTempleInvertedEyegoreRoomItem2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Clock Tower Rooftop Pot"), Region(Region.TheMoon)]
+        [GossipLocationHint("a rooftop pot"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2BD), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0xCC0)]
+        CollectableClockTowerRooftopPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Clock Tower Rooftop Pot 2"), Region(Region.TheMoon)]
+        [GossipLocationHint("a rooftop pot"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2BE), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0xCC1)]
+        CollectableClockTowerRooftopPot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Clock Tower Rooftop Pot 3"), Region(Region.TheMoon)]
+        [GossipLocationHint("a rooftop pot"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2BF), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0xCC2)]
+        CollectableClockTowerRooftopPot3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Clock Tower Rooftop Pot 4"), Region(Region.TheMoon)]
+        [GossipLocationHint("a rooftop pot"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2C0), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0xCC3)]
+        CollectableClockTowerRooftopPot4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Racetrack Pot"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a racetrack jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2C1), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x35A0)]
+        CollectableGoronRacetrackPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Racetrack Pot 2"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a racetrack jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2C2), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x35A1)]
+        CollectableGoronRacetrackPot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Racetrack Pot 3"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a racetrack jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2C3), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x35A2)]
+        CollectableGoronRacetrackPot3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Racetrack Pot 4"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a racetrack jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2C4), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x35A3)]
+        CollectableGoronRacetrackPot4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Racetrack Pot 5"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a racetrack jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2C5), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x35A4)]
+        CollectableGoronRacetrackPot5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Racetrack Pot 6"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a racetrack jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2C6), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x35A5)]
+        CollectableGoronRacetrackPot6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Racetrack Pot 7"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a racetrack jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2C7), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x35A6)]
+        CollectableGoronRacetrackPot7,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Racetrack Pot 8"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a racetrack jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2C8), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x35A7)]
+        CollectableGoronRacetrackPot8,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Racetrack Pot 9"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a racetrack jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2C9), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x35A8)]
+        CollectableGoronRacetrackPot9,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Racetrack Pot 10"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a racetrack jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2CA), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x35A9)]
+        CollectableGoronRacetrackPot10,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Racetrack Pot 11"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a racetrack jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2CB), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x35AA)]
+        CollectableGoronRacetrackPot11,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Racetrack Pot 12"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a racetrack jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2CC), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x35AB)]
+        CollectableGoronRacetrackPot12,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Racetrack Pot 13"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a racetrack jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2CD), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x35AC)]
+        CollectableGoronRacetrackPot13,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Racetrack Pot 14"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a racetrack jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2CE), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x35AD)]
+        CollectableGoronRacetrackPot14,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Racetrack Pot 15"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a racetrack jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2CF), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x35AE)]
+        CollectableGoronRacetrackPot15,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Racetrack Pot 16"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a racetrack jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2D0), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x35AF)]
+        CollectableGoronRacetrackPot16,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Racetrack Pot 17"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a racetrack jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2D1), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x35B0)]
+        CollectableGoronRacetrackPot17,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Racetrack Pot 18"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a racetrack jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2D2), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x35B1)]
+        CollectableGoronRacetrackPot18,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Racetrack Pot 19"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a racetrack jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2D3), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x35B2)]
+        CollectableGoronRacetrackPot19,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Racetrack Pot 20"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a racetrack jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2D4), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x35B3)]
+        CollectableGoronRacetrackPot20,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Racetrack Pot 21"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a racetrack jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2D5), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x35B4)]
+        CollectableGoronRacetrackPot21,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Racetrack Pot 22"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a racetrack jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2D6), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x35B5)]
+        CollectableGoronRacetrackPot22,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Racetrack Pot 23"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a racetrack jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2D7), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x35B6)]
+        CollectableGoronRacetrackPot23,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Racetrack Pot 24"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a racetrack jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2D8), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x35B7)]
+        CollectableGoronRacetrackPot24,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Racetrack Pot 25"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a racetrack jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2D9), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x35B8)]
+        CollectableGoronRacetrackPot25,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Racetrack Pot 26"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a racetrack jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2DA), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x35B9)]
+        CollectableGoronRacetrackPot26,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Racetrack Pot 27"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a racetrack jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2DB), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x35BD)]
+        CollectableGoronRacetrackPot27,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Shrine Pot 6"), Region(Region.GoronVillage)]
+        [GossipLocationHint("a crying child's jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2DC), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x1962)]
+        CollectableGoronShrineGoronKidSRoomPot3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Shrine Pot 7"), Region(Region.GoronVillage)]
+        [GossipLocationHint("a crying child's jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2DD), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x1967)]
+        CollectableGoronShrineMainRoomPot4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Shrine Pot 8"), Region(Region.GoronVillage)]
+        [GossipLocationHint("a crying child's jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2DE), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x1968)]
+        CollectableGoronShrineMainRoomPot5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Shrine Pot 9"), Region(Region.GoronVillage)]
+        [GossipLocationHint("a crying child's jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2DF), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x1969)]
+        CollectableGoronShrineMainRoomPot6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Great Bay Coast Pot 7"), Region(Region.GreatBayCoast)]
+        [GossipLocationHint("an ocean jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2E0), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x1BAC)]
+        CollectableGreatBayCoastPot10,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Great Bay Temple Red Valve Crate"), Region(Region.GreatBayTemple)]
+        [GossipLocationHint("Great Bay Temple", "the ocean temple"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2E1), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x24B2)]
+        CollectableGreatBayTempleBlueChuchuValveRoomWoodenCrateLarge1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Ikana King Pot 3"), Region(Region.IkanaCastle)]
+        [GossipLocationHint("an ancient jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2E2), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2B21)]
+        CollectableIgosDuIkanaSLairIgosDuIkanaSRoomPot3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Ikana Canyon Grass 3"), Region(Region.IkanaCanyon)]
+        [GossipLocationHint("cursed grass"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2E3), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x9C6)]
+        CollectableIkanaCanyonMainAreaGrass3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Milk Road Grass 2"), Region(Region.MilkRoad)]
+        [GossipLocationHint("a roadside plant"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2E4), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x1122)]
+        CollectableMilkRoadGrass2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Mountain Village Spring Snowball 3"), Region(Region.MountainVillage)]
+        [GossipLocationHint("a spring snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2E5), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2D2C)]
+        CollectableMountainVillageSpringSmallSnowball3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Graveyard Snowball"), Region(Region.MountainVillage)]
+        [GossipLocationHint("a high snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2E6), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x282D)]
+        CollectableMountainVillageWinterSmallSnowball3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Goron Graveyard Snowball 2"), Region(Region.MountainVillage)]
+        [GossipLocationHint("a high snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2E7), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x282E)]
+        CollectableMountainVillageWinterSmallSnowball4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Mountain Village Winter Small Snowball 3"), Region(Region.MountainVillage)]
+        [GossipLocationHint("a village snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2E8), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2837)]
+        CollectableMountainVillageWinterSmallSnowball5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Snowhead Small Snowball 3"), Region(Region.Snowhead)]
+        [GossipLocationHint("a mountain-top snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2E9), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2E23)]
+        CollectableSnowheadSmallSnowball3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Stone Tower Owl Pot 3"), Region(Region.StoneTower)]
+        [GossipLocationHint("a high tower"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2EA), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2C3A)]
+        CollectableStoneTowerPot5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Inverted Stone Tower Pot 2"), Region(Region.StoneTower)]
+        [GossipLocationHint("a sky below"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2EB), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2CB8)]
+        CollectableStoneTowerInvertedStoneTowerFlippedPot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Link Trial Pot"), Region(Region.TheMoon)]
+        [GossipLocationHint("a trial jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2EC), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x3320)]
+        CollectableTheMoonLinkTrialEntrancePot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Link Trial Pot 2"), Region(Region.TheMoon)]
+        [GossipLocationHint("a trial jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2ED), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x3321)]
+        CollectableTheMoonLinkTrialEntrancePot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Link Trial Pot 3"), Region(Region.TheMoon)]
+        [GossipLocationHint("a trial jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2EE), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x3322)]
+        CollectableTheMoonLinkTrialEntrancePot3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Link Trial Pot 4"), Region(Region.TheMoon)]
+        [GossipLocationHint("a trial jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2EF), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x3323)]
+        CollectableTheMoonLinkTrialEntrancePot4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Zora Cape Owl Pot 3"), Region(Region.ZoraCape)]
+        [GossipLocationHint("a cape jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2F0), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x1C25)]
+        CollectableZoraCapePot3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Purple Rupee"), LocationName("Dampe's Basement Pot 8"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("an unholy jar"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 50 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2F1), ItemCategory(ItemCategory.PurpleRupees), CollectableIndex(0x180B)]
+        CollectableDampéSHouseBasementPot8,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Recovery Heart"), LocationName("Pirates' Fortress Item"), Region(Region.PiratesFortressInterior)]
+        [GossipLocationHint("the home of pirates"), GossipItemHint("health")]
+        [ShopText("Replenishes a small amount of your life energy.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2F2), ItemCategory(ItemCategory.RecoveryHearts), CollectableIndex(0xA20)]
+        CollectablePiratesFortressItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Recovery Heart"), LocationName("Pirates' Fortress Item 2"), Region(Region.PiratesFortressInterior)]
+        [GossipLocationHint("the home of pirates"), GossipItemHint("health")]
+        [ShopText("Replenishes a small amount of your life energy.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2F3), ItemCategory(ItemCategory.RecoveryHearts), CollectableIndex(0xA21)]
+        CollectablePiratesFortressItem2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Recovery Heart"), LocationName("Pirates' Fortress Item 3"), Region(Region.PiratesFortressInterior)]
+        [GossipLocationHint("the home of pirates"), GossipItemHint("health")]
+        [ShopText("Replenishes a small amount of your life energy.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2F4), ItemCategory(ItemCategory.RecoveryHearts), CollectableIndex(0xA22)]
+        CollectablePiratesFortressItem3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Butler Race Pillar Item 7"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal race"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2F5), ItemCategory(ItemCategory.RedRupees), CollectableIndex(0x293C)]
+        CollectableDekuShrineGiantRoomFloor1Item7,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Butler Race Pillar Item 8"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal race"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2F6), ItemCategory(ItemCategory.RedRupees), CollectableIndex(0x293D)]
+        CollectableDekuShrineGiantRoomFloor1Item8,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Great Bay Temple Water Control Room Item 5"), Region(Region.GreatBayTemple)]
+        [GossipLocationHint("Great Bay Temple", "the ocean temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2F7), ItemCategory(ItemCategory.RedRupees), CollectableIndex(0x2481)]
+        CollectableGreatBayTempleWaterControlRoomItem5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Great Bay Temple Dexihand Item"), Region(Region.GreatBayTemple)]
+        [GossipLocationHint("Great Bay Temple", "the ocean temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2F8), ItemCategory(ItemCategory.RedRupees), CollectableIndex(0x2486)]
+        CollectableGreatBayTempleCompassBossKeyRoomItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Great Bay Temple Dexihand Item 2"), Region(Region.GreatBayTemple)]
+        [GossipLocationHint("Great Bay Temple", "the ocean temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2F9), ItemCategory(ItemCategory.RedRupees), CollectableIndex(0x2487)]
+        CollectableGreatBayTempleCompassBossKeyRoomItem2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Great Bay Temple Green Pump Item"), Region(Region.GreatBayTemple)]
+        [GossipLocationHint("Great Bay Temple", "the ocean temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2FA), ItemCategory(ItemCategory.RedRupees), CollectableIndex(0x2488)]
+        CollectableGreatBayTempleTopmostRoomWithGreenValveItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Great Bay Temple Green Pump Item 2"), Region(Region.GreatBayTemple)]
+        [GossipLocationHint("Great Bay Temple", "the ocean temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2FB), ItemCategory(ItemCategory.RedRupees), CollectableIndex(0x2489)]
+        CollectableGreatBayTempleTopmostRoomWithGreenValveItem2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Laundry Pool Item"), Region(Region.LaundryPool)]
+        [GossipLocationHint("a floating item"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2FC), ItemCategory(ItemCategory.RedRupees), CollectableIndex(0x3803)]
+        CollectableLaundryPoolItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Laundry Pool Item 2"), Region(Region.LaundryPool)]
+        [GossipLocationHint("a floating item"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2FD), ItemCategory(ItemCategory.RedRupees), CollectableIndex(0x3804)]
+        CollectableLaundryPoolItem2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Laundry Pool Item 3"), Region(Region.LaundryPool)]
+        [GossipLocationHint("a floating item"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2FE), ItemCategory(ItemCategory.RedRupees), CollectableIndex(0x3805)]
+        CollectableLaundryPoolItem3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Mountain Village Spring Stair Item"), Region(Region.MountainVillage)]
+        [GossipLocationHint("an item under the stairs"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x2FF), ItemCategory(ItemCategory.RedRupees), CollectableIndex(0x2809)]
+        CollectableMountainVillageWinterMountainVillageSpringItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Snowhead Temple Icicle Room Frozen Item"), Region(Region.SnowheadTemple)]
+        [GossipLocationHint("Snowhead Temple", "an icy gale"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x300), ItemCategory(ItemCategory.RedRupees), CollectableIndex(0x1081)]
+        CollectableSnowheadTempleIceBlockRoomItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Snowhead Temple Icicle Room Frozen Item 2"), Region(Region.SnowheadTemple)]
+        [GossipLocationHint("Snowhead Temple", "an icy gale"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x301), ItemCategory(ItemCategory.RedRupees), CollectableIndex(0x1082)]
+        CollectableSnowheadTempleIceBlockRoomItem2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Snowhead Temple Icicle Room Frozen Item 3"), Region(Region.SnowheadTemple)]
+        [GossipLocationHint("Snowhead Temple", "an icy gale"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x302), ItemCategory(ItemCategory.RedRupees), CollectableIndex(0x1083)]
+        CollectableSnowheadTempleIceBlockRoomItem3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Swamp Near Frog Hive"), Region(Region.SouthernSwamp)]
+        [GossipLocationHint("a swamp hive"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x303), ItemCategory(ItemCategory.RedRupees), CollectableIndex(0x22A8)]
+        CollectableSouthernSwampPoisonedCentralSwampBeehive1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Stone Tower Temple Lava Room Item 6"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x304), ItemCategory(ItemCategory.RedRupees), CollectableIndex(0xB01)]
+        CollectableStoneTowerTempleLavaRoomItem6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Stone Tower Temple Eyegore Room Item"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x305), ItemCategory(ItemCategory.RedRupees), CollectableIndex(0xB10)]
+        CollectableStoneTowerTempleEyegoreRoomItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Stone Tower Temple Mirror Room Crate"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x306), ItemCategory(ItemCategory.RedRupees), CollectableIndex(0xB25)]
+        CollectableStoneTowerTempleMirrorRoomWoodenCrateLarge1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Stone Tower Temple Mirror Room Crate 2"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x307), ItemCategory(ItemCategory.RedRupees), CollectableIndex(0xB26)]
+        CollectableStoneTowerTempleMirrorRoomWoodenCrateLarge2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Stone Tower Temple Eyegore Room Item 2"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x308), ItemCategory(ItemCategory.RedRupees), CollectableIndex(0xB0F)]
+        CollectableStoneTowerTempleEyegoreRoomItem2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Inverted Stone Tower Temple Dexihand Item 3"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x309), ItemCategory(ItemCategory.RedRupees), CollectableIndex(0xC02)]
+        CollectableStoneTowerTempleInvertedEyegoreRoomItem3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Inverted Stone Tower Temple Updraft Room Item"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x30A), ItemCategory(ItemCategory.RedRupees), CollectableIndex(0xC04)]
+        CollectableStoneTowerTempleInvertedAirRoomItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Inverted Stone Tower Temple Updraft Room Item 2"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x30B), ItemCategory(ItemCategory.RedRupees), CollectableIndex(0xC05)]
+        CollectableStoneTowerTempleInvertedAirRoomItem2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Termina Field Pillar Item"), Region(Region.TerminaField)]
+        [GossipLocationHint("a pillar"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x30C), ItemCategory(ItemCategory.RedRupees), CollectableIndex(0x1682)]
+        CollectableTerminaFieldItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Woodfall Temple Pre-Boss Pillar Item"), Region(Region.WoodfallTemple)]
+        [GossipLocationHint("Woodfall Temple", "the sleeping temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x30D), ItemCategory(ItemCategory.RedRupees), CollectableIndex(0xD81)]
+        CollectableWoodfallTemplePreBossRoomItem5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Woodfall Temple Pre-Boss Pillar Item 2"), Region(Region.WoodfallTemple)]
+        [GossipLocationHint("Woodfall Temple", "the sleeping temple"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x30E), ItemCategory(ItemCategory.RedRupees), CollectableIndex(0xD82)]
+        CollectableWoodfallTemplePreBossRoomItem6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Ikana Castle Courtyard Grass 3"), Region(Region.IkanaCastle)]
+        [GossipLocationHint("an ancient plant"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x30F), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0xEB4)]
+        CollectableAncientCastleOfIkanaCastleExteriorGrass3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Ikana Castle Courtyard Grass 4"), Region(Region.IkanaCastle)]
+        [GossipLocationHint("an ancient plant"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x310), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0xEB6)]
+        CollectableAncientCastleOfIkanaCastleExteriorGrass4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Ikana Castle Fire Ceiling Room Pot"), Region(Region.IkanaCastle)]
+        [GossipLocationHint("an ancient jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x311), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0xEC1)]
+        CollectableAncientCastleOfIkanaFireCeilingRoomPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Ikana Castle Hole Room Pot"), Region(Region.IkanaCastle)]
+        [GossipLocationHint("an ancient jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x312), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0xECF)]
+        CollectableAncientCastleOfIkanaHoleRoomPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Ikana Castle Hole Room Pot 2"), Region(Region.IkanaCastle)]
+        [GossipLocationHint("an ancient jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x313), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0xEDA)]
+        CollectableAncientCastleOfIkanaHoleRoomPot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Observatory Balloon Pot"), Region(Region.EastClockTown)]
+        [GossipLocationHint("an underground jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x314), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x14A1)]
+        CollectableAstralObservatorySewerPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Observatory Balloon Pot 2"), Region(Region.EastClockTown)]
+        [GossipLocationHint("an underground jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x315), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x14A2)]
+        CollectableAstralObservatorySewerPot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Observatory Scarecrow Pot 3"), Region(Region.EastClockTown)]
+        [GossipLocationHint("an underground jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x316), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x14A6)]
+        CollectableAstralObservatoryObservatoryBombersHideoutPot3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Night 2 Grave Pot 2"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("an unholy jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x317), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x62C)]
+        CollectableBeneathTheGraveyardMainAreaPot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Deku Palace Pot"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal pathway", "the home of scrubs"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x318), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x15B2)]
+        CollectableDekuPalaceEastInnerGardenPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Deku Palace Pot 2"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal pathway", "the home of scrubs"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x319), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x15B3)]
+        CollectableDekuPalaceEastInnerGardenPot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Goron Racetrack Pot 28"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a racetrack jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x31A), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x35BA)]
+        CollectableGoronRacetrackPot28,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Goron Racetrack Pot 29"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a racetrack jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x31B), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x35BB)]
+        CollectableGoronRacetrackPot29,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Goron Racetrack Pot 30"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a racetrack jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x31C), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x35BC)]
+        CollectableGoronRacetrackPot30,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Goron Shrine Pot 10"), Region(Region.GoronVillage)]
+        [GossipLocationHint("a crying child's jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x31D), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x1964)]
+        CollectableGoronShrineMainRoomPot7,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Goron Shrine Pot 11"), Region(Region.GoronVillage)]
+        [GossipLocationHint("a crying child's jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x31E), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x1965)]
+        CollectableGoronShrineMainRoomPot8,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Goron Village Large Snowball 4"), Region(Region.GoronVillage)]
+        [GossipLocationHint("a village snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x31F), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x26A1)]
+        CollectableGoronVillageWinterLargeSnowball4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Goron Village Large Snowball 5"), Region(Region.GoronVillage)]
+        [GossipLocationHint("a village snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x320), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x26A3)]
+        CollectableGoronVillageWinterLargeSnowball5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Goron Village Large Snowball 6"), Region(Region.GoronVillage)]
+        [GossipLocationHint("a village snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x321), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x26A5)]
+        CollectableGoronVillageWinterLargeSnowball6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Goron Village Small Snowball 9"), Region(Region.GoronVillage)]
+        [GossipLocationHint("a village snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x322), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x26AE)]
+        CollectableGoronVillageWinterSmallSnowball9,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Goron Village Small Snowball 10"), Region(Region.GoronVillage)]
+        [GossipLocationHint("a village snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x323), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x26B2)]
+        CollectableGoronVillageWinterSmallSnowball10,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Ikana King Entry Pot 3"), Region(Region.IkanaCastle)]
+        [GossipLocationHint("an ancient jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x324), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2B30)]
+        CollectableIgosDuIkanaSLairPreBossRoomPot3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Ikana Graveyard Grass 3"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("unholy grass"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x325), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x21A6)]
+        CollectableIkanaGraveyardIkanaGraveyardLowerGrass3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Mountain Village Winter Small Snowball 4"), Region(Region.MountainVillage)]
+        [GossipLocationHint("a village snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x326), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2821)]
+        CollectableMountainVillageWinterSmallSnowball6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Mountain Village Winter Small Snowball 5"), Region(Region.MountainVillage)]
+        [GossipLocationHint("a village snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x327), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2827)]
+        CollectableMountainVillageWinterSmallSnowball7,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Mountain Village Day 1 Snowball"), Region(Region.MountainVillage)]
+        [GossipLocationHint("a village snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x328), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x282A)]
+        CollectableMountainVillageWinterLargeSnowball3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Mountain Village Day 2 Snowball 2"), Region(Region.MountainVillage)]
+        [GossipLocationHint("a village snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x329), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x282C)]
+        CollectableMountainVillageWinterLargeSnowball4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Oceanside Spider House Main Room Pot"), Region(Region.GreatBayCoast)]
+        [GossipLocationHint("a creepy basement pot"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x32A), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x1426)]
+        CollectableOceansideSpiderHouseMainRoomPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Oceanside Spider House Entrance Pot 3"), Region(Region.GreatBayCoast)]
+        [GossipLocationHint("a creepy basement pot"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x32B), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x142E)]
+        CollectableOceansideSpiderHouseEntrancePot3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Oceanside Spider House Main Room Pot 2"), Region(Region.GreatBayCoast)]
+        [GossipLocationHint("a creepy basement pot"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x32C), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x1433)]
+        CollectableOceansideSpiderHouseMainRoomPot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Oceanside Spider House Storage Room Pot"), Region(Region.GreatBayCoast)]
+        [GossipLocationHint("a creepy basement pot"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x32D), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x1439)]
+        CollectableOceansideSpiderHouseStorageRoomPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Twin Islands Day 3 Snowball"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a travelling snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x32E), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2EA0)]
+        CollectablePathToGoronVillageWinterLargeSnowball1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Twin Islands Day 3 Snowball 2"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a travelling snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x32F), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2EA2)]
+        CollectablePathToGoronVillageWinterLargeSnowball2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Twin Islands Day 3 Snowball 3"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a travelling snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x330), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2EA3)]
+        CollectablePathToGoronVillageWinterLargeSnowball3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Twin Islands Day 3 Snowball 4"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a travelling snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x331), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2EA4)]
+        CollectablePathToGoronVillageWinterLargeSnowball4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Twin Islands Day 3 Snowball 5"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a travelling snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x332), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2EA5)]
+        CollectablePathToGoronVillageWinterLargeSnowball5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Twin Islands Day 2 Snowball"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a travelling snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x333), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2EA8)]
+        CollectablePathToGoronVillageWinterLargeSnowball6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Twin Islands Day 2 Snowball 2"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a travelling snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x334), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2EAA)]
+        CollectablePathToGoronVillageWinterLargeSnowball7,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Twin Islands Day 2 Snowball 3"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a travelling snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x335), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2EAB)]
+        CollectablePathToGoronVillageWinterLargeSnowball8,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Twin Islands Day 2 Snowball 4"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a travelling snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x336), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2EAC)]
+        CollectablePathToGoronVillageWinterLargeSnowball9,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Twin Islands Day 1 Snowball"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a travelling snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x337), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2EAE)]
+        CollectablePathToGoronVillageWinterLargeSnowball10,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Twin Islands Day 1 Snowball 2"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a travelling snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x338), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2EB0)]
+        CollectablePathToGoronVillageWinterLargeSnowball11,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Twin Islands Day 1 Snowball 3"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a travelling snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x339), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2EB1)]
+        CollectablePathToGoronVillageWinterLargeSnowball12,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Twin Islands Day 1 Snowball 4"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a travelling snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x33A), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2EB3)]
+        CollectablePathToGoronVillageWinterLargeSnowball13,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Twin Islands Day 1 Snowball 5"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a travelling snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x33B), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2EB5)]
+        CollectablePathToGoronVillageWinterLargeSnowball14,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Twin Islands Small Snowball"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a lake snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x33C), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2EB6)]
+        CollectablePathToGoronVillageWinterSmallSnowball1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Twin Islands Small Snowball 2"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a lake snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x33D), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2EB8)]
+        CollectablePathToGoronVillageWinterSmallSnowball2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Twin Islands Ramp Snowball"), Region(Region.TwinIslands)]
+        [GossipLocationHint("a lake snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x33E), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2EB9)]
+        CollectablePathToGoronVillageWinterSmallSnowball3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Path to Mountain Village Small Snowball"), Region(Region.MountainVillage)]
+        [GossipLocationHint("a foothill snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x33F), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0xE23)]
+        CollectablePathToMountainVillageSmallSnowball1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Path to Snowhead Large Snowball"), Region(Region.PathToSnowhead)]
+        [GossipLocationHint("a treacherous snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x340), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2DE0)]
+        CollectablePathToSnowheadLargeSnowball1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Path to Snowhead Large Snowball 2"), Region(Region.PathToSnowhead)]
+        [GossipLocationHint("a treacherous snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x341), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2DE1)]
+        CollectablePathToSnowheadLargeSnowball2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Path to Snowhead Large Snowball 3"), Region(Region.PathToSnowhead)]
+        [GossipLocationHint("a treacherous snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x342), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2DE2)]
+        CollectablePathToSnowheadLargeSnowball3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Path to Snowhead Large Snowball 4"), Region(Region.PathToSnowhead)]
+        [GossipLocationHint("a treacherous snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x343), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2DE3)]
+        CollectablePathToSnowheadLargeSnowball4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Pinnacle Rock Pot"), Region(Region.PinnacleRock)]
+        [GossipLocationHint("a deep jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x344), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x12A0)]
+        CollectablePinnacleRockPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Pinnacle Rock Pot 2"), Region(Region.PinnacleRock)]
+        [GossipLocationHint("a deep jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x345), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x12A6)]
+        CollectablePinnacleRockPot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Pinnacle Rock Pot 3"), Region(Region.PinnacleRock)]
+        [GossipLocationHint("a deep jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x346), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x12AB)]
+        CollectablePinnacleRockPot3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Pinnacle Rock Pot 4"), Region(Region.PinnacleRock)]
+        [GossipLocationHint("a deep jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x347), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x12AD)]
+        CollectablePinnacleRockPot4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Secret Shrine Underwater Pot 3"), Region(Region.SecretShrine)]
+        [GossipLocationHint("a secret place"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x348), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x307B)]
+        CollectableSecretShrineMainRoomPot3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Secret Shrine Underwater Pot 4"), Region(Region.SecretShrine)]
+        [GossipLocationHint("a secret place"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x349), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x307F)]
+        CollectableSecretShrineMainRoomPot4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Snowhead Large Snowball"), Region(Region.Snowhead)]
+        [GossipLocationHint("a mountain-top snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x34A), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2E24)]
+        CollectableSnowheadLargeSnowball1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Snowhead Large Snowball 2"), Region(Region.Snowhead)]
+        [GossipLocationHint("a mountain-top snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x34B), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2E25)]
+        CollectableSnowheadLargeSnowball2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Snowhead Large Snowball 3"), Region(Region.Snowhead)]
+        [GossipLocationHint("a mountain-top snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x34C), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2E26)]
+        CollectableSnowheadLargeSnowball3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Snowhead Large Snowball 4"), Region(Region.Snowhead)]
+        [GossipLocationHint("a mountain-top snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x34D), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2E27)]
+        CollectableSnowheadLargeSnowball4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Snowhead Large Snowball 5"), Region(Region.Snowhead)]
+        [GossipLocationHint("a mountain-top snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x34E), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2E28)]
+        CollectableSnowheadLargeSnowball5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Snowhead Large Snowball 6"), Region(Region.Snowhead)]
+        [GossipLocationHint("a mountain-top snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x34F), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2E29)]
+        CollectableSnowheadLargeSnowball6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Stone Tower Lower Scarecrow Pot"), Region(Region.StoneTower)]
+        [GossipLocationHint("a high tower"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x350), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2C20)]
+        CollectableStoneTowerPot6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Stone Tower Lower Scarecrow Pot 2"), Region(Region.StoneTower)]
+        [GossipLocationHint("a high tower"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x351), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2C22)]
+        CollectableStoneTowerPot7,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Stone Tower Upper Scarecrow Pot 3"), Region(Region.StoneTower)]
+        [GossipLocationHint("a high tower"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x352), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2C2E)]
+        CollectableStoneTowerPot8,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Stone Tower Upper Scarecrow Pot 4"), Region(Region.StoneTower)]
+        [GossipLocationHint("a high tower"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x353), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2C31)]
+        CollectableStoneTowerPot9,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Stone Tower Lower Scarecrow Pot 3"), Region(Region.StoneTower)]
+        [GossipLocationHint("a high tower"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x354), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2C34)]
+        CollectableStoneTowerPot10,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Zora Cape Waterfall Pot"), Region(Region.ZoraCape)]
+        [GossipLocationHint("a cape jar"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x355), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x1C21)]
+        CollectableZoraCapePot4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Ranch Fence Item"), Region(Region.RomaniRanch)]
+        [GossipLocationHint("a fence"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x356), ItemCategory(ItemCategory.BlueRupees), NullableItem]
+        CollectableRomaniRanchInvisibleItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Ranch Fence Item 2"), Region(Region.RomaniRanch)]
+        [GossipLocationHint("a fence"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x357), ItemCategory(ItemCategory.BlueRupees), NullableItem]
+        CollectableRomaniRanchInvisibleItem2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Ranch Fence Item 3"), Region(Region.RomaniRanch)]
+        [GossipLocationHint("a fence"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x358), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableRomaniRanchInvisibleItem3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Ranch Fence Item 4"), Region(Region.RomaniRanch)]
+        [GossipLocationHint("a fence"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x359), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableRomaniRanchInvisibleItem4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Ranch Fence Item 5"), Region(Region.RomaniRanch)]
+        [GossipLocationHint("a fence"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x35A), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableRomaniRanchInvisibleItem5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Ranch Fence Item 6"), Region(Region.RomaniRanch)]
+        [GossipLocationHint("a fence"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x35B), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableRomaniRanchInvisibleItem6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Termina Field Above Cow Grotto Invisible Item"), Region(Region.TerminaField)]
+        [GossipLocationHint("a hidden item"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x35D), ItemCategory(ItemCategory.BlueRupees), NullableItem]
+        CollectableTerminaFieldInvisibleItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Invisible Item 2"), Region(Region.TerminaField)]
+        [GossipLocationHint("a hidden item"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x35F), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldInvisibleItem2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Invisible Item 3"), Region(Region.TerminaField)]
+        [GossipLocationHint("a hidden item"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x363), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldInvisibleItem3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Invisible Item 4"), Region(Region.TerminaField)]
+        [GossipLocationHint("a hidden item"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x364), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldInvisibleItem4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Invisible Item 5"), Region(Region.TerminaField)]
+        [GossipLocationHint("a hidden item"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x365), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldInvisibleItem5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Invisible Item 6"), Region(Region.TerminaField)]
+        [GossipLocationHint("a hidden item"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x366), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldInvisibleItem6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Termina Field Invisible Item 7"), Region(Region.TerminaField)]
+        [GossipLocationHint("a hidden item"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x367), ItemCategory(ItemCategory.BlueRupees), NullableItem]
+        CollectableTerminaFieldInvisibleItem7,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Termina Field Invisible Item 8"), Region(Region.TerminaField)]
+        [GossipLocationHint("a hidden item"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x368), ItemCategory(ItemCategory.BlueRupees), NullableItem]
+        CollectableTerminaFieldInvisibleItem8,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Termina Field Northern Ramp Invisible Item"), Region(Region.TerminaField)]
+        [GossipLocationHint("a hidden item"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x369), ItemCategory(ItemCategory.BlueRupees), NullableItem]
+        CollectableTerminaFieldInvisibleItem9,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Termina Field Invisible Item 10"), Region(Region.TerminaField)]
+        [GossipLocationHint("a hidden item"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x36A), ItemCategory(ItemCategory.BlueRupees), NullableItem]
+        CollectableTerminaFieldInvisibleItem10,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Termina Field Invisible Item 11"), Region(Region.TerminaField)]
+        [GossipLocationHint("a hidden item"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x36B), ItemCategory(ItemCategory.BlueRupees), NullableItem]
+        CollectableTerminaFieldInvisibleItem11,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Swamp Spider House Invisible Item"), Region(Region.SouthernSwamp)]
+        [GossipLocationHint("a large jar"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x371), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableSwampSpiderHouseInvisibleItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Swamp Spider House Invisible Item 2"), Region(Region.SouthernSwamp)]
+        [GossipLocationHint("a large jar"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x372), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableSwampSpiderHouseInvisibleItem2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Swamp Spider House Invisible Item 3"), Region(Region.SouthernSwamp)]
+        [GossipLocationHint("a large jar"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x373), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableSwampSpiderHouseInvisibleItem3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Swamp Spider House Invisible Item 4"), Region(Region.SouthernSwamp)]
+        [GossipLocationHint("a large jar"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x374), ItemCategory(ItemCategory.BlueRupees), NullableItem]
+        CollectableSwampSpiderHouseInvisibleItem4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Swamp Spider House Invisible Item 5"), Region(Region.SouthernSwamp)]
+        [GossipLocationHint("a large jar"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x375), ItemCategory(ItemCategory.RedRupees), NullableItem]
+        CollectableSwampSpiderHouseInvisibleItem5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Termina Field Tree Item"), Region(Region.TerminaField)]
+        [GossipLocationHint("a tree"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x360), ItemCategory(ItemCategory.RedRupees), NullableItem]
+        CollectableTerminaFieldTreeItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Termina Field Pillar Spawned Item"), Region(Region.TerminaField)]
+        [GossipLocationHint("a pillar"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x361), ItemCategory(ItemCategory.RedRupees), NullableItem]
+        CollectableTerminaFieldPillarItem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Termina Field Telescope Guay"), Region(Region.TerminaField)]
+        [GossipLocationHint("bird droppings"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x362), ItemCategory(ItemCategory.RedRupees), NullableItem]
+        CollectableTerminaFieldTelescopeGuay1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Swordsman School Gong"), Region(Region.WestClockTown)]
+        [GossipLocationHint("timekeeping"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x35C), ItemCategory(ItemCategory.BlueRupees), NullableItem]
+        CollectableSwordsmanSchoolGong1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Bean Grotto Soft Soil"), Region(Region.DekuPalace)]
+        [GossipLocationHint("underground soil"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x35E), ItemCategory(ItemCategory.BlueRupees), NullableItem]
+        CollectableBeanGrottoSoftSoil1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Deku Palace Soft Soil"), Region(Region.DekuPalace)]
+        [GossipLocationHint("royal soil", "the home of scrubs"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x36C), ItemCategory(ItemCategory.BlueRupees), NullableItem]
+        CollectableDekuPalaceSoftSoil1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Doggy Racetrack Soft Soil"), Region(Region.RomaniRanch)]
+        [GossipLocationHint("a sporting arena"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x36D), ItemCategory(ItemCategory.RedRupees), NullableItem]
+        CollectableDoggyRacetrackSoftSoil1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Great Bay Coast Soft Soil"), Region(Region.GreatBayCoast)]
+        [GossipLocationHint("ocean soil"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x36E), ItemCategory(ItemCategory.RedRupees), NullableItem]
+        CollectableGreatBayCoastSoftSoil1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Ranch Day 1 Soil"), Region(Region.RomaniRanch)]
+        [GossipLocationHint("early soil"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x370), ItemCategory(ItemCategory.BlueRupees), NullableItem]
+        CollectableRomaniRanchSoftSoilDay11,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("30 Arrows"), LocationName("Ranch Day 2 or 3 Soil"), Region(Region.RomaniRanch)]
+        [GossipLocationHint("late soil"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x376), ItemCategory(ItemCategory.Ammo), NullableItem]
+        CollectableRomaniRanchSoftSoilDay2Or31,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Secret Shrine Soft Soil"), Region(Region.SecretShrine)]
+        [GossipLocationHint("secret soil"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x36F), ItemCategory(ItemCategory.BlueRupees), NullableItem]
+        CollectableSecretShrineSoftSoil1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("30 Arrows"), LocationName("Stone Tower Soft Soil Lower"), Region(Region.StoneTower)]
+        [GossipLocationHint("high soil"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x377), ItemCategory(ItemCategory.Ammo), NullableItem]
+        CollectableStoneTowerSoftSoilLower1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("30 Arrows"), LocationName("Stone Tower Soft Soil Upper"), Region(Region.StoneTower)]
+        [GossipLocationHint("high soil"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x378), ItemCategory(ItemCategory.Ammo), NullableItem]
+        CollectableStoneTowerSoftSoilUpper1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Swamp Spider House Rock Soft Soil"), Region(Region.SouthernSwamp)]
+        [GossipLocationHint("rock soil"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x379), ItemCategory(ItemCategory.BlueRupees), NullableItem]
+        CollectableSwampSpiderHouseRockSoftSoil1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("30 Arrows"), LocationName("Swamp Spider House Gold Room Soft Soil"), Region(Region.SouthernSwamp)]
+        [GossipLocationHint("gold soil"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x37A), ItemCategory(ItemCategory.Ammo), NullableItem]
+        CollectableSwampSpiderHouseGoldRoomSoftSoil1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Termina Field Stump Soft Soil"), Region(Region.TerminaField)]
+        [GossipLocationHint("field soil"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x37B), ItemCategory(ItemCategory.RedRupees), NullableItem]
+        CollectableTerminaFieldStumpSoftSoil1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Termina Field Observatory Soft Soil"), Region(Region.TerminaField)]
+        [GossipLocationHint("field soil"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x37C), ItemCategory(ItemCategory.BlueRupees), NullableItem]
+        CollectableTerminaFieldObservatorySoftSoil1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Termina Field South Wall Soft Soil"), Region(Region.TerminaField)]
+        [GossipLocationHint("wall soil"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x37D), ItemCategory(ItemCategory.BlueRupees), NullableItem]
+        CollectableTerminaFieldSouthWallSoftSoil1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("30 Arrows"), LocationName("Termina Field Pillar Soft Soil"), Region(Region.TerminaField)]
+        [GossipLocationHint("field soil"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x37E), ItemCategory(ItemCategory.Ammo), NullableItem]
+        CollectableTerminaFieldPillarSoftSoil1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Guay #1"), Region(Region.TerminaField)]
+        [GossipLocationHint("bird droppings"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x37F), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldGuay11,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Guay #2"), Region(Region.TerminaField)]
+        [GossipLocationHint("bird droppings"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x380), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldGuay21,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Guay #3"), Region(Region.TerminaField)]
+        [GossipLocationHint("bird droppings"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x381), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldGuay31,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Guay #4"), Region(Region.TerminaField)]
+        [GossipLocationHint("bird droppings"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x382), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldGuay41,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Guay #5"), Region(Region.TerminaField)]
+        [GossipLocationHint("bird droppings"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x383), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldGuay51,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Guay #6"), Region(Region.TerminaField)]
+        [GossipLocationHint("bird droppings"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x384), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldGuay61,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Guay #7"), Region(Region.TerminaField)]
+        [GossipLocationHint("bird droppings"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x385), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldGuay71,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Guay #8"), Region(Region.TerminaField)]
+        [GossipLocationHint("bird droppings"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x386), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldGuay81,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Guay #9"), Region(Region.TerminaField)]
+        [GossipLocationHint("bird droppings"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x387), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldGuay91,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Guay #10"), Region(Region.TerminaField)]
+        [GossipLocationHint("bird droppings"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x388), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldGuay101,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Guay #11"), Region(Region.TerminaField)]
+        [GossipLocationHint("bird droppings"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x389), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldGuay111,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Guay #12"), Region(Region.TerminaField)]
+        [GossipLocationHint("bird droppings"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x38A), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldGuay121,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Guay #13"), Region(Region.TerminaField)]
+        [GossipLocationHint("bird droppings"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x38B), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldGuay131,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Guay #14"), Region(Region.TerminaField)]
+        [GossipLocationHint("bird droppings"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x38C), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldGuay141,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Guay #15"), Region(Region.TerminaField)]
+        [GossipLocationHint("bird droppings"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x38D), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldGuay151,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Guay #16"), Region(Region.TerminaField)]
+        [GossipLocationHint("bird droppings"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x38E), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldGuay161,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Guay #17"), Region(Region.TerminaField)]
+        [GossipLocationHint("bird droppings"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x38F), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldGuay171,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Guay #18"), Region(Region.TerminaField)]
+        [GossipLocationHint("bird droppings"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x390), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldGuay181,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Guay #19"), Region(Region.TerminaField)]
+        [GossipLocationHint("bird droppings"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x391), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldGuay191,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Termina Field Guay #20"), Region(Region.TerminaField)]
+        [GossipLocationHint("bird droppings"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x392), ItemCategory(ItemCategory.RedRupees), NullableItem]
+        CollectableTerminaFieldGuay201,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Termina Field Guay #5a"), Region(Region.TerminaField)]
+        [GossipLocationHint("bird droppings"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x393), ItemCategory(ItemCategory.BlueRupees), NullableItem]
+        CollectableTerminaFieldGuay5A1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Termina Field Guay #10a"), Region(Region.TerminaField)]
+        [GossipLocationHint("bird droppings"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x394), ItemCategory(ItemCategory.BlueRupees), NullableItem]
+        CollectableTerminaFieldGuay10A1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Termina Field Guay #15a"), Region(Region.TerminaField)]
+        [GossipLocationHint("bird droppings"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x395), ItemCategory(ItemCategory.BlueRupees), NullableItem]
+        CollectableTerminaFieldGuay15A1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Palace Rupee Cluster #1"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal circle", "the home of scrubs"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x396), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableDekuPalaceRupeeCluster11,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Palace Rupee Cluster #2"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal circle", "the home of scrubs"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x397), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableDekuPalaceRupeeCluster21,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Palace Rupee Cluster #3"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal circle", "the home of scrubs"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x398), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableDekuPalaceRupeeCluster31,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Palace Rupee Cluster #4"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal circle", "the home of scrubs"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x399), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableDekuPalaceRupeeCluster41,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Palace Rupee Cluster #5"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal circle", "the home of scrubs"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x39A), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableDekuPalaceRupeeCluster51,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Palace Rupee Cluster #6"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal circle", "the home of scrubs"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x39B), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableDekuPalaceRupeeCluster61,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Deku Palace Rupee Cluster #7"), Region(Region.DekuPalace)]
+        [GossipLocationHint("a royal circle", "the home of scrubs"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x39C), ItemCategory(ItemCategory.RedRupees), NullableItem]
+        CollectableDekuPalaceRupeeCluster71,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Ikana Graveyard Rupee Cluster"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("an unholy circle"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x39D), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableBeneathTheGraveyardRupeeCluster11,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Ikana Graveyard Rupee Cluster 2"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("an unholy circle"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x39E), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableBeneathTheGraveyardRupeeCluster21,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Ikana Graveyard Rupee Cluster 3"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("an unholy circle"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x39F), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableBeneathTheGraveyardRupeeCluster31,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Ikana Graveyard Rupee Cluster 4"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("an unholy circle"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3A0), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableBeneathTheGraveyardRupeeCluster41,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Ikana Graveyard Rupee Cluster 5"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("an unholy circle"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3A1), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableBeneathTheGraveyardRupeeCluster51,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Ikana Graveyard Rupee Cluster 6"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("an unholy circle"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3A2), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableBeneathTheGraveyardRupeeCluster61,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Ikana Graveyard Rupee Cluster 7"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("an unholy circle"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3A3), ItemCategory(ItemCategory.RedRupees), NullableItem]
+        CollectableBeneathTheGraveyardRupeeCluster71,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Termina Field Song Wall Dawn"), Region(Region.TerminaField)]
+        [GossipLocationHint("musical notes"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3A4), ItemCategory(ItemCategory.RedRupees), NullableItem]
+        CollectableTerminaFieldSongWallDawn1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Termina Field Song Wall Dawn 2"), Region(Region.TerminaField)]
+        [GossipLocationHint("musical notes"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3A5), ItemCategory(ItemCategory.RedRupees), NullableItem]
+        CollectableTerminaFieldSongWallDawn2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Termina Field Song Wall Dawn 3"), Region(Region.TerminaField)]
+        [GossipLocationHint("musical notes"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3A6), ItemCategory(ItemCategory.RedRupees), NullableItem]
+        CollectableTerminaFieldSongWallDawn3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Termina Field Song Wall 4 / 20"), Region(Region.TerminaField)]
+        [GossipLocationHint("musical notes"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3A7), ItemCategory(ItemCategory.RedRupees), NullableItem]
+        CollectableTerminaFieldSongWall4201,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Song Wall 4 / 20 2"), Region(Region.TerminaField)]
+        [GossipLocationHint("musical notes"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3A8), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldSongWall4202,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Song Wall 4 / 20 3"), Region(Region.TerminaField)]
+        [GossipLocationHint("musical notes"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3A9), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldSongWall4203,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Termina Field Song Wall 0 / 8 / 12 / 16"), Region(Region.TerminaField)]
+        [GossipLocationHint("musical notes"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3AA), ItemCategory(ItemCategory.BlueRupees), NullableItem]
+        CollectableTerminaFieldSongWall0812161,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Termina Field Song Wall 0 / 8 / 12 / 16 2"), Region(Region.TerminaField)]
+        [GossipLocationHint("musical notes"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3AB), ItemCategory(ItemCategory.BlueRupees), NullableItem]
+        CollectableTerminaFieldSongWall0812162,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Termina Field Song Wall 0 / 8 / 12 / 16 3"), Region(Region.TerminaField)]
+        [GossipLocationHint("musical notes"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3AC), ItemCategory(ItemCategory.BlueRupees), NullableItem]
+        CollectableTerminaFieldSongWall0812163,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Termina Field Song Wall 2 / 10 / 14 / 18 / 22"), Region(Region.TerminaField)]
+        [GossipLocationHint("musical notes"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3AD), ItemCategory(ItemCategory.RedRupees), NullableItem]
+        CollectableTerminaFieldSongWall2101418221,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Termina Field Song Wall 2 / 10 / 14 / 18 / 22 2"), Region(Region.TerminaField)]
+        [GossipLocationHint("musical notes"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3AE), ItemCategory(ItemCategory.BlueRupees), NullableItem]
+        CollectableTerminaFieldSongWall2101418222,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Termina Field Song Wall 2 / 10 / 14 / 18 / 22 3"), Region(Region.TerminaField)]
+        [GossipLocationHint("musical notes"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3AF), ItemCategory(ItemCategory.BlueRupees), NullableItem]
+        CollectableTerminaFieldSongWall2101418223,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Song Wall Odd Hours"), Region(Region.TerminaField)]
+        [GossipLocationHint("musical notes"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3B0), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldSongWallOddHours1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Song Wall Odd Hours 2"), Region(Region.TerminaField)]
+        [GossipLocationHint("musical notes"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3B1), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldSongWallOddHours2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Song Wall Odd Hours 3"), Region(Region.TerminaField)]
+        [GossipLocationHint("musical notes"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3B2), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldSongWallOddHours3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Playground Day 2 Item"), Region(Region.NorthClockTown)]
+        [GossipLocationHint("a game for scrubs", "a playground", "a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3B3), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableDekuPlaygroundPlatformDay21,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Playground Day 2 Item 2"), Region(Region.NorthClockTown)]
+        [GossipLocationHint("a game for scrubs", "a playground", "a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3B4), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableDekuPlaygroundPlatformDay22,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Playground Day 2 Item 3"), Region(Region.NorthClockTown)]
+        [GossipLocationHint("a game for scrubs", "a playground", "a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3B5), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableDekuPlaygroundPlatformDay23,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Playground Day 2 Item 4"), Region(Region.NorthClockTown)]
+        [GossipLocationHint("a game for scrubs", "a playground", "a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3B6), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableDekuPlaygroundPlatformDay24,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Playground Day 2 Item 5"), Region(Region.NorthClockTown)]
+        [GossipLocationHint("a game for scrubs", "a playground", "a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3B7), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableDekuPlaygroundPlatformDay25,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Deku Playground Day 2 Item 6"), Region(Region.NorthClockTown)]
+        [GossipLocationHint("a game for scrubs", "a playground", "a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3B8), ItemCategory(ItemCategory.BlueRupees), NullableItem]
+        CollectableDekuPlaygroundPlatformDay26,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Playground Day 1 Item"), Region(Region.NorthClockTown)]
+        [GossipLocationHint("a game for scrubs", "a playground", "a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3B9), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableDekuPlaygroundPlatformDay11,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Playground Day 1 Item 2"), Region(Region.NorthClockTown)]
+        [GossipLocationHint("a game for scrubs", "a playground", "a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3BA), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableDekuPlaygroundPlatformDay12,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Playground Day 1 Item 3"), Region(Region.NorthClockTown)]
+        [GossipLocationHint("a game for scrubs", "a playground", "a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3BB), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableDekuPlaygroundPlatformDay13,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Playground Day 1 Item 4"), Region(Region.NorthClockTown)]
+        [GossipLocationHint("a game for scrubs", "a playground", "a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3BC), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableDekuPlaygroundPlatformDay14,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Playground Day 1 Item 5"), Region(Region.NorthClockTown)]
+        [GossipLocationHint("a game for scrubs", "a playground", "a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3BD), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableDekuPlaygroundPlatformDay15,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Deku Playground Day 1 Item 6"), Region(Region.NorthClockTown)]
+        [GossipLocationHint("a game for scrubs", "a playground", "a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3BE), ItemCategory(ItemCategory.BlueRupees), NullableItem]
+        CollectableDekuPlaygroundPlatformDay16,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Playground Day 3 Item"), Region(Region.NorthClockTown)]
+        [GossipLocationHint("a game for scrubs", "a playground", "a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3BF), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableDekuPlaygroundPlatformDay31,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Playground Day 3 Item 2"), Region(Region.NorthClockTown)]
+        [GossipLocationHint("a game for scrubs", "a playground", "a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3C0), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableDekuPlaygroundPlatformDay32,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Playground Day 3 Item 3"), Region(Region.NorthClockTown)]
+        [GossipLocationHint("a game for scrubs", "a playground", "a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3C1), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableDekuPlaygroundPlatformDay33,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Playground Day 3 Item 4"), Region(Region.NorthClockTown)]
+        [GossipLocationHint("a game for scrubs", "a playground", "a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3C2), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableDekuPlaygroundPlatformDay34,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Deku Playground Day 3 Item 5"), Region(Region.NorthClockTown)]
+        [GossipLocationHint("a game for scrubs", "a playground", "a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3C3), ItemCategory(ItemCategory.BlueRupees), NullableItem]
+        CollectableDekuPlaygroundPlatformDay35,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Deku Playground Day 3 Item 6"), Region(Region.NorthClockTown)]
+        [GossipLocationHint("a game for scrubs", "a playground", "a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3C4), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableDekuPlaygroundPlatformDay36,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Pirates' Fortress Skull Flag Left Eye"), Region(Region.PiratesFortressInterior)]
+        [GossipLocationHint("a pirate flag"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3C5), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectablePiratesFortressSkullFlagLeftEye1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Pirates' Fortress Skull Flag Left Eye 2"), Region(Region.PiratesFortressInterior)]
+        [GossipLocationHint("a pirate flag"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3C6), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectablePiratesFortressSkullFlagLeftEye2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Pirates' Fortress Skull Flag Left Eye 3"), Region(Region.PiratesFortressInterior)]
+        [GossipLocationHint("a pirate flag"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3C7), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectablePiratesFortressSkullFlagLeftEye3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Pirates' Fortress Skull Flag Right Eye"), Region(Region.PiratesFortressInterior)]
+        [GossipLocationHint("a pirate flag"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3C8), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectablePiratesFortressSkullFlagRightEye1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Pirates' Fortress Skull Flag Right Eye 2"), Region(Region.PiratesFortressInterior)]
+        [GossipLocationHint("a pirate flag"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3C9), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectablePiratesFortressSkullFlagRightEye2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Pirates' Fortress Skull Flag Right Eye 3"), Region(Region.PiratesFortressInterior)]
+        [GossipLocationHint("a pirate flag"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3CA), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectablePiratesFortressSkullFlagRightEye3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Hookshot Room Skull Flag Forehead"), Region(Region.PiratesFortressInterior)]
+        [GossipLocationHint("a pirate flag"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3CB), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectablePiratesFortressInteriorHookshotRoomSkullFlagForehead1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Hookshot Room Skull Flag Forehead 2"), Region(Region.PiratesFortressInterior)]
+        [GossipLocationHint("a pirate flag"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3CC), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectablePiratesFortressInteriorHookshotRoomSkullFlagForehead2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Hookshot Room Skull Flag Forehead 3"), Region(Region.PiratesFortressInterior)]
+        [GossipLocationHint("a pirate flag"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3CD), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectablePiratesFortressInteriorHookshotRoomSkullFlagForehead3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Swamp Spider House Blue Gem"), Region(Region.SouthernSwamp)]
+        [GossipLocationHint("a blue gem"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3CE), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableSwampSpiderHouseBlueGem1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Swamp Spider House Blue Gem 2"), Region(Region.SouthernSwamp)]
+        [GossipLocationHint("a blue gem"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3CF), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableSwampSpiderHouseBlueGem2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Swamp Spider House Blue Gem 3"), Region(Region.SouthernSwamp)]
+        [GossipLocationHint("a blue gem"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3D0), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableSwampSpiderHouseBlueGem3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Swamp Spider House Blue Gem 4"), Region(Region.SouthernSwamp)]
+        [GossipLocationHint("a blue gem"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3D1), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableSwampSpiderHouseBlueGem4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Swamp Spider House Blue Gem 5"), Region(Region.SouthernSwamp)]
+        [GossipLocationHint("a blue gem"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3D2), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableSwampSpiderHouseBlueGem5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Swamp Spider House Blue Gem 6"), Region(Region.SouthernSwamp)]
+        [GossipLocationHint("a blue gem"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3D3), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableSwampSpiderHouseBlueGem6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Swamp Spider House Blue Gem 7"), Region(Region.SouthernSwamp)]
+        [GossipLocationHint("a blue gem"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3D4), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableSwampSpiderHouseBlueGem7,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Swamp Spider House Blue Gem 8"), Region(Region.SouthernSwamp)]
+        [GossipLocationHint("a blue gem"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3D5), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableSwampSpiderHouseBlueGem8,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Swamp Spider House Blue Gem 9"), Region(Region.SouthernSwamp)]
+        [GossipLocationHint("a blue gem"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3D6), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableSwampSpiderHouseBlueGem9,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Swamp Spider House Blue Gem 10"), Region(Region.SouthernSwamp)]
+        [GossipLocationHint("a blue gem"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3D7), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableSwampSpiderHouseBlueGem10,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Swamp Spider House Blue Gem 11"), Region(Region.SouthernSwamp)]
+        [GossipLocationHint("a blue gem"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3D8), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableSwampSpiderHouseBlueGem11,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Swamp Spider House Blue Gem 12"), Region(Region.SouthernSwamp)]
+        [GossipLocationHint("a blue gem"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3D9), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableSwampSpiderHouseBlueGem12,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Oceanside Spider House Mask"), Region(Region.GreatBayCoast)]
+        [GossipLocationHint("a creepy basement mask"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3DA), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableOceansideSpiderHouseMask1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Oceanside Spider House Mask 2"), Region(Region.GreatBayCoast)]
+        [GossipLocationHint("a creepy basement mask"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3DB), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableOceansideSpiderHouseMask2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Oceanside Spider House Mask 3"), Region(Region.GreatBayCoast)]
+        [GossipLocationHint("a creepy basement mask"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3DC), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableOceansideSpiderHouseMask3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Oceanside Spider House Mask 4"), Region(Region.GreatBayCoast)]
+        [GossipLocationHint("a creepy basement mask"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3DD), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableOceansideSpiderHouseMask4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Oceanside Spider House Mask 5"), Region(Region.GreatBayCoast)]
+        [GossipLocationHint("a creepy basement mask"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3DE), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableOceansideSpiderHouseMask5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Oceanside Spider House Mask 6"), Region(Region.GreatBayCoast)]
+        [GossipLocationHint("a creepy basement mask"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3DF), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableOceansideSpiderHouseMask6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Oceanside Spider House Mask 7"), Region(Region.GreatBayCoast)]
+        [GossipLocationHint("a creepy basement mask"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3E0), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableOceansideSpiderHouseMask7,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Oceanside Spider House Mask 8"), Region(Region.GreatBayCoast)]
+        [GossipLocationHint("a creepy basement mask"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3E1), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableOceansideSpiderHouseMask8,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Oceanside Spider House Mask 9"), Region(Region.GreatBayCoast)]
+        [GossipLocationHint("a creepy basement mask"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3E2), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableOceansideSpiderHouseMask9,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Clam"), Region(Region.TerminaField)]
+        [GossipLocationHint("an accurate shot"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3E3), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldClam1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Clam 2"), Region(Region.TerminaField)]
+        [GossipLocationHint("an accurate shot"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3E4), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldClam2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Clam 3"), Region(Region.TerminaField)]
+        [GossipLocationHint("an accurate shot"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3E5), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldClam3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Wall"), Region(Region.TerminaField)]
+        [GossipLocationHint("a wall"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3E6), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldWall1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Wall 2"), Region(Region.TerminaField)]
+        [GossipLocationHint("a wall"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3E7), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldWall2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Wall 3"), Region(Region.TerminaField)]
+        [GossipLocationHint("a wall"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3E8), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldWall3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Skull Kid Drawing"), Region(Region.TerminaField)]
+        [GossipLocationHint("a drawing"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3E9), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldSkullKidDrawing1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Skull Kid Drawing 2"), Region(Region.TerminaField)]
+        [GossipLocationHint("a drawing"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3EA), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldSkullKidDrawing2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Termina Field Skull Kid Drawing 3"), Region(Region.TerminaField)]
+        [GossipLocationHint("a drawing"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3EB), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableTerminaFieldSkullKidDrawing3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Cucco Shack Diamond Hole"), Region(Region.RomaniRanch)]
+        [GossipLocationHint("a diamond gap"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3EC), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableCuccoShackDiamondHole1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Cucco Shack Diamond Hole 2"), Region(Region.RomaniRanch)]
+        [GossipLocationHint("a diamond gap"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3ED), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableCuccoShackDiamondHole2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Cucco Shack Diamond Hole 3"), Region(Region.RomaniRanch)]
+        [GossipLocationHint("a diamond gap"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3EE), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableCuccoShackDiamondHole3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Cucco Shack Diamond Hole 4"), Region(Region.RomaniRanch)]
+        [GossipLocationHint("a diamond gap"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3EF), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableCuccoShackDiamondHole4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Cucco Shack Diamond Hole 5"), Region(Region.RomaniRanch)]
+        [GossipLocationHint("a diamond gap"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3F0), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableCuccoShackDiamondHole5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Cucco Shack Diamond Hole 6"), Region(Region.RomaniRanch)]
+        [GossipLocationHint("a diamond gap"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3F1), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableCuccoShackDiamondHole6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Ikana Graveyard Lantern"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("a lantern"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3F2), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableIkanaGraveyardLantern1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Ikana Graveyard Lantern 2"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("a lantern"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3F3), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableIkanaGraveyardLantern2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Ikana Graveyard Lantern 3"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("a lantern"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3F4), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableIkanaGraveyardLantern3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Ikana Graveyard Lantern 4"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("a lantern"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3F5), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableIkanaGraveyardLantern4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Ikana Graveyard Lantern 5"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("a lantern"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3F6), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableIkanaGraveyardLantern5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Ikana Graveyard Lantern 6"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("a lantern"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3F7), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableIkanaGraveyardLantern6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Ikana Graveyard Lantern 7"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("a lantern"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3F8), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableIkanaGraveyardLantern7,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Ikana Graveyard Lantern 8"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("a lantern"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3F9), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableIkanaGraveyardLantern8,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Ikana Graveyard Lantern 9"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("a lantern"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3FA), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableIkanaGraveyardLantern9,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Ikana Graveyard Lantern 10"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("a lantern"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3FB), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableIkanaGraveyardLantern10,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Ikana Graveyard Lantern 11"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("a lantern"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3FC), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableIkanaGraveyardLantern11,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Ikana Graveyard Lantern 12"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("a lantern"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3FD), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableIkanaGraveyardLantern12,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Stock Pot Inn Mask"), Region(Region.StockPotInn)]
+        [GossipLocationHint("a town mask"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3FE), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableStockPotInnMask1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Stock Pot Inn Mask 2"), Region(Region.StockPotInn)]
+        [GossipLocationHint("a town mask"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x3FF), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableStockPotInnMask2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Stock Pot Inn Mask 3"), Region(Region.StockPotInn)]
+        [GossipLocationHint("a town mask"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x400), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableStockPotInnMask3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("East Clock Town Target"), Region(Region.EastClockTown)]
+        [GossipLocationHint("an accurate shot"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x401), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableEastClockTownTarget1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("East Clock Town Target 2"), Region(Region.EastClockTown)]
+        [GossipLocationHint("an accurate shot"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x402), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableEastClockTownTarget2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("East Clock Town Target 3"), Region(Region.EastClockTown)]
+        [GossipLocationHint("an accurate shot"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x403), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableEastClockTownTarget3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("East Clock Town Target 4"), Region(Region.EastClockTown)]
+        [GossipLocationHint("an accurate shot"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x404), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableEastClockTownTarget4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("East Clock Town Target 5"), Region(Region.EastClockTown)]
+        [GossipLocationHint("an accurate shot"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x405), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableEastClockTownTarget5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("East Clock Town Target 6"), Region(Region.EastClockTown)]
+        [GossipLocationHint("an accurate shot"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x406), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableEastClockTownTarget6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("East Clock Town Basket"), Region(Region.EastClockTown)]
+        [GossipLocationHint("an accurate shot"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x407), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableEastClockTownBasket1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("East Clock Town Basket 2"), Region(Region.EastClockTown)]
+        [GossipLocationHint("an accurate shot"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x408), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableEastClockTownBasket2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("East Clock Town Basket 3"), Region(Region.EastClockTown)]
+        [GossipLocationHint("an accurate shot"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x409), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableEastClockTownBasket3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Clock Tower Clock"), Region(Region.SouthClockTown)]
+        [GossipLocationHint("an accurate shot"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x40A), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableSouthClockTownClock1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Clock Tower Clock 2"), Region(Region.SouthClockTown)]
+        [GossipLocationHint("an accurate shot"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x40B), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableSouthClockTownClock2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Clock Tower Clock 3"), Region(Region.SouthClockTown)]
+        [GossipLocationHint("an accurate shot"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x40C), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableSouthClockTownClock3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Gold Rupee"), LocationName("Takkuri"), Region(Region.TerminaField)]
+        [GossipLocationHint("a thief"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 200 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x40D), ItemCategory(ItemCategory.GoldRupees), NullableItem]
+        CollectableTakkuri1,
+
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Hookshot Room Pot"), Region(Region.PiratesFortressInterior)]
+        [GossipLocationHint("the home of pirates"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x40E), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x11AD)]
+        CollectablePiratesFortressInteriorHookshotRoomPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Hookshot Room Pot 2"), Region(Region.PiratesFortressInterior)]
+        [GossipLocationHint("the home of pirates"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x40F), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x11AE)]
+        CollectablePiratesFortressInteriorHookshotRoomPot2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("30 Arrows"), LocationName("Termina Field Rock"), Region(Region.TerminaField)]
+        [GossipLocationHint("a rock on a wall"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x410), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x1694)]
+        CollectableTerminaFieldRock1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("30 Arrows"), LocationName("Termina Field Rock 2"), Region(Region.TerminaField)]
+        [GossipLocationHint("a rock on a wall"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x411), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x1695)]
+        CollectableTerminaFieldRock2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Ikana Graveyard Highest Rock"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("a rock on a wall"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x412), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x21A0)]
+        CollectableIkanaGraveyardIkanaGraveyardUpperRock1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Ikana Graveyard Lowest Rock"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("a rock on a wall"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x413), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x21A1)]
+        CollectableIkanaGraveyardIkanaGraveyardUpperRock2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Ikana Graveyard 2nd Lowest Rock"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("a rock on a wall"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x414), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x21A4)]
+        CollectableIkanaGraveyardIkanaGraveyardUpperRock3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Termina Field Rock 3"), Region(Region.TerminaField)]
+        [GossipLocationHint("a rock on a wall"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x415), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x1690)]
+        CollectableTerminaFieldRock3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Termina Field Rock 4"), Region(Region.TerminaField)]
+        [GossipLocationHint("a rock on a wall"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x416), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x1691)]
+        CollectableTerminaFieldRock4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Termina Field Rock 5"), Region(Region.TerminaField)]
+        [GossipLocationHint("a rock on a wall"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x417), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x1692)]
+        CollectableTerminaFieldRock5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Termina Field Rock 6"), Region(Region.TerminaField)]
+        [GossipLocationHint("a rock on a wall"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x418), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x1696)]
+        CollectableTerminaFieldRock6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Termina Field Rock 7"), Region(Region.TerminaField)]
+        [GossipLocationHint("a rock on a wall"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x419), ItemCategory(ItemCategory.BlueRupees), CollectableIndex(0x168F)]
+        CollectableTerminaFieldRock7,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Ikana Graveyard 2nd Highest Rock"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("a rock on a wall"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x41A), ItemCategory(ItemCategory.RedRupees), CollectableIndex(0x21A2)]
+        CollectableIkanaGraveyardIkanaGraveyardUpperRock4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Ikana Graveyard Middle Rock"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("a rock on a wall"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x41B), ItemCategory(ItemCategory.RedRupees), CollectableIndex(0x21A3)]
+        CollectableIkanaGraveyardIkanaGraveyardUpperRock5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Termina Field Rock 8"), Region(Region.TerminaField)]
+        [GossipLocationHint("a rock on a wall"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x41C), ItemCategory(ItemCategory.RedRupees), CollectableIndex(0x168D)]
+        CollectableTerminaFieldRock8,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Termina Field Rock 9"), Region(Region.TerminaField)]
+        [GossipLocationHint("a rock on a wall"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x41D), ItemCategory(ItemCategory.RedRupees), CollectableIndex(0x168E)]
+        CollectableTerminaFieldRock9,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Milk Road Keaton Grass"), Region(Region.MilkRoad)]
+        [GossipLocationHint("a living plant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x41E), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableMilkRoadKeatonGrass1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Milk Road Keaton Grass 2"), Region(Region.MilkRoad)]
+        [GossipLocationHint("a living plant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x41F), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableMilkRoadKeatonGrass2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Milk Road Keaton Grass 3"), Region(Region.MilkRoad)]
+        [GossipLocationHint("a living plant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x420), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableMilkRoadKeatonGrass3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Milk Road Keaton Grass 4"), Region(Region.MilkRoad)]
+        [GossipLocationHint("a living plant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x421), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableMilkRoadKeatonGrass4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Milk Road Keaton Grass 5"), Region(Region.MilkRoad)]
+        [GossipLocationHint("a living plant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x422), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableMilkRoadKeatonGrass5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Milk Road Keaton Grass 6"), Region(Region.MilkRoad)]
+        [GossipLocationHint("a living plant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x423), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableMilkRoadKeatonGrass6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Milk Road Keaton Grass 7"), Region(Region.MilkRoad)]
+        [GossipLocationHint("a living plant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x424), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableMilkRoadKeatonGrass7,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Milk Road Keaton Grass 8"), Region(Region.MilkRoad)]
+        [GossipLocationHint("a living plant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x425), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableMilkRoadKeatonGrass8,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Milk Road Keaton Grass 9"), Region(Region.MilkRoad)]
+        [GossipLocationHint("a living plant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x426), ItemCategory(ItemCategory.RedRupees), NullableItem]
+        CollectableMilkRoadKeatonGrass9,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("North Clock Town Keaton Grass"), Region(Region.NorthClockTown)]
+        [GossipLocationHint("a living plant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x427), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableNorthClockTownKeatonGrass1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("North Clock Town Keaton Grass 2"), Region(Region.NorthClockTown)]
+        [GossipLocationHint("a living plant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x428), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableNorthClockTownKeatonGrass2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("North Clock Town Keaton Grass 3"), Region(Region.NorthClockTown)]
+        [GossipLocationHint("a living plant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x429), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableNorthClockTownKeatonGrass3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("North Clock Town Keaton Grass 4"), Region(Region.NorthClockTown)]
+        [GossipLocationHint("a living plant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x42A), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableNorthClockTownKeatonGrass4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("North Clock Town Keaton Grass 5"), Region(Region.NorthClockTown)]
+        [GossipLocationHint("a living plant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x42B), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableNorthClockTownKeatonGrass5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("North Clock Town Keaton Grass 6"), Region(Region.NorthClockTown)]
+        [GossipLocationHint("a living plant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x42C), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableNorthClockTownKeatonGrass6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("North Clock Town Keaton Grass 7"), Region(Region.NorthClockTown)]
+        [GossipLocationHint("a living plant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x42D), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableNorthClockTownKeatonGrass7,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("North Clock Town Keaton Grass 8"), Region(Region.NorthClockTown)]
+        [GossipLocationHint("a living plant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x42E), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableNorthClockTownKeatonGrass8,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("North Clock Town Keaton Grass 9"), Region(Region.NorthClockTown)]
+        [GossipLocationHint("a living plant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x42F), ItemCategory(ItemCategory.RedRupees), NullableItem]
+        CollectableNorthClockTownKeatonGrass9,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Mountain Village Spring Keaton Grass"), Region(Region.MountainVillage)]
+        [GossipLocationHint("a living plant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x430), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableMountainVillageSpringKeatonGrass1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Mountain Village Spring Keaton Grass 2"), Region(Region.MountainVillage)]
+        [GossipLocationHint("a living plant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x431), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableMountainVillageSpringKeatonGrass2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Mountain Village Spring Keaton Grass 3"), Region(Region.MountainVillage)]
+        [GossipLocationHint("a living plant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x432), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableMountainVillageSpringKeatonGrass3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Mountain Village Spring Keaton Grass 4"), Region(Region.MountainVillage)]
+        [GossipLocationHint("a living plant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x433), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableMountainVillageSpringKeatonGrass4,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Mountain Village Spring Keaton Grass 5"), Region(Region.MountainVillage)]
+        [GossipLocationHint("a living plant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x434), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableMountainVillageSpringKeatonGrass5,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Mountain Village Spring Keaton Grass 6"), Region(Region.MountainVillage)]
+        [GossipLocationHint("a living plant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x435), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableMountainVillageSpringKeatonGrass6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Mountain Village Spring Keaton Grass 7"), Region(Region.MountainVillage)]
+        [GossipLocationHint("a living plant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x436), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableMountainVillageSpringKeatonGrass7,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Green Rupee"), LocationName("Mountain Village Spring Keaton Grass 8"), Region(Region.MountainVillage)]
+        [GossipLocationHint("a living plant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 1 rupee.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x437), ItemCategory(ItemCategory.GreenRupees), NullableItem]
+        CollectableMountainVillageSpringKeatonGrass8,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Red Rupee"), LocationName("Mountain Village Spring Keaton Grass 9"), Region(Region.MountainVillage)]
+        [GossipLocationHint("a living plant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 20 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x438), ItemCategory(ItemCategory.RedRupees), NullableItem]
+        CollectableMountainVillageSpringKeatonGrass9,
+
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Oceanside Spider House Mask Room Pot"), Region(Region.GreatBayCoast)]
+        [GossipLocationHint("a creepy basement pot"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x439), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x143A)]
+        CollectableOceansideSpiderHouseMaskRoomPot1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("10 Arrows"), LocationName("Oceanside Spider House Mask Room Pot 2"), Region(Region.GreatBayCoast)]
+        [GossipLocationHint("a creepy basement pot"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x43A), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x143B)]
+        CollectableOceansideSpiderHouseMaskRoomPot2,
+
+
+
         GossipTerminaSouth,
         GossipSwampPotionShop,
         GossipMountainSpringPath,
