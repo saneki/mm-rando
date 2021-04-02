@@ -4069,163 +4069,163 @@
 
 - Goron Racetrack Pot
 92,106
-108;7
+108;7;1178
 12
 0
 
 - Goron Racetrack Pot 2
 92,106
-108;7
+108;7;1178
 12
 0
 
 - Goron Racetrack Pot 3
 92,106
-108;7
+108;7;1178
 12
 0
 
 - Goron Racetrack Pot 4
 92,106
-108;7
+108;7;1178
 12
 0
 
 - Goron Racetrack Pot 5
 92,106
-108;7
+108;7;1178
 12
 0
 
 - Goron Racetrack Pot 6
 92,106
-108;7
+108;7;1178
 12
 0
 
 - Goron Racetrack Pot 7
 92,106
-108;7
+108;7;1178
 12
 0
 
 - Goron Racetrack Pot 8
 92,106
-108;7
+108;7;1178
 12
 0
 
 - Goron Racetrack Pot 9
 92,106
-108;7
+108;7;1178
 12
 0
 
 - Goron Racetrack Pot 10
 92,106
-108;7
+108;7;1178
 12
 0
 
 - Goron Racetrack Pot 11
 92,106
-108;7
+108;7;1178
 12
 0
 
 - Goron Racetrack Pot 12
 92,106
-108;7
+108;7;1178
 12
 0
 
 - Goron Racetrack Pot 13
 92,106
-108;7
+108;7;1178
 12
 0
 
 - Goron Racetrack Pot 14
 92,106
-108;7
+108;7;1178
 12
 0
 
 - Goron Racetrack Pot 15
 92,106
-108;7
+108;7;1178
 12
 0
 
 - Goron Racetrack Pot 16
 92,106
-108;7
+108;7;1178
 12
 0
 
 - Goron Racetrack Pot 17
 92,106
-108;7
+108;7;1178
 12
 0
 
 - Goron Racetrack Pot 18
 92,106
-108;7
+108;7;1178
 12
 0
 
 - Goron Racetrack Pot 19
 92,106
-108;7
+108;7;1178
 12
 0
 
 - Goron Racetrack Pot 20
 92,106
-108;7
+108;7;1178
 12
 0
 
 - Goron Racetrack Pot 21
 92,106
-108;7
+108;7;1178
 12
 0
 
 - Goron Racetrack Pot 22
 92,106
-108;7
+108;7;1178
 12
 0
 
 - Goron Racetrack Pot 23
 92,106
-108;7
+108;7;1178
 12
 0
 
 - Goron Racetrack Pot 24
 92,106
-108;7
+108;7;1178
 12
 0
 
 - Goron Racetrack Pot 25
 92,106
-108;7
+108;7;1178
 12
 0
 
 - Goron Racetrack Pot 26
 92,106
-108;7
+108;7;1178
 12
 0
 
 - Goron Racetrack Pot 27
 92,106
-108;7
+108;7;1178
 12
 0
 
