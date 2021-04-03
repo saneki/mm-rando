@@ -6090,19 +6090,19 @@
 0
 
 - Ikana Graveyard Highest Rock
-1125,1092
+1125,1092,98
 
 0
 0
 
 - Ikana Graveyard Lowest Rock
-119,1125
+119,1125,98
 
 0
 0
 
 - Ikana Graveyard 2nd Lowest Rock
-119,1125
+119,1125,98
 
 0
 0
@@ -6138,13 +6138,13 @@
 0
 
 - Ikana Graveyard 2nd Highest Rock
-1125,1092
+1125,1092,98
 
 0
 0
 
 - Ikana Graveyard Middle Rock
-1125,1092
+1125,1092,98
 
 0
 0
