@@ -2766,6 +2766,7 @@ namespace MMR.Randomizer
                 }
                 ResourceUtils.ApplyHack(Resources.mods.init_file);
                 ResourceUtils.ApplyHack(Resources.mods.fix_deku_drowning);
+                ResourceUtils.ApplyHack(Resources.mods.fix_collectable_flags);
 
                 progressReporter.ReportProgress(61, "Writing quick text...");
                 WriteQuickText();
