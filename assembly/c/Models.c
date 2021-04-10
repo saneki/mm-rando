@@ -601,6 +601,18 @@ bool Models_DrawScopecoin(Actor* actor, GlobalContext* ctxt) {
     return false;
 }
 
+void Models_RotateScopecoin(Actor* actor, GlobalContext* ctxt) {
+    u16 index = 0;
+    if (MISC_CONFIG.flags.freestanding) {
+        index = Scopecoin_GetGiIndex(actor);
+    }
+    if (index > 0) {
+        RotateActor(actor, ctxt, index, 0x1F4);
+    } else {
+        actor->shape.rot.y += 0x1F4;
+    }
+}
+
 bool Models_DrawScRuppe(ActorEnScRuppe* actor, GlobalContext* ctxt) {
     // if receiving item
     if (actor->disappearCountdown == 1 && Rupee_GetGiIndex(&actor->base) > 0) {
@@ -630,6 +642,18 @@ bool Models_DrawScRuppe(ActorEnScRuppe* actor, GlobalContext* ctxt) {
     return false;
 }
 
+void Models_RotateScRuppe(Actor* actor, GlobalContext* ctxt) {
+    u16 index = 0;
+    if (MISC_CONFIG.flags.freestanding) {
+        index = Rupee_GetDrawGiIndex(actor);
+    }
+    if (index > 0) {
+        RotateActor(actor, ctxt, index, 0x1F4);
+    } else {
+        actor->shape.rot.y += 0x1F4;
+    }
+}
+
 bool Models_DrawDekuScrubPlaygroundRupee(ActorEnGamelupy* actor, GlobalContext* ctxt) {
     // if receiving item
     if (actor->disappearCountdown == 1 && Rupee_GetGiIndex(&actor->base) > 0) {
@@ -657,6 +681,18 @@ bool Models_DrawDekuScrubPlaygroundRupee(ActorEnGamelupy* actor, GlobalContext* 
     }
 
     return false;
+}
+
+void Models_RotateDekuScrubPlaygroundRupee(Actor* actor, GlobalContext* ctxt) {
+    u16 index = 0;
+    if (MISC_CONFIG.flags.freestanding) {
+        index = Rupee_GetDrawGiIndex(actor);
+    }
+    if (index > 0) {
+        RotateActor(actor, ctxt, index, 0x1F4);
+    } else {
+        actor->shape.rot.y += 0x1F4;
+    }
 }
 
 void Models_AfterActorDtor(Actor* actor) {
