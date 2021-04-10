@@ -7,8 +7,24 @@
 
 static u16 itemQueue[0x80];
 
+u16 GetTweakedCollectableSceneIndex(u16 sceneIndex) {
+    switch (sceneIndex) {
+        case 0x1C: // Path to Mountain Village
+            if (gSaveContext.perm.weekEventReg.mountainCleared) {
+                return 0x71;
+            }
+            break;
+        case 0x5C: // Snowhead
+            if (gSaveContext.perm.weekEventReg.mountainCleared) {
+                return 0x72;
+            }
+            break;
+    }
+    return sceneIndex;
+}
+
 void Item00_LoadCollectableTable(GlobalContext* ctxt) {
-    u16 sceneIndex = ctxt->sceneNum;
+    u16 sceneIndex = GetTweakedCollectableSceneIndex(ctxt->sceneNum);
     
     u32 index = MISC_CONFIG.internal.collectableTableFileIndex;
     DmaEntry entry = dmadata[index];

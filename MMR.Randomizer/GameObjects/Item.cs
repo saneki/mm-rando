@@ -9723,6 +9723,111 @@ namespace MMR.Randomizer.GameObjects
         CollectableOceansideSpiderHouseMaskRoomPot2,
 
 
+        [Visible]
+        [Repeatable]
+        [ItemName("30 Arrows"), LocationName("Ikana Canyon Cleared Grass"), Region(Region.IkanaCanyon)]
+        [GossipLocationHint("uncursed grass"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
+        [ShopText("Ammo for your bow.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x43B), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x9A2)]
+        CollectableIkanaCanyonMainAreaGrass4,
+
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("5 Bombs"), LocationName("Ikana Canyon Cleared Grass 2"), Region(Region.IkanaCanyon)]
+        [GossipLocationHint("uncursed grass"), GossipItemHint("explosives")]
+        [ShopText("Explosives. You need a Bomb Bag to carry them.", isMultiple: true)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x43C), ItemCategory(ItemCategory.Ammo), CollectableIndex(0x9A1)]
+        CollectableIkanaCanyonMainAreaGrass5,
+
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Ikana Canyon Cleared Grass 3"), Region(Region.IkanaCanyon)]
+        [GossipLocationHint("uncursed grass"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x43D), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x9A0)]
+        CollectableIkanaCanyonMainAreaGrass6,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Path to Snowhead Spring Snowball"), Region(Region.PathToSnowhead)]
+        [GossipLocationHint("a melting snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x43E), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2DA0)]
+        CollectablePathToSnowheadSmallSnowball1,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Path to Snowhead Spring Snowball 2"), Region(Region.PathToSnowhead)]
+        [GossipLocationHint("a melting snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x43F), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2DA1)]
+        CollectablePathToSnowheadSmallSnowball2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Path to Snowhead Spring Snowball 3"), Region(Region.PathToSnowhead)]
+        [GossipLocationHint("a melting snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x440), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2DA2)]
+        CollectablePathToSnowheadSmallSnowball3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Large Magic Jar"), LocationName("Path to Snowhead Spring Snowball 4"), Region(Region.PathToSnowhead)]
+        [GossipLocationHint("a melting snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a large amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x441), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x2DA3)]
+        CollectablePathToSnowheadSmallSnowball4,
+
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Path to Mountain Village Spring Snowball"), Region(Region.MountainVillage)]
+        [GossipLocationHint("a melting snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x442), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x38A1)]
+        CollectablePathToMountainVillageSmallSnowball2,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Path to Mountain Village Spring Snowball 2"), Region(Region.MountainVillage)]
+        [GossipLocationHint("a melting snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x443), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x38A2)]
+        CollectablePathToMountainVillageSmallSnowball3,
+
+
+        [Visible]
+        [Repeatable]
+        [ItemName("Small Magic Jar"), LocationName("Path to Mountain Village Spring Snowball 3"), Region(Region.MountainVillage)]
+        [GossipLocationHint("a melting snowball"), GossipItemHint("a magic refill")]
+        [ShopText("Replenishes a small amount of your magic power.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x444), ItemCategory(ItemCategory.MagicJars), CollectableIndex(0x38A5)]
+        CollectablePathToMountainVillageSmallSnowball4,
+
+
+
+
 
         GossipTerminaSouth,
         GossipSwampPotionShop,
