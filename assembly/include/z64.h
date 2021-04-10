@@ -1500,7 +1500,7 @@ typedef struct {
     /* 0x14C */ u16 unkState;
     /* 0x14E */ u16 disappearCountdownCopy; // Copied from disappear_countdown
     /* 0x150 */ u16 renderFrameMask; // (disappear_countdown_copy & render_frame_mask) != 0 means dont render
-    /* 0x152 */ u16 disappearCountdown;
+    /* 0x152 */ s16 disappearCountdown;
     /* 0x154 */ f32 targetSize;
     /* 0x158 */ UNK_TYPE1 pad158[0x4C];
     /* 0x1A4 */ bool pickedUp;

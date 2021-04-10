@@ -237,6 +237,25 @@ void Models_RotateEnItem00(Actor* actor, GlobalContext* ctxt) {
     }
 }
 
+bool Models_ShouldEnItem00Rotate(ActorEnItem00* actor, GlobalContext* ctxt) {
+    if (actor->base.params < 3) {
+        return true;
+    }
+    if (actor->base.params == 3 && actor->disappearCountdown < 0) {
+        return true;
+    }
+    if (actor->base.params == 6 || actor->base.params == 7) {
+        return true;
+    }
+    if (actor->base.params >= 0x1D) {
+        return true;
+    }
+    if (MISC_CONFIG.flags.freestanding && Rupee_GetDrawGiIndex(&actor->base) > 0) {
+        return true;
+    }
+    return false;
+}
+
 /**
  * Get the Get-Item index for a Skulltula Token actor.
  **/

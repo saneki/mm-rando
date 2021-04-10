@@ -271,6 +271,38 @@
     b       0x800A6550
     nop
 
+; Allow items that normally don't rotate to rotate.
+; Replaces:
+;   LH      V1, 0x001C (S0)
+;   SLTI    AT, V1, 0x0003
+;   BNEZ    AT, 0x800A6454
+;   ADDIU   AT, R0, 0x0003
+;   BNEL    V1, AT, 0x800A6444
+;   ADDIU   AT, R0, 0x0006
+;   LH      T6, 0x0152 (S0)
+;   BLTZ    T6, 0x800A6454
+;   ADDIU   AT, R0, 0x0006
+;   BEQ     V1, AT, 0x800A6454
+;   ADDIU   AT, R0, 0x0007
+;   BNEL    V1, AT, 0x800A646C
+;   SLTI    AT, V1, 0x0016
+.org 0x800A6420
+.area 0x34
+    jal     Models_ShouldEnItem00Rotate
+    nop
+    beqz    v0, 0x800A6468
+    lh      v1, 0x001C (s0)
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+.endarea
+
 ;==================================================================================================
 ; Model Rotation (Skulltula Token)
 ;==================================================================================================
