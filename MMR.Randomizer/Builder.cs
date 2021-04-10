@@ -1379,7 +1379,7 @@ namespace MMR.Randomizer
         private ushort GetLocationIdOfItem(Item item)
         {
             var itemObject = _randomized.ItemList[item];
-            return itemObject.Item != Item.RecoveryHeart ? itemObject.NewLocation.Value.GetItemIndex().Value : (ushort)0;
+            return itemObject.Item == item ? itemObject.NewLocation.Value.GetItemIndex().Value : (ushort)0;
         }
 
         private void WriteMiscHacks()
