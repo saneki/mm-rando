@@ -4998,8 +4998,8 @@
 48
 
 - Termina Field Above Cow Grotto Invisible Item
-92,1094
 
+92,1094;0
 0
 0
 
