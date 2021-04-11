@@ -2116,133 +2116,195 @@ namespace MMR.Randomizer
                     })
                     .Build()
                 );
+            }
 
-                // Update messages to match updated world models.
-                if (_randomized.Settings.UpdateWorldModels)
+            // Update messages to match updated world models.
+            if (_randomized.Settings.UpdateWorldModels)
+            {
+                // Update Moon's Tear messages.
+                var moonsTearItem = _randomized.ItemList.First(io => io.NewLocation == Item.TradeItemMoonTear);
+                if (moonsTearItem.Item != Item.TradeItemMoonTear)
                 {
-                    // Update Moon's Tear messages.
-                    var moonsTearItem = _randomized.ItemList.First(io => io.NewLocation == Item.TradeItemMoonTear);
-                    if (moonsTearItem.Item != Item.TradeItemMoonTear)
-                    {
-                        newMessages.Add(new MessageEntryBuilder()
-                            .Id(0x5E3)
-                            .Message(it =>
+                    newMessages.Add(new MessageEntryBuilder()
+                        .Id(0x5E3)
+                        .Message(it =>
+                        {
+                            it.Text("That is one of the lunar objects").NewLine()
+                            .Text("that has been blazing from the").NewLine()
+                            .Text("surface of the moon lately.")
+                            .EndTextBox()
+                            .CompileTimeWrap((wrapped) =>
                             {
-                                it.Text("That is one of the lunar objects").NewLine()
-                                .Text("that has been blazing from the").NewLine()
-                                .Text("surface of the moon lately.")
-                                .EndTextBox()
-                                .CompileTimeWrap((wrapped) =>
-                                {
-                                    wrapped.Text("They fall from what looks to be the moon's eye, I call ")
-                                    .Text(MessageUtils.GetPronoun(moonsTearItem.DisplayItem))
-                                    .Text(" ")
-                                    .Text(MessageUtils.GetArticle(moonsTearItem.DisplayItem))
-                                    .Red(moonsTearItem.DisplayName())
-                                    .Text(".")
-                                    ;
-                                })
-                                .EndTextBox()
-                                .Text("They are rare, valued by many").NewLine()
-                                .Text("in town.")
-                                .EndFinalTextBox();
+                                wrapped.Text("They fall from what looks to be the moon's eye, I call ")
+                                .Text(MessageUtils.GetPronoun(moonsTearItem.DisplayItem))
+                                .Text(" ")
+                                .Text(MessageUtils.GetArticle(moonsTearItem.DisplayItem))
+                                .Red(moonsTearItem.DisplayName())
+                                .Text(".")
+                                ;
                             })
-                            .Build()
-                        );
-                        newMessages.Add(new MessageEntryBuilder()
-                            .Id(0x5ED)
-                            .Message(it =>
+                            .EndTextBox()
+                            .Text("They are rare, valued by many").NewLine()
+                            .Text("in town.")
+                            .EndFinalTextBox();
+                        })
+                        .Build()
+                    );
+                    newMessages.Add(new MessageEntryBuilder()
+                        .Id(0x5ED)
+                        .Message(it =>
+                        {
+                            it.Text($"That ill-mannered troublemaker").NewLine()
+                            .Text("from the other day said he'd").NewLine()
+                            .Text("break my instruments...")
+                            .EndTextBox()
+                            .CompileTimeWrap((wrapped) =>
                             {
-                                it.Text($"That ill-mannered troublemaker").NewLine()
-                                .Text("from the other day said he'd").NewLine()
-                                .Text("break my instruments...")
-                                .EndTextBox()
-                                .CompileTimeWrap((wrapped) =>
-                                {
-                                    wrapped.Text("He said he's steal my ")
-                                    .Red(moonsTearItem.DisplayName())
-                                    .Text("... There was no stopping him.")
-                                    ;
-                                })
-                                .DisableTextSkip2()
-                                .EndFinalTextBox();
+                                wrapped.Text("He said he's steal my ")
+                                .Red(moonsTearItem.DisplayName())
+                                .Text("... There was no stopping him.")
+                                ;
                             })
-                            .Build()
-                        );
-                        newMessages.Add(new MessageEntryBuilder()
-                            .Id(0x5F2)
-                            .Message(it =>
+                            .DisableTextSkip2()
+                            .EndFinalTextBox();
+                        })
+                        .Build()
+                    );
+                    newMessages.Add(new MessageEntryBuilder()
+                        .Id(0x5F2)
+                        .Message(it =>
+                        {
+                            it.Text($"Well, did you find that").NewLine()
+                            .Red("troublemaker").Text("? And that loud").NewLine()
+                            .Text("noise...What was that?")
+                            .EndTextBox()
+                            .CompileTimeWrap((wrapped) =>
                             {
-                                it.Text($"Well, did you find that").NewLine()
-                                .Red("troublemaker").Text("? And that loud").NewLine()
-                                .Text("noise...What was that?")
-                                .EndTextBox()
-                                .CompileTimeWrap((wrapped) =>
-                                {
-                                    wrapped.Text("Perhaps another ")
-                                    .Red(moonsTearItem.DisplayName())
-                                    .Text(" has falled nearby...Go through that door and take a look outside.")
-                                    ;
-                                })
-                                .DisableTextSkip2()
-                                .EndFinalTextBox();
+                                wrapped.Text("Perhaps another ")
+                                .Red(moonsTearItem.DisplayName())
+                                .Text(" has falled nearby...Go through that door and take a look outside.")
+                                ;
                             })
-                            .Build()
-                        );
-                    }
-
-                    // Update Seahorse messages.
-                    var seahorseItem = _randomized.ItemList.First(io => io.NewLocation == Item.MundaneItemSeahorse);
-                    if (seahorseItem.Item != Item.MundaneItemSeahorse)
-                    {
-                        newMessages.Add(new MessageEntryBuilder()
-                            .Id(0x106F)
-                            .Message(it =>
-                            {
-                                it.PlaySoundEffect(0x694C)
-                                .Text("Are you interested in that?")
-                                .EndTextBox()
-                                .RuntimeWrap(() =>
-                                {
-                                    it.Text("It's rare, isn't it? It's called ")
-                                    .RuntimeArticle(seahorseItem.DisplayItem, seahorseItem.NewLocation.Value)
-                                    .Red(() =>
-                                    {
-                                        it.RuntimeItemName(seahorseItem.DisplayName(), seahorseItem.NewLocation.Value);
-                                    })
-                                    .Text(".")
-                                    ;
-                                })
-                                .DisableTextSkip2()
-                                .EndFinalTextBox();
-                            })
-                            .Build()
-                        );
-                        newMessages.Add(new MessageEntryBuilder()
-                            .Id(0x1074)
-                            .Message(it =>
-                            {
-                                it.RuntimeWrap(() =>
-                                {
-                                    it.Text("If you want that ")
-                                    .Red(() =>
-                                    {
-                                        it.RuntimeItemName(seahorseItem.DisplayName(), seahorseItem.NewLocation.Value);
-                                    })
-                                    .Text(", bring me a ")
-                                    .Red("pictograph")
-                                    .Text(" of a ")
-                                    .Red("female pirate")
-                                    .Text(".")
-                                    ;
-                                })
-                                .DisableTextSkip2()
-                                .EndFinalTextBox();
-                            })
-                            .Build()
-                        );
-                    }
+                            .DisableTextSkip2()
+                            .EndFinalTextBox();
+                        })
+                        .Build()
+                    );
                 }
+
+                // Update Seahorse messages.
+                var seahorseItem = _randomized.ItemList.First(io => io.NewLocation == Item.MundaneItemSeahorse);
+                if (seahorseItem.Item != Item.MundaneItemSeahorse)
+                {
+                    newMessages.Add(new MessageEntryBuilder()
+                        .Id(0x106F)
+                        .Message(it =>
+                        {
+                            it.PlaySoundEffect(0x694C)
+                            .Text("Are you interested in that?")
+                            .EndTextBox()
+                            .RuntimeWrap(() =>
+                            {
+                                it.Text("It's rare, isn't it? It's called ")
+                                .RuntimeArticle(seahorseItem.DisplayItem, seahorseItem.NewLocation.Value)
+                                .Red(() =>
+                                {
+                                    it.RuntimeItemName(seahorseItem.DisplayName(), seahorseItem.NewLocation.Value);
+                                })
+                                .Text(".")
+                                ;
+                            })
+                            .DisableTextSkip2()
+                            .EndFinalTextBox();
+                        })
+                        .Build()
+                    );
+                    newMessages.Add(new MessageEntryBuilder()
+                        .Id(0x1074)
+                        .Message(it =>
+                        {
+                            it.RuntimeWrap(() =>
+                            {
+                                it.Text("If you want that ")
+                                .Red(() =>
+                                {
+                                    it.RuntimeItemName(seahorseItem.DisplayName(), seahorseItem.NewLocation.Value);
+                                })
+                                .Text(", bring me a ")
+                                .Red("pictograph")
+                                .Text(" of a ")
+                                .Red("female pirate")
+                                .Text(".")
+                                ;
+                            })
+                            .DisableTextSkip2()
+                            .EndFinalTextBox();
+                        })
+                        .Build()
+                    );
+                }
+            }
+
+            // Update Zora Jar message.
+            var zoraJarItem = _randomized.ItemList.First(io => io.NewLocation == Item.ItemBottleBeavers);
+            if (zoraJarItem.Item != Item.ItemBottleBeavers)
+            {
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x126F)
+                    .Message(it =>
+                    {
+                        it.RuntimeWrap(() =>
+                        {
+                            it.Text("Well, here's ")
+                            .RuntimeArticle(zoraJarItem.DisplayItem, zoraJarItem.NewLocation.Value)
+                            .Red(() =>
+                            {
+                                it.RuntimeItemName(zoraJarItem.DisplayName(), zoraJarItem.NewLocation.Value);
+                            })
+                            .Text(".")
+                            ;
+                        })
+                        .EndTextBox()
+                        .Text("Except...").NewLine()
+                        .Text("Jar replacement costs ").Pink("10 Rupees").Text(",").NewLine()
+                        .Text("so I'll have to deduct that.")
+                        .DisableTextSkip2()
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x1270)
+                    .Message(it =>
+                    {
+                        if (zoraJarItem.Item == Item.IceTrap)
+                        {
+                            it.QuickText(() =>
+                            {
+                                it.Text("You are a ").DarkBlue("FOOL").Text("!");
+                            })
+                            .EndConversation()
+                            .EndFinalTextBox();
+                        }
+                        else
+                        {
+                            it.RuntimeWrap(() =>
+                            {
+                                it.Text("You get ")
+                                .RuntimeArticle(zoraJarItem.DisplayItem, zoraJarItem.NewLocation.Value)
+                                .Red(() =>
+                                {
+                                    it.RuntimeItemName(zoraJarItem.DisplayName(), zoraJarItem.NewLocation.Value);
+                                })
+                                .Text("!")
+                                ;
+                            })
+                            .EndConversation()
+                            .EndFinalTextBox();
+                        }
+                    })
+                    .Build()
+                );
             }
 
             // replace "Razor Sword is now blunt" message with get-item message for Kokiri Sword.

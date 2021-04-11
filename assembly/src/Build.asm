@@ -77,6 +77,7 @@
 .include "SwordSchoolGong.Patch.asm"
 .include "Thiefbird.Patch.asm"
 .include "WorldColors.Patch.asm"
+.include "ZoraLand.Patch.asm"
 
 ;==================================================================================================
 ; New code region
@@ -123,6 +124,7 @@ PAYLOAD_START:
 .include "SpinAttackEffect.asm"
 .include "StrayFairyGroup.asm"
 .include "WorldColors.asm"
+.include "ZoraLand.asm"
 .importobj "../build/bundle.o"
 
 .align 8
