@@ -9843,6 +9843,7 @@ namespace MMR.Randomizer.GameObjects
         [ShopText("This is worth 30 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x446), ItemCategory(ItemCategory.RedRupees)]
+        [ExclusiveItemMessage(0x9001, "\u0017You got a \u0001Crimson Rupee\u0000!\u0018\u0011It's worth \u000130 Rupees\u0000!\u0011What a pleasant surprise!\u00BF")]
         CollectableIkanaGraveyardDay2Bats1,
 
 

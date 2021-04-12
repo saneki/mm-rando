@@ -2336,6 +2336,11 @@ namespace MMR.Randomizer
                     .Build()
                 );
             }
+            var messageAttribute = Item.CollectableIkanaGraveyardDay2Bats1.GetAttribute<ExclusiveItemMessageAttribute>();
+            var entry = new MessageEntry(
+                messageAttribute.Id,
+                messageAttribute.Message);
+            _extraMessages.Add(entry);
 
             // replace "Razor Sword is now blunt" message with get-item message for Kokiri Sword.
             newMessages.Add(new MessageEntryBuilder()
@@ -2690,6 +2695,14 @@ namespace MMR.Randomizer
             }
 
             // Add extra messages to message table.
+            if (_randomized.Settings.QuickTextEnabled)
+            {
+                var regex = new Regex("(?<!(?:\x1B|\x1C|\x1D|\x1E).?)(?:\x1F..|\x17|\x18)", RegexOptions.Singleline);
+                foreach (var entry in _extraMessages)
+                {
+                    entry.Message = regex.Replace(entry.Message, "");
+                }
+            }
             asm.ExtraMessages.AddMessage(_extraMessages.ToArray());
             asm.WriteExtMessageTable();
 
