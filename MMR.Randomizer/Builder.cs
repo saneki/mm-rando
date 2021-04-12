@@ -2246,8 +2246,8 @@ namespace MMR.Randomizer
             }
 
             // Update Zora Jar message.
-            var zoraJarItem = _randomized.ItemList.First(io => io.NewLocation == Item.ItemBottleBeavers);
-            if (zoraJarItem.Item != Item.ItemBottleBeavers)
+            var zoraJarItem = _randomized.ItemList.First(io => io.NewLocation == Item.CollectableZoraCapeJarGame1);
+            if (zoraJarItem.Item != Item.CollectableZoraCapeJarGame1)
             {
                 newMessages.Add(new MessageEntryBuilder()
                     .Id(0x126F)
