@@ -3,6 +3,7 @@
 #include "MMR.h"
 #include "Util.h"
 #include "enums.h"
+#include "Items.h"
 
 struct MMRConfig MMR_CONFIG = {
     .magic = MMR_CONFIG_MAGIC,
@@ -314,11 +315,11 @@ u32 MMR_GetMinorItemSfxId(u8 item) {
     if (item >= 0x6 && item <= 0x9) {
         return 0x4824;
     }
-    if (item == 0x79 || item == 0x7A) {
+    if (item == 0x79 || item == 0x7A || item == CUSTOM_ITEM_CRIMSON_RUPEE) {
         return 0x4824;
     }
-    if (item == 0xB0) {
-        return 0x31A4; // Ice Trap
+    if (item == CUSTOM_ITEM_ICE_TRAP) {
+        return 0x31A4;
     }
     return 0;
 }

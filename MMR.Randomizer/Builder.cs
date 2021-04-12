@@ -2277,6 +2277,7 @@ namespace MMR.Randomizer
                     .Id(0x1270)
                     .Message(it =>
                     {
+                        // TODO need to update this if ice traps become non-repeatable.
                         if (zoraJarItem.Item == Item.IceTrap)
                         {
                             it.QuickText(() =>
@@ -2302,6 +2303,35 @@ namespace MMR.Randomizer
                             .EndConversation()
                             .EndFinalTextBox();
                         }
+                    })
+                    .Build()
+                );
+            }
+
+            // Update Dampe rupee message.
+            var dampeRupeeItem = _randomized.ItemList.First(io => io.NewLocation == Item.CollectableIkanaGraveyardDay2Bats1);
+            if (dampeRupeeItem.Item != Item.CollectableIkanaGraveyardDay2Bats1)
+            {
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x1413)
+                    .Message(it =>
+                    {
+                        it.Text("Was it you who chased those bats").NewLine()
+                        .Text("away?")
+                        .EndTextBox()
+                        .Text("That's a big help... ").NewLine()
+                        .RuntimeWrap(() =>
+                        {
+                            it.Text("It isn't much, but here's ")
+                            .RuntimeArticle(dampeRupeeItem.DisplayItem, dampeRupeeItem.NewLocation.Value)
+                            .Red(() =>
+                            {
+                                it.RuntimeItemName(dampeRupeeItem.DisplayName(), dampeRupeeItem.NewLocation.Value);
+                            })
+                            .Text(" for your trouble. Take it!")
+                            ;
+                        })
+                        .EndFinalTextBox();
                     })
                     .Build()
                 );
@@ -2759,6 +2789,12 @@ namespace MMR.Randomizer
                 if (e.ItemGained == 0x9B && e.Object == 0xA4 && extended.Indexes.MagicPower != null)
                 {
                     e.Object = extended.Indexes.MagicPower.Value;
+                }
+
+                // Update gi-table for Extra Rupees
+                if (e.ItemGained == 0xB1 && e.Object == 0x13F && extended.Indexes.Rupees != null)
+                {
+                    e.Object = extended.Indexes.Rupees.Value;
                 }
             }
         }

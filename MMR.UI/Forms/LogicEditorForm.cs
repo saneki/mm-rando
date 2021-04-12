@@ -785,6 +785,7 @@ namespace MMR.UI.Forms
         "Path to Mountain Village Spring Snowball 2",
         "Path to Mountain Village Spring Snowball 3",
         "Zora Cape Jar Game",
+        "Ikana Graveyard Day 2 Bats",
 
         "GossipTerminaSouth",
         "GossipSwampPotionShop",

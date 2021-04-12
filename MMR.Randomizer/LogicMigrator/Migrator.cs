@@ -2317,7 +2317,7 @@ namespace MMR.Randomizer.LogicMigrator
             var itemNames = new string[]
             {
                 "Zora Cape Jar Game",
-                "TODO",
+                "Ikana Graveyard Day 2 Bats",
             };
             var newItems = itemNames.Select((itemName, index) => new MigrationItem
             {

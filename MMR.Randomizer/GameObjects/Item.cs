@@ -9836,6 +9836,16 @@ namespace MMR.Randomizer.GameObjects
         CollectableZoraCapeJarGame1,
 
 
+        [Visible]
+        [Repeatable]
+        [ItemName("Crimson Rupee"), LocationName("Ikana Graveyard Day 2 Bats"), Region(Region.IkanaGraveyard)]
+        [GossipLocationHint("a swamp of bats"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 30 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x446), ItemCategory(ItemCategory.RedRupees)]
+        CollectableIkanaGraveyardDay2Bats1,
+
+
 
 
         GossipTerminaSouth,
