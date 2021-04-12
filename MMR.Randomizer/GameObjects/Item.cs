@@ -9826,6 +9826,15 @@ namespace MMR.Randomizer.GameObjects
         CollectablePathToMountainVillageSmallSnowball4,
 
 
+        [Purchaseable]
+        [Repeatable]
+        [ItemName("Silver Rupee"), LocationName("Zora Cape Jar Game"), Region(Region.ZoraCape)]
+        [GossipLocationHint("an ocean game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 100 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x445), ItemCategory(ItemCategory.SilverRupees)]
+        CollectableZoraCapeJarGame1,
+
 
 
 

@@ -9,4 +9,4 @@
 ;   addiu   a0, r0, 0x005A
 .org 0x80B97480
     jal     ZoraLand_GiveReward_Hook
-    addiu   a0, r0, 0x005A ; TODO
+    addiu   a0, r0, 0x0445

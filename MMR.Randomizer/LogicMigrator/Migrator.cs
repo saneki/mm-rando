@@ -7,7 +7,7 @@ namespace MMR.Randomizer.LogicMigrator
 {
     public static partial class Migrator
     {
-        public const int CurrentVersion = 17;
+        public const int CurrentVersion = 18;
 
         public static string ApplyMigrations(string logic)
         {
@@ -100,7 +100,12 @@ namespace MMR.Randomizer.LogicMigrator
 
             if (GetVersion(lines) < 17)
             {
-                AddMoreRupeesAndFixedDrops(lines);
+                AddRupeesAndFixedDrops2(lines);
+            }
+
+            if (GetVersion(lines) < 18)
+            {
+                AddRupeesAndFixedDrops3(lines);
             }
 
             return string.Join("\r\n", lines);
@@ -2253,7 +2258,7 @@ namespace MMR.Randomizer.LogicMigrator
             }
         }
 
-        private static void AddMoreRupeesAndFixedDrops(List<string> lines)
+        private static void AddRupeesAndFixedDrops2(List<string> lines)
         {
             const int startIndex = 1056;
             lines[0] = "-version 17";
@@ -2269,6 +2274,50 @@ namespace MMR.Randomizer.LogicMigrator
                 "Path to Mountain Village Spring Snowball",
                 "Path to Mountain Village Spring Snowball 2",
                 "Path to Mountain Village Spring Snowball 3",
+            };
+            var newItems = itemNames.Select((itemName, index) => new MigrationItem
+            {
+                ID = startIndex + index
+            }).ToArray();
+            for (var i = 0; i < lines.Count; i++)
+            {
+                var line = lines[i];
+                if (line.StartsWith("-") || string.IsNullOrWhiteSpace(line) || line.StartsWith(";"))
+                {
+                    continue;
+                }
+                var updatedItemSections = line
+                    .Split(';')
+                    .Select(section => section.Split(',').Select(id =>
+                    {
+                        var itemId = int.Parse(id);
+                        if (itemId >= startIndex)
+                        {
+                            itemId += newItems.Length;
+                        }
+                        return itemId;
+                    }).ToList()).ToList();
+                lines[i] = string.Join(";", updatedItemSections.Select(section => string.Join(",", section)));
+            }
+            foreach (var item in newItems)
+            {
+                lines.Insert(item.ID * 6 + 1, $"- {itemNames[item.ID - startIndex]}");
+                lines.Insert(item.ID * 6 + 2, string.Join(",", item.DependsOnItems));
+                lines.Insert(item.ID * 6 + 3, string.Join(";", item.Conditionals.Select(c => string.Join(",", c))));
+                lines.Insert(item.ID * 6 + 4, $"{item.TimeNeeded}");
+                lines.Insert(item.ID * 6 + 5, "0");
+                lines.Insert(item.ID * 6 + 6, "");
+            }
+        }
+
+        private static void AddRupeesAndFixedDrops3(List<string> lines)
+        {
+            const int startIndex = 1066;
+            lines[0] = "-version 18";
+            var itemNames = new string[]
+            {
+                "Zora Cape Jar Game",
+                "TODO",
             };
             var newItems = itemNames.Select((itemName, index) => new MigrationItem
             {

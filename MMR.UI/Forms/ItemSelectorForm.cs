@@ -8,7 +8,7 @@ namespace MMR.UI.Forms
 {
     public partial class ItemSelectorForm : Form
     {
-        private readonly static string[] DEFAULT_ITEM_NAMES = new string[] 
+        private readonly static string[] DEFAULT_ITEM_NAMES = new string[]
         {
             "Deku Mask",
             "Hero's Bow",
@@ -1008,6 +1008,7 @@ namespace MMR.UI.Forms
             "Path to Mountain Village Spring Snowball",
             "Path to Mountain Village Spring Snowball 2",
             "Path to Mountain Village Spring Snowball 3",
+            "Zora Cape Jar Game",
 
 
             "GossipTerminaSouth",
