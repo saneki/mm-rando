@@ -9839,7 +9839,7 @@ namespace MMR.Randomizer.GameObjects
         [Visible]
         [Repeatable]
         [ItemName("Crimson Rupee"), LocationName("Ikana Graveyard Day 2 Bats"), Region(Region.IkanaGraveyard)]
-        [GossipLocationHint("a swamp of bats"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [GossipLocationHint("a swarm of bats"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 30 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x446), ItemCategory(ItemCategory.RedRupees)]
