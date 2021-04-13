@@ -2385,6 +2385,11 @@ namespace MMR.Randomizer
                 .Build()
             );
 
+            if (_randomized.Settings.CategoriesRandomized.Contains(ItemCategory.SkulltulaTokens) || _randomized.ItemList.Any(io => io.ID >= 433 && io.IsRandomized))
+            {
+                ResourceUtils.ApplyHack(Resources.mods.fix_piece_of_heart_message);
+            }
+
             if (_randomized.Settings.CategoriesRandomized.Contains(ItemCategory.SkulltulaTokens))
             {
                 ResourceUtils.ApplyHack(Resources.mods.fix_skulltula_tokens);
