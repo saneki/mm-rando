@@ -1048,9 +1048,9 @@ struct GlobalContext {
     /* 0x1886C */ AnimatedTexture* sceneTextureAnimations;
     /* 0x18870 */ UNK_TYPE1 pad18870[0x4];
     /* 0x18874 */ u8 unk18874;
-    /* 0x18875 */ s8 unk18875;
+    /* 0x18875 */ s8 warpType;
     /* 0x18876 */ UNK_TYPE1 pad18876[0x4];
-    /* 0x1887A */ u16 unk1887A;
+    /* 0x1887A */ u16 warpDestination;
     /* 0x1887C */ s8 unk1887C;
     /* 0x1887D */ UNK_TYPE1 pad1887D[0x2];
     /* 0x1887F */ u8 unk1887F;

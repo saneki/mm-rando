@@ -283,6 +283,12 @@ u16 MMR_GetProcessingItemGiIndex(GlobalContext* ctxt) {
     return 0;
 }
 
+void MMR_ClearItemQueue() {
+    for (u8 i = 0; i < ITEM_QUEUE_LENGTH; i++) {
+        itemQueue[i] = 0;
+    }
+}
+
 void MMR_ProcessItemQueue(GlobalContext* ctxt) {
     u16 giIndex = MMR_GetProcessingItemGiIndex(ctxt);
     if (giIndex) {
