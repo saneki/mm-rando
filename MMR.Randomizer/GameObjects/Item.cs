@@ -1098,7 +1098,7 @@ namespace MMR.Randomizer.GameObjects
         ItemStoneTowerBossKey,
 
         [Repeatable, Temporary]
-        [ItemName("Stone Tower Small Key"), LocationName("Stone Tower Armor Room Chest"), Region(Region.StoneTowerTemple)]
+        [ItemName("Stone Tower Small Key"), LocationName("Stone Tower Armos Room Chest"), Region(Region.StoneTowerTemple)]
         [GossipLocationHint("Stone Tower Temple", "the cursed temple"), GossipItemHint("access to a locked door", "a useful key")]
         [ShopText("A small key for use in Stone Tower Temple.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold), Chest(0x0210F000 + 0x202, ChestAttribute.AppearanceType.AppearsSwitch, 0x02182000 + 0x1FE)]
