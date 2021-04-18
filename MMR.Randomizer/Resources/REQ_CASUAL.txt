@@ -3300,31 +3300,31 @@
 0
 
 - Swordsman's School Pot
-1103
+1193
 
 0
 32
 
 - Swordsman's School Pot 2
-1103
+1193
 
 0
 32
 
 - Swordsman's School Pot 3
-1103
+1193
 
 0
 32
 
 - Swordsman's School Pot 4
-1103
+1193
 
 0
 32
 
 - Swordsman's School Pot 5
-1103
+1193
 
 0
 32
