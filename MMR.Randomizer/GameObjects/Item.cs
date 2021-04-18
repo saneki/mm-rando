@@ -668,7 +668,7 @@ namespace MMR.Randomizer.GameObjects
         MaskPostmanHat,
 
         [StartingItem(0xC5CE3D, 0x38)]
-        [ItemName("All Night Mask"), LocationName("All Night Mask Purchase"), Region(Region.WestClockTown)]
+        [ItemName("All-Night Mask"), LocationName("All Night Mask Purchase"), Region(Region.WestClockTown)]
         [GossipLocationHint("a shady gentleman", "a dodgy seller", "a shady dealer"), GossipItemHint("insomnia"), GossipCompetitiveHint(0, nameof(GameplaySettings.UpdateShopAppearance), false)]
         [ShopRoom(ShopRoomAttribute.Room.CuriosityShop, 0x54)]
         [ShopInventory(ShopInventoryAttribute.ShopKeeper.CuriosityShop, 0)]
