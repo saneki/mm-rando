@@ -5815,13 +5815,13 @@
 
 - Termina Field Clam 2
 
-
+0,1096;10;120;93
 0
 0
 
 - Termina Field Clam 3
 
-
+0,1096;10;120;93
 0
 0
 
