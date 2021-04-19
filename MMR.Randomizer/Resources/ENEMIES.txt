@@ -63,7 +63,7 @@ fffd,fffe,ffff
 -skulltula
 0024
 0020
-003f,007f,0004
+003f,007f
 3
 0
 1b,27,28,49
