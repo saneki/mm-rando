@@ -1460,7 +1460,7 @@ namespace MMR.Randomizer
             {
                 ResourceUtils.ApplyHack(Resources.mods.fix_downgrades);
             }
-            if (_randomized.Settings.CategoriesRandomized.Contains(ItemCategory.CowMilk))
+            if (_randomized.Settings.CustomItemList.Any(item => item.ItemCategory() == ItemCategory.Milk))
             {
                 ResourceUtils.ApplyHack(Resources.mods.fix_cow_bottle_check);
             }
@@ -2385,12 +2385,12 @@ namespace MMR.Randomizer
                 .Build()
             );
 
-            if (_randomized.Settings.CategoriesRandomized.Contains(ItemCategory.SkulltulaTokens) || _randomized.ItemList.Any(io => io.ID >= 433 && io.IsRandomized))
+            if (_randomized.Settings.CustomItemList.Any(item => item.ItemCategory() == ItemCategory.SkulltulaTokens) || _randomized.ItemList.Any(io => io.ID >= 433 && io.IsRandomized))
             {
                 ResourceUtils.ApplyHack(Resources.mods.fix_piece_of_heart_message);
             }
 
-            if (_randomized.Settings.CategoriesRandomized.Contains(ItemCategory.SkulltulaTokens))
+            if (_randomized.Settings.CustomItemList.Any(item => item.ItemCategory() == ItemCategory.SkulltulaTokens))
             {
                 ResourceUtils.ApplyHack(Resources.mods.fix_skulltula_tokens);
 
@@ -2446,7 +2446,7 @@ namespace MMR.Randomizer
                 newMessages.Add(swampSkulltulaEntry);
             }
 
-            if (_randomized.Settings.CategoriesRandomized.Contains(ItemCategory.StrayFairies))
+            if (_randomized.Settings.CustomItemList.Any(item => item.ItemCategory() == ItemCategory.StrayFairies))
             {
                 ResourceUtils.ApplyHack(Resources.mods.fix_fairies);
             }
@@ -2521,7 +2521,7 @@ namespace MMR.Randomizer
 
             _messageTable.UpdateMessages(newMessages);
 
-            if (_randomized.Settings.CategoriesRandomized.Contains(ItemCategory.ShopItems)) // TODO only apply when actual shops are randomized
+            if (_randomized.Settings.CustomItemList.Any(item => item.LocationCategory() == LocationCategory.Purchases)) // TODO only apply when actual shops are randomized
             {
                 ResourceUtils.ApplyHack(Resources.mods.fix_shop_checks);
             }
@@ -2771,8 +2771,8 @@ namespace MMR.Randomizer
         /// </summary>
         private void WriteExtendedObjects()
         {
-            var addFairies = _randomized.Settings.CategoriesRandomized.Contains(ItemCategory.StrayFairies);
-            var addSkulltulas = _randomized.Settings.CategoriesRandomized.Contains(ItemCategory.SkulltulaTokens);
+            var addFairies = _randomized.Settings.CustomItemList.Any(item => item.ItemCategory() == ItemCategory.StrayFairies);
+            var addSkulltulas = _randomized.Settings.CustomItemList.Any(item => item.ItemCategory() == ItemCategory.SkulltulaTokens);
             var extended = _extendedObjects = ExtendedObjects.Create(addFairies, addSkulltulas);
 
             foreach (var e in RomData.GetItemList.Values)

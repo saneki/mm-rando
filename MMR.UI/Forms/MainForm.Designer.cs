@@ -40,7 +40,6 @@ namespace MMR.UI.Forms
             this.loadSettings = new System.Windows.Forms.OpenFileDialog();
             this.saveSettings = new System.Windows.Forms.SaveFileDialog();
             this.tROMName = new System.Windows.Forms.TextBox();
-            this.cUserItems = new System.Windows.Forms.CheckBox();
             this.tSettings = new System.Windows.Forms.TabControl();
             this.tabMain = new System.Windows.Forms.TabPage();
             this.tOtherCustomizations = new System.Windows.Forms.TabControl();
@@ -50,7 +49,6 @@ namespace MMR.UI.Forms
             this.cNoStartingItems = new System.Windows.Forms.CheckBox();
             this.cMixSongs = new System.Windows.Forms.CheckBox();
             this.cEnemy = new System.Windows.Forms.CheckBox();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.bToggleTricks = new System.Windows.Forms.Button();
             this.cMode = new System.Windows.Forms.ComboBox();
@@ -65,10 +63,11 @@ namespace MMR.UI.Forms
             this.tStartingItemList = new System.Windows.Forms.TextBox();
             this.lCustomStartingItemAmount = new System.Windows.Forms.Label();
             this.bStartingItemEditor = new System.Windows.Forms.Button();
-            this.gItemPoolOptions = new System.Windows.Forms.GroupBox();
-            this.bItemListEditor = new System.Windows.Forms.Button();
-            this.tCustomItemList = new System.Windows.Forms.TextBox();
-            this.lCustomItemAmount = new System.Windows.Forms.Label();
+            this.tabItemPool = new System.Windows.Forms.TabPage();
+            this.lItemPoolText = new System.Windows.Forms.Label();
+            this.bItemPoolEdit = new System.Windows.Forms.Button();
+            this.tItemPool = new System.Windows.Forms.TextBox();
+            this.tableItemPool = new System.Windows.Forms.TableLayoutPanel();
             this.tabGimmicks = new System.Windows.Forms.TabPage();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.cFDAnywhere = new System.Windows.Forms.CheckBox();
@@ -198,11 +197,10 @@ namespace MMR.UI.Forms
             this.tabMain.SuspendLayout();
             this.tOtherCustomizations.SuspendLayout();
             this.tOtherCustomization.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.gItemPoolOptions.SuspendLayout();
+            this.tabItemPool.SuspendLayout();
             this.tabGimmicks.SuspendLayout();
             this.groupBox12.SuspendLayout();
             this.groupBox11.SuspendLayout();
@@ -255,22 +253,10 @@ namespace MMR.UI.Forms
             this.tROMName.Size = new System.Drawing.Size(639, 23);
             this.tROMName.TabIndex = 1;
             // 
-            // cUserItems
-            // 
-            this.cUserItems.AutoSize = true;
-            this.cUserItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cUserItems.Location = new System.Drawing.Point(8, 5);
-            this.cUserItems.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cUserItems.Name = "cUserItems";
-            this.cUserItems.Size = new System.Drawing.Size(119, 17);
-            this.cUserItems.TabIndex = 11;
-            this.cUserItems.Text = "Use custom item list";
-            this.cUserItems.UseVisualStyleBackColor = true;
-            this.cUserItems.CheckedChanged += new System.EventHandler(this.cUserItems_CheckedChanged);
-            // 
             // tSettings
             // 
             this.tSettings.Controls.Add(this.tabMain);
+            this.tSettings.Controls.Add(this.tabItemPool);
             this.tSettings.Controls.Add(this.tabGimmicks);
             this.tSettings.Controls.Add(this.tabComfort);
             this.tSettings.Controls.Add(this.tabShortenCutscenes);
@@ -285,11 +271,9 @@ namespace MMR.UI.Forms
             // tabMain
             // 
             this.tabMain.Controls.Add(this.tOtherCustomizations);
-            this.tabMain.Controls.Add(this.panel1);
             this.tabMain.Controls.Add(this.groupBox9);
             this.tabMain.Controls.Add(this.groupBox6);
             this.tabMain.Controls.Add(this.groupBox4);
-            this.tabMain.Controls.Add(this.gItemPoolOptions);
             this.tabMain.Location = new System.Drawing.Point(4, 24);
             this.tabMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabMain.Name = "tabMain";
@@ -397,15 +381,6 @@ namespace MMR.UI.Forms
             this.cEnemy.Text = "Enemies (BETA!)";
             this.cEnemy.UseVisualStyleBackColor = false;
             this.cEnemy.CheckedChanged += new System.EventHandler(this.cEnemy_CheckedChanged);
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.cUserItems);
-            this.panel1.Location = new System.Drawing.Point(611, 2);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(147, 27);
-            this.panel1.TabIndex = 30;
             // 
             // groupBox9
             // 
@@ -582,56 +557,58 @@ namespace MMR.UI.Forms
             this.bStartingItemEditor.UseVisualStyleBackColor = true;
             this.bStartingItemEditor.Click += new System.EventHandler(this.bStartingItemEditor_Click);
             // 
-            // gItemPoolOptions
+            // tabItemPool
             // 
-            this.gItemPoolOptions.Controls.Add(this.bItemListEditor);
-            this.gItemPoolOptions.Controls.Add(this.tCustomItemList);
-            this.gItemPoolOptions.Controls.Add(this.lCustomItemAmount);
-            this.gItemPoolOptions.Location = new System.Drawing.Point(393, 7);
-            this.gItemPoolOptions.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.gItemPoolOptions.Name = "gItemPoolOptions";
-            this.gItemPoolOptions.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.gItemPoolOptions.Size = new System.Drawing.Size(376, 350);
-            this.gItemPoolOptions.TabIndex = 15;
-            this.gItemPoolOptions.TabStop = false;
-            this.gItemPoolOptions.Text = "Item Pool Options";
+            this.tabItemPool.Controls.Add(this.lItemPoolText);
+            this.tabItemPool.Controls.Add(this.bItemPoolEdit);
+            this.tabItemPool.Controls.Add(this.tItemPool);
+            this.tabItemPool.Controls.Add(this.tableItemPool);
+            this.tabItemPool.Location = new System.Drawing.Point(4, 24);
+            this.tabItemPool.Name = "tabItemPool";
+            this.tabItemPool.Size = new System.Drawing.Size(780, 361);
+            this.tabItemPool.TabIndex = 6;
+            this.tabItemPool.Text = "Item Pool";
+            this.tabItemPool.UseVisualStyleBackColor = true;
             // 
-            // bItemListEditor
+            // lItemPoolText
             // 
-            this.bItemListEditor.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.bItemListEditor.Location = new System.Drawing.Point(140, 142);
-            this.bItemListEditor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.bItemListEditor.Name = "bItemListEditor";
-            this.bItemListEditor.Size = new System.Drawing.Size(97, 28);
-            this.bItemListEditor.TabIndex = 18;
-            this.bItemListEditor.Text = "Item List Editor";
-            this.bItemListEditor.UseVisualStyleBackColor = true;
-            this.bItemListEditor.Visible = false;
-            this.bItemListEditor.Click += new System.EventHandler(this.bItemListEditor_Click);
+            this.lItemPoolText.AutoSize = true;
+            this.lItemPoolText.Location = new System.Drawing.Point(7, 34);
+            this.lItemPoolText.Name = "lItemPoolText";
+            this.lItemPoolText.Size = new System.Drawing.Size(102, 15);
+            this.lItemPoolText.TabIndex = 25;
+            this.lItemPoolText.Text = "0/0 items selected";
             // 
-            // tCustomItemList
+            // bItemPoolEdit
             // 
-            this.tCustomItemList.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.tCustomItemList.Location = new System.Drawing.Point(12, 175);
-            this.tCustomItemList.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tCustomItemList.Name = "tCustomItemList";
-            this.tCustomItemList.Size = new System.Drawing.Size(352, 23);
-            this.tCustomItemList.TabIndex = 19;
-            this.tCustomItemList.Text = "-----------";
-            this.tCustomItemList.Visible = false;
-            this.tCustomItemList.TextChanged += new System.EventHandler(this.tCustomItemList_TextChanged);
+            this.bItemPoolEdit.Location = new System.Drawing.Point(697, 3);
+            this.bItemPoolEdit.Name = "bItemPoolEdit";
+            this.bItemPoolEdit.Size = new System.Drawing.Size(75, 25);
+            this.bItemPoolEdit.TabIndex = 24;
+            this.bItemPoolEdit.Text = "Edit";
+            this.bItemPoolEdit.UseVisualStyleBackColor = true;
+            this.bItemPoolEdit.Click += new System.EventHandler(this.bItemPoolEdit_Click);
             // 
-            // lCustomItemAmount
+            // tItemPool
             // 
-            this.lCustomItemAmount.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lCustomItemAmount.AutoSize = true;
-            this.lCustomItemAmount.Location = new System.Drawing.Point(10, 203);
-            this.lCustomItemAmount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lCustomItemAmount.Name = "lCustomItemAmount";
-            this.lCustomItemAmount.Size = new System.Drawing.Size(122, 15);
-            this.lCustomItemAmount.TabIndex = 20;
-            this.lCustomItemAmount.Text = "0/0 items randomized";
-            this.lCustomItemAmount.Visible = false;
+            this.tItemPool.Location = new System.Drawing.Point(7, 4);
+            this.tItemPool.Name = "tItemPool";
+            this.tItemPool.Size = new System.Drawing.Size(684, 23);
+            this.tItemPool.TabIndex = 23;
+            this.tItemPool.TextChanged += new System.EventHandler(this.tItemPool_TextChanged);
+            // 
+            // tableItemPool
+            // 
+            this.tableItemPool.AutoScroll = true;
+            this.tableItemPool.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tableItemPool.ColumnCount = 1;
+            this.tableItemPool.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableItemPool.Location = new System.Drawing.Point(3, 160);
+            this.tableItemPool.Name = "tableItemPool";
+            this.tableItemPool.RowCount = 1;
+            this.tableItemPool.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableItemPool.Size = new System.Drawing.Size(774, 198);
+            this.tableItemPool.TabIndex = 22;
             // 
             // tabGimmicks
             // 
@@ -2232,16 +2209,14 @@ namespace MMR.UI.Forms
             this.tOtherCustomizations.ResumeLayout(false);
             this.tOtherCustomization.ResumeLayout(false);
             this.tOtherCustomization.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            this.gItemPoolOptions.ResumeLayout(false);
-            this.gItemPoolOptions.PerformLayout();
+            this.tabItemPool.ResumeLayout(false);
+            this.tabItemPool.PerformLayout();
             this.tabGimmicks.ResumeLayout(false);
             this.tabGimmicks.PerformLayout();
             this.groupBox12.ResumeLayout(false);
@@ -2331,7 +2306,6 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.ToolStripSeparator mSep1;
         private System.Windows.Forms.OpenFileDialog openBROM;
         private System.Windows.Forms.ToolStripMenuItem mCustomise;
-        private System.Windows.Forms.CheckBox cUserItems;
         private System.Windows.Forms.ProgressBar pProgress;
         private System.ComponentModel.BackgroundWorker bgWorker;
         private System.Windows.Forms.Label lStatus;
@@ -2361,11 +2335,7 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.CheckBox cEponaSword;
         private System.Windows.Forms.CheckBox cUpdateChests;
         private System.Windows.Forms.GroupBox gGameOutput;
-        private System.Windows.Forms.GroupBox gItemPoolOptions;
         private System.Windows.Forms.CheckBox cNoStartingItems;
-        private System.Windows.Forms.Button bItemListEditor;
-        private System.Windows.Forms.TextBox tCustomItemList;
-        private System.Windows.Forms.Label lCustomItemAmount;
         private System.Windows.Forms.TextBox tbUserLogic;
         private System.Windows.Forms.Button bLoadLogic;
         private System.Windows.Forms.ComboBox cBlastCooldown;
@@ -2394,7 +2364,6 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.GroupBox groupBox9;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.GroupBox gHints;
         private System.Windows.Forms.TabPage tabGimmicks;
         private System.Windows.Forms.CheckBox cHTMLLog;
@@ -2449,6 +2418,11 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TabControl tOtherCustomizations;
         private System.Windows.Forms.TabPage tOtherCustomization;
+        private System.Windows.Forms.TabPage tabItemPool;
+        private System.Windows.Forms.TableLayoutPanel tableItemPool;
+        private System.Windows.Forms.Button bItemPoolEdit;
+        private System.Windows.Forms.TextBox tItemPool;
+        private System.Windows.Forms.Label lItemPoolText;
     }
 }
 
