@@ -7,7 +7,7 @@ namespace MMR.Randomizer.GameObjects
         Fake = -1,
         None,
 
-        [Description("Randomize the main inventory.")]
+        [Description("Randomize items on the main inventory screen other than trade items. Also includes Bombers' Notebook, Swords, Mirror Shield and Wallets.")]
         MainInventory,
 
         [Description("Randomize songs except Song of Soaring.")]
@@ -28,10 +28,10 @@ namespace MMR.Randomizer.GameObjects
         [Description("Randomize Moon's Tear, Title Deeds, Letter to Kafei, Pendant of Memories, Room Key and Letter to Mama.")]
         TradeItems,
 
-        [Description("Randomize the maps sold by Tingle.")]
+        [Description("Randomize Dungeon Maps/Compasses and overworld maps.")]
         Navigation,
 
-        [Description("Randomize Great Fairy rewards including Magic Power, Great Spin Attack, Extended Magic Power and Double Defense.")]
+        [Description("Randomize non-item Great Fairy rewards including Magic Power, Great Spin Attack, Extended Magic Power and Double Defense.")]
         MagicPowers,
 
         [Description("Randomize golden skulltula tokens. Tokens will not reset to 0 after Song of Time.")]
@@ -100,7 +100,7 @@ namespace MMR.Randomizer.GameObjects
         [Description("Randomize the Chateau refill. Bottle with Chateau Romani is part of Main Inventory")]
         Chateau,
 
-        [Description("Randomize the Searhose.")]
+        [Description("Randomize the Seahorse.")]
         Seahorse,
 
         [Description("Randomize the Fairy purchase in the Trading Post.")]
@@ -115,7 +115,7 @@ namespace MMR.Randomizer.GameObjects
         Fake = -1,
         None,
 
-        [Description("Randomize all chests except those in the Treasure Chest Game and chests opened after fighting bosses/minibosses.")]
+        [Description("Randomize chests that don't fit into the other categories.")]
         Chests,
 
         [Description("Randomize items rewarded by NPCs except Minigames.")]
