@@ -136,8 +136,8 @@ namespace MMR.Randomizer.GameObjects
         [Description("Randomize items earned by fighting bosses/minibosses.")]
         BossFights,
 
-        [Description("Randomize loose/bubble stray fairies.")]
-        StrayFairies,
+        [Description("Randomize items on The Moon.")]
+        MoonItems,
 
         [Description("Randomize items spawned by enemies including freestanding Golden Skulltulas, enemies that normally spawn Stray Fairies and Takkuri.")]
         EnemySpawn,

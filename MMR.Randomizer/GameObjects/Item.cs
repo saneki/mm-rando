@@ -2120,7 +2120,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a masked child's game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x11F), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.Freestanding)]
+        [GetItemIndex(0x11F), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.MoonItems)]
         HeartPieceDekuTrial,
 
         [Visible]
@@ -2129,7 +2129,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a masked child's game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x120), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.Freestanding)]
+        [GetItemIndex(0x120), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.MoonItems)]
         HeartPieceGoronTrial,
 
         [Visible]
@@ -2138,7 +2138,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a masked child's game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x121), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.Freestanding)]
+        [GetItemIndex(0x121), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.MoonItems)]
         HeartPieceZoraTrial,
 
         [Visible]
@@ -2147,7 +2147,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a masked child's game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x122), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.Freestanding)]
+        [GetItemIndex(0x122), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.MoonItems)]
         HeartPieceLinkTrial,
 
         [StartingItem(0xC5CE53, 0x35)]
@@ -2155,7 +2155,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("the lonely child"), GossipItemHint("the wrath of a god")]
         [ShopText("A mask that contains the merits of all masks.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x7B), ItemPool(ItemCategory.Masks, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x7B), ItemPool(ItemCategory.Masks, LocationCategory.MoonItems)]
         MaskFierceDeity,
 
         [Repeatable, Temporary]
@@ -2163,7 +2163,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a masked child's game"), GossipItemHint("a quiver refill", "a bundle of projectiles")]
         [ShopText("Ammo for your bow.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02D4B000 + 0x76, ChestAttribute.AppearanceType.AppearsClear)]
-        [GetItemIndex(0x126), ItemPool(ItemCategory.Arrows, LocationCategory.Chests)]
+        [GetItemIndex(0x126), ItemPool(ItemCategory.Arrows, LocationCategory.MoonItems)]
         ChestLinkTrialArrow30,
 
         [Repeatable, Temporary]
@@ -2171,7 +2171,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a masked child's game"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bombs that are practical, sleek and self-propelled.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02D4E000 + 0xC6, ChestAttribute.AppearanceType.AppearsClear)]
-        [GetItemIndex(0x127), ItemPool(ItemCategory.Bombchu, LocationCategory.Chests)]
+        [GetItemIndex(0x127), ItemPool(ItemCategory.Bombchu, LocationCategory.MoonItems)]
         ChestLinkTrialBombchu10,
 
         [Repeatable, Temporary]
@@ -2774,7 +2774,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Return it to the Fairy Fountain in North Clock Town.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0x3B), ItemPool(ItemCategory.StrayFairies, LocationCategory.StrayFairies)]
+        [GetItemIndex(0x3B), ItemPool(ItemCategory.StrayFairies, LocationCategory.Freestanding)]
         //[GetItemIndex(0x1A1)] // used as a flag to track if the actual fairy has been collected.
         CollectibleStrayFairyClockTown,
 
@@ -2783,7 +2783,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0x177), ItemPool(ItemCategory.StrayFairies, LocationCategory.StrayFairies)]
+        [GetItemIndex(0x177), ItemPool(ItemCategory.StrayFairies, LocationCategory.Freestanding)]
         CollectibleStrayFairyWoodfall1,
 
         [Visible]
@@ -2791,7 +2791,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0x178), ItemPool(ItemCategory.StrayFairies, LocationCategory.StrayFairies)]
+        [GetItemIndex(0x178), ItemPool(ItemCategory.StrayFairies, LocationCategory.Freestanding)]
         CollectibleStrayFairyWoodfall2,
 
         [Visible]
@@ -2799,7 +2799,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0x179), ItemPool(ItemCategory.StrayFairies, LocationCategory.StrayFairies)]
+        [GetItemIndex(0x179), ItemPool(ItemCategory.StrayFairies, LocationCategory.Freestanding)]
         CollectibleStrayFairyWoodfall3,
 
         [Visible]
@@ -2807,7 +2807,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0x17A), ItemPool(ItemCategory.StrayFairies, LocationCategory.StrayFairies)]
+        [GetItemIndex(0x17A), ItemPool(ItemCategory.StrayFairies, LocationCategory.Freestanding)]
         CollectibleStrayFairyWoodfall4,
 
         [Visible]
@@ -2823,7 +2823,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0x17C), ItemPool(ItemCategory.StrayFairies, LocationCategory.StrayFairies)]
+        [GetItemIndex(0x17C), ItemPool(ItemCategory.StrayFairies, LocationCategory.Freestanding)]
         CollectibleStrayFairyWoodfall6,
 
         [Visible]
@@ -2831,7 +2831,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0x17D), ItemPool(ItemCategory.StrayFairies, LocationCategory.StrayFairies)]
+        [GetItemIndex(0x17D), ItemPool(ItemCategory.StrayFairies, LocationCategory.Freestanding)]
         CollectibleStrayFairyWoodfall7,
 
         [Visible]
@@ -2847,7 +2847,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Woodfall.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0x17F), ItemPool(ItemCategory.StrayFairies, LocationCategory.StrayFairies)]
+        [GetItemIndex(0x17F), ItemPool(ItemCategory.StrayFairies, LocationCategory.Freestanding)]
         CollectibleStrayFairyWoodfall9,
 
         [Visible]
@@ -2903,7 +2903,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0x18C), ItemPool(ItemCategory.StrayFairies, LocationCategory.StrayFairies)]
+        [GetItemIndex(0x18C), ItemPool(ItemCategory.StrayFairies, LocationCategory.Freestanding)]
         CollectibleStrayFairySnowhead1,
 
         [Visible]
@@ -2911,7 +2911,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0x18D), ItemPool(ItemCategory.StrayFairies, LocationCategory.StrayFairies)]
+        [GetItemIndex(0x18D), ItemPool(ItemCategory.StrayFairies, LocationCategory.Freestanding)]
         CollectibleStrayFairySnowhead2,
 
         [Visible]
@@ -2927,7 +2927,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0x190), ItemPool(ItemCategory.StrayFairies, LocationCategory.StrayFairies)]
+        [GetItemIndex(0x190), ItemPool(ItemCategory.StrayFairies, LocationCategory.Freestanding)]
         CollectibleStrayFairySnowhead4,
 
         [Visible]
@@ -2935,7 +2935,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0x191), ItemPool(ItemCategory.StrayFairies, LocationCategory.StrayFairies)]
+        [GetItemIndex(0x191), ItemPool(ItemCategory.StrayFairies, LocationCategory.Freestanding)]
         CollectibleStrayFairySnowhead5,
 
         [Visible]
@@ -2951,7 +2951,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Snowhead.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0x193), ItemPool(ItemCategory.StrayFairies, LocationCategory.StrayFairies)]
+        [GetItemIndex(0x193), ItemPool(ItemCategory.StrayFairies, LocationCategory.Freestanding)]
         CollectibleStrayFairySnowhead7,
 
         [Visible]
@@ -3031,7 +3031,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0x1A4), ItemPool(ItemCategory.StrayFairies, LocationCategory.StrayFairies)]
+        [GetItemIndex(0x1A4), ItemPool(ItemCategory.StrayFairies, LocationCategory.Freestanding)]
         CollectibleStrayFairyGreatBay2,
 
         [Visible]
@@ -3039,7 +3039,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0x1A5), ItemPool(ItemCategory.StrayFairies, LocationCategory.StrayFairies)]
+        [GetItemIndex(0x1A5), ItemPool(ItemCategory.StrayFairies, LocationCategory.Freestanding)]
         CollectibleStrayFairyGreatBay3,
 
         [Visible]
@@ -3047,7 +3047,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a lost creature"), GossipItemHint("a lost fairy")]
         [ShopText("Collect 15 and return them to the Fairy Fountain in Great Bay.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0x1A6), ItemPool(ItemCategory.StrayFairies, LocationCategory.StrayFairies)]
+        [GetItemIndex(0x1A6), ItemPool(ItemCategory.StrayFairies, LocationCategory.Freestanding)]
         CollectibleStrayFairyGreatBay4,
 
         // A8 empty

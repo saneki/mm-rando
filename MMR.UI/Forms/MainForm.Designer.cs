@@ -286,7 +286,7 @@ namespace MMR.UI.Forms
             // tOtherCustomizations
             // 
             this.tOtherCustomizations.Controls.Add(this.tOtherCustomization);
-            this.tOtherCustomizations.Location = new System.Drawing.Point(7, 197);
+            this.tOtherCustomizations.Location = new System.Drawing.Point(7, 111);
             this.tOtherCustomizations.Name = "tOtherCustomizations";
             this.tOtherCustomizations.SelectedIndex = 0;
             this.tOtherCustomizations.Size = new System.Drawing.Size(381, 160);
@@ -464,11 +464,11 @@ namespace MMR.UI.Forms
             this.groupBox6.Controls.Add(this.tJunkLocationsList);
             this.groupBox6.Controls.Add(this.bJunkLocationsEditor);
             this.groupBox6.Controls.Add(this.lJunkLocationsAmount);
-            this.groupBox6.Location = new System.Drawing.Point(200, 108);
+            this.groupBox6.Location = new System.Drawing.Point(394, 96);
             this.groupBox6.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox6.Size = new System.Drawing.Size(186, 83);
+            this.groupBox6.Size = new System.Drawing.Size(377, 83);
             this.groupBox6.TabIndex = 28;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Enforce Junk Locations";
@@ -480,7 +480,7 @@ namespace MMR.UI.Forms
             this.tJunkLocationsList.Location = new System.Drawing.Point(13, 51);
             this.tJunkLocationsList.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tJunkLocationsList.Name = "tJunkLocationsList";
-            this.tJunkLocationsList.Size = new System.Drawing.Size(118, 23);
+            this.tJunkLocationsList.Size = new System.Drawing.Size(309, 23);
             this.tJunkLocationsList.TabIndex = 26;
             this.tJunkLocationsList.Text = "--";
             this.tJunkLocationsList.TextChanged += new System.EventHandler(this.tJunkLocationsList_TextChanged);
@@ -489,7 +489,7 @@ namespace MMR.UI.Forms
             // 
             this.bJunkLocationsEditor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.bJunkLocationsEditor.Location = new System.Drawing.Point(128, 50);
+            this.bJunkLocationsEditor.Location = new System.Drawing.Point(319, 50);
             this.bJunkLocationsEditor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.bJunkLocationsEditor.Name = "bJunkLocationsEditor";
             this.bJunkLocationsEditor.Size = new System.Drawing.Size(46, 25);
@@ -513,11 +513,11 @@ namespace MMR.UI.Forms
             this.groupBox4.Controls.Add(this.tStartingItemList);
             this.groupBox4.Controls.Add(this.lCustomStartingItemAmount);
             this.groupBox4.Controls.Add(this.bStartingItemEditor);
-            this.groupBox4.Location = new System.Drawing.Point(7, 108);
+            this.groupBox4.Location = new System.Drawing.Point(394, 7);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox4.Size = new System.Drawing.Size(186, 83);
+            this.groupBox4.Size = new System.Drawing.Size(377, 83);
             this.groupBox4.TabIndex = 17;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Extra Starting Items";
@@ -529,7 +529,7 @@ namespace MMR.UI.Forms
             this.tStartingItemList.Location = new System.Drawing.Point(13, 52);
             this.tStartingItemList.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tStartingItemList.Name = "tStartingItemList";
-            this.tStartingItemList.Size = new System.Drawing.Size(118, 23);
+            this.tStartingItemList.Size = new System.Drawing.Size(309, 23);
             this.tStartingItemList.TabIndex = 26;
             this.tStartingItemList.Text = "--";
             this.tStartingItemList.TextChanged += new System.EventHandler(this.tStartingItemList_TextChanged);
@@ -548,7 +548,7 @@ namespace MMR.UI.Forms
             // 
             this.bStartingItemEditor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.bStartingItemEditor.Location = new System.Drawing.Point(129, 51);
+            this.bStartingItemEditor.Location = new System.Drawing.Point(320, 51);
             this.bStartingItemEditor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.bStartingItemEditor.Name = "bStartingItemEditor";
             this.bStartingItemEditor.Size = new System.Drawing.Size(46, 25);
