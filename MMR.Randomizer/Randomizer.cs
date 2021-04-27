@@ -49,16 +49,7 @@ namespace MMR.Randomizer
         }
 
         // Starting items should not be replaced by trade items, or items that can be downgraded.
-        private readonly List<Item> ForbiddenStartingItems = new List<Item>
-            {
-                // Starting with Magic Bean or Powder Keg doesn't actually give you one,
-                // nor do you get one when you play Song of Time.
-                Item.ItemMagicBean,
-                Item.ItemPowderKeg,
-            }
-            .Concat(Enumerable.Range((int)Item.TradeItemMoonTear, Item.TradeItemMamaLetter - Item.TradeItemMoonTear + 1).Cast<Item>())
-            .Concat(Enumerable.Range((int)Item.ItemBottleWitch, Item.ItemBottleMadameAroma - Item.ItemBottleWitch + 1).Cast<Item>())
-            .ToList();
+        private readonly List<Item> ForbiddenStartingItems = new List<Item>();
 
         private readonly Dictionary<Item, List<Item>> ForbiddenReplacedBy = new Dictionary<Item, List<Item>>
         {
@@ -1352,9 +1343,11 @@ namespace MMR.Randomizer
                 Item.StartingHeartContainer1,
                 Item.StartingHeartContainer2,
             };
-            var availableStartingItems = (_settings.NoStartingItems
-                ? ItemUtils.AllRupees()
-                : ItemUtils.StartingItems())
+            var availableStartingItems = (_settings.StartingItemMode switch {
+                    StartingItemMode.Random => ItemUtils.StartingItems().Where(item => !item.IsTemporary() && item != Item.ItemPowderKeg),
+                    StartingItemMode.AllowTemporaryItems => ItemUtils.StartingItems(),
+                    _ => ItemUtils.AllRupees(),
+                })
                 .Where(item => !ItemList[item].NewLocation.HasValue && !ForbiddenStartingItems.Contains(item) && !_settings.CustomStartingItemList.Contains(item))
                 .Cast<Item?>()
                 .ToList();

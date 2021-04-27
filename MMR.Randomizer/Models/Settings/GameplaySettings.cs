@@ -168,9 +168,9 @@ namespace MMR.Randomizer.Models.Settings
         public bool RandomizeEnemies { get; set; }
 
         /// <summary>
-        /// Prevents player starting with any items that are randomized.
+        /// Set how starting items are randomized
         /// </summary>
-        public bool NoStartingItems { get; set; } = true;
+        public StartingItemMode StartingItemMode { get; set; }
 
         public SmallKeyMode SmallKeyMode { get; set; }
 

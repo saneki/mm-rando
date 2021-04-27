@@ -63,7 +63,7 @@ namespace MMR.Randomizer.GameObjects
         ItemBombBag,
 
         [Repeatable, Temporary]
-        //[StartingItem(0xC5CE2E, 0x0A)]
+        [StartingItemId(0x0A)]
         [ItemName("Magic Bean"), LocationName("Bean Man"), Region(Region.DekuPalace)]
         [GossipLocationHint("a hidden merchant", "a gorging merchant"), GossipItemHint("a plant seed")]
         [ShopText("Plant it in soft soil.")]
@@ -72,7 +72,7 @@ namespace MMR.Randomizer.GameObjects
         ItemMagicBean,
 
         [Repeatable]
-        //[StartingItem(0xC5CE30, 0x0C)]
+        [StartingItemId(0x0C)]
         [ItemName("Powder Keg"), LocationName("Powder Keg Challenge"), Region(Region.GoronVillage)]
         [GossipLocationHint("a large goron"), GossipItemHint("gunpowder", "a dangerous item", "an explosive barrel")]
         [ShopText("Both its power and its size are immense!")]
@@ -150,7 +150,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x130), ItemPool(ItemCategory.MainInventory, LocationCategory.NPCRewards)]
         ItemFairySword,
 
-        //[StartingItem(0xC5CE36, 0x12)]
+        [StartingItemId(0x11)]
         [Repeatable, Temporary, Overwritable] // specially handled to turn into Red Potion on subsequent times
         [ItemName("Bottle with Red Potion"), LocationName("Kotake"), Region(Region.SouthernSwamp)]
         [GossipLocationHint("the sleeping witch"), GossipItemHint("a vessel of health", "bottled fortitude")]
@@ -159,7 +159,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x59), ItemPool(ItemCategory.MainInventory, LocationCategory.NPCRewards)]
         ItemBottleWitch,
 
-        //[StartingItem(0xC5CE37, 0x12)]
+        [StartingItemId(0x18)]
         [Repeatable, Temporary, Overwritable] // specially handled to turn into Milk on subsequent times
         [ItemName("Bottle with Milk"), LocationName("Aliens Defense"), Region(Region.RomaniRanch)]
         [GossipLocationHint("the ranch girl", "a good deed"), GossipItemHint("a dairy product", "the produce of cows")]
@@ -170,7 +170,7 @@ namespace MMR.Randomizer.GameObjects
         ItemBottleAliens,
 
         [RupeeRepeatable]
-        //[StartingItem(0xC5CE38, 0x12)]
+        [StartingItemId(0x22)]
         [Repeatable, Temporary, Overwritable] // specially handled to turn into Gold Dust on subsequent times
         [ItemName("Bottle with Gold Dust"), LocationName("Goron Race"), Region(Region.TwinIslands)]
         [GossipLocationHint("a sporting event"), GossipItemHint("a gleaming powder"), GossipCompetitiveHint(-2)]
@@ -196,7 +196,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x64), ItemPool(ItemCategory.MainInventory, LocationCategory.BossFights)]
         ItemBottleDampe,
 
-        //[StartingItem(0xC5CE3B, 0x12)]
+        [StartingItemId(0x25)]
         [Repeatable, Temporary, Overwritable] // specially handled to turn into Chateau Romani on subsequent times
         [ItemName("Bottle with Chateau Romani"), LocationName("Madame Aroma in Bar"), Region(Region.EastClockTown)]
         [GossipLocationHint("an important lady"), GossipItemHint("a dairy product", "an adult beverage")]
@@ -1728,6 +1728,7 @@ namespace MMR.Randomizer.GameObjects
         ChestInvertedStoneTowerBombchu10,
 
         [Repeatable, Temporary]
+        [StartingItemId(0x0A)]
         [ItemName("Magic Bean"), LocationName("Inverted Stone Tower Left Chest"), Region(Region.StoneTower)]
         [GossipLocationHint("a sky below"), GossipItemHint("a plant seed")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold), Chest(0x02BC9000 + 0x256, ChestAttribute.AppearanceType.Normal)]
@@ -3342,6 +3343,7 @@ namespace MMR.Randomizer.GameObjects
         MundaneItemPictographContestRedRupee,
 
         [Repeatable, Temporary, Purchaseable]
+        [StartingItemId(0x0A)]
         [ItemName("Magic Bean"), LocationName("Swamp Scrub Purchase"), Region(Region.SouthernSwamp)]
         [GossipLocationHint("a southern merchant"), GossipItemHint("a plant seed")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]

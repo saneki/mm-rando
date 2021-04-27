@@ -95,7 +95,7 @@ namespace MMR.UI.Forms
             TooltipBuilder.SetTooltip(cFloors, "Select a floortype for every floor ingame:\n\n - Default: Vanilla floortypes.\n - Sand: Link sinks slowly into every floor, affecting movement speed.\n - Ice: Every floor is slippery.\n - Snow: Similar to sand. \n - Random: Any random floortypes of the above.");
             TooltipBuilder.SetTooltip(cClockSpeed, "Modify the speed of time.");
             TooltipBuilder.SetTooltip(cHideClock, "Clock UI will be hidden.");
-            TooltipBuilder.SetTooltip(cNoStartingItems, "You will not start with any randomized starting items.");
+            TooltipBuilder.SetTooltip(cStartingItems, "Select a starting item mode:\n\nNone - You will not start with any randomized starting items.\nRandom - You will start with randomized starting items.\nAllow Temporary Items - You will start with randomized starting items including Keg, Magic Bean and Bottles with X.");
             TooltipBuilder.SetTooltip(cBlastCooldown, "Adjust the cooldown timer after using the Blast Mask.");
             TooltipBuilder.SetTooltip(cIceTraps, "Amount of ice traps to be added to pool by replacing junk items.");
             TooltipBuilder.SetTooltip(cIceTrapsAppearance, "Appearance of ice traps in pool for world models.");
@@ -933,7 +933,7 @@ namespace MMR.UI.Forms
             cClockSpeed.SelectedIndex = (int)_configuration.GameplaySettings.ClockSpeed;
             cNoDowngrades.Checked = _configuration.GameplaySettings.PreventDowngrades;
             cShopAppearance.Checked = _configuration.GameplaySettings.UpdateShopAppearance;
-            cNoStartingItems.Checked = _configuration.GameplaySettings.NoStartingItems;
+            cStartingItems.SelectedIndex = (int)_configuration.GameplaySettings.StartingItemMode;
             cEponaSword.Checked = _configuration.GameplaySettings.FixEponaSword;
             cUpdateChests.Checked = _configuration.GameplaySettings.UpdateChests;
             cSkipBeaver.Checked = _configuration.GameplaySettings.SpeedupBeavers;
@@ -1186,9 +1186,9 @@ namespace MMR.UI.Forms
             UpdateSingleSetting(() => _configuration.GameplaySettings.IceTrapQuirks = cIceTrapQuirks.Checked);
         }
 
-        private void cNoStartingItems_CheckedChanged(object sender, EventArgs e)
+        private void cStartingItems_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateSingleSetting(() => _configuration.GameplaySettings.NoStartingItems = cNoStartingItems.Checked);
+            UpdateSingleSetting(() => _configuration.GameplaySettings.StartingItemMode = (StartingItemMode)cStartingItems.SelectedIndex);
         }
 
         private void cQText_CheckedChanged(object sender, EventArgs e)
@@ -1450,19 +1450,13 @@ namespace MMR.UI.Forms
             cSpoiler.Enabled = !vanillaMode;
             cHTMLLog.Enabled = !vanillaMode;
             cGossipHints.Enabled = !vanillaMode;
-            cNoStartingItems.Enabled = !vanillaMode && _configuration.GameplaySettings.CustomItemList.Any(item => item.Name().Contains("Rupee"));
+            cStartingItems.Enabled = !vanillaMode;
             tJunkLocationsList.Enabled = !vanillaMode && _configuration.GameplaySettings.LogicMode != LogicMode.NoLogic;
             bJunkLocationsEditor.Enabled = !vanillaMode && _configuration.GameplaySettings.LogicMode != LogicMode.NoLogic;
             bToggleTricks.Enabled = !vanillaMode && _configuration.GameplaySettings.LogicMode != LogicMode.NoLogic;
             cIceTraps.Enabled = !vanillaMode;
             cIceTrapsAppearance.Enabled = !vanillaMode;
             cIceTrapQuirks.Enabled = !vanillaMode;
-
-            if (!vanillaMode && !cNoStartingItems.Enabled)
-            {
-                cNoStartingItems.Checked = false;
-                _configuration.GameplaySettings.NoStartingItems = false;
-            }
 
             bLoadLogic.Enabled = _configuration.GameplaySettings.LogicMode == LogicMode.UserLogic;
 
@@ -1516,7 +1510,7 @@ namespace MMR.UI.Forms
             tJunkLocationsList.Enabled = v;
 
             cDEnt.Enabled = v;
-            cNoStartingItems.Enabled = v;
+            cStartingItems.Enabled = v;
             cMixSongs.Enabled = v;
             cProgressiveUpgrades.Enabled = v;
             cEnemy.Enabled = v;

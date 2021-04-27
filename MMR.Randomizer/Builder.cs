@@ -1355,7 +1355,7 @@ namespace MMR.Randomizer
                     continue;
                 }
                 var startingItemValues = item.GetAttributes<StartingItemAttribute>();
-                if (!startingItemValues.Any() && !_randomized.Settings.NoStartingItems)
+                if (!startingItemValues.Any() && _randomized.Settings.StartingItemMode != StartingItemMode.None)
                 {
                     throw new Exception($@"Invalid starting item ""{item}""");
                 }

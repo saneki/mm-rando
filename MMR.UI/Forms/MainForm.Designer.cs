@@ -44,9 +44,10 @@ namespace MMR.UI.Forms
             this.tabMain = new System.Windows.Forms.TabPage();
             this.tOtherCustomizations = new System.Windows.Forms.TabControl();
             this.tOtherCustomization = new System.Windows.Forms.TabPage();
+            this.cStartingItems = new System.Windows.Forms.ComboBox();
+            this.lStartingItems = new System.Windows.Forms.Label();
             this.cProgressiveUpgrades = new System.Windows.Forms.CheckBox();
             this.cDEnt = new System.Windows.Forms.CheckBox();
-            this.cNoStartingItems = new System.Windows.Forms.CheckBox();
             this.cMixSongs = new System.Windows.Forms.CheckBox();
             this.cEnemy = new System.Windows.Forms.CheckBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
@@ -294,9 +295,10 @@ namespace MMR.UI.Forms
             // 
             // tOtherCustomization
             // 
+            this.tOtherCustomization.Controls.Add(this.cStartingItems);
+            this.tOtherCustomization.Controls.Add(this.lStartingItems);
             this.tOtherCustomization.Controls.Add(this.cProgressiveUpgrades);
             this.tOtherCustomization.Controls.Add(this.cDEnt);
-            this.tOtherCustomization.Controls.Add(this.cNoStartingItems);
             this.tOtherCustomization.Controls.Add(this.cMixSongs);
             this.tOtherCustomization.Controls.Add(this.cEnemy);
             this.tOtherCustomization.Location = new System.Drawing.Point(4, 24);
@@ -307,13 +309,37 @@ namespace MMR.UI.Forms
             this.tOtherCustomization.Text = "Other";
             this.tOtherCustomization.UseVisualStyleBackColor = true;
             // 
+            // cStartingItems
+            // 
+            this.cStartingItems.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cStartingItems.FormattingEnabled = true;
+            this.cStartingItems.Items.AddRange(new object[] {
+            "None",
+            "Random",
+            "Allow Temporary Items"});
+            this.cStartingItems.Location = new System.Drawing.Point(6, 71);
+            this.cStartingItems.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.cStartingItems.Name = "cStartingItems";
+            this.cStartingItems.Size = new System.Drawing.Size(160, 23);
+            this.cStartingItems.TabIndex = 27;
+            this.cStartingItems.SelectedIndexChanged += new System.EventHandler(this.cStartingItems_SelectedIndexChanged);
+            // 
+            // lStartingItems
+            // 
+            this.lStartingItems.AutoSize = true;
+            this.lStartingItems.Location = new System.Drawing.Point(6, 56);
+            this.lStartingItems.Name = "lStartingItems";
+            this.lStartingItems.Size = new System.Drawing.Size(80, 15);
+            this.lStartingItems.TabIndex = 22;
+            this.lStartingItems.Text = "Starting Items";
+            // 
             // cProgressiveUpgrades
             // 
             this.cProgressiveUpgrades.AutoSize = true;
             this.cProgressiveUpgrades.BackColor = System.Drawing.Color.Transparent;
             this.cProgressiveUpgrades.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cProgressiveUpgrades.ForeColor = System.Drawing.Color.Black;
-            this.cProgressiveUpgrades.Location = new System.Drawing.Point(6, 63);
+            this.cProgressiveUpgrades.Location = new System.Drawing.Point(193, 10);
             this.cProgressiveUpgrades.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cProgressiveUpgrades.Name = "cProgressiveUpgrades";
             this.cProgressiveUpgrades.Size = new System.Drawing.Size(130, 17);
@@ -336,21 +362,6 @@ namespace MMR.UI.Forms
             this.cDEnt.Text = "Dungeon entrances";
             this.cDEnt.UseVisualStyleBackColor = false;
             this.cDEnt.CheckedChanged += new System.EventHandler(this.cDEnt_CheckedChanged);
-            // 
-            // cNoStartingItems
-            // 
-            this.cNoStartingItems.AutoSize = true;
-            this.cNoStartingItems.BackColor = System.Drawing.Color.Transparent;
-            this.cNoStartingItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cNoStartingItems.ForeColor = System.Drawing.Color.Black;
-            this.cNoStartingItems.Location = new System.Drawing.Point(193, 10);
-            this.cNoStartingItems.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cNoStartingItems.Name = "cNoStartingItems";
-            this.cNoStartingItems.Size = new System.Drawing.Size(107, 17);
-            this.cNoStartingItems.TabIndex = 20;
-            this.cNoStartingItems.Text = "No Starting Items";
-            this.cNoStartingItems.UseVisualStyleBackColor = false;
-            this.cNoStartingItems.CheckedChanged += new System.EventHandler(this.cNoStartingItems_CheckedChanged);
             // 
             // cMixSongs
             // 
@@ -2335,7 +2346,6 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.CheckBox cEponaSword;
         private System.Windows.Forms.CheckBox cUpdateChests;
         private System.Windows.Forms.GroupBox gGameOutput;
-        private System.Windows.Forms.CheckBox cNoStartingItems;
         private System.Windows.Forms.TextBox tbUserLogic;
         private System.Windows.Forms.Button bLoadLogic;
         private System.Windows.Forms.ComboBox cBlastCooldown;
@@ -2423,6 +2433,8 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.Button bItemPoolEdit;
         private System.Windows.Forms.TextBox tItemPool;
         private System.Windows.Forms.Label lItemPoolText;
+        private System.Windows.Forms.ComboBox cStartingItems;
+        private System.Windows.Forms.Label lStartingItems;
     }
 }
 
