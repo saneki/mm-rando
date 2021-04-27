@@ -179,7 +179,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x6A), ItemPool(ItemCategory.MainInventory, LocationCategory.Minigames)]
         ItemBottleGoronRace,
 
-        //[StartingItem(0xC5CE39, 0x12)]
+        [StartingItemId(0x12)]
         [ItemName("Empty Bottle"), LocationName("Beaver Race #1"), Region(Region.ZoraCape)]
         [GossipLocationHint("a river dweller"), GossipItemHint("an empty vessel", "a glass container"), GossipCompetitiveHint(-2)]
         [GossipCombineOrder(0), GossipCombine(HeartPieceBeaverRace, "Beaver Races")]
@@ -188,7 +188,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x5A), ItemPool(ItemCategory.MainInventory, LocationCategory.Minigames)]
         ItemBottleBeavers,
 
-        //[StartingItem(0xC5CE3A, 0x12)]
+        [StartingItemId(0x12)]
         [ItemName("Empty Bottle"), LocationName("Dampe Digging"), Region(Region.IkanaGraveyard)]
         [GossipLocationHint("a fearful basement"), GossipItemHint("an empty vessel", "a glass container"), GossipCompetitiveHint]
         [ShopText("Carry various items in this.")]
