@@ -9826,16 +9826,13 @@ namespace MMR.Randomizer.GameObjects
         CollectablePathToMountainVillageSmallSnowball4,
 
 
-
-
-
-        [Visible]
+        [Purchaseable]
         [Repeatable]
         [ItemName("Silver Rupee"), LocationName("Zora Cape Jar Game"), Region(Region.ZoraCape)]
         [GossipLocationHint("an ocean game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 100 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x445), ItemPool(ItemCategory.SilverRupees, LocationCategory.NPCRewards), NullableItem]
+        [GetItemIndex(0x445), ItemPool(ItemCategory.SilverRupees, LocationCategory.NPCRewards)]
         CollectableZoraCapeJarGame1,
 
 
@@ -9845,7 +9842,8 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a swarm of bats"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 30 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x446), ItemPool(ItemCategory.RedRupees, LocationCategory.NPCRewards), NullableItem]
+        [GetItemIndex(0x446), ItemPool(ItemCategory.RedRupees, LocationCategory.NPCRewards)]
+        [ExclusiveItemMessage(0x9001, "\u0017You got a \u0001Crimson Rupee\u0000!\u0018\u0011It's worth \u000130 Rupees\u0000!\u0011What a pleasant surprise!\u00BF")]
         CollectableIkanaGraveyardDay2Bats1,
 
 
