@@ -235,17 +235,23 @@ namespace MMR.UI.Forms
             }
         }
 
-        private class VerticalCheckBox : InvertIndeterminateCheckBox
+        private class LocationCategoryLabel : Label
         {
-            public string NewText { get; set; }
+            public List<string> Lines { get; set; }
 
             protected override void OnPaint(PaintEventArgs e)
             {
                 base.OnPaint(e);
                 var b = new SolidBrush(ForeColor);
-                e.Graphics.TranslateTransform(0, Height - 17);
+                e.Graphics.TranslateTransform(0, Height);
                 e.Graphics.RotateTransform(-90);
-                e.Graphics.DrawString(NewText, Font, b, 0f, 0f);
+                foreach (var line in Lines)
+                {
+                    e.Graphics.RotateTransform(15);
+                    e.Graphics.DrawString(line, Font, b, 0f, 0f);
+                    e.Graphics.RotateTransform(-15);
+                    e.Graphics.TranslateTransform(0, 26);
+                }
             }
         }
 
@@ -258,7 +264,16 @@ namespace MMR.UI.Forms
             tableItemPool.RowCount = Enum.GetValues<ItemCategory>().Count() - 2;
             tableItemPool.ColumnCount = Enum.GetValues<LocationCategory>().Count() - 1;
 
-            var locationCategoriesX = 140;
+            var locationCategoriesX = 141;
+
+            var locationCategoryLabel = new LocationCategoryLabel();
+            locationCategoryLabel.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            locationCategoryLabel.Location = new Point(locationCategoriesX + 24, 30);
+            locationCategoryLabel.Width = 610;
+            locationCategoryLabel.Height = 105;
+            locationCategoryLabel.Lines = Enum.GetValues<LocationCategory>().Where(c => c > 0).Select(c => $"{addSpacesRegex.Replace(c.ToString(), " $1")}: +{itemsByLocationCategory[c].Count}").ToList();
+
+            tabItemPool.Controls.Add(locationCategoryLabel);
 
             foreach (var locationCategory in Enum.GetValues<LocationCategory>())
             {
@@ -267,22 +282,17 @@ namespace MMR.UI.Forms
                     continue;
                 }
 
-                var checkbox = new VerticalCheckBox();
+                var checkbox = new CheckBox();
                 var items = locationCategory == 0 ? ItemUtils.AllLocations().ToList() : itemsByLocationCategory[locationCategory];
                 checkbox.Tag = items;
-                if (locationCategory > 0)
-                {
-                    checkbox.NewText = $"{addSpacesRegex.Replace(locationCategory.ToString(), " $1")}: +{items.Count}";
-                }
                 var description = locationCategory.GetAttribute<DescriptionAttribute>()?.Description;
                 if (description != null)
                 {
                     TooltipBuilder.SetTooltip(checkbox, description);
                 }
-                checkbox.Location = new Point(locationCategoriesX, 30);
+                checkbox.Location = new Point(locationCategoriesX, 140);
                 checkbox.Width = 17;
-                checkbox.Height = 125;
-                checkbox.CheckAlign = ContentAlignment.BottomCenter;
+                checkbox.Height = 17;
                 checkbox.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
                 checkbox.CheckStateChanged += cItemCategory2_CheckStateChanged;
                 tableItemPool.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 25));

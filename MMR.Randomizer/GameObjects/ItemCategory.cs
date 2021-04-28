@@ -119,7 +119,7 @@ namespace MMR.Randomizer.GameObjects
         Chests,
 
         [Description("Randomize items rewarded by NPCs except Minigames.")]
-        NPCRewards,
+        NpcRewards,
 
         [Description("Randomize freestanding items.")]
         Freestanding,

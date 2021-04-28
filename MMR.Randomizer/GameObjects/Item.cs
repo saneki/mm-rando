@@ -77,7 +77,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a large goron"), GossipItemHint("gunpowder", "a dangerous item", "an explosive barrel")]
         [ShopText("Both its power and its size are immense!")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x123), ItemPool(ItemCategory.MainInventory, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x123), ItemPool(ItemCategory.MainInventory, LocationCategory.NpcRewards)]
         ItemPowderKeg,
 
         [StartingItem(0xC5CE31, 0x0D)]
@@ -85,7 +85,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a witch"), GossipItemHint("a light recorder", "a capture device")]
         [ShopText("Use it to snap pictographs.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x43), ItemPool(ItemCategory.MainInventory, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x43), ItemPool(ItemCategory.MainInventory, LocationCategory.NpcRewards)]
         ItemPictobox,
 
         [StartingItem(0xC5CE32, 0x0E)]
@@ -111,7 +111,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a magical being"), GossipItemHint("magic power")]
         [ShopText("Grants the ability to use magic.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x12C), ItemPool(ItemCategory.MagicPowers, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x12C), ItemPool(ItemCategory.MagicPowers, LocationCategory.NpcRewards)]
         FairyMagic,
         
         [StartingItemId(0x9C)]
@@ -119,7 +119,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a magical being"), GossipItemHint("a magic attack"), GossipCompetitiveHint(4, ItemCategory.StrayFairies, false)]
         [ShopText("Increases the power of your spin attack.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x12D), ItemPool(ItemCategory.MagicPowers, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x12D), ItemPool(ItemCategory.MagicPowers, LocationCategory.NpcRewards)]
         FairySpinAttack,
 
         [Progressive]
@@ -130,7 +130,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a magical being"), GossipItemHint("magic power"), GossipCompetitiveHint(4, ItemCategory.StrayFairies, false)]
         [ShopText("Grants the ability to use lots of magic.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x12E), ItemPool(ItemCategory.MagicPowers, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x12E), ItemPool(ItemCategory.MagicPowers, LocationCategory.NpcRewards)]
         FairyDoubleMagic,
 
         [StartingItem(0xC5CDF6, 0x01)]
@@ -139,7 +139,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a magical being"), GossipItemHint("magical defense"), GossipCompetitiveHint(4, ItemCategory.StrayFairies, false)]
         [ShopText("Take half as much damage from enemies.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x12F), ItemPool(ItemCategory.MagicPowers, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x12F), ItemPool(ItemCategory.MagicPowers, LocationCategory.NpcRewards)]
         FairyDoubleDefense,
 
         [StartingItem(0xC5CE34, 0x10)]
@@ -147,7 +147,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a magical being"), GossipItemHint("a black rose", "a powerful blade"), GossipCompetitiveHint(4, ItemCategory.StrayFairies, false)]
         [ShopText("The most powerful sword has black roses etched in its blade.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x130), ItemPool(ItemCategory.MainInventory, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x130), ItemPool(ItemCategory.MainInventory, LocationCategory.NpcRewards)]
         ItemFairySword,
 
         [StartingItemId(0x11)]
@@ -156,7 +156,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("the sleeping witch"), GossipItemHint("a vessel of health", "bottled fortitude")]
         [ShopText("Replenishes your life energy.\u0009\u0001\u0000\u0000 Comes with an Empty Bottle.\u0009\u0002")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x59), ItemPool(ItemCategory.MainInventory, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x59), ItemPool(ItemCategory.MainInventory, LocationCategory.NpcRewards)]
         ItemBottleWitch,
 
         [StartingItemId(0x18)]
@@ -166,7 +166,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipCombineOrder(0), GossipCombine(MaskRomani, "Ranch Sisters Defense")]
         [ShopText("Recover five hearts with one drink. Contains two helpings.\u0009\u0001\u0000\u0000 Comes with an Empty Bottle.\u0009\u0002")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x60), ItemPool(ItemCategory.MainInventory, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x60), ItemPool(ItemCategory.MainInventory, LocationCategory.NpcRewards)]
         ItemBottleAliens,
 
         [RupeeRepeatable]
@@ -202,7 +202,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("an important lady"), GossipItemHint("a dairy product", "an adult beverage")]
         [ShopText("Drink it to get lasting stamina for your magic power.\u0009\u0001\u0000\u0000 Comes with an Empty Bottle.\u0009\u0002")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x6F), ItemPool(ItemCategory.MainInventory, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x6F), ItemPool(ItemCategory.MainInventory, LocationCategory.NpcRewards)]
         ItemBottleMadameAroma,
 
         [StartingItem(0xC5CE71, 0x04)]
@@ -210,7 +210,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a group of children", "a town game"), GossipItemHint("a handy notepad", "a quest logbook")]
         [ShopText("Allows you to keep track of people's schedules.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x50), ItemPool(ItemCategory.MainInventory, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x50), ItemPool(ItemCategory.MainInventory, LocationCategory.NpcRewards)]
         ItemNotebook,
 
         //upgrades
@@ -222,7 +222,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("the mountain smith"), GossipItemHint("a sharp blade")]
         [ShopText("A sharp sword forged at the smithy.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x38), ItemPool(ItemCategory.MainInventory, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x38), ItemPool(ItemCategory.MainInventory, LocationCategory.NpcRewards)]
         UpgradeRazorSword,
 
         [Progressive]
@@ -233,7 +233,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("the mountain smith"), GossipItemHint("a sharp blade")]
         [ShopText("A very sharp sword forged from gold dust.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x39), ItemPool(ItemCategory.MainInventory, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x39), ItemPool(ItemCategory.MainInventory, LocationCategory.NpcRewards)]
         UpgradeGildedSword,
 
         [Downgradable]
@@ -303,7 +303,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a keeper of wealth"), GossipItemHint("a coin case", "great wealth")]
         [ShopText("This can hold up to a maximum of 200 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x08), ItemPool(ItemCategory.MainInventory, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x08), ItemPool(ItemCategory.MainInventory, LocationCategory.NpcRewards)]
         UpgradeAdultWallet,
 
         [Progressive]
@@ -314,7 +314,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipCombineOrder(0), GossipCombine(MundaneItemOceanSpiderHouseDay2PurpleRupee, "Ocean Spider House"), GossipCombine(MundaneItemOceanSpiderHouseDay3RedRupee, "Ocean Spider House")]
         [ShopText("This can hold up to a maximum of 500 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x09), ItemPool(ItemCategory.MainInventory, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x09), ItemPool(ItemCategory.MainInventory, LocationCategory.NpcRewards)]
         UpgradeGiantWallet,
 
         //trades
@@ -332,7 +332,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a town merchant"), GossipItemHint("a property deal")]
         [ShopText("The title deed to the Deku Flower in Clock Town.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0x97), ItemPool(ItemCategory.TradeItems, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x97), ItemPool(ItemCategory.TradeItems, LocationCategory.NpcRewards)]
         TradeItemLandDeed,
 
         [Repeatable, Temporary, Overwritable]
@@ -340,7 +340,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a southern merchant"), GossipItemHint("a property deal")]
         [ShopText("The title deed to the Deku Flower in Southern Swamp.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0x98), ItemPool(ItemCategory.TradeItems, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x98), ItemPool(ItemCategory.TradeItems, LocationCategory.NpcRewards)]
         TradeItemSwampDeed,
 
         [Repeatable, Temporary, Overwritable]
@@ -348,7 +348,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a northern merchant"), GossipItemHint("a property deal")]
         [ShopText("The title deed to the Deku Flower near Goron Village.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0x99), ItemPool(ItemCategory.TradeItems, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x99), ItemPool(ItemCategory.TradeItems, LocationCategory.NpcRewards)]
         TradeItemMountainDeed,
 
         [Repeatable, Temporary, Overwritable]
@@ -356,7 +356,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a western merchant"), GossipItemHint("a property deal")]
         [ShopText("The title deed to the Deku Flower in Zora Hall.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0x9A), ItemPool(ItemCategory.TradeItems, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x9A), ItemPool(ItemCategory.TradeItems, LocationCategory.NpcRewards)]
         TradeItemOceanDeed,
 
         [Repeatable, Temporary, Overwritable]
@@ -364,7 +364,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("checking in", "check-in"), GossipItemHint("a door opener", "a lock opener")]
         [ShopText("With this, you can go in and out of the Stock Pot Inn at night.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0xA0), ItemPool(ItemCategory.TradeItems, LocationCategory.NPCRewards)]
+        [GetItemIndex(0xA0), ItemPool(ItemCategory.TradeItems, LocationCategory.NpcRewards)]
         TradeItemRoomKey,
 
         [Repeatable, Temporary, Overwritable]
@@ -372,7 +372,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a late meeting"), GossipItemHint("a lover's plight", "a lover's letter")]
         [ShopText("A love letter from Anju to Kafei.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0xAA), ItemPool(ItemCategory.TradeItems, LocationCategory.NPCRewards)]
+        [GetItemIndex(0xAA), ItemPool(ItemCategory.TradeItems, LocationCategory.NpcRewards)]
         TradeItemKafeiLetter,
 
         [Repeatable, Temporary, Overwritable]
@@ -380,7 +380,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a posted letter"), GossipItemHint("a cherished necklace", "a symbol of trust")]
         [ShopText("Kafei's symbol of trust for Anju.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0xAB), ItemPool(ItemCategory.TradeItems, LocationCategory.NPCRewards)]
+        [GetItemIndex(0xAB), ItemPool(ItemCategory.TradeItems, LocationCategory.NpcRewards)]
         TradeItemPendant,
 
         [Repeatable, Temporary, Overwritable]
@@ -388,7 +388,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a shady gentleman", "a dodgy seller", "a shady dealer"), GossipItemHint("an important note", "a special delivery")]
         [ShopText("It's a parcel for Kafei's mother.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0xA1), ItemPool(ItemCategory.TradeItems, LocationCategory.NPCRewards)]
+        [GetItemIndex(0xA1), ItemPool(ItemCategory.TradeItems, LocationCategory.NpcRewards)]
         TradeItemMamaLetter,
 
         //notebook hp
@@ -397,7 +397,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a town leader", "an upstanding figure"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x03), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x03), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.NpcRewards)]
         HeartPieceNotebookMayor,
 
         [RupeeRepeatable]
@@ -406,7 +406,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a hard worker", "a delivery person"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0xCE), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.NPCRewards)]
+        [GetItemIndex(0xCE), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.NpcRewards)]
         HeartPieceNotebookPostman,
 
         [StartingItem(0xC5CE70, 0x10, true)]
@@ -414,7 +414,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("traveling sisters", "twin entertainers"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x2B), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x2B), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.NpcRewards)]
         HeartPieceNotebookRosa,
 
         [StartingItem(0xC5CE70, 0x10, true)]
@@ -422,7 +422,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a mystery appearance", "a strange palm"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x2C), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x2C), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.NpcRewards)]
         HeartPieceNotebookHand,
 
         [StartingItem(0xC5CE70, 0x10, true)]
@@ -430,7 +430,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("an old lady"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x2D), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x2D), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.NpcRewards)]
         HeartPieceNotebookGran1,
 
         [StartingItem(0xC5CE70, 0x10, true)]
@@ -438,7 +438,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("an old lady"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x2F), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x2F), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.NpcRewards)]
         HeartPieceNotebookGran2,
 
         //other hp
@@ -448,7 +448,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("the ghost of a fox", "a mysterious fox"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x30), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x30), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.NpcRewards)]
         HeartPieceKeatonQuiz,
 
         [StartingItem(0xC5CE70, 0x10, true)]
@@ -493,7 +493,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("an information carrier", "a correspondence box"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0xA2), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.NPCRewards)]
+        [GetItemIndex(0xA2), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.NpcRewards)]
         HeartPiecePostBox,
 
         [StartingItem(0xC5CE70, 0x10, true)]
@@ -501,7 +501,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("mysterious stones"), GossipItemHint("a segment of health"), GossipCompetitiveHint(-2)]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0xA3), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.NPCRewards)]
+        [GetItemIndex(0xA3), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.NpcRewards)]
         HeartPieceTerminaGossipStones,
 
         [Purchaseable]
@@ -528,7 +528,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a swamp game"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0xA7), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.NPCRewards)]
+        [GetItemIndex(0xA7), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.NpcRewards)]
         HeartPiecePictobox,
 
         [RupeeRepeatable]
@@ -545,7 +545,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a reunion", "a chorus", "an amphibian choir"), GossipItemHint("a segment of health"), GossipCompetitiveHint(3)]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0xAC), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.NPCRewards)]
+        [GetItemIndex(0xAC), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.NpcRewards)]
         HeartPieceChoir,
 
         [RupeeRepeatable]
@@ -563,7 +563,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a reunion"), GossipItemHint("a segment of health"), GossipCompetitiveHint(-2)]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0xAE), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.NPCRewards)]
+        [GetItemIndex(0xAE), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.NpcRewards)]
         HeartPieceSeaHorse,
 
         [RupeeRepeatable]
@@ -580,7 +580,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a muse", "a composition", "a musician", "plagiarism"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0xB0), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.NPCRewards)]
+        [GetItemIndex(0xB0), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.NpcRewards)]
         HeartPieceEvan,
 
         [RupeeRepeatable]
@@ -664,7 +664,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a special delivery", "one last job"), GossipItemHint("a hard worker's hat")]
         [ShopText("You can look into mailboxes when you wear this.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x84), ItemPool(ItemCategory.Masks, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x84), ItemPool(ItemCategory.Masks, LocationCategory.NpcRewards)]
         MaskPostmanHat,
 
         [StartingItem(0xC5CE3D, 0x38)]
@@ -682,7 +682,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a good deed", "an old lady's struggle"), GossipItemHint("a dangerous mask")]
         [ShopText("Wear it and detonate it...")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x8D), ItemPool(ItemCategory.Masks, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x8D), ItemPool(ItemCategory.Masks, LocationCategory.NpcRewards)]
         MaskBlast,
 
         [StartingItem(0xC5CE3F, 0x45)]
@@ -690,7 +690,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a hidden soldier", "a stone circle"), GossipItemHint("inconspicuousness")]
         [ShopText("Become as plain as stone so you can blend into your surroundings.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x8B), ItemPool(ItemCategory.Masks, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x8B), ItemPool(ItemCategory.Masks, LocationCategory.NpcRewards)]
         MaskStone,
 
         [StartingItem(0xC5CE40, 0x40)]
@@ -698,7 +698,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a magical being"), GossipItemHint("a friend of fairies")]
         [ShopText("The mask's hair will shimmer when you're close to a Stray Fairy.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x131), ItemPool(ItemCategory.Masks, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x131), ItemPool(ItemCategory.Masks, LocationCategory.NpcRewards)]
         MaskGreatFairy,
 
         [StartingItem(0xC5CE42, 0x3A)]
@@ -706,7 +706,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a shady gentleman", "a dodgy seller", "a shady dealer"), GossipItemHint("a popular mask", "a fox's mask")]
         [ShopText("The mask of the ghost fox, Keaton.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x80), ItemPool(ItemCategory.Masks, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x80), ItemPool(ItemCategory.Masks, LocationCategory.NpcRewards)]
         MaskKeaton,
 
         [StartingItem(0xC5CE43, 0x46)]
@@ -714,7 +714,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a musician", "an entertainer"), GossipItemHint("a mask of leadership", "a bird's mask")]
         [ShopText("Wear it so young animals will mistake you for their leader.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x8C), ItemPool(ItemCategory.Masks, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x8C), ItemPool(ItemCategory.Masks, LocationCategory.NpcRewards)]
         MaskBremen,
 
         [StartingItem(0xC5CE44, 0x39)]
@@ -722,7 +722,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("an ugly but kind heart", "a lover of chickens"), GossipItemHint("the ears of the wild", "a rabbit's hearing")]
         [ShopText("Wear it to be filled with the speed and hearing of the wild.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x7F), ItemPool(ItemCategory.Masks, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x7F), ItemPool(ItemCategory.Masks, LocationCategory.NpcRewards)]
         MaskBunnyHood,
 
         [StartingItem(0xC5CE45, 0x42)]
@@ -730,7 +730,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a hungry goron", "a person in need"), GossipItemHint("a conductor's mask", "an amphibious mask")]
         [ShopText("When you wear it, you can call the Frog Choir members together.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x88), ItemPool(ItemCategory.Masks, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x88), ItemPool(ItemCategory.Masks, LocationCategory.NpcRewards)]
         MaskDonGero,
 
         [RupeeRepeatable]
@@ -739,7 +739,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a servant of royalty", "the royal servant"), GossipItemHint("heightened senses", "a pig's mask"), GossipCompetitiveHint(-1)]
         [ShopText("Wear it to heighten your sense of smell.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x8E), ItemPool(ItemCategory.Masks, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x8E), ItemPool(ItemCategory.Masks, LocationCategory.NpcRewards)]
         MaskScents,
 
         [StartingItem(0xC5CE48, 0x3C)]
@@ -748,7 +748,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipCombineOrder(1), GossipCombine(ItemBottleAliens, "Ranch Sisters Defense")]
         [ShopText("Wear it to show you're a member of the Milk Bar, Latte.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x82), ItemPool(ItemCategory.Masks, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x82), ItemPool(ItemCategory.Masks, LocationCategory.NpcRewards)]
         MaskRomani,
 
         [StartingItem(0xC5CE49, 0x3D)]
@@ -756,7 +756,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("an entertainer", "a miserable leader"), GossipItemHint("a mask of sadness")]
         [ShopText("People related to Gorman will react to this.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x83), ItemPool(ItemCategory.Masks, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x83), ItemPool(ItemCategory.Masks, LocationCategory.NpcRewards)]
         MaskCircusLeader,
 
         [StartingItem(0xC5CE4A, 0x37)]
@@ -764,7 +764,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("an important lady", "an esteemed woman"), GossipItemHint("the mask of a missing one", "a son's mask")]
         [ShopText("Wear it to inquire about Kafei's whereabouts.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x8F), ItemPool(ItemCategory.Masks, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x8F), ItemPool(ItemCategory.Masks, LocationCategory.NpcRewards)]
         MaskKafei,
 
         [StartingItem(0xC5CE4B, 0x3F)]
@@ -772,7 +772,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a reunion", "a lovers' reunion"), GossipItemHint("a sign of love", "the mark of a couple"), GossipCompetitiveHint(3)]
         [ShopText("When you wear it, you can soften people's hearts.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x85), ItemPool(ItemCategory.Masks, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x85), ItemPool(ItemCategory.Masks, LocationCategory.NpcRewards)]
         MaskCouple,
 
         [StartingItem(0xC5CE4C, 0x36)]
@@ -780,7 +780,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a gold spider"), GossipItemHint("a piercing gaze"), GossipCompetitiveHint(0, ItemCategory.SkulltulaTokens, false)]
         [ShopText("Wear it to read the thoughts of Gossip Stones and animals.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x8A), ItemPool(ItemCategory.Masks, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x8A), ItemPool(ItemCategory.Masks, LocationCategory.NpcRewards)]
         MaskTruth,
 
         [StartingItem(0xC5CE4E, 0x43)]
@@ -788,7 +788,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a ghostly dancer", "a dancer"), GossipItemHint("dance moves")]
         [ShopText("Wear this to perform a mysterious dance.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x89), ItemPool(ItemCategory.Masks, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x89), ItemPool(ItemCategory.Masks, LocationCategory.NpcRewards)]
         MaskKamaro,
 
         [StartingItem(0xC5CE4F, 0x41)]
@@ -796,7 +796,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a healed spirit", "a lost father"), GossipItemHint("a mask of monsters")]
         [ShopText("Even a real Gibdo will mistake you for its own kind.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x87), ItemPool(ItemCategory.Masks, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x87), ItemPool(ItemCategory.Masks, LocationCategory.NpcRewards)]
         MaskGibdo,
 
         [RupeeRepeatable]
@@ -829,7 +829,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a healed spirit", "the lost champion"), GossipItemHint("a mountain spirit")]
         [ShopText("Wear it to assume Goron form.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x79), ItemPool(ItemCategory.Masks, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x79), ItemPool(ItemCategory.Masks, LocationCategory.NpcRewards)]
         MaskGoron,
 
         [StartingItem(0xC5CE4D, 0x34)]
@@ -837,7 +837,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a healed spirit", "a fallen guitarist"), GossipItemHint("an ocean spirit")]
         [ShopText("Wear it to assume Zora form.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x7A), ItemPool(ItemCategory.Masks, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x7A), ItemPool(ItemCategory.Masks, LocationCategory.NpcRewards)]
         MaskZora,
 
         //song
@@ -854,7 +854,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a stone tablet"), GossipItemHint("white wings")]
         [ShopText("This melody sends you to a stone bird statue in an instant.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x70), ItemPool(ItemCategory.SongOfSoaring, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x70), ItemPool(ItemCategory.SongOfSoaring, LocationCategory.NpcRewards)]
         SongSoaring,
 
         [RupeeRepeatable]
@@ -879,7 +879,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a prisoner", "a false imprisonment"), GossipItemHint("a royal song", "an awakening melody")]
         [ShopText("This melody awakens those who have fallen into a deep sleep.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x73), ItemPool(ItemCategory.Songs, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x73), ItemPool(ItemCategory.Songs, LocationCategory.NpcRewards)]
         SongSonata,
 
         [StartingItem(0xC5CE73, 0x80)]
@@ -887,7 +887,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a lonely child", "an elder's son"), GossipItemHint("a sleepy melody", "a father's lullaby")]
         [ShopText("This melody blankets listeners in calm while making eyelids grow heavy.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x74), ItemPool(ItemCategory.Songs, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x74), ItemPool(ItemCategory.Songs, LocationCategory.NpcRewards)]
         SongLullaby,
 
         [StartingItem(0xC5CE72, 0x01)]
@@ -895,7 +895,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("the lost children", "the pirates' loot"), GossipItemHint("an ocean roar", "a song of newborns"), GossipCompetitiveHint(2, nameof(GameplaySettings.AddSongs), true)]
         [ShopText("It's the melody taught by the Zora children that invigorates singing voices.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x75), ItemPool(ItemCategory.Songs, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x75), ItemPool(ItemCategory.Songs, LocationCategory.NpcRewards)]
         SongNewWaveBossaNova,
 
         [StartingItem(0xC5CE72, 0x02)]
@@ -1845,7 +1845,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("being rich"), GossipItemHint("a segment of health"), GossipCompetitiveHint(-2)]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x108), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x108), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.NpcRewards)]
         HeartPieceBank,
 
         //standing HPs
@@ -1918,7 +1918,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("feeding the fish"), GossipItemHint("a segment of health"), GossipCompetitiveHint(0, nameof(GameplaySettings.SpeedupLabFish), false)]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x112), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x112), ItemPool(ItemCategory.PiecesOfHeart, LocationCategory.NpcRewards)]
         HeartPieceLabFish,
 
         [Visible]
@@ -2105,7 +2105,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("an eastern merchant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 200 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x125), ItemPool(ItemCategory.GoldRupees, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x125), ItemPool(ItemCategory.GoldRupees, LocationCategory.NpcRewards)]
         IkanaScrubGoldRupee,
 
         //moon items
@@ -2231,7 +2231,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
         [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0x132), ItemPool(ItemCategory.Milk, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x132), ItemPool(ItemCategory.Milk, LocationCategory.NpcRewards)]
         ItemRanchBarnMainCowMilk,
 
         [Repeatable, Temporary, Overwritable]
@@ -2239,7 +2239,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
         [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0x182), ItemPool(ItemCategory.Milk, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x182), ItemPool(ItemCategory.Milk, LocationCategory.NpcRewards)]
         ItemRanchBarnOtherCowMilk1,
 
         [Repeatable, Temporary, Overwritable]
@@ -2247,7 +2247,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
         [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0x1A2), ItemPool(ItemCategory.Milk, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x1A2), ItemPool(ItemCategory.Milk, LocationCategory.NpcRewards)]
         ItemRanchBarnOtherCowMilk2,
 
         [Repeatable, Temporary, Overwritable]
@@ -2255,7 +2255,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
         [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0x135), ItemPool(ItemCategory.Milk, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x135), ItemPool(ItemCategory.Milk, LocationCategory.NpcRewards)]
         ItemWellCowMilk,
 
         [Repeatable, Temporary, Overwritable]
@@ -2263,7 +2263,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
         [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0x136), ItemPool(ItemCategory.Milk, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x136), ItemPool(ItemCategory.Milk, LocationCategory.NpcRewards)]
         ItemTerminaGrottoCowMilk1,
 
         [Repeatable, Temporary, Overwritable]
@@ -2271,7 +2271,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
         [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0x137), ItemPool(ItemCategory.Milk, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x137), ItemPool(ItemCategory.Milk, LocationCategory.NpcRewards)]
         ItemTerminaGrottoCowMilk2,
 
         [Repeatable, Temporary, Overwritable]
@@ -2279,7 +2279,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
         [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0x138), ItemPool(ItemCategory.Milk, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x138), ItemPool(ItemCategory.Milk, LocationCategory.NpcRewards)]
         ItemCoastGrottoCowMilk1,
 
         [Repeatable, Temporary, Overwritable]
@@ -2287,7 +2287,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
         [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0x139), ItemPool(ItemCategory.Milk, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x139), ItemPool(ItemCategory.Milk, LocationCategory.NpcRewards)]
         ItemCoastGrottoCowMilk2,
 
         [Visible]
@@ -3268,7 +3268,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 50 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x86), ItemPool(ItemCategory.PurpleRupees, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x86), ItemPool(ItemCategory.PurpleRupees, LocationCategory.NpcRewards)]
         MundaneItemLotteryPurpleRupee,
 
         [Repeatable]
@@ -3276,7 +3276,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("interest"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 5 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x13D), ItemPool(ItemCategory.BlueRupees, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x13D), ItemPool(ItemCategory.BlueRupees, LocationCategory.NpcRewards)]
         MundaneItemBankBlueRupee,
 
         [Repeatable, Temporary, Overwritable, Purchaseable]
@@ -3321,7 +3321,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a sleeping witch", "a southern merchant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x187), ItemPool(ItemCategory.RedRupees, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x187), ItemPool(ItemCategory.RedRupees, LocationCategory.NpcRewards)]
         MundaneItemKotakeMushroomSaleRedRupee,
 
         [RupeeRepeatable]
@@ -3330,7 +3330,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a swamp game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 5 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x188), ItemPool(ItemCategory.BlueRupees, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x188), ItemPool(ItemCategory.BlueRupees, LocationCategory.NpcRewards)]
         MundaneItemPictographContestBlueRupee,
 
         [RupeeRepeatable]
@@ -3339,7 +3339,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a swamp game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x18F), ItemPool(ItemCategory.RedRupees, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x18F), ItemPool(ItemCategory.RedRupees, LocationCategory.NpcRewards)]
         MundaneItemPictographContestRedRupee,
 
         [Repeatable, Temporary, Purchaseable]
@@ -3372,7 +3372,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a good deed"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 5 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x19E), ItemPool(ItemCategory.BlueRupees, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x19E), ItemPool(ItemCategory.BlueRupees, LocationCategory.NpcRewards)]
         MundaneItemZoraStageLightsBlueRupee,
 
         [Repeatable, Temporary, Overwritable, Purchaseable]
@@ -3389,7 +3389,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipCombineOrder(1), GossipCombine(UpgradeGiantWallet, "Ocean Spider House"), GossipCombine(MundaneItemOceanSpiderHouseDay3RedRupee, "Ocean Spider House")]
         [ShopText("This is worth 50 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x134), ItemPool(ItemCategory.PurpleRupees, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x134), ItemPool(ItemCategory.PurpleRupees, LocationCategory.NpcRewards)]
         MundaneItemOceanSpiderHouseDay2PurpleRupee,
 
         [Repeatable]
@@ -3398,7 +3398,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipCombineOrder(2), GossipCombine(MundaneItemOceanSpiderHouseDay2PurpleRupee, "Ocean Spider House"), GossipCombine(UpgradeGiantWallet, "Ocean Spider House")]
         [ShopText("This is worth 20 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x1A3), ItemPool(ItemCategory.RedRupees, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x1A3), ItemPool(ItemCategory.RedRupees, LocationCategory.NpcRewards)]
         MundaneItemOceanSpiderHouseDay3RedRupee,
 
         [RupeeRepeatable]
@@ -3407,7 +3407,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a fan"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 5 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x1A8), ItemPool(ItemCategory.BlueRupees, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x1A8), ItemPool(ItemCategory.BlueRupees, LocationCategory.NpcRewards)]
         MundaneItemLuluBadPictographBlueRupee,
 
         [RupeeRepeatable]
@@ -3416,7 +3416,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a fan"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x1C3), ItemPool(ItemCategory.RedRupees, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x1C3), ItemPool(ItemCategory.RedRupees, LocationCategory.NpcRewards)]
         MundaneItemLuluGoodPictographRedRupee,
 
         [RupeeRepeatable]
@@ -3452,7 +3452,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a shady gentleman", "a dodgy seller", "a shady dealer"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 5 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x1C7), ItemPool(ItemCategory.BlueRupees, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x1C7), ItemPool(ItemCategory.BlueRupees, LocationCategory.NpcRewards)]
         MundaneItemCuriosityShopBlueRupee,
 
         [RupeeRepeatable]
@@ -3461,7 +3461,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a shady gentleman", "a dodgy seller", "a shady dealer"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x1C8), ItemPool(ItemCategory.RedRupees, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x1C8), ItemPool(ItemCategory.RedRupees, LocationCategory.NpcRewards)]
         MundaneItemCuriosityShopRedRupee,
 
         [RupeeRepeatable]
@@ -3470,7 +3470,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a shady gentleman", "a dodgy seller", "a shady dealer"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 50 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x1C9), ItemPool(ItemCategory.PurpleRupees, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x1C9), ItemPool(ItemCategory.PurpleRupees, LocationCategory.NpcRewards)]
         MundaneItemCuriosityShopPurpleRupee,
 
         [RupeeRepeatable]
@@ -3479,7 +3479,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a shady gentleman", "a dodgy seller", "a shady dealer"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 200 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x1CA), ItemPool(ItemCategory.GoldRupees, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x1CA), ItemPool(ItemCategory.GoldRupees, LocationCategory.NpcRewards)]
         MundaneItemCuriosityShopGoldRupee,
 
         [Visible, Purchaseable]
@@ -3488,7 +3488,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a fisherman"), GossipItemHint("a sea creature")]
         [ShopText("It wants to go back home to Pinnacle Rock.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
-        [GetItemIndex(0x95), ItemPool(ItemCategory.Seahorse, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x95), ItemPool(ItemCategory.Seahorse, LocationCategory.NpcRewards)]
         MundaneItemSeahorse,
 
         //[GetItemIndex(0x1A1)]
@@ -9834,7 +9834,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("an ocean game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 100 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x445), ItemPool(ItemCategory.SilverRupees, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x445), ItemPool(ItemCategory.SilverRupees, LocationCategory.NpcRewards)]
         CollectableZoraCapeJarGame1,
 
 
@@ -9844,7 +9844,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a swarm of bats"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 30 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x446), ItemPool(ItemCategory.RedRupees, LocationCategory.NPCRewards)]
+        [GetItemIndex(0x446), ItemPool(ItemCategory.RedRupees, LocationCategory.NpcRewards)]
         [ExclusiveItemMessage(0x9001, "\u0017You got a \u0001Crimson Rupee\u0000!\u0018\u0011It's worth \u000130 Rupees\u0000!\u0011What a pleasant surprise!\u00BF")]
         CollectableIkanaGraveyardDay2Bats1,
 
