@@ -12,6 +12,10 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Text.Json;
+using System.Text.Encodings.Web;
+using System.Text.Json.Serialization;
+using MMR.Randomizer.Models.Settings;
+using MMR.Randomizer.Extensions;
 
 namespace MMR.UI.Forms
 {
@@ -22,16 +26,31 @@ namespace MMR.UI.Forms
 
         private readonly int _defaultItemCount;
 
-        private LogicFile logic;
-        private Dictionary<string, JsonFormatLogicItem> itemsById;
+        private LogicFile _logic;
+        private Dictionary<string, JsonFormatLogicItem> _itemsById;
 
-        private class LogicFile
+        private readonly ItemSelectorForm _singleItemSelectorForm;
+        private readonly ItemSelectorForm _multiItemSelectorForm;
+
+        public LogicEditorForm()
+        {
+            InitializeComponent();
+            Reset();
+            _defaultItemCount = _logic.Logic.Count;
+            nItem.Minimum = 0;
+            nItem.Maximum = _logic.Logic.Count - 1;
+            nItem.Value = 0;
+            _singleItemSelectorForm = new ItemSelectorForm(_logic, false);
+            _multiItemSelectorForm = new ItemSelectorForm(_logic, true);
+        }
+
+        public class LogicFile
         {
             public int Version { get; set; }
             public List<JsonFormatLogicItem> Logic { get; set; }
         }
 
-        private class JsonFormatLogicItem
+        public class JsonFormatLogicItem
         {
             public string Id { get; set; }
             public List<string> RequiredItems { get; set; } = new List<string>();
@@ -54,42 +73,37 @@ namespace MMR.UI.Forms
             Night3 = 32,
         }
 
-        private void CheckOnTrue(CheckBox a, int n, int m)
-        {
-            if (((n >> m) & 1) > 0)
-            {
-                a.Checked = true;
-            }
-            else
-            {
-                a.Checked = false;
-            };
-        }
-
         private void FillDependence(int n)
         {
             lRequired.Items.Clear();
-            foreach (var item in logic.Logic[n].RequiredItems)
+            foreach (var itemId in _logic.Logic[n].RequiredItems)
             {
-                lRequired.Items.Add(item);
+                if (Enum.TryParse(itemId, out Item item))
+                {
+                    lRequired.Items.Add(item.Name() ?? itemId);
+                }
+                else
+                {
+                    lRequired.Items.Add(itemId);
+                }
             }
         }
 
         private void UpdateDependence(int n)
         {
-            ItemSelectorForm ItemSelect = new ItemSelectorForm();
-            DialogResult R = ItemSelect.ShowDialog();
+            _multiItemSelectorForm.SetSelectedItems(null);
+            _multiItemSelectorForm.UpdateItems();
+            DialogResult R = _multiItemSelectorForm.ShowDialog();
             if (R == DialogResult.OK)
             {
-                List<int> Returned = ItemSelectorForm.ReturnItems;
-                if (Returned.Count == 0)
+                var returned = _multiItemSelectorForm.ReturnItems;
+                if (returned.Count == 0)
                 {
                     return;
                 }
-                foreach (var returnedItemIndex in Returned)
+                foreach (var returnedItemId in returned)
                 {
-                    var returnedItemId = logic.Logic[returnedItemIndex].Id;
-                    var requiredItems = logic.Logic[n].RequiredItems;
+                    var requiredItems = _logic.Logic[n].RequiredItems;
                     if (!requiredItems.Contains(returnedItemId))
                     {
                         requiredItems.Add(returnedItemId);
@@ -102,36 +116,47 @@ namespace MMR.UI.Forms
         private void FillConditional(int n)
         {
             lConditional.Items.Clear();
-            foreach (var conditional in logic.Logic[n].ConditionalItems)
+            foreach (var conditional in _logic.Logic[n].ConditionalItems)
             {
-                var label = string.Join(",", conditional); // TODO .Select updated item name
+                var label = string.Join(",", conditional.Select(c =>
+                {
+                    if (Enum.TryParse(c, out Item item))
+                    {
+                        return item.Name() ?? c;
+                    }
+                    else
+                    {
+                        return c;
+                    }
+                }));
                 lConditional.Items.Add(label);
             }
         }
 
         private void UpdateConditional(int n, int? conditionalIndex = null)
         {
-            List<int> selectedItems = null;
+            List<string> selectedItems = null;
             if (conditionalIndex.HasValue)
             {
-                selectedItems = logic.Logic[n].ConditionalItems[conditionalIndex.Value].Select(c => logic.Logic.IndexOf(itemsById[c])).ToList();
+                selectedItems = _logic.Logic[n].ConditionalItems[conditionalIndex.Value].ToList();
             }
-            ItemSelectorForm ItemSelect = new ItemSelectorForm(selectedItems);
-            DialogResult R = ItemSelect.ShowDialog();
-            if (R == DialogResult.OK)
+            _multiItemSelectorForm.SetSelectedItems(selectedItems);
+            _multiItemSelectorForm.UpdateItems();
+            DialogResult result = _multiItemSelectorForm.ShowDialog();
+            if (result == DialogResult.OK)
             {
-                List<int> Returned = ItemSelectorForm.ReturnItems;
-                if (Returned.Count == 0)
+                var returned = _multiItemSelectorForm.ReturnItems;
+                if (returned.Count == 0)
                 {
                     return;
                 }
                 if (conditionalIndex.HasValue)
                 {
-                    logic.Logic[n].ConditionalItems[conditionalIndex.Value] = Returned.Select(index => logic.Logic[index].Id).ToList();
+                    _logic.Logic[n].ConditionalItems[conditionalIndex.Value] = returned.ToList();
                 }
                 else
                 {
-                    logic.Logic[n].ConditionalItems.Add(Returned.Select(index => logic.Logic[index].Id).ToList());
+                    _logic.Logic[n].ConditionalItems.Add(returned.ToList());
                 }
                 FillConditional(n);
             }
@@ -139,7 +164,7 @@ namespace MMR.UI.Forms
 
         private void FillTime(int n)
         {
-            var itemLogic = logic.Logic[n];
+            var itemLogic = _logic.Logic[n];
 
             cNDay1.Checked = itemLogic.TimeNeeded.HasFlag(TimeOfDay.Day1);
             cNNight1.Checked = itemLogic.TimeNeeded.HasFlag(TimeOfDay.Night1);
@@ -165,7 +190,7 @@ namespace MMR.UI.Forms
             if (cANight2.Checked) { Av |= TimeOfDay.Night2; }
             if (cADay3.Checked) { Av |= TimeOfDay.Day3; }
             if (cANight3.Checked) { Av |= TimeOfDay.Night3; }
-            logic.Logic[n].TimeAvailable = Av;
+            _logic.Logic[n].TimeAvailable = Av;
             var Ne = TimeOfDay.None;
             if (cNDay1.Checked) { Ne |= TimeOfDay.Day1; }
             if (cNNight1.Checked) { Ne |= TimeOfDay.Night1; }
@@ -173,29 +198,19 @@ namespace MMR.UI.Forms
             if (cNNight2.Checked) { Ne |= TimeOfDay.Night2; }
             if (cNDay3.Checked) { Ne |= TimeOfDay.Day3; }
             if (cNNight3.Checked) { Ne |= TimeOfDay.Night3; }
-            logic.Logic[n].TimeNeeded = Ne;
+            _logic.Logic[n].TimeNeeded = Ne;
         }
 
         private void FillTrick(int n)
         {
-            cTrick.Checked = logic.Logic[n].IsTrick;
-            tTrickDescription.Text = logic.Logic[n].TrickTooltip ?? "(optional tooltip)";
-            tTrickDescription.ForeColor = logic.Logic[n].TrickTooltip != null ? SystemColors.WindowText : SystemColors.WindowFrame;
-        }
-
-        public LogicEditorForm()
-        {
-            InitializeComponent();
-            Reset();
-            _defaultItemCount = logic.Logic.Count;
-            nItem.Minimum = 0;
-            nItem.Maximum = logic.Logic.Count - 1;
-            nItem.Value = 0;
+            cTrick.Checked = _logic.Logic[n].IsTrick;
+            tTrickDescription.Text = _logic.Logic[n].TrickTooltip ?? "(optional tooltip)";
+            tTrickDescription.ForeColor = _logic.Logic[n].TrickTooltip != null ? SystemColors.WindowText : SystemColors.WindowFrame;
         }
 
         private void Reset()
         {
-            logic = new LogicFile
+            _logic = new LogicFile
             {
                 Logic = Enum.GetValues<Item>().Where(item => item >= 0).Select(item => new JsonFormatLogicItem
                 {
@@ -208,6 +223,9 @@ namespace MMR.UI.Forms
                     TrickTooltip = string.Empty,
                 }).ToList(),
             };
+            _singleItemSelectorForm?.SetLogicFile(_logic);
+            _multiItemSelectorForm?.SetLogicFile(_logic);
+            _itemsById = _logic.Logic.ToDictionary(item => item.Id);
         }
 
         private void fLogicEdit_FormClosing(object sender, FormClosingEventArgs e)
@@ -227,7 +245,14 @@ namespace MMR.UI.Forms
         private void SetIndex(int index)
         {
             n = index;
-            lIName.Text = logic.Logic[n].Id;
+            if (Enum.TryParse(_logic.Logic[n].Id, out Item item))
+            {
+                lIName.Text = item.Location();
+            }
+            else
+            {
+                lIName.Text = _logic.Logic[n].Id;
+            }
             updating = true;
             FillDependence(n);
             FillConditional(n);
@@ -264,7 +289,7 @@ namespace MMR.UI.Forms
         {
             if (lRequired.SelectedIndex != -1)
             {
-                logic.Logic[n].RequiredItems.RemoveAt(lRequired.SelectedIndex);
+                _logic.Logic[n].RequiredItems.RemoveAt(lRequired.SelectedIndex);
                 FillDependence(n);
             };
         }
@@ -273,17 +298,17 @@ namespace MMR.UI.Forms
         {
             if (lConditional.SelectedIndex != -1)
             {
-                logic.Logic[n].ConditionalItems.RemoveAt(lConditional.SelectedIndex);
+                _logic.Logic[n].ConditionalItems.RemoveAt(lConditional.SelectedIndex);
                 FillConditional(n);
             };
         }
 
         private void mNew_Click(object sender, EventArgs e)
         {
-            ItemSelectorForm.ResetItems();
+            //ItemSelectorForm.ResetItems();
             Reset();
             nItem.Minimum = 0;
-            nItem.Maximum = logic.Logic.Count - 1;
+            nItem.Maximum = _logic.Logic.Count - 1;
             nItem.Value = 1;
             nItem.Value = 0;
         }
@@ -304,10 +329,22 @@ namespace MMR.UI.Forms
         {
             if (saveLogic.ShowDialog() == DialogResult.OK)
             {
-                logic.Version = Migrator.CurrentVersion;
+                _logic.Version = Migrator.CurrentVersion;
                 using (var writer = new StreamWriter(File.Open(saveLogic.FileName, FileMode.Create)))
                 {
-                    writer.Write(JsonSerializer.Serialize(logic));
+                    writer.Write(JsonSerializer.Serialize(_logic, new JsonSerializerOptions
+                    {
+                        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                        IgnoreReadOnlyFields = true,
+                        IgnoreReadOnlyProperties = true,
+                        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                        WriteIndented = true,
+                        Converters =
+                        {
+                            new JsonColorConverter(),
+                            new JsonStringEnumConverter(),
+                        }
+                    }));
                 }
             }
         }
@@ -323,11 +360,11 @@ namespace MMR.UI.Forms
                     {
                         Id = newItemForm.ReturnValue,
                     };
-                    logic.Logic.Add(newItem);
-                    itemsById[newItem.Id] = newItem;
-                    nItem.Maximum = logic.Logic.Count - 1;
+                    _logic.Logic.Add(newItem);
+                    _itemsById[newItem.Id] = newItem;
+                    nItem.Maximum = _logic.Logic.Count - 1;
                     nItem.Value = nItem.Maximum;
-                    ItemSelectorForm.AddItem(newItemForm.ReturnValue);
+                    //ItemSelectorForm.AddItem(newItemForm.ReturnValue);
                 }
             }
         }
@@ -337,20 +374,22 @@ namespace MMR.UI.Forms
             var index = lConditional.IndexFromPoint(e.Location);
             if (index != ListBox.NoMatches)
             {
-                var conditions = logic.Logic[n].ConditionalItems[index];
-                var conditionIndices = conditions.Select(c => logic.Logic.IndexOf(itemsById[c])).ToList();
+                var conditions = _logic.Logic[n].ConditionalItems[index];
+                var conditionIndices = conditions.ToList();
                 if (conditionIndices.Count == 1)
                 {
-                    nItem.Value = conditionIndices[0];
+                    nItem.Value = _logic.Logic.IndexOf(_itemsById[conditionIndices[0]]);
                 }
                 else
                 {
-                    var itemSelect = new ItemSelectorForm(checkboxes: false, highlightedItems: conditionIndices);
-                    var result = itemSelect.ShowDialog();
-                    if (result == DialogResult.OK && ItemSelectorForm.ReturnItems.Any())
+                    _singleItemSelectorForm.SetHighlightedItems(conditionIndices);
+                    _singleItemSelectorForm.SetShowLocationNames(false);
+                    _singleItemSelectorForm.UpdateItems();
+                    var result = _singleItemSelectorForm.ShowDialog();
+                    if (result == DialogResult.OK && _singleItemSelectorForm.ReturnItems.Any())
                     {
-                        var itemIndex = ItemSelectorForm.ReturnItems.First();
-                        nItem.Value = itemIndex;
+                        var itemId = _singleItemSelectorForm.ReturnItems.First();
+                        nItem.Value = _logic.Logic.IndexOf(_itemsById[itemId]);
                     }
                 }
             }
@@ -358,12 +397,14 @@ namespace MMR.UI.Forms
 
         private void button_goto_Click(object sender, EventArgs e)
         {
-            var itemSelect = new ItemSelectorForm(checkboxes: false);
-            var result = itemSelect.ShowDialog();
-            if (result == DialogResult.OK && ItemSelectorForm.ReturnItems.Any())
+            _singleItemSelectorForm.SetHighlightedItems(null);
+            _singleItemSelectorForm.SetShowLocationNames(true);
+            _singleItemSelectorForm.UpdateItems();
+            var result = _singleItemSelectorForm.ShowDialog();
+            if (result == DialogResult.OK && _singleItemSelectorForm.ReturnItems.Any())
             {
-                var itemIndex = ItemSelectorForm.ReturnItems.First();
-                nItem.Value = itemIndex;
+                var itemId = _singleItemSelectorForm.ReturnItems.First();
+                nItem.Value = _logic.Logic.IndexOf(_itemsById[itemId]);
             }
         }
 
@@ -372,8 +413,8 @@ namespace MMR.UI.Forms
             var index = lRequired.IndexFromPoint(e.Location);
             if (index != ListBox.NoMatches)
             {
-                var gotoItemIndex = logic.Logic[n].RequiredItems[index];
-                nItem.Value = logic.Logic.IndexOf(itemsById[gotoItemIndex]);
+                var gotoItemIndex = _logic.Logic[n].RequiredItems[index];
+                nItem.Value = _logic.Logic.IndexOf(_itemsById[gotoItemIndex]);
             }
         }
 
@@ -391,7 +432,7 @@ namespace MMR.UI.Forms
             var index = lConditional.SelectedIndex;
             if (index != ListBox.NoMatches)
             {
-                logic.Logic[n].ConditionalItems.Insert(index + 1, logic.Logic[n].ConditionalItems[index]);
+                _logic.Logic[n].ConditionalItems.Insert(index + 1, _logic.Logic[n].ConditionalItems[index]);
                 FillConditional(n);
             }
         }
@@ -409,11 +450,39 @@ namespace MMR.UI.Forms
         private void LoadLogic(string logicString)
         {
             logicString = Migrator.ApplyMigrations(logicString);
-            logic = JsonSerializer.Deserialize<LogicFile>(logicString);
-            itemsById = logic.Logic.ToDictionary(item => item.Id);
+            _logic = JsonSerializer.Deserialize<LogicFile>(logicString);
+            _singleItemSelectorForm.SetLogicFile(_logic);
+            _multiItemSelectorForm.SetLogicFile(_logic);
+            _itemsById = _logic.Logic.ToDictionary(item => item.Id);
             // TODO update ItemSelectorForm
-            nItem.Maximum = logic.Logic.Count - 1;
+            nItem.Maximum = _logic.Logic.Count - 1;
             SetIndex((int)nItem.Value);
+            VerifyLogic();
+        }
+
+        private void VerifyLogic()
+        {
+            foreach (var item in _logic.Logic)
+            {
+                foreach (var requiredItem in item.RequiredItems)
+                {
+                    if (!_itemsById.ContainsKey(requiredItem))
+                    {
+                        throw new Exception($"Item '{requiredItem}' not found.");
+                    }
+                }
+
+                foreach (var conditionals in item.ConditionalItems)
+                {
+                    foreach (var conditionalItem in conditionals)
+                    {
+                        if (!_itemsById.ContainsKey(conditionalItem))
+                        {
+                            throw new Exception($"Item '{conditionalItem}' not found.");
+                        }
+                    }
+                }
+            }
         }
 
         private void bRenameItem_Click(object sender, EventArgs e)
@@ -423,15 +492,15 @@ namespace MMR.UI.Forms
                 var result = newItemForm.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    var oldValue = logic.Logic[n].Id;
+                    var oldValue = _logic.Logic[n].Id;
                     var newValue = newItemForm.ReturnValue;
-                    foreach (var item in logic.Logic)
+                    foreach (var item in _logic.Logic)
                     {
                         item.RequiredItems = item.RequiredItems.Select(ri => ri == oldValue ? newValue : ri).ToList();
                         item.ConditionalItems = item.ConditionalItems.Select(c => c.Select(ci => ci == oldValue ? newValue : ci).ToList()).ToList();
                     }
-                    logic.Logic[n].Id = newValue;
-                    ItemSelectorForm.RenameItem(n, newItemForm.ReturnValue);
+                    _logic.Logic[n].Id = newValue;
+                    //ItemSelectorForm.RenameItem(n, newItemForm.ReturnValue);
                     lIName.Text = newItemForm.ReturnValue;
                 }
             }
@@ -442,8 +511,8 @@ namespace MMR.UI.Forms
             string message;
             string caption;
             MessageBoxButtons buttons;
-            var id = logic.Logic[n].Id;
-            var usedBy = logic.Logic.Where(il => il.RequiredItems.Contains(id) || il.ConditionalItems.Any(c => c.Contains(id))).ToList();
+            var id = _logic.Logic[n].Id;
+            var usedBy = _logic.Logic.Where(il => il.RequiredItems.Contains(id) || il.ConditionalItems.Any(c => c.Contains(id))).ToList();
             if (usedBy.Any())
             {
                 // in use
@@ -465,8 +534,8 @@ namespace MMR.UI.Forms
             var result = MessageBox.Show(message, caption, buttons);
             if (result == DialogResult.Yes)
             {
-                logic.Logic.RemoveAt(n);
-                ItemSelectorForm.RemoveItem(n);
+                _logic.Logic.RemoveAt(n);
+                //ItemSelectorForm.RemoveItem(n);
                 SetIndex(n);
             }
         }
@@ -475,14 +544,14 @@ namespace MMR.UI.Forms
 
         private void tTrickDescription_TextChanged(object sender, EventArgs e)
         {
-            logic.Logic[n].TrickTooltip = string.IsNullOrWhiteSpace(tTrickDescription.Text) || tTrickDescription.Text == DEFAULT_TRICK_TOOLTIP
+            _logic.Logic[n].TrickTooltip = string.IsNullOrWhiteSpace(tTrickDescription.Text) || tTrickDescription.Text == DEFAULT_TRICK_TOOLTIP
                 ? null
                 : tTrickDescription.Text;
         }
 
         private void tTrickDescription_Enter(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(logic.Logic[n].TrickTooltip))
+            if (string.IsNullOrWhiteSpace(_logic.Logic[n].TrickTooltip))
             {
                 tTrickDescription.Text = string.Empty;
                 tTrickDescription.ForeColor = SystemColors.WindowText;
@@ -491,12 +560,12 @@ namespace MMR.UI.Forms
 
         private void cTrick_CheckedChanged(object sender, EventArgs e)
         {
-            logic.Logic[n].IsTrick = cTrick.Checked;
+            _logic.Logic[n].IsTrick = cTrick.Checked;
         }
 
         private void tTrickDescription_Leave(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(logic.Logic[n].TrickTooltip))
+            if (string.IsNullOrWhiteSpace(_logic.Logic[n].TrickTooltip))
             {
                 tTrickDescription.Text = DEFAULT_TRICK_TOOLTIP;
                 tTrickDescription.ForeColor = SystemColors.WindowFrame;
@@ -505,18 +574,20 @@ namespace MMR.UI.Forms
 
         private void bCopy_Click(object sender, EventArgs e)
         {
-            var itemSelect = new ItemSelectorForm(checkboxes: false);
-            var result = itemSelect.ShowDialog();
-            if (result == DialogResult.OK && ItemSelectorForm.ReturnItems.Any())
+            _singleItemSelectorForm.SetHighlightedItems(null);
+            _singleItemSelectorForm.SetShowLocationNames(true);
+            _singleItemSelectorForm.UpdateItems();
+            var result = _singleItemSelectorForm.ShowDialog();
+            if (result == DialogResult.OK && _singleItemSelectorForm.ReturnItems.Any())
             {
-                var itemIndex = ItemSelectorForm.ReturnItems.First();
+                var itemId = _singleItemSelectorForm.ReturnItems.First();
 
-                logic.Logic[n].RequiredItems = logic.Logic[itemIndex].RequiredItems.ToList();
-                logic.Logic[n].ConditionalItems = logic.Logic[itemIndex].ConditionalItems.Select(c => c.ToList()).ToList();
-                logic.Logic[n].IsTrick = logic.Logic[itemIndex].IsTrick;
-                logic.Logic[n].TimeAvailable = logic.Logic[itemIndex].TimeAvailable;
-                logic.Logic[n].TimeNeeded = logic.Logic[itemIndex].TimeNeeded;
-                logic.Logic[n].TrickTooltip = logic.Logic[itemIndex].TrickTooltip;
+                _logic.Logic[n].RequiredItems = _itemsById[itemId].RequiredItems.ToList();
+                _logic.Logic[n].ConditionalItems = _itemsById[itemId].ConditionalItems.Select(c => c.ToList()).ToList();
+                _logic.Logic[n].IsTrick = _itemsById[itemId].IsTrick;
+                _logic.Logic[n].TimeAvailable = _itemsById[itemId].TimeAvailable;
+                _logic.Logic[n].TimeNeeded = _itemsById[itemId].TimeNeeded;
+                _logic.Logic[n].TrickTooltip = _itemsById[itemId].TrickTooltip;
 
                 SetIndex(n);
                 //nItem.Value = itemIndex;
