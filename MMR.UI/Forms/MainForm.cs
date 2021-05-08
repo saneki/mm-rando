@@ -282,7 +282,7 @@ namespace MMR.UI.Forms
                     continue;
                 }
 
-                var checkbox = new CheckBox();
+                var checkbox = new InvertIndeterminateCheckBox();
                 var items = locationCategory == 0 ? ItemUtils.AllLocations().ToList() : itemsByLocationCategory[locationCategory];
                 checkbox.Tag = items;
                 var description = locationCategory.GetAttribute<DescriptionAttribute>()?.Description;
