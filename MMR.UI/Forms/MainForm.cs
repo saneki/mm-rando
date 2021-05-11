@@ -534,7 +534,7 @@ namespace MMR.UI.Forms
                     {
                         Name = "lEnergyColorDefault",
                         Text = "Default",
-                        Location = new Point(91, 63),
+                        Location = new Point(111, 63),
                         Size = new Size(135, 23),
                         TextAlign = ContentAlignment.MiddleCenter,
                         Visible = !use,
