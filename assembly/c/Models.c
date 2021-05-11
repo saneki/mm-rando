@@ -695,7 +695,7 @@ void Models_RotateDekuScrubPlaygroundRupee(Actor* actor, GlobalContext* ctxt) {
     }
 }
 
-void Models_DrawCutsceneMask(GlobalContext* ctxt, Actor* actor, Vec3s* posRot, u16 giIndex) {
+void Models_DrawCutsceneItem(GlobalContext* ctxt, Actor* actor, Vec3s* posRot, Vec3s* posRot2, f32 scale, u16 giIndex) {
     // z2_PushMatrixStackCopy();
 
     Vec3f pos;
@@ -709,17 +709,36 @@ void Models_DrawCutsceneMask(GlobalContext* ctxt, Actor* actor, Vec3s* posRot, u
     rot.z = posRot[1].z;
     z2_TransformMatrixStackTop(&pos, &rot);
     
-    pos.x = (f32)1024;
-    pos.y = (f32)-512;
-    pos.z = (f32)0;
-    rot.x = 0;
-    rot.y = 0xC000;
-    rot.z = 0x8000;
-    z2_TransformMatrixStackTop(&pos, &rot);
+    if (posRot2) {
+        pos.x = (f32)posRot2[0].x;
+        pos.y = (f32)posRot2[0].y;
+        pos.z = (f32)posRot2[0].z;    
+        rot.x = posRot2[1].x;
+        rot.y = posRot2[1].y;
+        rot.z = posRot2[1].z;
+        z2_TransformMatrixStackTop(&pos, &rot);
+    }
 
-    DrawFromGiTable(actor, ctxt, 22.0, giIndex);
+    DrawFromGiTable(actor, ctxt, scale, giIndex);
     
     // z2_PopMatrixStack();
+}
+
+void Models_DrawCutsceneMask(GlobalContext* ctxt, Actor* actor, Vec3s* posRot, u16 giIndex) {
+    Vec3s posRot2[2] = {
+        {
+            .x = 1024,
+            .y = -512,
+            .z = 0
+        },
+        {
+            .x = 0,
+            .y = 0xC000,
+            .z = 0x8000
+        }
+    };
+
+    Models_DrawCutsceneItem(ctxt, actor, posRot, posRot2, 22.0, giIndex);
 }
 
 void Models_DrawZoraMask(GlobalContext* ctxt, u32* skeleton, Vec3s* limbDrawTable, bool* overrideLimbDraw, void* postLimbDraw, Actor* actor) {
