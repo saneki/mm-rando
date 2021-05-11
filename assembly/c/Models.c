@@ -695,6 +695,60 @@ void Models_RotateDekuScrubPlaygroundRupee(Actor* actor, GlobalContext* ctxt) {
     }
 }
 
+void Models_DrawCutsceneMask(GlobalContext* ctxt, Actor* actor, Vec3s* posRot, u16 giIndex) {
+    // z2_PushMatrixStackCopy();
+
+    Vec3f pos;
+    Vec3s rot;
+    
+    pos.x = (f32)posRot[0].x;
+    pos.y = (f32)posRot[0].y;
+    pos.z = (f32)posRot[0].z;    
+    rot.x = posRot[1].x;
+    rot.y = posRot[1].y;
+    rot.z = posRot[1].z;
+    z2_TransformMatrixStackTop(&pos, &rot);
+    
+    pos.x = (f32)1024;
+    pos.y = (f32)-512;
+    pos.z = (f32)0;
+    rot.x = 0;
+    rot.y = 0xC000;
+    rot.z = 0x8000;
+    z2_TransformMatrixStackTop(&pos, &rot);
+
+    DrawFromGiTable(actor, ctxt, 22.0, giIndex);
+    
+    // z2_PopMatrixStack();
+}
+
+void Models_DrawZoraMask(GlobalContext* ctxt, u32* skeleton, Vec3s* limbDrawTable, bool* overrideLimbDraw, void* postLimbDraw, Actor* actor) {
+    if (!MISC_CONFIG.flags.freestanding) {
+        z2_SkelAnime_DrawLimb(ctxt, skeleton, limbDrawTable, overrideLimbDraw, postLimbDraw, actor);
+        return;
+    }
+
+    Models_DrawCutsceneMask(ctxt, actor, limbDrawTable, 0x7A);
+}
+
+void Models_DrawGoronMask(GlobalContext* ctxt, u32* skeleton, Vec3s* limbDrawTable, bool* overrideLimbDraw, void* postLimbDraw, Actor* actor) {
+    if (!MISC_CONFIG.flags.freestanding) {
+        z2_SkelAnime_DrawLimb(ctxt, skeleton, limbDrawTable, overrideLimbDraw, postLimbDraw, actor);
+        return;
+    }
+
+    Models_DrawCutsceneMask(ctxt, actor, limbDrawTable, 0x79);
+}
+
+void Models_DrawGibdoMask(GlobalContext* ctxt, u32* skeleton, Vec3s* limbDrawTable, s32 dListCount, bool* overrideLimbDraw, bool* postLimbDraw, Actor* actor) {
+    if (!MISC_CONFIG.flags.freestanding) {
+        z2_SkelAnime_DrawLimb2(ctxt, skeleton, limbDrawTable, dListCount, overrideLimbDraw, postLimbDraw, actor);
+        return;
+    }
+
+    Models_DrawCutsceneMask(ctxt, actor, limbDrawTable, 0x87);
+}
+
 void Models_AfterActorDtor(Actor* actor) {
     if (MISC_CONFIG.flags.freestanding) {
         if (actor->id == ACTOR_EN_ELFORG) {
