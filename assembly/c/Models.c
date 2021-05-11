@@ -768,6 +768,28 @@ void Models_DrawGibdoMask(GlobalContext* ctxt, u32* skeleton, Vec3s* limbDrawTab
     Models_DrawCutsceneMask(ctxt, actor, limbDrawTable, 0x87);
 }
 
+void Models_DrawOcarina(GlobalContext* ctxt, u32* skeleton, Vec3s* limbDrawTable, s32 dListCount, bool* overrideLimbDraw, bool* postLimbDraw, void* unkDraw, Actor* actor) {
+    if (!MISC_CONFIG.flags.freestanding) {
+        z2_SkelAnime_DrawLimb3(ctxt, skeleton, limbDrawTable, dListCount, overrideLimbDraw, postLimbDraw, unkDraw, actor);
+        return;
+    }
+
+    Vec3s posRot2[2] = {
+        {
+            .x = -384,
+            .y = -384,
+            .z = 384
+        },
+        {
+            .x = 0x0000,
+            .y = 0x2000,
+            .z = 0x4000
+        }
+    };
+
+    Models_DrawCutsceneItem(ctxt, actor, limbDrawTable, posRot2, 16.0, 0x4C);
+}
+
 void Models_AfterActorDtor(Actor* actor) {
     if (MISC_CONFIG.flags.freestanding) {
         if (actor->id == ACTOR_EN_ELFORG) {

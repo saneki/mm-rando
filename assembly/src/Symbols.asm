@@ -93,6 +93,7 @@
 .definelabel z2_GetObjectIndex, 0x8012F608
 .definelabel z2_SkelAnime_DrawLimb, 0x80133B3C
 .definelabel z2_SkelAnime_DrawLimb2, 0x80133F28
+.definelabel z2_SkelAnime_DrawLimb3, 0x801343C0
 .definelabel z2_InitButtonNoteColors, 0x80147564
 .definelabel z2_ShowMessage, 0x801518B0
 .definelabel z2_GetMessageState, 0x80152498
