@@ -1830,7 +1830,8 @@ namespace MMR.UI.Forms
             }
             else
             {
-                tItemPool.Text = _configuration.GameplaySettings.CustomItemListString;
+                _configuration.GameplaySettings.CustomItemList = ItemUtils.ConvertStringToItemList(ItemEditor.BaseItemList, _configuration.GameplaySettings.CustomItemListString)?.ToHashSet();
+                UpdateItemPoolCheckboxes();
             }
 
 
