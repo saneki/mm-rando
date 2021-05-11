@@ -53,4 +53,8 @@ typedef ColorRGBA8 RGBA8;
 typedef ColorRGB16 RGB16;
 typedef ColorRRGGBB16 RRGGBB16;
 
+// Match types from decomp color.h:
+typedef ColorRGB8 Color_RGB8;
+typedef ColorRGBA8 Color_RGBA8;
+
 #endif

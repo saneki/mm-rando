@@ -15,6 +15,7 @@
 #include <z64collision_check.h>
 #include <z64cutscene.h>
 #include <z64dma.h>
+#include <z64effect.h>
 #include <z64light.h>
 #include <z64math.h>
 #include <z64object.h>
@@ -844,8 +845,8 @@ typedef struct {
     /* 0x24 */ u16 unk24;
     /* 0x26 */ UNK_TYPE1 unk26;
     /* 0x27 */ UNK_TYPE1 unk27;
-    /* 0x28 */ LightInfoDirectional unk28;
-    /* 0x36 */ LightInfoDirectional unk36;
+    /* 0x28 */ LightInfo unk28;
+    /* 0x36 */ LightInfo unk36;
     /* 0x44 */ UNK_TYPE1 unk44;
     /* 0x45 */ UNK_TYPE1 unk45;
     /* 0x46 */ UNK_TYPE1 unk46;
@@ -1001,7 +1002,7 @@ struct GlobalContext {
     /* 0x00814 */ u8 unk814;
     /* 0x00815 */ u8 unk815;
     /* 0x00816 */ UNK_TYPE1 pad816[0x2];
-    /* 0x00818 */ LightingContext lightCtx;
+    /* 0x00818 */ LightContext lightCtx;
     /* 0x00828 */ u32 unk828;
     /* 0x0082C */ UNK_TYPE1 pad82C[0x4];
     /* 0x00830 */ CollisionContext colCtx;
