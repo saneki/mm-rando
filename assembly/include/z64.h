@@ -1592,7 +1592,9 @@ typedef struct {
 // En_Bom_Chu actor (Bombchu).
 typedef struct {
     /* 0x000 */ Actor base;
-    /* 0x144 */ UNK_TYPE1 pad144[0x3C];
+    /* 0x144 */ UNK_TYPE1 pad144[0x6];
+    /* 0x14A */ s16 explosionTimer;
+    /* 0x14C */ UNK_TYPE1 pad14C[0x34];
     /* 0x180 */ s32 trailEffectIndex1;
     /* 0x184 */ s32 trailEffectIndex2;
     /* 0x188 */ UNK_TYPE1 pad188[0x58];
