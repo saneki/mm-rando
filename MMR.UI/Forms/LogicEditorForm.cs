@@ -1,21 +1,19 @@
 ﻿using MMR.Randomizer.LogicMigrator;
 using MMR.Randomizer.Properties;
 using MMR.Randomizer.GameObjects;
-using MMR.UI.Forms;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Text.Json;
 using System.Text.Encodings.Web;
 using System.Text.Json.Serialization;
 using MMR.Randomizer.Models.Settings;
 using MMR.Randomizer.Extensions;
+using MMR.Randomizer.Models;
 
 namespace MMR.UI.Forms
 {
@@ -42,35 +40,6 @@ namespace MMR.UI.Forms
             nItem.Value = 0;
             _singleItemSelectorForm = new ItemSelectorForm(_logic, false);
             _multiItemSelectorForm = new ItemSelectorForm(_logic, true);
-        }
-
-        public class LogicFile
-        {
-            public int Version { get; set; }
-            public List<JsonFormatLogicItem> Logic { get; set; }
-        }
-
-        public class JsonFormatLogicItem
-        {
-            public string Id { get; set; }
-            public List<string> RequiredItems { get; set; } = new List<string>();
-            public List<List<string>> ConditionalItems { get; set; } = new List<List<string>>();
-            public TimeOfDay TimeNeeded { get; set; }
-            public TimeOfDay TimeAvailable { get; set; }
-            public bool IsTrick { get; set; }
-            public string TrickTooltip { get; set; } = string.Empty;
-        }
-
-        [Flags]
-        public enum TimeOfDay
-        {
-            None,
-            Day1   = 1,
-            Night1 = 2,
-            Day2   = 4,
-            Night2 = 8,
-            Day3   = 16,
-            Night3 = 32,
         }
 
         private void FillDependence(int n)

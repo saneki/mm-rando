@@ -11,115 +11,64 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 
 namespace MMR.Randomizer.Utils
 {
     public static class LogicUtils
     {
-        public static string[] ReadRulesetFromResources(LogicMode mode, string userLogicFileName)
+        public static LogicFile ReadRulesetFromResources(LogicMode mode, string userLogicFileName)
         {
-            string[] lines = null;
-
             if (mode == LogicMode.Casual)
             {
-                lines = Properties.Resources.REQ_CASUAL.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+                return LogicFile.FromJson(Properties.Resources.REQ_CASUAL);
             }
             else if (mode == LogicMode.Glitched)
             {
-                lines = Properties.Resources.REQ_GLITCH.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+                return LogicFile.FromJson(Properties.Resources.REQ_GLITCH);
             }
             else if (mode == LogicMode.UserLogic)
             {
                 using (StreamReader Req = new StreamReader(File.OpenRead(userLogicFileName)))
                 {
                     var logic = Req.ReadToEnd();
-                    if (logic.StartsWith("{"))
-                    {
-                        var configurationLogic = Configuration.FromJson(logic);
-                        logic = configurationLogic.GameplaySettings.Logic;
-                    }
-                    lines = logic.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+
+                    return LogicFile.FromJson(logic);
+
+                    // TODO handle logic within settings file
                 }
             }
 
-            return lines;
+            return null;
         }
 
         /// <summary>
         /// Populates the item list using the lines from a logic file, processes them 4 lines per item. 
         /// </summary>
         /// <param name="data">The lines from a logic file</param>
-        public static ItemList PopulateItemListFromLogicData(string[] data)
+        public static ItemList PopulateItemListFromLogicData(LogicFile logicFile)
         {
             var itemList = new ItemList();
-            if (Migrator.GetVersion(data.ToList()) != Migrator.CurrentVersion)
+            if (logicFile.Version != Migrator.CurrentVersion)
             {
                 throw new Exception("Logic file is out of date or invalid. Open it in the Logic Editor to bring it up to date.");
             }
 
-            int itemId = 0;
-            int lineNumber = 0;
-
-            var currentItem = new ItemObject();
-
-            // Process lines in groups of 4
-            foreach (string line in data)
+            var logic = logicFile.Logic;
+            for (var i = 0; i < logic.Count; i++)
             {
-                if (line.StartsWith("#"))
+                var logicItem = logic[i];
+                itemList.Add(new ItemObject
                 {
-                    continue;
-                }
-                if (line.StartsWith("-"))
-                {
-                    currentItem.Name = line.Substring(2);
-                    continue;
-                }
-
-                switch (lineNumber)
-                {
-                    case 0:
-                        //dependence
-                        ProcessDependenciesForItem(currentItem, line);
-                        break;
-                    case 1:
-                        //conditionals
-                        ProcessConditionalsForItem(currentItem, line);
-                        break;
-                    case 2:
-                        //time needed
-                        currentItem.TimeNeeded = Convert.ToInt32(line);
-                        break;
-                    case 3:
-                        //time available
-                        currentItem.TimeAvailable = Convert.ToInt32(line);
-                        if (currentItem.TimeAvailable == 0)
-                        {
-                            currentItem.TimeAvailable = 63;
-                        }
-                        break;
-                    case 4:
-                        var trickInfo = line.Split(new char[] { ';' }, 2);
-                        currentItem.IsTrick = trickInfo.Length > 1;
-                        currentItem.TrickTooltip = currentItem.IsTrick ? trickInfo[1] : null;
-                        if (string.IsNullOrWhiteSpace(currentItem.TrickTooltip))
-                        {
-                            currentItem.TrickTooltip = null;
-                        }
-                        break;
-                }
-
-                lineNumber++;
-
-                if (lineNumber == 5)
-                {
-                    currentItem.ID = itemId;
-                    itemList.Add(currentItem);
-
-                    currentItem = new ItemObject();
-
-                    itemId++;
-                    lineNumber = 0;
-                }
+                    ID = i,
+                    Name = logicItem.Id,
+                    TimeNeeded = (int)logicItem.TimeNeeded,
+                    TimeAvailable = logicItem.TimeAvailable > 0 ? (int)logicItem.TimeAvailable : 63,
+                    IsTrick = logicItem.IsTrick,
+                    TrickTooltip = logicItem.TrickTooltip,
+                    DependsOnItems = logicItem.RequiredItems.Select(item => (Item)logic.FindIndex(li => li.Id == item)).ToList(),
+                    Conditionals = logicItem.ConditionalItems.Select(c => c.Select(item => (Item)logic.FindIndex(li => li.Id == item)).ToList()).ToList(),
+                });
             }
 
             foreach (var io in itemList)
@@ -135,22 +84,6 @@ namespace MMR.Randomizer.Utils
             }
 
             return itemList;
-        }
-
-        private static void ProcessConditionalsForItem(ItemObject currentItem, string line)
-        {
-            foreach (string conditions in line.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                currentItem.Conditionals.Add(Array.ConvertAll(conditions.Split(','), int.Parse).Select(i => (Item)i).ToList());
-            }
-        }
-
-        private static void ProcessDependenciesForItem(ItemObject currentItem, string line)
-        {
-            foreach (string dependency in line.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                currentItem.DependsOnItems.Add((Item)Convert.ToInt32(dependency));
-            }
         }
 
         /// <summary>

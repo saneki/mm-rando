@@ -529,7 +529,7 @@ namespace MMR.Randomizer
                 || _settings.LogicMode == LogicMode.Glitched
                 || _settings.LogicMode == LogicMode.UserLogic)
             {
-                string[] data = LogicUtils.ReadRulesetFromResources(_settings.LogicMode, _settings.UserLogicFileName);
+                var data = LogicUtils.ReadRulesetFromResources(_settings.LogicMode, _settings.UserLogicFileName);
                 ItemList = LogicUtils.PopulateItemListFromLogicData(data);
             }
             else

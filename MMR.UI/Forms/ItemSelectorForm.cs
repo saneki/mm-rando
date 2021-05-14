@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using static MMR.UI.Forms.LogicEditorForm;
 using MMR.Randomizer.GameObjects;
 using MMR.Randomizer.Extensions;
+using MMR.Randomizer.Models;
 
 namespace MMR.UI.Forms
 {
