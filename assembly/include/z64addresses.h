@@ -132,6 +132,9 @@ extern void z2_DrawRupee(Actor* actor, GlobalContext* ctxt);
 extern void z2_PreDraw1(Actor* actor, GlobalContext* ctxt, u32 unknown);
 extern void z2_PreDraw2(Actor* actor, GlobalContext* ctxt, u32 unknown);
 
+// Function Prototypes (Effect).
+extern void* z2_Effect_GetParams(s32 index);
+
 // Function Prototypes (File Loading).
 extern s32 z2_RomToRam(u32 src, void* dst, u32 length);
 extern s16 z2_GetFileNumber(u32 vromAddr);

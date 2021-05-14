@@ -16,6 +16,7 @@
 .definelabel z2_fixed_drop_spawn, 0x800A7730
 .definelabel z2_rupee_drop_spawn, 0x800A7AD4
 .definelabel z2_random_drop_spawn, 0x800A7D28
+.definelabel z2_Effect_GetParams, 0x800AF720
 .definelabel z2_SetShape, 0x800B3BA4
 .definelabel z2_get_generic_flag, 0x800B5BB0
 .definelabel z2_set_generic_flag, 0x800B5BF4

@@ -1589,6 +1589,15 @@ typedef struct {
     /* 0x16A */ UNK_TYPE1 pad16A[0x26];
 } ActorBgIngate; // size = 0x190
 
+// En_Bom_Chu actor (Bombchu).
+typedef struct {
+    /* 0x000 */ Actor base;
+    /* 0x144 */ UNK_TYPE1 pad144[0x3C];
+    /* 0x180 */ s32 trailEffectIndex1;
+    /* 0x184 */ s32 trailEffectIndex2;
+    /* 0x188 */ UNK_TYPE1 pad188[0x58];
+} ActorEnBomChu; // size = 0x1E0
+
 /// =============================================================
 /// Actor Cutscene
 /// =============================================================
