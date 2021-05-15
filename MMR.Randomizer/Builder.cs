@@ -497,127 +497,20 @@ namespace MMR.Randomizer
         }
 
         /// <summary>
-        /// Write text for specific pictograph prompts.
+        /// Write text for pictograph prompt.
         /// </summary>
         /// <param name="table"><see cref="MessageTable"/> to update.</param>
         private void WritePictographPromptText(MessageTable table)
         {
-            static void FinishPrompt(MessageEntryBuilder.MessageBuilder it)
-            {
-                it.StartGreenText().Text(" ").NewLine()
-                .TwoChoices().Text("Yes").NewLine().Text("No")
-                .EndFinalTextBox()
-                .StartWhiteText();
-            }
-
-            static void Header(MessageEntryBuilder.HeaderBuilder it) => it.Standard2().Y(0x71);
-
             table.UpdateMessages(new MessageEntryBuilder()
-                .Id(0x170B)
-                .Header(Header)
+                .Id(0xF8)
                 .Message(it =>
                 {
-                    it.Text("Keep this ").Red("picture of the swamp").Text("?").NewLine();
-                    FinishPrompt(it);
-                })
-                .Build()
-            );
-
-            table.UpdateMessages(new MessageEntryBuilder()
-                .Id(0x1711)
-                .Header(Header)
-                .Message(it =>
-                {
-                    it.Text("Keep this ").Red("picture of a monkey").Text("?").NewLine();
-                    FinishPrompt(it);
-                })
-                .Build()
-            );
-
-            table.UpdateMessages(new MessageEntryBuilder()
-                .Id(0x171C)
-                .Header(Header)
-                .Message(it =>
-                {
-                    it.Text("Keep this ").Red("picture of a big octo").Text("?").NewLine();
-                    FinishPrompt(it);
-                })
-                .Build()
-            );
-
-            table.UpdateMessages(new MessageEntryBuilder()
-                .Id(0x1726)
-                .Header(Header)
-                .Message(it =>
-                {
-                    it.Text("Keep this ").Red("bad picture of Lulu").Text("?").NewLine();
-                    FinishPrompt(it);
-                })
-                .Build()
-            );
-
-            table.UpdateMessages(new MessageEntryBuilder()
-                .Id(0x1727)
-                .Header(Header)
-                .Message(it =>
-                {
-                    it.Text("Keep this ").Red("good picture of Lulu").Text("?").NewLine();
-                    FinishPrompt(it);
-                })
-                .Build()
-            );
-
-            table.UpdateMessages(new MessageEntryBuilder()
-                .Id(0x1731)
-                .Header(Header)
-                .Message(it =>
-                {
-                    it.Text("Keep this ").Red("picture of Tingle").Text("?").NewLine();
-                    FinishPrompt(it);
-                })
-                .Build()
-            );
-
-            table.UpdateMessages(new MessageEntryBuilder()
-                .Id(0x1787)
-                .Header(Header)
-                .Message(it =>
-                {
-                    it.Text("Keep this ").Red("picture of the Deku King").Text("?").NewLine();
-                    FinishPrompt(it);
-                })
-                .Build()
-            );
-
-            table.UpdateMessages(new MessageEntryBuilder()
-                .Id(0x181B)
-                .Header(Header)
-                .Message(it =>
-                {
-                    it.Text("Keep this ").Red("bad picture of a pirate").Text("?").NewLine();
-                    FinishPrompt(it);
-                })
-                .Build()
-            );
-
-            table.UpdateMessages(new MessageEntryBuilder()
-                .Id(0x1824)
-                .Header(Header)
-                .Message(it =>
-                {
-                    it.Text("Keep this ").Red("good picture of a pirate").Text("?").NewLine();
-                    FinishPrompt(it);
-                })
-                .Build()
-            );
-
-            table.UpdateMessages(new MessageEntryBuilder()
-                .Id(0x193A)
-                .Header(Header)
-                .Message(it =>
-                {
-                    it.Text("Keep this ").Red("picture of a scarecrow").Text("?").NewLine();
-                    FinishPrompt(it);
+                    it.Text("Keep this ").StartRedText().PictureSubject().StartWhiteText().Text("?").NewLine()
+                    .StartGreenText().Text(" ").NewLine()
+                    .TwoChoices().Text("Yes").NewLine().Text("No")
+                    .EndFinalTextBox()
+                    .StartWhiteText();
                 })
                 .Build()
             );

@@ -9,6 +9,7 @@
 .definelabel z2_Yaz0_LoadAndDecompressFile, 0x80081178
 .definelabel z2_RngInt, 0x80086FA0
 .definelabel z2_RngSetSeed, 0x80086FD0
+.definelabel z2_strlen, 0x8008F1E0
 .definelabel z2_BaseDrawCollectable, 0x800A7128
 .definelabel z2_DrawRupee, 0x800A72AC
 .definelabel z2_DrawHeartPiece, 0x800A75B8
