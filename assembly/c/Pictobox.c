@@ -3,8 +3,6 @@
 // Other Pictobox related flags:
 // - s16 0x801BF884: State flag: 0 = None, 1 = Camera Mode, 2 = Processing Photo, 3 = Prompt
 
-static const bool gMutatePrompt = true;
-
 enum PictoFlags {
     PICTOBOX_SWAMP = 1 << 1,
     PICTOBOX_MONKEY = 1 << 2,
@@ -23,32 +21,31 @@ enum PictoFlags {
  * Helper function to get the current text for the Pictobox prompt.
  **/
 const char* Pictobox_CurrentText(void) {
-    if (gMutatePrompt) {
-        static const u32 lulu = PICTOBOX_LULU1 | PICTOBOX_LULU2 | PICTOBOX_LULU3;
-        u32 cur = gSaveContext.perm.pictoFlags0;
-        if ((cur & PICTOBOX_MONKEY) != 0) {
-            return "picture of a monkey";
-        } else if ((cur & PICTOBOX_BIG_OCTO) != 0) {
-            return "picture of a big octo";
-        } else if ((cur & PICTOBOX_DEKU_KING) != 0) {
-            return "picture of the Deku King";
-        } else if ((cur & lulu) == lulu) {
-            return "good picture of Lulu";
-        } else if ((cur & lulu) != 0) {
-            return "bad picture of Lulu";
-        } else if ((cur & PICTOBOX_SCARECROW) != 0) {
-            return "picture of a scarecrow";
-        } else if ((cur & PICTOBOX_TINGLE) != 0) {
-            return "picture of Tingle";
-        } else if ((cur & PICTOBOX_PIRATE_GOOD) != 0) {
-            return "good picture of a pirate";
-        } else if ((cur & PICTOBOX_PIRATE_BAD) != 0) {
-            return "bad picture of a pirate";
-        } else if ((cur & PICTOBOX_SWAMP) != 0) {
-            return "picture of the swamp";
-        }
+    static const u32 lulu = PICTOBOX_LULU1 | PICTOBOX_LULU2 | PICTOBOX_LULU3;
+    u32 cur = gSaveContext.perm.pictoFlags0;
+    if ((cur & PICTOBOX_MONKEY) != 0) {
+        return "picture of a monkey";
+    } else if ((cur & PICTOBOX_BIG_OCTO) != 0) {
+        return "picture of a big octo";
+    } else if ((cur & PICTOBOX_DEKU_KING) != 0) {
+        return "picture of the Deku King";
+    } else if ((cur & lulu) == lulu) {
+        return "good picture of Lulu";
+    } else if ((cur & lulu) != 0) {
+        return "bad picture of Lulu";
+    } else if ((cur & PICTOBOX_SCARECROW) != 0) {
+        return "picture of a scarecrow";
+    } else if ((cur & PICTOBOX_TINGLE) != 0) {
+        return "picture of Tingle";
+    } else if ((cur & PICTOBOX_PIRATE_GOOD) != 0) {
+        return "good picture of a pirate";
+    } else if ((cur & PICTOBOX_PIRATE_BAD) != 0) {
+        return "bad picture of a pirate";
+    } else if ((cur & PICTOBOX_SWAMP) != 0) {
+        return "picture of the swamp";
+    } else {
+        return "picture";
     }
-    return "picture";
 }
 
 /**
@@ -56,12 +53,10 @@ const char* Pictobox_CurrentText(void) {
  **/
 void Pictobox_PreparePromptMessage(GlobalContext* ctxt, u16 messageId, u8 zero) {
     // Note: This is used to display the message both after taking the picture, and when viewing a previous picture.
-    if (gMutatePrompt) {
-        // If photo was taken, update flags before determining prompt message.
-        s16 photoTakenFlag = *(s16*)(0x801BF888);
-        if (photoTakenFlag == 1) {
-            z2_UpdatePictoFlags(ctxt);
-        }
+    // If photo was taken, update flags before determining prompt message.
+    s16 photoTakenFlag = *(s16*)(0x801BF888);
+    if (photoTakenFlag == 1) {
+        z2_UpdatePictoFlags(ctxt);
     }
     z2_ShowMessage(ctxt, messageId, zero);
 }

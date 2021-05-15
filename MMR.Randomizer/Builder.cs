@@ -2907,7 +2907,11 @@ namespace MMR.Randomizer
                 ResourceUtils.ApplyHack(Resources.mods.init_file);
                 ResourceUtils.ApplyHack(Resources.mods.fix_deku_drowning);
                 ResourceUtils.ApplyHack(Resources.mods.fix_collectable_flags);
-                WritePictographPromptText(_messageTable);
+
+                if (_randomized.Settings.EnablePictoboxSubject)
+                {
+                    WritePictographPromptText(_messageTable);
+                }
 
                 progressReporter.ReportProgress(61, "Writing quick text...");
                 WriteQuickText();

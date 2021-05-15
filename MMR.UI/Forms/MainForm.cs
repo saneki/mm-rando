@@ -138,6 +138,7 @@ namespace MMR.UI.Forms
             TooltipBuilder.SetTooltip(cHueShiftMiscUI, "Shifts the color of miscellaneous UI elements.");
             TooltipBuilder.SetTooltip(cElegySpeedups, "Applies various Elegy of Emptiness speedups.");
             TooltipBuilder.SetTooltip(cInstantPictobox, "Remove anti-aliasing from the Pictobox pictures, which is what makes Pictobox on emulator so slow.");
+            TooltipBuilder.SetTooltip(cImprovedPictobox, "Display extra text showing which type of picture was captured by the Pictobox.");
         }
 
         /// <summary>
@@ -1021,6 +1022,7 @@ namespace MMR.UI.Forms
             cCombatMusicDisable.Checked = _configuration.CosmeticSettings.DisableCombatMusic != CombatMusic.Normal;
             cHueShiftMiscUI.Checked = _configuration.CosmeticSettings.ShiftHueMiscUI;
             cElegySpeedups.Checked = _configuration.GameplaySettings.ElegySpeedup;
+            cImprovedPictobox.Checked = _configuration.GameplaySettings.EnablePictoboxSubject;
 
             // HUD config options
             var heartItems = ColorSelectionManager.Hearts.GetItems();
@@ -1556,6 +1558,7 @@ namespace MMR.UI.Forms
             cArrowCycling.Enabled = v;
             cCloseCows.Enabled = v;
             cElegySpeedups.Enabled = v;
+            cImprovedPictobox.Enabled = v;
 
             cSkipBeaver.Enabled = v;
             cGoodDampeRNG.Enabled = v;
@@ -1965,6 +1968,11 @@ namespace MMR.UI.Forms
         private void cInstantPictobox_CheckedChanged(object sender, EventArgs e)
         {
             UpdateSingleSetting(() => _configuration.CosmeticSettings.KeepPictoboxAntialiasing = !cInstantPictobox.Checked);
+        }
+
+        private void cImprovedPictobox_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSingleSetting(() => _configuration.GameplaySettings.EnablePictoboxSubject = cImprovedPictobox.Checked);
         }
     }
 }
