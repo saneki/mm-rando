@@ -62,6 +62,7 @@ extern void z2_RemoveItem(u32 item, u8 slot);
 extern void z2_ToggleSfxDampen(int enable);
 extern void z2_HandleInputVelocity(f32* linearVelocity, f32 inputVelocity, f32 increaseBy, f32 decreaseBy);
 extern bool z2_SetGetItemLongrange(Actor* actor, GlobalContext* ctxt, u16 giIndex);
+extern void z2_UpdatePictoFlags(GlobalContext* ctxt);
 
 // Function Prototypes (Scene Flags).
 // TODO parameters
