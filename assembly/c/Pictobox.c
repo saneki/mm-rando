@@ -31,7 +31,7 @@ const char* Pictobox_CurrentText(void) {
         return "picture of the Deku King";
     } else if ((cur & lulu) == lulu) {
         return "good picture of Lulu";
-    } else if ((cur & lulu) != 0) {
+    } else if ((cur & PICTOBOX_LULU1) != 0) {
         return "bad picture of Lulu";
     } else if ((cur & PICTOBOX_SCARECROW) != 0) {
         return "picture of a scarecrow";
