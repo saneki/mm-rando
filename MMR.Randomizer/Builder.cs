@@ -2725,7 +2725,7 @@ namespace MMR.Randomizer
                     WritePictographPromptText(_messageTable);
 
                     // NOP call to update pictobox flags after message prompt.
-                    PatchUtils.WriteCodeNOP(0x801127D0);
+                    ReadWriteUtils.WriteCodeNOP(0x801127D0);
                 }
 
                 progressReporter.ReportProgress(61, "Writing quick text...");
