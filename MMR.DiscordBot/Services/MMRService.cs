@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using MMR.Common.Utils;
@@ -74,7 +75,9 @@ namespace MMR.DiscordBot.Services
         public async Task<(string patchPath, string hashIconPath, string spoilerLogPath)> GenerateSeed(DateTime now, string settingsPath)
         {
             await Task.Delay(1);
-            var filename = FileUtils.MakeFilenameValid(now.ToString("o"));
+            var randomizerDllPath = Path.Combine(_cliPath, "MMR.Randomizer.dll");
+            var version = AssemblyName.GetAssemblyName(randomizerDllPath).Version;
+            var filename = FileUtils.MakeFilenameValid($"MMR-{version}-{now:o}");
             var attempts = 1; // TODO increase number of attempts and alter seed each attempt
             while (attempts > 0)
             {
@@ -110,11 +113,12 @@ namespace MMR.DiscordBot.Services
 
         private async Task<bool> GenerateSeed(string filename, string settingsPath)
         {
+            var cliDllPath = Path.Combine(_cliPath, "MMR.CLI.dll");
             var output = Path.Combine("output", filename);
             var seed = await GetSeed();
             var processInfo = new ProcessStartInfo("dotnet");
             processInfo.WorkingDirectory = _cliPath;
-            processInfo.Arguments = $"{Path.Combine(_cliPath, @"MMR.CLI.dll")} -output \"{output}.z64\" -seed {seed} -spoiler -patch";
+            processInfo.Arguments = $"{cliDllPath} -output \"{output}.z64\" -seed {seed} -spoiler -patch";
             if (!string.IsNullOrWhiteSpace(settingsPath))
             {
                 processInfo.Arguments += $" -settings \"{settingsPath}\"";
