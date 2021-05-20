@@ -748,7 +748,10 @@ typedef struct {
     /* 0x12084 */ void* messageTable;
     /* 0x12088 */ UNK_TYPE1 pad12088[0x8];
     /* 0x12090 */ s16 messageDataFile; // 0 = main file, 1 = credits file.
-    /* 0x12092 */ UNK_TYPE1 pad12092[0x36];
+    /* 0x12092 */ UNK_TYPE1 pad12092[0x2E];
+    /* 0x120C0 */ s16 selectionStartIndex;
+    /* 0x120C2 */ s16 selectionIndexOffset;
+    /* 0x120C4 */ s32 unk120C4;
     /* 0x120C8 */ ColorRGB16 normalCharColor;
     /* 0x120CE */ UNK_TYPE1 pad120CE[0xA];
 } MessageContext; // size = 0x120D8
@@ -1680,6 +1683,18 @@ typedef struct {
     /* 0x00 */ GetItemGraphicDrawFunc drawFunc;
     /* 0x04 */ u32 segmentAddrs[0x8]; // Segment addresses used with G_DL instruction.
 } GetItemGraphicEntry; // size = 0x24
+
+typedef struct {
+    /* 0x00 */ u8 upgradeShiftAmount[0xC];
+    /* 0x0C */ u16 arrowCapacity[4];
+    /* 0x14 */ u16 bombCapacity[4];
+    /* 0x1C */ u16 unkCapacity1C[4];
+    /* 0x24 */ u16 unkCapacity24[4];
+    /* 0x2C */ u16 walletCapacity[4];
+    /* 0x34 */ u16 unkCapacity34[4];
+    /* 0x3C */ u16 stickCapacity[4];
+    /* 0x44 */ u16 nutCapacity[4];
+} ItemUpgradeCapacity; // size = 0x4C
 
 /// =============================================================
 /// File Select Context
