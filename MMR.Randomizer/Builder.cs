@@ -2719,9 +2719,13 @@ namespace MMR.Randomizer
                 ResourceUtils.ApplyHack(Resources.mods.fix_deku_drowning);
                 ResourceUtils.ApplyHack(Resources.mods.fix_collectable_flags);
 
+                // TODO: Move this to a helper function?
                 if (_randomized.Settings.EnablePictoboxSubject)
                 {
                     WritePictographPromptText(_messageTable);
+
+                    // NOP call to update pictobox flags after message prompt.
+                    ReadWriteUtils.WriteCodeNOP(0x801127D0);
                 }
 
                 progressReporter.ReportProgress(61, "Writing quick text...");
