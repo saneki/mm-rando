@@ -1,13 +1,12 @@
 #include <stdbool.h>
 #include <z64.h>
+#include "Input.h"
 
 bool BankAmount_BeforeHandleInput(GlobalContext* ctxt) {
-    if (ctxt->state.input[0].pressEdge.buttons.r || ctxt->state.input[0].pressEdge.buttons.z) {
+    if (gPlayUpdateInput.pressEdge.buttons.r || gPlayUpdateInput.pressEdge.buttons.z) {
         u16 amount;
         
-        if (ctxt->state.input[0].pressEdge.buttons.r) {
-            ctxt->state.input[0].pressEdge.buttons.r = 0;
-
+        if (gPlayUpdateInput.pressEdge.buttons.r) {
             if (ctxt->msgCtx.currentMessageId == 0x450) {
                 // depositing
                 amount = gSaveContext.perm.unk24.rupees;
@@ -23,9 +22,7 @@ bool BankAmount_BeforeHandleInput(GlobalContext* ctxt) {
                     amount = bankRupees;
                 }
             }
-        } else if (ctxt->state.input[0].pressEdge.buttons.z) {
-            ctxt->state.input[0].pressEdge.buttons.z = 0;
-            
+        } else if (gPlayUpdateInput.pressEdge.buttons.z) {
             amount = 0;
         }
         
