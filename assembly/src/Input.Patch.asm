@@ -4,7 +4,6 @@
 
 .headersize G_CODE_DELTA
 
-; Get whether or not to set current magic cost to RDRAM.
 ; Replaces:
 ;   lw      t1, 0x0000 (t9)
 ;   swl     t1, 0x0000 (v0)
