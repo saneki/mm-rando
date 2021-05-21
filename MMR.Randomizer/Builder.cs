@@ -2761,7 +2761,7 @@ namespace MMR.Randomizer
                     ReadWriteUtils.WriteCodeNOP(0x801127D0);
                 }
 
-                // if (_randomized.Settings.FasterBankInput)
+                if (_randomized.Settings.ShortenCutsceneSettings.General.HasFlag(ShortenCutsceneGeneral.FasterBankText))
                 {
                     WriteBankPromptText(_messageTable);
                 }

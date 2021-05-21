@@ -1,8 +1,13 @@
 #include <stdbool.h>
 #include <z64.h>
 #include "Input.h"
+#include "Misc.h"
 
 bool BankAmount_BeforeHandleInput(GlobalContext* ctxt) {
+    if (!MISC_CONFIG.speedups.fastBankRupees) {
+        return false;
+    }
+
     if (gPlayUpdateInput.pressEdge.buttons.r || gPlayUpdateInput.pressEdge.buttons.z) {
         u16 amount;
         
