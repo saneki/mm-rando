@@ -730,7 +730,7 @@ typedef struct {
     /* 0x1201E */ s16 currentCharAlpha;
     /* 0x12020 */ u8 messageState2;
     /* 0x12021 */ u8 selection;
-    /* 0x12022 */ UNK_TYPE1 pad12022;
+    /* 0x12022 */ u8 choiceIndex;
     /* 0x12023 */ u8 messageState3;
     /* 0x12024 */ UNK_TYPE1 pad12024[0x4];
     /* 0x12028 */ u16 playbackSong;
@@ -744,7 +744,10 @@ typedef struct {
     /* 0x12044 */ s16 unk12044;
     /* 0x12046 */ UNK_TYPE1 pad12046[0x24];
     /* 0x1206A */ s16 messageBoxScreenY;
-    /* 0x1206C */ UNK_TYPE1 pad1206C[0x18];
+    /* 0x1206C */ UNK_TYPE1 pad1206C[0xC];
+    /* 0x12078 */ u32 bankRupeesSelected;
+    /* 0x1207C */ u32 bankRupees; 
+    /* 0x12080 */ UNK_TYPE1 pad12080[0x4];
     /* 0x12084 */ void* messageTable;
     /* 0x12088 */ UNK_TYPE1 pad12088[0x8];
     /* 0x12090 */ s16 messageDataFile; // 0 = main file, 1 = credits file.
@@ -1332,8 +1335,8 @@ typedef struct {
     /* 0x0EC0 */ u16 skullTokens[2];
     /* 0x0EC4 */ UNK_TYPE1 padEC4[0x10];
     /* 0x0ED4 */ u8 stolenItem; // There's a 4 byte struct here of some kind.
-    /* 0x0ED5 */ UNK_TYPE1 padED5[0x9];
-    /* 0x0EDE */ u16 bankRupees;
+    /* 0x0ED5 */ UNK_TYPE1 padED5[0x7];
+    /* 0x0EDC */ u32 bankRupees;
     /* 0x0EE0 */ UNK_TYPE1 padEE0[0x10];
     /* 0x0EF0 */ u32 lotteryGuess;
     /* 0x0EF4 */ UNK_TYPE1 padEF4[0x4];

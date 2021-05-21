@@ -17,7 +17,7 @@ bool BankAmount_BeforeHandleInput(GlobalContext* ctxt) {
                 amount = gSaveContext.perm.unk24.rupees;
             } else if (ctxt->msgCtx.currentMessageId == 0x46E) {
                 // withdrawing
-                u16 bankRupees = gSaveContext.perm.bankRupees;
+                u16 bankRupees = (u16)(gSaveContext.perm.bankRupees & 0xFFFF);
                 if (gSaveContext.perm.isNight) {
                     bankRupees -= 4;
                 }
