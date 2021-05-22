@@ -35,10 +35,18 @@ namespace MMR.DiscordBot.Services
             _httpClient.DefaultRequestHeaders.Add("User-Agent", "zoey.zolotova at gmail.com");
         }
 
-        public string GetSpoilerLogPath(DateTime seedDate)
+        public (string filename, string patchPath, string hashIconPath, string spoilerLogPath, string version) GetSeedPaths(DateTime seedDate, string version)
         {
-            var requestedLog = FileUtils.MakeFilenameValid(seedDate.ToString("o"));
-            return Path.Combine(_cliPath, "output", $"{requestedLog}_SpoilerLog.txt");
+            if (string.IsNullOrWhiteSpace(version))
+            {
+                var randomizerDllPath = Path.Combine(_cliPath, "MMR.Randomizer.dll");
+                version = AssemblyName.GetAssemblyName(randomizerDllPath).Version.ToString();
+            }
+            var filename = FileUtils.MakeFilenameValid($"MMR-{version}-{seedDate:o}");
+            var patchPath = Path.Combine(_cliPath, "output", $"{filename}.mmr");
+            var hashIconPath = Path.Combine(_cliPath, "output", $"{filename}.png");
+            var spoilerLogPath = Path.Combine(_cliPath, "output", $"{filename}_SpoilerLog.txt");
+            return (filename, patchPath, hashIconPath, spoilerLogPath, version);
         }
 
         public string GetSettingsPath(ulong guildId, string settingName)
@@ -72,12 +80,10 @@ namespace MMR.DiscordBot.Services
             return Directory.EnumerateFiles(guildRoot);
         }
 
-        public async Task<(string patchPath, string hashIconPath, string spoilerLogPath)> GenerateSeed(DateTime now, string settingsPath)
+        public async Task<(string patchPath, string hashIconPath, string spoilerLogPath, string version)> GenerateSeed(DateTime now, string settingsPath)
         {
             await Task.Delay(1);
-            var randomizerDllPath = Path.Combine(_cliPath, "MMR.Randomizer.dll");
-            var version = AssemblyName.GetAssemblyName(randomizerDllPath).Version;
-            var filename = FileUtils.MakeFilenameValid($"MMR-{version}-{now:o}");
+            var (filename, patchPath, hashIconPath, spoilerLogPath, version) = GetSeedPaths(now, null);
             var attempts = 1; // TODO increase number of attempts and alter seed each attempt
             while (attempts > 0)
             {
@@ -86,12 +92,9 @@ namespace MMR.DiscordBot.Services
                     var success = await GenerateSeed(filename, settingsPath);
                     if (success)
                     {
-                        var patchPath = Path.Combine(_cliPath, "output", $"{filename}.mmr");
-                        var hashIconPath = Path.ChangeExtension(patchPath, "png");
-                        var spoilerLogPath = GetSpoilerLogPath(now);
                         if (File.Exists(patchPath) && File.Exists(hashIconPath))
                         {
-                            return (patchPath, hashIconPath, spoilerLogPath);
+                            return (patchPath, hashIconPath, spoilerLogPath, version);
                         }
                         else
                         {
