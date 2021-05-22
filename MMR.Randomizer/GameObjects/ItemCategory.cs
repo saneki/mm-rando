@@ -19,6 +19,9 @@ namespace MMR.Randomizer.GameObjects
         [Description("Randomize Heart Containers.")]
         HeartContainers,
 
+        [Description("Randomize Boss Remains.")]
+        BossRemains,
+
         [Description("Randomize Pieces of Heart.")]
         PiecesOfHeart,
 

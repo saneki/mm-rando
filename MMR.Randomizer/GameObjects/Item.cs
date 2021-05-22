@@ -9853,6 +9853,46 @@ namespace MMR.Randomizer.GameObjects
         CollectableIkanaGraveyardDay2Bats1,
 
 
+        [Visible]
+        [StartingItem(0xC5CE73, 0x01)]
+        [ItemName("Odolwa's Remains"), LocationName("Woodfall Boss Warp"), Region(Region.WoodfallTemple)]
+        [GossipLocationHint("a masked evil"), GossipItemHint("an evil mask")]
+        [ShopText("The remains of the boss in Woodfall Temple.")]
+        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [GetItemIndex(0x447), ItemPool(ItemCategory.BossRemains, LocationCategory.BossFights)]
+        RemainsOdolwa,
+
+
+        [Visible]
+        [StartingItem(0xC5CE73, 0x02)]
+        [ItemName("Goht's Remains"), LocationName("Snowhead Boss Warp"), Region(Region.SnowheadTemple)]
+        [GossipLocationHint("a masked evil"), GossipItemHint("an evil mask")]
+        [ShopText("The remains of the boss in Snowhead Temple.")]
+        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [GetItemIndex(0x448), ItemPool(ItemCategory.BossRemains, LocationCategory.BossFights)]
+        RemainsGoht,
+
+
+        [Visible]
+        [StartingItem(0xC5CE73, 0x04)]
+        [ItemName("Gyorg's Remains"), LocationName("Great Bay Boss Warp"), Region(Region.GreatBayTemple)]
+        [GossipLocationHint("a masked evil"), GossipItemHint("an evil mask")]
+        [ShopText("The remains of the boss in Great Bay Temple.")]
+        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [GetItemIndex(0x449), ItemPool(ItemCategory.BossRemains, LocationCategory.BossFights)]
+        RemainsGyorg,
+
+
+        [Visible]
+        [StartingItem(0xC5CE73, 0x08)]
+        [ItemName("Twinmold's Remains"), LocationName("Stone Tower Boss Warp"), Region(Region.StoneTowerTemple)]
+        [GossipLocationHint("a masked evil"), GossipItemHint("an evil mask")]
+        [ShopText("The remains of the boss in Stone Tower Temple.")]
+        [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
+        [GetItemIndex(0x44A), ItemPool(ItemCategory.BossRemains, LocationCategory.BossFights)]
+        RemainsTwinmold,
+
+
 
 
         GossipTerminaSouth,
