@@ -1398,8 +1398,8 @@
 32
 
 - Bank HP
-1114
 
+1114,1195;31
 0
 0
 
@@ -2449,7 +2449,7 @@
 
 - Bank 5r
 
-
+1114;1195
 0
 0
 
@@ -7169,3 +7169,9 @@
 0
 0
 ;Drop a bomb near 3 of the jars, then use Blast Mask to break the remaining 2 jars at the same time.
+- Faster Bank
+
+
+0
+0
+;Makes Bank 2 require nothing, and Bank 3 require any wallet.
