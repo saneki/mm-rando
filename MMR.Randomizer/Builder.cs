@@ -327,6 +327,39 @@ namespace MMR.Randomizer
             );
         }
 
+        /// <summary>
+        /// Write text for pictograph prompt.
+        /// </summary>
+        /// <param name="table"><see cref="MessageTable"/> to update.</param>
+        private void WriteBankPromptText(MessageTable table)
+        {
+            table.UpdateMessages(new MessageEntryBuilder()
+                .Id(0x450)
+                .Message(it =>
+                {
+                    it.Text("How much? How much? ").NewLine()
+                    .Text("\xCC").NewLine()
+                    .Text("Set the amount with \xBB \xB4 \xB5").NewLine()
+                    .Text("and press \xB0 to decide.")
+                    .EndFinalTextBox();
+                })
+                .Build()
+            );
+
+            table.UpdateMessages(new MessageEntryBuilder()
+                .Id(0x46E)
+                .Message(it =>
+                {
+                    it.Text("How much do you want?").NewLine()
+                    .Text("\xCC").NewLine()
+                    .Text("Set the amount with \xBB \xB4 \xB5").NewLine()
+                    .Text("and press \xB0 to decide.")
+                    .EndFinalTextBox();
+                })
+                .Build()
+            );
+        }
+
         private void WriteMiscText()
         {
             _messageTable.UpdateMessages(new MessageEntryBuilder()
@@ -2726,6 +2759,11 @@ namespace MMR.Randomizer
 
                     // NOP call to update pictobox flags after message prompt.
                     ReadWriteUtils.WriteCodeNOP(0x801127D0);
+                }
+
+                if (_randomized.Settings.ShortenCutsceneSettings.General.HasFlag(ShortenCutsceneGeneral.FasterBankText))
+                {
+                    WriteBankPromptText(_messageTable);
                 }
 
                 progressReporter.ReportProgress(61, "Writing quick text...");
