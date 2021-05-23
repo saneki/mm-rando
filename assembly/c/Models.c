@@ -433,22 +433,44 @@ void Models_WriteBossRemainsObjectSegment(GlobalContext* ctxt, u32 graphicIdMinu
     // Get index of object, and use it to get the data pointer
     s8 index = z2_GetObjectIndex(&ctxt->sceneContext, OBJECT_BSMASK);
     // Only write segment instruction if object found in ctxt's object list.
-    // Otherwise, assume it was set by the caller.
+    // Otherwise, load it.
     if (index >= 0) {
         void* data = ctxt->sceneContext.objects[index].vramAddr;
         // Write segmented address instruction
         gSPSegment(opa->p++, 6, (u32)data);
+    } else {
+        struct ObjheapItem* object = Objheap_Allocate(&gObjheap, OBJECT_BSMASK);
+        if (object) {
+            // Scale matrix and call low-level draw functions.
+            SetObjectSegment(ctxt, object->buf);
+            //ScaleTopMatrix(baseScale);
+        }
     }
 }
 
 /**
  * Hook function for drawing Boss Remain actors as their new item.
- * Currently draws the item on the Oath to Order check. Will need
- * to be updated if Boss Remains are randomized.
  **/
 void Models_DrawBossRemains(Actor* actor, GlobalContext* ctxt, u32 graphicIdMinus1) {
-    if (MISC_CONFIG.flags.freestanding && (actor->parent->parent == NULL || actor->parent->parent->id != 0)) {
-        DrawFromGiTable(actor, ctxt, 1.0, 0x77);
+    if (MISC_CONFIG.flags.freestanding) {
+        u16 giIndex;
+        switch (actor->params) {
+            case 0:
+                giIndex = 0x447;
+                break;
+            case 1:
+                giIndex = 0x448;
+                break;
+            case 2:
+                giIndex = 0x449;
+                break;
+            case 3:
+                giIndex = 0x44A;
+                break;
+            default:
+                return;
+        }
+        DrawFromGiTable(actor, ctxt, 1.0, giIndex);
     } else {
         DrawModelLowLevel(actor, ctxt, graphicIdMinus1);
     }

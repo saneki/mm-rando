@@ -1595,6 +1595,13 @@ typedef struct {
     /* 0x16A */ UNK_TYPE1 pad16A[0x26];
 } ActorBgIngate; // size = 0x190
 
+// Door_Warp1 actor.
+typedef struct {
+    /* 0x000 */ Actor base;
+    /* 0x144 */ UNK_TYPE1 pad144[0x8A];
+    /* 0x1CE */ s16 warpTimer;
+} ActorDoorWarp1;
+
 /// =============================================================
 /// Actor Cutscene
 /// =============================================================
