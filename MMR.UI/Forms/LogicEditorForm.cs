@@ -216,7 +216,7 @@ namespace MMR.UI.Forms
             n = index;
             if (Enum.TryParse(_logic.Logic[n].Id, out Item item))
             {
-                lIName.Text = item.Location();
+                lIName.Text = item.Location() ?? item.ToString();
             }
             else
             {

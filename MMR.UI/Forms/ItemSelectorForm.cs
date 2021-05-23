@@ -73,7 +73,7 @@ namespace MMR.UI.Forms
         {
             if (Enum.TryParse(itemId, out Item item))
             {
-                return _showLocationNames ? item.Location() : item.Name() ?? itemId;
+                return (_showLocationNames ? item.Location() : item.Name()) ?? itemId;
             }
             else
             {
