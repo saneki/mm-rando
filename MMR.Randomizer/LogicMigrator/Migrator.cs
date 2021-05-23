@@ -1,21 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using MMR.Common.Extensions;
+using MMR.Randomizer.Models.Settings;
 
 namespace MMR.Randomizer.LogicMigrator
 {
     public static partial class Migrator
     {
-        public const int CurrentVersion = 1;
+        public const int CurrentVersion = 2;
 
         public static string ApplyMigrations(string logic)
         {
             JsonFormatLogic logicObject;
             try
             {
-                logicObject = JsonSerializer.Deserialize<JsonFormatLogic>(logic);
+                logicObject = JsonSerializer.Deserialize<JsonFormatLogic>(logic, new JsonSerializerOptions
+                {
+                    Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                    IgnoreReadOnlyFields = true,
+                    IgnoreReadOnlyProperties = true,
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                    WriteIndented = true,
+                    Converters =
+                    {
+                        new JsonColorConverter(),
+                        new JsonStringEnumConverter(),
+                    }
+                });
             }
             catch (JsonException)
             {
@@ -126,7 +141,7 @@ namespace MMR.Randomizer.LogicMigrator
 
             if (logicObject.Version < 2)
             {
-                // future migrations go here
+                AddBossRemains(logicObject);
             }
 
             return JsonSerializer.Serialize(logicObject);
@@ -3560,6 +3575,26 @@ namespace MMR.Randomizer.LogicMigrator
                 Version = 1,
                 Logic = items,
             };
+        }
+
+        private static void AddBossRemains(JsonFormatLogic logicObject)
+        {
+            const int startIndex = 1068;
+            var itemNames = new string[]
+            {
+                "RemainsOdolwa",
+                "RemainsGoht",
+                "RemainsGyorg",
+                "RemainsTwinmold",
+            };
+
+            logicObject.Logic.InsertRange(startIndex, itemNames.Select(name => new JsonFormatLogicItem
+            {
+                Id = name,
+                RequiredItems = new List<string>(),
+                ConditionalItems = new List<List<string>>(),
+            }));
+            logicObject.Version = 2;
         }
 
         private class MigrationItem

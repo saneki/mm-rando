@@ -1,5 +1,5 @@
 {
-  "Version": 1,
+  "Version": 2,
   "Logic": [
     {
       "Id": "MaskDeku",
@@ -4013,16 +4013,14 @@
     {
       "Id": "HeartContainerWoodfall",
       "RequiredItems": [
-        "AreaWoodFallTempleAccess",
-        "OtherArrow",
-        "ItemWoodfallBossKey"
+        "Access Odolwa"
       ],
       "ConditionalItems": [
         [
-          "MaskDeku"
+          "Fighting"
         ],
         [
-          "WFT 2nd Floor Skip"
+          "MaskFierceDeity"
         ]
       ],
       "TimeNeeded": "None",
@@ -4032,12 +4030,20 @@
     {
       "Id": "HeartContainerSnowhead",
       "RequiredItems": [
-        "AreaSnowheadTempleAccess",
-        "MaskGoron",
-        "ItemSnowheadBossKey",
-        "Use Fire Arrow"
+        "Use Fire Arrow",
+        "Access Goht"
       ],
-      "ConditionalItems": [],
+      "ConditionalItems": [
+        [
+          "Shoot Goht"
+        ],
+        [
+          "MaskGoron"
+        ],
+        [
+          "MaskFierceDeity"
+        ]
+      ],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "IsTrick": false
@@ -4045,18 +4051,15 @@
     {
       "Id": "HeartContainerGreatBay",
       "RequiredItems": [
-        "AreaGreatBayTempleAccess",
-        "MaskZora",
-        "ItemHookshot",
-        "ItemGreatBayBossKey",
-        "Use Ice Arrow"
+        "Magic Meter",
+        "Access Gyorg"
       ],
       "ConditionalItems": [
         [
-          "GBT Fireless"
+          "MaskZora"
         ],
         [
-          "ItemFireArrow"
+          "MaskFierceDeity"
         ]
       ],
       "TimeNeeded": "None",
@@ -4066,11 +4069,7 @@
     {
       "Id": "HeartContainerStoneTower",
       "RequiredItems": [
-        "AreaInvertedStoneTowerTempleAccess",
-        "ItemHookshot",
-        "ItemStoneTowerBossKey",
-        "ISTT Eyegore Access",
-        "Use Light Arrow"
+        "Access Twinmold"
       ],
       "ConditionalItems": [
         [
@@ -4078,6 +4077,10 @@
         ],
         [
           "Fight Twinmold"
+        ],
+        [
+          "MaskFierceDeity",
+          "Magic Meter"
         ]
       ],
       "TimeNeeded": "None",
@@ -42815,7 +42818,7 @@
       "IsTrick": false
     },
     {
-      "Id": "CollectableDampéSHouseBasementPot1",
+      "Id": "CollectableDampÃ©SHouseBasementPot1",
       "RequiredItems": [
         "MaskCaptainHat",
         "Ikana Graveyard Access"
@@ -42826,7 +42829,7 @@
       "IsTrick": false
     },
     {
-      "Id": "CollectableDampéSHouseBasementPot2",
+      "Id": "CollectableDampÃ©SHouseBasementPot2",
       "RequiredItems": [
         "MaskCaptainHat",
         "Ikana Graveyard Access"
@@ -42837,7 +42840,7 @@
       "IsTrick": false
     },
     {
-      "Id": "CollectableDampéSHouseBasementPot3",
+      "Id": "CollectableDampÃ©SHouseBasementPot3",
       "RequiredItems": [
         "MaskCaptainHat",
         "Ikana Graveyard Access"
@@ -42848,7 +42851,7 @@
       "IsTrick": false
     },
     {
-      "Id": "CollectableDampéSHouseBasementPot4",
+      "Id": "CollectableDampÃ©SHouseBasementPot4",
       "RequiredItems": [
         "MaskCaptainHat",
         "Ikana Graveyard Access"
@@ -45343,7 +45346,7 @@
       "IsTrick": false
     },
     {
-      "Id": "CollectableDampéSHouseBasementPot5",
+      "Id": "CollectableDampÃ©SHouseBasementPot5",
       "RequiredItems": [
         "MaskCaptainHat",
         "Ikana Graveyard Access"
@@ -45354,7 +45357,7 @@
       "IsTrick": false
     },
     {
-      "Id": "CollectableDampéSHouseBasementPot6",
+      "Id": "CollectableDampÃ©SHouseBasementPot6",
       "RequiredItems": [
         "MaskCaptainHat",
         "Ikana Graveyard Access"
@@ -45365,7 +45368,7 @@
       "IsTrick": false
     },
     {
-      "Id": "CollectableDampéSHouseBasementPot7",
+      "Id": "CollectableDampÃ©SHouseBasementPot7",
       "RequiredItems": [
         "MaskCaptainHat",
         "Ikana Graveyard Access"
@@ -47534,7 +47537,7 @@
       "IsTrick": false
     },
     {
-      "Id": "CollectableDampéSHouseBasementPot8",
+      "Id": "CollectableDampÃ©SHouseBasementPot8",
       "RequiredItems": [
         "MaskCaptainHat",
         "Ikana Graveyard Access"
@@ -52133,6 +52136,83 @@
       "IsTrick": false
     },
     {
+      "Id": "RemainsOdolwa",
+      "RequiredItems": [
+        "Access Odolwa"
+      ],
+      "ConditionalItems": [
+        [
+          "Fighting"
+        ],
+        [
+          "MaskFierceDeity"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "RemainsGoht",
+      "RequiredItems": [
+        "Access Goht",
+        "Use Fire Arrow"
+      ],
+      "ConditionalItems": [
+        [
+          "MaskGoron"
+        ],
+        [
+          "Shoot Goht"
+        ],
+        [
+          "MaskFierceDeity"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "RemainsGyorg",
+      "RequiredItems": [
+        "Magic Meter",
+        "Access Gyorg"
+      ],
+      "ConditionalItems": [
+        [
+          "MaskFierceDeity"
+        ],
+        [
+          "MaskZora"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "RemainsTwinmold",
+      "RequiredItems": [
+        "Access Twinmold"
+      ],
+      "ConditionalItems": [
+        [
+          "Fight Twinmold"
+        ],
+        [
+          "Shoot Twinmold"
+        ],
+        [
+          "MaskFierceDeity",
+          "Magic Meter"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "IsTrick": false
+    },
+    {
       "Id": "GossipTerminaSouth",
       "RequiredItems": [],
       "ConditionalItems": [],
@@ -53835,6 +53915,170 @@
       "TimeAvailable": "None",
       "IsTrick": true,
       "TrickTooltip": "Hit all 9 keaton bushes with a small sword and small spin attack."
+    },
+    {
+      "Id": "Access Odolwa",
+      "RequiredItems": [
+        "AreaWoodFallTempleAccess"
+      ],
+      "ConditionalItems": [
+        [
+          "RemainsOdolwa"
+        ],
+        [
+          "OtherArrow",
+          "ItemWoodfallBossKey",
+          "WFT 2nd Floor Skip"
+        ],
+        [
+          "OtherArrow",
+          "ItemWoodfallBossKey",
+          "MaskDeku"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "Access Goht",
+      "RequiredItems": [
+        "AreaSnowheadTempleAccess"
+      ],
+      "ConditionalItems": [
+        [
+          "RemainsGoht"
+        ],
+        [
+          "Use Fire Arrow",
+          "ItemSnowheadBossKey",
+          "MaskGoron"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "Access Gyorg",
+      "RequiredItems": [
+        "AreaGreatBayTempleAccess"
+      ],
+      "ConditionalItems": [
+        [
+          "RemainsGyorg"
+        ],
+        [
+          "Use Fire Arrow",
+          "Use Ice Arrow",
+          "ItemHookshot",
+          "ItemGreatBayBossKey"
+        ],
+        [
+          "Use Ice Arrow",
+          "ItemHookshot",
+          "ItemGreatBayBossKey",
+          "GBT Fireless"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "Access Twinmold",
+      "RequiredItems": [
+        "AreaInvertedStoneTowerTempleAccess"
+      ],
+      "ConditionalItems": [
+        [
+          "ItemStoneTowerBossKey",
+          "ISTT Hookshot to Eyegore",
+          "Long Jump"
+        ],
+        [
+          "ItemStoneTowerBossKey",
+          "ItemHookshot",
+          "1 Stone Tower Key",
+          "Long Jump"
+        ],
+        [
+          "ItemStoneTowerBossKey",
+          "MaskDeku",
+          "Use Light Arrow",
+          "ItemHookshot",
+          "MaskGoron",
+          "2 Stone Tower Keys"
+        ],
+        [
+          "ItemStoneTowerBossKey",
+          "MaskDeku",
+          "Use Light Arrow",
+          "ItemHookshot",
+          "2 Stone Tower Keys",
+          "Take Damage"
+        ],
+        [
+          "ItemStoneTowerBossKey",
+          "MaskDeku",
+          "Use Light Arrow",
+          "ItemHookshot",
+          "MaskGoron",
+          "1 Stone Tower Key",
+          "ISTT Hookshot to Eyegore"
+        ],
+        [
+          "ItemStoneTowerBossKey",
+          "MaskDeku",
+          "Use Light Arrow",
+          "ItemHookshot",
+          "1 Stone Tower Key",
+          "ISTT Hookshot to Eyegore",
+          "Take Damage"
+        ],
+        [
+          "ItemStoneTowerBossKey",
+          "Use Light Arrow",
+          "ISTT Hookshot to Eyegore",
+          "ISTT Early Boss Key",
+          "Take Damage",
+          "MaskDeku"
+        ],
+        [
+          "ItemStoneTowerBossKey",
+          "Use Light Arrow",
+          "ISTT Hookshot to Eyegore",
+          "ISTT Early Boss Key",
+          "Take Damage",
+          "ISTT Updraft as Human"
+        ],
+        [
+          "ItemStoneTowerBossKey",
+          "Use Light Arrow",
+          "ISTT Early Boss Key",
+          "Take Damage",
+          "MaskDeku",
+          "ItemHookshot",
+          "1 Stone Tower Key"
+        ],
+        [
+          "RemainsTwinmold"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "Shoot Goht",
+      "RequiredItems": [
+        "OtherArrow"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "IsTrick": true,
+      "TrickTooltip": "Shoot Goht with Arrows."
     }
   ]
 }
