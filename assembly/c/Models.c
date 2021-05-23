@@ -450,12 +450,27 @@ void Models_WriteBossRemainsObjectSegment(GlobalContext* ctxt, u32 graphicIdMinu
 
 /**
  * Hook function for drawing Boss Remain actors as their new item.
- * Currently draws the item on the Oath to Order check. Will need
- * to be updated if Boss Remains are randomized.
  **/
 void Models_DrawBossRemains(Actor* actor, GlobalContext* ctxt, u32 graphicIdMinus1) {
-    if (MISC_CONFIG.flags.freestanding && (actor->parent->parent == NULL || actor->parent->parent->id != 0)) {
-        DrawFromGiTable(actor, ctxt, 1.0, 0x77);
+    if (MISC_CONFIG.flags.freestanding) {
+        u16 giIndex;
+        switch (actor->params) {
+            case 0:
+                giIndex = 0x447;
+                break;
+            case 1:
+                giIndex = 0x448;
+                break;
+            case 2:
+                giIndex = 0x449;
+                break;
+            case 3:
+                giIndex = 0x44A;
+                break;
+            default:
+                return;
+        }
+        DrawFromGiTable(actor, ctxt, 1.0, giIndex);
     } else {
         DrawModelLowLevel(actor, ctxt, graphicIdMinus1);
     }

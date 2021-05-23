@@ -20,6 +20,7 @@ typedef struct {
 GetItemEntry* MMR_GetGiEntry(u16 index);
 void MMR_Init(void);
 u16 MMR_GetNewGiIndex(GlobalContext* ctxt, Actor* actor, u16 giIndex, bool grant);
+void MMR_ProcessItem(GlobalContext* ctxt, u16 giIndex);
 void MMR_ClearItemQueue();
 void MMR_ProcessItemQueue(GlobalContext* ctxt);
 void MMR_GiveItemToHold(Actor* actor, GlobalContext* ctxt, u16 giIndex);

@@ -40,6 +40,7 @@
 .include "DekuScrubPlaygroundElevator.Patch.asm"
 .include "DekuScrubPlaygroundRupee.Patch.asm"
 .include "DonGero.Patch.asm"
+.include "DoorWarp.Patch.asm"
 .include "Dpad.Patch.asm"
 .include "ElegySpeedup.Patch.asm"
 .include "ExtendedObjects.Patch.asm"
