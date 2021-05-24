@@ -111,6 +111,9 @@ namespace MMR.Randomizer.GameObjects
 
         [Description("Randomize bottle scoops.")]
         ScoopedItems,
+
+        [Description("Randomize Ocarina and Song of Time.")]
+        TimeTravel,
     }
 
     public enum LocationCategory

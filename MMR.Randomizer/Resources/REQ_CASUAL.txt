@@ -1,5 +1,5 @@
 {
-  "Version": 2,
+  "Version": 3,
   "Logic": [
     {
       "Id": "MaskDeku",
@@ -1532,6 +1532,50 @@
         "AreaWestAccess"
       ],
       "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "ItemOcarina",
+      "RequiredItems": [],
+      "ConditionalItems": [
+        [
+          "MaskDeku",
+          "Magic Meter"
+        ],
+        [
+          "MaskZora"
+        ],
+        [
+          "OtherArrow"
+        ],
+        [
+          "ItemHookshot"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "SongTime",
+      "RequiredItems": [],
+      "ConditionalItems": [
+        [
+          "MaskDeku",
+          "Magic Meter"
+        ],
+        [
+          "MaskZora"
+        ],
+        [
+          "OtherArrow"
+        ],
+        [
+          "ItemHookshot"
+        ]
+      ],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "IsTrick": false
@@ -42818,7 +42862,7 @@
       "IsTrick": false
     },
     {
-      "Id": "CollectableDampÃ©SHouseBasementPot1",
+      "Id": "CollectableDampÃƒÂ©SHouseBasementPot1",
       "RequiredItems": [
         "MaskCaptainHat",
         "Ikana Graveyard Access"
@@ -42829,7 +42873,7 @@
       "IsTrick": false
     },
     {
-      "Id": "CollectableDampÃ©SHouseBasementPot2",
+      "Id": "CollectableDampÃƒÂ©SHouseBasementPot2",
       "RequiredItems": [
         "MaskCaptainHat",
         "Ikana Graveyard Access"
@@ -42840,7 +42884,7 @@
       "IsTrick": false
     },
     {
-      "Id": "CollectableDampÃ©SHouseBasementPot3",
+      "Id": "CollectableDampÃƒÂ©SHouseBasementPot3",
       "RequiredItems": [
         "MaskCaptainHat",
         "Ikana Graveyard Access"
@@ -42851,7 +42895,7 @@
       "IsTrick": false
     },
     {
-      "Id": "CollectableDampÃ©SHouseBasementPot4",
+      "Id": "CollectableDampÃƒÂ©SHouseBasementPot4",
       "RequiredItems": [
         "MaskCaptainHat",
         "Ikana Graveyard Access"
@@ -45346,7 +45390,7 @@
       "IsTrick": false
     },
     {
-      "Id": "CollectableDampÃ©SHouseBasementPot5",
+      "Id": "CollectableDampÃƒÂ©SHouseBasementPot5",
       "RequiredItems": [
         "MaskCaptainHat",
         "Ikana Graveyard Access"
@@ -45357,7 +45401,7 @@
       "IsTrick": false
     },
     {
-      "Id": "CollectableDampÃ©SHouseBasementPot6",
+      "Id": "CollectableDampÃƒÂ©SHouseBasementPot6",
       "RequiredItems": [
         "MaskCaptainHat",
         "Ikana Graveyard Access"
@@ -45368,7 +45412,7 @@
       "IsTrick": false
     },
     {
-      "Id": "CollectableDampÃ©SHouseBasementPot7",
+      "Id": "CollectableDampÃƒÂ©SHouseBasementPot7",
       "RequiredItems": [
         "MaskCaptainHat",
         "Ikana Graveyard Access"
@@ -47537,7 +47581,7 @@
       "IsTrick": false
     },
     {
-      "Id": "CollectableDampÃ©SHouseBasementPot8",
+      "Id": "CollectableDampÃƒÂ©SHouseBasementPot8",
       "RequiredItems": [
         "MaskCaptainHat",
         "Ikana Graveyard Access"

@@ -845,20 +845,21 @@ namespace MMR.Randomizer.GameObjects
         MaskZora,
 
         //song
+        [Visible]
         [StartingItem(0xC5CE24, 0x00)]
-        [ItemName("Ocarina of Time"), LocationName("Skull Kid"), Region(Region.SouthClockTown)]
+        [ItemName("Ocarina of Time"), LocationName("Skull Kid"), Region(Region.TheMoon)]
         [GossipLocationHint("a stolen possession"), GossipItemHint("a musical instrument")]
         [ShopText("This musical instrument is filled with memories of Princess Zelda.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x4C)]
+        [GetItemIndex(0x4C), ItemPool(ItemCategory.TimeTravel, LocationCategory.BossFights)]
         ItemOcarina,
 
         [StartingItem(0xC5CE72, 0x10)]
-        [ItemName("Song of Time"), LocationName("Skull Kid Song"), Region(Region.SouthClockTown)]
+        [ItemName("Song of Time"), LocationName("Skull Kid Song"), Region(Region.TheMoon)]
         [GossipLocationHint("a distant memory"), GossipItemHint("a forgotten melody")]
         [ShopText("This melody is a song of memories of Princess Zelda.", isDefinite: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
-        [GetItemIndex(0x44B)]
+        [GetItemIndex(0x44B), ItemPool(ItemCategory.TimeTravel, LocationCategory.BossFights)]
         SongTime,
 
         [StartingItem(0xC5CE72, 0x20)]
