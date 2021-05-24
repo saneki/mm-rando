@@ -413,6 +413,16 @@ namespace MMR.Randomizer.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] fix_ocarina_checks {
+            get {
+                object obj = ResourceManager.GetObject("fix_ocarina_checks", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] fix_piece_of_heart_message {
             get {
                 object obj = ResourceManager.GetObject("fix_piece_of_heart_message", resourceCulture);
@@ -446,6 +456,16 @@ namespace MMR.Randomizer.Resources {
         internal static byte[] fix_song_of_healing {
             get {
                 object obj = ResourceManager.GetObject("fix_song_of_healing", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] fix_song_of_time {
+            get {
+                object obj = ResourceManager.GetObject("fix_song_of_time", resourceCulture);
                 return ((byte[])(obj));
             }
         }

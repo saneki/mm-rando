@@ -223,6 +223,9 @@
   <data name="fix_music" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>mods\fix-music;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="fix_ocarina_checks" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>mods\fix-ocarina-checks;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="fix_piece_of_heart_message" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>mods\fix-piece-of-heart-message;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -234,6 +237,9 @@
   </data>
   <data name="fix_song_of_healing" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>mods\fix-song-of-healing;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="fix_song_of_time" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>mods\fix-song-of-time;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="fix_sword_song_of_time" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>mods\fix-sword-song-of-time;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

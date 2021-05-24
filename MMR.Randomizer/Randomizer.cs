@@ -1091,6 +1091,7 @@ namespace MMR.Randomizer
             PlaceRestrictedDungeonItems(itemPool);
 
             PlaceFreeItems(itemPool);
+            PlaceOcarinaAndSongOfTime(itemPool);
             PlaceQuestItems(itemPool);
             PlaceTradeItems(itemPool);
             PlaceDungeonItems(itemPool);
@@ -1389,6 +1390,12 @@ namespace MMR.Randomizer
             itemPool.AddRange(ItemUtils.AllLocations().Where(location => !ItemList.Any(io => io.NewLocation == location)));
         }
 
+        private void PlaceOcarinaAndSongOfTime(List<Item> itemPool)
+        {
+            PlaceItem(Item.ItemOcarina, itemPool);
+            PlaceItem(Item.SongTime, itemPool);
+        }
+
         /// <summary>
         /// Places quest items in the randomization pool
         /// </summary>
@@ -1438,7 +1445,7 @@ namespace MMR.Randomizer
         private void ShuffleSongs()
         {
             var itemPool = new List<Item>();
-            for (var i = Item.SongHealing; i <= Item.SongOath; i++)
+            for (var i = Item.SongTime; i <= Item.SongOath; i++)
             {
                 if (ItemList[i].NewLocation.HasValue)
                 {
@@ -1447,7 +1454,7 @@ namespace MMR.Randomizer
                 itemPool.Add(i);
             }
 
-            var songs = Enumerable.Range((int)Item.SongHealing, Item.SongOath - Item.SongHealing + 1).Cast<Item>();
+            var songs = Enumerable.Range((int)Item.SongTime, Item.SongOath - Item.SongTime + 1).Cast<Item>();
 
             foreach (var song in songs.OrderBy(s => _randomized.Settings.CustomStartingItemList.Contains(s)))
             {
