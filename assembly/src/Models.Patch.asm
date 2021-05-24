@@ -481,3 +481,14 @@
 ;   jal     0x80133F28
 .org 0x80AADBCC
     jal     Models_DrawGibdoMask
+
+;==================================================================================================
+; Freestanding Models (Ocarina)
+;==================================================================================================
+
+.headersize G_DM_CHAR02_DELTA
+
+; Replaces:
+;   jal     0x801343C0
+.org 0x80AAB370
+    jal     Models_DrawOcarina
