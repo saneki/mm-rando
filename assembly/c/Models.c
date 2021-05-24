@@ -812,6 +812,34 @@ void Models_DrawOcarina(GlobalContext* ctxt, u32* skeleton, Vec3s* limbDrawTable
     Models_DrawCutsceneItem(ctxt, actor, limbDrawTable, posRot2, 16.0, 0x4C);
 }
 
+void Models_DrawOcarinaLimb(GlobalContext* ctxt, Actor* actor) {
+    // Copy of DrawFromGiTable + DrawModel except "gRspSegmentPhysAddrs.currentObject" line is commented out.
+
+    struct Model model;
+    GetItemEntry* entry = PrepareGiEntry(&model, ctxt, 0x4C, true);
+    z2_CallSetupDList(gGlobalContext.state.gfxCtx);
+    
+    // If both graphic & object are 0, draw nothing.
+    if (model.graphicId == 0 && model.objectId == 0) {
+        return;
+    }
+
+    struct ObjheapItem* object = Objheap_Allocate(&gObjheap, model.objectId);
+    if (object) {
+        // Update RDRAM segment table with object pointer during the draw function.
+        // This is required by Moon's Tear (and possibly others), which programatically resolves a
+        // segmented address using that table when writing instructions to the display list.
+
+        // This line causes a crash if uncommented.
+        // gRspSegmentPhysAddrs.currentObject = (u32)object->buf & 0xFFFFFF;
+
+        // Scale matrix and call low-level draw functions.
+        SetObjectSegment(ctxt, object->buf);
+        ScaleTopMatrix(25.0);
+        DrawModelLowLevel(actor, ctxt, model.graphicId - 1);
+    }
+}
+
 void Models_AfterActorDtor(Actor* actor) {
     if (MISC_CONFIG.flags.freestanding) {
         if (actor->id == ACTOR_EN_ELFORG) {
