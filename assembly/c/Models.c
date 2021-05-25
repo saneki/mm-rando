@@ -822,10 +822,7 @@ void Models_DrawOcarina(GlobalContext* ctxt, u32* skeleton, Vec3s* limbDrawTable
 }
 
 void Models_DrawOcarinaLimb(GlobalContext* ctxt, Actor* actor) {
-    // Push matrix separate from Skull Kid's hand matrix.
-    z2_PushMatrixStackCopy();
-
-    // Store backup of previous 0xDA (Mtx) instruction and overwrite it.
+    // Store backup of previous 0xDA (Mtx) instruction (for Skull Kid's hand) and overwrite it.
     // Is this safe? Probably not. :)
     Gfx backup = *(ctxt->state.gfxCtx->polyOpa.p-- - 1);
 
@@ -840,10 +837,8 @@ void Models_DrawOcarinaLimb(GlobalContext* ctxt, Actor* actor) {
         SetObjectSegment(ctxt, (const void*)obj->vramAddr);
     }
 
-    // Restore matrix for Skull Kid's hand.
+    // Restore matrix pointer for Skull Kid's hand.
     *(ctxt->state.gfxCtx->polyOpa.p++) = backup;
-
-    z2_PopMatrixStack();
 }
 
 void Models_AfterActorDtor(Actor* actor) {
