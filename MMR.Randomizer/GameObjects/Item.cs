@@ -9853,6 +9853,15 @@ namespace MMR.Randomizer.GameObjects
         CollectableIkanaGraveyardDay2Bats1,
 
 
+        [Visible]
+        [Repeatable]
+        [ItemName("Blue Rupee"), LocationName("Cucco Shack Potted Plant"), Region(Region.RomaniRanch)]
+        [GossipLocationHint("a potted plant"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
+        [ShopText("This is worth 5 rupees.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x447), ItemPool(ItemCategory.BlueRupees, LocationCategory.Jars), CollectableIndex(0x210B)]
+        CollectableCuccoShackPottedPlant1,
+
 
 
         GossipTerminaSouth,
