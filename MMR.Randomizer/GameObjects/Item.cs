@@ -3564,7 +3564,7 @@ namespace MMR.Randomizer.GameObjects
         [ShopText("Ammo for your bow.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x1D2), ItemPool(ItemCategory.Arrows, LocationCategory.Jars), CollectableIndex(0x1807)]
-        CollectableDampéSHouseBasementPot1,
+        CollectableDampesHouseBasementPot1,
 
 
         [Visible]
@@ -3574,7 +3574,7 @@ namespace MMR.Randomizer.GameObjects
         [ShopText("Ammo for your bow.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x1D3), ItemPool(ItemCategory.Arrows, LocationCategory.Jars), CollectableIndex(0x180A)]
-        CollectableDampéSHouseBasementPot2,
+        CollectableDampesHouseBasementPot2,
 
 
         [Visible]
@@ -3584,7 +3584,7 @@ namespace MMR.Randomizer.GameObjects
         [ShopText("Ammo for your bow.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x1D4), ItemPool(ItemCategory.Arrows, LocationCategory.Jars), CollectableIndex(0x180C)]
-        CollectableDampéSHouseBasementPot3,
+        CollectableDampesHouseBasementPot3,
 
 
         [Visible]
@@ -3594,7 +3594,7 @@ namespace MMR.Randomizer.GameObjects
         [ShopText("Ammo for your bow.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x1D5), ItemPool(ItemCategory.Arrows, LocationCategory.Jars), CollectableIndex(0x180D)]
-        CollectableDampéSHouseBasementPot4,
+        CollectableDampesHouseBasementPot4,
 
 
         [Visible]
@@ -5144,7 +5144,7 @@ namespace MMR.Randomizer.GameObjects
         [ShopText("This is worth 1 rupee.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x270), ItemPool(ItemCategory.GreenRupees, LocationCategory.Jars), CollectableIndex(0x1805)]
-        CollectableDampéSHouseBasementPot5,
+        CollectableDampesHouseBasementPot5,
 
 
         [Visible]
@@ -5154,7 +5154,7 @@ namespace MMR.Randomizer.GameObjects
         [ShopText("This is worth 1 rupee.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x271), ItemPool(ItemCategory.GreenRupees, LocationCategory.Jars), CollectableIndex(0x1806)]
-        CollectableDampéSHouseBasementPot6,
+        CollectableDampesHouseBasementPot6,
 
 
         [Visible]
@@ -5164,7 +5164,7 @@ namespace MMR.Randomizer.GameObjects
         [ShopText("This is worth 1 rupee.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x272), ItemPool(ItemCategory.GreenRupees, LocationCategory.Jars), CollectableIndex(0x1809)]
-        CollectableDampéSHouseBasementPot7,
+        CollectableDampesHouseBasementPot7,
 
 
         [Visible]
@@ -6434,7 +6434,7 @@ namespace MMR.Randomizer.GameObjects
         [ShopText("This is worth 50 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
         [GetItemIndex(0x2F1), ItemPool(ItemCategory.PurpleRupees, LocationCategory.Jars), CollectableIndex(0x180B)]
-        CollectableDampéSHouseBasementPot8,
+        CollectableDampesHouseBasementPot8,
 
 
         [Visible]
