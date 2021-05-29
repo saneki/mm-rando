@@ -465,6 +465,7 @@ enum PlayerState1 {
     PLAYER_STATE1_BARRIER     = 0x00000010, // Zora electric barrier.
     PLAYER_STATE1_ITEM_OUT    = 0x00000008, // Item is out, may later prompt "Put Away." Relevant to Bow, Hookshot, not Great Fairy Sword.
     PLAYER_STATE1_LEDGE_CLIMB = 0x00000004, // Climbing ledge.
+    PLAYER_STATE1_TIME_STOP_3 = 0x00000002, // Everything stopped and Link is stuck in place.
 };
 
 enum PlayerState2 {

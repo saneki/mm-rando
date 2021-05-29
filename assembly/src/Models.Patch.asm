@@ -21,6 +21,46 @@
     bnez    at, 0x800A68F0
 
 ;==================================================================================================
+; Freestanding Models (Item00 Not Heart Piece)
+;==================================================================================================
+
+.headersize G_CODE_DELTA
+
+; Remove original "disappear flicker" handling. Now handled in Models_DrawItem00.
+; Replaces:
+;   lh      t6, 0x014E (a2)
+;   lh      t7, 0x0150 (a2)
+;   and     t8, t6, t7
+;   bnezl   t8, 0x800A72A0
+;   lw      ra, 0x0014 (sp)
+.org 0x800A7138
+    nop
+    nop
+    nop
+    nop
+    nop
+
+; Item draw function call.
+; Replaces:
+;   lui     at, 0x801E
+;   addu    at, at, t9
+;   lw      t9, 0xBFF4 (at)
+.org 0x800A715C
+    jal     Models_DrawItem00_Hook
+    nop
+    nop
+
+; Item set scale in constructor
+; Replaces:
+;   lui     at, 0x801E
+;   addu    at, at, t7
+;   lw      t7, 0xBDF4 (at)
+.org 0x800A5E6C
+    jal     Models_Item00_SetActorSize_Hook
+    or      a1, s0, r0
+    nop
+
+;==================================================================================================
 ; Freestanding Models (Skulltula Token)
 ;==================================================================================================
 
@@ -231,6 +271,38 @@
     b       0x800A6550
     nop
 
+; Allow items that normally don't rotate to rotate.
+; Replaces:
+;   LH      V1, 0x001C (S0)
+;   SLTI    AT, V1, 0x0003
+;   BNEZ    AT, 0x800A6454
+;   ADDIU   AT, R0, 0x0003
+;   BNEL    V1, AT, 0x800A6444
+;   ADDIU   AT, R0, 0x0006
+;   LH      T6, 0x0152 (S0)
+;   BLTZ    T6, 0x800A6454
+;   ADDIU   AT, R0, 0x0006
+;   BEQ     V1, AT, 0x800A6454
+;   ADDIU   AT, R0, 0x0007
+;   BNEL    V1, AT, 0x800A646C
+;   SLTI    AT, V1, 0x0016
+.org 0x800A6420
+.area 0x34
+    jal     Models_ShouldEnItem00Rotate
+    nop
+    beqz    v0, 0x800A6468
+    lh      v1, 0x001C (s0)
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+.endarea
+
 ;==================================================================================================
 ; Model Rotation (Skulltula Token)
 ;==================================================================================================
@@ -292,3 +364,120 @@
     lw      a0, 0x0020 (sp)
     lw      a1, 0x0024 (sp)
 .endarea
+
+;==================================================================================================
+; Freestanding Models (Scopecoin)
+;==================================================================================================
+
+.headersize G_EN_SCOPECOIN_DELTA
+
+; Scopecoin draw function.
+; Replaces:
+;   sw      s0, 0x0018 (sp)
+;   sw      a0, 0x0038 (sp)
+;   sw      a1, 0x003C (sp)
+;   lw      t6, 0x003C (sp)
+.org 0x80BFD184
+    jal     Models_DrawScopecoin_Hook
+    nop
+    bnez    v0, 0x80BFD240
+    nop
+
+;==================================================================================================
+; Model Rotation (Scopecoin)
+;==================================================================================================
+
+.headersize G_EN_SCOPECOIN_DELTA
+
+; Replaces:
+;   SW      A1, 0x0004 (SP)
+;   LH      T6, 0x00BE (A0)
+.org 0x80BFCFA0
+    j       Models_RotateScopecoin
+    nop
+
+;==================================================================================================
+; Freestanding Models (ScRuppe)
+;==================================================================================================
+
+.headersize G_EN_SC_RUPPE_DELTA
+
+; ScRuppe draw function.
+; Replaces:
+;   sw      s0, 0x0018 (sp)
+;   sw      a0, 0x0038 (sp)
+;   sw      a1, 0x003C (sp)
+;   lw      t6, 0x003C (sp)
+.org 0x80BD6D20
+    jal     Models_DrawScRuppe_Hook
+    nop
+    bnez    v0, 0x80BD6DDC
+    nop
+
+;==================================================================================================
+; Model Rotation (ScRuppe)
+;==================================================================================================
+
+.headersize G_EN_SC_RUPPE_DELTA
+
+; Replaces:
+;   OR      A0, A2, R0
+;   ADDIU   T2, T1, 0x01F4
+;   JAL     0x800B6A88
+;   SH      T2, 0x00BE (A2)
+.org 0x80BD6AF8
+    jal     0x800B6A88
+    or      a0, a2, r0
+    jal     Models_RotateScRuppe_Hook
+    nop
+
+;==================================================================================================
+; Freestanding Models (Deku Playground Rupee)
+;==================================================================================================
+
+.headersize G_EN_GAMELUPY_DELTA
+
+; Replaces:
+;   sw      s0, 0x0018 (sp)
+;   sw      a0, 0x0038 (sp)
+;   sw      a1, 0x003C (sp)
+;   lw      t6, 0x003C (sp)
+.org 0x80AF6C00
+    jal     Models_DrawDekuScrubPlaygroundRupee_Hook
+    nop
+    bnez    v0, 0x80AF6CBC
+    nop
+
+;==================================================================================================
+; Model Rotation (Deku Playground Rupee)
+;==================================================================================================
+
+.headersize G_EN_GAMELUPY_DELTA
+
+; Replaces:
+;   ADDIU   T2, T1, 0x01F4
+;   SH      T2, 0x00BE (A1)
+.org 0x80AF6A24
+    jal     Models_RotateDekuScrubPlaygroundRupee
+    lw      a1, 0x001C (sp)
+
+;==================================================================================================
+; Freestanding Models (Masks)
+;==================================================================================================
+
+.headersize G_DM_CHAR05_DELTA
+
+; Replaces:
+;   jal     0x80133B3C
+.org 0x80AADA5C
+    jal     Models_DrawGoronMask
+
+; Replaces:
+;   jal     0x80133B3C
+.org 0x80AADB18
+    jal     Models_DrawZoraMask
+
+; Replaces:
+;   jal     0x80133F28
+.org 0x80AADBCC
+    jal     Models_DrawGibdoMask

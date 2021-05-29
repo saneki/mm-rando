@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <z64.h>
 #include "MMR.h"
+#include "Pictobox.h"
 
 typedef struct String {
     char* value;
@@ -50,42 +51,42 @@ struct MessageExtensionState {
     u16 currentReplacementLength;
 };
 
-const String articleIndefinite = {
+const static String articleIndefinite = {
     .value = "a ", // intentional trailing space.
     .length = 2,
 };
 
-const String articleIndefiniteVowel = {
+const static String articleIndefiniteVowel = {
     .value = "an ", // intentional trailing space.
     .length = 3,
 };
 
-const String articleDefinite = {
+const static String articleDefinite = {
     .value = "the ", // intentional trailing space.
     .length = 4,
 };
 
-const String articleEmpty = {
+const static String articleEmpty = {
     .value = "",
     .length = 0,
 };
 
-const String pronounSingular = {
+const static String pronounSingular = {
     .value = "it",
     .length = 2,
 };
 
-const String amountSingular = {
+const static String amountSingular = {
     .value = " one", // intentional leading space.
     .length = 4,
 };
 
-const String amountDefinite = {
+const static String amountDefinite = {
     .value = " it", // intentional leading space.
     .length = 3,
 };
 
-const String verbSingular = {
+const static String verbSingular = {
     .value = "is",
     .length = 2,
 };
@@ -530,6 +531,26 @@ u8 Message_BeforeCharacterProcess(GlobalContext* ctxt, MessageCharacterProcessVa
             gMessageExtensionState.isWrapping = false;
             gMessageExtensionState.lastSpaceIndex = -1;
             gMessageExtensionState.lastSpaceCursorPosition = 0;
+        } else if (currentCharacter == 0x13) {
+            // Write the text for the current Pictobox picture subject.
+            // TODO: This implementation is mostly a copy-paste of the code used to write grammar text, maybe clean this up later.
+            if (gMessageExtensionState.currentChar == -1) {
+                const char* text = Pictobox_CurrentText();
+                gMessageExtensionState.currentReplacement = (char*)text;
+                gMessageExtensionState.currentReplacementLength = z2_strlen(text);
+                gMessageExtensionState.currentChar = 0;
+            }
+            if (gMessageExtensionState.currentChar < gMessageExtensionState.currentReplacementLength) {
+                ctxt->msgCtx.currentMessageCharIndex--;
+                currentCharacter = gMessageExtensionState.currentReplacement[gMessageExtensionState.currentChar++];
+
+                CheckTextWrapping(ctxt, args, currentCharacter);
+
+                ctxt->msgCtx.currentMessageDisplayed[args->outputIndex] = currentCharacter;
+                return currentCharacter;
+            }
+            gMessageExtensionState.currentChar = -1;
+            currentCharacter = 0x01;
         } else {
             index--;
         }
@@ -537,7 +558,7 @@ u8 Message_BeforeCharacterProcess(GlobalContext* ctxt, MessageCharacterProcessVa
         ctxt->msgCtx.currentMessageCharIndex = index;
         return -1;
     }
-    
+
     CheckTextWrapping(ctxt, args, currentCharacter);
 
     ctxt->msgCtx.currentMessageDisplayed[args->outputIndex] = currentCharacter;

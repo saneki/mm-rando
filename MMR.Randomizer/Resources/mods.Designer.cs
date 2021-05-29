@@ -93,6 +93,16 @@ namespace MMR.Randomizer.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] collectable_table {
+            get {
+                object obj = ResourceManager.GetObject("collectable_table", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] de_1 {
             get {
                 object obj = ResourceManager.GetObject("de_1", resourceCulture);
@@ -203,9 +213,19 @@ namespace MMR.Randomizer.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] fast_deku_hops {
+        internal static byte[] fairies_chests_only {
             get {
-                object obj = ResourceManager.GetObject("fast_deku_hops", resourceCulture);
+                object obj = ResourceManager.GetObject("fairies_chests_only", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] faster_bank_text {
+            get {
+                object obj = ResourceManager.GetObject("faster_bank_text", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -236,6 +256,16 @@ namespace MMR.Randomizer.Resources {
         internal static byte[] fix_clock_speed {
             get {
                 object obj = ResourceManager.GetObject("fix_clock_speed", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] fix_collectable_flags {
+            get {
+                object obj = ResourceManager.GetObject("fix_collectable_flags", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -383,6 +413,16 @@ namespace MMR.Randomizer.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] fix_piece_of_heart_message {
+            get {
+                object obj = ResourceManager.GetObject("fix_piece_of_heart_message", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] fix_shop_checks {
             get {
                 object obj = ResourceManager.GetObject("fix_shop_checks", resourceCulture);
@@ -486,6 +526,36 @@ namespace MMR.Randomizer.Resources {
         internal static byte[] inst24_swap_guitar {
             get {
                 object obj = ResourceManager.GetObject("inst24_swap_guitar", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] instant_pictobox {
+            get {
+                object obj = ResourceManager.GetObject("instant_pictobox", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] key_boss_open {
+            get {
+                object obj = ResourceManager.GetObject("key_boss_open", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] key_small_open {
+            get {
+                object obj = ResourceManager.GetObject("key_small_open", resourceCulture);
                 return ((byte[])(obj));
             }
         }

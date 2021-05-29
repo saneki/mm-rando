@@ -103,9 +103,8 @@ void Sprite_Init(void) {
     int fairyBytes = Sprite_GetBytesTotal(&gSpriteFairy);
     gSpriteFairy.buf = Util_HeapAlloc(fairyBytes);
     u8* temp = (u8*)0x80780000;
-    u32 prom = z2_GetFilePhysAddr(0xA0A000);
     const u32 dataOffset = 0x1B80;
-    z2_Yaz0_LoadAndDecompressFile(prom, temp, dataOffset + fairyBytes);
+    z2_DmaMgr_SendRequest0(temp, 0xA0A000, 0x4B80);
     z2_memcpy(gSpriteFairy.buf, temp + dataOffset, fairyBytes);
 
     // Initialize font texture buffer.

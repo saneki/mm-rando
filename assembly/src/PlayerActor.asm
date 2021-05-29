@@ -96,3 +96,16 @@ Player_ShouldPreventRestoringSwimState_Hook:
     lw      ra, 0x0018 (sp)
     jr      ra
     addiu   sp, sp, 0x20
+
+DekuHop_GetSpeedModifier_Hook:
+    addiu   sp, sp, -0x14
+    sw      ra, 0x0010 (sp)
+
+    jal     DekuHop_GetSpeedModifier
+    nop
+
+    mov.s   f4, f0
+
+    lw      ra, 0x0010 (sp)
+    jr      ra
+    addiu   sp, sp, 0x14

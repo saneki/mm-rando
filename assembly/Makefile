@@ -9,11 +9,14 @@ RES_DIR  := ../MMR.Randomizer/Resources/asm
 all: mm
 
 # Build for "mm" target (Majora's Mask)
-mm:
-	$(PYTHON) $(BUILD_PY) -t mm --compile-c --virtual
+mm: symbols
+	$(PYTHON) $(BUILD_PY) -j -t mm --compile-c --virtual
 
 copy: mm copy-only
 
 copy-only:
 	cp $(GEN_DIR)/rom_patch.bin $(RES_DIR)
 	cp $(GEN_DIR)/symbols.json  $(RES_DIR)
+
+symbols:
+	$(PYTHON) scripts/symbols.py -o src/Symbols.asm symbols.csv

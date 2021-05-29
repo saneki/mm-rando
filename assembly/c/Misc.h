@@ -38,7 +38,8 @@ typedef struct {
     u32 progressiveUpgrades : 1;
     u32 iceTrapQuirks       : 1;
     u32 mikauEarlyBeach     : 1;
-    u32                     : 14;
+    u32 fairyChests         : 1;
+    u32                     : 13;
 } MiscFlags;
 
 typedef union {
@@ -49,8 +50,9 @@ typedef union {
 
 typedef struct {
     // Version 1 flags
-    u32 vanillaLayout : 1;
-    u32               : 31;
+    u32 vanillaLayout             : 1;
+    u32                           : 15;
+    u32 collectableTableFileIndex : 16;
 } MiscInternal;
 
 typedef struct {
@@ -60,7 +62,8 @@ typedef struct {
     u32 fishermanGame  : 1;
     u32 boatArchery    : 1;
     u32 donGero        : 1;
-    u32                : 27;
+    u32 fastBankRupees : 1;
+    u32                : 26;
 } MiscSpeedups;
 
 struct MiscConfig {

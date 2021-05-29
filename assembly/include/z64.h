@@ -730,7 +730,7 @@ typedef struct {
     /* 0x1201E */ s16 currentCharAlpha;
     /* 0x12020 */ u8 messageState2;
     /* 0x12021 */ u8 selection;
-    /* 0x12022 */ UNK_TYPE1 pad12022;
+    /* 0x12022 */ u8 choiceIndex;
     /* 0x12023 */ u8 messageState3;
     /* 0x12024 */ UNK_TYPE1 pad12024[0x4];
     /* 0x12028 */ u16 playbackSong;
@@ -744,11 +744,17 @@ typedef struct {
     /* 0x12044 */ s16 unk12044;
     /* 0x12046 */ UNK_TYPE1 pad12046[0x24];
     /* 0x1206A */ s16 messageBoxScreenY;
-    /* 0x1206C */ UNK_TYPE1 pad1206C[0x18];
+    /* 0x1206C */ UNK_TYPE1 pad1206C[0xC];
+    /* 0x12078 */ u32 bankRupeesSelected;
+    /* 0x1207C */ u32 bankRupees; 
+    /* 0x12080 */ UNK_TYPE1 pad12080[0x4];
     /* 0x12084 */ void* messageTable;
     /* 0x12088 */ UNK_TYPE1 pad12088[0x8];
     /* 0x12090 */ s16 messageDataFile; // 0 = main file, 1 = credits file.
-    /* 0x12092 */ UNK_TYPE1 pad12092[0x36];
+    /* 0x12092 */ UNK_TYPE1 pad12092[0x2E];
+    /* 0x120C0 */ s16 selectionStartIndex;
+    /* 0x120C2 */ s16 selectionIndexOffset;
+    /* 0x120C4 */ s32 unk120C4;
     /* 0x120C8 */ ColorRGB16 normalCharColor;
     /* 0x120CE */ UNK_TYPE1 pad120CE[0xA];
 } MessageContext; // size = 0x120D8
@@ -1048,9 +1054,9 @@ struct GlobalContext {
     /* 0x1886C */ AnimatedTexture* sceneTextureAnimations;
     /* 0x18870 */ UNK_TYPE1 pad18870[0x4];
     /* 0x18874 */ u8 unk18874;
-    /* 0x18875 */ s8 unk18875;
+    /* 0x18875 */ s8 warpType;
     /* 0x18876 */ UNK_TYPE1 pad18876[0x4];
-    /* 0x1887A */ u16 unk1887A;
+    /* 0x1887A */ u16 warpDestination;
     /* 0x1887C */ s8 unk1887C;
     /* 0x1887D */ UNK_TYPE1 pad1887D[0x2];
     /* 0x1887F */ u8 unk1887F;
@@ -1138,7 +1144,8 @@ typedef union {
 typedef union {
     struct {
         u32 heartPiece        : 4;
-        u32                   : 3;
+        u32                   : 2;
+        u32 pictoboxPhoto     : 1;
         u32 lullabyIntro      : 1;
         u32                   : 5;
         u32 bombersNotebook   : 1;
@@ -1215,10 +1222,6 @@ typedef union {
     u8 bytes[0x1C];
 } PermanentSceneFlags; // size = 0x1C
 
-#define HasInfiniteMagic(Save) (((Save).perm.weekEventReg[0xE] & 8) != 0)
-#define SetInfiniteMagic(Save) ((Save).perm.weekEventReg[0xE] |= 8)
-#define HasGreatSpin(Save) ((Save).perm.weekEventReg[0x17])
-
 typedef struct {
     /* 0x00 */ u8 zelda[6]; // Will always be "ZELDA3" for a valid save
     /* 0x06 */ UNK_TYPE1 pad6[0xA];
@@ -1241,6 +1244,66 @@ typedef struct {
     /* 0x10 */ SaveContextButtonSet formButtonSlots[4];
     /* 0x20 */ SaveContextEquipment equipment;
 } SaveContext_struct2; // size = 0x22
+
+typedef union {
+    struct {
+        /* 0x00 */ UNK_TYPE1 pad00[0x8];
+        /* 0x08 */ union {
+            struct {
+                u8 hasTownFairy            : 1;
+            };
+            u8 pad08;
+        };
+        /* 0x09 */ UNK_TYPE1 pad0B[0x5];
+        /* 0x0E */ union {
+            struct {
+                u8                         : 4;
+                u8 hasInfiniteMagic        : 1;
+            };
+            u8 pad0E;
+        };
+        /* 0x0F */ UNK_TYPE1 pad0F[0x5];
+        /* 0x14 */ union {
+            struct {
+                u8                         : 6;
+                u8 swampCleared            : 1;
+                u8 woodfallTempleRaised    : 1;
+            };
+            u8 pad14;
+        };
+        /* 0x15 */ UNK_TYPE1 pad15[0x2];
+        /* 0x17 */ union {
+            struct {
+                u8                         : 6;
+                u8 hasGreatSpin            : 1;
+            };
+            u8 pad17;
+        };
+        /* 0x18 */ UNK_TYPE1 pad18[0x9];
+        /* 0x21 */ union {
+            struct {
+                u8 mountainCleared         : 1;
+            };
+            u8 pad21;
+        };
+        /* 0x22 */ UNK_TYPE1 pad22[0x12];
+        /* 0x34 */ union {
+            struct {
+                u8                         : 2;
+                u8 canyonCleared           : 1;
+            };
+            u8 pad34;
+        };
+        /* 0x35 */ UNK_TYPE1 pad35[0x2];
+        /* 0x37 */ union {
+            struct {
+                u8 oceanCleared            : 1;
+            };
+            u8 pad37;
+        };
+    };
+    u8 bytes[0x64];
+} WeekEventReg; // size = 0x64
 
 typedef struct {
     /* 0x0000 */ SaveContextEntrance entrance;
@@ -1270,17 +1333,19 @@ typedef struct {
     /* 0x0E80 */ UNK_TYPE1 padE80[0x24];
     /* 0x0EA4 */ u8 minimapBitfield[0x1C]; // Bit per scene indicating whether minimap is enabled.
     /* 0x0EC0 */ u16 skullTokens[2];
-    /* 0x0EC4 */ UNK_TYPE1 padEC4[0x1A];
-    /* 0x0EDE */ u16 bankRupees;
+    /* 0x0EC4 */ UNK_TYPE1 padEC4[0x10];
+    /* 0x0ED4 */ u8 stolenItem; // There's a 4 byte struct here of some kind.
+    /* 0x0ED5 */ UNK_TYPE1 padED5[0x7];
+    /* 0x0EDC */ u32 bankRupees;
     /* 0x0EE0 */ UNK_TYPE1 padEE0[0x10];
     /* 0x0EF0 */ u32 lotteryGuess;
     /* 0x0EF4 */ UNK_TYPE1 padEF4[0x4];
+    /* 0x0EF8 */ WeekEventReg weekEventReg;
     // [0xF0C] & 0x01 = Woodfall Temple Raised
     // [0xF0C] & 0x02 = Swamp Clear
     // [0xF19] & 0x80 = Mountain Clear
     // [0xF2C] & 0x20 = Canyon Clear
     // [0xF2F] & 0x80 = Ocean Clear
-    /* 0x0EF8 */ u8 weekEventReg[100];
     /* 0x0F5C */ u32 mapsVisited;
     /* 0x0F60 */ u32 worldMapVisible; // 0x00007FFF is full map.
     /* 0x0F64 */ UNK_TYPE1 padF64[0x88];
@@ -1433,6 +1498,46 @@ typedef struct {
     /* 0x19E */ u16 giIndex;
 } ActorEnGirlA; // size = ?
 
+// En_Item00 actor (Collectable Field Item).
+typedef struct {
+    /* 0x000 */ Actor base;
+    /* 0x144 */ UNK_TYPE1 pad144[0x4];
+    /* 0x148 */ u16 collectableFlag;
+    /* 0x14A */ u16 unk14A;
+    /* 0x14C */ u16 unkState;
+    /* 0x14E */ u16 disappearCountdownCopy; // Copied from disappear_countdown
+    /* 0x150 */ u16 renderFrameMask; // (disappear_countdown_copy & render_frame_mask) != 0 means dont render
+    /* 0x152 */ s16 disappearCountdown;
+    /* 0x154 */ f32 targetSize;
+    /* 0x158 */ UNK_TYPE1 pad158[0x4C];
+    /* 0x1A4 */ bool pickedUp;
+    /* 0x1A5 */ UNK_TYPE1 pad1A5[0x3];
+} ActorEnItem00;
+
+// En_Sc_Ruppe actor (Rupee Spawned by Telescope Guay).
+typedef struct {
+    /* 0x000 */ Actor base;
+    /* 0x144 */ UNK_TYPE1 pad144[0x50];
+    /* 0x194 */ u16 disappearCountdown;
+} ActorEnScRuppe;
+
+// En_Gamelupy actor (Deku Scrub Playground Rupee).
+typedef struct {
+    /* 0x000 */ Actor base;
+    /* 0x144 */ UNK_TYPE1 pad144[0x50];
+    /* 0x194 */ UNK_TYPE1 pad194[0x3];
+    /* 0x197 */ bool isBlueRupee;
+    /* 0x198 */ UNK_TYPE1 pad198[0x4];
+    /* 0x19C */ u16 disappearCountdown;
+} ActorEnGamelupy;
+
+// En_Ruppecrow actor (Guay (Circling Clock Town)).
+typedef struct {
+    /* 0x000 */ Actor base;
+    /* 0x144 */ UNK_TYPE1 pad144[0x178];
+    /* 0x2BC */ u16 rupeeSpawnCount;
+} ActorEnRuppecrow;
+
 // En_Toto actor (Toto).
 typedef struct {
     /* 0x000 */ Actor base;
@@ -1581,6 +1686,18 @@ typedef struct {
     /* 0x00 */ GetItemGraphicDrawFunc drawFunc;
     /* 0x04 */ u32 segmentAddrs[0x8]; // Segment addresses used with G_DL instruction.
 } GetItemGraphicEntry; // size = 0x24
+
+typedef struct {
+    /* 0x00 */ u8 upgradeShiftAmount[0xC];
+    /* 0x0C */ u16 arrowCapacity[4];
+    /* 0x14 */ u16 bombCapacity[4];
+    /* 0x1C */ u16 unkCapacity1C[4];
+    /* 0x24 */ u16 unkCapacity24[4];
+    /* 0x2C */ u16 walletCapacity[4];
+    /* 0x34 */ u16 unkCapacity34[4];
+    /* 0x3C */ u16 stickCapacity[4];
+    /* 0x44 */ u16 nutCapacity[4];
+} ItemUpgradeCapacity; // size = 0x4C
 
 /// =============================================================
 /// File Select Context

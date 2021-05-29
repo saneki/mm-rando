@@ -247,3 +247,119 @@ Models_BioBabaHeartPieceRotationFix_Hook:
 @@return:
     jr      ra
     nop
+
+Models_DrawItem00_Hook:
+    addiu   sp, sp, -0x20
+    sw      ra, 0x0010 (sp)
+    sw      a0, 0x0014 (sp)
+    sw      a1, 0x0018 (sp)
+    sw      a2, 0x001C (sp)
+
+    jal     Models_DrawItem00
+    nop
+
+    beq     v0, r0, @@displaced_code
+    nop
+
+    lui     t9, 0x800A
+    b       @@caller_return
+    addiu   t9, t9, 0x729C
+
+@@displaced_code:
+    lhu     t9, 0x001C (s0)
+    sll     t9, t9, 2
+    lui     at, 0x801E
+    addu    at, at, t9
+    lw      t9, 0xBFF4 (at)
+
+@@caller_return:
+    lw      a2, 0x001C (sp)
+    lw      a1, 0x0018 (sp)
+    lw      a0, 0x0014 (sp)
+    lw      ra, 0x0010 (sp)
+    jr      ra
+    addiu   sp, sp, 0x20
+
+Models_Item00_SetActorSize_Hook:
+    addiu   sp, sp, -0x14
+    sw      ra, 0x0010 (sp)
+
+    jal     Models_Item00_SetActorSize
+    nop
+
+    beq     v0, r0, @@displaced_code
+    nop
+
+    lui     t7, 0x800A
+    b       @@caller_return
+    addiu   t7, t7, 0x5E80
+
+@@displaced_code:
+    lhu     t7, 0x001C (s0)
+    sll     t7, t7, 2
+    lui     at, 0x801E
+    addu    at, at, t7
+    lw      t7, 0xBDF4 (at)
+
+@@caller_return:
+    lw      ra, 0x0010 (sp)
+    jr      ra
+    addiu   sp, sp, 0x14
+
+Models_DrawScopecoin_Hook:
+    addiu   sp, sp, -0x20
+    sw      ra, 0x0010 (sp)
+    sw      s0, 0x0038 (sp)
+    sw      a0, 0x0058 (sp)
+    sw      a1, 0x005C (sp)
+
+    jal     Models_DrawScopecoin
+    nop
+
+    lw      t6, 0x005C (sp)
+    lw      ra, 0x0010 (sp)
+    jr      ra
+    addiu   sp, sp, 0x20
+
+Models_DrawScRuppe_Hook:
+    addiu   sp, sp, -0x20
+    sw      ra, 0x0010 (sp)
+    sw      s0, 0x0038 (sp)
+    sw      a0, 0x0058 (sp)
+    sw      a1, 0x005C (sp)
+
+    jal     Models_DrawScRuppe
+    nop
+
+    lw      t6, 0x005C (sp)
+    lw      ra, 0x0010 (sp)
+    jr      ra
+    addiu   sp, sp, 0x20
+
+Models_RotateScRuppe_Hook:
+    or      a0, s0, r0
+    lw      a1, 0x001C (sp)
+    addiu   sp, sp, -0x14
+    sw      ra, 0x0010 (sp)
+
+    jal     Models_RotateScRuppe
+    nop
+
+    lw      ra, 0x0010 (sp)
+    jr      ra
+    addiu   sp, sp, 0x14
+
+Models_DrawDekuScrubPlaygroundRupee_Hook:
+    addiu   sp, sp, -0x20
+    sw      ra, 0x0010 (sp)
+    sw      s0, 0x0038 (sp)
+    sw      a0, 0x0058 (sp)
+    sw      a1, 0x005C (sp)
+
+    jal     Models_DrawDekuScrubPlaygroundRupee
+    nop
+
+    lw      t6, 0x005C (sp)
+    lw      ra, 0x0010 (sp)
+    jr      ra
+    addiu   sp, sp, 0x20

@@ -102,3 +102,16 @@
     bnez    at, 0x8083BF44  ;; Branch to function end if not restoring swim state.
     lb      t6, 0x0145 (a1) ;; Displaced code.
     bgez    t5, 0x8083BEB4  ;; Original branch if swim flag not set.
+
+;==================================================================================================
+; Change Deku Mid-air speed modifier
+;==================================================================================================
+
+.headersize G_PLAYER_ACTOR_DELTA
+
+; Replaces:
+;   lui     at, 0x3F00
+;   mtc1    at, f4
+.org 0x8084C2AC
+    jal     DekuHop_GetSpeedModifier_Hook
+    nop

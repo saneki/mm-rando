@@ -1,5 +1,8 @@
 #include <stdbool.h>
 #include <z64.h>
+#include "BaseRupee.h"
+#include "Scopecoin.h"
+#include "Game.h"
 #include "Items.h"
 #include "ItemOverride.h"
 #include "LoadedModels.h"
@@ -7,9 +10,10 @@
 #include "MMR.h"
 #include "Models.h"
 #include "Objheap.h"
+#include "Player.h"
 #include "Util.h"
 
-#define OBJHEAP_SLOTS (12)
+#define OBJHEAP_SLOTS (24)
 #define OBJHEAP_SIZE  (0x20000)
 
 struct ObjheapItem gObjheapItems[OBJHEAP_SLOTS] = { 0 };
@@ -45,7 +49,7 @@ static void DrawModel(struct Model model, Actor* actor, GlobalContext* ctxt, f32
         return;
     }
 
-    struct ObjheapItem* object = Objheap_Allocate(&gObjheap, model.objectId, actor->room);
+    struct ObjheapItem* object = Objheap_Allocate(&gObjheap, model.objectId);
     if (object) {
         // Update RDRAM segment table with object pointer during the draw function.
         // This is required by Moon's Tear (and possibly others), which programatically resolves a
@@ -164,17 +168,92 @@ void Models_DrawHeartPiece(Actor* actor, GlobalContext* ctxt) {
 }
 
 /**
+ * Hook function for drawing En_Item00 actors as their new item.
+ **/
+bool Models_DrawItem00(ActorEnItem00* actor, GlobalContext* ctxt) {
+    if (actor->unkState == 0x23 && Rupee_GetGiIndex(&actor->base) > 0) {
+        if (actor->disappearCountdown == 0x0F) {
+            return true;
+        }
+    }
+
+    if ((actor->disappearCountdownCopy & actor->renderFrameMask) != 0) {
+        return true;
+    }
+
+    if (MISC_CONFIG.flags.freestanding) {
+        u16 giIndex = Rupee_GetGiIndex(&actor->base);
+        if (giIndex > 0) {
+            if (actor->unkState != 0x23) {
+                u16 drawGiIndex = MMR_GetNewGiIndex(ctxt, 0, giIndex, false);
+                Rupee_SetDrawGiIndex(&actor->base, drawGiIndex);
+            }
+            u16 giIndexToDraw = Rupee_GetDrawGiIndex(&actor->base);
+
+            // TODO render rupees as rupees?
+            struct Model model;
+            GetItemEntry* entry = PrepareGiEntry(&model, ctxt, giIndexToDraw, false);
+
+            z2_CallSetupDList(ctxt->state.gfxCtx);
+            DrawModel(model, &actor->base, ctxt, 22.0);
+
+            return true;
+        }
+    }
+
+    return false;
+}
+/**
+ * Hook function for setting Item00 scale during constructor.
+ **/
+bool Models_Item00_SetActorSize(GlobalContext* ctxt, Actor* actor) {
+    if (MISC_CONFIG.flags.freestanding) {
+        if (Rupee_GetGiIndex(actor) > 0) {
+            // Size set as if this is a Piece of Heart
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+/**
  * Hook function for rotating En_Item00 actors (Heart Piece).
  **/
 void Models_RotateEnItem00(Actor* actor, GlobalContext* ctxt) {
-    // MMR Heart Pieces use masked variable 0x1D or greater.
-    if (MISC_CONFIG.flags.freestanding && (actor->params & 0xFF) >= 0x1D) {
-        // Rotate Heart Piece.
-        u16 index = actor->params + 0x80;
+    u16 index = 0;
+    if (MISC_CONFIG.flags.freestanding) {
+        // MMR Heart Pieces use masked variable 0x1D or greater.
+        if ((actor->params & 0xFF) >= 0x1D) {
+            index = actor->params + 0x80;
+        } else {
+            index = Rupee_GetGiIndex(actor);
+        }
+    }
+    if (index > 0) {
         RotateActor(actor, ctxt, index, 0x3C0);
     } else {
         actor->shape.rot.y += 0x3C0;
     }
+}
+
+bool Models_ShouldEnItem00Rotate(ActorEnItem00* actor, GlobalContext* ctxt) {
+    if (actor->base.params < 3) {
+        return true;
+    }
+    if (actor->base.params == 3 && actor->disappearCountdown < 0) {
+        return true;
+    }
+    if (actor->base.params == 6 || actor->base.params == 7) {
+        return true;
+    }
+    if (actor->base.params >= 0x1D) {
+        return true;
+    }
+    if (MISC_CONFIG.flags.freestanding && Rupee_GetDrawGiIndex(&actor->base) > 0) {
+        return true;
+    }
+    return false;
 }
 
 /**
@@ -510,6 +589,185 @@ void Models_DrawShopInventory(ActorEnGirlA* actor, GlobalContext* ctxt, u32 grap
     }
 }
 
+bool Models_DrawScopecoin(Actor* actor, GlobalContext* ctxt) {
+    if (MISC_CONFIG.flags.freestanding) {
+        u16 giIndex = Scopecoin_GetGiIndex(actor);
+        if (giIndex > 0) {
+            DrawFromGiTable(actor, ctxt, 25.0, giIndex);
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void Models_RotateScopecoin(Actor* actor, GlobalContext* ctxt) {
+    u16 index = 0;
+    if (MISC_CONFIG.flags.freestanding) {
+        index = Scopecoin_GetGiIndex(actor);
+    }
+    if (index > 0) {
+        RotateActor(actor, ctxt, index, 0x1F4);
+    } else {
+        actor->shape.rot.y += 0x1F4;
+    }
+}
+
+bool Models_DrawScRuppe(ActorEnScRuppe* actor, GlobalContext* ctxt) {
+    // if receiving item
+    if (actor->disappearCountdown == 1 && Rupee_GetGiIndex(&actor->base) > 0) {
+        Player_Pause(ctxt);
+    }
+
+    if (MISC_CONFIG.flags.freestanding) {
+        u16 giIndex = Rupee_GetGiIndex(&actor->base);
+        u16 giIndexToDraw = Rupee_GetDrawGiIndex(&actor->base);
+        if (giIndex > 0 || giIndexToDraw > 0) {
+            // if not receiving item
+            if (actor->base.gravity != 0) {
+                giIndexToDraw = MMR_GetNewGiIndex(ctxt, 0, giIndex, false);
+                Rupee_SetDrawGiIndex(&actor->base, giIndexToDraw);
+            }
+
+            // TODO render rupees as rupees?
+            struct Model model;
+            GetItemEntry* entry = PrepareGiEntry(&model, ctxt, giIndexToDraw, false);
+
+            z2_CallSetupDList(ctxt->state.gfxCtx);
+            DrawModel(model, &actor->base, ctxt, 25.0);
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void Models_RotateScRuppe(Actor* actor, GlobalContext* ctxt) {
+    u16 index = 0;
+    if (MISC_CONFIG.flags.freestanding) {
+        index = Rupee_GetDrawGiIndex(actor);
+    }
+    if (index > 0) {
+        RotateActor(actor, ctxt, index, 0x1F4);
+    } else {
+        actor->shape.rot.y += 0x1F4;
+    }
+}
+
+bool Models_DrawDekuScrubPlaygroundRupee(ActorEnGamelupy* actor, GlobalContext* ctxt) {
+    // if receiving item
+    if (actor->disappearCountdown == 1 && Rupee_GetGiIndex(&actor->base) > 0) {
+        Player_Pause(ctxt);
+    }
+
+    if (MISC_CONFIG.flags.freestanding) {
+        u16 giIndex = Rupee_GetGiIndex(&actor->base);
+        u16 giIndexToDraw = Rupee_GetDrawGiIndex(&actor->base);
+        if (giIndex > 0 || giIndexToDraw > 0) {
+            // if not receiving item
+            if (actor->base.gravity != 0) {
+                giIndexToDraw = MMR_GetNewGiIndex(ctxt, 0, giIndex, false);
+                Rupee_SetDrawGiIndex(&actor->base, giIndexToDraw);
+            }
+
+            // TODO render rupees as rupees?
+            struct Model model;
+            GetItemEntry* entry = PrepareGiEntry(&model, ctxt, giIndexToDraw, false);
+
+            z2_CallSetupDList(ctxt->state.gfxCtx);
+            DrawModel(model, &actor->base, ctxt, 25.0);
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void Models_RotateDekuScrubPlaygroundRupee(Actor* actor, GlobalContext* ctxt) {
+    u16 index = 0;
+    if (MISC_CONFIG.flags.freestanding) {
+        index = Rupee_GetDrawGiIndex(actor);
+    }
+    if (index > 0) {
+        RotateActor(actor, ctxt, index, 0x1F4);
+    } else {
+        actor->shape.rot.y += 0x1F4;
+    }
+}
+
+void Models_DrawCutsceneItem(GlobalContext* ctxt, Actor* actor, Vec3s* posRot, Vec3s* posRot2, f32 scale, u16 giIndex) {
+    // z2_PushMatrixStackCopy();
+
+    Vec3f pos;
+    Vec3s rot;
+    
+    pos.x = (f32)posRot[0].x;
+    pos.y = (f32)posRot[0].y;
+    pos.z = (f32)posRot[0].z;    
+    rot.x = posRot[1].x;
+    rot.y = posRot[1].y;
+    rot.z = posRot[1].z;
+    z2_TransformMatrixStackTop(&pos, &rot);
+    
+    if (posRot2) {
+        pos.x = (f32)posRot2[0].x;
+        pos.y = (f32)posRot2[0].y;
+        pos.z = (f32)posRot2[0].z;    
+        rot.x = posRot2[1].x;
+        rot.y = posRot2[1].y;
+        rot.z = posRot2[1].z;
+        z2_TransformMatrixStackTop(&pos, &rot);
+    }
+
+    DrawFromGiTable(actor, ctxt, scale, giIndex);
+    
+    // z2_PopMatrixStack();
+}
+
+void Models_DrawCutsceneMask(GlobalContext* ctxt, Actor* actor, Vec3s* posRot, u16 giIndex) {
+    Vec3s posRot2[2] = {
+        {
+            .x = 1024,
+            .y = -512,
+            .z = 0
+        },
+        {
+            .x = 0,
+            .y = 0xC000,
+            .z = 0x8000
+        }
+    };
+
+    Models_DrawCutsceneItem(ctxt, actor, posRot, posRot2, 22.0, giIndex);
+}
+
+void Models_DrawZoraMask(GlobalContext* ctxt, u32* skeleton, Vec3s* limbDrawTable, bool* overrideLimbDraw, void* postLimbDraw, Actor* actor) {
+    if (!MISC_CONFIG.flags.freestanding) {
+        z2_SkelAnime_DrawLimb(ctxt, skeleton, limbDrawTable, overrideLimbDraw, postLimbDraw, actor);
+        return;
+    }
+
+    Models_DrawCutsceneMask(ctxt, actor, limbDrawTable, 0x7A);
+}
+
+void Models_DrawGoronMask(GlobalContext* ctxt, u32* skeleton, Vec3s* limbDrawTable, bool* overrideLimbDraw, void* postLimbDraw, Actor* actor) {
+    if (!MISC_CONFIG.flags.freestanding) {
+        z2_SkelAnime_DrawLimb(ctxt, skeleton, limbDrawTable, overrideLimbDraw, postLimbDraw, actor);
+        return;
+    }
+
+    Models_DrawCutsceneMask(ctxt, actor, limbDrawTable, 0x79);
+}
+
+void Models_DrawGibdoMask(GlobalContext* ctxt, u32* skeleton, Vec3s* limbDrawTable, s32 dListCount, bool* overrideLimbDraw, bool* postLimbDraw, Actor* actor) {
+    if (!MISC_CONFIG.flags.freestanding) {
+        z2_SkelAnime_DrawLimb2(ctxt, skeleton, limbDrawTable, dListCount, overrideLimbDraw, postLimbDraw, actor);
+        return;
+    }
+
+    Models_DrawCutsceneMask(ctxt, actor, limbDrawTable, 0x87);
+}
+
 void Models_AfterActorDtor(Actor* actor) {
     if (MISC_CONFIG.flags.freestanding) {
         if (actor->id == ACTOR_EN_ELFORG) {
@@ -533,62 +791,11 @@ void Models_Init(void) {
     Objheap_Init(&gObjheap, alloc, OBJHEAP_SIZE, gObjheapItems, OBJHEAP_SLOTS);
 }
 
-struct ModelsState {
-    // Pointer to graphics context, cannot be retrieved from normal pointer during room unload.
-    GraphicsContext* gfx;
-    // Pointer to polyOpa, used to check if objheap should finish advance.
-    const Gfx* prevOpa;
-};
-
-static struct ModelsState gState = { 0 };
-
 /**
  * Helper function called after preparing game's display buffers for writing (write pointer set to buffer start).
- * Used to finish advancing objheap when needed.
  **/
 void Models_AfterPrepareDisplayBuffers(GraphicsContext* gfx) {
-    // Apparently gfx pointer cannot be retrieved during room unload, so store in global.
-    if (gfx != NULL) {
-        gState.gfx = gfx;
-    }
-    // Note: This assumes that when the polyOpa buffer pointer has been reset to start, it has already been flushed
-    // to RDP. While this is very likely, it is not guaranteed.
-    // If alternative Opa buffer has been cleared, both DLists should be rid of pointers to object data in previous room.
-    if (gState.prevOpa != NULL && gfx->polyOpa.buf != gState.prevOpa) {
-        Objheap_FlushOperation(&gObjheap);
-        gState.prevOpa = NULL;
-    }
-}
-
-/**
- * Helper function called when unloading previous room, to prepare for finishing advance of objheap in a subsequent frame.
- **/
-void Models_PrepareAfterRoomUnload(GlobalContext* ctxt) {
-    // Note: During frame processing loop, unloads room before drawing actors.
-    // Not sure how to get alternative Opa buffer, so get current and check if non-NULL and non-equal (there are only 2).
-    gState.prevOpa = gState.gfx->polyOpa.buf;
-
-    // Determine operation before finish advancing or reverting.
-    // Normally, objects from previously loaded rooms would no longer draw so this isn't an issue, but is required for hack
-    // used to draw actors with 0xFF room, so that the pointer can be safely swapped to data of the relevant room.
-    s8 curRoom = (s8)ctxt->roomContext.currRoom.num;
-    Objheap_HandleRoomUnload(&gObjheap, curRoom);
-}
-
-/**
- * Helper function called when loading next room, to prepare objheap for advancing.
- **/
-void Models_PrepareBeforeRoomLoad(RoomContext* roomCtx, s8 roomIndex) {
-    if ((s8)roomCtx->currRoom.num == -1) {
-        // If loading first room in scene, remember room index.
-        Objheap_InitRoom(&gObjheap, roomIndex);
-    } else {
-        // Safeguard: If previous Opa DList pointer is non-NULL, still waiting to flush advance or revert operation.
-        // If attempting to prepare advance before this has happened, prevent flushing advance or revert operations.
-        if (gState.prevOpa) {
-            gState.prevOpa = NULL;
-        }
-        // If not loading first room in scene, prepare objheap for advance.
-        Objheap_PrepareAdvance(&gObjheap, roomIndex);
+    if (Game_IsPlayerActor()) {
+        Objheap_NextFrame(&gObjheap);
     }
 }

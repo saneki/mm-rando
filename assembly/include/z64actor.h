@@ -91,17 +91,17 @@ typedef struct Actor {
     /* 0x003 */ s8 room;
     /* 0x004 */ u32 flags;
     /* 0x008 */ PosRot initPosRot;
-    /* 0x01C */ s16 params;
+    /* 0x01C */ u16 params;
     /* 0x01E */ s8 objBankIndex;
     /* 0x01F */ UNK_TYPE1 unk1F;
     /* 0x020 */ u16 soundEffect;
     /* 0x022 */ UNK_TYPE1 pad22[0x2];
     /* 0x024 */ PosRot currPosRot;
     /* 0x038 */ s8 cutscene;
-    /* 0x039 */ u8 unk39;
+    /* 0x039 */ u8 isSfxBeingPlayed;
     /* 0x03A */ UNK_TYPE1 pad3A[0x2];
     /* 0x03C */ PosRot topPosRot;
-    /* 0x050 */ u16 unk50;
+    /* 0x050 */ u16 sfxBeingPlayed;
     /* 0x052 */ UNK_TYPE1 pad52[0x2];
     /* 0x054 */ f32 unk54;
     /* 0x058 */ Vec3f scale;
@@ -214,7 +214,9 @@ typedef struct {
     /* 0x368 */ Vec3f unk368;
     /* 0x374 */ UNK_TYPE1 pad374[0x10];
     /* 0x384 */ u16 getItem;
-    /* 0x386 */ UNK_TYPE1 pad386[0xC];
+    /* 0x386 */ u16 unk386; // Some kind of rotation?
+    /* 0x388 */ Actor* givingActor;
+    /* 0x38C */ UNK_TYPE1 pad38C[0x8];
     /* 0x394 */ u8 unk394;
     /* 0x395 */ UNK_TYPE1 pad395[0x37];
     /* 0x3CC */ s16 unk3CC;

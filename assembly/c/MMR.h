@@ -20,28 +20,28 @@ typedef struct {
 GetItemEntry* MMR_GetGiEntry(u16 index);
 void MMR_Init(void);
 u16 MMR_GetNewGiIndex(GlobalContext* ctxt, Actor* actor, u16 giIndex, bool grant);
+void MMR_ClearItemQueue();
+void MMR_ProcessItemQueue(GlobalContext* ctxt);
+void MMR_GiveItemToHold(Actor* actor, GlobalContext* ctxt, u16 giIndex);
+bool MMR_GiveItemIfMinor(GlobalContext* ctxt, Actor* actor, u16 giIndex);
+bool MMR_GiveItem(GlobalContext* ctxt, Actor* actor, u16 giIndex);
+u16 MMR_GetProcessingItemGiIndex(GlobalContext* ctxt);
 
 // Function Addresses.
 #define MMR_LoadGiEntry_Addr 0x801449A4
-#define MMR_GetGiFlag_Addr   0x80144A28
-#define MMR_SetGiFlag_Addr   0x801449D4
 
 // Function Prototypes.
-typedef bool(*MMR_GetGiFlag_Func)(u32 giIndex);
-typedef bool(*MMR_SetGiFlag_Func)(u32 giIndex);
 typedef GetItemEntry*(*MMR_LoadGiEntry_Func)(u32 giIndex);
 
 // Functions.
 #define MMR_LoadGiEntry ((MMR_LoadGiEntry_Func) MMR_LoadGiEntry_Addr)
-#define MMR_GetGiFlag   ((MMR_GetGiFlag_Func)   MMR_GetGiFlag_Addr)
-#define MMR_SetGiFlag   ((MMR_SetGiFlag_Func)   MMR_SetGiFlag_Addr)
 
 // Magic number for MMRConfig: "MMRC"
 #define MMR_CONFIG_MAGIC 0x4D4D5243
 
 typedef struct {
-    /* 0x000 */ u16 cycleRepeatable[0x80];
-    /* 0x100 */ u16 cycleRepeatableLength;
+    /* 0x000 */ u16 rupeeRepeatable[0x80];
+    /* 0x100 */ u16 rupeeRepeatableLength;
     /* 0x102 */ u16 bottleRedPotion;
     /* 0x104 */ u16 bottleGoldDust;
     /* 0x106 */ u16 bottleMilk;
