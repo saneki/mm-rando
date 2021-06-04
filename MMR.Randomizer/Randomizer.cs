@@ -1102,20 +1102,17 @@ namespace MMR.Randomizer
             PlaceShopItems(itemPool);
             PlaceCowMilk(itemPool);
             PlaceMoonItems(itemPool);
-            PlaceHeartpieces(itemPool);
-            PlaceOther(itemPool);
-            PlaceTingleMaps(itemPool);
             PlaceRemainingItems(itemPool);
 
             _randomized.ItemList = ItemList;
         }
 
         /// <summary>
-        /// Places starting items in the randomization pool.
+        /// Places remaining items in the randomization pool.
         /// </summary>
         private void PlaceRemainingItems(List<Item> itemPool)
         {
-            foreach (var item in ItemUtils.AllLocations())
+            foreach (var item in ItemUtils.AllLocations().OrderBy(ItemUtils.IsJunk))
             {
                 if (ItemList[item].NewLocation == null)
                 {
@@ -1141,17 +1138,6 @@ namespace MMR.Randomizer
         private void PlaceMoonItems(List<Item> itemPool)
         {
             for (var i = Item.HeartPieceDekuTrial; i <= Item.ChestLinkTrialBombchu10; i++)
-            {
-                PlaceItem(i, itemPool);
-            }
-        }
-
-        /// <summary>
-        /// Places tingle maps in the randomization pool.
-        /// </summary>
-        private void PlaceTingleMaps(List<Item> itemPool)
-        {
-            for (var i = Item.ItemTingleMapTown; i <= Item.ItemTingleMapStoneTower; i++)
             {
                 PlaceItem(i, itemPool);
             }
@@ -1185,43 +1171,6 @@ namespace MMR.Randomizer
         private void PlaceMundaneRewards(List<Item> itemPool)
         {
             for (var i = Item.MundaneItemLotteryPurpleRupee; i <= Item.MundaneItemSeahorse; i++)
-            {
-                PlaceItem(i, itemPool);
-            }
-        }
-
-        /// <summary>
-        /// Places other chests and grottos in the randomization pool.
-        /// </summary>
-        /// <param name="itemPool"></param>
-        private void PlaceOther(List<Item> itemPool)
-        {
-            for (var i = Item.ChestLensCaveRedRupee; i <= Item.ChestSouthClockTownPurpleRupee; i++)
-            {
-                PlaceItem(i, itemPool);
-            }
-
-            PlaceItem(Item.ChestToGoronRaceGrotto, itemPool);
-            PlaceItem(Item.IkanaScrubGoldRupee, itemPool);
-            PlaceItem(Item.ChestPreClocktownDekuNut, itemPool);
-        }
-
-        /// <summary>
-        /// Places heart pieces in the randomization pool. Includes rewards/chests, as well as standing heart pieces.
-        /// </summary>
-        private void PlaceHeartpieces(List<Item> itemPool)
-        {
-            // Rewards/chests
-            for (var i = Item.HeartPieceNotebookMayor; i <= Item.HeartPieceKnuckle; i++)
-            {
-                PlaceItem(i, itemPool);
-            }
-
-            // Bank reward
-            PlaceItem(Item.HeartPieceBank, itemPool);
-
-            // Standing heart pieces
-            for (var i = Item.HeartPieceSouthClockTown; i <= Item.HeartContainerStoneTower; i++)
             {
                 PlaceItem(i, itemPool);
             }
