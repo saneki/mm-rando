@@ -611,18 +611,13 @@ namespace MMR.Randomizer
                             continue;
                         }
 
-                        int[] check = new int[] { (int)target, i, j };
-
-                        if (ItemList[d].NewLocation.HasValue)
-                        {
-                            d = ItemList[d].NewLocation.Value;
-                        }
                         if (d == currentItem)
                         {
                             DependenceChecked[d] = Dependence.Dependent;
                         }
                         else
                         {
+                            d = ItemList[d].NewLocation ?? d;
                             if (dependencyPath.Contains(d))
                             {
                                 DependenceChecked[d] = Dependence.Circular(d);
@@ -643,6 +638,8 @@ namespace MMR.Randomizer
                             }
                             if (DependenceChecked[d].Type == DependenceType.Dependent)
                             {
+                                int[] check = new int[] { (int)target, i, j };
+
                                 if (!ConditionRemoves.Any(c => c.SequenceEqual(check)))
                                 {
                                     ConditionRemoves.Add(check);
