@@ -596,6 +596,7 @@ namespace MMR.Randomizer
 
                 int k = 0;
                 var circularDependencies = new List<Item>();
+                var conditionRemoves = new List<int[]>();
                 for (int i = 0; i < currentTargetObject.Conditionals.Count; i++)
                 {
                     bool match = false;
@@ -640,9 +641,9 @@ namespace MMR.Randomizer
                             {
                                 int[] check = new int[] { (int)target, i, j };
 
-                                if (!ConditionRemoves.Any(c => c.SequenceEqual(check)))
+                                if (!conditionRemoves.Any(c => c.SequenceEqual(check)))
                                 {
-                                    ConditionRemoves.Add(check);
+                                    conditionRemoves.Add(check);
                                 }
                             }
                             else
@@ -666,6 +667,16 @@ namespace MMR.Randomizer
                     }
                     Debug.WriteLine($"All conditionals of {target} failed dependency check for {currentItem}.");
                     return Dependence.Dependent;
+                }
+                else
+                {
+                    foreach (var cr in conditionRemoves)
+                    {
+                        if (!ConditionRemoves.Any(c => c.SequenceEqual(cr)))
+                        {
+                            ConditionRemoves.Add(cr);
+                        }
+                    }
                 }
             }
 
