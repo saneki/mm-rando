@@ -68,19 +68,6 @@ namespace MMR.UI.Forms
 
 
             Text = $"Majora's Mask Randomizer v{Randomizer.AssemblyVersion}";
-
-            var args = Environment.GetCommandLineArgs();
-            if (args.Length > 1)
-            {
-                var openWithArg = args[1];
-                if (Path.GetExtension(openWithArg) == ".mmr")
-                {
-                    ttOutput.SelectedIndex = 1;
-                    TogglePatchSettings(false);
-                    _configuration.OutputSettings.InputPatchFilename = openWithArg;
-                    tPatch.Text = _configuration.OutputSettings.InputPatchFilename;
-                }
-            }
         }
 
         private void InitializeTooltips()
@@ -689,6 +676,19 @@ namespace MMR.UI.Forms
             InitializeBackgroundWorker();
 
             LoadSettings();
+
+            var args = Environment.GetCommandLineArgs();
+            if (args.Length > 1)
+            {
+                var openWithArg = args[1];
+                if (Path.GetExtension(openWithArg) == ".mmr")
+                {
+                    ttOutput.SelectedIndex = 1;
+                    TogglePatchSettings(false);
+                    _configuration.OutputSettings.InputPatchFilename = openWithArg;
+                    tPatch.Text = _configuration.OutputSettings.InputPatchFilename;
+                }
+            }
 
             _isUpdating = false;
         }
