@@ -371,6 +371,11 @@ namespace MMR.UI.Forms
                 return;
             }
 
+            if (_configuration.GameplaySettings.CustomItemList == null)
+            {
+                _configuration.GameplaySettings.CustomItemList = new HashSet<Item>();
+            }
+
             var checkbox = (CheckBox)sender;
             var items = (List<Item>)checkbox.Tag;
             if (checkbox.CheckState == CheckState.Unchecked)
