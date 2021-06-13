@@ -842,18 +842,25 @@ namespace MMR.UI.Forms
 
         private void Randomize()
         {
-            var validationResult = _configuration.GameplaySettings.Validate() ?? _configuration.OutputSettings.Validate();
+            string validationResult;
+            if (!string.IsNullOrWhiteSpace(_configuration.OutputSettings.InputPatchFilename))
+            {
+                validationResult = _configuration.OutputSettings.Validate();
+                saveROM.FileName = Path.ChangeExtension(Path.GetFileName(_configuration.OutputSettings.InputPatchFilename), "z64");
+            }
+            else
+            {
+                validationResult = _configuration.GameplaySettings.Validate() ?? _configuration.OutputSettings.Validate();
+                var defaultOutputROMFilename = FileUtils.MakeFilenameValid($"MMR-{typeof(Randomizer).Assembly.GetName().Version}-{DateTime.UtcNow:o}");
+                saveROM.FileName = defaultOutputROMFilename;
+            }
+
             if (validationResult != null)
             {
                 MessageBox.Show(validationResult, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            var defaultOutputROMFilename = FileUtils.MakeFilenameValid($"MMR-{typeof(Randomizer).Assembly.GetName().Version}-{DateTime.UtcNow:o}");
-
-            saveROM.FileName = !string.IsNullOrWhiteSpace(_configuration.OutputSettings.InputPatchFilename)
-                ? Path.ChangeExtension(Path.GetFileName(_configuration.OutputSettings.InputPatchFilename), "z64")
-                : defaultOutputROMFilename;
             if (saveROM.ShowDialog() != DialogResult.OK)
             {
                 return;
