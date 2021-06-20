@@ -7,6 +7,7 @@ using MMR.Randomizer.Models;
 using MMR.Randomizer.Models.Rom;
 using MMR.Randomizer.Models.Settings;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MMR.Randomizer.Utils
 {
